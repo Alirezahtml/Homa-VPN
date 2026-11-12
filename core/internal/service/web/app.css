@@ -1,4 +1,4 @@
-/* Arman VPN dashboard. Dark by default; light follows the system or the
+/* Homa VPN dashboard. Dark by default; light follows the system or the
    theme switch (data-theme on <html>). */
 :root {
   --bg: #0b0d12;
@@ -837,4 +837,195 @@ dialog::backdrop { background: rgba(5, 7, 12, .6); backdrop-filter: blur(3px); }
   border: 1px solid var(--border);
   border-radius: 10px;
   font: 12.5px/1.5 Consolas, Menlo, monospace;
+}
+
+
+/* =========================================================================
+   Homa Maximalism: the moving layer. Appended last, so it retunes the
+   theme variables and adds the motion without touching the selectors the
+   markup and app.js rely on. Everything honors prefers-reduced-motion.
+   ========================================================================= */
+:root {
+  --bg: #07091c;
+  --bg-grad: radial-gradient(1100px 620px at 82% -12%, rgba(124, 92, 255, .22), transparent 62%),
+             radial-gradient(880px 560px at -8% 108%, rgba(0, 229, 255, .13), transparent 60%),
+             radial-gradient(700px 420px at 50% 118%, rgba(255, 92, 122, .10), transparent 62%);
+  --surface: rgba(21, 24, 46, .86);
+  --surface-2: rgba(27, 31, 58, .92);
+  --surface-3: rgba(35, 40, 74, .95);
+  --border: rgba(255, 255, 255, .09);
+  --border-strong: rgba(255, 255, 255, .16);
+  --accent: #8b5cff;
+  --accent-2: #00e5ff;
+  --accent-soft: rgba(139, 92, 255, .18);
+  --gradient: linear-gradient(120deg, #00e5ff 0%, #8b5cff 48%, #ff5c7a 100%);
+  --shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 18px 44px rgba(3, 4, 18, .55);
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+:root[data-theme="light"] {
+  --bg: #eef0fb;
+  --bg-grad: radial-gradient(1100px 620px at 82% -12%, rgba(124, 92, 255, .16), transparent 62%),
+             radial-gradient(880px 560px at -8% 108%, rgba(0, 195, 255, .12), transparent 60%),
+             radial-gradient(700px 420px at 50% 118%, rgba(255, 92, 122, .08), transparent 62%);
+  --surface: rgba(255, 255, 255, .9);
+  --surface-2: rgba(247, 248, 255, .92);
+  --surface-3: rgba(238, 240, 252, .95);
+  --border: rgba(28, 27, 74, .10);
+  --border-strong: rgba(28, 27, 74, .18);
+  --accent: #6d45f0;
+  --accent-2: #00a5cf;
+  --shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 16px 36px rgba(44, 38, 110, .16);
+}
+
+/* The aurora behind everything: two drifting lights, pure CSS. */
+body { position: relative; }
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  animation: homa-drift 34s ease-in-out infinite alternate;
+}
+body::before {
+  width: 56vmax; height: 56vmax;
+  top: -22vmax; right: -16vmax;
+  background: radial-gradient(circle, rgba(139, 92, 255, .34), transparent 66%);
+}
+body::after {
+  width: 48vmax; height: 48vmax;
+  bottom: -20vmax; left: -14vmax;
+  background: radial-gradient(circle, rgba(0, 229, 255, .22), transparent 66%);
+  animation-duration: 44s;
+  animation-delay: -12s;
+}
+@keyframes homa-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-4vmax, 3vmax, 0) scale(1.12); }
+  to   { transform: translate3d(3vmax, -3vmax, 0) scale(.94); }
+}
+
+/* The brand wordmark: the gradient moves. */
+h1, .brand-name {
+  background: var(--gradient);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: homa-gradient 9s ease-in-out infinite alternate;
+}
+@keyframes homa-gradient {
+  from { background-position: 0% 40%; }
+  to   { background-position: 100% 60%; }
+}
+
+/* Cards breathe on hover; the page's sections arrive one beat apart. */
+.card, .panel {
+  transition: transform .28s cubic-bezier(.2, .8, .3, 1.1),
+              box-shadow .28s ease, border-color .28s ease;
+  animation: homa-rise .5s cubic-bezier(.2, .8, .3, 1) backwards;
+}
+.card:hover, .panel:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow), 0 0 0 1px var(--accent-soft),
+              0 14px 40px rgba(139, 92, 255, .16);
+}
+.card:nth-child(1), .panel:nth-child(1) { animation-delay: .03s; }
+.card:nth-child(2), .panel:nth-child(2) { animation-delay: .09s; }
+.card:nth-child(3), .panel:nth-child(3) { animation-delay: .15s; }
+.card:nth-child(4), .panel:nth-child(4) { animation-delay: .21s; }
+.card:nth-child(n+5), .panel:nth-child(n+5) { animation-delay: .27s; }
+@keyframes homa-rise {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+}
+
+/* Buttons: a lift and a light. */
+button, .btn, a.btn, [role="button"] {
+  transition: transform .16s ease, box-shadow .24s ease,
+              background-color .2s ease, border-color .2s ease,
+              color .2s ease, filter .2s ease;
+}
+button:hover:not(:disabled), .btn:hover:not(:disabled), [role="button"]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+button:active:not(:disabled), .btn:active:not(:disabled) {
+  transform: translateY(0) scale(.97);
+  transition-duration: .06s;
+}
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+button.primary, .btn.primary, button[type="submit"] {
+  box-shadow: 0 6px 22px rgba(139, 92, 255, .35);
+}
+
+/* The navigation rail: entries slide a touch. */
+nav a, .nav a, sidebar a, aside a {
+  transition: transform .2s cubic-bezier(.2, .8, .3, 1.1),
+              background-color .2s ease, color .2s ease, opacity .2s ease;
+}
+nav a:hover, .nav a:hover { transform: translateX(3px); }
+
+/* Status: the live dot pulses while it works. */
+.dot, .status-dot, .live-dot {
+  animation: homa-pulse 2.1s ease-in-out infinite;
+}
+@keyframes homa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .45); }
+  55%      { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+}
+
+/* Progress: a moving sheen over the bar. */
+.progress, progress, [role="progressbar"] { position: relative; overflow: hidden; }
+.progress::after, [role="progressbar"]::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%,
+              rgba(255, 255, 255, .28) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: homa-sheen 2.6s ease-in-out infinite;
+}
+@keyframes homa-sheen { to { transform: translateX(100%); } }
+
+/* Tables and log lines: rows fade in as they appear. */
+tbody tr, .log-line, .log-entry {
+  animation: homa-fade .32s ease backwards;
+}
+@keyframes homa-fade { from { opacity: 0; } }
+
+/* Toasts and dialogs arrive with a spring. */
+.toast, [role="alert"], dialog, .modal {
+  animation: homa-pop .34s cubic-bezier(.2, .9, .3, 1.2);
+}
+@keyframes homa-pop {
+  from { opacity: 0; transform: translateY(10px) scale(.96); }
+}
+
+/* Spinners keep the accent. */
+.spinner, .loader { border-color: var(--accent-soft); border-top-color: var(--accent); }
+
+/* Everything changes theme smoothly. */
+body, .card, .panel, nav, header, main, input, select, textarea, button {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: .3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after, h1, .brand-name, .dot, .status-dot, .live-dot,
+  .progress::after, [role="progressbar"]::after {
+    animation: none !important;
+  }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }
