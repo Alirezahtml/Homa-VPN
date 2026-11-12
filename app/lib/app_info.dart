@@ -14,7 +14,7 @@ const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.0');
 
 /// The GitHub repository, "owner/name", for the source link and the update
 /// check.
-const githubRepo = 'armanlife/arman-vpn-client';
+const githubRepo = '';
 
 const updateManifestUrl =
     'https://raw.githubusercontent.com/arman-org/update-manifests/main/arman-vpn-client/updates.json';

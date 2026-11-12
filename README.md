@@ -5,13 +5,13 @@
 </div>
 <br>
 
-<p align="center"><img src="docs/images/logo.png" width="128" alt="Arman VPN"></p>
+<p align="center"><img src="docs/images/logo.png" width="128" alt="Homa VPN"></p>
 
-<h1 align="center">Arman VPN</h1>
+<h1 align="center">Homa VPN</h1>
 
 <h2 align="center">⚠️ Unofficial project</h2>
 
-<h3 align="center">Arman VPN is an independent project. It is not made, owned, sponsored, or endorsed by Mozilla, and is not affiliated with Mozilla in any way. See the <a href="#disclaimer">disclaimer</a>.</h3>
+<h3 align="center">Homa VPN is an independent project. It is not made, owned, sponsored, or endorsed by Mozilla, and is not affiliated with Mozilla in any way. See the <a href="#disclaimer">disclaimer</a>.</h3>
 
 <div align="center">
 
@@ -21,13 +21,13 @@
 
 </div>
 
-## What is Arman VPN?
+## What is Homa VPN?
 
-**Arman VPN** is a free, open-source VPN that works with a Firefox Account. It carries your internet traffic through Mozilla's servers, on **Fastly**'s infrastructure, over secure **HTTP/1.1, HTTP/2, and HTTP/3** tunnels.
+**Homa VPN** is a free, open-source VPN that works with a Firefox Account. It carries your internet traffic through Mozilla's servers, on **Fastly**'s infrastructure, over secure **HTTP/1.1, HTTP/2, and HTTP/3** tunnels.
 
 For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 
-<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="docs/screenshots/main.webp" width="720" alt="Arman VPN"></a></p>
+<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="docs/screenshots/main.webp" width="720" alt="Homa VPN"></a></p>
 
 ## 🚀 Main features
 
@@ -103,7 +103,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 
 ### 🌐 Web panel
 
-For Linux servers, Arman VPN has a **web panel** that opens in any browser and has everything the app has: managing accounts and data, choosing a server and testing delay, the connection test, the live log, and every setting.
+For Linux servers, Homa VPN has a **web panel** that opens in any browser and has everything the app has: managing accounts and data, choosing a server and testing delay, the connection test, the live log, and every setting.
 
 <p align="center"><img src="docs/screenshots/web.webp" width="720" alt="Web panel"></p>
 
@@ -117,7 +117,7 @@ On the server, run `sudo arman-vpn` to open the management menu:
 ```text
 $ sudo arman-vpn
 
-  Arman VPN
+  Homa VPN
   ────────────────────────────────────────────────────────────────────────────
     Service     ● running
     Autostart   on

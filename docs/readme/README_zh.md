@@ -5,13 +5,13 @@
 </div>
 <br>
 
-<p align="center"><img src="../images/logo.png" width="128" alt="Arman VPN"></p>
+<p align="center"><img src="../images/logo.png" width="128" alt="Homa VPN"></p>
 
-<h1 align="center">Arman VPN</h1>
+<h1 align="center">Homa VPN</h1>
 
 <h2 align="center">⚠️ 非官方项目</h2>
 
-<h3 align="center">Arman VPN 是一个独立项目，并非由 Mozilla 开发、拥有、赞助或认可，与 Mozilla 没有任何关联。参见<a href="#免责声明">免责声明</a>。</h3>
+<h3 align="center">Homa VPN 是一个独立项目，并非由 Mozilla 开发、拥有、赞助或认可，与 Mozilla 没有任何关联。参见<a href="#免责声明">免责声明</a>。</h3>
 
 <div align="center">
 
@@ -21,13 +21,13 @@
 
 </div>
 
-## Arman VPN 是什么？
+## Homa VPN 是什么？
 
-**Arman VPN** 是一款免费、开源的 VPN，使用 Firefox 账户（Firefox Account）登录。它通过 Mozilla 的服务器，基于 **Fastly** 的基础设施，以安全的 **HTTP/2 和 HTTP/3** 隧道传输你的网络流量。
+**Homa VPN** 是一款免费、开源的 VPN，使用 Firefox 账户（Firefox Account）登录。它通过 Mozilla 的服务器，基于 **Fastly** 的基础设施，以安全的 **HTTP/2 和 HTTP/3** 隧道传输你的网络流量。
 
 支持 **Android、Windows、macOS 和 Linux**；完全免费，没有广告。
 
-<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Arman VPN"></a></p>
+<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Homa VPN"></a></p>
 
 ## 🚀 主要功能
 
@@ -97,7 +97,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 
 ### 🌐 网页面板
 
-在 Linux 服务器上，Arman VPN 提供一个**网页面板**，可在任何浏览器中打开，拥有应用的全部功能：管理账户和流量、选择服务器并测试延迟、连接测试、实时日志以及所有设置。
+在 Linux 服务器上，Homa VPN 提供一个**网页面板**，可在任何浏览器中打开，拥有应用的全部功能：管理账户和流量、选择服务器并测试延迟、连接测试、实时日志以及所有设置。
 
 <p align="center"><img src="../screenshots/web.webp" width="720" alt="Web panel"></p>
 
@@ -111,7 +111,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 ```text
 $ sudo arman-vpn
 
-  Arman VPN
+  Homa VPN
   ────────────────────────────────────────────────────────────────────────────
     Service     ● running
     Autostart   on

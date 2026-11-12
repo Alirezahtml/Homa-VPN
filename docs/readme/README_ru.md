@@ -5,13 +5,13 @@
 </div>
 <br>
 
-<p align="center"><img src="../images/logo.png" width="128" alt="Arman VPN"></p>
+<p align="center"><img src="../images/logo.png" width="128" alt="Homa VPN"></p>
 
-<h1 align="center">Arman VPN</h1>
+<h1 align="center">Homa VPN</h1>
 
 <h2 align="center">⚠️ Неофициальный проект</h2>
 
-<h3 align="center">Arman VPN — независимый проект. Он не создан Mozilla, не принадлежит ей, не спонсируется и не одобрен ею и никак не связан с Mozilla. См. <a href="#отказ-от-ответственности">отказ от ответственности</a>.</h3>
+<h3 align="center">Homa VPN — независимый проект. Он не создан Mozilla, не принадлежит ей, не спонсируется и не одобрен ею и никак не связан с Mozilla. См. <a href="#отказ-от-ответственности">отказ от ответственности</a>.</h3>
 
 <div align="center">
 
@@ -21,13 +21,13 @@
 
 </div>
 
-## Что такое Arman VPN?
+## Что такое Homa VPN?
 
-**Arman VPN** — бесплатный VPN с открытым исходным кодом, который работает с аккаунтом Firefox (Firefox Account). Он передаёт ваш интернет-трафик через серверы Mozilla, на инфраструктуре **Fastly**, по защищённым туннелям **HTTP/2 и HTTP/3**.
+**Homa VPN** — бесплатный VPN с открытым исходным кодом, который работает с аккаунтом Firefox (Firefox Account). Он передаёт ваш интернет-трафик через серверы Mozilla, на инфраструктуре **Fastly**, по защищённым туннелям **HTTP/2 и HTTP/3**.
 
 Для **Android, Windows, macOS и Linux**; полностью бесплатно, без рекламы.
 
-<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Arman VPN"></a></p>
+<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Homa VPN"></a></p>
 
 ## 🚀 Основные возможности
 
@@ -97,7 +97,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 
 ### 🌐 Веб-панель
 
-Для серверов Linux у Arman VPN есть **веб-панель**, которая открывается в любом браузере и умеет всё, что умеет приложение: управление аккаунтами и трафиком, выбор сервера и проверка задержки, проверка соединения, живой журнал и все настройки.
+Для серверов Linux у Homa VPN есть **веб-панель**, которая открывается в любом браузере и умеет всё, что умеет приложение: управление аккаунтами и трафиком, выбор сервера и проверка задержки, проверка соединения, живой журнал и все настройки.
 
 <p align="center"><img src="../screenshots/web.webp" width="720" alt="Web panel"></p>
 
@@ -111,7 +111,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 ```text
 $ sudo arman-vpn
 
-  Arman VPN
+  Homa VPN
   ────────────────────────────────────────────────────────────────────────────
     Service     ● running
     Autostart   on

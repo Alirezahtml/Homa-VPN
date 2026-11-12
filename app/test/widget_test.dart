@@ -691,7 +691,7 @@ void main() {
     addTearDown(core.dispose);
     const rawError =
         "Mozilla's security check refused this sign-in from here. "
-        'Sign in with the browser in the Arman VPN app instead.';
+        'Sign in with the browser in the Homa VPN app instead.';
     final state = SignInState.fromJson({
       'email': 'me@example.com',
       'step': SignInStep.failed,
@@ -3433,7 +3433,7 @@ void main() {
       // The reason macOS' prompt shows, in the app's language.
       expect(
         service.prompt,
-        'Arman VPN wants to install the service for TUN mode.',
+        'Homa VPN wants to install the service for TUN mode.',
       );
       expect(api.mode, 'tun');
       api.tun = {'state': 'on', 'installed': true};
@@ -3506,7 +3506,7 @@ void main() {
       expect(service.removals, 1);
       expect(
         service.prompt,
-        'Arman VPN wants to remove the service for TUN mode.',
+        'Homa VPN wants to remove the service for TUN mode.',
       );
       expect(find.text('The TUN service was removed.'), findsOneWidget);
       expect(api.tun?['installed'], isFalse);
@@ -3743,7 +3743,7 @@ void main() {
           'The TUN service is newer than this app. Update the app to use TUN mode.',
           null,
         ),
-        ('busy', 'Another copy of Arman VPN is using TUN mode.', null),
+        ('busy', 'Another copy of Homa VPN is using TUN mode.', null),
         (
           'no_driver',
           "The system's TUN driver isn't available. Restart the computer and try again.",

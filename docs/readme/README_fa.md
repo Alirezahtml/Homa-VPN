@@ -5,13 +5,13 @@
 </div>
 <br>
 
-<p align="center"><img src="../images/logo.png" width="128" alt="Arman VPN"></p>
+<p align="center"><img src="../images/logo.png" width="128" alt="Homa VPN"></p>
 
-<h1 align="center">Arman VPN</h1>
+<h1 align="center">Homa VPN</h1>
 
 <h2 align="center" dir="rtl">⚠️ پروژه غیررسمی</h2>
 
-<h3 align="center" dir="rtl">&rlm;Arman VPN یک پروژه مستقل است. موزیلا آن را نساخته، مالک آن نیست، از آن حمایت نمی‌کند، آن را تأیید نکرده و هیچ ارتباطی با آن ندارد. <a href="#سلب-مسئولیت">سلب مسئولیت</a> را ببینید.</h3>
+<h3 align="center" dir="rtl">&rlm;Homa VPN یک پروژه مستقل است. موزیلا آن را نساخته، مالک آن نیست، از آن حمایت نمی‌کند، آن را تأیید نکرده و هیچ ارتباطی با آن ندارد. <a href="#سلب-مسئولیت">سلب مسئولیت</a> را ببینید.</h3>
 
 <div align="center">
 
@@ -23,13 +23,13 @@
 
 <div dir="rtl">
 
-## &rlm;Arman VPN چیست؟
+## &rlm;Homa VPN چیست؟
 
-&rlm;**Arman VPN** یک VPN رایگان و متن‌باز است که با حساب فایرفاکس (Firefox Account) کار می‌کند. اینترنت شما را از سرورهای موزیلا، روی زیرساخت **Fastly**، و با تونل‌های امن **HTTP/2 و HTTP/3** عبور می‌دهد.
+&rlm;**Homa VPN** یک VPN رایگان و متن‌باز است که با حساب فایرفاکس (Firefox Account) کار می‌کند. اینترنت شما را از سرورهای موزیلا، روی زیرساخت **Fastly**، و با تونل‌های امن **HTTP/2 و HTTP/3** عبور می‌دهد.
 
 &rlm;برای **اندروید، ویندوز، مک و لینوکس**؛ کاملاً رایگان، بدون تبلیغات.
 
-<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Arman VPN"></a></p>
+<p align="center"><a href="https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="../screenshots/main.webp" width="720" alt="Homa VPN"></a></p>
 
 ## 🚀 امکانات اصلی
 
@@ -103,7 +103,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 
 ### 🌐 پنل تحت وب
 
-برای سرورهای لینوکس، Arman VPN یک **پنل تحت وب** دارد که در هر مرورگری باز می‌شود و همه امکانات برنامه را دارد: مدیریت حساب‌ها و حجم، انتخاب سرور و تست تأخیر، تست اتصال، لاگ زنده، و همه تنظیمات.
+برای سرورهای لینوکس، Homa VPN یک **پنل تحت وب** دارد که در هر مرورگری باز می‌شود و همه امکانات برنامه را دارد: مدیریت حساب‌ها و حجم، انتخاب سرور و تست تأخیر، تست اتصال، لاگ زنده، و همه تنظیمات.
 
 <p align="center"><img src="../screenshots/web.webp" width="720" alt="Web panel"></p>
 
@@ -119,7 +119,7 @@ curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/ins
 ```text
 $ sudo arman-vpn
 
-  Arman VPN
+  Homa VPN
   ────────────────────────────────────────────────────────────────────────────
     Service     ● running
     Autostart   on

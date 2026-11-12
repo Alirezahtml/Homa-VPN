@@ -104,62 +104,68 @@ class _AboutPageState extends State<AboutPage> {
               const Divider(height: 24),
               // The result and the Download button under the title, so a
               // phone's narrow screen keeps the text readable.
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l.checkUpdates,
-                      style: theme.textTheme.titleSmall,
+              if (githubRepo.isNotEmpty)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l.checkUpdates,
+                        style: theme.textTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  OutlinedButton.icon(
-                    onPressed: _checking ? null : _check,
-                    icon: _checking
-                        ? const SizedBox.square(
-                            dimension: 16,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Icon(Icons.update_rounded, size: 18),
-                    label: Text(_checking ? l.checkingUpdates : l.checkUpdates),
+                    OutlinedButton.icon(
+                      onPressed: _checking ? null : _check,
+                      icon: _checking
+                          ? const SizedBox.square(
+                              dimension: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.update_rounded, size: 18),
+                      label: Text(
+                        _checking ? l.checkingUpdates : l.checkUpdates,
+                      ),
+                    ),
+                  ],
+                ),
+              if (githubRepo.isNotEmpty) ...[
+                if (_result != null) ...[
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(_result!, style: muted),
                   ),
                 ],
-              ),
-              if (_result != null) ...[
-                const SizedBox(height: 8),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(_result!, style: muted),
-                ),
-              ],
-              if (_release case final release?) ...[
-                const SizedBox(height: 10),
-                _UpdateAction(core: widget.core, release: release),
+                if (_release case final release?) ...[
+                  const SizedBox(height: 10),
+                  _UpdateAction(core: widget.core, release: release),
+                ],
               ],
               const Divider(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(l.sourceCode, style: theme.textTheme.titleSmall),
-                        const SizedBox(height: 2),
-                        Text(
-                          github.isEmpty ? l.repoNotSet : github,
-                          style: muted,
-                        ),
-                      ],
+              if (githubRepo.isNotEmpty)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l.sourceCode, style: theme.textTheme.titleSmall),
+                          const SizedBox(height: 2),
+                          Text(
+                            github.isEmpty ? l.repoNotSet : github,
+                            style: muted,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  OutlinedButton.icon(
-                    onPressed: github.isEmpty
-                        ? null
-                        : () => openLink(context, github),
-                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                    label: const Text('GitHub'),
-                  ),
-                ],
-              ),
+                    OutlinedButton.icon(
+                      onPressed: github.isEmpty
+                          ? null
+                          : () => openLink(context, github),
+                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                      label: const Text('GitHub'),
+                    ),
+                  ],
+                ),
               if (Platform.isAndroid) ...[
                 const Divider(height: 24),
                 Row(

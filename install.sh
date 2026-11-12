@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs or updates Arman VPN from the newest release on GitHub:
+# Installs or updates Homa VPN from the newest release on GitHub:
 #
 #   curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/install.sh | bash
 #
@@ -9,7 +9,7 @@
 #   - Linux without a graphical session, or run as root: the core alone as
 #     a systemd service with the web dashboard (it asks sudo for that);
 #   - a Linux SSH session could be either, so it asks;
-#   - when Arman VPN is already installed, it asks: update (the default)
+#   - when Homa VPN is already installed, it asks: update (the default)
 #     or remove, and on remove whether to delete the accounts too.
 # Questions are read from the terminal; without one (automation) the
 # default answer is taken, so a rerun updates. Accounts and settings stay.
@@ -66,7 +66,7 @@ AUTOSTART_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/autostart/arman-vpn.desktop"
 APP_DATA="$DATA_HOME/arman-vpn"
 
 # The macOS app's.
-MAC_APP="Arman VPN.app"
+MAC_APP="Homa VPN.app"
 MAC_AGENT="$HOME/Library/LaunchAgents/com.arman.firefoxvpn.plist"
 MAC_DATA="$HOME/Library/Application Support/Arman VPN"
 
@@ -106,7 +106,7 @@ esac
 rule() { local i; for ((i = 0; i < $1; i++)); do printf '%s' "$LINE"; done; }
 
 banner() {
-  printf '\n  %s%sArman VPN%s %sinstaller%s\n' "$BOLD" "$FOX" "$OFF" "$DIM" "$OFF"
+  printf '\n  %s%sHoma VPN%s %sinstaller%s\n' "$BOLD" "$FOX" "$OFF" "$DIM" "$OFF"
   printf '  %s%s%s\n' "$DIM" "$(rule 34)" "$OFF"
   field "System" "$(os_name)"
   field "Processor" "$(processor_name)"
