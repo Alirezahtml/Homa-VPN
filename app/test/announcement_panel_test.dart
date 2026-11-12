@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'settle.dart';
 import 'package:arman_vpn/app_settings.dart';
 import 'package:arman_vpn/core/announcements.dart';
 import 'package:arman_vpn/core/updates.dart';
@@ -38,7 +40,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
       final page = tester.getRect(find.byKey(pageKey));
       final connect = tester.getRect(find.text('Connect'));
       store.receive(
@@ -51,7 +53,7 @@ void main() {
           },
         ]),
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(tester.getRect(find.byKey(pageKey)), page);
       expect(tester.getRect(find.text('Connect')), connect);
       expect(find.text('Service notice'), findsOneWidget);
@@ -107,9 +109,9 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Read more'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.textContaining('https://example.invalid/status'),
         findsOneWidget,

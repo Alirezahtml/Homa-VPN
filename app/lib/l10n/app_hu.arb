@@ -1,6 +1,8 @@
 {
   "@@locale": "hu",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Csúsztass a csatlakozáshoz",
+  "slideToDisconnect": "Csúsztass a leválasztáshoz",
   "navOverview": "Áttekintés",
   "navAccounts": "Fiókok",
   "navSettings": "Beállítások",

@@ -1,6 +1,8 @@
 {
   "@@locale": "id",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Geser untuk menyambung",
+  "slideToDisconnect": "Geser untuk memutus",
   "navOverview": "Ringkasan",
   "navAccounts": "Akun",
   "navSettings": "Pengaturan",

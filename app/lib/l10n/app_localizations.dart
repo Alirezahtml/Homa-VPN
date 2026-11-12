@@ -129,6 +129,18 @@ abstract class AppLocalizations {
   /// **'Homa VPN'**
   String get appTitle;
 
+  /// No description provided for @slideToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide to connect'**
+  String get slideToConnect;
+
+  /// No description provided for @slideToDisconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide to disconnect'**
+  String get slideToDisconnect;
+
   /// No description provided for @navOverview.
   ///
   /// In en, this message translates to:

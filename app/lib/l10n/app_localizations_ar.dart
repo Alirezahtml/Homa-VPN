@@ -13,6 +13,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'اسحب للاتصال';
+
+  @override
+  String get slideToDisconnect => 'اسحب للفصل';
+
+  @override
   String get navOverview => 'نظرة عامة';
 
   @override

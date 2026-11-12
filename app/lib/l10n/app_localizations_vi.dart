@@ -13,6 +13,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'Trượt để kết nối';
+
+  @override
+  String get slideToDisconnect => 'Trượt để ngắt kết nối';
+
+  @override
   String get navOverview => 'Tổng quan';
 
   @override

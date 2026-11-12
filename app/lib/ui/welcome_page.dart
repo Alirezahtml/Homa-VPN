@@ -7,6 +7,7 @@ import '../app_settings.dart';
 import '../core/android_core.dart';
 import '../core/core_controller.dart';
 import '../l10n/app_localizations.dart';
+import 'motion.dart';
 import 'widgets.dart';
 
 /// The first run: the user picks a language and a country, and the
@@ -83,80 +84,97 @@ class _WelcomePageState extends State<WelcomePage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(
-                    Icons.shield_rounded,
-                    size: 56,
-                    color: theme.colorScheme.primary,
+                  Reveal(
+                    child: Icon(
+                      Icons.shield_rounded,
+                      size: 56,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    l.welcomeTitle,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
+                  Reveal(
+                    index: 1,
+                    child: Text(
+                      l.welcomeTitle,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    l.welcomeBody,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+                  Reveal(
+                    index: 2,
+                    child: Text(
+                      l.welcomeBody,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 28),
-                  DropdownButtonFormField<String>(
-                    initialValue: _language,
-                    decoration: InputDecoration(
-                      labelText: l.language,
-                      prefixIcon: const Icon(Icons.translate_rounded),
-                      border: const OutlineInputBorder(),
-                    ),
-                    onChanged: (v) => _pickLanguage(v!),
-                    items: [
-                      for (final code in AppSettings.supportedLanguages)
-                        DropdownMenuItem(
-                          value: code,
-                          child: Text(
-                            languageNames[code]!,
-                            style: languageStyle(code),
+                  Reveal(
+                    index: 3,
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _language,
+                      decoration: InputDecoration(
+                        labelText: l.language,
+                        prefixIcon: const Icon(Icons.translate_rounded),
+                        border: const OutlineInputBorder(),
+                      ),
+                      onChanged: (v) => _pickLanguage(v!),
+                      items: [
+                        for (final code in AppSettings.supportedLanguages)
+                          DropdownMenuItem(
+                            value: code,
+                            child: Text(
+                              languageNames[code]!,
+                              style: languageStyle(code),
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String>(
-                    key: ValueKey(_region),
-                    initialValue: _region,
-                    decoration: InputDecoration(
-                      labelText: l.region,
-                      helperText: l.routingDirectHint,
-                      helperMaxLines: 3,
-                      prefixIcon: const Icon(Icons.alt_route_rounded),
-                      border: const OutlineInputBorder(),
+                  Reveal(
+                    index: 4,
+                    child: DropdownButtonFormField<String>(
+                      key: ValueKey(_region),
+                      initialValue: _region,
+                      decoration: InputDecoration(
+                        labelText: l.region,
+                        helperText: l.routingDirectHint,
+                        helperMaxLines: 3,
+                        prefixIcon: const Icon(Icons.alt_route_rounded),
+                        border: const OutlineInputBorder(),
+                      ),
+                      onChanged: (v) => setState(() {
+                        _region = v!;
+                        _regionPicked = true;
+                      }),
+                      items: [
+                        for (final r in AppSettings.regions)
+                          DropdownMenuItem(
+                            value: r,
+                            child: Text(regionName(l, r)),
+                          ),
+                      ],
                     ),
-                    onChanged: (v) => setState(() {
-                      _region = v!;
-                      _regionPicked = true;
-                    }),
-                    items: [
-                      for (final r in AppSettings.regions)
-                        DropdownMenuItem(
-                          value: r,
-                          child: Text(regionName(l, r)),
-                        ),
-                    ],
                   ),
                   const SizedBox(height: 28),
-                  FilledButton(
-                    // A TV starts on Start: the remote's OK goes on with
-                    // the language and the country it found.
-                    autofocus: Platform.isAndroid && AndroidCore.isTv,
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size.fromHeight(48),
+                  Reveal(
+                    index: 5,
+                    child: FilledButton(
+                      // A TV starts on Start: the remote's OK goes on with
+                      // the language and the country it found.
+                      autofocus: Platform.isAndroid && AndroidCore.isTv,
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size.fromHeight(48),
+                      ),
+                      onPressed: _saving ? null : _start,
+                      child: Text(l.start),
                     ),
-                    onPressed: _saving ? null : _start,
-                    child: Text(l.start),
                   ),
                 ],
               ),

@@ -16,6 +16,7 @@ import '../platform.dart';
 import 'bypass_apps_page.dart';
 import 'connection_mode.dart';
 import 'format.dart';
+import 'motion.dart';
 import 'port_dialog.dart';
 import 'relay_test_dialog.dart';
 import 'widgets.dart';
@@ -150,7 +151,8 @@ class SettingsGroup extends StatelessWidget {
             children: [
               for (var i = 0; i < tiles.length; i++) ...[
                 if (i > 0) const Divider(height: 1, indent: 56),
-                tiles[i],
+                // Each tile arrives a beat after the one above it.
+                Reveal(index: i, child: tiles[i]),
               ],
             ],
           ),

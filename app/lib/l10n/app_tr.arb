@@ -1,6 +1,8 @@
 {
   "@@locale": "tr",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Bağlanmak için kaydır",
+  "slideToDisconnect": "Kesmek için kaydır",
   "navOverview": "Genel bakış",
   "navAccounts": "Hesaplar",
   "navSettings": "Ayarlar",

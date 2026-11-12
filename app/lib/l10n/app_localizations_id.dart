@@ -13,6 +13,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'Geser untuk menyambung';
+
+  @override
+  String get slideToDisconnect => 'Geser untuk memutus';
+
+  @override
   String get navOverview => 'Ringkasan';
 
   @override

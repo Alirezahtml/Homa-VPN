@@ -17,6 +17,7 @@ import '../platform.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
 import 'format.dart';
+import 'motion.dart';
 import 'port_dialog.dart';
 import 'widgets.dart';
 
@@ -316,6 +317,17 @@ class _DesktopHome extends StatelessWidget {
       ),
       child: Stack(
         children: [
+          // The drifting lights behind everything.
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Aurora(
+                accent: _accent(p),
+                second: p.second,
+                third: p.third,
+                dark: p.dark,
+              ),
+            ),
+          ),
           Positioned(
             top: -140,
             left: -120,
@@ -404,18 +416,24 @@ class _DesktopHome extends StatelessWidget {
     final place = homeLocation(l, status, connected: connected);
     final mismatch = exitMismatchText(l, status);
     final cards = [
-      _PlaceCard(
-        palette: p,
-        compact: true,
-        place: place,
-        accent: accent,
-        onTap: onOpenServers,
+      Reveal(
+        index: 3,
+        child: _PlaceCard(
+          palette: p,
+          compact: true,
+          place: place,
+          accent: accent,
+          onTap: onOpenServers,
+        ),
       ),
-      _HomeData(
-        status: status,
-        palette: p,
-        onTap: onOpenAccounts,
-        compact: true,
+      Reveal(
+        index: 4,
+        child: _HomeData(
+          status: status,
+          palette: p,
+          onTap: onOpenAccounts,
+          compact: true,
+        ),
       ),
     ];
     return Column(
@@ -1171,6 +1189,17 @@ class _PhoneHome extends StatelessWidget {
     final top = MediaQuery.paddingOf(context).top;
     return Stack(
       children: [
+        // The drifting lights behind everything.
+        Positioned.fill(
+          child: IgnorePointer(
+            child: Aurora(
+              accent: accent,
+              second: p.second,
+              third: p.third,
+              dark: p.dark,
+            ),
+          ),
+        ),
         // Soft lights in the state's color and two others.
         Positioned(
           top: -120,
@@ -1192,47 +1221,73 @@ class _PhoneHome extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                children: [
-                  const AppLogo(size: 28),
-                  const SizedBox(width: 8),
-                  Text(
-                    l.appTitle,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: p.text,
-                    ),
+              // The island: the state at a glance, at the very top.
+              Reveal(
+                index: 0,
+                child: Center(
+                  child: DynamicIsland(
+                    accent: accent,
+                    label: label,
+                    dark: p.dark,
+                    connected: connected,
+                    busy: confirming || core.switchingProxy,
+                    card: p.card,
+                    border: p.cardBorder,
+                    text: p.text,
+                    muted: p.muted,
+                    startedAt: connected ? proxy?.startedAt : null,
+                    traffic: status.traffic,
+                    delayMs: (test?.ok ?? false) ? test!.responseMs : null,
                   ),
-                ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Reveal(
+                index: 1,
+                child: Row(
+                  children: [
+                    const AppLogo(size: 28),
+                    const SizedBox(width: 8),
+                    Text(
+                      l.appTitle,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: p.text,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               SizedBox(height: short ? 4 : 16),
-              Center(
-                child: _PowerOrb(
-                  palette: p,
-                  scale: short ? 0.68 : 1,
-                  // A TV starts on the switch, its ring showing.
-                  autofocus: Platform.isAndroid && AndroidCore.isTv,
-                  on: on,
-                  accent: accent,
-                  busy: core.switchingProxy,
-                  tooltip: press,
-                  // No account yet: the accounts page, which explains
-                  // them and links to Mozilla's sign-up.
-                  onPressed: () => status.totalAccounts == 0
-                      ? _openAccounts(context, core, settings, onOpenAccounts)
-                      : runShowingErrors(context, () => _toggle(on)),
+              Reveal(
+                index: 2,
+                child: Center(
+                  child: SlideToConnect(
+                    on: on,
+                    busy: core.switchingProxy,
+                    accent: accent,
+                    dark: p.dark,
+                    card: p.card,
+                    border: p.cardBorder,
+                    text: p.text,
+                    muted: p.muted,
+                    labelConnect: l.slideToConnect,
+                    labelDisconnect: l.slideToDisconnect,
+                    tooltip: press,
+                    // A TV starts on the switch, its ring showing.
+                    autofocus: Platform.isAndroid && AndroidCore.isTv,
+                    // No account yet: the accounts page, which explains
+                    // them and links to Mozilla's sign-up.
+                    onPressed: () => status.totalAccounts == 0
+                        ? _openAccounts(context, core, settings, onOpenAccounts)
+                        : runShowingErrors(context, () => _toggle(on)),
+                  ),
                 ),
               ),
               SizedBox(height: short ? 8 : 14),
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: on ? accent : p.text,
-                ),
-              ),
+              // The state lives in the island above; the hint follows the
+              // control.
               const SizedBox(height: 8),
               if (connected)
                 Wrap(
@@ -1407,14 +1462,24 @@ class _PhoneHome extends StatelessWidget {
                   ),
                 )
               else ...[
-                _PlaceCard(
-                  palette: p,
-                  place: place,
-                  accent: accent,
-                  onTap: onOpenServers,
+                Reveal(
+                  index: 4,
+                  child: _PlaceCard(
+                    palette: p,
+                    place: place,
+                    accent: accent,
+                    onTap: onOpenServers,
+                  ),
                 ),
                 const SizedBox(height: 12),
-                _HomeData(status: status, palette: p, onTap: onOpenAccounts),
+                Reveal(
+                  index: 5,
+                  child: _HomeData(
+                    status: status,
+                    palette: p,
+                    onTap: onOpenAccounts,
+                  ),
+                ),
               ],
             ],
           ),
@@ -1483,20 +1548,22 @@ class _HomeCard extends StatelessWidget {
               ),
             ],
     ),
-    child: Material(
-      color: palette.card,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22),
-        side: BorderSide(color: palette.cardBorder),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: compact
-              ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
-              : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
-          child: child,
+    child: Pressable(
+      child: Material(
+        color: palette.card,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22),
+          side: BorderSide(color: palette.cardBorder),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: compact
+                ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+            child: child,
+          ),
         ),
       ),
     ),
@@ -1566,8 +1633,6 @@ class _HomeDelay extends StatelessWidget {
 class _PowerOrb extends StatelessWidget {
   const _PowerOrb({
     required this.palette,
-    this.scale = 1,
-    this.autofocus = false,
     required this.on,
     required this.accent,
     required this.busy,
@@ -1576,10 +1641,6 @@ class _PowerOrb extends StatelessWidget {
   });
 
   final _HomePalette palette;
-
-  /// The size against a phone's: smaller on a low screen (a TV).
-  final double scale;
-  final bool autofocus;
   final bool on;
   final Color accent;
   final bool busy;
@@ -1589,10 +1650,10 @@ class _PowerOrb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = palette;
-    final area = 250.0 * scale;
-    final ring = 186.0 * scale;
-    final disc = 148.0 * scale;
-    final reach = 70.0 * scale;
+    const area = 250.0;
+    const ring = 186.0;
+    const disc = 148.0;
+    const reach = 70.0;
     return Tooltip(
       message: tooltip,
       child: SizedBox.square(
@@ -1680,11 +1741,10 @@ class _PowerOrb extends StatelessWidget {
                 shape: const CircleBorder(),
                 clipBehavior: Clip.antiAlias,
                 child: InkWell(
-                  autofocus: autofocus,
                   onTap: busy ? null : onPressed,
                   child: Icon(
                     Icons.power_settings_new_rounded,
-                    size: 58 * scale,
+                    size: 58,
                     color: on ? Colors.white : (p.dark ? p.muted : p.idle),
                   ),
                 ),
@@ -1798,8 +1858,9 @@ class _HomeData extends StatelessWidget {
                 track: p.text.withValues(alpha: 0.08),
               ),
               child: Center(
-                child: Text(
-                  ltr('${(fraction * 100).round()}%'),
+                child: CountUp(
+                  value: fraction * 100,
+                  format: (v) => ltr('${v.round()}%'),
                   style:
                       (compact
                               ? theme.textTheme.labelMedium

@@ -46,6 +46,16 @@ ThemeData _theme(Brightness brightness, Locale locale) {
         side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.4)),
       ),
     ),
+    // Pages arrive with a soft fade and a lift, everywhere.
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: _HomaTransitionsBuilder(),
+        TargetPlatform.windows: _HomaTransitionsBuilder(),
+        TargetPlatform.linux: _HomaTransitionsBuilder(),
+        TargetPlatform.macOS: _HomaTransitionsBuilder(),
+      },
+    ),
+    snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
   );
   return theme.copyWith(
     navigationRailTheme: NavigationRailThemeData(
@@ -72,6 +82,36 @@ ThemeData _theme(Brightness brightness, Locale locale) {
       ),
     ),
   );
+}
+
+/// Pages arrive with a soft fade and a lift, on every platform.
+class _HomaTransitionsBuilder extends PageTransitionsBuilder {
+  const _HomaTransitionsBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final curved = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOutCubic,
+      reverseCurve: Curves.easeIn,
+    );
+    return FadeTransition(
+      opacity: curved,
+      child: SlideTransition(
+        position: Tween(
+          begin: const Offset(0, 0.04),
+          end: Offset.zero,
+        ).animate(curved),
+        child: child,
+      ),
+    );
+  }
 }
 
 class VpnApp extends StatelessWidget {

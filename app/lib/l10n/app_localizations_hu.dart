@@ -13,6 +13,12 @@ class AppLocalizationsHu extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'Csúsztass a csatlakozáshoz';
+
+  @override
+  String get slideToDisconnect => 'Csúsztass a leválasztáshoz';
+
+  @override
   String get navOverview => 'Áttekintés';
 
   @override

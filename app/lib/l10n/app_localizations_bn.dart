@@ -13,6 +13,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'সংযোগ করতে স্লাইড করুন';
+
+  @override
+  String get slideToDisconnect => 'বিচ্ছিন্ন করতে স্লাইড করুন';
+
+  @override
   String get navOverview => 'সারসংক্ষেপ';
 
   @override

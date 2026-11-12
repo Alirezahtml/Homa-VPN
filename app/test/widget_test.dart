@@ -4,6 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'settle.dart';
+
 import 'package:arman_vpn/app_info.dart';
 import 'package:arman_vpn/app_settings.dart';
 import 'package:arman_vpn/core/core_api.dart';
@@ -12,7 +15,6 @@ import 'package:arman_vpn/core/models.dart';
 import 'package:arman_vpn/core/relay_test.dart';
 import 'package:arman_vpn/core/tun_service.dart';
 import 'package:arman_vpn/core/updates.dart';
-import 'package:arman_vpn/core/announcements.dart';
 import 'package:arman_vpn/core/android_core.dart';
 import 'package:arman_vpn/desktop/close_dialog.dart';
 import 'package:arman_vpn/l10n/app_localizations.dart';
@@ -410,7 +412,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.text('Connected'), findsOneWidget);
     // Where the traffic goes: the country, under how it was chosen.
@@ -427,7 +429,7 @@ void main() {
 
     // Proxy mode: Windows is left alone, and nothing disconnects.
     await tester.tap(find.text('Proxy'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.mode, 'clear');
     expect(find.text('Connected'), findsOneWidget);
     expect(find.text('Netherlands'), findsOneWidget);
@@ -439,22 +441,22 @@ void main() {
     expect(find.textContaining('Only apps set up'), findsOneWidget);
 
     await tester.tap(find.text('System proxy'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.mode, 'set');
     expect(find.text('Connected'), findsOneWidget);
 
     // The button turns the proxy off, and on again.
     await tester.tap(find.byTooltip('Click to disconnect'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.on, isFalse);
     expect(find.text('Disconnected'), findsOneWidget);
     await tester.tap(find.byTooltip('Click to connect'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.on, isTrue);
     expect(find.text('Connected'), findsOneWidget);
 
     await tester.tap(find.text('Accounts').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('alice@example.com'), findsOneWidget);
     expect(find.text('Needs sign-in'), findsOneWidget);
     expect(find.text('Sign in again'), findsOneWidget);
@@ -474,7 +476,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.text("Can't reach the core"), findsOneWidget);
     expect(
@@ -501,7 +503,7 @@ void main() {
     final settings = AppSettings()..language = 'fa';
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.text('متصل'), findsOneWidget);
     expect(
@@ -533,7 +535,7 @@ void main() {
     // No language chosen: first run, or "System default".
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final context = tester.element(find.text('Connected'));
     expect(Localizations.localeOf(context), const Locale('en'));
@@ -565,7 +567,7 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     final calls = <MethodCall>[];
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
       SystemChannels.textInput,
@@ -581,7 +583,7 @@ void main() {
       ),
     );
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final fields = tester
         .widgetList<TextField>(find.byType(TextField))
@@ -616,7 +618,7 @@ void main() {
     expect(finish().first.arguments, true);
 
     // The code step's field is offered one-time codes.
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(tester.widget<TextField>(find.byType(TextField)).autofillHints, [
       AutofillHints.oneTimeCode,
     ]);
@@ -659,9 +661,9 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.enterText(find.byType(TextField).at(0), 'me@example.com');
     await tester.enterText(find.byType(TextField).at(1), 'pw');
     await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
@@ -675,7 +677,7 @@ void main() {
 
     api.signInProgress = {...api.signInOutcome!, 'step': SignInStep.failed};
     await tester.pump(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text(l.browserSignInBlocked), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
 
@@ -718,7 +720,7 @@ void main() {
       ),
     );
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(
       find.text(
@@ -731,7 +733,7 @@ void main() {
     expect(retries, 0);
 
     await tester.tap(find.widgetWithText(FilledButton, 'Try again'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(retries, 1);
     expect(find.byType(AlertDialog), findsNothing);
@@ -767,13 +769,13 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.enterText(find.byType(TextField).at(0), 'nobody@example.com');
     await tester.enterText(find.byType(TextField).at(1), 'pw');
     await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final l = lookupAppLocalizations(const Locale('fa'));
     // The form is back with the email as typed, to correct it.
@@ -817,13 +819,13 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.enterText(find.byType(TextField).at(0), 'google@example.com');
     await tester.enterText(find.byType(TextField).at(1), 'pw');
     await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final l = lookupAppLocalizations(const Locale('fa'));
     // Its own text, and the button to set a password instead of Try again.
@@ -862,7 +864,7 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     final calls = <MethodCall>[];
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
       SystemChannels.textInput,
@@ -882,11 +884,11 @@ void main() {
           c.method == 'TextInput.finishAutofillContext' && c.arguments == true,
     );
     await tester.tap(find.text('add'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.enterText(find.byType(TextField).at(0), 'me@example.com');
     await tester.enterText(find.byType(TextField).at(1), 'almost-righ');
     await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final l = lookupAppLocalizations(const Locale('en'));
     expect(find.text(l.signInWrongPassword), findsOneWidget);
@@ -908,7 +910,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     await tester.pump();
-    await tester.pumpAndSettle();
+    await settle(tester);
     // Accepted: now it is offered.
     expect(saveAsked(), isTrue);
     expect(find.text(l.signInWrongPassword), findsNothing);
@@ -936,10 +938,10 @@ void main() {
       ),
     );
     await tester.tap(find.text('close'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Remember my choice'));
     await tester.tap(find.text('Minimize to tray'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(choice, (action: CloseAction.tray, remember: true));
   });
 
@@ -961,19 +963,19 @@ void main() {
       ..language = 'en';
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Welcome'), findsOneWidget);
 
     // Persian brings Iran's routing with it.
     await tester.tap(find.text('English'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('فارسی').last);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('خوش آمدید'), findsOneWidget);
     expect(find.text('ایران'), findsOneWidget);
 
     await tester.tap(find.text('شروع'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(settings.firstRun, isFalse);
     expect(settings.language, 'fa');
     expect(api.config['routing'], {'enabled': true, 'region': 'ir'});
@@ -1001,10 +1003,10 @@ void main() {
         ..firstRunRegion = 'ir';
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Iran'), findsOneWidget);
       await tester.tap(find.text('Start'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(settings.language, 'en');
       expect(settings.firstRun, isFalse);
       expect(api.config['routing'], {'enabled': true, 'region': 'ir'});
@@ -1031,20 +1033,20 @@ void main() {
         ..firstRunRegion = 'tr';
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Turkey'), findsOneWidget);
       await tester.tap(find.text('English'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('فارسی').last);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('ترکیه'), findsOneWidget);
       expect(find.text('ایران'), findsNothing);
       await tester.tap(find.text('ترکیه'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('ایران').last);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('شروع'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(settings.language, 'fa');
       expect(settings.firstRun, isFalse);
       expect(api.config['routing'], {'enabled': true, 'region': 'ir'});
@@ -1068,7 +1070,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(
       find.text(
@@ -1111,7 +1113,7 @@ void main() {
         VpnApp(core: core, settings: AppSettings()..language = language),
       );
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text(connected), findsOneWidget);
       expect(
         Directionality.of(tester.element(find.text(connected))),
@@ -1141,7 +1143,7 @@ void main() {
     final settings = AppSettings();
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // The response time, as v2ray clients show it; no test stages.
     expect(find.text('70 ms'), findsWidgets);
@@ -1152,7 +1154,7 @@ void main() {
     expect(find.text('Logs'), findsOneWidget);
 
     await tester.tap(find.text('Logs'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('proxy started'), findsOneWidget);
     expect(find.textContaining('renewal slow'), findsOneWidget);
 
@@ -1160,7 +1162,7 @@ void main() {
     // how each came and its traffic only when asked for.
     await tester.tap(find.text('Connections'));
     await tester.pump(const Duration(milliseconds: 100));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('1 open'), findsOneWidget);
     expect(find.text('web.telegram.org:443'), findsOneWidget);
     expect(find.text('Proxy'), findsOneWidget);
@@ -1180,13 +1182,13 @@ void main() {
     );
     // Columns are chosen, and the choice is kept.
     await tester.tap(find.byTooltip('Columns'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.widgetWithText(CheckboxMenuButton, 'Traffic'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.widgetWithText(CheckboxMenuButton, 'Inbound'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tapAt(Offset.zero);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('TUN'), findsOneWidget);
     expect(find.textContaining('H2'), findsNothing);
     expect(find.textContaining('1.0 MB'), findsOneWidget);
@@ -1195,13 +1197,13 @@ void main() {
     // Clear empties the list, the open ones too, also when the tab opens
     // again; later connections show.
     await tester.tap(find.byTooltip('Clear'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('No connections yet.'), findsOneWidget);
     await tester.tap(find.text('Log'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Connections'));
     await tester.pump(const Duration(milliseconds: 100));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('web.telegram.org:443'), findsNothing);
     api.conns.add({
       'id': 4,
@@ -1210,7 +1212,7 @@ void main() {
       'route': 'vpn',
     });
     await tester.pump(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('new.example.com:443'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox());
@@ -1230,10 +1232,10 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     await tester.tap(find.text('Servers'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // Never measured: the page measures the delays as it opens.
     expect(api.pings, 1);
     // The app's choices first, then the locations with their delay.
@@ -1250,13 +1252,13 @@ void main() {
 
     // A tap on a row chooses it.
     await tester.tap(find.text('Germany'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.location, 'DE');
     await tester.tap(find.text('Recommended'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.location, '');
     await tester.tap(find.text('Japan'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.location, 'JP');
 
     await tester.pumpWidget(const SizedBox());
@@ -1276,9 +1278,9 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final tops = [
       for (final name in [
@@ -1305,13 +1307,13 @@ void main() {
 
     // The relay server has a row of its own, and is not under Connection too.
     await tester.tap(find.text('Relay server'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     final field = find.widgetWithText(TextField, 'Relay server');
     expect(field, findsOneWidget);
     await tester.pageBack();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Connection'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(field, findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -1332,20 +1334,20 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Accounts').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // Beside Add account, in plain sight.
     final more = find.byIcon(Icons.more_vert_rounded);
     expect(more, findsOneWidget);
     await tester.tap(more);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Save a backup'), findsOneWidget);
     expect(find.text('Import a backup'), findsOneWidget);
     expect(find.text('Backup'), findsNothing);
     await tester.tapAt(Offset.zero);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Save a backup'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -1368,9 +1370,9 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Accounts').first);
-      await tester.pumpAndSettle();
+      await settle(tester);
 
       expect(find.textContaining('0 MB'), findsOneWidget);
       expect(
@@ -1390,7 +1392,7 @@ void main() {
       );
 
       await tester.tap(row);
-      await tester.pumpAndSettle();
+      await settle(tester);
       final field = find.descendant(
         of: find.byType(AlertDialog),
         matching: find.byType(TextField),
@@ -1398,12 +1400,12 @@ void main() {
       expect(tester.widget<TextField>(field).controller!.text, '90');
       await tester.enterText(field, '0');
       await tester.tap(find.text('Save'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.textContaining('from 1 to 100'), findsOneWidget);
       expect(api.config['accounts'], isNull);
       await tester.enterText(field, '70');
       await tester.tap(find.text('Save'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.byType(AlertDialog), findsNothing);
       final accounts = api.config['accounts'] as Map<String, Object?>;
       expect(accounts['switch_threshold_percent'], 70);
@@ -1411,7 +1413,7 @@ void main() {
       // One account: nothing to switch to.
       api.accountsJson.removeLast();
       await core.refresh(accountsToo: true);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(row, findsNothing);
 
       await tester.pumpWidget(const SizedBox());
@@ -1434,9 +1436,9 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final list = find.byType(SettingsGroup);
     expect(list, findsNWidgets(3));
@@ -1458,7 +1460,7 @@ void main() {
     await tester.tap(
       find.descendant(of: list.at(2), matching: find.text('Logs')),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('proxy started'), findsOneWidget);
     expect(list, findsNothing);
 
@@ -1481,11 +1483,11 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Relay server'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.text('Shared relay'), findsOneWidget);
     expect(find.text('Personal relay'), findsOneWidget);
@@ -1496,11 +1498,11 @@ void main() {
     expect(tester.getRect(field).width, greaterThan(600));
     await tester.enterText(field, 'http://relay.example');
     await tester.testTextInput.receiveAction(TextInputAction.done);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Must be an https:// address.'), findsOneWidget);
     await tester.enterText(field, 'https://relay.example/?secret=k');
     await tester.testTextInput.receiveAction(TextInputAction.done);
-    await tester.pumpAndSettle();
+    await settle(tester);
     final network = api.config['network'] as Map<String, Object?>;
     expect(network['api_relay'], 'https://relay.example/?secret=k');
 
@@ -1531,11 +1533,11 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Relay server'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       final shared = find.descendant(
         of: find.widgetWithText(Panel, 'Shared relay'),
         matching: find.byType(Switch),
@@ -1551,30 +1553,30 @@ void main() {
       expect(tester.widget<Switch>(personal).value, isFalse);
       expect(tester.widget<Switch>(personal).onChanged, isNull);
       await tester.tap(shared);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(network()['shared_relay_enabled'], isFalse);
       expect(network()['api_relay_enabled'], isFalse);
       await tester.tap(shared);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(network()['shared_relay_enabled'], isTrue);
       final field = find.widgetWithText(TextField, 'Relay server');
       await tester.ensureVisible(field);
       await tester.enterText(field, 'https://personal.example/');
       await tester.testTextInput.receiveAction(TextInputAction.done);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.ensureVisible(personal);
       await tester.tap(personal);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(network()['api_relay_enabled'], isTrue);
       expect(network()['shared_relay_enabled'], isTrue);
       await tester.ensureVisible(shared);
       await tester.tap(shared);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(network()['shared_relay_enabled'], isFalse);
       expect(network()['api_relay_enabled'], isTrue);
       await tester.ensureVisible(personal);
       await tester.tap(personal);
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(network()['api_relay_enabled'], isFalse);
       expect(network()['shared_relay_enabled'], isFalse);
       expect(network()['api_relay'], 'https://personal.example/');
@@ -1597,20 +1599,20 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Connection').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final row = find.text('IP version');
     await tester.ensureVisible(row);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Auto (IPv4, then IPv6)'), findsOneWidget);
     await tester.tap(row);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('IPv6 only'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect((api.config['proxy'] as Map<String, Object?>)['ip_version'], 'ipv6');
 
     await tester.pumpWidget(const SizedBox());
@@ -1640,11 +1642,11 @@ void main() {
         );
         await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
         core.start();
-        await tester.pumpAndSettle();
+        await settle(tester);
         await tester.tap(find.text('Settings'));
-        await tester.pumpAndSettle();
+        await settle(tester);
         await tester.tap(find.text('Relay server'));
-        await tester.pumpAndSettle();
+        await settle(tester);
         final button = find.widgetWithText(OutlinedButton, 'Test relay health');
         expect(tester.widget<OutlinedButton>(button).onPressed, isNull);
         await tester.enterText(
@@ -1690,7 +1692,7 @@ void main() {
             },
           }),
         );
-        await tester.pumpAndSettle();
+        await settle(tester);
         expect(
           find.text('Relay health could not be confirmed'),
           findsOneWidget,
@@ -1726,7 +1728,7 @@ void main() {
         expect(jsonEncode(api.config), before);
         expect(tester.takeException(), isNull);
         await tester.tap(find.widgetWithText(FilledButton, 'Close'));
-        await tester.pumpAndSettle();
+        await settle(tester);
         await tester.pumpWidget(const SizedBox());
         core.dispose();
       },
@@ -1754,11 +1756,11 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Relay server'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       final button = find.text('Test relay health');
       await tester.ensureVisible(button);
       await tester.tap(button);
@@ -1766,7 +1768,7 @@ void main() {
       expect(find.text('Testing…'), findsOneWidget);
       await tester.pump();
       await tester.tap(find.widgetWithText(FilledButton, 'Close'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(cancelled, isTrue);
       await core.refresh();
       expect(core.status, isNotNull);
@@ -1791,29 +1793,29 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Connection').first);
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final field = find.widgetWithText(TextField, 'MTU');
     await tester.ensureVisible(field);
-    await tester.pumpAndSettle();
+    await settle(tester);
     // A computer's TUN: 9000 (the tests run on a desktop).
     String shown() => tester.widget<TextField>(field).controller!.text;
     expect(shown(), '9000');
 
     Future<void> save(String text) async {
       await tester.enterText(field, text);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(
         find.descendant(
           of: find.ancestor(of: field, matching: find.byType(Column)).first,
           matching: find.widgetWithText(FilledButton, 'Save'),
         ),
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
     }
 
     await save('1400');
@@ -1839,11 +1841,11 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('TLS fragmentation'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // Off by default.
     bool selected(String label) =>
@@ -1863,9 +1865,9 @@ void main() {
     );
     final sni = find.text('Server name (SNI)');
     await tester.ensureVisible(sni);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(sni);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(
       (api.config['network'] as Map<String, Object?>)['hello_split'],
       'sni',
@@ -1892,11 +1894,11 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Upstream proxy'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final address = find.widgetWithText(TextField, 'SOCKS5 proxy address');
     final port = find.widgetWithText(TextField, 'Port');
@@ -1910,9 +1912,9 @@ void main() {
 
     Future<void> submit() async {
       await tester.ensureVisible(save);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(save);
-      await tester.pumpAndSettle();
+      await settle(tester);
     }
 
     Map<String, Object?> network() =>
@@ -1986,9 +1988,9 @@ void main() {
     final toggle = find.byType(Switch);
     Future<void> flip() async {
       await tester.ensureVisible(toggle);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(toggle);
-      await tester.pumpAndSettle();
+      await settle(tester);
     }
 
     await flip();
@@ -2045,11 +2047,11 @@ void main() {
       final settings = AppSettings()..language = 'fa';
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('تنظیمات').first);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('پروکسی بالادستی'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       final address = find.widgetWithText(TextField, 'آدرس پروکسی SOCKS5');
       final port = find.widgetWithText(TextField, 'پورت');
       expect(tester.getCenter(address).dx, lessThan(tester.getCenter(port).dx));
@@ -2093,19 +2095,19 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     final mark = find.text('Upstream proxy is on');
     expect(mark, findsNothing);
 
     api.upstreamProxy = '127.0.0.1:1080';
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(mark, findsOneWidget);
 
     // Disconnected too.
     api.on = false;
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(mark, findsOneWidget);
 
     // The failure's own button says it then.
@@ -2115,7 +2117,7 @@ void main() {
       ..testErrorCode = 'upstream_proxy';
     await core.refresh();
     await core.runTest();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.widgetWithText(TextButton, 'Upstream proxy'), findsOneWidget);
     expect(mark, findsNothing);
 
@@ -2124,9 +2126,9 @@ void main() {
       ..online = true
       ..testErrorCode = '';
     await core.runTest();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(mark);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(
       find.widgetWithText(TextField, 'SOCKS5 proxy address'),
       findsOneWidget,
@@ -2157,10 +2159,10 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     await tester.tap(find.text('Servers'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // No delay test, which would fail without an account; the notice
     // with its button instead, and the locations still to choose from.
     expect(api.pings, 0);
@@ -2193,7 +2195,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(
       find.text(
@@ -2202,7 +2204,7 @@ void main() {
       findsOneWidget,
     );
     await tester.tap(find.text('Use the recommended location'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.location, '');
 
     // A connect given up for the same reason offers it too.
@@ -2212,7 +2214,7 @@ void main() {
       ..location = 'JP'
       ..connectFailure = Failure.locationRefused;
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(
       find.text(
         "This country isn't open to your account. Choose another country.",
@@ -2224,7 +2226,7 @@ void main() {
     // Other failures do not.
     api.connectFailure = Failure.unreachable;
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Use the recommended location'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -2250,7 +2252,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // A soft warning: still connected.
     expect(find.text('Connected'), findsOneWidget);
@@ -2263,7 +2265,7 @@ void main() {
     for (final selection in ['', 'fastest']) {
       api.location = selection;
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.textContaining('but your IP is in'), findsNothing);
     }
 
@@ -2272,7 +2274,7 @@ void main() {
       ..location = 'GB'
       ..exitMismatch = null;
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('but your IP is in'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -2300,12 +2302,12 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Routing'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Direct connection for local sites'), findsOneWidget);
     // The country's rules are in the editable Direct list.
     final direct = find.widgetWithText(TextField, 'Direct');
@@ -2315,7 +2317,7 @@ void main() {
     );
     // Restoring puts the region's rules back first, keeping the user's.
     await tester.tap(find.text("Restore the region's rules"));
-    await tester.pumpAndSettle();
+    await settle(tester);
     final routing = api.config['routing'] as Map<String, Object?>;
     expect(routing['direct'], [
       'geosite:ir',
@@ -2324,24 +2326,24 @@ void main() {
       'domain:my.example',
     ]);
     await tester.tap(find.byTooltip('Back'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('DNS'), findsOneWidget);
 
     // Choices open in a dialog in the middle of the window.
     await tester.tap(find.text('General').last);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('System default'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.byType(AlertDialog), findsOneWidget);
     await tester.tap(find.text('Cancel'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.byType(AlertDialog), findsNothing);
     await tester.tap(find.byTooltip('Back'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // Esc goes back one level too.
     await tester.tap(find.text('Connection'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Listen on'), findsOneWidget);
     expect(find.text('127.0.0.1 · this device only'), findsOneWidget);
     // The app's port is under Advanced, not here; sleep is a connection
@@ -2352,18 +2354,18 @@ void main() {
 
     // Changing the proxy port starts from the current one, not from "taken".
     await tester.tap(find.text('Proxy port'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('is taken'), findsNothing);
     expect(
       tester.widget<TextField>(find.byType(TextField).last).controller!.text,
       '10810',
     );
     await tester.tap(find.text('Cancel'));
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // The proxy login: one form, both fields saved together.
     await tester.tap(find.text('Proxy login'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // Its form's Save: after the MTU's in the connection section, before
     // the Worker's at the end of the page.
     final save = find.widgetWithText(FilledButton, 'Save').at(1);
@@ -2372,32 +2374,32 @@ void main() {
       'user',
     );
     await tester.ensureVisible(save);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(save);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Fill in both, or leave both empty.'), findsOneWidget);
     await tester.enterText(
       find.widgetWithText(TextField, 'Proxy password'),
       'secret',
     );
     await tester.ensureVisible(save);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(save);
-    await tester.pumpAndSettle();
+    await settle(tester);
     final proxy = api.config['proxy'] as Map<String, Object?>;
     expect((proxy['username'], proxy['password']), ('user', 'secret'));
 
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Listen on'), findsNothing);
     await tester.tap(find.text('Advanced'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // Only the computer's app port and web dashboard.
     expect(find.text('App port'), findsOneWidget);
     expect(find.text('Web dashboard'), findsOneWidget);
     expect(find.byType(Switch), findsNothing);
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('DNS'), findsOneWidget);
 
     // The accounts page says where to make an account.
@@ -2407,14 +2409,16 @@ void main() {
         matching: find.text('Accounts'),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text("Don't have a Firefox Account?"), findsOneWidget);
     expect(find.text('accounts.firefox.com'), findsOneWidget);
 
     await tester.tap(find.text('About'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('9.9'), findsOneWidget);
-    expect(find.text('Check for updates'), findsWidgets);
+    // The independent build: no update check, no source row.
+    expect(find.text('Check for updates'), findsNothing);
+    expect(find.text('Source code'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();
@@ -2434,15 +2438,15 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Accounts'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.byType(AppBar), findsOneWidget);
       final wasOn = api.on;
       AndroidCore.homeRequests.value++;
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.byType(AppBar), findsNothing);
       expect(
         tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
@@ -2469,11 +2473,11 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       for (final language in ['en', 'fa']) {
         for (final mode in [ThemeMode.light, ThemeMode.dark]) {
           settings.update(language: language, themeMode: mode);
-          await tester.pumpAndSettle();
+          await settle(tester);
           final rail = find.byType(NavigationRail);
           final theme = Theme.of(tester.element(rail));
           final expected = language == 'en' ? 'Inter' : 'Vazirmatn';
@@ -2511,45 +2515,45 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     expect(find.text('Home'), findsOneWidget);
     expect(find.text('Settings'), findsOneWidget);
     expect(find.text('Logs'), findsNothing);
 
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Accounts'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // The accounts page under its own top bar, with a back button.
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.text('alice@example.com'), findsOneWidget);
     await tester.pageBack();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Network'), findsOneWidget);
 
     // Back on the Settings tab goes Home rather than out of the app.
     final popped = await tester.binding.handlePopRoute();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(popped, isTrue);
     expect(find.text('Network'), findsNothing);
     expect(find.text('Data used'), findsOneWidget);
 
     // Logs cleared stay cleared when the page opens again.
     await tester.tap(find.text('Settings'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.ensureVisible(find.text('Logs'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Logs'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('proxy started'), findsOneWidget);
     await tester.tap(find.byTooltip('Clear'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('proxy started'), findsNothing);
     await tester.pageBack();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('Logs'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('proxy started'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -2572,12 +2576,12 @@ void main() {
       VpnApp(core: core, settings: AppSettings()..language = 'fa'),
     );
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     await tester.tap(find.text('تنظیمات').last);
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.tap(find.text('عمومی').last);
-    await tester.pumpAndSettle();
+    await settle(tester);
     // One row per setting: the name on the right (the start), the switch
     // at the end, on the left.
     final label = tester.getRect(find.text('نمایش IP عمومی'));
@@ -2586,10 +2590,10 @@ void main() {
     expect(control.right, lessThan(label.left));
     expect((control.center.dy - label.center.dy).abs(), lessThan(24));
     await tester.binding.handlePopRoute();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await tester.scrollUntilVisible(find.text('سرور رله'), 200);
     await tester.tap(find.text('سرور رله'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // A text setting's Save goes under its field, which keeps the width.
     final field = tester.getRect(find.byType(TextField).first);
     final save = tester.getRect(find.byType(FilledButton).first);
@@ -2616,7 +2620,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // On, with no system proxy: connected, not "proxy only".
     expect(find.text('Connected'), findsOneWidget);
@@ -2639,7 +2643,7 @@ void main() {
     expect(find.textContaining('10810'), findsNothing);
 
     await tester.tap(find.byTooltip('Tap to disconnect'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.on, isFalse);
     expect(find.text('Disconnected'), findsOneWidget);
     // Off: the chosen location, the recommended one by default.
@@ -2647,7 +2651,7 @@ void main() {
     expect(find.text('Recommended location'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Tap to connect'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(api.on, isTrue);
     expect(find.text('Connected'), findsOneWidget);
 
@@ -2684,7 +2688,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // No internet: the proxy runs, but the VPN does not claim to work.
     expect(find.text('Connecting…'), findsOneWidget);
@@ -2694,14 +2698,14 @@ void main() {
     // The internet is back: the next test confirms it.
     api.online = true;
     await core.runTest();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Connected'), findsOneWidget);
 
     // Wi-Fi and mobile data off: Android says so, and the app at once,
     // without a test.
     api.noNetwork = true;
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('No internet connection'), findsOneWidget);
     expect(find.text('Connected'), findsNothing);
 
@@ -2734,25 +2738,25 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
 
       await tester.tap(
         find.byTooltip(desktop ? l.tapToConnect : l.tapToConnectPhone),
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text(l.stateConnecting), findsOneWidget);
       expect(api.on, isFalse, reason: 'the engine has not started yet');
 
       api.on = true;
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text(l.stateConnecting), findsOneWidget);
       expect(find.text(l.failUnreachable), findsNothing);
       expect(api.tests, 0, reason: 'the core owns the pending attempt');
 
       api.noNetwork = true;
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text(l.stateConnecting), findsOneWidget);
       expect(find.text(l.noNetwork), findsNothing);
 
@@ -2761,7 +2765,7 @@ void main() {
         ..connectPending = false
         ..connectFailure = Failure.noNetwork;
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text(l.stateOff), findsOneWidget);
       expect(find.text(l.failNoInternet), findsOneWidget);
       expect(find.text(l.failUnreachable), findsNothing);
@@ -2793,9 +2797,9 @@ void main() {
     final settings = AppSettings();
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     await core.runTest();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     final notice = find.textContaining('running out of data');
     expect(notice, findsOneWidget);
@@ -2804,7 +2808,7 @@ void main() {
 
     // Gone after a minute.
     await tester.pump(const Duration(seconds: 61));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(notice, findsNothing);
 
     await tester.pumpWidget(const SizedBox());
@@ -2826,11 +2830,11 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // Waiting for an account counts as on: the button would disconnect.
     await tester.tap(find.byTooltip('Click to disconnect'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     // The page that explains accounts, not the sign-in form.
     expect(find.byType(Dialog), findsNothing);
     expect(find.text('No accounts yet'), findsOneWidget);
@@ -2858,7 +2862,7 @@ void main() {
     final settings = AppSettings();
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // The system proxy is set, but no test has passed.
     expect(find.text('Connecting…'), findsOneWidget);
@@ -2872,7 +2876,7 @@ void main() {
 
     api.online = true;
     await core.runTest();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.text('Connected'), findsOneWidget);
 
     // The public IP shows only when asked for (Settings, Advanced); the
@@ -2880,7 +2884,7 @@ void main() {
     expect(find.text('Belgium'), findsWidgets);
     expect(find.textContaining('192.0.2.7'), findsNothing);
     settings.update(showPublicIp: true);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.textContaining('192.0.2.7'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox());
@@ -2902,20 +2906,20 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.textContaining('Another program set the system proxy to'),
         findsOneWidget,
       );
       await tester.tap(find.text('Set it again'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(api.retakes, 1);
       expect(find.text('Set it again'), findsNothing);
 
       // Turned off by the other program; not shown in Proxy mode.
       api.systemProxyTakenBy = '';
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.text(
           "Another program turned the system proxy off, so traffic doesn't go through the VPN.",
@@ -2924,7 +2928,7 @@ void main() {
       );
       api.mode = 'clear';
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Set it again'), findsNothing);
 
       await tester.pumpWidget(const SizedBox());
@@ -2948,7 +2952,7 @@ void main() {
     );
     await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
     core.start();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.byType(NavigationRail), findsOneWidget);
     expect(
       tester.getBottomLeft(find.text('Total traffic')).dy,
@@ -2964,7 +2968,7 @@ void main() {
       ..testErrorCode = Failure.locationRefused;
     tester.view.physicalSize = const Size(624, 441);
     await core.refresh();
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(find.byType(NavigationRail), findsNothing);
     expect(
       find.text(
@@ -2978,13 +2982,15 @@ void main() {
   }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
 
   group('updates', () {
+    // The independent build has no repository: Updates.start stays
+    // dormant (the guard in updates.dart), so nothing is looked up,
+    // downloaded or installed by itself. What the core itself reports
+    // still shows.
     const page = 'https://github.com/o/r/releases/tag/v9.9.9';
 
     Future<(FakeApi, CoreController, AppSettings)> pumpUpdates(
       WidgetTester tester, {
       Map<String, Object?>? update,
-      List<String> args = const [],
-      Release? found,
     }) async {
       stillMotion(tester);
       tester.view.physicalSize = const Size(1200, 900);
@@ -2996,8 +3002,7 @@ void main() {
         pollInterval: const Duration(hours: 1),
       );
       final settings = AppSettings();
-      Updates.start(core, settings, args: args);
-      Updates.available.value = found;
+      Updates.start(core, settings);
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
       core.start();
       await tester.pump();
@@ -3011,359 +3016,40 @@ void main() {
       core.dispose();
     }
 
-    testWidgets(
-      'an announcement opens the in-app update section and acknowledges its action',
-      (tester) async {
-        final (_, core, _) = await pumpUpdates(
-          tester,
-          found: const Release('9.9.9', page),
-        );
-        Updates.receiveAnnouncements(
-          parseAnnouncements([
-            {
-              'id': 'update-action',
-              'enabled': true,
-              'priority': 100,
-              'dismissible': false,
-              'title': {'en': 'Important service notice'},
-              'message': {'en': 'Please check the available update.'},
-              'display': {'mode': 'until_acknowledged'},
-              'action': {
-                'type': 'navigate',
-                'target': 'updates',
-                'label': {'en': 'Go to updates'},
-              },
-            },
-          ]),
-        );
-        await tester.pumpAndSettle();
-        expect(find.text('Important service notice'), findsOneWidget);
-        await tester.tap(find.text('Go to updates'));
-        await tester.pumpAndSettle();
-        expect(find.text('Important service notice'), findsNothing);
-        expect(
-          find.widgetWithText(OutlinedButton, 'Check for updates'),
-          findsOneWidget,
-        );
-        expect(find.text('Download'), findsOneWidget);
-        expect(
-          Updates
-              .announcements
-              .value!
-              .settings
-              .announcementAcknowledged['update-action'],
-          1,
-        );
-        await done(tester, core);
-      },
-    );
-
-    testWidgets(
-      'Android manual checks do not postpone daily checks or lose newer offers',
-      (tester) async {
-        final (_, core, settings) = await pumpUpdates(tester);
-        final lastDailyCheck = DateTime(2026, 11, 8);
-        settings.update(updateCheckedAt: lastDailyCheck);
-        Updates.found(
-          const Release('9.9.9', page),
-          check: UpdateCheck.manual,
-          os: 'android',
-        );
-        expect(settings.updateCheckedAt, lastDailyCheck);
-        expect(settings.updateVersion, '9.9.9');
-
-        Updates.found(
-          const Release(
-            '9.9.8',
-            'https://example.invalid/9.9.8',
-            mandatory: true,
-          ),
-          os: 'android',
-        );
-        expect(Updates.available.value?.version, '9.9.9');
-        expect(Updates.available.value?.mandatory, isTrue);
-        expect(settings.updateCheckedAt!.isAfter(lastDailyCheck), isTrue);
-        expect(settings.updateVersion, '9.9.9');
-        expect(releaseFromJson(settings.updateDetails)?.version, '9.9.9');
-
-        Updates.found(null, os: 'android');
-        expect(Updates.available.value?.version, '9.9.9');
-        Updates.found(null, check: UpdateCheck.manual, os: 'android');
-        expect(Updates.available.value, isNull);
-        expect(settings.updateVersion, isEmpty);
-        await done(tester, core);
-      },
-    );
-
-    testWidgets(
-      'a long Persian announcement fits a narrow phone and can be closed',
-      (tester) async {
-        final (_, core, settings) = await pumpUpdates(tester);
-        tester.view.physicalSize = const Size(390, 700);
-        settings.update(language: 'fa');
-        Updates.receiveAnnouncements(
-          parseAnnouncements([
-            {
-              'id': 'persian',
-              'enabled': true,
-              'title': {'fa': 'اطلاعیه سرویس'},
-              'message': {
-                'fa': List.filled(
-                  12,
-                  'این یک پیام نمونه برای بررسی نمایش اطلاعیه در برنامه است.',
-                ).join(' '),
-              },
-            },
-          ]),
-        );
-        await tester.pumpAndSettle();
-        expect(find.text('اطلاعیه سرویس'), findsOneWidget);
-        expect(tester.takeException(), isNull);
-        await tester.tap(find.byTooltip('بستن'));
-        await tester.pumpAndSettle();
-        expect(find.text('اطلاعیه سرویس'), findsNothing);
-        await done(tester, core);
-      },
-    );
-
-    testWidgets('a copy that does not update itself offers the download', (
+    testWidgets('without a repository, the update checks stay off', (
       tester,
     ) async {
-      final (_, core, _) = await pumpUpdates(
-        tester,
-        found: const Release('9.9.9', page),
-      );
-      expect(find.text('Version 9.9.9 is available.'), findsOneWidget);
-      expect(find.text('Download'), findsOneWidget);
-      expect(find.text('Update'), findsNothing);
-      await done(tester, core);
-    });
-
-    testWidgets(
-      'mandatory updates cannot be dismissed and do not block connections',
-      (tester) async {
-        final (api, core, settings) = await pumpUpdates(
-          tester,
-          found: const Release('9.9.9', page, mandatory: true),
-        );
-        settings.update(dismissedUpdate: '9.9.9');
-        await tester.pump();
-        expect(
-          find.text('Please update to version 9.9.9. This update is required.'),
-          findsOneWidget,
-        );
-        expect(find.byTooltip('Dismiss'), findsNothing);
-        expect(api.on, isTrue);
-        await core.setOn(false);
-        await core.setOn(true);
-        expect(api.on, isTrue);
-        await done(tester, core);
-      },
-    );
-
-    testWidgets('background updates pass the manifest archive to the core', (
-      tester,
-    ) async {
-      final (api, core, _) = await pumpUpdates(
-        tester,
-        update: {'state': 'idle'},
-        found: const Release(
-          '9.9.9',
-          page,
-          checksumsUrl: 'https://cdn.example/sums',
-          signatureUrl: 'https://cdn.example/signature',
-          downloads: {
-            'archive-x64': ReleaseDownload(
-              'Arman-VPN-Windows-x64.zip',
-              'https://cdn.example/package',
-            ),
-            'archive': ReleaseDownload(
-              'Arman-VPN-Windows-x64.zip',
-              'https://cdn.example/package',
-            ),
-            'amd64': ReleaseDownload(
-              'Arman-VPN-Windows-x64.zip',
-              'https://cdn.example/package',
-            ),
-            'arm64': ReleaseDownload(
-              'Arman-VPN-Windows-x64.zip',
-              'https://cdn.example/package',
-            ),
-          },
-        ),
-      );
-      await tester.pump();
-      expect(api.downloadSources.single, {
-        'file': 'Arman-VPN-Windows-x64.zip',
-        'url': 'https://cdn.example/package',
-        'checksums_url': 'https://cdn.example/sums',
-        'signature_url': 'https://cdn.example/signature',
-      });
-      await done(tester, core);
-    }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
-
-    testWidgets('a version found downloads by itself; Update installs it', (
-      tester,
-    ) async {
-      final (api, core, _) = await pumpUpdates(
-        tester,
-        update: {'state': 'idle'},
-        found: const Release('9.9.9', page),
-      );
-      var quit = 0;
-      Updates.quitApp = () async => quit++;
-      await tester.pump();
-      expect(api.downloads, ['9.9.9']);
-      expect(find.text('Downloading version 9.9.9…'), findsOneWidget);
-      final bar = tester.widget<LinearProgressIndicator>(
-        find.byType(LinearProgressIndicator),
-      );
-      expect(bar.value, closeTo(0.3, 0.001));
-      // Downloaded: it waits for the next start, or for Update, which
-      // installs it at once, and the app quits.
-      api.update = {'state': 'ready', 'version': '9.9.9'};
-      await core.refresh();
-      await tester.pump();
-      expect(api.installs, isEmpty);
-      expect(find.text('Version 9.9.9 is ready to install.'), findsOneWidget);
-      await tester.tap(find.text('Update'));
-      await tester.pump();
-      await tester.pump();
-      expect(api.installs.single.$1, '9.9.9');
-      expect(api.installs.single.$2, isEmpty);
-      expect(quit, 1);
-      await tester.pump();
-      expect(
-        find.text(
-          'Installing version 9.9.9. The app will close and open again.',
-        ),
-        findsOneWidget,
-      );
-      await done(tester, core);
-    });
-
-    testWidgets('a version downloaded before installs at the start', (
-      tester,
-    ) async {
-      var quit = 0;
-      Updates.quitApp = () async => quit++;
-      final (api, core, _) = await pumpUpdates(
-        tester,
-        update: {'state': 'ready', 'version': '9.9.9'},
-        args: ['--autostart', '--data-dir=elsewhere'],
-      );
-      // With the app's own arguments (its data folder too, so the new
-      // version opens the same one), and before it connects.
-      expect(api.installs.single.$1, '9.9.9');
-      expect(api.installs.single.$2, ['--autostart', '--data-dir=elsewhere']);
-      expect(Updates.installingAtStart.value, isTrue);
-      expect(quit, 1);
-      await done(tester, core);
-    });
-
-    testWidgets('right after a failed update the start installs nothing', (
-      tester,
-    ) async {
-      final (api, core, _) = await pumpUpdates(
-        tester,
-        update: {
-          'state': 'ready',
-          'version': '9.9.9',
-          'last': {
-            'from': '9.9.8',
-            'to': '9.9.9',
-            'ok': false,
-            'error': 'moving the old data aside: in use',
-          },
-        },
-        found: const Release('9.9.9', page),
-      );
-      expect(api.installs, isEmpty);
-      expect(Updates.installingAtStart.value, isFalse);
-      expect(
-        find.text(
-          "The update to version 9.9.9 didn't finish, so the app went back "
-          'to the previous version.',
-        ),
-        findsOneWidget,
-      );
-      await done(tester, core);
-    });
-
-    testWidgets('a version found downloads once by itself', (tester) async {
-      final (api, core, _) = await pumpUpdates(
+      final (api, core, settings) = await pumpUpdates(
         tester,
         update: {'state': 'idle'},
       );
       Updates.found(const Release('9.9.9', page));
-      await tester.pump();
-      expect(api.downloads, ['9.9.9']);
-      // It failed: not again until the next start.
-      api.update = {
-        'state': 'failed',
-        'version': '9.9.9',
-        'error': 'the signature does not match',
-      };
-      await core.refresh();
-      await tester.pump();
-      expect(api.downloads, ['9.9.9']);
-      expect(find.text("Couldn't update to version 9.9.9."), findsOneWidget);
-      expect(find.text('Try again'), findsOneWidget);
+      await settle(tester);
+      // A release pinned by hand may be shown, but the machinery never
+      // wakes: nothing downloads, nothing installs, nothing is saved as
+      // an offered version.
+      expect(api.downloads, isEmpty);
+      expect(Updates.failure.value, isNull);
+      expect(settings.updateVersion, isEmpty);
       await done(tester, core);
     });
 
     testWidgets('after an update the home page says what it did', (
       tester,
     ) async {
-      final (api, core, _) = await pumpUpdates(
+      final (api, core, settings) = await pumpUpdates(
         tester,
         update: {
           'state': 'idle',
           'last': {'from': '9.9.8', 'to': '9.9.9', 'ok': true},
         },
       );
+      await settle(tester);
       expect(find.text('Updated to version 9.9.9.'), findsOneWidget);
       await tester.tap(find.byTooltip('Dismiss'));
-      await tester.pump();
+      await settle(tester);
       expect(find.text('Updated to version 9.9.9.'), findsNothing);
-      Updates.resultSeen.value = false;
-      api.update = {
-        'state': 'idle',
-        'last': {
-          'from': '9.9.8',
-          'to': '9.9.9',
-          'ok': false,
-          'error': 'moving the old core aside: in use',
-        },
-      };
-      await core.refresh();
-      await tester.pump();
-      expect(
-        find.text(
-          "The update to version 9.9.9 didn't finish, so the app went back "
-          'to the previous version.',
-        ),
-        findsOneWidget,
-      );
       await done(tester, core);
-    });
-
-    test('the status reads the update', () {
-      final s = CoreStatus.fromJson({
-        'update': {
-          'state': 'downloading',
-          'version': '1.2.3',
-          'done': 25,
-          'total': 100,
-          'last': {'from': '1.2.2', 'to': '1.2.3', 'ok': false, 'error': 'x'},
-        },
-      });
-      expect(s.update!.downloading, isTrue);
-      expect(s.update!.progress, 0.25);
-      expect(s.update!.last!.ok, isFalse);
-      expect(s.update!.last!.error, 'x');
-      expect(CoreStatus.fromJson({}).update, isNull);
-      expect(UpdateState.fromJson({'state': 'downloading'}).progress, isNull);
     });
   });
 
@@ -3395,7 +3081,7 @@ void main() {
         VpnApp(core: core, settings: settings ?? AppSettings()),
       );
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       return (api, core, service);
     }
 
@@ -3415,7 +3101,7 @@ void main() {
       );
       await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
       core.start();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('System proxy'), findsWidgets);
       expect(find.text('TUN'), findsNothing);
       await done(tester, core);
@@ -3428,7 +3114,7 @@ void main() {
       // The modes are one track (_ModeSwitch), not segmented buttons.
       expect(find.byType(SegmentedButton<String>), findsNothing);
       await tester.tap(find.text('TUN'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.installs, 1);
       // The reason macOS' prompt shows, in the app's language.
       expect(
@@ -3438,16 +3124,16 @@ void main() {
       expect(api.mode, 'tun');
       api.tun = {'state': 'on', 'installed': true};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.text('All Windows traffic goes through the VPN.'),
         findsOneWidget,
       );
       // Installed: choosing it again asks for nothing.
       await tester.tap(find.text('Proxy').first);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('TUN'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.installs, 1);
       expect(api.mode, 'tun');
       await done(tester, core);
@@ -3459,21 +3145,21 @@ void main() {
       final (api, core, service) = await pumpTun(tester, systemProxy: false);
       expect(find.text('System proxy'), findsNothing);
       await tester.tap(find.text('TUN'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.installs, 1);
       expect(api.mode, 'tun');
       api.tun = {'state': 'on', 'installed': true};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.text('All Linux traffic goes through the VPN.'),
         findsOneWidget,
       );
       // The settings have the same choice.
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Connection'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Connection mode'), findsOneWidget);
       await done(tester, core);
     }, variant: TargetPlatformVariant.only(TargetPlatform.linux));
@@ -3484,25 +3170,25 @@ void main() {
         tun: {'state': 'off', 'installed': true},
       );
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       // Out of the way: in the Advanced settings, not with TUN mode's.
       expect(find.text('TUN settings'), findsNothing);
       await tester.tap(find.text('Advanced'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Remove the TUN service'), findsOneWidget);
       final remove = find.widgetWithText(OutlinedButton, 'Remove');
       await tester.ensureVisible(remove);
-      await tester.pumpAndSettle();
+      await settle(tester);
       // Asked first: Cancel keeps it.
       await tester.tap(remove);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.text('Cancel'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.removals, 0);
       await tester.tap(remove);
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.widgetWithText(FilledButton, 'Remove'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.removals, 1);
       expect(
         service.prompt,
@@ -3537,7 +3223,7 @@ void main() {
           (api.config['tun'] as Map)['programs'] as List<Object?>;
 
       await tester.tap(find.text('Settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       // After Routing.
       final routing = tester.getTopLeft(find.text('Routing')).dy;
       expect(
@@ -3545,7 +3231,7 @@ void main() {
         greaterThan(routing),
       );
       await tester.tap(find.text('TUN settings'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Notice when UDP is blocked'), findsOneWidget);
       // Removing the service is in the Advanced settings, not here.
       expect(find.text('Remove the TUN service'), findsNothing);
@@ -3558,7 +3244,7 @@ void main() {
 
       // Only its UDP, from the row's choice.
       await tester.tap(find.text('All traffic'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(
         find.text(
           'Only its UDP connects directly; the rest goes through the VPN.',
@@ -3566,7 +3252,7 @@ void main() {
         findsOneWidget,
       );
       await tester.tap(find.text('UDP only'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(programs(), [
         {'name': 'steam.exe', 'udp_only': true},
       ]);
@@ -3574,9 +3260,9 @@ void main() {
       // The three ways to add one.
       Future<void> add(String way) async {
         await tester.tap(find.text('Add program'));
-        await tester.pumpAndSettle();
+        await settle(tester);
         await tester.tap(find.text(way));
-        await tester.pumpAndSettle();
+        await settle(tester);
       }
 
       // From the open dialog, by its file name, with its path to see.
@@ -3604,10 +3290,10 @@ void main() {
       await add('From running programs');
       expect(find.text('curl.exe'), findsOneWidget);
       await tester.enterText(find.byType(TextField).last, 'tele');
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('curl.exe'), findsNothing);
       await tester.tap(find.text('Telegram.exe'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(programs().last, {
         'name': 'Telegram.exe',
         'path': r'C:\Users\u\AppData\Roaming\Telegram Desktop\Telegram.exe',
@@ -3622,15 +3308,15 @@ void main() {
         findsOneWidget,
       );
       await tester.enterText(find.byType(TextField).last, ' steam* ');
-      await tester.pumpAndSettle();
+      await settle(tester);
       await tester.tap(find.widgetWithText(FilledButton, 'Add program'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(programs().last, {'name': 'steam*'});
       expect(programs(), hasLength(4));
 
       for (final _ in [0, 1, 2, 3]) {
         await tester.tap(find.byTooltip('Remove').first);
-        await tester.pumpAndSettle();
+        await settle(tester);
       }
       expect(programs(), isEmpty);
       // None running.
@@ -3638,7 +3324,7 @@ void main() {
       await add('From running programs');
       expect(find.text('No other programs are running.'), findsOneWidget);
       await tester.tap(find.text('Cancel'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('No programs yet.'), findsOneWidget);
       await done(tester, core);
     }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
@@ -3674,10 +3360,10 @@ void main() {
       // Another program, and the notice turned off.
       api.tun = {...api.tun!, 'refused_udp': 'Discord.exe'};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(card, findsOneWidget);
       await tester.tap(find.text("Don't show again"));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(settings.udpNotice, isFalse);
       expect(card, findsNothing);
 
@@ -3686,11 +3372,11 @@ void main() {
       settings.update(udpNotice: true);
       api.tun = {...api.tun!, 'state': 'starting'};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(card, findsNothing);
       api.tun = {...api.tun!, 'state': 'on', 'programs_supported': false};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(card, findsNothing);
       await done(tester, core);
     }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
@@ -3703,7 +3389,7 @@ void main() {
         result: const TunServiceCancelled(),
       );
       await tester.tap(find.text('TUN'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.installs, 1);
       expect(api.mode, 'clear');
       expect(
@@ -3728,7 +3414,7 @@ void main() {
         findsOneWidget,
       );
       await tester.tap(find.text('Install again'));
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(service.installs, 1);
 
       for (final (code, text, button) in [
@@ -3754,7 +3440,7 @@ void main() {
       ]) {
         api.tun = {'state': 'error', 'code': code, 'installed': true};
         await core.refresh();
-        await tester.pumpAndSettle();
+        await settle(tester);
         expect(find.text(text), findsOneWidget, reason: code);
         expect(
           find.text('Install again'),
@@ -3769,12 +3455,12 @@ void main() {
       }
       api.tun = {'state': 'starting', 'installed': true};
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Starting TUN mode…'), findsOneWidget);
       // Nothing to say while the proxy is off.
       api.on = false;
       await core.refresh();
-      await tester.pumpAndSettle();
+      await settle(tester);
       expect(find.text('Starting TUN mode…'), findsNothing);
       await done(tester, core);
     }, variant: TargetPlatformVariant.only(TargetPlatform.windows));

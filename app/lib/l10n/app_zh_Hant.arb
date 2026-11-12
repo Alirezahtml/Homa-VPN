@@ -1,6 +1,8 @@
 {
   "@@locale": "zh_Hant",
   "appTitle": "Homa VPN",
+  "slideToConnect": "滑動以連接",
+  "slideToDisconnect": "滑動以斷開",
   "navOverview": "總覽",
   "navAccounts": "帳號",
   "navSettings": "設定",

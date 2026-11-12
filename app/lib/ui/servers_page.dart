@@ -9,6 +9,7 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'format.dart';
 import 'browser_signin.dart';
+import 'motion.dart';
 import 'widgets.dart';
 
 /// The server list, one choice in one list: Recommended and Fastest, which
@@ -171,28 +172,31 @@ class _ServersPageState extends State<ServersPage> {
           const SizedBox(height: 12),
         ],
         _SectionHeader(title: l.autoSection),
-        _ChoiceCard(
-          children: [
-            _ChoiceRow(
-              leading: const CountryFlag(code: 'REC', width: 36),
-              title: l.modeRecommended,
-              subtitle: l.modeRecommendedHint,
-              delay: recommended == null
-                  ? null
-                  : _Delay(location: recommended, testing: _testing),
-              selected: chosen == '',
-              busy: _busy == '',
-              onTap: () => _choose(''),
-            ),
-            _ChoiceRow(
-              leading: const _IconTile(icon: Icons.bolt_rounded),
-              title: l.modeFastest,
-              subtitle: l.modeFastestHint,
-              selected: chosen == 'fastest',
-              busy: _busy == 'fastest',
-              onTap: () => _choose('fastest'),
-            ),
-          ],
+        Reveal(
+          index: 1,
+          child: _ChoiceCard(
+            children: [
+              _ChoiceRow(
+                leading: const CountryFlag(code: 'REC', width: 36),
+                title: l.modeRecommended,
+                subtitle: l.modeRecommendedHint,
+                delay: recommended == null
+                    ? null
+                    : _Delay(location: recommended, testing: _testing),
+                selected: chosen == '',
+                busy: _busy == '',
+                onTap: () => _choose(''),
+              ),
+              _ChoiceRow(
+                leading: const _IconTile(icon: Icons.bolt_rounded),
+                title: l.modeFastest,
+                subtitle: l.modeFastestHint,
+                selected: chosen == 'fastest',
+                busy: _busy == 'fastest',
+                onTap: () => _choose('fastest'),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 20),
         _SectionHeader(
@@ -223,19 +227,26 @@ class _ServersPageState extends State<ServersPage> {
         else if (countries.isEmpty)
           Panel(child: Text(l.noServers, style: muted))
         else
-          _ChoiceCard(
-            children: [
-              for (final loc in countries)
-                _ChoiceRow(
-                  leading: CountryFlag(code: loc.code, width: 36),
-                  title: locationName(l, loc.code, loc.name),
-                  subtitle: _subtitle(loc),
-                  delay: _Delay(location: loc, testing: _testing),
-                  selected: chosen == loc.code.toLowerCase(),
-                  busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
-                  onTap: () => _choose(loc.code),
-                ),
-            ],
+          Reveal(
+            index: 2,
+            child: _ChoiceCard(
+              children: [
+                for (final (i, loc) in countries.indexed)
+                  // Staggered by row, so a long list arrives like a wave.
+                  Reveal(
+                    index: i % 10,
+                    child: _ChoiceRow(
+                      leading: CountryFlag(code: loc.code, width: 36),
+                      title: locationName(l, loc.code, loc.name),
+                      subtitle: _subtitle(loc),
+                      delay: _Delay(location: loc, testing: _testing),
+                      selected: chosen == loc.code.toLowerCase(),
+                      busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
+                      onTap: () => _choose(loc.code),
+                    ),
+                  ),
+              ],
+            ),
           ),
       ],
     );

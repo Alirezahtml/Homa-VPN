@@ -1,6 +1,8 @@
 {
   "@@locale": "pt",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Deslize para conectar",
+  "slideToDisconnect": "Deslize para desconectar",
   "navOverview": "Visão geral",
   "navAccounts": "Contas",
   "navSettings": "Configurações",

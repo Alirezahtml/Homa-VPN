@@ -5,6 +5,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'settle.dart';
 import 'package:arman_vpn/core/core_api.dart';
 import 'package:arman_vpn/core/remote_flags.dart';
 import 'package:arman_vpn/ui/widgets.dart';
@@ -53,7 +55,7 @@ void main() {
       ),
     );
     await tester.pumpWidget(flags());
-    await tester.pumpAndSettle();
+    await settle(tester);
 
     // Carried: not asked; Iran from the core; none for ZZ: its code.
     expect(core.asked, ['ir', 'zz']);
@@ -61,7 +63,7 @@ void main() {
     expect(find.text('ZZ'), findsOneWidget);
 
     await tester.pumpWidget(flags());
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(core.asked, ['ir', 'zz'], reason: 'asked once per run');
   });
 }

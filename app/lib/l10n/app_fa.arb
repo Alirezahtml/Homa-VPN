@@ -1,6 +1,8 @@
 {
   "@@locale": "fa",
   "appTitle": "Homa VPN",
+  "slideToConnect": "برای اتصال بکشید",
+  "slideToDisconnect": "برای قطع اتصال بکشید",
   "navOverview": "نمای کلی",
   "navAccounts": "حساب‌ها",
   "navSettings": "تنظیمات",

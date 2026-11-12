@@ -13,6 +13,12 @@ class AppLocalizationsFa extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => 'برای اتصال بکشید';
+
+  @override
+  String get slideToDisconnect => 'برای قطع اتصال بکشید';
+
+  @override
   String get navOverview => 'نمای کلی';
 
   @override

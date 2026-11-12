@@ -13,6 +13,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appTitle => 'Homa VPN';
 
   @override
+  String get slideToConnect => '滑动以连接';
+
+  @override
+  String get slideToDisconnect => '滑动以断开';
+
+  @override
   String get navOverview => '概览';
 
   @override
@@ -1625,6 +1631,12 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get appTitle => 'Homa VPN';
+
+  @override
+  String get slideToConnect => '滑動以連接';
+
+  @override
+  String get slideToDisconnect => '滑動以斷開';
 
   @override
   String get navOverview => '總覽';

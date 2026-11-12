@@ -1,6 +1,8 @@
 {
   "@@locale": "vi",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Trượt để kết nối",
+  "slideToDisconnect": "Trượt để ngắt kết nối",
   "navOverview": "Tổng quan",
   "navAccounts": "Tài khoản",
   "navSettings": "Cài đặt",

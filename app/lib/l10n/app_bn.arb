@@ -1,6 +1,8 @@
 {
   "@@locale": "bn",
   "appTitle": "Homa VPN",
+  "slideToConnect": "সংযোগ করতে স্লাইড করুন",
+  "slideToDisconnect": "বিচ্ছিন্ন করতে স্লাইড করুন",
   "navOverview": "সারসংক্ষেপ",
   "navAccounts": "অ্যাকাউন্ট",
   "navSettings": "সেটিংস",

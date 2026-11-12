@@ -13,6 +13,7 @@ import '../platform.dart';
 import 'country_names.dart';
 import 'format.dart';
 import 'local_country_names.dart';
+import 'motion.dart';
 
 /// Where a Firefox Account is made: Mozilla's site.
 const firefoxAccountSignUpUrl = 'https://accounts.firefox.com/';
@@ -514,7 +515,9 @@ class PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OwnTopBar.of(context)
       ? const SizedBox.shrink()
-      : Text(text, style: Theme.of(context).textTheme.headlineSmall);
+      : Reveal(
+          child: Text(text, style: Theme.of(context).textTheme.headlineSmall),
+        );
 }
 
 /// A titled card section.
@@ -537,40 +540,42 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (title != null) ...[
-              Row(
-                children: [
-                  if (icon != null) ...[
-                    Icon(
-                      icon,
-                      size: 18,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                  Expanded(
-                    child: Text(
-                      title!,
-                      style: theme.textTheme.labelLarge?.copyWith(
+    return Reveal(
+      child: Card(
+        margin: EdgeInsets.zero,
+        child: Padding(
+          padding: padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null) ...[
+                Row(
+                  children: [
+                    if (icon != null) ...[
+                      Icon(
+                        icon,
+                        size: 18,
                         color: theme.colorScheme.onSurfaceVariant,
-                        letterSpacing: 0.4,
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                    Expanded(
+                      child: Text(
+                        title!,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                          letterSpacing: 0.4,
+                        ),
                       ),
                     ),
-                  ),
-                  ?trailing,
-                ],
-              ),
-              const SizedBox(height: 14),
+                    ?trailing,
+                  ],
+                ),
+                const SizedBox(height: 14),
+              ],
+              child,
             ],
-            child,
-          ],
+          ),
         ),
       ),
     );

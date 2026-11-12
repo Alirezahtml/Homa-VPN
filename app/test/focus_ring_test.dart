@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'settle.dart';
+
 void main() {
   testWidgets('the ring shows while keys move the focus, not after a touch', (
     tester,
@@ -26,18 +28,18 @@ void main() {
 
     // A remote's arrow: the focus moves, and the ring shows.
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(FocusManager.instance.primaryFocus?.context?.widget, isNotNull);
     expect(ring, findsOneWidget);
 
     // A touch hides it.
     await tester.tap(find.text('Two'));
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(ring, findsNothing);
 
     // Typing letters does not bring it back.
     await tester.sendKeyEvent(LogicalKeyboardKey.keyA);
-    await tester.pumpAndSettle();
+    await settle(tester);
     expect(ring, findsNothing);
   });
 }

@@ -1,6 +1,8 @@
 {
   "@@locale": "ru",
   "appTitle": "Homa VPN",
+  "slideToConnect": "Проведите для подключения",
+  "slideToDisconnect": "Проведите для отключения",
   "navOverview": "Обзор",
   "navAccounts": "Аккаунты",
   "navSettings": "Настройки",
