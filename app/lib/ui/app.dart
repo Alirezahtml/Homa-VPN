@@ -91,13 +91,40 @@ ThemeData _theme(Brightness brightness, Locale locale) {
     colorScheme: scheme,
     fontFamily: font,
     scaffoldBackgroundColor: dark ? Colors.black : Colors.white,
+    // Pixel-grade surfaces: one generous radius for every card, list and
+    // dialog, so the whole app reads as one system.
     cardTheme: CardThemeData(
       elevation: 0,
       color: dark ? const Color(0xFF0D0D0D) : const Color(0xFFF7F7F7),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
         side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.5)),
       ),
+      margin: EdgeInsets.zero,
+    ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: dark ? const Color(0xFF111111) : Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: dark ? Colors.black : Colors.white,
+      foregroundColor: scheme.onSurface,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: false,
+      titleTextStyle: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        color: scheme.onSurface,
+        fontFamily: font,
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      iconColor: scheme.onSurfaceVariant,
+    ),
+    dividerTheme: DividerThemeData(
+      thickness: 1,
+      color: scheme.outlineVariant.withValues(alpha: 0.5),
     ),
     // Pages arrive with a soft fade and a lift, everywhere.
     pageTransitionsTheme: const PageTransitionsTheme(

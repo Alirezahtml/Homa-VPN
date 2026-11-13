@@ -1054,13 +1054,34 @@ class _PhoneHome extends StatelessWidget {
             colors: [p.top, p.bottom],
           ),
         ),
-        child: LayoutBuilder(
-          builder: (context, box) => SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: box.maxHeight),
-              child: IntrinsicHeight(child: _content(context, p, box)),
+        // The world behind the switch: the sample's map, redrawn as quiet
+        // dots in the theme's own ink — no hue, no motion, no pointer.
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: p.dark ? 0.10 : 0.07,
+                  child: Image.asset(
+                    p.dark
+                        ? 'assets/map_dots_light.png'
+                        : 'assets/map_dots_dark.png',
+                    fit: BoxFit.fitWidth,
+                    alignment: const Alignment(0, -0.45),
+                    excludeFromSemantics: true,
+                  ),
+                ),
+              ),
             ),
-          ),
+            LayoutBuilder(
+              builder: (context, box) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: box.maxHeight),
+                  child: IntrinsicHeight(child: _content(context, p, box)),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -1176,6 +1197,10 @@ class _PhoneHome extends StatelessWidget {
                     muted: p.muted,
                     labelConnect: l.slideToConnect,
                     labelDisconnect: l.slideToDisconnect,
+                    // The state's word stays in the track once connected;
+                    // while the connection is still being confirmed the
+                    // track keeps the connect hint (nothing is claimed yet).
+                    labelOn: confirming ? '' : l.stateConnected,
                     tooltip: press,
                     // A TV starts on the switch, its ring showing.
                     autofocus: Platform.isAndroid && AndroidCore.isTv,
@@ -1188,7 +1213,6 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
               SizedBox(height: short ? 8 : 14),
-              const SizedBox(height: 8),
               if (connected) ...[
                 // The connection's numbers, in the page itself: the time
                 // it has been up, the real delay, the live rates.
@@ -1331,7 +1355,7 @@ class _PhoneHome extends StatelessWidget {
                 Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
               ],
               const Spacer(),
-              SizedBox(height: short ? 12 : 20),
+              SizedBox(height: short ? 12 : 16),
               _UpdateNotice(core: core, settings: settings, palette: p),
               _UdpNotice(status: status, settings: settings, palette: p),
               _Notices(notices: homeNotices(status.notices)),
@@ -1419,8 +1443,9 @@ class _HomeCard extends StatelessWidget {
       boxShadow: palette.dark
           ? null
           : [
+              // Monochrome: a quiet black shade, no hue.
               BoxShadow(
-                color: const Color(0xFF2A3375).withValues(alpha: 0.08),
+                color: Colors.black.withValues(alpha: 0.06),
                 blurRadius: 24,
                 offset: const Offset(0, 8),
               ),
@@ -1550,7 +1575,7 @@ class _HomeStats extends StatelessWidget {
       // Row with Expanded children cannot sit under an IntrinsicHeight.
       children: [
         Expanded(child: a),
-        const SizedBox(width: 10),
+        const SizedBox(width: 12),
         Expanded(child: b),
       ],
     );
@@ -1586,7 +1611,7 @@ class _HomeStats extends StatelessWidget {
                 : null,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         stat(
           card(
             Icons.south_rounded,
@@ -1630,10 +1655,10 @@ class _StatCard extends StatelessWidget {
     final p = palette;
     final theme = Theme.of(context);
     final child = Container(
-      padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
+      padding: const EdgeInsetsDirectional.fromSTEB(14, 12, 14, 12),
       decoration: BoxDecoration(
         color: p.card,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: p.cardBorder),
       ),
       child: Column(
@@ -1643,7 +1668,7 @@ class _StatCard extends StatelessWidget {
           Row(
             children: [
               Icon(icon, size: 13, color: p.muted),
-              const SizedBox(width: 4),
+              const SizedBox(width: 6),
               Flexible(
                 child: Text(
                   label,
@@ -1655,7 +1680,7 @@ class _StatCard extends StatelessWidget {
               if (busy != null) ...[const SizedBox(width: 6), busy!],
             ],
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 6),
           DefaultTextStyle(
             style:
                 theme.textTheme.titleMedium?.copyWith(
@@ -1673,7 +1698,7 @@ class _StatCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         onTap: onTap,
         child: child,
       ),
@@ -1745,16 +1770,16 @@ class _HomeRow extends StatelessWidget {
     final p = palette;
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 14, 10),
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
       decoration: BoxDecoration(
         color: p.card,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: p.cardBorder),
       ),
       child: Row(
         children: [
           Icon(icon, size: 16, color: p.muted),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Text(
             label,
             style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
@@ -1858,10 +1883,10 @@ class _PowerOrb extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: on
+                    color:
+                        on
                         ? accent.withValues(alpha: 0.5)
-                        : (p.dark ? Colors.black : const Color(0xFF2A3375))
-                              .withValues(alpha: p.dark ? 0.45 : 0.14),
+                        : Colors.black.withValues(alpha: p.dark ? 0.45 : 0.14),
                     blurRadius: on ? 36 : 26,
                     offset: const Offset(0, 10),
                   ),

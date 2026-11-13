@@ -531,6 +531,30 @@ TextStyle? languageStyle(String code) => switch (languageFont(code)) {
   null => null,
 };
 
+/// The rounded box every settings row's icon sits in: one quiet surface,
+/// one radius, everywhere — the tiles read as a single system, as Pixel's
+/// settings do.
+class IconBox extends StatelessWidget {
+  const IconBox({super.key, required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, size: 20, color: scheme.onSurface),
+    );
+  }
+}
+
 /// The margin around a page: narrower on a phone.
 EdgeInsets pagePadding(BuildContext context) =>
     MediaQuery.sizeOf(context).width < 600
@@ -558,7 +582,12 @@ class PageTitle extends StatelessWidget {
   Widget build(BuildContext context) => OwnTopBar.of(context)
       ? const SizedBox.shrink()
       : Reveal(
-          child: Text(text, style: Theme.of(context).textTheme.headlineSmall),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         );
 }
 

@@ -46,6 +46,10 @@ flutter:
     # SVG files as the core's web dashboard.
     - assets/flags/
     - assets/fonts/Inter/OFL.txt
+    # The home's world map: a quiet dot-matrix in the theme's ink
+    # (scripts/make_world_map.py), light ink for the dark theme.
+    - assets/map_dots_light.png
+    - assets/map_dots_dark.png
 
   fonts:
     - family: Inter

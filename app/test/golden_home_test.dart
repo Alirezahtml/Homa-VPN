@@ -96,6 +96,12 @@ void main() {
       );
       await precacheImage(const AssetImage('assets/logo.png'), context);
       await precacheImage(const AssetImage('assets/logo_dark.png'), context);
+      // The world behind the switch decodes like any image.
+      await precacheImage(
+        const AssetImage('assets/map_dots_light.png'),
+        context,
+      );
+      await precacheImage(const AssetImage('assets/map_dots_dark.png'), context);
     });
     await settle(tester);
 

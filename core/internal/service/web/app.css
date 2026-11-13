@@ -1,68 +1,75 @@
 /* Homa VPN dashboard. Dark by default; light follows the system or the
-   theme switch (data-theme on <html>). */
+   theme switch (data-theme on <html>). The palette is the app's own
+   monochrome: pure black and white with neutral grays between — no hue
+   anywhere, in either mode. */
 :root {
-  --bg: #0b0d12;
-  --bg-grad: radial-gradient(1200px 600px at 85% -10%, rgba(143, 107, 255, .10), transparent 60%),
-             radial-gradient(900px 500px at -10% 110%, rgba(255, 113, 57, .07), transparent 60%);
-  --surface: #12151d;
-  --surface-2: #171b25;
-  --surface-3: #1e2330;
-  --border: #242a38;
-  --border-strong: #2f3647;
-  --text: #e7e9f0;
-  --muted: #8a92a6;
-  --faint: #5d667b;
-  --accent: #8f6bff;
-  --accent-2: #ff7139;
-  --accent-soft: rgba(143, 107, 255, .14);
-  --on-accent: #ffffff;
-  --ok: #34d399;
-  --ok-soft: rgba(52, 211, 153, .13);
-  --sleep: #a5b4fc;
-  --sleep-soft: rgba(165, 180, 252, .13);
-  --warn: #fbbf24;
-  --warn-soft: rgba(251, 191, 36, .13);
-  --alert: #fb923c;
-  --alert-soft: rgba(251, 146, 60, .14);
-  --bad: #f87171;
-  --bad-soft: rgba(248, 113, 113, .13);
-  --info: #60a5fa;
-  --bar: #222837;
-  --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 8px 24px rgba(0, 0, 0, .25);
-  --radius: 14px;
-  --radius-sm: 9px;
+  --bg: #000000;
+  --bg-grad: radial-gradient(1200px 600px at 85% -10%, rgba(255, 255, 255, .045), transparent 60%),
+             radial-gradient(900px 500px at -10% 110%, rgba(255, 255, 255, .028), transparent 60%);
+  --surface: #0d0d0d;
+  --surface-2: #141414;
+  --surface-3: #1a1a1a;
+  --border: #232323;
+  --border-strong: #2e2e2e;
+  --text: #f5f5f5;
+  --muted: #9e9e9e;
+  --faint: #6b6b6b;
+  --accent: #ffffff;
+  --accent-2: #ffffff;
+  --accent-soft: rgba(255, 255, 255, .10);
+  --on-accent: #000000;
+  /* The states, as the app shows them: full contrast for the live and
+     the failed ones, mid grays for the ones that wait — the words and
+     icons carry what the color used to. */
+  --ok: #ffffff;
+  --ok-soft: rgba(255, 255, 255, .12);
+  --sleep: #8a8a8a;
+  --sleep-soft: rgba(138, 138, 138, .13);
+  --warn: #bfbfbf;
+  --warn-soft: rgba(191, 191, 191, .13);
+  --alert: #d9d9d9;
+  --alert-soft: rgba(217, 217, 217, .13);
+  --bad: #ffffff;
+  --bad-soft: rgba(255, 255, 255, .14);
+  --info: #9e9e9e;
+  --bar: #1e1e1e;
+  --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 8px 24px rgba(0, 0, 0, .35);
+  --radius: 16px;
+  --radius-sm: 10px;
   --sans: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
   --mono: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, Menlo, monospace;
-  --gradient: linear-gradient(135deg, #ff9a3c 0%, #ff3d77 52%, #8f6bff 100%);
+  --gradient: linear-gradient(135deg, #ffffff 0%, #8a8a8a 100%);
   color-scheme: dark;
 }
 :root[data-theme="light"] {
-  --bg: #f4f5f9;
-  --bg-grad: radial-gradient(1200px 600px at 85% -10%, rgba(143, 107, 255, .10), transparent 60%),
-             radial-gradient(900px 500px at -10% 110%, rgba(255, 113, 57, .06), transparent 60%);
+  --bg: #ffffff;
+  --bg-grad: radial-gradient(1200px 600px at 85% -10%, rgba(0, 0, 0, .035), transparent 60%),
+             radial-gradient(900px 500px at -10% 110%, rgba(0, 0, 0, .022), transparent 60%);
   --surface: #ffffff;
-  --surface-2: #f7f8fb;
-  --surface-3: #eef0f5;
-  --border: #e3e6ee;
-  --border-strong: #d3d8e3;
-  --text: #141824;
-  --muted: #5e667a;
-  --faint: #9aa2b4;
-  --accent: #6d45f0;
-  --accent-soft: rgba(109, 69, 240, .10);
-  --ok: #0f9d6b;
-  --ok-soft: rgba(15, 157, 107, .10);
-  --sleep: #6366f1;
-  --sleep-soft: rgba(99, 102, 241, .10);
-  --warn: #b7791f;
-  --warn-soft: rgba(183, 121, 31, .12);
-  --alert: #c2410c;
-  --alert-soft: rgba(234, 88, 12, .10);
-  --bad: #dc3d3d;
-  --bad-soft: rgba(220, 61, 61, .10);
-  --info: #2563eb;
-  --bar: #e8eaf1;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 6px 20px rgba(16, 24, 40, .06);
+  --surface-2: #f6f6f6;
+  --surface-3: #efefef;
+  --border: #e4e4e4;
+  --border-strong: #d6d6d6;
+  --text: #0a0a0a;
+  --muted: #6b6b6b;
+  --faint: #9e9e9e;
+  --accent: #0a0a0a;
+  --accent-2: #0a0a0a;
+  --accent-soft: rgba(10, 10, 10, .08);
+  --on-accent: #ffffff;
+  --ok: #0a0a0a;
+  --ok-soft: rgba(10, 10, 10, .08);
+  --sleep: #8a8a8a;
+  --sleep-soft: rgba(138, 138, 138, .10);
+  --warn: #5f5f5f;
+  --warn-soft: rgba(95, 95, 95, .10);
+  --alert: #2a2a2a;
+  --alert-soft: rgba(42, 42, 42, .10);
+  --bad: #0a0a0a;
+  --bad-soft: rgba(10, 10, 10, .09);
+  --info: #6b6b6b;
+  --bar: #e9e9e9;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .05), 0 6px 20px rgba(0, 0, 0, .06);
   color-scheme: light;
 }
 
@@ -183,7 +190,7 @@ input.secret:not(.revealed) { -webkit-text-security: disc; }
 .brand-mark {
   width: 40px; height: 40px; flex: none;
   background: url("icon.png") center / contain no-repeat;
-  filter: drop-shadow(0 4px 10px rgba(20, 30, 70, .28));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
 }
 .brand-mark.big { width: 72px; height: 72px; margin: 0 auto 1rem; }
 .brand-name { font-weight: 700; letter-spacing: -.01em; }
@@ -414,7 +421,7 @@ main { padding: .5rem 2rem 2.5rem; max-width: 1280px; width: 100%; }
 .avatar {
   width: 40px; height: 40px; border-radius: 12px; flex: none;
   display: grid; place-items: center;
-  font-weight: 700; color: #fff; background: var(--gradient);
+  font-weight: 700; color: var(--on-accent); background: var(--accent);
 }
 .account-name { font-weight: 650; overflow-wrap: anywhere; }
 .account-meta { display: flex; gap: .45rem; flex-wrap: wrap; align-items: center; margin-top: .25rem; font-size: .82rem; color: var(--muted); }
@@ -519,14 +526,14 @@ main { padding: .5rem 2rem 2.5rem; max-width: 1280px; width: 100%; }
   font: 700 .78rem var(--mono); letter-spacing: .04em;
   background: var(--surface-3); border: 1px solid var(--border);
 }
-.code.rec { background: var(--gradient); color: #fff; border: 0; }
+.code.rec { background: var(--accent); color: var(--on-accent); border: 0; }
 .flag {
   width: 40px; height: 30px; flex: none; display: block;
   border-radius: 6px; object-fit: cover;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 2px 6px rgba(0, 0, 0, .25);
 }
 :root[data-theme="light"] .flag { box-shadow: 0 0 0 1px rgba(16, 24, 40, .12), 0 1px 3px rgba(16, 24, 40, .12); }
-.flag.rec { display: grid; place-items: center; background: var(--gradient); color: #fff; }
+.flag.rec { display: grid; place-items: center; background: var(--accent); color: var(--on-accent); }
 .flag.rec svg { display: block; width: 60%; height: 60%; fill: currentColor; }
 .hero-title { display: flex; align-items: center; gap: .7rem; }
 .hero-title .flag { width: 44px; height: 33px; }
@@ -547,7 +554,7 @@ td.actions-cell { text-align: right; white-space: nowrap; }
 
 /* ---------------------------------------------------------------- logs */
 .terminal {
-  background: #07090d; color: #c9d1e3;
+  background: #070707; color: #cfcfcf;
   border: 1px solid var(--border); border-radius: var(--radius);
   height: calc(100vh - 230px); min-height: 320px; overflow: auto;
   font-family: var(--mono); font-size: 12.5px;
@@ -556,13 +563,14 @@ td.actions-cell { text-align: right; white-space: nowrap; }
 }
 .log-row { display: grid; grid-template-columns: 9.6rem 3.6rem 1fr; gap: .8rem; padding: .16rem 1rem; }
 .terminal .log-row:hover { background: rgba(255, 255, 255, .03); }
-.log-time { color: #5d667b; }
+.log-time { color: #6b6b6b; }
 .mini-log .log-time { color: var(--faint); }
 .log-level { font-weight: 700; }
-.log-level.INFO { color: #60a5fa; }
-.log-level.WARN { color: #fbbf24; }
-.log-level.ERROR { color: #f87171; }
-.log-level.DEBUG { color: #6b7280; }
+/* Monochrome logs, as the app's own logs page: the words carry the level. */
+.log-level.INFO { color: #9e9e9e; }
+.log-level.WARN { color: #d9d9d9; }
+.log-level.ERROR { color: #ffffff; }
+.log-level.DEBUG { color: #6b6b6b; }
 .log-msg { white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* ------------------------------------------------------------ settings */
@@ -841,87 +849,13 @@ dialog::backdrop { background: rgba(5, 7, 12, .6); backdrop-filter: blur(3px); }
 
 
 /* =========================================================================
-   Homa Maximalism: the moving layer. Appended last, so it retunes the
-   theme variables and adds the motion without touching the selectors the
-   markup and app.js rely on. Everything honors prefers-reduced-motion.
+   Monochrome harmony. The palette above is the whole theme; this layer
+   only adds the quiet motion: cards arrive one beat apart, hover lifts,
+   everything honors prefers-reduced-motion. No hue, no drifting lights,
+   no heavy blur.
    ========================================================================= */
-:root {
-  --bg: #07091c;
-  --bg-grad: radial-gradient(1100px 620px at 82% -12%, rgba(124, 92, 255, .22), transparent 62%),
-             radial-gradient(880px 560px at -8% 108%, rgba(0, 229, 255, .13), transparent 60%),
-             radial-gradient(700px 420px at 50% 118%, rgba(255, 92, 122, .10), transparent 62%);
-  --surface: rgba(21, 24, 46, .86);
-  --surface-2: rgba(27, 31, 58, .92);
-  --surface-3: rgba(35, 40, 74, .95);
-  --border: rgba(255, 255, 255, .09);
-  --border-strong: rgba(255, 255, 255, .16);
-  --accent: #8b5cff;
-  --accent-2: #00e5ff;
-  --accent-soft: rgba(139, 92, 255, .18);
-  --gradient: linear-gradient(120deg, #00e5ff 0%, #8b5cff 48%, #ff5c7a 100%);
-  --shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 18px 44px rgba(3, 4, 18, .55);
-  --radius: 18px;
-  --radius-sm: 12px;
-}
-:root[data-theme="light"] {
-  --bg: #eef0fb;
-  --bg-grad: radial-gradient(1100px 620px at 82% -12%, rgba(124, 92, 255, .16), transparent 62%),
-             radial-gradient(880px 560px at -8% 108%, rgba(0, 195, 255, .12), transparent 60%),
-             radial-gradient(700px 420px at 50% 118%, rgba(255, 92, 122, .08), transparent 62%);
-  --surface: rgba(255, 255, 255, .9);
-  --surface-2: rgba(247, 248, 255, .92);
-  --surface-3: rgba(238, 240, 252, .95);
-  --border: rgba(28, 27, 74, .10);
-  --border-strong: rgba(28, 27, 74, .18);
-  --accent: #6d45f0;
-  --accent-2: #00a5cf;
-  --shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 16px 36px rgba(44, 38, 110, .16);
-}
-
-/* The aurora behind everything: two drifting lights, pure CSS. */
 body { position: relative; }
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(70px);
-  pointer-events: none;
-  animation: homa-drift 34s ease-in-out infinite alternate;
-}
-body::before {
-  width: 56vmax; height: 56vmax;
-  top: -22vmax; right: -16vmax;
-  background: radial-gradient(circle, rgba(139, 92, 255, .34), transparent 66%);
-}
-body::after {
-  width: 48vmax; height: 48vmax;
-  bottom: -20vmax; left: -14vmax;
-  background: radial-gradient(circle, rgba(0, 229, 255, .22), transparent 66%);
-  animation-duration: 44s;
-  animation-delay: -12s;
-}
-@keyframes homa-drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  50%  { transform: translate3d(-4vmax, 3vmax, 0) scale(1.12); }
-  to   { transform: translate3d(3vmax, -3vmax, 0) scale(.94); }
-}
 
-/* The brand wordmark: the gradient moves. */
-h1, .brand-name {
-  background: var(--gradient);
-  background-size: 220% 220%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: homa-gradient 9s ease-in-out infinite alternate;
-}
-@keyframes homa-gradient {
-  from { background-position: 0% 40%; }
-  to   { background-position: 100% 60%; }
-}
 
 /* Cards breathe on hover; the page's sections arrive one beat apart. */
 .card, .panel {
@@ -933,7 +867,7 @@ h1, .brand-name {
   transform: translateY(-3px);
   border-color: var(--border-strong);
   box-shadow: var(--shadow), 0 0 0 1px var(--accent-soft),
-              0 14px 40px rgba(139, 92, 255, .16);
+              0 14px 40px rgba(0, 0, 0, .30);
 }
 .card:nth-child(1), .panel:nth-child(1) { animation-delay: .03s; }
 .card:nth-child(2), .panel:nth-child(2) { animation-delay: .09s; }
@@ -965,7 +899,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   border-radius: var(--radius-sm);
 }
 button.primary, .btn.primary, button[type="submit"] {
-  box-shadow: 0 6px 22px rgba(139, 92, 255, .35);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
 }
 
 /* The navigation rail: entries slide a touch. */

@@ -83,7 +83,8 @@ class _AboutPageState extends State<AboutPage> {
     final muted = theme.textTheme.bodySmall?.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
     );
-    final github = githubRepo.isEmpty ? '' : 'https://github.com/$githubRepo';
+    // The repository stays out of the app on purpose: no source link, no
+    // GitHub row — only the app's own pages and the update check.
     return ListView(
       padding: pagePadding(context),
       children: [
@@ -140,32 +141,6 @@ class _AboutPageState extends State<AboutPage> {
                   _UpdateAction(core: widget.core, release: release),
                 ],
               ],
-              const Divider(height: 24),
-              if (githubRepo.isNotEmpty)
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(l.sourceCode, style: theme.textTheme.titleSmall),
-                          const SizedBox(height: 2),
-                          Text(
-                            github.isEmpty ? l.repoNotSet : github,
-                            style: muted,
-                          ),
-                        ],
-                      ),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: github.isEmpty
-                          ? null
-                          : () => openLink(context, github),
-                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                      label: const Text('GitHub'),
-                    ),
-                  ],
-                ),
               if (Platform.isAndroid) ...[
                 const Divider(height: 24),
                 Row(

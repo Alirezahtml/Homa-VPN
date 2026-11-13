@@ -140,7 +140,9 @@ class SettingsGroup extends StatelessWidget {
           child: Text(
             title,
             style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.primary,
+              color: theme.colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
             ),
           ),
         ),
@@ -150,7 +152,9 @@ class SettingsGroup extends StatelessWidget {
           child: Column(
             children: [
               for (var i = 0; i < tiles.length; i++) ...[
-                if (i > 0) const Divider(height: 1, indent: 72),
+                // The line stops where the row's text starts (the icon
+                // box plus the row's own padding).
+                if (i > 0) const Divider(height: 1, indent: 68),
                 // Each tile arrives a beat after the one above it.
                 Reveal(index: i, child: tiles[i]),
               ],
@@ -354,7 +358,7 @@ class _SettingsPageState extends State<SettingsPage> {
           final onOpenLogs = widget.onOpenLogs;
           Widget row(IconData icon, String name, VoidCallback onTap) =>
               ListTile(
-                leading: Icon(icon),
+                leading: IconBox(icon: icon),
                 title: Text(name),
                 // Mirrors itself in right-to-left languages.
                 trailing: const Icon(Icons.chevron_right_rounded),
@@ -1615,7 +1619,7 @@ class _Row extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
         child: Row(
           children: [
-            Icon(icon, color: muted),
+            IconBox(icon: icon),
             const SizedBox(width: 16),
             Expanded(
               child: Column(

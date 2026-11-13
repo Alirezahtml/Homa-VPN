@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   The home-screen widget's button, connected: a white shield (the app's sign)
-  on a round disc shaded in the state's color, with a soft halo; inside the
+  on a round disc shaded in the state's ink — monochrome, as the app: the
+  connected disc is the brand's black tile, with a soft halo; inside the
   shield, a check mark. Gradients need API 24, the app's minSdk.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +13,7 @@
     android:viewportHeight="96">
     <!-- The halo. -->
     <path
-        android:fillColor="#330DB37C"
+        android:fillColor="#33FFFFFF"
         android:pathData="M48,1a47,47 0,1 1,0 94a47,47 0,1 1,0 -94z" />
     <!-- The disc, lighter at the top left. -->
     <path android:pathData="M48,4a44,44 0,1 1,0 88a44,44 0,1 1,0 -88z">
@@ -23,8 +24,8 @@
                 android:startY="8"
                 android:endX="79"
                 android:endY="88"
-                android:startColor="#FF34D399"
-                android:endColor="#FF047857" />
+                android:startColor="#FF2E2E2E"
+                android:endColor="#FF0A0A0A" />
         </aapt:attr>
     </path>
     <!-- A soft shine on the upper half. -->
@@ -51,7 +52,7 @@
             android:pathData="M12,2L4,5v6c0,5.25 3.4,10.15 8,11.5c4.6,-1.35 8,-6.25 8,-11.5V5L12,2z" />
     </group>
     <path
-        android:strokeColor="#FF047857"
+        android:strokeColor="#FF0A0A0A"
         android:strokeWidth="6.5"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"

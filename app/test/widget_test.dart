@@ -2416,12 +2416,11 @@ void main() {
     await tester.tap(find.text('About'));
     await settle(tester);
     expect(find.text('9.9'), findsOneWidget);
-    // The build points at the Homa repository: the update check and the
-    // source row are both there. The title and the button share the
-    // update check's words.
+    // The update check is there; the repository is not — the app keeps no
+    // source row and no GitHub link on purpose.
     expect(find.text('Check for updates'), findsWidgets);
-    expect(find.text('Source code'), findsOneWidget);
-    expect(find.text('GitHub'), findsOneWidget);
+    expect(find.text('Source code'), findsNothing);
+    expect(find.text('GitHub'), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();
@@ -2624,8 +2623,9 @@ void main() {
     core.start();
     await settle(tester);
 
-    // On, with no system proxy: connected, not "proxy only".
-    expect(find.text('Connected'), findsOneWidget);
+    // On, with no system proxy: connected, not "proxy only". The state's
+    // word shows twice — above the switch and in its track.
+    expect(find.text('Connected'), findsWidgets);
     // Connected through the recommended location: the exit's country,
     // without the city, under "Recommended location".
     expect(find.text('Recommended location'), findsOneWidget);
@@ -2655,7 +2655,7 @@ void main() {
     await tester.tap(find.byTooltip('Tap to connect'));
     await settle(tester);
     expect(api.on, isTrue);
-    expect(find.text('Connected'), findsOneWidget);
+    expect(find.text('Connected'), findsWidgets);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();
@@ -2701,7 +2701,8 @@ void main() {
     api.online = true;
     await core.runTest();
     await settle(tester);
-    expect(find.text('Connected'), findsOneWidget);
+    // The state's word shows twice: above the switch and in its track.
+    expect(find.text('Connected'), findsWidgets);
 
     // Wi-Fi and mobile data off: Android says so, and the app at once,
     // without a test.

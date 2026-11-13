@@ -12,7 +12,7 @@
     android:viewportHeight="96">
     <!-- The halo. -->
     <path
-        android:fillColor="#33F08C00"
+        android:fillColor="#33D9D9D9"
         android:pathData="M48,1a47,47 0,1 1,0 94a47,47 0,1 1,0 -94z" />
     <!-- The disc, lighter at the top left. -->
     <path android:pathData="M48,4a44,44 0,1 1,0 88a44,44 0,1 1,0 -88z">
@@ -23,8 +23,8 @@
                 android:startY="8"
                 android:endX="79"
                 android:endY="88"
-                android:startColor="#FFFBBF24"
-                android:endColor="#FFC2410C" />
+                android:startColor="#FFE0E0E0"
+                android:endColor="#FF9E9E9E" />
         </aapt:attr>
     </path>
     <!-- A soft shine on the upper half. -->
@@ -51,6 +51,6 @@
             android:pathData="M12,2L4,5v6c0,5.25 3.4,10.15 8,11.5c4.6,-1.35 8,-6.25 8,-11.5V5L12,2z" />
     </group>
     <path
-        android:fillColor="#FFC2410C"
+        android:fillColor="#FF5F5F5F"
         android:pathData="M36.3,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0M48,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0M59.7,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0" />
 </vector>

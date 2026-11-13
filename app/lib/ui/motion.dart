@@ -254,6 +254,7 @@ class SlideToConnect extends StatefulWidget {
     required this.muted,
     required this.labelConnect,
     required this.labelDisconnect,
+    required this.labelOn,
     required this.tooltip,
     required this.onPressed,
     this.autofocus = false,
@@ -268,9 +269,13 @@ class SlideToConnect extends StatefulWidget {
   final Color text;
   final Color muted;
 
-  /// The track's hint while off and while on.
+  /// The track's hint while off and while on; [labelOn] is the state's own
+  /// word ("Connected"), which stays in the track while connected so the
+  /// state reads there and not only above. An empty [labelOn] (still
+  /// connecting, nothing confirmed yet) falls back to the connect hint.
   final String labelConnect;
   final String labelDisconnect;
+  final String labelOn;
   final String tooltip;
   final VoidCallback onPressed;
   final bool autofocus;
@@ -497,32 +502,42 @@ class _SlideToConnectState extends State<SlideToConnect>
                                 // the track's first [knob] pixels, so the
                                 // label starts past it; [end] keeps the
                                 // knob's far-side place free as well, and
-                                // the label centers in what is left.
+                                // the label centers in what is left. While
+                                // connected the label stays: the state's
+                                // own word ("Connected") in the track, not
+                                // an empty bar. A long translation shrinks
+                                // to fit rather than ellipsizing.
                                 PositionedDirectional(
                                   start: knob + 8,
                                   end: knob,
                                   top: 0,
                                   bottom: 0,
                                   child: Opacity(
-                                    opacity: (1 - p * 2.1).clamp(0, 1),
+                                    opacity:
+                                        w.on ? 1 : (1 - p * 2.1).clamp(0, 1),
                                     child: Transform.translate(
                                       offset: Offset(-14 * p, 0),
                                       child: Center(
-                                        child: Shimmer(
-                                          color: Colors.white.withValues(
-                                            alpha: w.dark ? 0.85 : 0.5,
-                                          ),
-                                          child: Text(
-                                            w.on
-                                                ? w.labelDisconnect
-                                                : w.labelConnect,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: w.muted,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 15.5,
-                                              letterSpacing: 0.2,
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Shimmer(
+                                            color: Colors.white.withValues(
+                                              alpha: w.dark ? 0.85 : 0.5,
+                                            ),
+                                            child: Text(
+                                              w.on
+                                                  ? (w.labelOn.isEmpty
+                                                        ? w.labelConnect
+                                                        : w.labelOn)
+                                                  : w.labelConnect,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                color: w.muted,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 15.5,
+                                                letterSpacing: 0.2,
+                                              ),
                                             ),
                                           ),
                                         ),
