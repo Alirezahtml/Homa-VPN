@@ -524,8 +524,8 @@ class _NoCore extends StatelessWidget {
             Positioned.fill(
               child: IgnorePointer(
                 child: Aurora(
-                  accent: problem == null ||
-                          problem.problem == CoreProblem.starting
+                  accent:
+                      problem == null || problem.problem == CoreProblem.starting
                       ? Midnight.busy
                       : Midnight.error,
                   second: Midnight.idle,
@@ -535,69 +535,75 @@ class _NoCore extends StatelessWidget {
               ),
             ),
             Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 460),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (problem == null ||
-                        problem.problem == CoreProblem.starting) ...[
-                      const CircularProgressIndicator(),
-                      const SizedBox(height: 16),
-                      Text(
-                        l.startingCore,
-                        style: midnight.textTheme.titleMedium,
-                      ),
-                    ] else ...[
-                      const Icon(
-                        Icons.power_off_rounded,
-                        size: 48,
-                        color: Midnight.muted,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        l.cantReachCore,
-                        style: midnight.textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        describeProblem(l, problem),
-                        textAlign: TextAlign.center,
-                        style: midnight.textTheme.bodyMedium?.copyWith(
+              // The buttons clear the floating pill navigation beneath.
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 96),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 460),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (problem == null ||
+                          problem.problem == CoreProblem.starting) ...[
+                        const CircularProgressIndicator(),
+                        const SizedBox(height: 16),
+                        Text(
+                          l.startingCore,
+                          style: midnight.textTheme.titleMedium,
+                        ),
+                      ] else ...[
+                        const Icon(
+                          Icons.power_off_rounded,
+                          size: 48,
                           color: Midnight.muted,
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Wrap(
-                        spacing: 12,
-                        alignment: WrapAlignment.center,
-                        children: [
-                          if (portTaken && core.moveStoppedCore != null)
-                            FilledButton.icon(
-                              onPressed: () async {
-                                final port = await showPortDialog(
-                                  context,
-                                  taken: problem.detail,
-                                );
-                                if (port != null && context.mounted) {
-                                  await runShowingErrors(
-                                    context,
-                                    () => core.setAppPort(port),
-                                  );
-                                }
-                              },
-                              icon: const Icon(Icons.settings_ethernet_rounded),
-                              label: Text(l.changePort),
-                            ),
-                          FilledButton.tonalIcon(
-                            onPressed: core.retry,
-                            icon: const Icon(Icons.refresh_rounded),
-                            label: Text(l.retry),
+                        const SizedBox(height: 16),
+                        Text(
+                          l.cantReachCore,
+                          style: midnight.textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          describeProblem(l, problem),
+                          textAlign: TextAlign.center,
+                          style: midnight.textTheme.bodyMedium?.copyWith(
+                            color: Midnight.muted,
                           ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 20),
+                        Wrap(
+                          spacing: 12,
+                          alignment: WrapAlignment.center,
+                          children: [
+                            if (portTaken && core.moveStoppedCore != null)
+                              FilledButton.icon(
+                                onPressed: () async {
+                                  final port = await showPortDialog(
+                                    context,
+                                    taken: problem.detail,
+                                  );
+                                  if (port != null && context.mounted) {
+                                    await runShowingErrors(
+                                      context,
+                                      () => core.setAppPort(port),
+                                    );
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.settings_ethernet_rounded,
+                                ),
+                                label: Text(l.changePort),
+                              ),
+                            FilledButton.tonalIcon(
+                              onPressed: core.retry,
+                              icon: const Icon(Icons.refresh_rounded),
+                              label: Text(l.retry),
+                            ),
+                          ],
+                        ),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ),
             ),

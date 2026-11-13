@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../app_settings.dart';
 import '../core/android_core.dart';
@@ -10,6 +11,7 @@ import 'about_page.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
 import 'logs_page.dart';
+import 'motion.dart';
 import 'overview_page.dart';
 import 'servers_page.dart';
 import 'settings_page.dart';
@@ -138,6 +140,9 @@ class _MobileShellState extends State<MobileShell> {
         if (!didPop) setState(() => _tab = 0);
       },
       child: Scaffold(
+        // The pages run under the floating pill; the gradient and the lists
+        // keep going behind it instead of stopping at a bar's edge.
+        extendBody: true,
         body: SafeArea(
           // The home page's hero reaches under the status bar.
           top: _tab != 0 || widget.noCore != null || widget.banner != null,
@@ -178,42 +183,215 @@ class _MobileShellState extends State<MobileShell> {
             ),
           ),
         ),
-        bottomNavigationBar: _themed(
-          context,
-          // The home page and the boot wait carry their own night colors.
-          home:
-              _tab == 0 &&
-              (widget.noCore != null ||
-                  Theme.of(context).brightness == Brightness.dark),
-          child: NavigationBar(
-            selectedIndex: _tab,
-            onDestinationSelected: (i) => setState(() => _tab = i),
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home_rounded),
-                label: l.navHome,
+        bottomNavigationBar: _FloatingPillNav(
+          index: _tab,
+          onSelect: (i) => setState(() => _tab = i),
+        ),
+      ),
+    );
+  }
+}
+
+/// The floating pill navigation: the app's tabs in a rounded, floating
+/// glass pill instead of a bar glued to the screen's bottom edge. The
+/// selection is a light that slides between the two halves; the chosen
+/// icon fills and lifts. It floats over the page, which scrolls beneath
+/// it (the shell's `extendBody`).
+class _FloatingPillNav extends StatelessWidget {
+  const _FloatingPillNav({required this.index, required this.onSelect});
+
+  final int index;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final accent = dark ? Midnight.idle : Theme.of(context).colorScheme.primary;
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
+        // heightFactor: the slot takes the pill's own height, not the
+        // screen's; a wide window centers the pill under its page.
+        child: Align(
+          heightFactor: 1,
+          alignment: Alignment.bottomCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 380),
+            child: Container(
+              height: 64,
+              decoration: BoxDecoration(
+                color: dark
+                    // The night glass: the pill is of the page it floats
+                    // over, the midnight gradient showing through.
+                    ? const Color(0xB3121330)
+                    : Colors.white.withValues(alpha: 0.94),
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  color: dark
+                      ? Colors.white.withValues(alpha: 0.12)
+                      : Colors.black.withValues(alpha: 0.05),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: dark ? 0.4 : 0.16),
+                    blurRadius: 28,
+                    offset: const Offset(0, 10),
+                  ),
+                  // The state's light under the pill, as on the home page.
+                  BoxShadow(
+                    color: accent.withValues(alpha: dark ? 0.18 : 0.12),
+                    blurRadius: 34,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
-              NavigationDestination(
-                icon: const Icon(Icons.settings_outlined),
-                selectedIcon: const Icon(Icons.settings_rounded),
-                label: l.navSettings,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(31),
+                child: Stack(
+                  children: [
+                    // The selection's light slides between the halves.
+                    AnimatedAlign(
+                      duration: const Duration(milliseconds: 340),
+                      curve: Curves.easeOutCubic,
+                      // Alignment is not direction-aware: in the right-to-
+                      // left languages the first tab is at the right.
+                      alignment: Alignment(
+                        (index == 0 ? -1 : 1) *
+                            (Directionality.of(context) == TextDirection.rtl
+                                ? -1
+                                : 1),
+                        0,
+                      ),
+                      child: FractionallySizedBox(
+                        widthFactor: 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(26),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.lerp(accent, Colors.white, 0.18)!,
+                                  accent,
+                                ],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: accent.withValues(alpha: 0.45),
+                                  blurRadius: 16,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        _pillItem(
+                          context,
+                          i: 0,
+                          outline: Icons.home_outlined,
+                          filled: Icons.home_rounded,
+                          label: l.navHome,
+                        ),
+                        _pillItem(
+                          context,
+                          i: 1,
+                          outline: Icons.settings_outlined,
+                          filled: Icons.settings_rounded,
+                          label: l.navSettings,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  /// The home page's midnight theme around [child] while home shows.
-  Widget _themed(
+  /// One tab of the pill: its icon fills and lifts when chosen, its name
+  /// brightens; the press sinks it a little (Pressable).
+  Widget _pillItem(
     BuildContext context, {
-    required bool home,
-    required Widget child,
-  }) => home
-      ? Theme(data: midnightTheme(Theme.of(context)), child: child)
-      : child;
+    required int i,
+    required IconData outline,
+    required IconData filled,
+    required String label,
+  }) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final selected = index == i;
+    final idle = dark ? Midnight.muted : const Color(0xFF646C92);
+    return Expanded(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (!selected) {
+            HapticFeedback.selectionClick();
+            onSelect(i);
+          }
+        },
+        child: Pressable(
+          depth: 0.05,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedScale(
+                  scale: selected ? 1.12 : 1.0,
+                  duration: const Duration(milliseconds: 280),
+                  curve: Curves.easeOutBack,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 220),
+                    transitionBuilder: (child, anim) => FadeTransition(
+                      opacity: anim,
+                      child: ScaleTransition(
+                        scale: Tween(begin: 0.7, end: 1.0).animate(anim),
+                        child: child,
+                      ),
+                    ),
+                    child: Icon(
+                      selected ? filled : outline,
+                      key: ValueKey(selected),
+                      size: 22,
+                      color: selected ? Colors.white : idle,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 3),
+                AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 220),
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+                    color: selected ? Colors.white : idle,
+                    fontFamily: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.fontFamily,
+                  ),
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// The Settings tab: what the app manages, the groups of settings, and the
@@ -254,7 +432,7 @@ class _SettingsList extends StatelessWidget {
       ),
     );
     return ListView(
-      padding: pagePadding(context),
+      padding: pagePadding(context) + const EdgeInsets.only(bottom: 96),
       children: [
         PageTitle(l.settingsTitle),
         // Language and theme first, what someone looks for before anything

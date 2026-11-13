@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../app_settings.dart';
 import 'core_api.dart';
+import 'ports.dart';
 
 /// An app installed on the phone.
 @immutable
@@ -127,6 +130,13 @@ class AndroidCore {
 
   final String _dataDir;
 
+  /// Dashboard moves this app has made in this run, and when the last one
+  /// was: a move takes effect only after the core's own restart pause (5
+  /// seconds), so one move waits for it before it decides it did not help.
+  int _moves = 0;
+  DateTime? _movedAt;
+  static const _maxMoves = 3;
+
   /// Opens a client of the core, starting the core (off) when it does not
   /// run; it throws [CoreUnavailable] until the core answers.
   Future<CoreApi> connect() async {
@@ -137,10 +147,22 @@ class AndroidCore {
       // never end.
       final lastError = await _channel.invokeMethod<String>('lastError') ?? '';
       if (lastError.isNotEmpty) {
+        // Another program holds the dashboard's address (every client of
+        // this family listens on the same default port, and an older one
+        // left running keeps it): move this app's dashboard to a free
+        // loopback port and let the polls start the core again. Retry
+        // alone could never help while the address stays taken.
+        if (lastError.contains('already in use') && _moves < _maxMoves) {
+          await _freeTheDashboard();
+          throw const CoreUnavailable(CoreProblem.starting);
+        }
         throw CoreUnavailable(CoreProblem.exited, lastError);
       }
       throw const CoreUnavailable(CoreProblem.starting);
     }
+    // A move did its job: the next conflict may move again.
+    _moves = 0;
+    _movedAt = null;
     try {
       final api = CoreApi(await CoreLocator.locate(_dataDir));
       try {
@@ -154,6 +176,23 @@ class AndroidCore {
       // Started, and its API is still coming up.
       throw const CoreUnavailable(CoreProblem.starting);
     }
+  }
+
+  /// Moves the dashboard to a free loopback port in the core's config.json
+  /// (the core is not there to ask). It moves at most once per run of the
+  /// core's restart pause, so the polls' quick retries do not walk the
+  /// whole port range before the core even tried the last address.
+  Future<void> _freeTheDashboard() async {
+    final now = DateTime.now();
+    if (_movedAt != null &&
+        now.difference(_movedAt!) < const Duration(seconds: 6)) {
+      return;
+    }
+    final listen = await CoreLocator.dashboardListen(_dataDir);
+    final port = await findFreePort(portOf(listen) ?? 10820);
+    await CoreLocator.setDashboardListen(_dataDir, withPort(listen, port));
+    _movedAt = now;
+    _moves++;
   }
 
   /// Turns the VPN on (asking the user for the VPN permission the first

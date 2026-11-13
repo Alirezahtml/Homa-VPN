@@ -142,10 +142,10 @@ String locationName(AppLocalizations l, String code, String name) =>
     ? l.recommendedLocation
     : countryName(l, code, name);
 
-/// The phone home's colors: a deep navy night and the state's light.
+/// The phone home's colors: a deep violet night and the state's light.
 abstract final class Midnight {
-  static const top = Color(0xFF141B3D);
-  static const bottom = Color(0xFF070A18);
+  static const top = Color(0xFF221B52);
+  static const bottom = Color(0xFF070616);
   static const connected = Color(0xFF10D9A0);
   static const busy = Color(0xFFFFB547);
   static const error = Color(0xFFFF5C7A);

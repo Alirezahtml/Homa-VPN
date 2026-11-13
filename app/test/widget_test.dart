@@ -2448,10 +2448,9 @@ void main() {
       AndroidCore.homeRequests.value++;
       await settle(tester);
       expect(find.byType(AppBar), findsNothing);
-      expect(
-        tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-        0,
-      );
+      // The floating pill's selected tab is Home: its icon is the filled one.
+      expect(find.byIcon(Icons.home_rounded), findsOneWidget);
+      expect(find.byIcon(Icons.settings_rounded), findsNothing);
       expect(find.text('Data used'), findsOneWidget);
       expect(api.on, wasOn);
       await tester.pumpWidget(const SizedBox());

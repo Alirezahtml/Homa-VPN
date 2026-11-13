@@ -35,6 +35,8 @@
 /// 49. PageTitle entrance          50. SettingsGroup tile stagger
 /// 51. Servers page card stagger   52. Welcome page stagger
 /// 53. Tab switch cross-fade       54. Mode pill slide (existed, tuned)
+/// 55. Pill nav light slide        56. Pill icon fill and lift
+/// 57. Pill press sink             58. Pill label brighten
 library;
 
 import 'dart:async';
@@ -186,26 +188,26 @@ class _AuroraPainter extends CustomPainter {
       0.16 + 0.06 * math.cos(a * 1.3),
       0.46,
       accent,
-      dark ? 0.20 : 0.16,
+      dark ? 0.24 : 0.16,
     );
     blob(
       0.86 + 0.05 * math.cos(a * 0.8),
       0.42 + 0.09 * math.sin(a * 1.1),
       0.40,
       second,
-      dark ? 0.11 : 0.13,
+      dark ? 0.14 : 0.13,
     );
     blob(
       0.42 + 0.10 * math.sin(a * 0.6 + 1.2),
       0.96 + 0.04 * math.cos(a * 0.9),
       0.44,
       third,
-      dark ? 0.09 : 0.10,
+      dark ? 0.12 : 0.10,
     );
     if (!stars) return;
     // Tiny stars: a fixed field per seed, drifting up and twinkling.
     final paint = Paint()..style = PaintingStyle.fill;
-    for (var i = 0; i < 26; i++) {
+    for (var i = 0; i < 42; i++) {
       final r1 = math.Random(i * 7 + 1).nextDouble();
       final r2 = math.Random(i * 13 + 5).nextDouble();
       final r3 = math.Random(i * 29 + 11).nextDouble();

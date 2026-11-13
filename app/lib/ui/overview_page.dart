@@ -357,7 +357,9 @@ class _DesktopHome extends StatelessWidget {
           ),
           Positioned.fill(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+              // The bottom clears the floating pill navigation, which the
+              // page runs beneath.
+              padding: const EdgeInsets.fromLTRB(24, 12, 24, 108),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 640),
@@ -1023,9 +1025,9 @@ class _HomePalette {
     connected: Midnight.connected,
     busy: Midnight.busy,
     error: Midnight.error,
-    second: Color(0xFF2EA8FF),
-    third: Color(0xFFB45CFF),
-    discOff: [Color(0xFF262E5A), Color(0xFF161C3C)],
+    second: Color(0xFF8A5CFF),
+    third: Color(0xFFFF5CC0),
+    discOff: [Color(0xFF2E2766), Color(0xFF181440)],
     discOffEdge: Color(0x1FFFFFFF),
   );
 
@@ -1041,7 +1043,7 @@ class _HomePalette {
     connected: Color(0xFF0DB37C),
     busy: Color(0xFFF08C00),
     error: Color(0xFFE5484D),
-    second: Color(0xFF38B6FF),
+    second: Color(0xFF8A5CFF),
     third: Color(0xFFFF7EB6),
     discOff: [Colors.white, Color(0xFFF0F2FF)],
     discOffEdge: Color(0x336A5CF0),
