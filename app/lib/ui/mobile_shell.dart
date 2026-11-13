@@ -427,8 +427,10 @@ class _SettingsList extends StatelessWidget {
     final l = AppLocalizations.of(context);
     Widget group(String title, List<Widget> tiles) =>
         SettingsGroup(title: title, tiles: tiles);
+    // Every row's icon sits in the same rounded box, so the page reads as
+    // one system rather than a pile of buttons.
     Widget tile(IconData icon, String title, VoidCallback onTap) => ListTile(
-      leading: Icon(icon),
+      leading: _IconBox(icon: icon),
       title: Text(title),
       // Mirrors itself in right-to-left languages.
       trailing: const Icon(Icons.chevron_right_rounded),
@@ -505,6 +507,29 @@ class _SettingsList extends StatelessWidget {
           ),
         ]),
       ],
+    );
+  }
+}
+
+/// The rounded box every settings row's icon sits in: one quiet surface,
+/// one radius, everywhere — the tiles read as a single system.
+class _IconBox extends StatelessWidget {
+  const _IconBox({required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, size: 20, color: scheme.onSurface),
     );
   }
 }

@@ -661,6 +661,15 @@ class AppLocalizationsHu extends AppLocalizations {
   String get realDelay => 'Valós késleltetés';
 
   @override
+  String get statElapsed => 'Eltelt idő';
+
+  @override
+  String get statDown => 'Letöltés';
+
+  @override
+  String get statUp => 'Feltöltés';
+
+  @override
   String noticePort(String port) {
     return 'A Mozilla proxyja nem csatlakozik a(z) $port porthoz. Csak a 80-as, 443-as, 8080-as és 8443-as port megy át a VPN-en.';
   }

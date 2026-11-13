@@ -108,9 +108,15 @@ def symbol(size, filled=None):
 
 def load_glyphs():
     """The brand art off its backgrounds: the white art on transparent,
-    and the black art on transparent, cropped to their pixels."""
+    and the black art on transparent, cropped to their pixels. A 5%
+    inset first: the sources' own frames and margins never reach the
+    glyph (brand_light.png ships with a thin black frame, which the
+    threshold would otherwise keep as part of the art)."""
     def extract(path, white_art):
         img = Image.open(path).convert('L')
+        w, h = img.size
+        dx, dy = round(w * 0.05), round(h * 0.05)
+        img = img.crop((dx, dy, w - dx, h - dy))
         if white_art:
             alpha = img.point(
                 lambda v: 0 if v < 80 else (255 if v > 200 else int((v - 80) / 120 * 255))

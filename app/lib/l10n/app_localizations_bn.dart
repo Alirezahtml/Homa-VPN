@@ -656,6 +656,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get realDelay => 'আসল ডিলে';
 
   @override
+  String get statElapsed => 'সময়';
+
+  @override
+  String get statDown => 'ডাউনলোড';
+
+  @override
+  String get statUp => 'আপলোড';
+
+  @override
   String noticePort(String port) {
     return 'Mozilla-র প্রক্সি পোর্ট $port-এ সংযোগ করে না। শুধু 80, 443, 8080 ও 8443 পোর্ট VPN দিয়ে যায়।';
   }

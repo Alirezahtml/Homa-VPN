@@ -658,6 +658,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get realDelay => 'Реальная задержка';
 
   @override
+  String get statElapsed => 'Время';
+
+  @override
+  String get statDown => 'Приём';
+
+  @override
+  String get statUp => 'Отдача';
+
+  @override
   String noticePort(String port) {
     return 'Прокси Mozilla не подключается к порту $port. Через VPN идут только порты 80, 443, 8080 и 8443.';
   }

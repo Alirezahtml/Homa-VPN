@@ -2416,9 +2416,12 @@ void main() {
     await tester.tap(find.text('About'));
     await settle(tester);
     expect(find.text('9.9'), findsOneWidget);
-    // The independent build: no update check, no source row.
-    expect(find.text('Check for updates'), findsNothing);
-    expect(find.text('Source code'), findsNothing);
+    // The build points at the Homa repository: the update check and the
+    // source row are both there. The title and the button share the
+    // update check's words.
+    expect(find.text('Check for updates'), findsWidgets);
+    expect(find.text('Source code'), findsOneWidget);
+    expect(find.text('GitHub'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();
@@ -3015,7 +3018,7 @@ void main() {
       core.dispose();
     }
 
-    testWidgets('without a repository, the update checks stay off', (
+    testWidgets('with a repository, a found release is offered', (
       tester,
     ) async {
       final (api, core, settings) = await pumpUpdates(
@@ -3024,12 +3027,11 @@ void main() {
       );
       Updates.found(const Release('9.9.9', page));
       await settle(tester);
-      // A release pinned by hand may be shown, but the machinery never
-      // wakes: nothing downloads, nothing installs, nothing is saved as
-      // an offered version.
-      expect(api.downloads, isEmpty);
+      // The build points at the Homa repository: the machinery wakes, the
+      // release downloads, and the offered version is remembered.
+      expect(api.downloads, isNotEmpty);
       expect(Updates.failure.value, isNull);
-      expect(settings.updateVersion, isEmpty);
+      expect(settings.updateVersion, '9.9.9');
       await done(tester, core);
     });
 

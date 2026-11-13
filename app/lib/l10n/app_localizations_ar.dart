@@ -658,6 +658,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get realDelay => 'التأخير الفعلي';
 
   @override
+  String get statElapsed => 'المدة';
+
+  @override
+  String get statDown => 'تنزيل';
+
+  @override
+  String get statUp => 'إرسال';
+
+  @override
   String noticePort(String port) {
     return 'بروكسي Mozilla لا يتصل بالمنفذ $port. لا تمر عبر VPN إلا المنافذ 80 و443 و8080 و8443.';
   }

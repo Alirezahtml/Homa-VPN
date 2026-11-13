@@ -150,7 +150,7 @@ class SettingsGroup extends StatelessWidget {
           child: Column(
             children: [
               for (var i = 0; i < tiles.length; i++) ...[
-                if (i > 0) const Divider(height: 1, indent: 56),
+                if (i > 0) const Divider(height: 1, indent: 72),
                 // Each tile arrives a beat after the one above it.
                 Reveal(index: i, child: tiles[i]),
               ],

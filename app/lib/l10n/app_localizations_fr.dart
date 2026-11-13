@@ -661,6 +661,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get realDelay => 'Latence réelle';
 
   @override
+  String get statElapsed => 'Durée';
+
+  @override
+  String get statDown => 'Réception';
+
+  @override
+  String get statUp => 'Envoi';
+
+  @override
   String noticePort(String port) {
     return 'Le proxy de Mozilla ne se connecte pas au port $port. Seuls les ports 80, 443, 8080 et 8443 passent par le VPN.';
   }

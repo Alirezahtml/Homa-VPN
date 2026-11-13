@@ -434,6 +434,9 @@
   "navServers": "Servers",
   "navLogs": "Logs",
   "realDelay": "Real delay",
+  "statElapsed": "Elapsed",
+  "statDown": "Down",
+  "statUp": "Up",
   "noticePort": "Mozilla's proxy does not connect to port {port}. Only ports 80, 443, 8080 and 8443 go through the VPN.",
   "@noticePort": {
     "placeholders": {

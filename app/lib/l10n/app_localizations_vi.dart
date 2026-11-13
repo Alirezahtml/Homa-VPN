@@ -657,6 +657,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get realDelay => 'Độ trễ thực';
 
   @override
+  String get statElapsed => 'Thời gian';
+
+  @override
+  String get statDown => 'Tải xuống';
+
+  @override
+  String get statUp => 'Tải lên';
+
+  @override
   String noticePort(String port) {
     return 'Proxy của Mozilla không kết nối tới cổng $port. Chỉ các cổng 80, 443, 8080 và 8443 đi qua VPN.';
   }

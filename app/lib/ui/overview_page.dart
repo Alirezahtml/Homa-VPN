@@ -214,7 +214,7 @@ class _ProblemBox extends StatelessWidget {
             padding: const EdgeInsetsDirectional.fromSTEB(12, 9, 14, 9),
             decoration: BoxDecoration(
               color: color.withValues(alpha: dark ? 0.18 : 0.11),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: color.withValues(alpha: 0.4)),
             ),
             child: Row(
@@ -315,60 +315,16 @@ class _DesktopHome extends StatelessWidget {
           colors: [p.top, p.bottom],
         ),
       ),
-      child: Stack(
-        children: [
-          // The drifting lights behind everything.
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Aurora(
-                accent: _accent(p),
-                second: p.second,
-                third: p.third,
-                dark: p.dark,
-              ),
-            ),
+      child: SingleChildScrollView(
+        // The bottom clears the floating pill navigation, which the page
+        // runs beneath.
+        padding: const EdgeInsets.fromLTRB(24, 12, 24, 108),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            child: _content(context, p),
           ),
-          Positioned(
-            top: -140,
-            left: -120,
-            child: _Glow(
-              color: _accent(p),
-              size: 420,
-              alpha: p.dark ? 0.20 : 0.18,
-            ),
-          ),
-          Positioned(
-            top: 120,
-            right: -160,
-            child: _Glow(
-              color: p.second,
-              size: 360,
-              alpha: p.dark ? 0.12 : 0.15,
-            ),
-          ),
-          Positioned(
-            bottom: -120,
-            left: 40,
-            child: _Glow(
-              color: p.third,
-              size: 320,
-              alpha: p.dark ? 0.10 : 0.10,
-            ),
-          ),
-          Positioned.fill(
-            child: SingleChildScrollView(
-              // The bottom clears the floating pill navigation, which the
-              // page runs beneath.
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 108),
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 640),
-                  child: _content(context, p),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
     return p.dark ? Theme(data: midnightTheme(base), child: page) : page;
@@ -989,8 +945,6 @@ class _HomePalette {
     required this.connected,
     required this.busy,
     required this.error,
-    required this.second,
-    required this.third,
     required this.discOff,
     required this.discOffEdge,
   });
@@ -1006,10 +960,6 @@ class _HomePalette {
   final Color connected;
   final Color busy;
   final Color error;
-
-  /// Colors of the background's soft lights, with the state's.
-  final Color second;
-  final Color third;
   final List<Color> discOff;
   final Color discOffEdge;
 
@@ -1025,8 +975,6 @@ class _HomePalette {
     connected: Colors.white,
     busy: Color(0xFFBFBFBF),
     error: Colors.white,
-    second: Color(0xFF2E2E2E),
-    third: Color(0xFF222222),
     discOff: [Color(0xFF161616), Color(0xFF050505)],
     discOffEdge: Color(0xFF2E2E2E),
   );
@@ -1043,8 +991,6 @@ class _HomePalette {
     connected: Color(0xFF0A0A0A),
     busy: Color(0xFF8A8A8A),
     error: Color(0xFF0A0A0A),
-    second: Color(0xFFEAEAEA),
-    third: Color(0xFFE0E0E0),
     discOff: [Colors.white, Color(0xFFF1F1F1)],
     discOffEdge: Color(0xFFD6D6D6),
   );
@@ -1189,79 +1135,33 @@ class _PhoneHome extends StatelessWidget {
     final place = homeLocation(l, status, connected: connected);
     final mismatch = exitMismatchText(l, status);
     final top = MediaQuery.paddingOf(context).top;
-    return Stack(
-      children: [
-        // The drifting lights behind everything.
-        Positioned.fill(
-          child: IgnorePointer(
-            child: Aurora(
-              accent: accent,
-              second: p.second,
-              third: p.third,
-              dark: p.dark,
-            ),
-          ),
-        ),
-        // Soft lights in the state's color and two others.
-        Positioned(
-          top: -120,
-          left: -100,
-          child: _Glow(color: accent, size: 360, alpha: p.dark ? 0.22 : 0.20),
-        ),
-        Positioned(
-          top: 160,
-          right: -140,
-          child: _Glow(color: p.second, size: 320, alpha: p.dark ? 0.12 : 0.16),
-        ),
-        Positioned(
-          bottom: -80,
-          left: -60,
-          child: _Glow(color: p.third, size: 300, alpha: p.dark ? 0.10 : 0.12),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(side, top + 14, side, 20),
-          child: Column(
+    return Padding(
+      // The bottom clears the floating pill navigation, which the page
+      // runs beneath.
+      padding: EdgeInsets.fromLTRB(side, top + 14, side, 116),
+      child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // The island: the state at a glance, at the very top.
+              // The brand: the official wordmark, in the theme's face.
               Reveal(
                 index: 0,
-                child: Center(
-                  child: DynamicIsland(
-                    accent: accent,
-                    label: label,
-                    dark: p.dark,
-                    connected: connected,
-                    busy: confirming || core.switchingProxy,
-                    card: p.card,
-                    border: p.cardBorder,
-                    text: p.text,
-                    muted: p.muted,
-                    startedAt: connected ? proxy?.startedAt : null,
-                    traffic: status.traffic,
-                    delayMs: (test?.ok ?? false) ? test!.responseMs : null,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Reveal(
-                index: 1,
-                child: Row(
-                  children: [
-                    const AppLogo(size: 28),
-                    const SizedBox(width: 8),
-                    Text(
-                      l.appTitle,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: p.text,
-                      ),
-                    ),
-                  ],
-                ),
+                child: Center(child: BrandWordmark(height: 24)),
               ),
               const Spacer(),
               SizedBox(height: short ? 4 : 16),
+              // The state, in words, where the island used to live.
+              Reveal(
+                index: 1,
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: on ? accent : p.text,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
               Reveal(
                 index: 2,
                 child: Center(
@@ -1288,34 +1188,39 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
               SizedBox(height: short ? 8 : 14),
-              // The state lives in the island above; the hint follows the
-              // control.
               const SizedBox(height: 8),
-              if (connected)
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    _HomeDelay(core: core, palette: p),
-                    if (ip.isNotEmpty)
-                      _HomePill(
-                        palette: p,
-                        child: Text(
-                          '${l.publicIp} ${ltr(ip)}',
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: p.muted,
-                          ),
-                        ),
-                      ),
-                    if (status.upstreamProxy.isNotEmpty)
-                      _UpstreamProxyPill(
+              if (connected) ...[
+                // The connection's numbers, in the page itself: the time
+                // it has been up, the real delay, the live rates.
+                _HomeStats(
+                  core: core,
+                  status: status,
+                  palette: p,
+                  startedAt: proxy?.startedAt,
+                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                ),
+                if (ip.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: _HomeRow(
+                      palette: p,
+                      icon: Icons.public_rounded,
+                      label: l.publicIp,
+                      value: ltr(ip),
+                    ),
+                  ),
+                if (status.upstreamProxy.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Center(
+                      child: _UpstreamProxyPill(
                         address: status.upstreamProxy,
                         palette: p,
                         onPressed: onOpenUpstreamProxy,
                       ),
-                  ],
-                )
+                    ),
+                  ),
+              ]
               else if (failing || noNetwork || gaveUp)
                 // Not connecting stands out from the ordinary hints.
                 problem(
@@ -1485,37 +1390,8 @@ class _PhoneHome extends StatelessWidget {
               ],
             ],
           ),
-        ),
-      ],
     );
   }
-}
-
-/// A soft round light for the background.
-class _Glow extends StatelessWidget {
-  const _Glow({required this.color, required this.size, required this.alpha});
-
-  final Color color;
-  final double size;
-  final double alpha;
-
-  @override
-  Widget build(BuildContext context) => IgnorePointer(
-    child: AnimatedContainer(
-      duration: const Duration(milliseconds: 600),
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: RadialGradient(
-          colors: [
-            color.withValues(alpha: alpha),
-            color.withValues(alpha: 0),
-          ],
-        ),
-      ),
-    ),
-  );
 }
 
 /// A frosted card on the home background.
@@ -1628,10 +1504,279 @@ class _HomeDelay extends StatelessWidget {
   }
 }
 
-/// The switch: an orb in the state's color with a glow and a thin ring,
-/// over wavy contour lines. It stays still: an endless animation redraws the
-/// window every frame, and kept a CPU core busy even with the window hidden
-/// in the tray.
+/// The connection's numbers, where the island's details used to live: a
+/// two-by-two grid of small cards — the time the connection has been up,
+/// the real delay (a tap tests again), and the live down and up rates.
+class _HomeStats extends StatelessWidget {
+  const _HomeStats({
+    required this.core,
+    required this.status,
+    required this.palette,
+    required this.startedAt,
+    required this.pingMs,
+  });
+
+  final CoreController core;
+  final CoreStatus status;
+  final _HomePalette palette;
+  final DateTime? startedAt;
+  final int? pingMs;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final traffic = status.traffic;
+    final ping = pingMs;
+    Widget card(
+      IconData icon,
+      String label,
+      Widget value, {
+      Color? valueColor,
+      VoidCallback? onTap,
+      Widget? busy,
+    }) => _StatCard(
+      palette: p,
+      icon: icon,
+      label: label,
+      value: value,
+      valueColor: valueColor,
+      onTap: onTap,
+      busy: busy,
+    );
+    Widget stat(Widget a, Widget b) => Row(
+      // No stretch: the two cards share one structure (a label, a value),
+      // so they land on the same height by themselves — and a stretched
+      // Row with Expanded children cannot sit under an IntrinsicHeight.
+      children: [
+        Expanded(child: a),
+        const SizedBox(width: 10),
+        Expanded(child: b),
+      ],
+    );
+    return Column(
+      children: [
+        stat(
+          card(
+            Icons.schedule_rounded,
+            l.statElapsed,
+            startedAt == null
+                ? const Text('—')
+                : _ElapsedText(startedAt: startedAt!),
+          ),
+          card(
+            Icons.bolt_rounded,
+            l.realDelay,
+            Text(
+              core.testing
+                  ? ''
+                  : ping == null
+                  ? l.testConnection
+                  : l.milliseconds(ping),
+            ),
+            valueColor: ping == null ? p.muted : delayColor(ping),
+            onTap: core.testing
+                ? null
+                : () => runShowingErrors(context, core.runTest),
+            busy: core.testing
+                ? const SizedBox.square(
+                    dimension: 14,
+                    child: CircularProgressIndicator(strokeWidth: 1.5),
+                  )
+                : null,
+          ),
+        ),
+        const SizedBox(height: 10),
+        stat(
+          card(
+            Icons.south_rounded,
+            l.statDown,
+            Text(formatRate(traffic?.downRate ?? 0)),
+          ),
+          card(
+            Icons.north_rounded,
+            l.statUp,
+            Text(formatRate(traffic?.upRate ?? 0)),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// One small card of the stats grid: an icon and a muted label above the
+/// value in large type.
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.valueColor,
+    this.onTap,
+    this.busy,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final Widget value;
+  final Color? valueColor;
+  final VoidCallback? onTap;
+  final Widget? busy;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    final child = Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
+      decoration: BoxDecoration(
+        color: p.card,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: p.cardBorder),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 13, color: p.muted),
+              const SizedBox(width: 4),
+              Flexible(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.labelSmall?.copyWith(color: p.muted),
+                ),
+              ),
+              if (busy != null) ...[const SizedBox(width: 6), busy!],
+            ],
+          ),
+          const SizedBox(height: 5),
+          DefaultTextStyle(
+            style:
+                theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                  color: valueColor ?? p.text,
+                ) ??
+                const TextStyle(fontSize: 16),
+            child: value,
+          ),
+        ],
+      ),
+    );
+    if (onTap == null) return child;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: onTap,
+        child: child,
+      ),
+    );
+  }
+}
+
+/// The time the connection has been up, ticking every second: mm:ss, and
+/// h:mm:ss once the hour is past.
+class _ElapsedText extends StatefulWidget {
+  const _ElapsedText({required this.startedAt});
+
+  final DateTime startedAt;
+
+  @override
+  State<_ElapsedText> createState() => _ElapsedTextState();
+}
+
+class _ElapsedTextState extends State<_ElapsedText> {
+  Timer? _tick;
+
+  @override
+  void initState() {
+    super.initState();
+    _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = DateTime.now()
+        .difference(widget.startedAt)
+        .inSeconds
+        .clamp(0, 86399);
+    final h = s ~/ 3600;
+    final m = (s % 3600) ~/ 60;
+    final sec = s % 60;
+    final text = h > 0
+        ? '$h:${m.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}'
+        : '${m.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}';
+    return Text(text);
+  }
+}
+
+/// A full-width stat row: an icon, a muted label, then the value, all in
+/// one quiet card.
+class _HomeRow extends StatelessWidget {
+  const _HomeRow({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 14, 10),
+      decoration: BoxDecoration(
+        color: p.card,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: p.cardBorder),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 16, color: p.muted),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+          ),
+          const Spacer(),
+          Text(
+            value,
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontFeatures: const [FontFeature.tabularFigures()],
+              color: p.text,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The switch: an orb in the state's color with a glow and a thin ring.
+/// It stays still: an endless animation redraws the window every frame,
+/// and kept a CPU core busy even with the window hidden in the tray.
 class _PowerOrb extends StatelessWidget {
   const _PowerOrb({
     required this.palette,
@@ -1655,7 +1800,6 @@ class _PowerOrb extends StatelessWidget {
     const area = 250.0;
     const ring = 186.0;
     const disc = 148.0;
-    const reach = 70.0;
     return Tooltip(
       message: tooltip,
       child: SizedBox.square(
@@ -1664,21 +1808,6 @@ class _PowerOrb extends StatelessWidget {
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-            // Contour lines reaching past the button's area.
-            Positioned(
-              left: -reach,
-              top: -reach,
-              right: -reach,
-              bottom: -reach,
-              child: IgnorePointer(
-                child: CustomPaint(
-                  painter: _Contours(
-                    color: accent,
-                    alpha: p.dark ? 0.16 : 0.22,
-                  ),
-                ),
-              ),
-            ),
             Container(
               width: area,
               height: area,
@@ -1757,46 +1886,6 @@ class _PowerOrb extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Wavy closed lines around the center, like the contours of a map, fading
-/// outwards.
-class _Contours extends CustomPainter {
-  _Contours({required this.color, required this.alpha});
-
-  final Color color;
-  final double alpha;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2;
-    const lines = 7;
-    for (var i = 0; i < lines; i++) {
-      final base = 112.0 + i * 22;
-      final amp = 3.0 + i * 1.6;
-      final path = Path();
-      for (var k = 0; k <= 120; k++) {
-        final a = k / 120 * 2 * math.pi;
-        final r =
-            base +
-            amp * math.sin(3 * a + i * 0.8) +
-            amp * 0.5 * math.sin(5 * a - i * 0.5);
-        final point = center + Offset(math.cos(a) * r, math.sin(a) * r);
-        k == 0
-            ? path.moveTo(point.dx, point.dy)
-            : path.lineTo(point.dx, point.dy);
-      }
-      path.close();
-      paint.color = color.withValues(alpha: alpha * (1 - i / lines));
-      canvas.drawPath(path, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_Contours old) => old.color != color || old.alpha != alpha;
 }
 
 /// The data used of the active account: a ring that fills as it is used,
@@ -2033,7 +2122,7 @@ class _NoticesState extends State<_Notices> {
               padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 6, 10),
               decoration: BoxDecoration(
                 color: StatusColors.busy.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: StatusColors.busy.withValues(alpha: 0.4),
                 ),
@@ -2268,7 +2357,7 @@ class _UpdateBanner extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   onTap: action?.onPressed,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(16),
                   child: Row(
                     children: [
                       Icon(icon, color: color),

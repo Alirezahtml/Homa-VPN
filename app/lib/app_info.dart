@@ -13,13 +13,13 @@ export 'update_manifest.dart';
 const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.0');
 
 /// The GitHub repository, "owner/name", for the source link and the update
-/// check.
-const githubRepo = '';
+/// check: Homa VPN's own releases.
+const githubRepo = 'Alirezahtml/Homa-VPN';
 
 const updateManifestUrl =
-    'https://raw.githubusercontent.com/arman-org/update-manifests/main/arman-vpn-client/updates.json';
+    'https://raw.githubusercontent.com/Alirezahtml/Homa-VPN/main/.github/updates.json';
 const updateManifestMirror =
-    'https://cdn.jsdelivr.net/gh/arman-org/update-manifests@main/arman-vpn-client/updates.json';
+    'https://cdn.jsdelivr.net/gh/Alirezahtml/Homa-VPN@main/.github/updates.json';
 
 /// A release server used instead of GitHub, to try updates with a local
 /// test release: it serves [updatesFile] at `<server>/updates.json`, answers
@@ -127,7 +127,7 @@ Future<Release?> checkForUpdate({
         ? 'https://github.com/$repo/releases'
         : '$srv/releases';
     final part = releaseFilePart(system);
-    final file = part == null ? 'SHA256SUMS.txt' : 'Arman-VPN-$wanted-$part';
+    final file = part == null ? 'SHA256SUMS.txt' : 'Homa-VPN-$wanted-$part';
     if (!await _published(client, '$releases/download/v$wanted/$file')) {
       throw HttpException('version $wanted is not published yet');
     }
@@ -246,8 +246,8 @@ Future<Release?> _latestRelease(
     };
     final downloads = <String, Object?>{};
     for (final entry in parts.entries) {
-      final fixed = 'Arman-VPN-${entry.value}';
-      final versioned = 'Arman-VPN-$version-${entry.value}';
+      final fixed = 'Homa-VPN-${entry.value}';
+      final versioned = 'Homa-VPN-$version-${entry.value}';
       final file = assets.containsKey(fixed) ? fixed : versioned;
       if (assets.containsKey(file)) {
         downloads[entry.key] = {'file': file, 'url': assets[file]};

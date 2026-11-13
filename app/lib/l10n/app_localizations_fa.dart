@@ -654,6 +654,15 @@ class AppLocalizationsFa extends AppLocalizations {
   String get realDelay => 'تأخیر واقعی';
 
   @override
+  String get statElapsed => 'مدت اتصال';
+
+  @override
+  String get statDown => 'دریافت';
+
+  @override
+  String get statUp => 'ارسال';
+
+  @override
   String noticePort(String port) {
     return 'پروکسی Mozilla به پورت $port وصل نمی‌شود. فقط پورت‌های 80، 443، 8080 و 8443 از VPN عبور می‌کنند.';
   }

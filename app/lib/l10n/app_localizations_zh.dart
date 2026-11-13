@@ -638,6 +638,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get realDelay => '真实延迟';
 
   @override
+  String get statElapsed => '时长';
+
+  @override
+  String get statDown => '下载';
+
+  @override
+  String get statUp => '上传';
+
+  @override
   String noticePort(String port) {
     return 'Mozilla 代理不支持端口 $port，只有 80、443、8080 和 8443 端口可以走 VPN。';
   }
@@ -2255,6 +2264,15 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get realDelay => '真實延遲';
+
+  @override
+  String get statElapsed => '時長';
+
+  @override
+  String get statDown => '下載';
+
+  @override
+  String get statUp => '上傳';
 
   @override
   String noticePort(String port) {

@@ -657,6 +657,15 @@ class AppLocalizationsAz extends AppLocalizations {
   String get realDelay => 'Real gecikmə';
 
   @override
+  String get statElapsed => 'Müddət';
+
+  @override
+  String get statDown => 'Yüklənmə';
+
+  @override
+  String get statUp => 'Göndərmə';
+
+  @override
   String noticePort(String port) {
     return 'Mozilla-nın proksisi $port portuna qoşulmur. Yalnız 80, 443, 8080 və 8443 portları VPN-dən keçir.';
   }

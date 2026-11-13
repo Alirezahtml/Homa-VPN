@@ -656,6 +656,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get realDelay => 'Real delay';
 
   @override
+  String get statElapsed => 'Elapsed';
+
+  @override
+  String get statDown => 'Down';
+
+  @override
+  String get statUp => 'Up';
+
+  @override
   String noticePort(String port) {
     return 'Mozilla\'s proxy does not connect to port $port. Only ports 80, 443, 8080 and 8443 go through the VPN.';
   }

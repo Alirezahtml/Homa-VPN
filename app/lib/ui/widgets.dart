@@ -43,6 +43,27 @@ class AppLogo extends StatelessWidget {
   }
 }
 
+/// The brand's wordmark alone — the eagle head and the HOMA letters —
+/// without a tile, for the pages' headers: [height] logical pixels tall.
+/// The asset comes in the theme's own face: white art on the night, the
+/// day's near-black on the light theme, matching the text exactly.
+class BrandWordmark extends StatelessWidget {
+  const BrandWordmark({super.key, required this.height});
+
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Image.asset(
+      dark ? 'assets/wordmark_dark.png' : 'assets/wordmark.png',
+      height: height,
+      filterQuality: FilterQuality.medium,
+      excludeFromSemantics: true,
+    );
+  }
+}
+
 /// Status colors that read in both themes. The palette is monochrome:
 /// a full-contrast point for the good state, a mid gray for the ones
 /// that wait; trouble shows full contrast again, and the icons and the

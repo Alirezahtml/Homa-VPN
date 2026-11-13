@@ -1233,6 +1233,24 @@ abstract class AppLocalizations {
   /// **'Real delay'**
   String get realDelay;
 
+  /// No description provided for @statElapsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Elapsed'**
+  String get statElapsed;
+
+  /// No description provided for @statDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Down'**
+  String get statDown;
+
+  /// No description provided for @statUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get statUp;
+
   /// No description provided for @noticePort.
   ///
   /// In en, this message translates to:

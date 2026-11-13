@@ -655,6 +655,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get realDelay => 'Ping asli';
 
   @override
+  String get statElapsed => 'Durasi';
+
+  @override
+  String get statDown => 'Unduh';
+
+  @override
+  String get statUp => 'Unggah';
+
+  @override
   String noticePort(String port) {
     return 'Proxy Mozilla tidak bisa terhubung ke port $port. Hanya port 80, 443, 8080, dan 8443 yang bisa lewat VPN.';
   }
