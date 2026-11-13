@@ -11,6 +11,8 @@
   '--update-goldens test/golden_home_test.dart), not for CI, which runs '
   'another Flutter version.',
 )
+library;
+
 import 'package:arman_vpn/app_settings.dart';
 import 'package:arman_vpn/core/core_controller.dart';
 import 'package:arman_vpn/ui/app.dart';
