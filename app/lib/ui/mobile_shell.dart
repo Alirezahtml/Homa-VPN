@@ -252,40 +252,45 @@ class _FloatingPillNav extends StatelessWidget {
                 child: Stack(
                   children: [
                     // The selection's light slides between the halves.
-                    AnimatedAlign(
-                      duration: const Duration(milliseconds: 340),
-                      curve: Curves.easeOutCubic,
-                      // Alignment is not direction-aware: in the right-to-
-                      // left languages the first tab is at the right.
-                      alignment: Alignment(
-                        (index == 0 ? -1 : 1) *
-                            (Directionality.of(context) == TextDirection.rtl
-                                ? -1
-                                : 1),
-                        0,
-                      ),
-                      child: FractionallySizedBox(
-                        widthFactor: 0.5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(26),
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.lerp(accent, Colors.white, 0.18)!,
-                                  accent,
+                    // Positioned.fill: the Align's child must know the
+                    // pill's height (a bare Align child would have none).
+                    Positioned.fill(
+                      child: AnimatedAlign(
+                        duration: const Duration(milliseconds: 340),
+                        curve: Curves.easeOutCubic,
+                        // Alignment is not direction-aware: in the right-to-
+                        // left languages the first tab is at the right.
+                        alignment: Alignment(
+                          (index == 0 ? -1 : 1) *
+                              (Directionality.of(context) == TextDirection.rtl
+                                  ? -1
+                                  : 1),
+                          0,
+                        ),
+                        child: FractionallySizedBox(
+                          widthFactor: 0.5,
+                          heightFactor: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(26),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color.lerp(accent, Colors.white, 0.18)!,
+                                    accent,
+                                  ],
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: accent.withValues(alpha: 0.45),
+                                    blurRadius: 16,
+                                    offset: const Offset(0, 3),
+                                  ),
                                 ],
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: accent.withValues(alpha: 0.45),
-                                  blurRadius: 16,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
                             ),
                           ),
                         ),
