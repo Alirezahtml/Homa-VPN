@@ -1354,16 +1354,9 @@ class _PhoneHome extends StatelessWidget {
             index: 0,
             child: Row(
               children: [
-                const AppLogo(size: 30),
-                const SizedBox(width: Homa.gap2 + 2),
-                Text(
-                  l.appTitle,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Homa.ink(dark),
-                    letterSpacing: 0.2,
-                  ),
-                ),
+                // The official wordmark as the header's brand; the theme's
+                // face, so it reads like the text beside it.
+                BrandWordmark(height: 20),
                 const Spacer(),
                 PulsingDot(
                   color: s.connected
