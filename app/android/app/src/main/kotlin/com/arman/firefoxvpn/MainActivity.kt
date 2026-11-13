@@ -131,6 +131,7 @@ class MainActivity : FlutterActivity() {
                     }
                 }
                 "isRunning" -> result.success(mobile.Mobile.running())
+                "lastError" -> result.success(mobile.Mobile.lastError())
                 "connectionMode" -> result.success(CoreService.connectionMode(this))
                 "showSpeed" -> result.success(CoreService.showSpeed(this))
                 "setShowSpeed" -> {

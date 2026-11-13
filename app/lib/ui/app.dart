@@ -16,6 +16,7 @@ import 'focus_ring.dart';
 import 'format.dart';
 import 'logs_page.dart';
 import 'mobile_shell.dart';
+import 'motion.dart';
 import 'overview_page.dart';
 import 'port_dialog.dart';
 import 'servers_page.dart';
@@ -500,68 +501,106 @@ class _NoCore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final midnight = midnightTheme(Theme.of(context));
     final problem = core.unavailable;
     final portTaken =
         problem != null &&
         (problem.problem == CoreProblem.portInUse ||
             problem.problem == CoreProblem.refused);
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 460),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    // The boot and the error share the home's night look: the wait for the
+    // core is part of the app, not a gray gap before it.
+    return Theme(
+      data: midnight,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Midnight.top, Midnight.bottom],
+          ),
+        ),
+        child: Stack(
           children: [
-            if (problem == null || problem.problem == CoreProblem.starting) ...[
-              const CircularProgressIndicator(),
-              const SizedBox(height: 16),
-              Text(l.startingCore, style: theme.textTheme.titleMedium),
-            ] else ...[
-              Icon(
-                Icons.power_off_rounded,
-                size: 48,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(height: 16),
-              Text(l.cantReachCore, style: theme.textTheme.titleLarge),
-              const SizedBox(height: 8),
-              Text(
-                describeProblem(l, problem),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Aurora(
+                  accent: problem == null ||
+                          problem.problem == CoreProblem.starting
+                      ? Midnight.busy
+                      : Midnight.error,
+                  second: Midnight.idle,
+                  third: Midnight.muted,
+                  dark: true,
                 ),
               ),
-              const SizedBox(height: 20),
-              Wrap(
-                spacing: 12,
-                alignment: WrapAlignment.center,
-                children: [
-                  if (portTaken && core.moveStoppedCore != null)
-                    FilledButton.icon(
-                      onPressed: () async {
-                        final port = await showPortDialog(
-                          context,
-                          taken: problem.detail,
-                        );
-                        if (port != null && context.mounted) {
-                          await runShowingErrors(
-                            context,
-                            () => core.setAppPort(port),
-                          );
-                        }
-                      },
-                      icon: const Icon(Icons.settings_ethernet_rounded),
-                      label: Text(l.changePort),
-                    ),
-                  FilledButton.tonalIcon(
-                    onPressed: core.retry,
-                    icon: const Icon(Icons.refresh_rounded),
-                    label: Text(l.retry),
-                  ),
-                ],
+            ),
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 460),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (problem == null ||
+                        problem.problem == CoreProblem.starting) ...[
+                      const CircularProgressIndicator(),
+                      const SizedBox(height: 16),
+                      Text(
+                        l.startingCore,
+                        style: midnight.textTheme.titleMedium,
+                      ),
+                    ] else ...[
+                      const Icon(
+                        Icons.power_off_rounded,
+                        size: 48,
+                        color: Midnight.muted,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        l.cantReachCore,
+                        style: midnight.textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        describeProblem(l, problem),
+                        textAlign: TextAlign.center,
+                        style: midnight.textTheme.bodyMedium?.copyWith(
+                          color: Midnight.muted,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Wrap(
+                        spacing: 12,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          if (portTaken && core.moveStoppedCore != null)
+                            FilledButton.icon(
+                              onPressed: () async {
+                                final port = await showPortDialog(
+                                  context,
+                                  taken: problem.detail,
+                                );
+                                if (port != null && context.mounted) {
+                                  await runShowingErrors(
+                                    context,
+                                    () => core.setAppPort(port),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.settings_ethernet_rounded),
+                              label: Text(l.changePort),
+                            ),
+                          FilledButton.tonalIcon(
+                            onPressed: core.retry,
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: Text(l.retry),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ],
+                ),
               ),
-            ],
+            ),
           ],
         ),
       ),

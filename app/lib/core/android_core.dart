@@ -132,6 +132,13 @@ class AndroidCore {
   Future<CoreApi> connect() async {
     if (await _channel.invokeMethod<bool>('isRunning') != true) {
       await _channel.invokeMethod<void>('startCore');
+      // The core failed to start (mobile.Mobile.start said why): the error
+      // page shows the reason and a Retry, instead of a spinner that would
+      // never end.
+      final lastError = await _channel.invokeMethod<String>('lastError') ?? '';
+      if (lastError.isNotEmpty) {
+        throw CoreUnavailable(CoreProblem.exited, lastError);
+      }
       throw const CoreUnavailable(CoreProblem.starting);
     }
     try {
