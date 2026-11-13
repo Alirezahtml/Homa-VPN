@@ -14,6 +14,6 @@ echo "## Download"
 echo
 # The table alone, from <table> to </table>.
 awk '/^<table>/ { p = 1 } p { print } /^<\/table>/ && p { exit }' "$root/README.md" |
-  sed -e "s|releases/latest/download/Arman-VPN-|releases/download/$tag/Arman-VPN-$version-|g" \
-      -e "s|releases/latest/download/arman-vpn-core-|releases/download/$tag/arman-vpn-core-$version-|g" \
+  sed -e "s|releases/latest/download/Homa-VPN-|releases/download/$tag/Homa-VPN-$version-|g" \
+      -e "s|releases/latest/download/homa-vpn-core-|releases/download/$tag/homa-vpn-core-$version-|g" \
       -e "s|releases/latest/download/|releases/download/$tag/|g"
