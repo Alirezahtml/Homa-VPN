@@ -1687,4 +1687,19 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'تست پیش از دریافت نتیجهٔ کامل متوقف شد.';
+
+  @override
+  String get swipeToConnect => 'برای اتصال، به پایین بکشید';
+
+  @override
+  String get swipeToDisconnect => 'برای قطع، به بالا بکشید';
+
+  @override
+  String get sessionDuration => 'مدت جلسه';
+
+  @override
+  String get btnConnect => 'اتصال';
+
+  @override
+  String get btnDisconnect => 'قطع';
 }

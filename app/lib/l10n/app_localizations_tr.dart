@@ -1699,4 +1699,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'Test, tam sonuç alınmadan sona erdi.';
+
+  @override
+  String get swipeToConnect => 'Bağlanmak için aşağı kaydırın';
+
+  @override
+  String get swipeToDisconnect => 'Kopmak için yukarı kaydırın';
+
+  @override
+  String get sessionDuration => 'Oturum';
+
+  @override
+  String get btnConnect => 'Bağlan';
+
+  @override
+  String get btnDisconnect => 'Kop';
 }

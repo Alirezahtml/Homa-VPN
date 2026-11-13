@@ -484,5 +484,10 @@
   "relayTestPassed": "المرحّل جاهز",
   "relayTestFailed": "تعذّر تأكيد سلامة المرحّل",
   "relayTestCopy": "نسخ التقرير",
-  "relayTestInterrupted": "انتهى الاختبار قبل استلام نتيجة كاملة."
+  "relayTestInterrupted": "انتهى الاختبار قبل استلام نتيجة كاملة.",
+  "swipeToConnect": "اسحب إلى الأسفل للاتصال",
+  "swipeToDisconnect": "اسحب إلى الأعلى للقطع",
+  "sessionDuration": "المدة",
+  "btnConnect": "اتصال",
+  "btnDisconnect": "قطع"
 }

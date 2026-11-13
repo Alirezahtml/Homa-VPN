@@ -1708,4 +1708,19 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Проверка завершилась до получения полного результата.';
+
+  @override
+  String get swipeToConnect => 'Смахните вниз, чтобы подключиться';
+
+  @override
+  String get swipeToDisconnect => 'Смахните вверх, чтобы отключиться';
+
+  @override
+  String get sessionDuration => 'Сессия';
+
+  @override
+  String get btnConnect => 'Подключить';
+
+  @override
+  String get btnDisconnect => 'Отключить';
 }

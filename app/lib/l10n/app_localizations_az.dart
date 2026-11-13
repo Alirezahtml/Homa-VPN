@@ -1700,4 +1700,19 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'Tam nəticə alınmadan test başa çatdı.';
+
+  @override
+  String get swipeToConnect => 'Qoşulmaq üçün aşağı sürüşdürün';
+
+  @override
+  String get swipeToDisconnect => 'Ayırmaq üçün yuxarı sürüşdürün';
+
+  @override
+  String get sessionDuration => 'Sessiya';
+
+  @override
+  String get btnConnect => 'Qoşul';
+
+  @override
+  String get btnDisconnect => 'Ayır';
 }

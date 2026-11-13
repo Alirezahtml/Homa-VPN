@@ -1714,4 +1714,19 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Le test s’est terminé avant de recevoir un résultat complet.';
+
+  @override
+  String get swipeToConnect => 'Balayez vers le bas pour vous connecter';
+
+  @override
+  String get swipeToDisconnect => 'Balayez vers le haut pour vous déconnecter';
+
+  @override
+  String get sessionDuration => 'Session';
+
+  @override
+  String get btnConnect => 'Connecter';
+
+  @override
+  String get btnDisconnect => 'Déconnecter';
 }

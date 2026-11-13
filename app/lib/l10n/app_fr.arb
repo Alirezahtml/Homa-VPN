@@ -484,5 +484,10 @@
   "relayTestPassed": "Le relais est prêt",
   "relayTestFailed": "L’état du relais n’a pas pu être confirmé",
   "relayTestCopy": "Copier le rapport",
-  "relayTestInterrupted": "Le test s’est terminé avant de recevoir un résultat complet."
+  "relayTestInterrupted": "Le test s’est terminé avant de recevoir un résultat complet.",
+  "swipeToConnect": "Balayez vers le bas pour vous connecter",
+  "swipeToDisconnect": "Balayez vers le haut pour vous déconnecter",
+  "sessionDuration": "Session",
+  "btnConnect": "Connecter",
+  "btnDisconnect": "Déconnecter"
 }

@@ -484,5 +484,10 @@
   "relayTestPassed": "رله آماده است",
   "relayTestFailed": "سلامت رله تأیید نشد",
   "relayTestCopy": "کپی گزارش",
-  "relayTestInterrupted": "تست پیش از دریافت نتیجهٔ کامل متوقف شد."
+  "relayTestInterrupted": "تست پیش از دریافت نتیجهٔ کامل متوقف شد.",
+  "swipeToConnect": "برای اتصال، به پایین بکشید",
+  "swipeToDisconnect": "برای قطع، به بالا بکشید",
+  "sessionDuration": "مدت جلسه",
+  "btnConnect": "اتصال",
+  "btnDisconnect": "قطع"
 }

@@ -484,5 +484,10 @@
   "relayTestPassed": "রিলে প্রস্তুত",
   "relayTestFailed": "রিলের অবস্থা নিশ্চিত করা যায়নি",
   "relayTestCopy": "রিপোর্ট কপি করুন",
-  "relayTestInterrupted": "সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।"
+  "relayTestInterrupted": "সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।",
+  "swipeToConnect": "সংযোগ করতে নিচে সোয়াইপ করুন",
+  "swipeToDisconnect": "বিচ্ছিন্ন করতে উপরে সোয়াইপ করুন",
+  "sessionDuration": "সময়",
+  "btnConnect": "সংযোগ",
+  "btnDisconnect": "বিচ্ছিন্ন"
 }

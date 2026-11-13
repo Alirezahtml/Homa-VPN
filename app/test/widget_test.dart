@@ -2674,7 +2674,7 @@ void main() {
     expect(quotaColor(90, 0), StatusColors.busy);
   });
 
-  testWidgets('a phone says connecting until a test passes', (tester) async {
+  testWidgets('a phone says connected while the tunnel is up', (tester) async {
     stillMotion(tester);
     tester.view.physicalSize = const Size(400, 860);
     tester.view.devicePixelRatio = 1;
@@ -2692,20 +2692,20 @@ void main() {
     core.start();
     await settle(tester);
 
-    // No internet: the proxy runs, but the VPN does not claim to work.
-    expect(find.text('Connecting…'), findsOneWidget);
+    // The engine runs, so the page says connected; the failing test keeps
+    // its own note below the state.
+    expect(find.text('Connected'), findsOneWidget);
     expect(find.textContaining("Couldn't connect"), findsOneWidget);
-    expect(find.text('Connected'), findsNothing);
 
-    // The internet is back: the next test confirms it.
+    // The internet is back: the test confirms it, the note goes.
     api.online = true;
     await core.runTest();
     await settle(tester);
-    // The state's word shows twice: above the switch and in its track.
-    expect(find.text('Connected'), findsWidgets);
+    expect(find.text('Connected'), findsOneWidget);
+    expect(find.textContaining("Couldn't connect"), findsNothing);
 
     // Wi-Fi and mobile data off: Android says so, and the app at once,
-    // without a test.
+    // without a test; it does not claim to be connected.
     api.noNetwork = true;
     await core.refresh();
     await settle(tester);
@@ -2847,7 +2847,7 @@ void main() {
     core.dispose();
   }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
 
-  testWidgets('the computer says connecting until a test passes', (
+  testWidgets('the computer says connected while the tunnel is up', (
     tester,
   ) async {
     stillMotion(tester);
@@ -2867,8 +2867,9 @@ void main() {
     core.start();
     await settle(tester);
 
-    // The system proxy is set, but no test has passed.
-    expect(find.text('Connecting…'), findsOneWidget);
+    // The system proxy is set and the engine runs: connected, with the
+    // failing test's own note.
+    expect(find.text('Connected'), findsOneWidget);
     expect(find.textContaining("Couldn't connect"), findsOneWidget);
     // The proxy service still runs for apps set up by hand.
     // The proxy's address shows when the mouse is over Proxy.

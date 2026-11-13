@@ -1699,4 +1699,19 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ.';
+
+  @override
+  String get swipeToConnect => 'Vuốt xuống để kết nối';
+
+  @override
+  String get swipeToDisconnect => 'Vuốt lên để ngắt kết nối';
+
+  @override
+  String get sessionDuration => 'Phiên';
+
+  @override
+  String get btnConnect => 'Kết nối';
+
+  @override
+  String get btnDisconnect => 'Ngắt';
 }

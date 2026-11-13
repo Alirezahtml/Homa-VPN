@@ -10,6 +10,7 @@ import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'about_page.dart';
+import 'design.dart' show ambientInk;
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
 import 'focus_ring.dart';
@@ -24,6 +25,9 @@ import 'welcome_page.dart';
 import 'widgets.dart';
 
 ThemeData _theme(Brightness brightness, Locale locale) {
+  // The status inks (StatusColors, delayColor, quotaColor) read this, so a
+  // color asked for anywhere in a build is the current theme's.
+  ambientInk = brightness;
   final dark = brightness == Brightness.dark;
   // The monochrome scheme: pure black and white with neutral grays
   // between — no hue anywhere, in either mode.

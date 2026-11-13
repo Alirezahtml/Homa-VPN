@@ -3032,6 +3032,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The test ended before a complete result was received.'**
   String get relayTestInterrupted;
+
+  /// No description provided for @swipeToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe down to connect'**
+  String get swipeToConnect;
+
+  /// No description provided for @swipeToDisconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe up to disconnect'**
+  String get swipeToDisconnect;
+
+  /// No description provided for @sessionDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get sessionDuration;
+
+  /// No description provided for @btnConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get btnConnect;
+
+  /// No description provided for @btnDisconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnect'**
+  String get btnDisconnect;
 }
 
 class _AppLocalizationsDelegate
