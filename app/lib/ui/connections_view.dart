@@ -408,7 +408,7 @@ class _Row extends StatelessWidget {
               width: 7,
               height: 7,
               margin: const EdgeInsetsDirectional.only(end: 6),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: StatusColors.good,
                 shape: BoxShape.circle,
               ),

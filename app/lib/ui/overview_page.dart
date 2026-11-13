@@ -1015,38 +1015,38 @@ class _HomePalette {
 
   static const night = _HomePalette(
     dark: true,
-    top: Midnight.top,
-    bottom: Midnight.bottom,
+    top: Color(0xFF0A0A0A),
+    bottom: Colors.black,
     text: Colors.white,
-    muted: Midnight.muted,
-    card: Color(0x10FFFFFF),
-    cardBorder: Color(0x14FFFFFF),
-    idle: Midnight.idle,
-    connected: Midnight.connected,
-    busy: Midnight.busy,
-    error: Midnight.error,
-    second: Color(0xFF8A5CFF),
-    third: Color(0xFFFF5CC0),
-    discOff: [Color(0xFF2E2766), Color(0xFF181440)],
-    discOffEdge: Color(0x1FFFFFFF),
+    muted: Color(0xFF9E9E9E),
+    card: Color(0xFF141414),
+    cardBorder: Color(0xFF282828),
+    idle: Color(0xFF8A8A8A),
+    connected: Colors.white,
+    busy: Color(0xFFBFBFBF),
+    error: Colors.white,
+    second: Color(0xFF2E2E2E),
+    third: Color(0xFF222222),
+    discOff: [Color(0xFF161616), Color(0xFF050505)],
+    discOffEdge: Color(0xFF2E2E2E),
   );
 
   static const day = _HomePalette(
     dark: false,
-    top: Color(0xFFE9EEFF),
-    bottom: Color(0xFFF9FAFF),
-    text: Color(0xFF151A35),
-    muted: Color(0xFF646C92),
-    card: Color(0xD9FFFFFF),
-    cardBorder: Color(0x12202A66),
-    idle: Color(0xFF6A5CF0),
-    connected: Color(0xFF0DB37C),
-    busy: Color(0xFFF08C00),
-    error: Color(0xFFE5484D),
-    second: Color(0xFF8A5CFF),
-    third: Color(0xFFFF7EB6),
-    discOff: [Colors.white, Color(0xFFF0F2FF)],
-    discOffEdge: Color(0x336A5CF0),
+    top: Colors.white,
+    bottom: Color(0xFFF6F6F6),
+    text: Color(0xFF0A0A0A),
+    muted: Color(0xFF6B6B6B),
+    card: Color(0xFFFFFFFF),
+    cardBorder: Color(0xFFE4E4E4),
+    idle: Color(0xFF6B6B6B),
+    connected: Color(0xFF0A0A0A),
+    busy: Color(0xFF8A8A8A),
+    error: Color(0xFF0A0A0A),
+    second: Color(0xFFEAEAEA),
+    third: Color(0xFFE0E0E0),
+    discOff: [Colors.white, Color(0xFFF1F1F1)],
+    discOffEdge: Color(0xFFD6D6D6),
   );
 }
 
@@ -2041,8 +2041,8 @@ class _NoticesState extends State<_Notices> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 2),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
                     child: Icon(
                       Icons.info_outline_rounded,
                       color: StatusColors.busy,
@@ -2469,7 +2469,7 @@ class _UdpNoticeState extends State<_UdpNotice> {
             padding: const EdgeInsetsDirectional.fromSTEB(14, 8, 6, 8),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.warning_amber_rounded,
                   color: StatusColors.busy,
                 ),
@@ -2618,8 +2618,8 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 2),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
                     child: Icon(
                       Icons.data_usage_rounded,
                       color: StatusColors.busy,

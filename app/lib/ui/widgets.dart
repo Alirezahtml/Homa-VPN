@@ -22,29 +22,40 @@ const firefoxAccountSignUpUrl = 'https://accounts.firefox.com/';
 const firefoxAccountSetPasswordUrl =
     'https://accounts.firefox.com/reset_password/';
 
-/// The program's logo, its tile (assets/logo.png, made by
-/// tool/app_icons.py), [size] logical pixels square.
+/// The program's logo, its tile (assets/logo.png, the official brand
+/// mark), [size] logical pixels square; the black face of the brand in
+/// the dark theme, the white one in the light theme.
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key, required this.size});
 
   final double size;
 
   @override
-  Widget build(BuildContext context) => Image.asset(
-    'assets/logo.png',
-    width: size,
-    height: size,
-    filterQuality: FilterQuality.medium,
-    excludeFromSemantics: true,
-  );
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Image.asset(
+      dark ? 'assets/logo_dark.png' : 'assets/logo.png',
+      width: size,
+      height: size,
+      filterQuality: FilterQuality.medium,
+      excludeFromSemantics: true,
+    );
+  }
 }
 
-/// Status colors that read in both themes.
+/// Status colors that read in both themes. The palette is monochrome:
+/// a full-contrast point for the good state, a mid gray for the ones
+/// that wait; trouble shows full contrast again, and the icons and the
+/// words carry what the color used to.
 abstract final class StatusColors {
-  static const good = Color(0xFF22A06B);
-  static const busy = Color(0xFFE2A400);
-  static const bad = Color(0xFFE5484D);
-  static const idle = Color(0xFF8B8D98);
+  static bool get _dark =>
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+      Brightness.dark;
+
+  static Color get good => _dark ? Colors.white : const Color(0xFF0A0A0A);
+  static Color get busy => const Color(0xFF8A8A8A);
+  static Color get bad => _dark ? Colors.white : const Color(0xFF0A0A0A);
+  static Color get idle => const Color(0xFF8A8A8A);
 }
 
 /// How the app presents the engine state.
@@ -142,39 +153,49 @@ String locationName(AppLocalizations l, String code, String name) =>
     ? l.recommendedLocation
     : countryName(l, code, name);
 
-/// The phone home's colors: a deep violet night and the state's light.
+/// The phone home's colors: a pure black night and the state's light.
 abstract final class Midnight {
-  static const top = Color(0xFF221B52);
-  static const bottom = Color(0xFF070616);
-  static const connected = Color(0xFF10D9A0);
-  static const busy = Color(0xFFFFB547);
-  static const error = Color(0xFFFF5C7A);
-  static const idle = Color(0xFF7C83FF);
-  static const muted = Color(0xFF9AA3C7);
+  static const top = Color(0xFF0A0A0A);
+  static const bottom = Colors.black;
+  static const connected = Colors.white;
+  static const busy = Color(0xFFBFBFBF);
+  static const error = Colors.white;
+  static const idle = Color(0xFF8A8A8A);
+  static const muted = Color(0xFF9E9E9E);
 }
 
-/// A dark theme for the phone's home and its navigation bar, with the
-/// app's fonts.
+/// A dark theme for the phone's home, monochrome: pure black surfaces,
+/// white text, neutral grays only.
 ThemeData midnightTheme(ThemeData base) {
-  final scheme =
-      ColorScheme.fromSeed(
-        seedColor: Midnight.idle,
-        brightness: Brightness.dark,
-      ).copyWith(
-        surface: Midnight.bottom,
-        surfaceContainer: Midnight.bottom,
-        onSurface: Colors.white,
-        onSurfaceVariant: Midnight.muted,
-        secondaryContainer: Colors.white.withValues(alpha: 0.10),
-        onSecondaryContainer: Colors.white,
-      );
+  const scheme = ColorScheme.dark(
+    primary: Colors.white,
+    onPrimary: Colors.black,
+    secondary: Colors.white,
+    onSecondary: Colors.black,
+    primaryContainer: Color(0xFF2A2A2A),
+    onPrimaryContainer: Colors.white,
+    secondaryContainer: Color(0xFF1E1E1E),
+    onSecondaryContainer: Colors.white,
+    tertiaryContainer: Color(0xFF1E1E1E),
+    onTertiaryContainer: Colors.white,
+    surface: Colors.black,
+    onSurface: Colors.white,
+    onSurfaceVariant: Color(0xFF9E9E9E),
+    outline: Color(0xFF3A3A3A),
+    outlineVariant: Color(0xFF262626),
+    inverseSurface: Colors.white,
+    onInverseSurface: Colors.black,
+    inversePrimary: Color(0xFF0A0A0A),
+    surfaceTint: Colors.transparent,
+    surfaceContainerHighest: Color(0xFF161616),
+    surfaceContainerHigh: Color(0xFF1A1A1A),
+    surfaceContainer: Color(0xFF111111),
+    surfaceContainerLow: Color(0xFF0C0C0C),
+    surfaceContainerLowest: Colors.black,
+  );
   return ThemeData(
     colorScheme: scheme,
     fontFamily: base.textTheme.bodyMedium?.fontFamily,
-    navigationBarTheme: base.navigationBarTheme.copyWith(
-      backgroundColor: Midnight.bottom,
-      surfaceTintColor: Colors.transparent,
-    ),
   );
 }
 

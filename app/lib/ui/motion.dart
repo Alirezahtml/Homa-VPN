@@ -99,12 +99,10 @@ class _AuroraState extends State<Aurora> with SingleTickerProviderStateMixin {
   }
 
   void _onState(AppLifecycleState state) {
+    // Monochrome build: the lights sit still, so there is nothing to
+    // pause or resume; the ticker stays stopped for good.
     if (!mounted) return;
-    if (state == AppLifecycleState.resumed) {
-      if (!_c.isAnimating) _c.repeat();
-    } else {
-      _c.stop();
-    }
+    _c.stop();
   }
 
   @override
@@ -116,29 +114,16 @@ class _AuroraState extends State<Aurora> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (_still(context)) {
-      return CustomPaint(
-        painter: _AuroraPainter(
-          t: 0.13,
-          accent: widget.accent,
-          second: widget.second,
-          third: widget.third,
-          dark: widget.dark,
-          stars: widget.stars,
-        ),
-      );
-    }
-    return AnimatedBuilder(
-      animation: _c,
-      builder: (context, _) => CustomPaint(
-        painter: _AuroraPainter(
-          t: _c.value,
-          accent: widget.accent,
-          second: widget.second,
-          third: widget.third,
-          dark: widget.dark,
-          stars: widget.stars,
-        ),
+    // One paint, no ticker: the soft lights hold one composition and the
+    // page stays light on the battery.
+    return CustomPaint(
+      painter: _AuroraPainter(
+        t: 0.13,
+        accent: widget.accent,
+        second: widget.second,
+        third: widget.third,
+        dark: widget.dark,
+        stars: widget.stars,
       ),
     );
   }
@@ -386,7 +371,8 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!_still(context) && !_c.isAnimating) _c.repeat();
+    // Monochrome build: the light does not sweep on its own; the text
+    // keeps its base color and nothing repaints between interactions.
   }
 
   @override
@@ -463,18 +449,13 @@ class _PulsingDotState extends State<PulsingDot>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.active && !_still(context) && !_c.isAnimating) _c.repeat();
+    // Monochrome build: a steady point, no pulse to repaint.
   }
 
   @override
   void didUpdateWidget(PulsingDot old) {
     super.didUpdateWidget(old);
-    final run = widget.active && !_still(context);
-    if (!run) {
-      _c.stop();
-    } else if (!_c.isAnimating) {
-      _c.repeat();
-    }
+    _c.stop();
   }
 
   @override
@@ -675,7 +656,7 @@ class _SlideToConnectState extends State<SlideToConnect>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!widget.on && !_still(context) && !_idle.isAnimating) _idle.repeat();
+    if (!widget.on && !_still(context) && !_idle.isAnimating) _idle.stop();
   }
 
   @override
@@ -689,12 +670,8 @@ class _SlideToConnectState extends State<SlideToConnect>
         curve: Curves.easeOutBack,
       );
     }
-    final idleRun = !widget.on && !_dragging && !_still(context);
-    if (!idleRun) {
-      _idle.stop();
-    } else if (!_idle.isAnimating) {
-      _idle.repeat();
-    }
+    // Monochrome build: no idle shimmer; the track rests until touched.
+    _idle.stop();
   }
 
   @override

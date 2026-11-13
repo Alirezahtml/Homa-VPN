@@ -34,8 +34,10 @@ flutter:
   generate: true
 
   assets:
-    # The fox shield beside the app's name (tool/app_icons.py).
+    # The official brand mark beside the app's name (tool/app_icons.py):
+    # the white face for the light theme, the black one for the dark.
     - assets/logo.png
+    - assets/logo_dark.png
     - assets/tray/
     # Country flags from flag-icons (MIT, assets/flags/LICENSE), the same
     # SVG files as the core's web dashboard.

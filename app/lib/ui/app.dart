@@ -25,26 +25,79 @@ import 'welcome_page.dart';
 import 'widgets.dart';
 
 ThemeData _theme(Brightness brightness, Locale locale) {
-  final scheme = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF5B5BD6),
-    brightness: brightness,
-  );
   final dark = brightness == Brightness.dark;
+  // The monochrome scheme: pure black and white with neutral grays
+  // between — no hue anywhere, in either mode.
+  final scheme = dark
+      ? const ColorScheme.dark(
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          secondary: Colors.white,
+          onSecondary: Colors.black,
+          tertiary: Colors.white,
+          onTertiary: Colors.black,
+          primaryContainer: Color(0xFF2A2A2A),
+          onPrimaryContainer: Colors.white,
+          secondaryContainer: Color(0xFF1E1E1E),
+          onSecondaryContainer: Colors.white,
+          tertiaryContainer: Color(0xFF1E1E1E),
+          onTertiaryContainer: Colors.white,
+          surface: Colors.black,
+          onSurface: Colors.white,
+          onSurfaceVariant: Color(0xFF9E9E9E),
+          outline: Color(0xFF3A3A3A),
+          outlineVariant: Color(0xFF262626),
+          inverseSurface: Colors.white,
+          onInverseSurface: Colors.black,
+          inversePrimary: Color(0xFF0A0A0A),
+          surfaceTint: Colors.transparent,
+          surfaceContainerHighest: Color(0xFF161616),
+          surfaceContainerHigh: Color(0xFF1A1A1A),
+          surfaceContainer: Color(0xFF111111),
+          surfaceContainerLow: Color(0xFF0C0C0C),
+          surfaceContainerLowest: Colors.black,
+        )
+      : const ColorScheme.light(
+          primary: Color(0xFF0A0A0A),
+          onPrimary: Colors.white,
+          secondary: Color(0xFF0A0A0A),
+          onSecondary: Colors.white,
+          tertiary: Color(0xFF0A0A0A),
+          onTertiary: Colors.white,
+          primaryContainer: Color(0xFFE8E8E8),
+          onPrimaryContainer: Color(0xFF0A0A0A),
+          secondaryContainer: Color(0xFFF0F0F0),
+          onSecondaryContainer: Color(0xFF0A0A0A),
+          tertiaryContainer: Color(0xFFF0F0F0),
+          onTertiaryContainer: Color(0xFF0A0A0A),
+          surface: Colors.white,
+          onSurface: Color(0xFF0A0A0A),
+          onSurfaceVariant: Color(0xFF6B6B6B),
+          outline: Color(0xFFC9C9C9),
+          outlineVariant: Color(0xFFE4E4E4),
+          inverseSurface: Color(0xFF0A0A0A),
+          onInverseSurface: Colors.white,
+          inversePrimary: Colors.white,
+          surfaceTint: Colors.transparent,
+          surfaceContainerHighest: Color(0xFFEFEFEF),
+          surfaceContainerHigh: Color(0xFFF2F2F2),
+          surfaceContainer: Color(0xFFF6F6F6),
+          surfaceContainerLow: Color(0xFFF9F9F9),
+          surfaceContainerLowest: Colors.white,
+        );
   // Bundled Inter for English, Vazirmatn for Persian and Arabic, and the
   // platform's typography for the remaining languages.
   final font = languageFont(locale.languageCode);
   final theme = ThemeData(
     colorScheme: scheme,
     fontFamily: font,
-    scaffoldBackgroundColor: dark
-        ? const Color(0xFF111218)
-        : const Color(0xFFF5F5FA),
+    scaffoldBackgroundColor: dark ? Colors.black : Colors.white,
     cardTheme: CardThemeData(
       elevation: 0,
-      color: dark ? const Color(0xFF1A1B23) : Colors.white,
+      color: dark ? const Color(0xFF0D0D0D) : const Color(0xFFF7F7F7),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.4)),
+        side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.5)),
       ),
     ),
     // Pages arrive with a soft fade and a lift, everywhere.
@@ -60,7 +113,7 @@ ThemeData _theme(Brightness brightness, Locale locale) {
   );
   return theme.copyWith(
     navigationRailTheme: NavigationRailThemeData(
-      backgroundColor: dark ? const Color(0xFF15161D) : const Color(0xFFECECF4),
+      backgroundColor: dark ? Colors.black : const Color(0xFFF2F2F2),
       // NavigationRail replaces DefaultTextStyle, so retain the resolved
       // platform font instead of letting a null family choose a fallback.
       selectedLabelTextStyle: theme.textTheme.labelLarge!.copyWith(
@@ -485,7 +538,7 @@ class _LostBanner extends StatelessWidget {
     padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
     child: Row(
       children: [
-        const Icon(Icons.link_off_rounded, size: 18, color: StatusColors.bad),
+        Icon(Icons.link_off_rounded, size: 18, color: StatusColors.bad),
         const SizedBox(width: 10),
         Expanded(child: Text(AppLocalizations.of(context).coreLost)),
       ],

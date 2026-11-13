@@ -207,7 +207,9 @@ class _FloatingPillNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = dark ? Midnight.idle : Theme.of(context).colorScheme.primary;
+    // Monochrome: the selection's light is full contrast — white on the
+    // black night, black on the white day.
+    final accent = dark ? Colors.white : const Color(0xFF0A0A0A);
     return SafeArea(
       top: false,
       child: Padding(
@@ -225,7 +227,7 @@ class _FloatingPillNav extends StatelessWidget {
                 color: dark
                     // The night glass: the pill is of the page it floats
                     // over, the midnight gradient showing through.
-                    ? const Color(0xB3121330)
+                    ? const Color(0xCC0F0F0F)
                     : Colors.white.withValues(alpha: 0.94),
                 borderRadius: BorderRadius.circular(32),
                 border: Border.all(
@@ -335,7 +337,7 @@ class _FloatingPillNav extends StatelessWidget {
   }) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     final selected = index == i;
-    final idle = dark ? Midnight.muted : const Color(0xFF646C92);
+    final idle = dark ? Midnight.muted : const Color(0xFF6B6B6B);
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -368,7 +370,9 @@ class _FloatingPillNav extends StatelessWidget {
                       selected ? filled : outline,
                       key: ValueKey(selected),
                       size: 22,
-                      color: selected ? Colors.white : idle,
+                      color: selected
+                          ? (dark ? Colors.black : Colors.white)
+                          : idle,
                     ),
                   ),
                 ),
@@ -378,7 +382,9 @@ class _FloatingPillNav extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 11.5,
                     fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-                    color: selected ? Colors.white : idle,
+                    color: selected
+                        ? (dark ? Colors.black : Colors.white)
+                        : idle,
                     fontFamily: Theme.of(context)
                         .textTheme
                         .bodyMedium

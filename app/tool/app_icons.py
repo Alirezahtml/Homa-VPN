@@ -101,6 +101,50 @@ def symbol(size, filled=None):
     return img.resize((size, size), Image.LANCZOS)
 
 
+# --- The official brand mark (HOMA, the eagle head), the source of every
+# --- tile: tool/brand_light.png (black art on white) and tool/brand_dark.png
+# --- (white art on black), both 2160 px squares.
+
+
+def load_glyphs():
+    """The brand art off its backgrounds: the white art on transparent,
+    and the black art on transparent, cropped to their pixels."""
+    def extract(path, white_art):
+        img = Image.open(path).convert('L')
+        if white_art:
+            alpha = img.point(
+                lambda v: 0 if v < 80 else (255 if v > 200 else int((v - 80) / 120 * 255))
+            )
+            out = Image.new('RGBA', img.size, (255, 255, 255, 0))
+        else:
+            alpha = img.point(
+                lambda v: 255 if v < 80 else (0 if v > 200 else int((200 - v) / 120 * 255))
+            )
+            out = Image.new('RGBA', img.size, (10, 10, 10, 0))
+        out.putalpha(alpha)
+        return out.crop(out.getchannel('A').getbbox())
+
+    white = extract(os.path.join(HERE, 'brand_dark.png'), True)
+    black = extract(os.path.join(HERE, 'brand_light.png'), False)
+    return white, black
+
+
+def official_tile(glyph, bg, size):
+    """A clean rounded tile of [bg] with the brand art in its middle: the
+    tile body is 80% of [size] with a fifth of its width in corner radius,
+    the art's larger side 72% of the body."""
+    body = round(size * 0.80)
+    out = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+    off = (size - body) // 2
+    ImageDraw.Draw(out).rounded_rectangle(
+        [off, off, off + body - 1, off + body - 1],
+        radius=round(body * 0.2), fill=bg,
+    )
+    art = art_layer(glyph, body, 0.72)
+    out.alpha_composite(art, ((size - art.width) // 2, (size - art.height) // 2))
+    return out
+
+
 def tile_art():
     """The tile (512 px): a black rounded square of 412 px, the symbol 300
     px wide in its middle."""
@@ -143,9 +187,9 @@ def android(glyph):
         folder = os.path.join(RES, 'mipmap-' + dpi)
         os.makedirs(folder, exist_ok=True)
         px = round(108 * k)
-        art_layer(glyph, px, ART).save(os.path.join(folder, 'ic_launcher_foreground.png'), optimize=True)
+        art_layer(glyph, px, 0.56).save(os.path.join(folder, 'ic_launcher_foreground.png'), optimize=True)
         Image.new('RGBA', (px, px), BLACK).save(os.path.join(folder, 'ic_launcher_background.png'), optimize=True)
-        tile(glyph, round(48 * k)).save(os.path.join(folder, 'ic_launcher.png'), optimize=True)
+        official_tile(glyph, BLACK, round(48 * k)).save(os.path.join(folder, 'ic_launcher.png'), optimize=True)
     folder = os.path.join(RES, 'mipmap-anydpi-v26')
     os.makedirs(folder, exist_ok=True)
     with open(os.path.join(folder, 'ic_launcher.xml'), 'w', newline='\n') as f:
@@ -154,25 +198,25 @@ def android(glyph):
 
 def tv_banner(glyph):
     """Android TV's banner, which its home screen shows in the apps row:
-    the symbol and the name, 320 x 180 px (160 x 90 dp at xhdpi), on the
-    app's dark navy (its night theme), which stands out from the TV's black
-    home screen as the other apps' tiles do."""
+    the brand art and the name, 320 x 180 px (160 x 90 dp at xhdpi), on
+    the app's monochrome night (pure black), which stands out from the
+    TV's home screen as the other apps' tiles do."""
     from PIL import ImageFont
     w, h = 320, 180
-    top, bottom = (0x26, 0x30, 0x6B), (0x14, 0x1B, 0x3D)
+    top, bottom = (0x14, 0x14, 0x14), (0, 0, 0)
     out = Image.new('RGBA', (w, h))
     for y in range(h):
         t = y / (h - 1)
         out.paste(tuple(round(a + (b - a) * t) for a, b in zip(top, bottom)) + (255,), (0, y, w, y + 1))
-    symbol = art_layer(glyph, 96, 1.0)
+    art = art_layer(glyph, 96, 1.0)
     font = ImageFont.truetype(os.path.join(APP, 'assets', 'fonts', 'Vazirmatn-Bold.ttf'), 34)
-    name = 'Arman VPN'
+    name = 'Homa VPN'
     draw = ImageDraw.Draw(out)
     left, top, right, bottom = draw.textbbox((0, 0), name, font=font)
     gap = 14
-    x = (w - (symbol.width + gap + right - left)) // 2
-    out.alpha_composite(symbol, (x, (h - symbol.height) // 2))
-    draw.text((x + symbol.width + gap - left, (h - (bottom - top)) // 2 - top), name, font=font, fill=(255, 255, 255, 255))
+    x = (w - (art.width + gap + right - left)) // 2
+    out.alpha_composite(art, (x, (h - art.height) // 2))
+    draw.text((x + art.width + gap - left, (h - (bottom - top)) // 2 - top), name, font=font, fill=(255, 255, 255, 255))
     folder = os.path.join(RES, 'drawable-xhdpi')
     os.makedirs(folder, exist_ok=True)
     out.save(os.path.join(folder, 'banner.png'), optimize=True)
@@ -201,7 +245,7 @@ MACOS_SIZES = [16, 32, 64, 128, 256, 512, 1024]
 
 def macos_icon(glyph):
     """The 1024 px macOS icon: the black tile, 824 px with rounded corners,
-    over a soft shadow, the symbol in its middle."""
+    over a soft shadow, the brand art in its middle."""
     size, body = 1024, 824
     off = (size - body) // 2
     mask = Image.new('L', (body, body), 0)
@@ -210,7 +254,7 @@ def macos_icon(glyph):
     shadow.paste((0, 0, 0, 90), (off, off + 12), mask)
     out = shadow.filter(ImageFilter.GaussianBlur(14))
     face = Image.new('RGBA', (body, body), BLACK)
-    face.alpha_composite(art_layer(glyph, body, ART * 108 / 72 * 0.9))
+    face.alpha_composite(art_layer(glyph, body, 0.62))
     out.paste(face, (off, off), mask)
     return out
 
@@ -222,8 +266,14 @@ def macos(glyph):
         big.resize((n, n), Image.LANCZOS).save(os.path.join(folder, 'app_icon_%d.png' % n), optimize=True)
 
 
-def app_logo(tile_art):
-    art_layer(tile_art, 256, 1.0).save(os.path.join(APP, 'assets', 'logo.png'), optimize=True)
+def app_logo(white_glyph, black_glyph):
+    """The in-app logo, in both of the brand's faces: a white tile with
+    the black art for the light theme (assets/logo.png), a black tile with
+    the white art for the dark one (assets/logo_dark.png)."""
+    official_tile(black_glyph, (255, 255, 255, 255), 256).save(
+        os.path.join(APP, 'assets', 'logo.png'), optimize=True)
+    official_tile(white_glyph, (10, 10, 10, 255), 256).save(
+        os.path.join(APP, 'assets', 'logo_dark.png'), optimize=True)
 
 
 def windows(tile_art):
@@ -314,14 +364,14 @@ def tray():
 
 
 def main():
-    square = tile_art()
-    glyph = symbol(1024)
-    android(glyph)
-    tv_banner(glyph)
-    macos(glyph)
+    glyph_white, glyph_black = load_glyphs()
+    square = official_tile(glyph_white, BLACK, 512)
+    android(glyph_white)
+    tv_banner(glyph_white)
+    macos(glyph_white)
     windows(square)
     core(square)
-    app_logo(square)
+    app_logo(glyph_white, glyph_black)
     tray()
 
 

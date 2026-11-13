@@ -437,7 +437,7 @@ class _SignInDialogState extends State<_SignInDialog> {
         if (s.step == SignInStep.done)
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: const Icon(
+            leading: Icon(
               Icons.check_circle_rounded,
               color: StatusColors.good,
               size: 32,
