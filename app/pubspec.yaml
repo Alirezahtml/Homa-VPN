@@ -2,7 +2,7 @@ name: arman_vpn
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
 
-version: 1.0.18+139
+version: 1.0.24+145
 
 environment:
   sdk: ^3.13.5
@@ -34,15 +34,22 @@ flutter:
   generate: true
 
   assets:
-    # The official Homa wordmark, white for the dark theme and black for
-    # the light one (AppLogo picks by brightness).
+    # The official brand mark beside the app's name (tool/app_icons.py):
+    # the white face for the light theme, the black one for the dark; the
+    # wordmarks alone for the pages' headers.
     - assets/logo.png
     - assets/logo_dark.png
+    - assets/wordmark.png
+    - assets/wordmark_dark.png
     - assets/tray/
     # Country flags from flag-icons (MIT, assets/flags/LICENSE), the same
     # SVG files as the core's web dashboard.
     - assets/flags/
     - assets/fonts/Inter/OFL.txt
+    # The home's world map: a quiet dot-matrix in the theme's ink
+    # (scripts/make_world_map.py), light ink for the dark theme.
+    - assets/map_dots_light.png
+    - assets/map_dots_dark.png
 
   fonts:
     - family: Inter
