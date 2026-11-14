@@ -484,10 +484,5 @@
   "relayTestPassed": "Relay đã sẵn sàng",
   "relayTestFailed": "Không thể xác nhận tình trạng relay",
   "relayTestCopy": "Sao chép báo cáo",
-  "relayTestInterrupted": "Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ.",
-  "swipeToConnect": "Vuốt xuống để kết nối",
-  "swipeToDisconnect": "Vuốt lên để ngắt kết nối",
-  "sessionDuration": "Phiên",
-  "btnConnect": "Kết nối",
-  "btnDisconnect": "Ngắt"
+  "relayTestInterrupted": "Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ."
 }

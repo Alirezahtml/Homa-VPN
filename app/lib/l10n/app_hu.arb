@@ -484,10 +484,5 @@
   "relayTestPassed": "Az átjátszó kész",
   "relayTestFailed": "Az átjátszó állapota nem igazolható",
   "relayTestCopy": "Jelentés másolása",
-  "relayTestInterrupted": "A teszt a teljes eredmény beérkezése előtt véget ért.",
-  "swipeToConnect": "Csúsztassa le a csatlakozáshoz",
-  "swipeToDisconnect": "Csúsztassa fel a bontáshoz",
-  "sessionDuration": "Munkamenet",
-  "btnConnect": "Csatlakozás",
-  "btnDisconnect": "Bontás"
+  "relayTestInterrupted": "A teszt a teljes eredmény beérkezése előtt véget ért."
 }

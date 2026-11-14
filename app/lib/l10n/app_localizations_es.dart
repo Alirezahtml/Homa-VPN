@@ -1711,19 +1711,4 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'La prueba terminó antes de recibir un resultado completo.';
-
-  @override
-  String get swipeToConnect => 'Desliza hacia abajo para conectarte';
-
-  @override
-  String get swipeToDisconnect => 'Desliza hacia arriba para desconectarte';
-
-  @override
-  String get sessionDuration => 'Sesión';
-
-  @override
-  String get btnConnect => 'Conectar';
-
-  @override
-  String get btnDisconnect => 'Desconectar';
 }

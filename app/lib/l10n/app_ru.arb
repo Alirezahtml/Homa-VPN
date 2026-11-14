@@ -484,10 +484,5 @@
   "relayTestPassed": "Реле готово",
   "relayTestFailed": "Не удалось подтвердить исправность реле",
   "relayTestCopy": "Копировать отчёт",
-  "relayTestInterrupted": "Проверка завершилась до получения полного результата.",
-  "swipeToConnect": "Смахните вниз, чтобы подключиться",
-  "swipeToDisconnect": "Смахните вверх, чтобы отключиться",
-  "sessionDuration": "Сессия",
-  "btnConnect": "Подключить",
-  "btnDisconnect": "Отключить"
+  "relayTestInterrupted": "Проверка завершилась до получения полного результата."
 }

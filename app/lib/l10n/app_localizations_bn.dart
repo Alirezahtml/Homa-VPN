@@ -1695,19 +1695,4 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।';
-
-  @override
-  String get swipeToConnect => 'সংযোগ করতে নিচে সোয়াইপ করুন';
-
-  @override
-  String get swipeToDisconnect => 'বিচ্ছিন্ন করতে উপরে সোয়াইপ করুন';
-
-  @override
-  String get sessionDuration => 'সময়';
-
-  @override
-  String get btnConnect => 'সংযোগ';
-
-  @override
-  String get btnDisconnect => 'বিচ্ছিন্ন';
 }

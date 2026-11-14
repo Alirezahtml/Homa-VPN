@@ -10,7 +10,6 @@ import '../core/remote_flags.dart';
 import '../core/updates.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
-import 'design.dart';
 import 'country_names.dart';
 import 'format.dart';
 import 'local_country_names.dart';
@@ -23,10 +22,9 @@ const firefoxAccountSignUpUrl = 'https://accounts.firefox.com/';
 const firefoxAccountSetPasswordUrl =
     'https://accounts.firefox.com/reset_password/';
 
-/// The program's logo, the official Homa wordmark (assets/logo.png made
-/// from the brand's white glyph, assets/logo_dark.png from its black one),
-/// [size] logical pixels square. It follows the theme: the white glyph at
-/// night, the black one in the day.
+/// The program's logo, its tile (assets/logo.png, the official brand
+/// mark), [size] logical pixels square; the black face of the brand in
+/// the dark theme, the white one in the light theme.
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key, required this.size});
 
@@ -36,7 +34,7 @@ class AppLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Image.asset(
-      dark ? 'assets/logo.png' : 'assets/logo_dark.png',
+      dark ? 'assets/logo_dark.png' : 'assets/logo.png',
       width: size,
       height: size,
       filterQuality: FilterQuality.medium,
@@ -45,8 +43,10 @@ class AppLogo extends StatelessWidget {
   }
 }
 
-/// The brand's wordmark alone - the eagle head and the HOMA letters -
-/// without a tile, for the pages' headers, in the theme's own face.
+/// The brand's wordmark alone — the eagle head and the HOMA letters —
+/// without a tile, for the pages' headers: [height] logical pixels tall.
+/// The asset comes in the theme's own face: white art on the night, the
+/// day's near-black on the light theme, matching the text exactly.
 class BrandWordmark extends StatelessWidget {
   const BrandWordmark({super.key, required this.height});
 
@@ -56,7 +56,7 @@ class BrandWordmark extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Image.asset(
-      dark ? 'assets/logo.png' : 'assets/logo_dark.png',
+      dark ? 'assets/wordmark_dark.png' : 'assets/wordmark.png',
       height: height,
       filterQuality: FilterQuality.medium,
       excludeFromSemantics: true,
@@ -64,15 +64,19 @@ class BrandWordmark extends StatelessWidget {
   }
 }
 
-/// Status inks that read in both themes: the palette is monochrome, so a
-/// state differs by contrast (and, in the widgets, by its icon), never by
-/// hue. They follow the app's current theme by itself.
+/// Status colors that read in both themes. The palette is monochrome:
+/// a full-contrast point for the good state, a mid gray for the ones
+/// that wait; trouble shows full contrast again, and the icons and the
+/// words carry what the color used to.
 abstract final class StatusColors {
-  static bool get _dark => isDarkInk;
-  static Color get good => HomaState.good(_dark);
-  static Color get busy => HomaState.busy(_dark);
-  static Color get bad => HomaState.bad(_dark);
-  static Color get idle => HomaState.idle(_dark);
+  static bool get _dark =>
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+      Brightness.dark;
+
+  static Color get good => _dark ? Colors.white : const Color(0xFF0A0A0A);
+  static Color get busy => const Color(0xFF8A8A8A);
+  static Color get bad => _dark ? Colors.white : const Color(0xFF0A0A0A);
+  static Color get idle => const Color(0xFF8A8A8A);
 }
 
 /// How the app presents the engine state.
@@ -151,9 +155,8 @@ String describeProblem(AppLocalizations l, CoreUnavailable e) =>
       CoreProblem.exited => l.errCoreExited(e.detail),
     };
 
-/// The ink of a real delay: full contrast when quick, softer when slow,
-/// softest when very slow. Monochrome, so the number itself and its pill
-/// carry the meaning.
+/// The color of a real delay: green when quick, amber when slow, red when
+/// very slow.
 Color delayColor(int ms) => ms < delayGoodMs
     ? StatusColors.good
     : ms < 1000
@@ -171,7 +174,51 @@ String locationName(AppLocalizations l, String code, String name) =>
     ? l.recommendedLocation
     : countryName(l, code, name);
 
+/// The phone home's colors: a pure black night and the state's light.
+abstract final class Midnight {
+  static const top = Color(0xFF0A0A0A);
+  static const bottom = Colors.black;
+  static const connected = Colors.white;
+  static const busy = Color(0xFFBFBFBF);
+  static const error = Colors.white;
+  static const idle = Color(0xFF8A8A8A);
+  static const muted = Color(0xFF9E9E9E);
+}
 
+/// A dark theme for the phone's home, monochrome: pure black surfaces,
+/// white text, neutral grays only.
+ThemeData midnightTheme(ThemeData base) {
+  const scheme = ColorScheme.dark(
+    primary: Colors.white,
+    onPrimary: Colors.black,
+    secondary: Colors.white,
+    onSecondary: Colors.black,
+    primaryContainer: Color(0xFF2A2A2A),
+    onPrimaryContainer: Colors.white,
+    secondaryContainer: Color(0xFF1E1E1E),
+    onSecondaryContainer: Colors.white,
+    tertiaryContainer: Color(0xFF1E1E1E),
+    onTertiaryContainer: Colors.white,
+    surface: Colors.black,
+    onSurface: Colors.white,
+    onSurfaceVariant: Color(0xFF9E9E9E),
+    outline: Color(0xFF3A3A3A),
+    outlineVariant: Color(0xFF262626),
+    inverseSurface: Colors.white,
+    onInverseSurface: Colors.black,
+    inversePrimary: Color(0xFF0A0A0A),
+    surfaceTint: Colors.transparent,
+    surfaceContainerHighest: Color(0xFF161616),
+    surfaceContainerHigh: Color(0xFF1A1A1A),
+    surfaceContainer: Color(0xFF111111),
+    surfaceContainerLow: Color(0xFF0C0C0C),
+    surfaceContainerLowest: Colors.black,
+  );
+  return ThemeData(
+    colorScheme: scheme,
+    fontFamily: base.textTheme.bodyMedium?.fontFamily,
+  );
+}
 
 /// A country's name in the app's language; in English (and for a country
 /// without a translation) the server list's name [name], else the English
@@ -317,54 +364,6 @@ class HomePlace {
   final bool auto;
 }
 
-/// The phone home's night tints, monochrome: pure black surfaces, white
-/// text, neutral grays only.
-abstract final class Midnight {
-  static const top = Color(0xFF0A0A0A);
-  static const bottom = Colors.black;
-  static const connected = Colors.white;
-  static const busy = Color(0xFFBFBFBF);
-  static const error = Colors.white;
-  static const idle = Color(0xFF8A8A8A);
-  static const muted = Color(0xFF9E9E9E);
-}
-
-/// A dark theme for the phone's home, monochrome: pure black surfaces,
-/// white text, neutral grays only.
-ThemeData midnightTheme(ThemeData base) {
-  const scheme = ColorScheme.dark(
-    primary: Colors.white,
-    onPrimary: Colors.black,
-    secondary: Colors.white,
-    onSecondary: Colors.black,
-    primaryContainer: Color(0xFF2A2A2A),
-    onPrimaryContainer: Colors.white,
-    secondaryContainer: Color(0xFF1E1E1E),
-    onSecondaryContainer: Colors.white,
-    tertiaryContainer: Color(0xFF1E1E1E),
-    onTertiaryContainer: Colors.white,
-    surface: Colors.black,
-    onSurface: Colors.white,
-    onSurfaceVariant: Color(0xFF9E9E9E),
-    outline: Color(0xFF3A3A3A),
-    outlineVariant: Color(0xFF262626),
-    surfaceTint: Colors.transparent,
-    surfaceContainerHighest: Color(0xFF161616),
-    surfaceContainerHigh: Color(0xFF1A1A1A),
-    surfaceContainer: Color(0xFF111111),
-    surfaceContainerLow: Color(0xFF0C0C0C),
-    surfaceContainerLowest: Colors.black,
-  );
-  return ThemeData(
-    colorScheme: scheme,
-    fontFamily: base.textTheme.bodyMedium?.fontFamily,
-    navigationBarTheme: base.navigationBarTheme.copyWith(
-      backgroundColor: Colors.black,
-      surfaceTintColor: Colors.transparent,
-    ),
-  );
-}
-
 /// The phone home's location. While connected: the country the traffic
 /// leaves from (for the recommended location, the exit's country), under
 /// how it was chosen; otherwise the chosen location.
@@ -422,27 +421,27 @@ class CountryFlag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     final height = width * 3 / 4;
-    final dark = Theme.of(context).brightness == Brightness.dark;
     final fallback = Container(
       width: width,
       height: height,
       alignment: Alignment.center,
-      color: Homa.cardAlt(dark),
+      color: scheme.secondaryContainer,
       child: Text(
         code.toUpperCase(),
         style: TextStyle(
           fontSize: height * 0.45,
           fontWeight: FontWeight.w700,
-          color: Homa.ink(dark),
+          color: scheme.onSecondaryContainer,
         ),
       ),
     );
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: Homa.border(dark),
+          color: scheme.outlineVariant.withValues(alpha: 0.6),
           width: 0.5,
         ),
       ),
@@ -452,11 +451,11 @@ class CountryFlag extends StatelessWidget {
               width: width,
               height: height,
               alignment: Alignment.center,
-              color: Homa.cardAlt(dark),
+              color: scheme.primaryContainer,
               child: Icon(
                 Icons.auto_awesome_rounded,
                 size: height * 0.7,
-                color: Homa.ink(dark),
+                color: scheme.onPrimaryContainer,
               ),
             )
           : code.length != 2
@@ -532,6 +531,30 @@ TextStyle? languageStyle(String code) => switch (languageFont(code)) {
   null => null,
 };
 
+/// The rounded box every settings row's icon sits in: one quiet surface,
+/// one radius, everywhere — the tiles read as a single system, as Pixel's
+/// settings do.
+class IconBox extends StatelessWidget {
+  const IconBox({super.key, required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, size: 20, color: scheme.onSurface),
+    );
+  }
+}
+
 /// The margin around a page: narrower on a phone.
 EdgeInsets pagePadding(BuildContext context) =>
     MediaQuery.sizeOf(context).width < 600
@@ -559,7 +582,12 @@ class PageTitle extends StatelessWidget {
   Widget build(BuildContext context) => OwnTopBar.of(context)
       ? const SizedBox.shrink()
       : Reveal(
-          child: Text(text, style: Theme.of(context).textTheme.headlineSmall),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         );
 }
 
@@ -680,30 +708,6 @@ class QuotaBar extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// The rounded box every settings row's icon sits in: one quiet surface,
-/// one radius, everywhere - the tiles read as a single system, as Pixel's
-/// settings do.
-class IconBox extends StatelessWidget {
-  const IconBox({super.key, required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Container(
-      width: 36,
-      height: 36,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Icon(icon, size: 20, color: scheme.onSurface),
     );
   }
 }

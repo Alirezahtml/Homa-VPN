@@ -1702,19 +1702,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'The test ended before a complete result was received.';
-
-  @override
-  String get swipeToConnect => 'Swipe down to connect';
-
-  @override
-  String get swipeToDisconnect => 'Swipe up to disconnect';
-
-  @override
-  String get sessionDuration => 'Session';
-
-  @override
-  String get btnConnect => 'Connect';
-
-  @override
-  String get btnDisconnect => 'Disconnect';
 }

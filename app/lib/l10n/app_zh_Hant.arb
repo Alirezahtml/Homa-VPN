@@ -484,10 +484,5 @@
   "relayTestPassed": "中繼已就緒",
   "relayTestFailed": "無法確認中繼狀態",
   "relayTestCopy": "複製報告",
-  "relayTestInterrupted": "測試在收到完整結果前結束。",
-  "swipeToConnect": "向下滑動連線",
-  "swipeToDisconnect": "向上滑動中斷",
-  "sessionDuration": "連線時長",
-  "btnConnect": "連線",
-  "btnDisconnect": "中斷"
+  "relayTestInterrupted": "測試在收到完整結果前結束。"
 }

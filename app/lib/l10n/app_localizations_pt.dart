@@ -1705,19 +1705,4 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'O teste terminou antes de receber um resultado completo.';
-
-  @override
-  String get swipeToConnect => 'Deslize para baixo para conectar';
-
-  @override
-  String get swipeToDisconnect => 'Deslize para cima para desconectar';
-
-  @override
-  String get sessionDuration => 'Sessão';
-
-  @override
-  String get btnConnect => 'Conectar';
-
-  @override
-  String get btnDisconnect => 'Desconectar';
 }

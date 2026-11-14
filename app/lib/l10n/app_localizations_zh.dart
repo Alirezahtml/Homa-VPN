@@ -1632,21 +1632,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => '测试在收到完整结果前结束。';
-
-  @override
-  String get swipeToConnect => '向下滑动连接';
-
-  @override
-  String get swipeToDisconnect => '向上滑动断开';
-
-  @override
-  String get sessionDuration => '已连接时长';
-
-  @override
-  String get btnConnect => '连接';
-
-  @override
-  String get btnDisconnect => '断开';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3277,19 +3262,4 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get relayTestInterrupted => '測試在收到完整結果前結束。';
-
-  @override
-  String get swipeToConnect => '向下滑動連線';
-
-  @override
-  String get swipeToDisconnect => '向上滑動中斷';
-
-  @override
-  String get sessionDuration => '連線時長';
-
-  @override
-  String get btnConnect => '連線';
-
-  @override
-  String get btnDisconnect => '中斷';
 }

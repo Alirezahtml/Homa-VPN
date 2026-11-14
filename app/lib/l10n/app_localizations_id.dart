@@ -1699,19 +1699,4 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Pengujian berakhir sebelum hasil lengkap diterima.';
-
-  @override
-  String get swipeToConnect => 'Geser ke bawah untuk menyambung';
-
-  @override
-  String get swipeToDisconnect => 'Geser ke atas untuk memutus';
-
-  @override
-  String get sessionDuration => 'Sesi';
-
-  @override
-  String get btnConnect => 'Sambung';
-
-  @override
-  String get btnDisconnect => 'Putuskan';
 }

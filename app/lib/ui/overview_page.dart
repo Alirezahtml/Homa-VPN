@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'dart:io';
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
@@ -16,22 +16,14 @@ import '../l10n/app_localizations.dart';
 import '../platform.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
-import 'design.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
 import 'widgets.dart';
 
-/// The home page: one circle to press, the state over it, the session
-/// (time, upload, download) under it, and where the traffic goes and the
-/// data used in cards. The phone's (_PhoneHome) and the computer's
-/// (_DesktopHome) share the look, not the logic. Developer mode adds the
-/// details.
-///
-/// The state the page shows comes from the engine's phase alone: when the
-/// engine is running and the switch is on, the page says "Connected" — a
-/// failing test keeps its own note under the state, it does not hold the
-/// state back.
+/// The home page: the switch, the state, where the traffic goes, and the
+/// data used; the phone's (_PhoneHome) and the computer's (_DesktopHome)
+/// share the look, not the logic. Developer mode adds the details.
 class OverviewPage extends StatelessWidget {
   const OverviewPage({
     super.key,
@@ -47,7 +39,7 @@ class OverviewPage extends StatelessWidget {
   final CoreController core;
   final AppSettings settings;
 
-  /// The phone layout: the big button and the cards (_PhoneHome).
+  /// The phone layout: a colored hero and the data left (_PhoneHome).
   final bool phone;
 
   /// Opens the server list and the accounts from the home page's cards (a
@@ -88,67 +80,6 @@ class OverviewPage extends StatelessWidget {
   }
 }
 
-/// The connection as the home page reads it, derived in one place so the
-/// phone and the computer say the same.
-class HomeState {
-  HomeState.of(
-    AppLocalizations l,
-    CoreController core,
-    CoreStatus status, {
-    required bool showIp,
-    required bool on,
-  }) {
-    this.on = on;
-    final running = status.state.phase == Phase.running;
-    final starting = status.state.phase == Phase.starting;
-    connecting =
-        status.connectPending || core.switchingProxy || (on && starting);
-    final test = status.isCurrentTest(core.lastTest) ? core.lastTest : null;
-    final proxy = status.proxy;
-    noNetwork = !status.connectPending && status.noNetwork && on;
-    // Connected when the engine runs and the switch is on; the page does
-    // not wait for a test to say so. Without a network it keeps waiting:
-    // nothing can work yet.
-    connected = on && running && !connecting && !noNetwork;
-    failing =
-        !status.connectPending &&
-        on &&
-        running &&
-        ((proxy?.wakeError.isNotEmpty ?? false) || test?.ok == false);
-    failure = failing ? failureText(l, proxy, test) : null;
-    gaveUp = !on && status.connectFailure.isNotEmpty;
-    look = PhaseLook.of(l, status);
-    place = homeLocation(l, status, connected: connected);
-    ip = !showIp
-        ? ''
-        : status.exit?.ipv4.isNotEmpty == true
-        ? status.exit!.ipv4
-        : status.exit?.ipv6 ?? '';
-    mismatch = exitMismatchText(l, status);
-    label = connecting
-        ? l.stateConnecting
-        : connected
-        ? l.stateConnected
-        // Without a network nothing can work yet: it keeps waiting.
-        : noNetwork
-        ? l.stateConnecting
-        : look.label;
-  }
-
-  late final bool on;
-  late final bool connecting;
-  late final bool connected;
-  late final bool failing;
-  late final bool noNetwork;
-  late final bool gaveUp;
-  late final PhaseLook look;
-  late final HomePlace place;
-  late final String ip;
-  late final String? mismatch;
-  late final String label;
-  late final ({String text, String detail, String code})? failure;
-}
-
 /// Opens the connection settings under "Mozilla's servers are blocked":
 /// HTTP/2, HTTP/3, or HTTP/1.1, one of which a network may let through.
 class _ConnectionSettingsButton extends StatelessWidget {
@@ -161,7 +92,7 @@ class _ConnectionSettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: Homa.gap2),
+    padding: const EdgeInsets.only(top: 6),
     child: Center(
       child: TextButton.icon(
         onPressed: onPressed,
@@ -181,7 +112,7 @@ class _RecommendedLocationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: Homa.gap2),
+    padding: const EdgeInsets.only(top: 6),
     child: Center(
       child: TextButton.icon(
         onPressed: () => runShowingErrors(context, () => core.setLocation('')),
@@ -206,9 +137,8 @@ class _SystemProxyTakenNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final dark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-      padding: const EdgeInsets.only(top: Homa.gap3),
+      padding: const EdgeInsets.only(top: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -216,9 +146,10 @@ class _SystemProxyTakenNote extends StatelessWidget {
             text: by.isEmpty
                 ? l.systemProxyTakenOff
                 : l.systemProxyTakenBy(ltr(by)),
-            dark: dark,
+            color: StatusColors.busy,
+            icon: Icons.warning_amber_rounded,
           ),
-          const SizedBox(height: Homa.gap2),
+          const SizedBox(height: 6),
           TextButton.icon(
             onPressed: () =>
                 runShowingErrors(context, () => core.setSystemProxy('set')),
@@ -231,7 +162,7 @@ class _SystemProxyTakenNote extends StatelessWidget {
   }
 }
 
-/// A soft box when the public IP is in another country than the chosen
+/// An amber box when the public IP is in another country than the chosen
 /// one: a hint, not an error; the connection works.
 class _ExitMismatchNote extends StatelessWidget {
   const _ExitMismatchNote({required this.text});
@@ -240,56 +171,62 @@ class _ExitMismatchNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: Homa.gap3),
-    child: _ProblemBox(text: text, dark: Theme.of(context).brightness == Brightness.dark),
+    padding: const EdgeInsets.only(top: 10),
+    child: _ProblemBox(
+      text: text,
+      color: StatusColors.busy,
+      icon: Icons.warning_amber_rounded,
+    ),
   );
 }
 
 /// The widest a [_ProblemBox] grows.
 const _problemBoxWidth = 460.0;
 
-/// A home-page problem in a quiet box, so it stands out from the ordinary
-/// hints: the alternate card's fill, a hairline border, and the warning
-/// icon. The palette has no red; the icon and the words carry the meaning.
+/// A home-page problem in a tinted box, so it stands out from the ordinary
+/// hints: red for an error, amber for a warning. The text is darkened (or,
+/// at night, lightened) toward the page's text for contrast on the tint.
 class _ProblemBox extends StatelessWidget {
-  const _ProblemBox({required this.text, required this.dark, this.tooltip = ''});
+  const _ProblemBox({
+    required this.text,
+    required this.color,
+    required this.icon,
+    this.tooltip = '',
+  });
 
   final String text;
-  final bool dark;
+  final Color color;
+  final IconData icon;
 
   /// The core's own words, on hover or a long press.
   final String tooltip;
 
   @override
   Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final ink = Color.lerp(color, dark ? Colors.white : Colors.black, 0.25)!;
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: _problemBoxWidth),
         child: Tooltip(
           message: tooltip,
           child: Container(
-            padding: const EdgeInsetsDirectional.fromSTEB(14, 11, 14, 11),
+            padding: const EdgeInsetsDirectional.fromSTEB(12, 9, 14, 9),
             decoration: BoxDecoration(
-              color: Homa.cardAlt(dark),
-              borderRadius: BorderRadius.circular(Homa.radiusBox),
-              border: Border.all(color: Homa.borderStrong(dark)),
+              color: color.withValues(alpha: dark ? 0.18 : 0.11),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: color.withValues(alpha: 0.4)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.error_outline_rounded,
-                  size: 18,
-                  color: Homa.ink(dark),
-                ),
-                const SizedBox(width: Homa.gap2),
+                Icon(icon, size: 18, color: color),
+                const SizedBox(width: 8),
                 Flexible(
                   child: Text(
                     text,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Homa.ink(dark),
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium
+                        ?.copyWith(color: ink, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -328,7 +265,8 @@ void _testAfterPowerOn(CoreController core) {
 /// button turns the proxy on or off (off closes its port and gives Windows
 /// its own proxy setting back); the mode chooses who uses it: Proxy, apps
 /// set up by hand, or System proxy, Windows too. Switching modes never
-/// disconnects. Where the traffic goes and the data used are in cards; the
+/// disconnects. "Connecting" in orange until a test confirms the
+/// connection. Where the traffic goes and the data used are in cards; the
 /// email is on the accounts page.
 class _DesktopHome extends StatelessWidget {
   const _DesktopHome({
@@ -365,115 +303,161 @@ class _DesktopHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
+    final base = Theme.of(context);
+    final p = base.brightness == Brightness.dark
+        ? _HomePalette.night
+        : _HomePalette.day;
     final page = DecoratedBox(
-      decoration: BoxDecoration(color: dark ? Homa.black : Homa.white),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [p.top, p.bottom],
+        ),
+      ),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+        // The bottom clears the floating pill navigation, which the page
+        // runs beneath.
+        padding: const EdgeInsets.fromLTRB(24, 12, 24, 108),
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 640),
-            child: _content(context, dark),
+            child: _content(context, p),
           ),
         ),
       ),
     );
-    return page;
+    return p.dark ? Theme(data: midnightTheme(base), child: page) : page;
   }
 
   bool get _running => status.state.phase == Phase.running;
 
-  Widget _content(BuildContext context, bool dark) {
+  /// The core is connecting, or the proxy still needs a passing test.
+  bool get _confirming =>
+      status.connectPending ||
+      (status.proxyOn && _running && !status.confirmedBy(core.lastTest));
+
+  Color _accent(_HomePalette p) => switch (status.state.phase) {
+    _ when status.connectPending => p.busy,
+    _ when !status.proxyOn => p.idle,
+    Phase.error => p.error,
+    Phase.running when _confirming => p.busy,
+    Phase.running => p.connected,
+    Phase.starting => p.busy,
+    _ => p.idle,
+  };
+
+  Widget _content(BuildContext context, _HomePalette p) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final status = this.status;
+    final look = PhaseLook.of(l, status);
     final proxy = status.proxy;
     final on = status.proxyOn;
-    final s = HomeState.of(l, core, status, showIp: showIp, on: on);
+    final confirming = _confirming;
+    final test = status.isCurrentTest(core.lastTest) ? core.lastTest : null;
+    final noNetwork = !status.connectPending && status.noNetwork && on;
+    final failing =
+        !status.connectPending &&
+        confirming &&
+        ((proxy?.wakeError.isNotEmpty ?? false) || test?.ok == false);
+    // The real reason; a long press or hover shows the core's own text.
+    final failure = failing ? failureText(l, proxy, test) : null;
+    // The last connect was given up: why, until the next one.
+    final gaveUp = !on && status.connectFailure.isNotEmpty;
+    final connected = on && _running && !confirming;
+    final accent = _accent(p);
+    final ip = !showIp
+        ? ''
+        : status.exit?.ipv4.isNotEmpty == true
+        ? status.exit!.ipv4
+        : status.exit?.ipv6 ?? '';
+    final place = homeLocation(l, status, connected: connected);
+    final mismatch = exitMismatchText(l, status);
     final cards = [
       Reveal(
-        index: 4,
+        index: 3,
         child: _PlaceCard(
-          dark: dark,
-          place: s.place,
+          palette: p,
+          compact: true,
+          place: place,
+          accent: accent,
           onTap: onOpenServers,
         ),
       ),
       Reveal(
-        index: 5,
-        child: _DataCard(
+        index: 4,
+        child: _HomeData(
           status: status,
-          dark: dark,
+          palette: p,
           onTap: onOpenAccounts,
+          compact: true,
         ),
       ),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Reveal(
-          index: 0,
-          child: Center(
-            child: _Orb(
-              on: on,
-              busy: s.connecting,
-              connected: s.connected,
-              dark: dark,
-              tapToConnect: l.tapToConnect,
-              tapToDisconnect: l.tapToDisconnect,
-              onToggle: () => status.totalAccounts == 0
-                  ? _openAccounts(context, core, settings, onOpenAccounts)
-                  : runShowingErrors(context, () => _power(!on)),
-              onSwipeDown: status.totalAccounts == 0
-                  ? null
-                  : () => runShowingErrors(context, () => _power(true)),
-              onSwipeUp: status.totalAccounts == 0
-                  ? null
-                  : () => runShowingErrors(context, () => _power(false)),
-            ),
+        Center(
+          child: _PowerOrb(
+            palette: p,
+            on: on,
+            accent: accent,
+            busy: core.switchingProxy,
+            tooltip: on ? l.tapToDisconnect : l.tapToConnect,
+            // No account yet: the accounts page, which explains them.
+            onPressed: () => status.totalAccounts == 0
+                ? _openAccounts(context, core, settings, onOpenAccounts)
+                : runShowingErrors(context, () => _power(!on)),
           ),
         ),
-        const SizedBox(height: Homa.gap4),
-        Reveal(
-          index: 1,
-          child: _Headline(state: s, dark: dark),
+        const SizedBox(height: 10),
+        Text(
+          confirming
+              ? l.stateConnecting
+              : connected
+              ? l.stateConnected
+              : look.label,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w800,
+            color: on ? accent : p.text,
+          ),
         ),
-        const SizedBox(height: Homa.gap4),
-        if (s.connected && !s.failing)
+        const SizedBox(height: 8),
+        if (connected)
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: Homa.gap2,
-            runSpacing: Homa.gap2,
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              _HomeDelay(core: core, dark: dark),
-              if (s.ip.isNotEmpty)
+              _HomeDelay(core: core, palette: p),
+              if (ip.isNotEmpty)
                 _HomePill(
-                  dark: dark,
+                  palette: p,
                   child: Text(
-                    '${l.publicIp} ${ltr(s.ip)}',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: Homa.muted(dark),
-                    ),
+                    '${l.publicIp} ${ltr(ip)}',
+                    style: theme.textTheme.labelLarge?.copyWith(color: p.muted),
                   ),
                 ),
               if (status.upstreamProxy.isNotEmpty)
                 _UpstreamProxyPill(
                   address: status.upstreamProxy,
-                  dark: dark,
+                  palette: p,
                   onPressed: onOpenUpstreamProxy,
                 ),
             ],
           )
-        else if (s.failing || s.noNetwork || s.gaveUp)
+        else if (failing || noNetwork || gaveUp)
           // Not connecting stands out from the ordinary hints.
           _ProblemBox(
-            text: s.noNetwork
+            text: noNetwork
                 ? l.noNetwork
-                : s.failure != null
-                ? s.failure!.text
+                : failure != null
+                ? failure.text
                 : failureCodeText(l, status.connectFailure),
-            dark: dark,
-            tooltip: s.noNetwork ? '' : s.failure?.detail ?? '',
+            color: p.error,
+            icon: Icons.error_outline_rounded,
+            tooltip: noNetwork ? '' : failure?.detail ?? '',
           )
         else
           // A start failure's hint is general; the core's reason is on
@@ -483,42 +467,40 @@ class _DesktopHome extends StatelessWidget {
                 ? status.state.message
                 : '',
             child: Text(
-              !on ? l.tapToConnect : s.look.hint,
+              !on ? l.tapToConnect : look.hint,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: Homa.muted(dark),
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(color: p.muted),
             ),
           ),
-        if (s.failure?.code == Failure.unreachable && onOpenConnection != null)
+        if (failure?.code == Failure.unreachable && onOpenConnection != null)
           _ConnectionSettingsButton(onPressed: onOpenConnection!),
-        if (s.failure?.code == Failure.upstreamProxy &&
+        if (failure?.code == Failure.upstreamProxy &&
             onOpenUpstreamProxy != null)
           _ConnectionSettingsButton(
             onPressed: onOpenUpstreamProxy!,
             label: AppLocalizations.of(context).upstreamProxy,
           ),
-        if (!s.connected &&
+        if (!connected &&
             status.upstreamProxy.isNotEmpty &&
-            s.failure?.code != Failure.upstreamProxy)
+            failure?.code != Failure.upstreamProxy)
           Padding(
-            padding: const EdgeInsets.only(top: Homa.gap2),
+            padding: const EdgeInsets.only(top: 8),
             child: Center(
               child: _UpstreamProxyPill(
                 address: status.upstreamProxy,
-                dark: dark,
+                palette: p,
                 onPressed: onOpenUpstreamProxy,
               ),
             ),
           ),
-        if (isLocationRefused(s.failure?.code ?? '') ||
-            (s.gaveUp && isLocationRefused(status.connectFailure)))
+        if (isLocationRefused(failure?.code ?? '') ||
+            (gaveUp && isLocationRefused(status.connectFailure)))
           _RecommendedLocationButton(core: core),
-        if (s.connected && s.mismatch != null) _ExitMismatchNote(text: s.mismatch!),
+        if (connected && mismatch != null) _ExitMismatchNote(text: mismatch),
         if (status.systemProxySet && status.systemProxyTakenBy != null)
           _SystemProxyTakenNote(core: core, by: status.systemProxyTakenBy!),
         if (status.state.proxyPortBlocked) ...[
-          const SizedBox(height: Homa.gap3),
+          const SizedBox(height: 12),
           Center(
             child: FilledButton.tonalIcon(
               onPressed: () async {
@@ -538,13 +520,14 @@ class _DesktopHome extends StatelessWidget {
             ),
           ),
         ],
-        const SizedBox(height: Homa.gap4),
+        const SizedBox(height: 16),
         // The same choice as the button and the tray, by name, where this
         // computer has more than proxy only.
         if (status.systemProxySupported || status.tunSupported)
           Center(
             child: _ModeSwitch(
-              dark: dark,
+              palette: p,
+              accent: accent,
               selected: _mode,
               onSelected: core.switchingProxy || core.installingTun
                   ? null
@@ -577,7 +560,7 @@ class _DesktopHome extends StatelessWidget {
               ],
             ),
           ),
-        const SizedBox(height: Homa.gap2),
+        const SizedBox(height: 8),
         Text(
           // Windows names itself; Linux and macOS say "the system".
           connectionModeHint(
@@ -587,22 +570,27 @@ class _DesktopHome extends StatelessWidget {
             windows: defaultTargetPlatform == TargetPlatform.windows,
           ),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodySmall?.copyWith(color: Homa.muted(dark)),
+          style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
         ),
         TunNote(
           core: core,
-          box: (text, tooltip) => _ProblemBox(text: text, dark: dark, tooltip: tooltip),
+          box: (text, tooltip) => _ProblemBox(
+            text: text,
+            color: StatusColors.busy,
+            icon: Icons.warning_amber_rounded,
+            tooltip: tooltip,
+          ),
         ),
-        const SizedBox(height: Homa.gap5),
-        _UpdateNotice(core: core, settings: settings, dark: dark),
-        _UdpNotice(status: status, settings: settings, dark: dark),
-        _Notices(notices: homeNotices(status.notices), dark: dark),
+        const SizedBox(height: 24),
+        _UpdateNotice(core: core, settings: settings, palette: p),
+        _UdpNotice(status: status, settings: settings, palette: p),
+        _Notices(notices: homeNotices(status.notices)),
         _LowQuotaNotice(
           core: core,
           status: status,
           settings: settings,
-          connected: s.connected,
-          dark: dark,
+          connected: connected,
+          palette: p,
         ),
         // Side by side when there is room.
         LayoutBuilder(
@@ -612,18 +600,14 @@ class _DesktopHome extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(child: cards[0]),
-                      const SizedBox(width: Homa.gap3),
+                      const SizedBox(width: 12),
                       Expanded(child: cards[1]),
                     ],
                   ),
                 )
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    cards[0],
-                    const SizedBox(height: Homa.gap3),
-                    cards[1],
-                  ],
+                  children: [cards[0], const SizedBox(height: 12), cards[1]],
                 ),
         ),
       ],
@@ -631,19 +615,19 @@ class _DesktopHome extends StatelessWidget {
   }
 }
 
-/// A small pill on the home background.
+/// A small frosted pill on the home background.
 class _HomePill extends StatelessWidget {
-  const _HomePill({required this.dark, required this.child});
+  const _HomePill({required this.palette, required this.child});
 
-  final bool dark;
+  final _HomePalette palette;
   final Widget child;
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
     decoration: ShapeDecoration(
-      color: Homa.cardAlt(dark),
-      shape: StadiumBorder(side: BorderSide(color: Homa.border(dark))),
+      color: palette.card,
+      shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
     ),
     child: child,
   );
@@ -654,35 +638,34 @@ class _HomePill extends StatelessWidget {
 class _UpstreamProxyPill extends StatelessWidget {
   const _UpstreamProxyPill({
     required this.address,
-    required this.dark,
+    required this.palette,
     this.onPressed,
   });
 
   final String address;
-  final bool dark;
+  final _HomePalette palette;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) => Tooltip(
     message: ltr(address),
     child: Material(
-      color: Homa.cardAlt(dark),
-      shape: StadiumBorder(side: BorderSide(color: Homa.border(dark))),
+      color: palette.card,
+      shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.lan_outlined, size: 16, color: Homa.ink(dark)),
-              const SizedBox(width: Homa.gap1 + 2),
+              Icon(Icons.lan_outlined, size: 16, color: palette.connected),
+              const SizedBox(width: 6),
               Text(
                 AppLocalizations.of(context).upstreamProxyOn,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Homa.muted(dark),
-                ),
+                style: Theme.of(context).textTheme.labelLarge
+                    ?.copyWith(color: palette.muted),
               ),
             ],
           ),
@@ -701,13 +684,15 @@ typedef _Mode = ({String value, IconData icon, String label, String tooltip});
 /// to fit a narrow window. A tap on the chosen mode changes nothing.
 class _ModeSwitch extends StatelessWidget {
   const _ModeSwitch({
-    required this.dark,
+    required this.palette,
+    required this.accent,
     required this.modes,
     required this.selected,
     required this.onSelected,
   });
 
-  final bool dark;
+  final _HomePalette palette;
+  final Color accent;
   final List<_Mode> modes;
   final String selected;
 
@@ -716,6 +701,7 @@ class _ModeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = palette;
     final theme = Theme.of(context);
     final n = modes.length;
     final index = modes.indexWhere((m) => m.value == selected);
@@ -723,7 +709,7 @@ class _ModeSwitch extends StatelessWidget {
     final onSelected = this.onSelected;
     Widget option(_Mode m) {
       final chosen = m.value == selected;
-      final color = chosen ? Homa.onInk(dark) : Homa.muted(dark);
+      final color = chosen ? p.text : p.muted;
       Widget child = InkWell(
         customBorder: const StadiumBorder(),
         onTap: onSelected == null || chosen ? null : () => onSelected(m.value),
@@ -734,7 +720,7 @@ class _ModeSwitch extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(m.icon, size: 18, color: color),
-              const SizedBox(width: Homa.gap2),
+              const SizedBox(width: 8),
               Text(
                 m.label,
                 maxLines: 1,
@@ -766,8 +752,8 @@ class _ModeSwitch extends StatelessWidget {
         duration: const Duration(milliseconds: 150),
         child: DecoratedBox(
           decoration: ShapeDecoration(
-            color: Homa.cardAlt(dark),
-            shape: StadiumBorder(side: BorderSide(color: Homa.border(dark))),
+            color: p.card,
+            shape: StadiumBorder(side: BorderSide(color: p.cardBorder)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(4),
@@ -786,20 +772,62 @@ class _ModeSwitch extends StatelessWidget {
                         ),
                         duration: still
                             ? Duration.zero
-                            : const Duration(milliseconds: 200),
+                            : const Duration(milliseconds: 240),
                         curve: Curves.easeOutCubic,
                         child: FractionallySizedBox(
                           widthFactor: 1 / n,
                           heightFactor: 1,
                           child: DecoratedBox(
                             decoration: ShapeDecoration(
-                              color: Homa.ink(dark),
-                              shape: const StadiumBorder(),
+                              color: accent.withValues(alpha: 0.2),
+                              shape: StadiumBorder(
+                                side: BorderSide(
+                                  color: accent.withValues(alpha: 0.35),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
+                  // A line between two modes, so each reads as a button of
+                  // its own; none beside the pill, which marks its mode.
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Row(
+                        children: [
+                          for (var i = 0; i < n; i++)
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: i == n - 1
+                                    ? null
+                                    : AnimatedOpacity(
+                                        opacity: i == index || i + 1 == index
+                                            ? 0
+                                            : 1,
+                                        duration: still
+                                            ? Duration.zero
+                                            : const Duration(milliseconds: 180),
+                                        child: Container(
+                                          width: 1.2,
+                                          height: 22,
+                                          decoration: BoxDecoration(
+                                            color: p.muted.withValues(
+                                              alpha: 0.45,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              1,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Material(
                     type: MaterialType.transparency,
                     child: Row(
@@ -818,444 +846,160 @@ class _ModeSwitch extends StatelessWidget {
   }
 }
 
-/// The real delay under the state; a tap tests again.
-class _HomeDelay extends StatelessWidget {
-  const _HomeDelay({required this.core, required this.dark});
-
-  final CoreController core;
-  final bool dark;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final test = core.lastTest;
-    final (text, color) = switch (test) {
-      null => (l.testConnection, Homa.muted(dark)),
-      final t when !t.ok => (l.testFailed, Homa.muted(dark)),
-      final t => (l.milliseconds(t.responseMs), Homa.ink(dark)),
-    };
-    return Tooltip(
-      message: '${l.realDelay} · ${l.testConnection}',
-      child: Material(
-        color: Homa.cardAlt(dark),
-        shape: StadiumBorder(side: BorderSide(color: Homa.border(dark))),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: core.testing
-              ? null
-              : () => runShowingErrors(context, core.runTest),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (core.testing)
-                  const SizedBox.square(
-                    dimension: 12,
-                    child: CircularProgressIndicator(strokeWidth: 1.5),
-                  )
-                else
-                  Icon(Icons.bolt_rounded, size: 16, color: color),
-                const SizedBox(width: Homa.gap1),
-                Text(
-                  text,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The button: one big circle. Off, it is filled with the page's ink and
-/// its power mark is the background's; on, it is a ring of ink with the
-/// mark inside, over soft rings that breathe while the connection is
-/// alive. A tap turns it, and a drag works too: down connects, up
-/// disconnects.
-class _Orb extends StatefulWidget {
-  const _Orb({
-    required this.on,
-    required this.busy,
-    required this.connected,
-    required this.dark,
-    required this.tapToConnect,
-    required this.tapToDisconnect,
-    required this.onToggle,
-    this.onSwipeDown,
-    this.onSwipeUp,
-    this.autofocusOverride = false,
+/// Where the traffic goes: the flag and the country, under how the
+/// location is chosen (a sparkle for the app's choice); a tap opens the
+/// server list.
+class _PlaceCard extends StatelessWidget {
+  const _PlaceCard({
+    required this.palette,
+    required this.place,
+    required this.accent,
+    this.onTap,
+    this.compact = false,
   });
 
-  final bool on;
-  final bool busy;
-  final bool connected;
-  final bool dark;
-  final String tapToConnect;
-  final String tapToDisconnect;
-  final VoidCallback onToggle;
-
-  /// A remote starts here: the button takes the focus when the page opens.
-  final bool autofocusOverride;
-
-  /// Drags: down connects, up disconnects; null where there is no account.
-  final VoidCallback? onSwipeDown;
-  final VoidCallback? onSwipeUp;
-
-  @override
-  State<_Orb> createState() => _OrbState();
-}
-
-class _OrbState extends State<_Orb> with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 2600),
-  );
-  late AppLifecycleListener _lifecycle;
-
-  @override
-  void initState() {
-    super.initState();
-    _lifecycle = AppLifecycleListener(onStateChange: _onState);
-  }
-
-  @override
-  void didUpdateWidget(_Orb old) {
-    super.didUpdateWidget(old);
-    final should = widget.connected && !_still(context);
-    if (should && !_c.isAnimating) _c.repeat();
-    if (!should) _c.stop();
-  }
-
-  void _onState(AppLifecycleState state) {
-    if (!mounted) return;
-    if (state == AppLifecycleState.resumed) {
-      if (widget.connected && !_c.isAnimating) _c.repeat();
-    } else {
-      _c.stop();
-    }
-  }
-
-  @override
-  void dispose() {
-    _lifecycle.dispose();
-    _c.dispose();
-    super.dispose();
-  }
-
-  bool _still(BuildContext context) => MediaQuery.of(context).disableAnimations;
-
-  /// The drag's meaning: down connects, up disconnects, and nothing
-  /// in between.
-  void _dragged(DragEndDetails d) {
-    final v = d.velocity.pixelsPerSecond.dy;
-    if (widget.busy) return;
-    if (!widget.on && v > 420 && widget.onSwipeDown != null) {
-      widget.onSwipeDown!();
-    } else if (widget.on && v < -420 && widget.onSwipeUp != null) {
-      widget.onSwipeUp!();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = widget.dark;
-    final ink = Homa.ink(dark);
-    final on = widget.on;
-    final busy = widget.busy;
-    const disc = 172.0;
-    const area = 264.0;
-    final still = _still(context);
-    return Tooltip(
-      message: on ? widget.tapToDisconnect : widget.tapToConnect,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onVerticalDragEnd: _dragged,
-        child: SizedBox.square(
-          dimension: area,
-          child: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              // The breathing rings: only while connected, and never for
-              // someone who asked for less motion.
-              if (widget.connected && !still)
-                Positioned.fill(
-                  child: IgnorePointer(
-                    child: AnimatedBuilder(
-                      animation: _c,
-                      builder: (context, _) => CustomPaint(
-                        painter: _RingsPainter(t: _c.value, color: ink),
-                      ),
-                    ),
-                  ),
-                ),
-              if (busy)
-                SizedBox.square(
-                  dimension: disc + 16,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    color: ink,
-                  ),
-                ),
-              // The disc: filled with ink when off; on, a ring with the
-              // mark inside.
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeOut,
-                width: disc,
-                height: disc,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: on ? Colors.transparent : ink,
-                  border: Border.all(color: ink, width: on ? 2.2 : 0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: dark
-                          ? Colors.white.withValues(alpha: on ? 0.10 : 0.14)
-                          : Colors.black.withValues(alpha: on ? 0.06 : 0.10),
-                      blurRadius: 30,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Material(
-                  type: MaterialType.transparency,
-                  shape: const CircleBorder(),
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    autofocus: widget.autofocusOverride,
-                    onTap: busy ? null : widget.onToggle,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 180),
-                          child: Icon(
-                            on
-                                ? Icons.stop_rounded
-                                : Icons.power_settings_new_rounded,
-                            key: ValueKey(on),
-                            size: 40,
-                            color: on ? ink : Homa.onInk(dark),
-                          ),
-                        ),
-                        const SizedBox(height: Homa.gap1),
-                        Text(
-                          on
-                              ? AppLocalizations.of(context).btnDisconnect
-                              : AppLocalizations.of(context).btnConnect,
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(
-                                color: on ? ink : Homa.onInk(dark),
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.2,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Two rings that drift outwards and fade, one behind the other, in ink.
-class _RingsPainter extends CustomPainter {
-  _RingsPainter({required this.t, required this.color});
-
-  final double t;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.6;
-    const disc = 172.0;
-    for (var i = 0; i < 2; i++) {
-      final p = (t + i * 0.5) % 1;
-      final r = disc / 2 + 12 + p * (size.shortestSide / 2 - disc / 2 - 12);
-      paint.color = color.withValues(alpha: (1 - p) * 0.20);
-      canvas.drawCircle(center, r, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_RingsPainter old) => old.t != t || old.color != color;
-}
-
-/// The state, big, and under it where the traffic goes: the page's first
-/// line, in the ink of its state (a state that waits is softer).
-class _Headline extends StatelessWidget {
-  const _Headline({required this.state, required this.dark});
-
-  final HomeState state;
-  final bool dark;
+  final _HomePalette palette;
+  final HomePlace place;
+  final Color accent;
+  final VoidCallback? onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final ink = state.connected
-        ? Homa.ink(dark)
-        : state.connecting
-        ? HomaState.busy(dark)
-        : state.failing || state.noNetwork || state.gaveUp
-        ? Homa.ink(dark)
-        : Homa.muted(dark);
-    return Text(
-      state.label,
-      textAlign: TextAlign.center,
-      style: theme.textTheme.headlineMedium?.copyWith(
-        fontWeight: FontWeight.w800,
-        letterSpacing: -0.5,
-        color: ink,
-      ),
-    );
-  }
-}
-
-/// The session while connected: its time, the upload and the download,
-/// in one quiet strip. The time ticks every second.
-class _SessionStrip extends StatefulWidget {
-  const _SessionStrip({required this.status, required this.dark});
-
-  final CoreStatus status;
-  final bool dark;
-
-  @override
-  State<_SessionStrip> createState() => _SessionStripState();
-}
-
-class _SessionStripState extends State<_SessionStrip> {
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (mounted) setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  String _elapsed() {
-    final started = widget.status.proxy?.startedAt;
-    if (started == null) return '00:00:00';
-    final d = DateTime.now().difference(started);
-    String two(int n) => n.toString().padLeft(2, '0');
-    return ltr('${two(d.inHours)}:${two(d.inMinutes % 60)}:${two(d.inSeconds % 60)}');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final dark = widget.dark;
-    final traffic = widget.status.traffic;
-    Widget cell(
-      IconData icon,
-      String label,
-      String value, {
-      bool tabular = false,
-    }) => Expanded(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 13, color: Homa.faint(dark)),
-              const SizedBox(width: Homa.gap1),
-              Flexible(
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: Homa.faint(dark),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Homa.gap1),
-          Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.titleSmall?.copyWith(
-              color: Homa.ink(dark),
-              fontWeight: FontWeight.w700,
-              fontFeatures: tabular ? const [FontFeature.tabularFigures()] : null,
-            ),
-          ),
-        ],
-      ),
-    );
-    return Padding(
-      padding: const EdgeInsets.only(top: Homa.gap3),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: Homa.gap3, horizontal: Homa.gap2),
-        decoration: BoxDecoration(
-          color: Homa.cardAlt(dark),
-          borderRadius: BorderRadius.circular(Homa.radiusTile),
-          border: Border.all(color: Homa.border(dark)),
-        ),
+    final p = palette;
+    return _HomeCard(
+      palette: p,
+      onTap: onTap,
+      compact: compact,
+      // As tall as the data card's ring, so the two cards match.
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: _homeCardContent(compact)),
         child: Row(
           children: [
-            cell(
-              Icons.schedule_rounded,
-              l.statElapsed,
-              _elapsed(),
-              tabular: true,
+            CountryFlag(code: place.flag, width: compact ? 34 : 44),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      if (place.auto) ...[
+                        Icon(
+                          Icons.auto_awesome_rounded,
+                          size: 14,
+                          color: accent,
+                        ),
+                        const SizedBox(width: 4),
+                      ],
+                      Flexible(
+                        child: Text(
+                          place.caption,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: place.auto ? accent : p.muted,
+                            fontWeight: place.auto ? FontWeight.w600 : null,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    place.name,
+                    style:
+                        (compact
+                                ? theme.textTheme.titleSmall
+                                : theme.textTheme.titleMedium)
+                            ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: p.text,
+                            ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
-            _divider(dark),
-            cell(
-              Icons.arrow_upward_rounded,
-              l.statUp,
-              formatRate(traffic?.upRate ?? 0),
-              tabular: true,
-            ),
-            _divider(dark),
-            cell(
-              Icons.arrow_downward_rounded,
-              l.statDown,
-              formatRate(traffic?.downRate ?? 0),
-              tabular: true,
-            ),
+            if (onTap != null)
+              Icon(Icons.chevron_right_rounded, color: p.muted),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _divider(bool dark) => Container(
-    width: 1,
-    height: 34,
-    margin: const EdgeInsets.symmetric(horizontal: Homa.gap2),
-    color: Homa.border(dark),
+class _HomePalette {
+  const _HomePalette({
+    required this.dark,
+    required this.top,
+    required this.bottom,
+    required this.text,
+    required this.muted,
+    required this.card,
+    required this.cardBorder,
+    required this.idle,
+    required this.connected,
+    required this.busy,
+    required this.error,
+    required this.discOff,
+    required this.discOffEdge,
+  });
+
+  final bool dark;
+  final Color top;
+  final Color bottom;
+  final Color text;
+  final Color muted;
+  final Color card;
+  final Color cardBorder;
+  final Color idle;
+  final Color connected;
+  final Color busy;
+  final Color error;
+  final List<Color> discOff;
+  final Color discOffEdge;
+
+  static const night = _HomePalette(
+    dark: true,
+    top: Color(0xFF0A0A0A),
+    bottom: Colors.black,
+    text: Colors.white,
+    muted: Color(0xFF9E9E9E),
+    card: Color(0xFF141414),
+    cardBorder: Color(0xFF282828),
+    idle: Color(0xFF8A8A8A),
+    connected: Colors.white,
+    busy: Color(0xFFBFBFBF),
+    error: Colors.white,
+    discOff: [Color(0xFF161616), Color(0xFF050505)],
+    discOffEdge: Color(0xFF2E2E2E),
+  );
+
+  static const day = _HomePalette(
+    dark: false,
+    top: Colors.white,
+    bottom: Color(0xFFF6F6F6),
+    text: Color(0xFF0A0A0A),
+    muted: Color(0xFF6B6B6B),
+    card: Color(0xFFFFFFFF),
+    cardBorder: Color(0xFFE4E4E4),
+    idle: Color(0xFF6B6B6B),
+    connected: Color(0xFF0A0A0A),
+    busy: Color(0xFF8A8A8A),
+    error: Color(0xFF0A0A0A),
+    discOff: [Colors.white, Color(0xFFF1F1F1)],
+    discOffEdge: Color(0xFFD6D6D6),
   );
 }
 
-/// The phone's home: the state, the button, the session, and the cards.
-/// Light or dark with the app's theme; the email is on the accounts page.
+/// The phone's home: the switch in the middle over soft lights and wavy
+/// contour lines in the state's color, the state under it, then where the
+/// traffic goes and the data used. Light or dark with the app's theme; the
+/// email is on the accounts page.
 class _PhoneHome extends StatelessWidget {
   const _PhoneHome({
     required this.core,
@@ -1295,34 +1039,68 @@ class _PhoneHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
+    final base = Theme.of(context);
+    final p = base.brightness == Brightness.dark
+        ? _HomePalette.night
+        : _HomePalette.day;
     final page = AnnotatedRegion<SystemUiOverlayStyle>(
-      value: (dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
+      value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
           .copyWith(statusBarColor: Colors.transparent),
       child: DecoratedBox(
-        decoration: BoxDecoration(color: dark ? Homa.black : Homa.white),
-        child: LayoutBuilder(
-          builder: (context, box) => SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: box.maxHeight),
-              child: IntrinsicHeight(child: _content(context, dark, box)),
-            ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [p.top, p.bottom],
           ),
+        ),
+        // The world behind the switch: the sample's map, redrawn as quiet
+        // dots in the theme's own ink — no hue, no motion, no pointer.
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: p.dark ? 0.10 : 0.07,
+                  child: Image.asset(
+                    p.dark
+                        ? 'assets/map_dots_light.png'
+                        : 'assets/map_dots_dark.png',
+                    fit: BoxFit.fitWidth,
+                    alignment: const Alignment(0, -0.45),
+                    excludeFromSemantics: true,
+                  ),
+                ),
+              ),
+            ),
+            LayoutBuilder(
+              builder: (context, box) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: box.maxHeight),
+                  child: IntrinsicHeight(child: _content(context, p, box)),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
-    return page;
+    return p.dark ? Theme(data: midnightTheme(base), child: page) : page;
   }
 
-  Widget _content(BuildContext context, bool dark, BoxConstraints box) {
+  Widget _content(BuildContext context, _HomePalette p, BoxConstraints box) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final look = PhaseLook.of(l, status);
+    final running = status.state.phase == Phase.running;
+    final canSwitch = status.systemProxySupported;
     final width = box.maxWidth;
-    // A wide, low screen (a TV, 960 x 540): a smaller button and the two
+    // A wide, low screen (a TV, 960 x 540): a smaller switch and the two
     // cards side by side, so that all of it shows without scrolling.
     final short = box.maxHeight < 560 && width >= 600;
-    // On a tablet the content keeps about a phone's width in the middle;
-    // both as padding, since IntrinsicHeight measures through padding but
+    // On a tablet the content keeps about a phone's width in the middle (the
+    // colors still reach the edges), and the problem boxes their own limit.
+    // Both as padding, since IntrinsicHeight measures through padding but
     // not through a width limit.
     final side = math.max(20.0, (width - (short ? 720 : 560)) / 2);
     final boxSide = math.max(0.0, (width - 2 * side - _problemBoxWidth) / 2);
@@ -1336,367 +1114,847 @@ class _PhoneHome extends StatelessWidget {
         ? status.systemProxySet || status.tunMode
         : status.proxyOn;
     final proxy = status.proxy;
-    final s = HomeState.of(l, core, status, showIp: showIp, on: on);
+    // The phone's VPN is "Connecting", in orange, until a test confirms it
+    // works (the controller tests again meanwhile): with no internet it
+    // does not claim to be connected.
+    final confirming =
+        status.connectPending ||
+        (on && running && !canSwitch && !status.confirmedBy(core.lastTest));
+    final test = status.isCurrentTest(core.lastTest) ? core.lastTest : null;
+    final noNetwork = !status.connectPending && status.noNetwork && on;
+    final failing =
+        !status.connectPending &&
+        confirming &&
+        ((proxy?.wakeError.isNotEmpty ?? false) || test?.ok == false);
+    // The real reason; a long press or hover shows the core's own text.
+    final failure = failing ? failureText(l, proxy, test) : null;
+    // The last connect was given up: why, until the next one.
+    final gaveUp = !on && status.connectFailure.isNotEmpty;
+    final connected =
+        on && running && (status.computerUsesVpn || !canSwitch) && !confirming;
+    final ip = !showIp
+        ? ''
+        : status.exit?.ipv4.isNotEmpty == true
+        ? status.exit!.ipv4
+        : status.exit?.ipv6 ?? '';
+    final proxyOnly = Platform.isAndroid && AndroidCore.mode.value == 'proxy';
+    final accent = !on
+        ? p.idle
+        : confirming
+        ? p.busy
+        : switch (status.state.phase) {
+            Phase.running => p.connected,
+            Phase.error => p.error,
+            _ => p.busy,
+          };
+    final label = confirming ? l.stateConnecting : look.label;
     // A TV's remote presses OK; a phone is tapped.
     final tv = Platform.isAndroid && AndroidCore.isTv;
-    final press = s.on
-        ? (tv ? l.tapToDisconnectTv : l.swipeToDisconnect)
-        : (tv ? l.tapToConnectTv : l.swipeToConnect);
-    final proxyOnly = Platform.isAndroid && AndroidCore.mode.value == 'proxy';
+    final press = on
+        ? (tv ? l.tapToDisconnectTv : l.tapToDisconnectPhone)
+        : (tv ? l.tapToConnectTv : l.tapToConnectPhone);
+    final place = homeLocation(l, status, connected: connected);
+    final mismatch = exitMismatchText(l, status);
     final top = MediaQuery.paddingOf(context).top;
     return Padding(
-      padding: EdgeInsets.fromLTRB(side, top + 10, side, 20),
+      // The bottom clears the floating pill navigation, which the page
+      // runs beneath.
+      padding: EdgeInsets.fromLTRB(side, top + 14, side, 116),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // The brand: the official mark and the name, with the state's dot.
-          Reveal(
-            index: 0,
-            child: Row(
-              children: [
-                // The official wordmark as the header's brand; the theme's
-                // face, so it reads like the text beside it.
-                BrandWordmark(height: 20),
-                const Spacer(),
-                PulsingDot(
-                  color: s.connected
-                      ? Homa.ink(dark)
-                      : Homa.faint(dark),
-                  active: s.connected,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // The brand: the official wordmark, in the theme's face.
+              Reveal(
+                index: 0,
+                child: Center(child: BrandWordmark(height: 24)),
+              ),
+              const Spacer(),
+              SizedBox(height: short ? 4 : 16),
+              // The state, in words, where the island used to live.
+              Reveal(
+                index: 1,
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: on ? accent : p.text,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
+              Reveal(
+                index: 2,
+                child: Center(
+                  child: SlideToConnect(
+                    on: on,
+                    busy: core.switchingProxy,
+                    accent: accent,
+                    dark: p.dark,
+                    card: p.card,
+                    border: p.cardBorder,
+                    text: p.text,
+                    muted: p.muted,
+                    labelConnect: l.slideToConnect,
+                    labelDisconnect: l.slideToDisconnect,
+                    // The state's word stays in the track once connected;
+                    // while the connection is still being confirmed the
+                    // track keeps the connect hint (nothing is claimed yet).
+                    labelOn: confirming ? '' : l.stateConnected,
+                    tooltip: press,
+                    // A TV starts on the switch, its ring showing.
+                    autofocus: Platform.isAndroid && AndroidCore.isTv,
+                    // No account yet: the accounts page, which explains
+                    // them and links to Mozilla's sign-up.
+                    onPressed: () => status.totalAccounts == 0
+                        ? _openAccounts(context, core, settings, onOpenAccounts)
+                        : runShowingErrors(context, () => _toggle(on)),
+                  ),
+                ),
+              ),
+              SizedBox(height: short ? 8 : 14),
+              if (connected) ...[
+                // The connection's numbers, in the page itself: the time
+                // it has been up, the real delay, the live rates.
+                _HomeStats(
+                  core: core,
+                  status: status,
+                  palette: p,
+                  startedAt: proxy?.startedAt,
+                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                ),
+                if (ip.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: _HomeRow(
+                      palette: p,
+                      icon: Icons.public_rounded,
+                      label: l.publicIp,
+                      value: ltr(ip),
+                    ),
+                  ),
+                if (status.upstreamProxy.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Center(
+                      child: _UpstreamProxyPill(
+                        address: status.upstreamProxy,
+                        palette: p,
+                        onPressed: onOpenUpstreamProxy,
+                      ),
+                    ),
+                  ),
+              ]
+              else if (failing || noNetwork || gaveUp)
+                // Not connecting stands out from the ordinary hints.
+                problem(
+                  _ProblemBox(
+                    text: noNetwork
+                        ? l.noNetwork
+                        : failure != null
+                        ? failure.text
+                        : failureCodeText(l, status.connectFailure),
+                    color: p.error,
+                    icon: Icons.error_outline_rounded,
+                    tooltip: noNetwork ? '' : failure?.detail ?? '',
+                  ),
+                )
+              else
+                // A start failure's hint is general; the core's reason is
+                // on a long press.
+                Tooltip(
+                  message:
+                      !status.connectPending &&
+                          status.state.phase == Phase.error
+                      ? status.state.message
+                      : '',
+                  child: Text(
+                    look.hint.isNotEmpty ? look.hint : press,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(color: p.muted),
+                  ),
+                ),
+              // Where to find the proxy, on a line of its own under the delay.
+              if (connected && proxyOnly && proxy != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Center(
+                    child: _HomePill(
+                      palette: p,
+                      child: Text(
+                        '${l.modeProxyOnly} ${ltr('127.0.0.1:${portOf(proxy.listen) ?? 10810}')}',
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: p.muted,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (failure?.code == Failure.unreachable &&
+                  onOpenConnection != null)
+                _ConnectionSettingsButton(onPressed: onOpenConnection!),
+              if (failure?.code == Failure.upstreamProxy &&
+                  onOpenUpstreamProxy != null)
+                _ConnectionSettingsButton(
+                  onPressed: onOpenUpstreamProxy!,
+                  label: AppLocalizations.of(context).upstreamProxy,
+                ),
+              if (!connected &&
+                  status.upstreamProxy.isNotEmpty &&
+                  failure?.code != Failure.upstreamProxy)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Center(
+                    child: _UpstreamProxyPill(
+                      address: status.upstreamProxy,
+                      palette: p,
+                      onPressed: onOpenUpstreamProxy,
+                    ),
+                  ),
+                ),
+              if (isLocationRefused(failure?.code ?? '') ||
+                  (gaveUp && isLocationRefused(status.connectFailure)))
+                _RecommendedLocationButton(core: core),
+              if (connected && mismatch != null)
+                problem(_ExitMismatchNote(text: mismatch)),
+              if (canSwitch &&
+                  status.systemProxySet &&
+                  status.systemProxyTakenBy != null)
+                problem(
+                  _SystemProxyTakenNote(
+                    core: core,
+                    by: status.systemProxyTakenBy!,
+                  ),
+                ),
+              if (status.state.proxyPortBlocked) ...[
+                const SizedBox(height: 12),
+                Center(
+                  child: FilledButton.tonalIcon(
+                    onPressed: () async {
+                      final port = await showPortDialog(
+                        context,
+                        taken: status.state.address,
+                      );
+                      if (port != null && context.mounted) {
+                        await runShowingErrors(
+                          context,
+                          () => core.setProxyPort(port),
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.settings_ethernet_rounded),
+                    label: Text(l.changePort),
+                  ),
                 ),
               ],
-            ),
-          ),
-          SizedBox(height: short ? Homa.gap5 : Homa.gap6),
-          Reveal(
-            index: 1,
-            child: _Headline(state: s, dark: dark),
-          ),
-          SizedBox(height: short ? Homa.gap2 : Homa.gap5),
-          Reveal(
-            index: 2,
-            child: Center(
-              child: _Orb(
-                on: s.on,
-                busy: s.connecting,
-                connected: s.connected,
-                dark: dark,
-                tapToConnect: tv
-                    ? l.tapToConnectTv
-                    : l.tapToConnectPhone,
-                tapToDisconnect: tv
-                    ? l.tapToDisconnectTv
-                    : l.tapToDisconnectPhone,
-                // A TV starts on the switch, its ring showing.
-                autofocusOverride: tv,
-                // No account yet: the accounts page, which explains them
-                // and links to Mozilla's sign-up.
-                // _toggle takes the state it is in and flips it.
-                onToggle: () => status.totalAccounts == 0
-                    ? _openAccounts(context, core, settings, onOpenAccounts)
-                    : runShowingErrors(context, () => _toggle(s.on)),
-                onSwipeDown: status.totalAccounts == 0
-                    ? null
-                    : () => runShowingErrors(context, () => _toggle(false)),
-                onSwipeUp: status.totalAccounts == 0
-                    ? null
-                    : () => runShowingErrors(context, () => _toggle(true)),
-              ),
-            ),
-          ),
-          SizedBox(height: short ? Homa.gap2 : Homa.gap3),
-          Text(
-            s.connecting ? '' : press,
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: Homa.faint(dark),
-            ),
-          ),
-          // The session while connected: the time, the upload, the download.
-          if (s.connected) _SessionStrip(status: status, dark: dark),
-          if (s.failing || s.noNetwork || s.gaveUp)
-            // Not connecting stands out from the ordinary hints.
-            problem(
-              Padding(
-                padding: const EdgeInsets.only(top: Homa.gap3),
-                child: _ProblemBox(
-                  text: s.noNetwork
-                      ? l.noNetwork
-                      : s.failure != null
-                      ? s.failure!.text
-                      : failureCodeText(l, status.connectFailure),
-                  dark: dark,
-                  tooltip: s.noNetwork ? '' : s.failure?.detail ?? '',
-                ),
-              ),
-            )
-          else if (!s.connected)
-            Padding(
-              padding: EdgeInsets.only(top: short ? Homa.gap2 : Homa.gap4),
-              child: Tooltip(
-                message:
-                    !status.connectPending && status.state.phase == Phase.error
-                    ? status.state.message
-                    : '',
-                child: Text(
-                  s.look.hint.isNotEmpty && s.on ? s.look.hint : '',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Homa.faint(dark),
-                  ),
-                ),
-              ),
-            ),
-          // Where to find the proxy, on a line of its own under the strip.
-          if (s.connected && proxyOnly && proxy != null)
-            Padding(
-              padding: const EdgeInsets.only(top: Homa.gap2),
-              child: Center(
-                child: _HomePill(
-                  dark: dark,
-                  child: Text(
-                    '${l.modeProxyOnly} ${ltr('127.0.0.1:${portOf(proxy.listen) ?? 10810}')}',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: Homa.muted(dark),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          if (s.failure?.code == Failure.unreachable && onOpenConnection != null)
-            _ConnectionSettingsButton(onPressed: onOpenConnection!),
-          if (s.failure?.code == Failure.upstreamProxy &&
-              onOpenUpstreamProxy != null)
-            _ConnectionSettingsButton(
-              onPressed: onOpenUpstreamProxy!,
-              label: AppLocalizations.of(context).upstreamProxy,
-            ),
-          if (!s.connected &&
-              status.upstreamProxy.isNotEmpty &&
-              s.failure?.code != Failure.upstreamProxy)
-            Padding(
-              padding: const EdgeInsets.only(top: Homa.gap2),
-              child: Center(
-                child: _UpstreamProxyPill(
-                  address: status.upstreamProxy,
-                  dark: dark,
-                  onPressed: onOpenUpstreamProxy,
-                ),
-              ),
-            ),
-          if (isLocationRefused(s.failure?.code ?? '') ||
-              (s.gaveUp && isLocationRefused(status.connectFailure)))
-            _RecommendedLocationButton(core: core),
-          if (s.connected && s.mismatch != null)
-            problem(_ExitMismatchNote(text: s.mismatch!)),
-          if (_switchSystemProxy &&
-              status.systemProxySet &&
-              status.systemProxyTakenBy != null)
-            problem(
-              _SystemProxyTakenNote(
+              if (running &&
+                  proxy != null &&
+                  !canSwitch &&
+                  sharedWithLan(proxy.listen)) ...[
+                const SizedBox(height: 10),
+                Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
+              ],
+              const Spacer(),
+              SizedBox(height: short ? 12 : 16),
+              _UpdateNotice(core: core, settings: settings, palette: p),
+              _UdpNotice(status: status, settings: settings, palette: p),
+              _Notices(notices: homeNotices(status.notices)),
+              _LowQuotaNotice(
                 core: core,
-                by: status.systemProxyTakenBy!,
-              ),
-            ),
-          if (status.state.proxyPortBlocked) ...[
-            const SizedBox(height: Homa.gap3),
-            Center(
-              child: FilledButton.tonalIcon(
-                onPressed: () async {
-                  final port = await showPortDialog(
-                    context,
-                    taken: status.state.address,
-                  );
-                  if (port != null && context.mounted) {
-                    await runShowingErrors(
-                      context,
-                      () => core.setProxyPort(port),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.settings_ethernet_rounded),
-                label: Text(l.changePort),
-              ),
-            ),
-          ],
-          if (status.state.phase == Phase.running &&
-              proxy != null &&
-              !_switchSystemProxy &&
-              sharedWithLan(proxy.listen)) ...[
-            const SizedBox(height: Homa.gap3),
-            Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
-          ],
-          const Spacer(),
-          SizedBox(height: short ? Homa.gap3 : Homa.gap5),
-          _UpdateNotice(core: core, settings: settings, dark: dark),
-          _UdpNotice(status: status, settings: settings, dark: dark),
-          _Notices(notices: homeNotices(status.notices), dark: dark),
-          _LowQuotaNotice(
-            core: core,
-            status: status,
-            settings: settings,
-            connected: s.connected,
-            dark: dark,
-          ),
-          if (short)
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: _PlaceCard(
-                      dark: dark,
-                      place: s.place,
-                      onTap: onOpenServers,
-                    ),
-                  ),
-                  const SizedBox(width: Homa.gap3),
-                  Expanded(
-                    child: _DataCard(
-                      status: status,
-                      dark: dark,
-                      onTap: onOpenAccounts,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          else ...[
-            Reveal(
-              index: 4,
-              child: _PlaceCard(dark: dark, place: s.place, onTap: onOpenServers),
-            ),
-            const SizedBox(height: Homa.gap3),
-            Reveal(
-              index: 5,
-              child: _DataCard(
                 status: status,
-                dark: dark,
-                onTap: onOpenAccounts,
+                settings: settings,
+                connected: connected,
+                palette: p,
               ),
-            ),
-          ],
-        ],
-      ),
+              if (short)
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: _PlaceCard(
+                          palette: p,
+                          place: place,
+                          accent: accent,
+                          onTap: onOpenServers,
+                          compact: true,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _HomeData(
+                          status: status,
+                          palette: p,
+                          onTap: onOpenAccounts,
+                          compact: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else ...[
+                Reveal(
+                  index: 4,
+                  child: _PlaceCard(
+                    palette: p,
+                    place: place,
+                    accent: accent,
+                    onTap: onOpenServers,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Reveal(
+                  index: 5,
+                  child: _HomeData(
+                    status: status,
+                    palette: p,
+                    onTap: onOpenAccounts,
+                  ),
+                ),
+              ],
+            ],
+          ),
     );
   }
 }
 
-/// Where the traffic goes: the flag and the country, under how the
-/// location is chosen (a sparkle for the app's choice); a tap opens the
-/// server list.
-class _PlaceCard extends StatelessWidget {
-  const _PlaceCard({
-    required this.dark,
-    required this.place,
+/// A frosted card on the home background.
+/// The height of the home cards' content: the data card's ring; smaller
+/// on the computer, whose controls above the cards are small.
+double _homeCardContent(bool compact) => compact ? 46 : 62;
+
+class _HomeCard extends StatelessWidget {
+  const _HomeCard({
+    required this.palette,
+    required this.child,
     this.onTap,
+    this.compact = false,
   });
 
-  final bool dark;
-  final HomePlace place;
+  final _HomePalette palette;
+  final Widget child;
   final VoidCallback? onTap;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
+      boxShadow: palette.dark
+          ? null
+          : [
+              // Monochrome: a quiet black shade, no hue.
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.06),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+    ),
+    child: Pressable(
+      child: Material(
+        color: palette.card,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22),
+          side: BorderSide(color: palette.cardBorder),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: compact
+                ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+            child: child,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/// The real delay under the state; a tap tests again.
+class _HomeDelay extends StatelessWidget {
+  const _HomeDelay({required this.core, required this.palette});
+
+  final CoreController core;
+  final _HomePalette palette;
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return HomaCard(
-      dark: dark,
-      padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 8, 14),
-      onTap: onTap,
-      child: Row(
-        children: [
-          IconBox(icon: Icons.public_rounded),
-          const SizedBox(width: Homa.gap3 + 2),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    final test = core.lastTest;
+    final (text, color) = switch (test) {
+      null => (l.testConnection, palette.muted),
+      final t when !t.ok => (l.testFailed, palette.error),
+      final t => (l.milliseconds(t.responseMs), delayColor(t.responseMs)),
+    };
+    return Tooltip(
+      message: '${l.realDelay} · ${l.testConnection}',
+      child: Material(
+        color: palette.card,
+        shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: core.testing
+              ? null
+              : () => runShowingErrors(context, core.runTest),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
+                if (core.testing)
+                  const SizedBox.square(
+                    dimension: 12,
+                    child: CircularProgressIndicator(strokeWidth: 1.5),
+                  )
+                else
+                  Icon(Icons.bolt_rounded, size: 16, color: color),
+                const SizedBox(width: 4),
                 Text(
-                  place.caption,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: place.auto ? Homa.ink(dark) : Homa.faint(dark),
-                    fontWeight: place.auto ? FontWeight.w600 : null,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  place.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: Homa.ink(dark),
+                  text,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: color,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: Homa.gap2),
-            child: CountryFlag(code: place.flag, width: 40),
+        ),
+      ),
+    );
+  }
+}
+
+/// The connection's numbers, where the island's details used to live: a
+/// two-by-two grid of small cards — the time the connection has been up,
+/// the real delay (a tap tests again), and the live down and up rates.
+class _HomeStats extends StatelessWidget {
+  const _HomeStats({
+    required this.core,
+    required this.status,
+    required this.palette,
+    required this.startedAt,
+    required this.pingMs,
+  });
+
+  final CoreController core;
+  final CoreStatus status;
+  final _HomePalette palette;
+  final DateTime? startedAt;
+  final int? pingMs;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final traffic = status.traffic;
+    final ping = pingMs;
+    Widget card(
+      IconData icon,
+      String label,
+      Widget value, {
+      Color? valueColor,
+      VoidCallback? onTap,
+      Widget? busy,
+    }) => _StatCard(
+      palette: p,
+      icon: icon,
+      label: label,
+      value: value,
+      valueColor: valueColor,
+      onTap: onTap,
+      busy: busy,
+    );
+    Widget stat(Widget a, Widget b) => Row(
+      // No stretch: the two cards share one structure (a label, a value),
+      // so they land on the same height by themselves — and a stretched
+      // Row with Expanded children cannot sit under an IntrinsicHeight.
+      children: [
+        Expanded(child: a),
+        const SizedBox(width: 12),
+        Expanded(child: b),
+      ],
+    );
+    return Column(
+      children: [
+        stat(
+          card(
+            Icons.schedule_rounded,
+            l.statElapsed,
+            startedAt == null
+                ? const Text('—')
+                : _ElapsedText(startedAt: startedAt!),
           ),
-          Icon(Icons.chevron_right_rounded, color: Homa.faint(dark)),
+          card(
+            Icons.bolt_rounded,
+            l.realDelay,
+            Text(
+              core.testing
+                  ? ''
+                  : ping == null
+                  ? l.testConnection
+                  : l.milliseconds(ping),
+            ),
+            valueColor: ping == null ? p.muted : delayColor(ping),
+            onTap: core.testing
+                ? null
+                : () => runShowingErrors(context, core.runTest),
+            busy: core.testing
+                ? const SizedBox.square(
+                    dimension: 14,
+                    child: CircularProgressIndicator(strokeWidth: 1.5),
+                  )
+                : null,
+          ),
+        ),
+        const SizedBox(height: 12),
+        stat(
+          card(
+            Icons.south_rounded,
+            l.statDown,
+            Text(formatRate(traffic?.downRate ?? 0)),
+          ),
+          card(
+            Icons.north_rounded,
+            l.statUp,
+            Text(formatRate(traffic?.upRate ?? 0)),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// One small card of the stats grid: an icon and a muted label above the
+/// value in large type.
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.valueColor,
+    this.onTap,
+    this.busy,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final Widget value;
+  final Color? valueColor;
+  final VoidCallback? onTap;
+  final Widget? busy;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    final child = Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(14, 12, 14, 12),
+      decoration: BoxDecoration(
+        color: p.card,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: p.cardBorder),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 13, color: p.muted),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.labelSmall?.copyWith(color: p.muted),
+                ),
+              ),
+              if (busy != null) ...[const SizedBox(width: 6), busy!],
+            ],
+          ),
+          const SizedBox(height: 6),
+          DefaultTextStyle(
+            style:
+                theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                  color: valueColor ?? p.text,
+                ) ??
+                const TextStyle(fontSize: 16),
+            child: value,
+          ),
         ],
+      ),
+    );
+    if (onTap == null) return child;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: child,
+      ),
+    );
+  }
+}
+
+/// The time the connection has been up, ticking every second: mm:ss, and
+/// h:mm:ss once the hour is past.
+class _ElapsedText extends StatefulWidget {
+  const _ElapsedText({required this.startedAt});
+
+  final DateTime startedAt;
+
+  @override
+  State<_ElapsedText> createState() => _ElapsedTextState();
+}
+
+class _ElapsedTextState extends State<_ElapsedText> {
+  Timer? _tick;
+
+  @override
+  void initState() {
+    super.initState();
+    _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = DateTime.now()
+        .difference(widget.startedAt)
+        .inSeconds
+        .clamp(0, 86399);
+    final h = s ~/ 3600;
+    final m = (s % 3600) ~/ 60;
+    final sec = s % 60;
+    final text = h > 0
+        ? '$h:${m.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}'
+        : '${m.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}';
+    return Text(text);
+  }
+}
+
+/// A full-width stat row: an icon, a muted label, then the value, all in
+/// one quiet card.
+class _HomeRow extends StatelessWidget {
+  const _HomeRow({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+      decoration: BoxDecoration(
+        color: p.card,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: p.cardBorder),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 16, color: p.muted),
+          const SizedBox(width: 10),
+          Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+          ),
+          const Spacer(),
+          Text(
+            value,
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontFeatures: const [FontFeature.tabularFigures()],
+              color: p.text,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The switch: an orb in the state's color with a glow and a thin ring.
+/// It stays still: an endless animation redraws the window every frame,
+/// and kept a CPU core busy even with the window hidden in the tray.
+class _PowerOrb extends StatelessWidget {
+  const _PowerOrb({
+    required this.palette,
+    required this.on,
+    required this.accent,
+    required this.busy,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final bool on;
+  final Color accent;
+  final bool busy;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    const area = 250.0;
+    const ring = 186.0;
+    const disc = 148.0;
+    return Tooltip(
+      message: tooltip,
+      child: SizedBox.square(
+        dimension: area,
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: area,
+              height: area,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    accent.withValues(alpha: on ? 0.30 : 0.10),
+                    accent.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: ring,
+              height: ring,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: accent.withValues(alpha: on ? 0.55 : 0.28),
+                  width: 1.5,
+                ),
+              ),
+            ),
+            if (busy)
+              SizedBox.square(
+                dimension: ring,
+                child: CircularProgressIndicator(strokeWidth: 2, color: accent),
+              ),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              width: disc,
+              height: disc,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: on
+                      ? [Color.lerp(accent, Colors.white, 0.28)!, accent]
+                      : p.discOff,
+                ),
+                border: Border.all(
+                  color: on
+                      ? Colors.white.withValues(alpha: 0.4)
+                      : p.discOffEdge,
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color:
+                        on
+                        ? accent.withValues(alpha: 0.5)
+                        : Colors.black.withValues(alpha: p.dark ? 0.45 : 0.14),
+                    blurRadius: on ? 36 : 26,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Material(
+                type: MaterialType.transparency,
+                shape: const CircleBorder(),
+                clipBehavior: Clip.antiAlias,
+                child: InkWell(
+                  onTap: busy ? null : onPressed,
+                  child: Icon(
+                    Icons.power_settings_new_rounded,
+                    size: 58,
+                    color: on ? Colors.white : (p.dark ? p.muted : p.idle),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 /// The data used of the active account: a ring that fills as it is used,
-/// in ink, and the amount in large type; a tap opens the accounts.
-class _DataCard extends StatelessWidget {
-  const _DataCard({
+/// in the quota's color, and the amount in large type.
+class _HomeData extends StatelessWidget {
+  const _HomeData({
     required this.status,
-    required this.dark,
+    required this.palette,
     this.onTap,
+    this.compact = false,
   });
 
   final CoreStatus status;
-  final bool dark;
+  final _HomePalette palette;
   final VoidCallback? onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final p = palette;
+    final muted = theme.textTheme.bodySmall?.copyWith(color: p.muted);
     final a = status.activeAccount;
     final usage = a?.usage;
     Widget body;
     if (a == null || usage == null || usage.unlimited) {
       body = Row(
         children: [
-          IconBox(
-            icon: a == null
+          Icon(
+            a == null
                 ? Icons.person_add_alt_rounded
                 : Icons.all_inclusive_rounded,
+            color: p.muted,
           ),
-          const SizedBox(width: Homa.gap3 + 2),
+          const SizedBox(width: 14),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l.dataUsedTitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: Homa.faint(dark),
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  a == null
-                      ? l.noActiveAccount
-                      : usage == null
-                      ? l.quotaNotRead
-                      : l.unlimited,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: Homa.ink(dark),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
+            child: Text(
+              a == null
+                  ? l.noActiveAccount
+                  : usage == null
+                  ? l.quotaNotRead
+                  : l.unlimited,
+              style: theme.textTheme.titleMedium?.copyWith(color: p.text),
             ),
           ),
         ],
@@ -1704,46 +1962,49 @@ class _DataCard extends StatelessWidget {
     } else {
       final used = usage.usedBytes.clamp(0, usage.limitBytes);
       final fraction = usage.limitBytes == 0 ? 0.0 : used / usage.limitBytes;
+      final color = quotaColor(fraction * 100, status.thresholdPercent);
       body = Row(
         children: [
           SizedBox.square(
-            dimension: 52,
+            dimension: _homeCardContent(compact),
             child: CustomPaint(
               painter: _QuotaRing(
                 value: fraction,
-                color: Homa.ink(dark),
-                track: Homa.border(dark),
+                color: color,
+                track: p.text.withValues(alpha: 0.08),
               ),
               child: Center(
                 child: CountUp(
                   value: fraction * 100,
                   format: (v) => ltr('${v.round()}%'),
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Homa.ink(dark),
-                  ),
+                  style:
+                      (compact
+                              ? theme.textTheme.labelMedium
+                              : theme.textTheme.titleSmall)
+                          ?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: p.text,
+                          ),
                 ),
               ),
             ),
           ),
-          const SizedBox(width: Homa.gap3 + 2),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l.dataUsedTitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: Homa.faint(dark),
-                  ),
-                ),
-                const SizedBox(height: 2),
+                Text(l.dataUsedTitle, style: muted),
                 Text(
                   formatBytes(used),
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Homa.ink(dark),
-                  ),
+                  style:
+                      (compact
+                              ? theme.textTheme.titleLarge
+                              : theme.textTheme.headlineSmall)
+                          ?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: p.text,
+                          ),
                 ),
                 Text(
                   [
@@ -1751,11 +2012,7 @@ class _DataCard extends StatelessWidget {
                     if (usage.resetAt != null)
                       l.resets(formatDate(l, usage.resetAt!)),
                   ].join(' · '),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: Homa.faint(dark),
-                  ),
+                  style: muted,
                 ),
               ],
             ),
@@ -1763,14 +2020,14 @@ class _DataCard extends StatelessWidget {
         ],
       );
     }
-    return HomaCard(
-      dark: dark,
-      padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 8, 14),
+    return _HomeCard(
+      palette: p,
       onTap: onTap,
+      compact: compact,
       child: Row(
         children: [
           Expanded(child: body),
-          Icon(Icons.chevron_right_rounded, color: Homa.faint(dark)),
+          Icon(Icons.chevron_right_rounded, color: p.muted),
         ],
       ),
     );
@@ -1786,7 +2043,7 @@ class _QuotaRing extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const stroke = 5.0;
+    const stroke = 6.0;
     final rect = (Offset.zero & size).deflate(stroke / 2);
     final paint = Paint()
       ..style = PaintingStyle.stroke
@@ -1838,7 +2095,7 @@ class _LanChipState extends State<_LanChip> {
     if (ip == null) return const SizedBox.shrink();
     final address = '$ip:${widget.port}';
     return ActionChip(
-      avatar: Icon(Icons.lan_outlined, size: 18, color: Homa.muted(Theme.of(context).brightness == Brightness.dark)),
+      avatar: const Icon(Icons.lan_outlined, size: 18),
       label: Text(l.lanAddress(ltr(address))),
       onPressed: () {
         Clipboard.setData(ClipboardData(text: address));
@@ -1861,10 +2118,9 @@ final _dismissedNotices = <String>{};
 /// Notes on requests the proxy refused in the last minutes: a port
 /// Mozilla's proxy does not connect to, or UDP.
 class _Notices extends StatefulWidget {
-  const _Notices({required this.notices, required this.dark});
+  const _Notices({required this.notices});
 
   final List<Notice> notices;
-  final bool dark;
 
   @override
   State<_Notices> createState() => _NoticesState();
@@ -1875,7 +2131,6 @@ class _NoticesState extends State<_Notices> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final dark = widget.dark;
     final shown = [
       for (final n in widget.notices)
         if (!_dismissedNotices.contains(n.key) &&
@@ -1887,13 +2142,15 @@ class _NoticesState extends State<_Notices> {
       children: [
         for (final n in shown)
           Padding(
-            padding: const EdgeInsets.only(bottom: Homa.gap2),
+            padding: const EdgeInsets.only(top: 12),
             child: Container(
               padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 6, 10),
               decoration: BoxDecoration(
-                color: Homa.cardAlt(dark),
-                borderRadius: BorderRadius.circular(Homa.radiusBox),
-                border: Border.all(color: Homa.border(dark)),
+                color: StatusColors.busy.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: StatusColors.busy.withValues(alpha: 0.4),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1902,11 +2159,11 @@ class _NoticesState extends State<_Notices> {
                     padding: const EdgeInsets.only(top: 2),
                     child: Icon(
                       Icons.info_outline_rounded,
-                      color: Homa.muted(dark),
+                      color: StatusColors.busy,
                       size: 18,
                     ),
                   ),
-                  const SizedBox(width: Homa.gap2 + 2),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1915,9 +2172,7 @@ class _NoticesState extends State<_Notices> {
                           n.kind == 'port'
                               ? l.noticePort(n.detail)
                               : l.noticeCommand,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: Homa.ink(dark),
-                          ),
+                          style: theme.textTheme.bodySmall,
                         ),
                         if (n.last != null) ...[
                           const SizedBox(height: 2),
@@ -1927,7 +2182,7 @@ class _NoticesState extends State<_Notices> {
                               if (n.hosts.isNotEmpty) n.hosts.join(', '),
                             ].join(' · '),
                             style: theme.textTheme.labelSmall?.copyWith(
-                              color: Homa.faint(dark),
+                              color: theme.colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ],
@@ -1937,7 +2192,7 @@ class _NoticesState extends State<_Notices> {
                   IconButton(
                     tooltip: l.dismiss,
                     visualDensity: VisualDensity.compact,
-                    icon: Icon(Icons.close_rounded, size: 16, color: Homa.muted(dark)),
+                    icon: const Icon(Icons.close_rounded, size: 16),
                     onPressed: () =>
                         setState(() => _dismissedNotices.add(n.key)),
                   ),
@@ -1950,22 +2205,23 @@ class _NoticesState extends State<_Notices> {
   }
 }
 
-/// A newer version. The desktop apps (Windows, Linux, macOS) install it
-/// themselves: Update downloads it (its progress shows here), then the app
-/// closes and opens again as the new version; on Android it downloads here
-/// and Update opens Android's installer (or, with Update in the app off,
-/// Download opens the browser; Updates). After an update, what it did.
-/// Closed, a version's notice stays away until a later version.
+/// A newer version on GitHub. The desktop apps (Windows, Linux, macOS)
+/// install it themselves: Update downloads it (its progress shows here),
+/// then the app closes and opens again as the new version; on Android it
+/// downloads here and Update opens Android's installer (or, with Update in
+/// the app off, Download opens the browser; Updates).
+/// After an update, what it did. Closed, a version's notice stays away
+/// until a later version.
 class _UpdateNotice extends StatelessWidget {
   const _UpdateNotice({
     required this.core,
     required this.settings,
-    required this.dark,
+    required this.palette,
   });
 
   final CoreController core;
   final AppSettings settings;
-  final bool dark;
+  final _HomePalette palette;
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
@@ -1982,11 +2238,12 @@ class _UpdateNotice extends StatelessWidget {
       if (last != null &&
           !Updates.resultSeen.value &&
           release?.mandatory != true) {
-        return _NoticeBanner(
-          dark: dark,
+        return _UpdateBanner(
+          palette: palette,
           icon: last.ok ? Icons.check_circle_rounded : Icons.history_rounded,
           text: last.ok ? l.updateDone(last.to) : l.updateRolledBack(last.to),
           tooltip: last.error,
+          problem: !last.ok,
           onClose: () => Updates.resultSeen.value = true,
         );
       }
@@ -1998,12 +2255,13 @@ class _UpdateNotice extends StatelessWidget {
           ? null
           : () => settings.update(dismissedUpdate: release.version);
       if (update == null) {
-        return _NoticeBanner(
-          dark: dark,
+        return _UpdateBanner(
+          palette: palette,
           icon: Icons.system_update_rounded,
           text: release.mandatory
               ? l.updateRequired(release.version)
               : l.updateAvailable(release.version),
+          problem: release.mandatory,
           action: release.url.isEmpty
               ? null
               : (
@@ -2016,8 +2274,8 @@ class _UpdateNotice extends StatelessWidget {
       }
       final mine = update.version == release.version;
       if (mine && (update.downloading || update.installing)) {
-        return _NoticeBanner(
-          dark: dark,
+        return _UpdateBanner(
+          palette: palette,
           icon: Icons.downloading_rounded,
           text: update.downloading
               ? l.updateDownloading(release.version)
@@ -2030,11 +2288,12 @@ class _UpdateNotice extends StatelessWidget {
           Updates.failure.value ??
           (mine && update.failed ? update.error : null);
       if (failure != null) {
-        return _NoticeBanner(
-          dark: dark,
+        return _UpdateBanner(
+          palette: palette,
           icon: Icons.error_outline_rounded,
           text: l.updateFailed(release.version),
           tooltip: failure,
+          problem: true,
           action: (
             label: l.tryAgain,
             icon: Icons.refresh_rounded,
@@ -2043,9 +2302,10 @@ class _UpdateNotice extends StatelessWidget {
           onClose: dismiss,
         );
       }
-      return _NoticeBanner(
-        dark: dark,
+      return _UpdateBanner(
+        palette: palette,
         icon: Icons.system_update_rounded,
+        problem: release.mandatory,
         text: release.mandatory
             ? l.updateRequired(release.version)
             : mine && update.ready
@@ -2062,24 +2322,27 @@ class _UpdateNotice extends StatelessWidget {
   );
 }
 
-/// A notice on the home page: a quiet bar, its text, an optional button,
-/// an optional close, and a progress bar under the text while busy.
-class _NoticeBanner extends StatelessWidget {
-  const _NoticeBanner({
-    required this.dark,
+/// The update notice's look: a rounded bar in the connected color (amber
+/// for a problem, with the core's reason on hover), a button, a close
+/// button, and a progress bar under the text while busy.
+class _UpdateBanner extends StatelessWidget {
+  const _UpdateBanner({
+    required this.palette,
     required this.icon,
     required this.text,
     this.tooltip = '',
+    this.problem = false,
     this.action,
     this.busy = false,
     this.progress,
     this.onClose,
   });
 
-  final bool dark;
+  final _HomePalette palette;
   final IconData icon;
   final String text;
   final String tooltip;
+  final bool problem;
   final ({String label, IconData icon, VoidCallback onPressed})? action;
 
   /// A bar under the text: the download's [progress], or under way
@@ -2092,21 +2355,23 @@ class _NoticeBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final p = palette;
+    final color = problem ? StatusColors.busy : p.connected;
     final action = this.action;
     return Padding(
-      padding: const EdgeInsets.only(bottom: Homa.gap3),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Material(
-        color: Homa.cardAlt(dark),
+        color: color.withValues(alpha: p.dark ? 0.16 : 0.12),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Homa.radiusTile),
-          side: BorderSide(color: Homa.border(dark)),
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(color: color.withValues(alpha: 0.4)),
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
             14,
-            8,
+            6,
             onClose == null ? 14 : 6,
-            8,
+            6,
           ),
           child: Row(
             children: [
@@ -2117,14 +2382,14 @@ class _NoticeBanner extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   onTap: action?.onPressed,
-                  borderRadius: BorderRadius.circular(Homa.radiusBox),
+                  borderRadius: BorderRadius.circular(16),
                   child: Row(
                     children: [
-                      Icon(icon, color: Homa.ink(dark), size: 22),
-                      const SizedBox(width: Homa.gap2 + 2),
+                      Icon(icon, color: color),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          padding: const EdgeInsets.symmetric(vertical: 6),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -2133,20 +2398,22 @@ class _NoticeBanner extends StatelessWidget {
                                 child: Text(
                                   text,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: Homa.ink(dark),
+                                    color: p.text,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
                               if (busy) ...[
-                                const SizedBox(height: Homa.gap2),
+                                const SizedBox(height: 8),
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(4),
                                   child: LinearProgressIndicator(
                                     value: progress,
                                     minHeight: 4,
-                                    color: Homa.ink(dark),
-                                    backgroundColor: Homa.border(dark),
+                                    color: color,
+                                    backgroundColor: color.withValues(
+                                      alpha: 0.2,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -2155,10 +2422,14 @@ class _NoticeBanner extends StatelessWidget {
                         ),
                       ),
                       if (action != null) ...[
-                        const SizedBox(width: Homa.gap2),
+                        const SizedBox(width: 8),
+                        // Solid, in the banner's color: the one thing to
+                        // press (focus goes to the whole notice).
                         ExcludeFocus(
                           child: FilledButton.icon(
                             style: FilledButton.styleFrom(
+                              backgroundColor: color,
+                              foregroundColor: Colors.white,
                               visualDensity: VisualDensity.compact,
                               // From the theme, for its font (Vazirmatn in
                               // Persian): a bare style would replace it.
@@ -2180,7 +2451,7 @@ class _NoticeBanner extends StatelessWidget {
                 IconButton(
                   tooltip: l.dismiss,
                   visualDensity: VisualDensity.compact,
-                  icon: Icon(Icons.close_rounded, size: 18, color: Homa.muted(dark)),
+                  icon: Icon(Icons.close_rounded, size: 18, color: p.muted),
                   onPressed: onClose,
                 ),
             ],
@@ -2200,12 +2471,12 @@ class _UdpNotice extends StatefulWidget {
   const _UdpNotice({
     required this.status,
     required this.settings,
-    required this.dark,
+    required this.palette,
   });
 
   final CoreStatus status;
   final AppSettings settings;
-  final bool dark;
+  final _HomePalette palette;
 
   @override
   State<_UdpNotice> createState() => _UdpNoticeState();
@@ -2299,34 +2570,35 @@ class _UdpNoticeState extends State<_UdpNotice> {
       final program = refused;
       final l = AppLocalizations.of(context);
       final theme = Theme.of(context);
-      final dark = widget.dark;
+      final p = widget.palette;
       return Padding(
-        padding: const EdgeInsets.only(bottom: Homa.gap3),
+        padding: const EdgeInsets.only(bottom: 12),
         child: Material(
-          color: Homa.cardAlt(dark),
+          color: StatusColors.busy.withValues(alpha: p.dark ? 0.16 : 0.12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Homa.radiusTile),
-            side: BorderSide(color: Homa.border(dark)),
+            borderRadius: BorderRadius.circular(18),
+            side: BorderSide(color: StatusColors.busy.withValues(alpha: 0.4)),
           ),
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(14, 8, 6, 8),
             child: Row(
               children: [
-                Icon(Icons.warning_amber_rounded, color: Homa.ink(dark)),
-                const SizedBox(width: Homa.gap2 + 2),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: StatusColors.busy,
+                ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     l.udpNoticeBody(ltr(_label(program))),
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Homa.ink(dark),
-                    ),
+                    style: theme.textTheme.bodyMedium?.copyWith(color: p.text),
                   ),
                 ),
-                const SizedBox(width: Homa.gap2),
+                const SizedBox(width: 8),
                 // The style starts from the theme, for its font.
                 TextButton.icon(
                   style: TextButton.styleFrom(
-                    foregroundColor: Homa.muted(dark),
+                    foregroundColor: p.muted,
                     visualDensity: VisualDensity.compact,
                     textStyle: theme.textTheme.labelLarge,
                   ),
@@ -2353,14 +2625,14 @@ class _LowQuotaNotice extends StatefulWidget {
     required this.status,
     required this.settings,
     required this.connected,
-    required this.dark,
+    required this.palette,
   });
 
   final CoreController core;
   final CoreStatus status;
   final AppSettings settings;
   final bool connected;
-  final bool dark;
+  final _HomePalette palette;
 
   @override
   State<_LowQuotaNotice> createState() => _LowQuotaNoticeState();
@@ -2441,16 +2713,16 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
     if (!_visible()) return const SizedBox.shrink();
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final dark = widget.dark;
+    final p = widget.palette;
     final usage = widget.status.activeAccount!.usage!;
     String rounded(int bytes) => formatBytes(bytes).replaceAll('.0 ', ' ');
     return Padding(
-      padding: const EdgeInsets.only(bottom: Homa.gap3),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Material(
-        color: Homa.cardAlt(dark),
+        color: StatusColors.busy.withValues(alpha: p.dark ? 0.16 : 0.12),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Homa.radiusTile),
-          side: BorderSide(color: Homa.border(dark)),
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(color: StatusColors.busy.withValues(alpha: 0.4)),
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 6, 6),
@@ -2464,22 +2736,22 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
                     padding: const EdgeInsets.only(top: 2),
                     child: Icon(
                       Icons.data_usage_rounded,
-                      color: Homa.ink(dark),
+                      color: StatusColors.busy,
                     ),
                   ),
-                  const SizedBox(width: Homa.gap2 + 2),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       l.lowQuotaNotice(rounded(usage.limitBytes)),
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Homa.ink(dark),
+                        color: p.text,
                       ),
                     ),
                   ),
                   IconButton(
                     tooltip: l.close,
                     visualDensity: VisualDensity.compact,
-                    icon: Icon(Icons.close_rounded, size: 18, color: Homa.muted(dark)),
+                    icon: Icon(Icons.close_rounded, size: 18, color: p.muted),
                     onPressed: () {
                       widget.settings.update(
                         lowQuotaDismissedAt: DateTime.now(),

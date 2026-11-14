@@ -484,10 +484,5 @@
   "relayTestPassed": "El relé está listo",
   "relayTestFailed": "No se pudo confirmar el estado del relé",
   "relayTestCopy": "Copiar informe",
-  "relayTestInterrupted": "La prueba terminó antes de recibir un resultado completo.",
-  "swipeToConnect": "Desliza hacia abajo para conectarte",
-  "swipeToDisconnect": "Desliza hacia arriba para desconectarte",
-  "sessionDuration": "Sesión",
-  "btnConnect": "Conectar",
-  "btnDisconnect": "Desconectar"
+  "relayTestInterrupted": "La prueba terminó antes de recibir un resultado completo."
 }

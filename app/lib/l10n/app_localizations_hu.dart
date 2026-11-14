@@ -1713,19 +1713,4 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'A teszt a teljes eredmény beérkezése előtt véget ért.';
-
-  @override
-  String get swipeToConnect => 'Csúsztassa le a csatlakozáshoz';
-
-  @override
-  String get swipeToDisconnect => 'Csúsztassa fel a bontáshoz';
-
-  @override
-  String get sessionDuration => 'Munkamenet';
-
-  @override
-  String get btnConnect => 'Csatlakozás';
-
-  @override
-  String get btnDisconnect => 'Bontás';
 }

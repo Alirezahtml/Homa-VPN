@@ -150,7 +150,7 @@ class _AnnouncementPanelState extends State<AnnouncementPanel>
               final (color, icon) = switch (item.type) {
                 'critical' => (scheme.error, Icons.error_outline_rounded),
                 'warning' => (
-                  scheme.onSurfaceVariant,
+                  const Color(0xFFB77900),
                   Icons.warning_amber_rounded,
                 ),
                 'maintenance' => (scheme.tertiary, Icons.build_outlined),

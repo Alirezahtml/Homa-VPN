@@ -484,10 +484,5 @@
   "relayTestPassed": "Relai siap",
   "relayTestFailed": "Kesehatan relai tidak dapat dipastikan",
   "relayTestCopy": "Salin laporan",
-  "relayTestInterrupted": "Pengujian berakhir sebelum hasil lengkap diterima.",
-  "swipeToConnect": "Geser ke bawah untuk menyambung",
-  "swipeToDisconnect": "Geser ke atas untuk memutus",
-  "sessionDuration": "Sesi",
-  "btnConnect": "Sambung",
-  "btnDisconnect": "Putuskan"
+  "relayTestInterrupted": "Pengujian berakhir sebelum hasil lengkap diterima."
 }

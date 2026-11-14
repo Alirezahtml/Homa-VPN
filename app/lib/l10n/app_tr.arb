@@ -484,10 +484,5 @@
   "relayTestPassed": "Röle hazır",
   "relayTestFailed": "Rölenin sağlığı doğrulanamadı",
   "relayTestCopy": "Raporu kopyala",
-  "relayTestInterrupted": "Test, tam sonuç alınmadan sona erdi.",
-  "swipeToConnect": "Bağlanmak için aşağı kaydırın",
-  "swipeToDisconnect": "Kopmak için yukarı kaydırın",
-  "sessionDuration": "Oturum",
-  "btnConnect": "Bağlan",
-  "btnDisconnect": "Kop"
+  "relayTestInterrupted": "Test, tam sonuç alınmadan sona erdi."
 }

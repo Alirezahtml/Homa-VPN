@@ -484,10 +484,5 @@
   "relayTestPassed": "Relay hazırdır",
   "relayTestFailed": "Relay sağlamlığı təsdiqlənmədi",
   "relayTestCopy": "Hesabatı köçür",
-  "relayTestInterrupted": "Tam nəticə alınmadan test başa çatdı.",
-  "swipeToConnect": "Qoşulmaq üçün aşağı sürüşdürün",
-  "swipeToDisconnect": "Ayırmaq üçün yuxarı sürüşdürün",
-  "sessionDuration": "Sessiya",
-  "btnConnect": "Qoşul",
-  "btnDisconnect": "Ayır"
+  "relayTestInterrupted": "Tam nəticə alınmadan test başa çatdı."
 }

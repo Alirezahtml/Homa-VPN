@@ -1707,19 +1707,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'انتهى الاختبار قبل استلام نتيجة كاملة.';
-
-  @override
-  String get swipeToConnect => 'اسحب إلى الأسفل للاتصال';
-
-  @override
-  String get swipeToDisconnect => 'اسحب إلى الأعلى للقطع';
-
-  @override
-  String get sessionDuration => 'المدة';
-
-  @override
-  String get btnConnect => 'اتصال';
-
-  @override
-  String get btnDisconnect => 'قطع';
 }

@@ -1043,10 +1043,5 @@
   "relayTestPassed": "Relay is ready",
   "relayTestFailed": "Relay health could not be confirmed",
   "relayTestCopy": "Copy report",
-  "relayTestInterrupted": "The test ended before a complete result was received.",
-  "swipeToConnect": "Swipe down to connect",
-  "swipeToDisconnect": "Swipe up to disconnect",
-  "sessionDuration": "Session",
-  "btnConnect": "Connect",
-  "btnDisconnect": "Disconnect"
+  "relayTestInterrupted": "The test ended before a complete result was received."
 }
