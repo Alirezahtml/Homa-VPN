@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "已有 {minutes} 分鐘沒有流量，連線已中斷。",
-  "autoStoppedData": "工作階段流量達到 {mb} MB 上限，連線已中斷。"
+  "autoStoppedData": "工作階段流量達到 {mb} MB 上限，連線已中斷。",
+  "protection": "保護",
+  "killSwitch": "緊急斷流開關",
+  "killSwitchHint": "通道中斷時，VPN 保持開啟並攔住流量 — 不會外洩任何資料。",
+  "alwaysOnVpn": "VPN 常開",
+  "alwaysOnVpnHint": "Android 內建的防護：沒有 VPN 就不放行任何連線。",
+  "floatingIsland": "懸浮島",
+  "floatingIslandHint": "離開應用程式時，在其他應用程式上方顯示連線狀態。"
 }

@@ -1829,4 +1829,28 @@ class AppLocalizationsFa extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'دادهٔ جلسه به سقف $mb مگابایت رسید و اتصال قطع شد.';
   }
+
+  @override
+  String get protection => 'محافظت';
+
+  @override
+  String get killSwitch => 'کلید قطع اضطراری';
+
+  @override
+  String get killSwitchHint =>
+      'اگر تونل قطع شود، VPN بالا می‌ماند و ترافیک نگه داشته می‌شود — هیچ نشتی رخ نمی‌دهد.';
+
+  @override
+  String get alwaysOnVpn => 'VPN همیشه‌روشن';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'محافظ خودِ اندروید: بدون VPN هیچ ارتباطی رد نمی‌شود.';
+
+  @override
+  String get floatingIsland => 'جزیره شناور';
+
+  @override
+  String get floatingIslandHint =>
+      'وقتی از برنامه بیرون هستید، وضعیت اتصال را روی دیگر برنامه‌ها نشان می‌دهد.';
 }

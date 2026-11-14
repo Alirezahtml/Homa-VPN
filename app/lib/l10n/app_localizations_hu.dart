@@ -1856,4 +1856,28 @@ class AppLocalizationsHu extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'A munkamenet elérte a(z) $mb MB adatkorlátot, ezért a kapcsolat megszakadt.';
   }
+
+  @override
+  String get protection => 'Védelem';
+
+  @override
+  String get killSwitch => 'Biztonsági kapcsoló';
+
+  @override
+  String get killSwitchHint =>
+      'Ha az alagút megszakad, a VPN bekapcsolva marad, és visszatartja a forgalmat — semmi nem szivárog.';
+
+  @override
+  String get alwaysOnVpn => 'Mindig bekapcsolt VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Az Android saját őre: a VPN nélkül semmi nem megy át.';
+
+  @override
+  String get floatingIsland => 'Lebegő sziget';
+
+  @override
+  String get floatingIslandHint =>
+      'Amíg az alkalmazáson kívül van, a többi alkalmazás fölött mutatja a kapcsolatot.';
 }

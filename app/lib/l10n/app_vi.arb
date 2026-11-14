@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "Không có lưu lượng trong {minutes} phút nên kết nối đã bị ngắt.",
-  "autoStoppedData": "Phiên đã đạt giới hạn {mb} MB nên kết nối đã bị ngắt."
+  "autoStoppedData": "Phiên đã đạt giới hạn {mb} MB nên kết nối đã bị ngắt.",
+  "protection": "Bảo vệ",
+  "killSwitch": "Công tắc ngắt khẩn cấp",
+  "killSwitchHint": "Nếu đường hầm đứt, VPN vẫn bật và giữ lưu lượng — không rò rỉ gì cả.",
+  "alwaysOnVpn": "VPN luôn bật",
+  "alwaysOnVpnHint": "Vệ sĩ của Android: không kết nối nào đi qua nếu không có VPN.",
+  "floatingIsland": "Đảo nổi",
+  "floatingIslandHint": "Hiển thị trạng thái kết nối trên các ứng dụng khác khi bạn rời ứng dụng."
 }

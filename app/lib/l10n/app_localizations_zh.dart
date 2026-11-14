@@ -1769,6 +1769,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String autoStoppedData(int mb) {
     return '会话流量达到 $mb MB 上限，连接已断开。';
   }
+
+  @override
+  String get protection => '保护';
+
+  @override
+  String get killSwitch => '紧急断流开关';
+
+  @override
+  String get killSwitchHint => '隧道中断时，VPN 保持开启并拦住流量 — 不会泄漏任何数据。';
+
+  @override
+  String get alwaysOnVpn => 'VPN 常开';
+
+  @override
+  String get alwaysOnVpnHint => '安卓自带的防护：没有 VPN 就不放行任何连接。';
+
+  @override
+  String get floatingIsland => '悬浮岛';
+
+  @override
+  String get floatingIslandHint => '离开应用时，在其他应用上方显示连接状态。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3536,4 +3557,25 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String autoStoppedData(int mb) {
     return '工作階段流量達到 $mb MB 上限，連線已中斷。';
   }
+
+  @override
+  String get protection => '保護';
+
+  @override
+  String get killSwitch => '緊急斷流開關';
+
+  @override
+  String get killSwitchHint => '通道中斷時，VPN 保持開啟並攔住流量 — 不會外洩任何資料。';
+
+  @override
+  String get alwaysOnVpn => 'VPN 常開';
+
+  @override
+  String get alwaysOnVpnHint => 'Android 內建的防護：沒有 VPN 就不放行任何連線。';
+
+  @override
+  String get floatingIsland => '懸浮島';
+
+  @override
+  String get floatingIslandHint => '離開應用程式時，在其他應用程式上方顯示連線狀態。';
 }

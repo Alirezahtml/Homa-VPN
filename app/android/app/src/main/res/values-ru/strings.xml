@@ -3,6 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Подключение…</string>
     <string name="notification_no_network">Нет подключения к интернету</string>
+    <string name="notification_blocked">Заблокировано (аварийный выключатель)</string>
     <string name="notification_proxy">Только прокси · %1$s</string>
     <string name="notification_stop">Отключить</string>
     <!-- The home-screen widget: its name and description in the widget

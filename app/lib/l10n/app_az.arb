@@ -533,5 +533,12 @@
   "mb5120": "5 QB",
   "mb10240": "10 QB",
   "autoStoppedIdle": "{minutes} dəqiqə trafik olmayıb, bağlantı kəsildi.",
-  "autoStoppedData": "Sessiya {mb} MB data həddinə çatdı, bağlantı kəsildi."
+  "autoStoppedData": "Sessiya {mb} MB data həddinə çatdı, bağlantı kəsildi.",
+  "protection": "Qoruma",
+  "killSwitch": "Təcili bağlama açarı",
+  "killSwitchHint": "Tunel kəsilsə, VPN işə düşür və trafik saxlanılır — heç bir sızma olmur.",
+  "alwaysOnVpn": "Həmişə işlək VPN",
+  "alwaysOnVpnHint": "Android-in öz qoruması: VPN-siz heç bir bağlantı keçmir.",
+  "floatingIsland": "Üzən ada",
+  "floatingIslandHint": "Tətbiqdən kənarda bağlantını digər tətbiqlərin üzərində göstərir."
 }

@@ -1841,4 +1841,28 @@ class AppLocalizationsId extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'Sesi mencapai batas datanya $mb MB, koneksi diputus.';
   }
+
+  @override
+  String get protection => 'Protection';
+
+  @override
+  String get killSwitch => 'Kill switch';
+
+  @override
+  String get killSwitchHint =>
+      'If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.';
+
+  @override
+  String get alwaysOnVpn => 'Always-on VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Android\'s own guard: no connection without the VPN.';
+
+  @override
+  String get floatingIsland => 'Floating island';
+
+  @override
+  String get floatingIslandHint =>
+      'Carries the connection over the other apps while the app is away.';
 }

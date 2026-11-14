@@ -1840,4 +1840,28 @@ class AppLocalizationsVi extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'Phiên đã đạt giới hạn $mb MB nên kết nối đã bị ngắt.';
   }
+
+  @override
+  String get protection => 'Bảo vệ';
+
+  @override
+  String get killSwitch => 'Công tắc ngắt khẩn cấp';
+
+  @override
+  String get killSwitchHint =>
+      'Nếu đường hầm đứt, VPN vẫn bật và giữ lưu lượng — không rò rỉ gì cả.';
+
+  @override
+  String get alwaysOnVpn => 'VPN luôn bật';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Vệ sĩ của Android: không kết nối nào đi qua nếu không có VPN.';
+
+  @override
+  String get floatingIsland => 'Đảo nổi';
+
+  @override
+  String get floatingIslandHint =>
+      'Hiển thị trạng thái kết nối trên các ứng dụng khác khi bạn rời ứng dụng.';
 }

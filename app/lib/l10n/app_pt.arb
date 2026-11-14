@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "Não passou tráfego por {minutes} minutos, então a conexão foi desconectada.",
-  "autoStoppedData": "A sessão atingiu o limite de {mb} MB, então a conexão foi desconectada."
+  "autoStoppedData": "A sessão atingiu o limite de {mb} MB, então a conexão foi desconectada.",
+  "protection": "Proteção",
+  "killSwitch": "Interruptor de emergência",
+  "killSwitchHint": "Se o túnel cair, a VPN continua ativa e retém o tráfego — nada vaza.",
+  "alwaysOnVpn": "VPN sempre ativa",
+  "alwaysOnVpnHint": "Proteção do próprio Android: nenhuma conexão sem a VPN.",
+  "floatingIsland": "Ilha flutuante",
+  "floatingIslandHint": "Mostra a conexão sobre os outros apps enquanto você está fora do app."
 }

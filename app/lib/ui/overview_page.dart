@@ -1120,6 +1120,11 @@ class _PhoneHome extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     alignment: Alignment.center,
                     excludeFromSemantics: true,
+                    // The map is a quiet backdrop: decoded once, at the
+                    // screen's width, never sharper than it needs to be —
+                    // memory and the first frame both stay light.
+                    cacheWidth: 1080,
+                    filterQuality: FilterQuality.medium,
                   ),
                 ),
               ),
@@ -1220,6 +1225,11 @@ class _PhoneHome extends StatelessWidget {
           // The brand: the official wordmark, in the theme's face.
           Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
           const Spacer(),
+          // The hero (the state's word, the switch, its cards) sits a
+          // touch under the middle: 3.4% of the page's height lower. The
+          // box is twice that, and the two spacers each give up half of
+          // it — the group keeps its distances, only lower.
+          SizedBox(height: math.max(0.0, box.maxHeight * 0.068)),
           SizedBox(height: short ? 4 : 16),
           // The state, in words, where the island used to live.
           Reveal(

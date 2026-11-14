@@ -213,6 +213,8 @@ class AndroidCore {
   static Future<void> loadMode() async {
     mode.value = await _channel.invokeMethod<String>('connectionMode') ?? 'vpn';
     showSpeed.value = await _channel.invokeMethod<bool>('showSpeed') ?? false;
+    killSwitch.value = await _channel.invokeMethod<bool>('killSwitch') ?? false;
+    island.value = await _channel.invokeMethod<bool>('island') ?? false;
     isTv = await _channel.invokeMethod<bool>('isTv') ?? false;
   }
 
@@ -226,6 +228,42 @@ class AndroidCore {
   static Future<void> setShowSpeed(bool on) async {
     await _channel.invokeMethod<void>('setShowSpeed', {'on': on});
     showSpeed.value = on;
+  }
+
+  /// The kill switch: a broken path keeps the VPN up — the traffic is
+  /// held, nothing leaks — while the app puts the path back (the flag
+  /// lives on the Android side, in CoreService.kt).
+  static final killSwitch = ValueNotifier<bool>(false);
+
+  static Future<void> setKillSwitch(bool on) async {
+    await _channel.invokeMethod<void>('setKillSwitch', {'on': on});
+    killSwitch.value = on;
+  }
+
+  /// The floating island: the connection's state in a small pill over the
+  /// other apps, while the app itself is away (the flag lives on the
+  /// Android side, in IslandOverlay.kt).
+  static final island = ValueNotifier<bool>(false);
+
+  static Future<void> setIsland(bool on) async {
+    await _channel.invokeMethod<void>('setIsland', {'on': on});
+    island.value = on;
+  }
+
+  /// Whether this app may draw over the other apps (the island's
+  /// permission).
+  static Future<bool> canDrawOverlays() async =>
+      await _channel.invokeMethod<bool>('canDrawOverlays') ?? false;
+
+  /// The system's page that grants "draw over other apps".
+  static Future<void> openOverlaySettings() async {
+    await _channel.invokeMethod<void>('openOverlaySettings');
+  }
+
+  /// The system's VPN page: Android's own "always-on" and its "block
+  /// connections without VPN", the strongest guard there is.
+  static Future<void> openVpnSettings() async {
+    await _channel.invokeMethod<void>('openVpnSettings');
   }
 
   /// Keeps the phone's screen awake (the window's keep-screen-on flag)

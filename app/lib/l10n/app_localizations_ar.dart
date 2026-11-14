@@ -1851,4 +1851,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'بلغت بيانات الجلسة حد $mb ميجابايت، فُصل الاتصال.';
   }
+
+  @override
+  String get protection => 'الحماية';
+
+  @override
+  String get killSwitch => 'مفتاح الإيقاف الطارئ';
+
+  @override
+  String get killSwitchHint =>
+      'إذا انقطع النفق، يبقى VPN قيد التشغيل ويحتجز البيانات — لا تسريب.';
+
+  @override
+  String get alwaysOnVpn => 'VPN دائم التشغيل';
+
+  @override
+  String get alwaysOnVpnHint => 'حماية أندرويد نفسه: لا اتصال بدون VPN.';
+
+  @override
+  String get floatingIsland => 'الجزيرة العائمة';
+
+  @override
+  String get floatingIslandHint =>
+      'يعرض حالة الاتصال فوق التطبيقات الأخرى أثناء غيابك عن التطبيق.';
 }

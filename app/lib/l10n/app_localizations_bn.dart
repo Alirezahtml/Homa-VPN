@@ -1837,4 +1837,28 @@ class AppLocalizationsBn extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'সেশন তার $mb এমবি ডেটা সীমায় পৌঁছেছে, তাই সংযোগ বিচ্ছিন্ন হয়েছে।';
   }
+
+  @override
+  String get protection => 'সুরক্ষা';
+
+  @override
+  String get killSwitch => 'কিল সুইচ';
+
+  @override
+  String get killSwitchHint =>
+      'টানেল ভেঙে গেলে VPN চালু থাকে এবং ট্রাফিক আটকে রাখে — কিছুই ফাঁস হয় না।';
+
+  @override
+  String get alwaysOnVpn => 'সর্বদা চালু VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'অ্যান্ড্রয়েডের নিজস্ব প্রহরী: VPN ছাড়া কোনো সংযোগ যায় না।';
+
+  @override
+  String get floatingIsland => 'ভাসমান দ্বীপ';
+
+  @override
+  String get floatingIslandHint =>
+      'অ্যাপের বাইরে থাকলে অন্য অ্যাপের ওপর সংযোগের অবস্থা দেখায়।';
 }

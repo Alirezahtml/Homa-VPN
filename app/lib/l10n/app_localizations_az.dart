@@ -1842,4 +1842,28 @@ class AppLocalizationsAz extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'Sessiya $mb MB data həddinə çatdı, bağlantı kəsildi.';
   }
+
+  @override
+  String get protection => 'Qoruma';
+
+  @override
+  String get killSwitch => 'Təcili bağlama açarı';
+
+  @override
+  String get killSwitchHint =>
+      'Tunel kəsilsə, VPN işə düşür və trafik saxlanılır — heç bir sızma olmur.';
+
+  @override
+  String get alwaysOnVpn => 'Həmişə işlək VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Android-in öz qoruması: VPN-siz heç bir bağlantı keçmir.';
+
+  @override
+  String get floatingIsland => 'Üzən ada';
+
+  @override
+  String get floatingIslandHint =>
+      'Tətbiqdən kənarda bağlantını digər tətbiqlərin üzərində göstərir.';
 }

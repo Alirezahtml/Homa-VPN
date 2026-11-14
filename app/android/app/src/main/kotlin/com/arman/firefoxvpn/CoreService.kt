@@ -49,6 +49,9 @@ class CoreService : VpnService() {
     /** The speed the notification shows (the user's choice); "" for none. */
     private var shownSpeed = ""
 
+    /** The last "the core gave up" retry of the kill switch (it backs off). */
+    private var lastCoreRetry = 0L
+
     /** Android reported that no network is connected (no Wi-Fi, no mobile data). */
     @Volatile
     private var offline = false
@@ -68,31 +71,60 @@ class CoreService : VpnService() {
             // now, between Android removing it and onDestroy, would leave it
             // behind with no service.
             if (!on) return
-            if (!mobile.Mobile.running()) {
-                Log.e(TAG, "the core stopped; turning the VPN off")
-                turnOff(this@CoreService)
-                return
-            }
-            // The core finished its attempts: the VPN and its notification go too.
-            if (!mobile.Mobile.isOn()) {
-                Log.w(TAG, "the connect was given up; turning the VPN off")
-                turnOff(this@CoreService)
-                return
-            }
-            // It could not start: without it the VPN would hold the phone's
-            // traffic and carry none of it.
-            if (Tun2Socks.ended()) {
-                Log.e(TAG, "the VPN's tunnel ended; turning the VPN off")
+            // The kill switch: the phone never speaks behind the VPN's
+            // back. A broken path keeps the VPN interface up — the traffic
+            // is held, nothing leaks — while the app puts the path back.
+            // Off, a broken connection ends the VPN as before.
+            val kill = killSwitch(this@CoreService)
+            val running = mobile.Mobile.running()
+            val isOn = running && mobile.Mobile.isOn()
+            val tunnelOk = isOn && !Tun2Socks.ended()
+            if (!tunnelOk && kill) {
+                when {
+                    !running -> {
+                        // The core died outright: it comes back, and the
+                        // VPN holds the traffic until it connects.
+                        Log.e(TAG, "the core stopped; the kill switch holds the VPN")
+                        startCore(this@CoreService, on = true)
+                        mobile.Mobile.setOn(true)
+                        mobile.Mobile.connect()
+                    }
+                    !isOn -> {
+                        // The core gave up its attempts: it tries again,
+                        // quietly, at most every 30 s — the VPN holds.
+                        if (System.currentTimeMillis() - lastCoreRetry >= CORE_RETRY_MS) {
+                            lastCoreRetry = System.currentTimeMillis()
+                            Log.w(TAG, "the connect was given up; the kill switch tries again")
+                            mobile.Mobile.connect()
+                        }
+                    }
+                    else -> {
+                        // The tunnel died under a living core: it is
+                        // rebuilt on the spot; until then nothing leaves.
+                        Log.e(TAG, "the VPN's tunnel ended; the kill switch rebuilds it")
+                        startTunnel()
+                    }
+                }
+            } else if (!tunnelOk) {
+                // No kill switch: a broken connection ends the VPN, and
+                // the phone goes back to its own networks.
+                when {
+                    !running -> Log.e(TAG, "the core stopped; turning the VPN off")
+                    !isOn -> Log.w(TAG, "the connect was given up; turning the VPN off")
+                    else -> Log.e(TAG, "the VPN's tunnel ended; turning the VPN off")
+                }
                 turnOff(this@CoreService)
                 return
             }
             val code = when {
                 mobile.Mobile.connectPending() -> ""
                 offline -> NO_NETWORK
+                !tunnelOk && kill -> BLOCKED
                 mobile.Mobile.running() -> mobile.Mobile.exitCountry()
                 else -> ""
             }
             connected = on && code.length == 2
+            IslandOverlay.refresh(this@CoreService)
             ConnectWidget.updateAll(this@CoreService)
             // Proxy mode names the address apps connect to; the VPN needs none.
             val proxy = if (usesVpn(this@CoreService) || !mobile.Mobile.running()) "" else mobile.Mobile.proxyAddress()
@@ -222,7 +254,9 @@ class CoreService : VpnService() {
             // New settings: the apps left out of the VPN, or the mode.
             if (on) {
                 if (usesVpn(this)) {
-                    if (!startTunnel()) turnOff(this)
+                    // With the kill switch a failed rebuild keeps the VPN
+                    // up and dark; the poll tries again. Nothing leaks.
+                    if (!startTunnel() && !killSwitch(this)) turnOff(this)
                 } else {
                     stopTunnel()
                 }
@@ -250,6 +284,7 @@ class CoreService : VpnService() {
         on = true
         offline = reportedDown
         QuickTile.refresh(this)
+        IslandOverlay.refresh(this)
         ConnectWidget.updateAll(this)
         main.removeCallbacks(watchCountry)
         main.post(watchCountry)
@@ -272,6 +307,7 @@ class CoreService : VpnService() {
         on = false
         connected = false
         QuickTile.refresh(this)
+        IslandOverlay.refresh(this)
         ConnectWidget.updateAll(this)
         super.onDestroy()
     }
@@ -404,6 +440,7 @@ class CoreService : VpnService() {
     private fun notification(code: String): Notification {
         val state = when {
             code == NO_NETWORK -> getString(R.string.notification_no_network)
+            code == BLOCKED -> getString(R.string.notification_blocked)
             code.length == 2 -> "${flag(code)}  ${Locale.Builder().setRegion(code).build().displayCountry}"
             else -> getString(R.string.notification_connecting)
         }
@@ -459,6 +496,9 @@ class CoreService : VpnService() {
 
         private const val NO_NETWORK = "-"
 
+        /** The kill switch holds the VPN: the traffic is stopped, not leaked. */
+        private const val BLOCKED = "+"
+
         private const val SHOW_SPEED = "show_speed"
 
         /** Whether the notification shows the speed (off unless chosen). */
@@ -466,6 +506,19 @@ class CoreService : VpnService() {
 
         fun setShowSpeed(context: Context, on: Boolean) {
             prefs(context).edit().putBoolean(SHOW_SPEED, on).apply()
+        }
+
+        /** The kill switch: a broken path keeps the VPN up — the traffic is
+         * held, nothing leaks — while the app puts the path back. */
+        private const val KILL_SWITCH = "kill_switch"
+
+        /** How often the kill switch re-asks a core that gave up. */
+        private const val CORE_RETRY_MS = 30_000L
+
+        fun killSwitch(context: Context) = prefs(context).getBoolean(KILL_SWITCH, false)
+
+        fun setKillSwitch(context: Context, on: Boolean) {
+            prefs(context).edit().putBoolean(KILL_SWITCH, on).apply()
         }
 
         /** "↓ 1.2 MB/s  ↑ 35 KB/s" from the core's "down,up" in bytes per second. */
@@ -637,6 +690,7 @@ class CoreService : VpnService() {
             on = true
             connected = false
             QuickTile.refresh(context)
+            IslandOverlay.refresh(context)
             ConnectWidget.updateAll(context)
         }
 
@@ -654,6 +708,7 @@ class CoreService : VpnService() {
             connected = false
             context.stopService(Intent(context, CoreService::class.java))
             QuickTile.refresh(context)
+            IslandOverlay.refresh(context)
             ConnectWidget.updateAll(context)
         }
 

@@ -1841,4 +1841,28 @@ class AppLocalizationsTr extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'Oturum $mb MB veri sınırına ulaştı; bağlantı kesildi.';
   }
+
+  @override
+  String get protection => 'Koruma';
+
+  @override
+  String get killSwitch => 'Acil kesme anahtarı';
+
+  @override
+  String get killSwitchHint =>
+      'Tünel koparsa VPN açık kalır ve trafiği tutar — hiçbir şey sızmaz.';
+
+  @override
+  String get alwaysOnVpn => 'Her zaman açık VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Android\'in kendi koruması: VPN olmadan hiçbir bağlantı geçmez.';
+
+  @override
+  String get floatingIsland => 'Yüzen ada';
+
+  @override
+  String get floatingIslandHint =>
+      'Uygulamadan çıkarken bağlantıyı diğer uygulamaların üzerinde gösterir.';
 }

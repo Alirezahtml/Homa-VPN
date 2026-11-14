@@ -3,6 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">正在連線…</string>
     <string name="notification_no_network">沒有網路連線</string>
+    <string name="notification_blocked">已封鎖（緊急斷流開關）</string>
     <string name="notification_proxy">僅代理 · %1$s</string>
     <string name="notification_stop">中斷連線</string>
     <!-- The home-screen widget: its name and description in the widget

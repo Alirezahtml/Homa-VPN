@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "{minutes} dakikadır trafik akmıyordu; bağlantı kesildi.",
-  "autoStoppedData": "Oturum {mb} MB veri sınırına ulaştı; bağlantı kesildi."
+  "autoStoppedData": "Oturum {mb} MB veri sınırına ulaştı; bağlantı kesildi.",
+  "protection": "Koruma",
+  "killSwitch": "Acil kesme anahtarı",
+  "killSwitchHint": "Tünel koparsa VPN açık kalır ve trafiği tutar — hiçbir şey sızmaz.",
+  "alwaysOnVpn": "Her zaman açık VPN",
+  "alwaysOnVpnHint": "Android'in kendi koruması: VPN olmadan hiçbir bağlantı geçmez.",
+  "floatingIsland": "Yüzen ada",
+  "floatingIslandHint": "Uygulamadan çıkarken bağlantıyı diğer uygulamaların üzerinde gösterir."
 }

@@ -457,7 +457,9 @@ void main() {
 
     await tester.tap(find.text('Accounts').first);
     await settle(tester);
-    expect(find.text('alice@example.com'), findsOneWidget);
+    // The card's face carries the name once; the card, open by itself for
+    // a sign-in, repeats the whole address on its own line.
+    expect(find.text('alice@example.com'), findsNWidgets(2));
     expect(find.text('Needs sign-in'), findsOneWidget);
     expect(find.text('Sign in again'), findsOneWidget);
 
@@ -2528,7 +2530,7 @@ void main() {
     await settle(tester);
     // The accounts page under its own top bar, with a back button.
     expect(find.byType(AppBar), findsOneWidget);
-    expect(find.text('alice@example.com'), findsOneWidget);
+    expect(find.text('alice@example.com'), findsNWidgets(2));
     await tester.pageBack();
     await settle(tester);
     expect(find.text('Network'), findsOneWidget);

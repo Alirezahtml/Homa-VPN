@@ -53,6 +53,7 @@ class AccountsPage extends StatelessWidget {
                 settings: settings,
                 account: list[i],
                 threshold: threshold,
+                count: list.length,
                 first: i == 0,
                 last: i == list.length - 1,
               ),
@@ -357,12 +358,13 @@ class _CreateAccountGuide extends StatelessWidget {
   }
 }
 
-class _AccountCard extends StatelessWidget {
+class _AccountCard extends StatefulWidget {
   const _AccountCard({
     required this.core,
     required this.settings,
     required this.account,
     required this.threshold,
+    required this.count,
     required this.first,
     required this.last,
   });
@@ -371,210 +373,271 @@ class _AccountCard extends StatelessWidget {
   final AppSettings settings;
   final Account account;
   final double threshold;
+
+  /// How many accounts there are (the order number and the arrows show
+  /// only when there is more than one).
+  final int count;
   final bool first;
   final bool last;
+
+  @override
+  State<_AccountCard> createState() => _AccountCardState();
+}
+
+/// An account as a quiet card. The face of it — the letter, the name, the
+/// state, the month's bar — is always in view; the reason and the controls
+/// open only when they are needed, so the words of every language keep
+/// their breathing room (nothing is squeezed onto one line). The card
+/// opens by itself when something needs attention: the active account,
+/// and one that asks for a sign-in.
+class _AccountCardState extends State<_AccountCard> {
+  late bool _open = widget.account.active || widget.account.needsSignIn;
+
+  @override
+  void didUpdateWidget(_AccountCard old) {
+    super.didUpdateWidget(old);
+    // A card that starts needing a sign-in opens by itself; the user's
+    // own open or closed choice is left alone afterwards.
+    if (!old.account.needsSignIn && widget.account.needsSignIn) _open = true;
+  }
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final a = account;
+    final a = widget.account;
+    final core = widget.core;
     final busy = core.busyAccounts.contains(a.id);
     final muted = theme.textTheme.bodySmall?.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
     );
     final usage = a.usage;
+    final reason = accountReason(l, a, widget.threshold);
+
+    // What the account needs now: a sign-in, or a tap to take over.
+    final Widget? action = busy
+        ? const Padding(
+            padding: EdgeInsets.all(8),
+            child: SizedBox.square(
+              dimension: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          )
+        : a.needsSignIn
+        ? FilledButton.tonal(
+            onPressed: () => _signInAgain(context),
+            child: Text(l.signInAgain),
+          )
+        : !a.active && a.enabled && a.status == AccountStatus.ready
+        ? OutlinedButton(
+            onPressed: () => runShowingErrors(context, () => core.activate(a)),
+            child: Text(l.useNow),
+          )
+        : null;
+
+    // The month's words: the share beside the state; under the bar only
+    // the day it starts over — the share is already said above, and no
+    // sentence is written twice.
+    final share = usage == null
+        ? ''
+        : usage.unlimited
+        ? l.unlimitedQuota
+        : l.usedOf(formatBytes(usage.usedBytes), formatBytes(usage.limitBytes));
+    final caption = usage == null
+        ? ltr('0 MB')
+        : usage.unlimited || usage.resetAt == null
+        ? ''
+        : l.resets(formatDate(l, usage.resetAt!));
+
     return Opacity(
       opacity: a.enabled ? 1 : 0.6,
       child: Card(
         margin: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           side: a.active
               ? BorderSide(color: theme.colorScheme.primary, width: 1.5)
               : BorderSide.none,
         ),
-        child: LayoutBuilder(
-          builder: (context, box) {
-            // A phone: the controls go under the account.
-            final narrow = box.maxWidth < 520;
-            // What the account needs now, beside its name on a computer, so
-            // every card's bar is as wide and the threshold marks line up.
-            final Widget? action = busy
-                ? const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox.square(
-                      dimension: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    ),
-                  )
-                : a.needsSignIn
-                ? FilledButton.tonal(
-                    onPressed: () => _signInAgain(context),
-                    child: Text(l.signInAgain),
-                  )
-                : !a.active && a.enabled && a.status == AccountStatus.ready
-                ? OutlinedButton(
-                    onPressed: () =>
-                        runShowingErrors(context, () => core.activate(a)),
-                    child: Text(l.useNow),
-                  )
-                : null;
-            final controls = <Widget>[
-              Tooltip(
-                message: a.enabled ? l.statusEnabled : l.statusDisabled,
-                child: Switch(
-                  value: a.enabled,
-                  onChanged: busy
-                      ? null
-                      : (v) => runShowingErrors(
-                          context,
-                          () => core.setEnabled(a, v),
+        // A tap anywhere opens or closes the card's rest; the switch and
+        // the buttons take their own taps.
+        child: InkWell(
+          onTap: () => setState(() => _open = !_open),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // The face: the order, the letter, the name and the mail;
+              // the switch at the end, out of the words' way.
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 12, 0),
+                child: Row(
+                  children: [
+                    if (widget.count > 1) ...[
+                      SizedBox(
+                        width: 20,
+                        child: Text(
+                          '${a.position}',
+                          textAlign: TextAlign.center,
+                          style: muted,
                         ),
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                    _Monogram(name: a.name, active: a.active),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            a.name,
+                            style: theme.textTheme.titleMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (a.name != a.email && a.email.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              a.email,
+                              style: muted,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Switch(
+                      value: a.enabled,
+                      onChanged: busy
+                          ? null
+                          : (v) => runShowingErrors(
+                              context,
+                              () => core.setEnabled(a, v),
+                            ),
+                    ),
+                  ],
                 ),
               ),
-              PopupMenuButton<String>(
-                tooltip: l.more,
-                enabled: !busy,
-                onSelected: (v) => switch (v) {
-                  'refresh' => runShowingErrors(
-                    context,
-                    () => core.refreshQuota(a),
-                  ),
-                  'remove' => _remove(context),
-                  _ => null,
-                },
-                itemBuilder: (_) => [
-                  PopupMenuItem(
-                    value: 'refresh',
-                    child: ListTile(
-                      leading: const Icon(Icons.sync_rounded),
-                      title: Text(l.refreshQuota),
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 'remove',
-                    child: ListTile(
-                      leading: const Icon(Icons.delete_outline_rounded),
-                      title: Text(l.remove),
-                    ),
-                  ),
-                ],
-              ),
-            ];
-            return Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(8, 14, 16, 14),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        visualDensity: VisualDensity.compact,
-                        tooltip: l.moveUp,
-                        onPressed: first || busy
-                            ? null
-                            : () => runShowingErrors(
-                                context,
-                                () => core.move(a, -1),
-                              ),
-                        icon: const Icon(Icons.keyboard_arrow_up_rounded),
+              // The state and the month's numbers, on their own line.
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                child: Row(
+                  children: [
+                    _StatusPill(account: a),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        share,
+                        style: muted,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.end,
                       ),
-                      Text('${a.position}', style: theme.textTheme.titleMedium),
-                      IconButton(
-                        visualDensity: VisualDensity.compact,
-                        tooltip: l.moveDown,
-                        onPressed: last || busy
-                            ? null
-                            : () => runShowingErrors(
-                                context,
-                                () => core.move(a, 1),
-                              ),
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    ),
+                  ],
+                ),
+              ),
+              // The bar, always (unless the month is unlimited): a picture
+              // of the share, with zero read as zero.
+              if (usage?.unlimited != true) ...[
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                  child: QuotaBar(
+                    percent: usage == null ? 0 : a.usedPercent,
+                    threshold: widget.threshold,
+                  ),
+                ),
+              ],
+              if (caption.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 6, 16, 14),
+                  child: Text(caption, style: muted),
+                )
+              else
+                const SizedBox(height: 14),
+              // The rest, a tap away: the reason in the user's words, then
+              // the controls — the order on one side, the care on the other.
+              AnimatedCrossFade(
+                duration: const Duration(milliseconds: 200),
+                sizeCurve: Curves.easeOutCubic,
+                crossFadeState: _open
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                firstChild: const SizedBox(width: double.infinity),
+                secondChild: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // The whole address, on its own wrapping line: the
+                      // identity this card stands for, never squeezed.
+                      if (a.email.isNotEmpty) ...[
+                        Text(a.email, style: muted),
+                        const SizedBox(height: 12),
+                      ],
+                      if (reason case final reason?) ...[
+                        Text(reason, style: muted),
+                        const SizedBox(height: 12),
+                      ],
+                      if (action != null) ...[
+                        action,
+                        const SizedBox(height: 8),
+                      ],
+                      Row(
+                        children: [
+                          if (widget.count > 1) ...[
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              tooltip: l.moveUp,
+                              onPressed: widget.first || busy
+                                  ? null
+                                  : () => runShowingErrors(
+                                      context,
+                                      () => core.move(a, -1),
+                                    ),
+                              icon: const Icon(Icons.arrow_upward_rounded),
+                            ),
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              tooltip: l.moveDown,
+                              onPressed: widget.last || busy
+                                  ? null
+                                  : () => runShowingErrors(
+                                      context,
+                                      () => core.move(a, 1),
+                                    ),
+                              icon: const Icon(Icons.arrow_downward_rounded),
+                            ),
+                          ],
+                          const Spacer(),
+                          IconButton(
+                            visualDensity: VisualDensity.compact,
+                            tooltip: l.refreshQuota,
+                            onPressed: busy
+                                ? null
+                                : () => runShowingErrors(
+                                    context,
+                                    () => core.refreshQuota(a),
+                                  ),
+                            icon: const Icon(Icons.sync_rounded),
+                          ),
+                          IconButton(
+                            visualDensity: VisualDensity.compact,
+                            tooltip: l.remove,
+                            onPressed: busy ? null : () => _remove(context),
+                            icon: const Icon(Icons.delete_outline_rounded),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            // The name takes all the room the button leaves.
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      a.name,
-                                      style: theme.textTheme.titleMedium,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  _StatusPill(account: a),
-                                ],
-                              ),
-                            ),
-                            if (!narrow && action != null) ...[
-                              const SizedBox(width: 12),
-                              action,
-                            ],
-                          ],
-                        ),
-                        if (a.name != a.email && a.email.isNotEmpty)
-                          Text(a.email, style: muted),
-                        if (accountReason(l, a, threshold)
-                            case final reason?) ...[
-                          const SizedBox(height: 4),
-                          Text(reason, style: muted),
-                        ],
-                        const SizedBox(height: 12),
-                        if (usage?.unlimited == true)
-                          Text(l.unlimitedQuota, style: muted)
-                        else ...[
-                          QuotaBar(
-                            percent: usage == null ? 0 : a.usedPercent,
-                            threshold: threshold,
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            usage == null
-                                ? ltr('0 MB')
-                                : [
-                                    l.usedOf(
-                                      formatBytes(usage.usedBytes),
-                                      formatBytes(usage.limitBytes),
-                                    ),
-                                    if (usage.resetAt != null)
-                                      l.resets(formatDate(l, usage.resetAt!)),
-                                  ].join(' · '),
-                            style: muted,
-                          ),
-                        ],
-                        if (narrow) ...[
-                          const SizedBox(height: 8),
-                          Wrap(
-                            alignment: WrapAlignment.end,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              if (action != null) ...[
-                                action,
-                                const SizedBox(width: 8),
-                              ],
-                              ...controls,
-                            ],
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                  if (!narrow) ...[const SizedBox(width: 16), ...controls],
-                ],
+                ),
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );
@@ -582,19 +645,25 @@ class _AccountCard extends StatelessWidget {
 
   /// Signs in with the stored password; without one, asks for it.
   Future<void> _signInAgain(BuildContext context) async {
-    final api = core.api;
+    final api = widget.core.api;
+    final account = widget.account;
     if (api == null) return;
     try {
       final started = await api.startSignInAgain(account.id);
       if (context.mounted) {
-        await showSignInDialog(context, core, started: started);
+        await showSignInDialog(context, widget.core, started: started);
       }
     } on CoreApiException catch (e) {
       if (!context.mounted) return;
       if (e.statusCode == 409) {
         // No stored password (a browser-added or Google/Apple account):
         // the whole sign-in again, the way the settings say.
-        await startAddAccount(context, core, settings, email: account.email);
+        await startAddAccount(
+          context,
+          widget.core,
+          widget.settings,
+          email: account.email,
+        );
       } else {
         showError(context, e.message);
       }
@@ -607,6 +676,7 @@ class _AccountCard extends StatelessWidget {
 
   Future<void> _remove(BuildContext context) async {
     final l = AppLocalizations.of(context);
+    final account = widget.account;
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -626,8 +696,52 @@ class _AccountCard extends StatelessWidget {
       ),
     );
     if (ok == true && context.mounted) {
-      await runShowingErrors(context, () => core.remove(account));
+      await runShowingErrors(context, () => widget.core.remove(account));
     }
+  }
+}
+
+/// The account's letter in a ring: filled with the accent's light when
+/// the account is the one carrying the traffic, quiet gray otherwise.
+class _Monogram extends StatelessWidget {
+  const _Monogram({required this.name, required this.active});
+
+  final String name;
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final trimmed = name.trim();
+    final letter = trimmed.isEmpty
+        ? '?'
+        : trimmed.characters.first.toUpperCase();
+    final color = active
+        ? theme.colorScheme.primary
+        : theme.colorScheme.onSurfaceVariant;
+    return Container(
+      width: 44,
+      height: 44,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: active
+            ? color.withValues(alpha: 0.14)
+            : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
+        border: Border.all(
+          color: active
+              ? color.withValues(alpha: 0.55)
+              : theme.colorScheme.outlineVariant,
+        ),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        letter,
+        style: theme.textTheme.titleMedium?.copyWith(
+          color: color,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
   }
 }
 

@@ -1853,4 +1853,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'Сеанс достиг лимита $mb МБ, поэтому соединение отключено.';
   }
+
+  @override
+  String get protection => 'Защита';
+
+  @override
+  String get killSwitch => 'Аварийный выключатель';
+
+  @override
+  String get killSwitchHint =>
+      'Если туннель рвётся, VPN остаётся включённым и удерживает трафик — ничего не утекает.';
+
+  @override
+  String get alwaysOnVpn => 'Постоянный VPN';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'Собственная защита Android: без VPN не проходит ни одно соединение.';
+
+  @override
+  String get floatingIsland => 'Плавающий остров';
+
+  @override
+  String get floatingIslandHint =>
+      'Показывает состояние соединения поверх других приложений, пока приложение закрыто.';
 }

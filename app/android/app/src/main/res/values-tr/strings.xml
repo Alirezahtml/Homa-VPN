@@ -3,6 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Bağlanıyor…</string>
     <string name="notification_no_network">İnternet bağlantısı yok</string>
+    <string name="notification_blocked">Engellendi (kill switch)</string>
     <string name="notification_proxy">Yalnızca proxy · %1$s</string>
     <string name="notification_stop">Bağlantıyı kes</string>
     <!-- The home-screen widget: its name and description in the widget

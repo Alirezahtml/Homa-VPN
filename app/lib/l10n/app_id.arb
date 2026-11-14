@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "Tidak ada lalu lintas selama {minutes} menit, koneksi diputus.",
-  "autoStoppedData": "Sesi mencapai batas datanya {mb} MB, koneksi diputus."
+  "autoStoppedData": "Sesi mencapai batas datanya {mb} MB, koneksi diputus.",
+  "protection": "Perlindungan",
+  "killSwitch": "Kill switch",
+  "killSwitchHint": "Jika terowongan putus, VPN tetap aktif dan menahan lalu lintas — tidak ada yang bocor.",
+  "alwaysOnVpn": "VPN selalu aktif",
+  "alwaysOnVpnHint": "Pengaman bawaan Android: tanpa VPN tidak ada koneksi lewat.",
+  "floatingIsland": "Pulau mengambang",
+  "floatingIslandHint": "Menampilkan status koneksi di atas aplikasi lain saat Anda keluar dari aplikasi."
 }

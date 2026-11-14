@@ -288,6 +288,17 @@ class _SettingsPageState extends State<SettingsPage> {
     if (mounted) _toast(AppLocalizations.of(context).saved);
   }
 
+  /// The floating island's switch. Without the system's "draw over other
+  /// apps" permission, the first tap opens the system's page for it; with
+  /// the grant in hand, the switch works.
+  Future<void> _setIsland(bool on) async {
+    if (on && !await AndroidCore.canDrawOverlays()) {
+      await AndroidCore.openOverlaySettings();
+      return;
+    }
+    await AndroidCore.setIsland(on);
+  }
+
   /// Android changes only the UI language. Desktop also offers the routing
   /// most of its speakers want (Persian: Iran, Chinese: China, Russian: Russia).
   Future<void> _pickLanguage(String language) async {
@@ -534,6 +545,25 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+        // The floating island: the connection over the other apps, while
+        // the app itself is away. The first tap asks for the system's
+        // "draw over other apps" permission; with it, the second enables.
+        if (Platform.isAndroid)
+          ValueListenableBuilder(
+            valueListenable: AndroidCore.island,
+            builder: (context, on, _) => _Row(
+              icon: Icons.messenger_outline_rounded,
+              label: l.floatingIsland,
+              value: l.floatingIslandHint,
+              child: Switch(
+                value: on,
+                onChanged: (v) => runShowingErrors(
+                  context,
+                  () => _setIsland(v),
+                ),
+              ),
+            ),
+          ),
         // A phone updates itself: the newer version downloads in the
         // background, and the system's installer asks before it installs.
         if (Platform.isAndroid) ...[
@@ -647,6 +677,45 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // Under no condition may the traffic slip past the VPN: the kill
+        // switch holds it when the path breaks, and Android's own
+        // always-on guard blocks everything without the VPN.
+        if (Platform.isAndroid) ...[
+          Panel(
+            title: l.protection,
+            icon: Icons.shield_outlined,
+            child: Column(
+              children: [
+                ValueListenableBuilder(
+                  valueListenable: AndroidCore.killSwitch,
+                  builder: (context, on, _) => _Row(
+                    icon: Icons.gpp_good_outlined,
+                    label: l.killSwitch,
+                    value: l.killSwitchHint,
+                    child: Switch(
+                      value: on,
+                      onChanged: (v) => runShowingErrors(
+                        context,
+                        () => AndroidCore.setKillSwitch(v),
+                      ),
+                    ),
+                  ),
+                ),
+                _Row(
+                  icon: Icons.verified_user_outlined,
+                  label: l.alwaysOnVpn,
+                  value: l.alwaysOnVpnHint,
+                  child: const Icon(
+                    Icons.open_in_new_rounded,
+                    size: 20,
+                  ),
+                  onTap: () => AndroidCore.openVpnSettings(),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
         // How the app reaches Mozilla.
         Panel(
           title: l.sectionConnection,
@@ -3118,7 +3187,8 @@ class _AccentSwatch extends StatelessWidget {
 
 /// The accent picker: the monochrome design first, then the curated
 /// colors, then a custom one by its hex — all as clean round swatches in
-/// a sheet that follows the theme.
+/// a sheet that follows the theme. The sheet may take the screen and
+/// scrolls the rest, so every color is reached on any phone.
 Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
   final l = AppLocalizations.of(context);
   final dark = Theme.of(context).brightness == Brightness.dark;
@@ -3126,6 +3196,9 @@ Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
   await showModalBottomSheet<void>(
     context: context,
     showDragHandle: true,
+    // The sheet grows past the default fraction: the whole list fits on
+    // most phones, and the small ones scroll instead of cutting colors.
+    isScrollControlled: true,
     backgroundColor: dark ? const Color(0xFF111111) : Colors.white,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
@@ -3137,10 +3210,11 @@ Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
         // swatch is chosen.
         child: ListenableBuilder(
           listenable: s,
-          builder: (context, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+          builder: (context, _) => SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
               Text(
                 l.accentColor,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -3173,6 +3247,7 @@ Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
             ],
           ),
         ),
+      ),
       ),
     ),
   );

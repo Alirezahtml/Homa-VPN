@@ -1106,5 +1106,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "protection": "Protection",
+  "killSwitch": "Kill switch",
+  "killSwitchHint": "If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.",
+  "alwaysOnVpn": "Always-on VPN",
+  "alwaysOnVpnHint": "Android's own guard: no connection without the VPN.",
+  "floatingIsland": "Floating island",
+  "floatingIslandHint": "Carries the connection over the other apps while the app is away."
 }

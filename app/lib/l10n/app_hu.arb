@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "{minutes} percig nem folyt forgalom, ezért a kapcsolat megszakadt.",
-  "autoStoppedData": "A munkamenet elérte a(z) {mb} MB adatkorlátot, ezért a kapcsolat megszakadt."
+  "autoStoppedData": "A munkamenet elérte a(z) {mb} MB adatkorlátot, ezért a kapcsolat megszakadt.",
+  "protection": "Védelem",
+  "killSwitch": "Biztonsági kapcsoló",
+  "killSwitchHint": "Ha az alagút megszakad, a VPN bekapcsolva marad, és visszatartja a forgalmat — semmi nem szivárog.",
+  "alwaysOnVpn": "Mindig bekapcsolt VPN",
+  "alwaysOnVpnHint": "Az Android saját őre: a VPN nélkül semmi nem megy át.",
+  "floatingIsland": "Lebegő sziget",
+  "floatingIslandHint": "Amíg az alkalmazáson kívül van, a többi alkalmazás fölött mutatja a kapcsolatot."
 }

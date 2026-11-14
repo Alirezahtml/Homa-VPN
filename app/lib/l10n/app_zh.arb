@@ -533,5 +533,12 @@
   "mb5120": "5 GB",
   "mb10240": "10 GB",
   "autoStoppedIdle": "已有 {minutes} 分钟没有流量，连接已断开。",
-  "autoStoppedData": "会话流量达到 {mb} MB 上限，连接已断开。"
+  "autoStoppedData": "会话流量达到 {mb} MB 上限，连接已断开。",
+  "protection": "保护",
+  "killSwitch": "紧急断流开关",
+  "killSwitchHint": "隧道中断时，VPN 保持开启并拦住流量 — 不会泄漏任何数据。",
+  "alwaysOnVpn": "VPN 常开",
+  "alwaysOnVpnHint": "安卓自带的防护：没有 VPN 就不放行任何连接。",
+  "floatingIsland": "悬浮岛",
+  "floatingIslandHint": "离开应用时，在其他应用上方显示连接状态。"
 }

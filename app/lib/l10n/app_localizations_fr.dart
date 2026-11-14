@@ -1859,4 +1859,28 @@ class AppLocalizationsFr extends AppLocalizations {
   String autoStoppedData(int mb) {
     return 'La session a atteint sa limite de $mb Mo ; la connexion a été coupée.';
   }
+
+  @override
+  String get protection => 'Protection';
+
+  @override
+  String get killSwitch => 'Kill switch';
+
+  @override
+  String get killSwitchHint =>
+      'Si le tunnel casse, le VPN reste actif et retient le trafic — rien ne fuit.';
+
+  @override
+  String get alwaysOnVpn => 'VPN permanent';
+
+  @override
+  String get alwaysOnVpnHint =>
+      'La protection d\'Android même : aucune connexion sans le VPN.';
+
+  @override
+  String get floatingIsland => 'Île flottante';
+
+  @override
+  String get floatingIslandHint =>
+      'Affiche la connexion au-dessus des autres apps quand vous quittez l’app.';
 }

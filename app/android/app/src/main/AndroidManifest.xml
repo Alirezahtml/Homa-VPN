@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- The floating island: a pill over the other apps that carries the
+         connection while the app is away. Asked in the app's own page. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- The app's own updates: a newer version downloads by itself, then
          Android's installer asks to install it. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -81,6 +84,12 @@
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
         </service>
+        <!-- The floating island: the connection's state over the other
+             apps, while the app itself is away. Not exported: only this
+             app starts it. -->
+        <service
+            android:name=".IslandOverlay"
+            android:exported="false" />
         <!-- The home-screen widget: a button that turns the VPN on or off. -->
         <receiver
             android:name=".ConnectWidget"

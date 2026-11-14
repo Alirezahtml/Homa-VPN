@@ -3284,6 +3284,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The session reached its {mb} MB data limit, so it was disconnected.'**
   String autoStoppedData(int mb);
+
+  /// No description provided for @protection.
+  ///
+  /// In en, this message translates to:
+  /// **'Protection'**
+  String get protection;
+
+  /// No description provided for @killSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Kill switch'**
+  String get killSwitch;
+
+  /// No description provided for @killSwitchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.'**
+  String get killSwitchHint;
+
+  /// No description provided for @alwaysOnVpn.
+  ///
+  /// In en, this message translates to:
+  /// **'Always-on VPN'**
+  String get alwaysOnVpn;
+
+  /// No description provided for @alwaysOnVpnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Android\'s own guard: no connection without the VPN.'**
+  String get alwaysOnVpnHint;
+
+  /// No description provided for @floatingIsland.
+  ///
+  /// In en, this message translates to:
+  /// **'Floating island'**
+  String get floatingIsland;
+
+  /// No description provided for @floatingIslandHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Carries the connection over the other apps while the app is away.'**
+  String get floatingIslandHint;
 }
 
 class _AppLocalizationsDelegate

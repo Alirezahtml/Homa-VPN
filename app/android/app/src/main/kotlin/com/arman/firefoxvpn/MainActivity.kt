@@ -55,6 +55,19 @@ class MainActivity : FlutterActivity() {
         removeOtherCards()
     }
 
+    /** The app is in front: the floating island (if up) hides at once. */
+    override fun onStart() {
+        super.onStart()
+        IslandOverlay.hideNow()
+    }
+
+    /** The app went away: the island may take the state's place. */
+    override fun onStop() {
+        super.onStop()
+        IslandOverlay.wentBackground()
+        IslandOverlay.refresh(this)
+    }
+
     /** A tile long-press returns an already open UI to its home page. */
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -140,6 +153,45 @@ class MainActivity : FlutterActivity() {
                 "showSpeed" -> result.success(CoreService.showSpeed(this))
                 "setShowSpeed" -> {
                     CoreService.setShowSpeed(this, call.argument<Boolean>("on") == true)
+                    result.success(null)
+                }
+                // The kill switch: with it on, a broken path keeps the VPN
+                // up and dark — the traffic is held, nothing leaks — while
+                // the app puts the path back.
+                "killSwitch" -> result.success(CoreService.killSwitch(this))
+                "setKillSwitch" -> {
+                    CoreService.setKillSwitch(this, call.argument<Boolean>("on") == true)
+                    result.success(null)
+                }
+                // Android's own, stronger guard: always-on for this VPN and
+                // "block connections without VPN" live in the system's page.
+                "openVpnSettings" -> {
+                    runCatching {
+                        startActivity(Intent(Settings.ACTION_VPN_SETTINGS))
+                    }.onFailure {
+                        runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                    }
+                    result.success(null)
+                }
+                // The floating island: the state over the other apps while
+                // the app is away. Needs the system's "draw over apps".
+                "island" -> result.success(IslandOverlay.enabled(this))
+                "setIsland" -> {
+                    IslandOverlay.setEnabled(this, call.argument<Boolean>("on") == true)
+                    result.success(null)
+                }
+                "canDrawOverlays" -> result.success(IslandOverlay.canDraw(this))
+                "openOverlaySettings" -> {
+                    runCatching {
+                        startActivity(
+                            Intent(
+                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:$packageName"),
+                            )
+                        )
+                    }.onFailure {
+                        runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                    }
                     result.success(null)
                 }
                 // Keeps the screen awake while the VPN is on (the setting's

@@ -533,5 +533,12 @@
   "mb5120": "5 Go",
   "mb10240": "10 Go",
   "autoStoppedIdle": "Plus rien ne passait depuis {minutes} minutes ; la connexion a été coupée.",
-  "autoStoppedData": "La session a atteint sa limite de {mb} Mo ; la connexion a été coupée."
+  "autoStoppedData": "La session a atteint sa limite de {mb} Mo ; la connexion a été coupée.",
+  "protection": "Protection",
+  "killSwitch": "Kill switch",
+  "killSwitchHint": "Si le tunnel casse, le VPN reste actif et retient le trafic — rien ne fuit.",
+  "alwaysOnVpn": "VPN permanent",
+  "alwaysOnVpnHint": "La protection d'Android même : aucune connexion sans le VPN.",
+  "floatingIsland": "Île flottante",
+  "floatingIslandHint": "Affiche la connexion au-dessus des autres apps quand vous quittez l’app."
 }
