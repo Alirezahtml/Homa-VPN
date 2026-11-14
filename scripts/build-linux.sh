@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds the Linux desktop app with its core, for this machine's processor
-# (amd64 or arm64), into dist/Arman-VPN-<version>-Linux-<arch>.tar.gz: a
+# (amd64 or arm64), into dist/Homa-VPN-<version>-Linux-<arch>.tar.gz: a
 # arman-vpn folder with arman-vpn (the Flutter app), core/arman-vpn-core
 # (the Go core, which the app starts with -app), core/arman-vpn-tun (the
 # TUN mode's service, which the app installs as a systemd service the first
@@ -31,7 +31,7 @@ case "$(uname -m)" in
   aarch64 | arm64) flutter_arch=arm64 arch=arm64 ;;
   *) echo "no Flutter build for $(uname -m)" >&2; exit 1 ;;
 esac
-module=github.com/armanlife/arman-vpn-client/core
+module=github.com/Alirezahtml/Homa-VPN/core
 
 public=""
 if [ -n "${ARMAN_VPN_SIGNING_KEY:-}${ARMAN_VPN_SIGNING_KEY_FILE:-}" ]; then
@@ -65,6 +65,6 @@ ln -s arman-vpn "$app/firefox-vpn"
 ln -s arman-vpn-core "$app/core/firefox-vpn-core"
 
 mkdir -p "$root/dist"
-out="$root/dist/Arman-VPN-$version-Linux-$arch.tar.gz"
+out="$root/dist/Homa-VPN-$version-Linux-$arch.tar.gz"
 tar -czf "$out" -C "$stage" --owner=0 --group=0 arman-vpn
 echo "Built $out ($(du -h "$out" | cut -f1))"

@@ -396,6 +396,12 @@ class CoreApi {
   Future<LocationList> locations() async =>
       LocationList.fromJson(await _json('GET', '/api/locations'));
 
+  /// Fetches Mozilla's server list again (Remote Settings) and answers the
+  /// refreshed locations, in the same shape as [locations]. A failed fetch
+  /// keeps the list the core has.
+  Future<LocationList> refreshLocations() async =>
+      LocationList.fromJson(await _json('POST', '/api/locations/refresh'));
+
   /// Tests the real delay of [codes] (all when empty) through the tunnel;
   /// the proxy must run (409 otherwise). It can take two minutes.
   Future<LocationList> pingLocations(List<String> codes) async =>
@@ -549,7 +555,7 @@ class CoreApi {
       final disposition = res.headers.value('content-disposition') ?? '';
       final name =
           RegExp(r'filename="([^"]+)"').firstMatch(disposition)?.group(1) ??
-          'Arman-VPN-backup.zip';
+          'Homa-VPN-backup.zip';
       return (name: name, bytes: bytes);
     } on SocketException catch (e) {
       throw CoreUnavailable(

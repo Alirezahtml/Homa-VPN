@@ -37,6 +37,7 @@ class Release {
     this.checksumsUrl = '',
     this.signatureUrl = '',
     this.downloads = const {},
+    this.notes = '',
   });
 
   final String version;
@@ -46,10 +47,15 @@ class Release {
   final String signatureUrl;
   final Map<String, ReleaseDownload> downloads;
 
+  /// The release's notes, in the words of the release itself (what the
+  /// version adds, improves, and fixes). Empty when the source has none.
+  final String notes;
+
   Map<String, Object?> toJson() => {
     'version': version,
     'release_url': url,
     'mandatory': mandatory,
+    if (notes.isNotEmpty) 'notes': notes,
     if (downloads.isNotEmpty) ...{
       'checksums_url': checksumsUrl,
       'signature_url': signatureUrl,
@@ -169,6 +175,7 @@ Release? _manifestRelease(Object? value, Map<String, Object?>? releases) {
       record['base_url'],
     ),
     'downloads': downloads,
+    'notes': record['notes'],
   });
 }
 
@@ -212,6 +219,7 @@ Release? releaseFromJson(Object? value) {
     checksumsUrl: downloads.isEmpty ? '' : value['checksums_url']! as String,
     signatureUrl: downloads.isEmpty ? '' : value['signature_url']! as String,
     downloads: Map.unmodifiable(downloads),
+    notes: value['notes'] is String ? value['notes']! as String : '',
   );
 }
 

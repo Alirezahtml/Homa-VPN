@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Builds the macOS app with its core into dist/Arman-VPN-<version>-macOS.dmg:
+# Builds the macOS app with its core into dist/Homa-VPN-<version>-macOS.dmg:
 # "Homa VPN.app" (Apple silicon and Intel), with arman-vpn-core (the Go
 # core, which the app starts with -app) and arman-vpn-tun (the TUN mode's
 # service, which the app installs as a launchd daemon the first time the
 # mode is chosen) beside the app's executable in Contents/MacOS, and a link
 # to Applications to drag it to. The same app goes alone into
-# dist/Arman-VPN-<version>-macOS.tar.gz, which the app downloads to update
+# dist/Homa-VPN-<version>-macOS.tar.gz, which the app downloads to update
 # itself (core/internal/update). The version is "major.minor.patch" from
 # app/pubspec.yaml.
 #
@@ -26,7 +26,7 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 version="$(sed -n 's/^version:[[:space:]]*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' "$root/app/pubspec.yaml")"
 [ -n "$version" ] || { echo "no version in app/pubspec.yaml" >&2; exit 1; }
-module=github.com/armanlife/arman-vpn-client/core
+module=github.com/Alirezahtml/Homa-VPN/core
 
 public=""
 if [ -n "${ARMAN_VPN_SIGNING_KEY:-}${ARMAN_VPN_SIGNING_KEY_FILE:-}" ]; then
@@ -82,14 +82,14 @@ codesign --verify --deep --strict "$app"
 # extended attributes or AppleDouble files (._*), which would lie in the
 # bundle unsealed.
 mkdir -p "$root/dist"
-archive="$root/dist/Arman-VPN-$version-macOS.tar.gz"
+archive="$root/dist/Homa-VPN-$version-macOS.tar.gz"
 COPYFILE_DISABLE=1 tar --no-mac-metadata -czf "$archive" -C "$stage" "Homa VPN.app"
 
 dmg="$stage/dmg"
 mkdir "$dmg"
 mv "$app" "$dmg/"
 ln -s /Applications "$dmg/Applications"
-out="$root/dist/Arman-VPN-$version-macOS.dmg"
+out="$root/dist/Homa-VPN-$version-macOS.dmg"
 rm -f "$out"
 hdiutil create -volname "Homa VPN" -srcfolder "$dmg" -ov -format UDZO "$out" >/dev/null
 echo "Built $out ($(du -h "$out" | cut -f1)) and $archive ($(du -h "$archive" | cut -f1))"

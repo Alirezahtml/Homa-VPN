@@ -149,7 +149,7 @@ class _MobileShellState extends State<MobileShell> {
           child: AnnouncementOverlay(
             settings: settings,
             onOpenUpdates: () =>
-                _push(l.checkUpdates, () => AboutPage(core: core)),
+                _push(l.checkUpdates, () => AboutPage(core: core, settings: settings)),
             child: Column(
               children: [
                 ?widget.banner,
@@ -503,7 +503,7 @@ class _SettingsList extends StatelessWidget {
           tile(
             Icons.info_outline_rounded,
             l.navAbout,
-            () => push(l.navAbout, () => AboutPage(core: core)),
+            () => push(l.navAbout, () => AboutPage(core: core, settings: settings)),
           ),
         ]),
       ],

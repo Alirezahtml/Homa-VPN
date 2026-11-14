@@ -44,9 +44,9 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 AppPublisher=Homa
-AppPublisherURL=https://github.com/armanlife/arman-vpn-client
-AppSupportURL=https://github.com/armanlife/arman-vpn-client/issues
-AppUpdatesURL=https://github.com/armanlife/arman-vpn-client/releases
+AppPublisherURL=https://github.com/Alirezahtml/Homa-VPN
+AppSupportURL=https://github.com/Alirezahtml/Homa-VPN/issues
+AppUpdatesURL=https://github.com/Alirezahtml/Homa-VPN/releases
 VersionInfoVersion={#AppVersion}
 DefaultDirName={code:DefaultDir}
 ; The folder is asked on the first install only; an update goes where the

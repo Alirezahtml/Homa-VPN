@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs or updates Homa VPN from the newest release on GitHub:
 #
-#   curl -fsSL https://raw.githubusercontent.com/armanlife/arman-vpn-client/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/Alirezahtml/Homa-VPN/main/install.sh | bash
 #
 # Without an argument it decides by itself:
 #   - macOS, or Linux with a graphical session: the app, for the current
@@ -24,7 +24,7 @@
 #   core/scripts/install-systemd.sh
 set -euo pipefail
 
-REPO="armanlife/arman-vpn-client"
+REPO="Alirezahtml/Homa-VPN"
 RAW="https://raw.githubusercontent.com/$REPO/main/install.sh"
 VERSION="${VERSION:-latest}"
 if [ "$VERSION" = "latest" ]; then
@@ -347,10 +347,10 @@ install_server() {
   fi
   local name dir
   # The archive's new name; the folder inside keeps the old one for now.
-  name="arman-vpn-core-linux-$(arch)"
+  name="homa-vpn-core-linux-$(arch)"
   dir="$tmp/$name"
-  download "arman-vpn-core-linux-$(arch).tar.gz"
-  tar -xzf "$tmp/arman-vpn-core-linux-$(arch).tar.gz" -C "$tmp"
+  download "homa-vpn-core-linux-$(arch).tar.gz"
+  tar -xzf "$tmp/homa-vpn-core-linux-$(arch).tar.gz" -C "$tmp"
   [ -f "$dir/arman-vpn-core" ] && [ -f "$dir/install-systemd.sh" ] || die "not an arman-vpn-core archive"
 
   step "Installing the service"
@@ -503,7 +503,7 @@ linux_system_parts() {
 install_linux_app() {
   local file
   [ "$(arch)" != armv7 ] || die "the app has no 32-bit ARM build; install the service: curl -fsSL $RAW | bash -s -- server"
-  file="Arman-VPN-Linux-$(arch).tar.gz"
+  file="Homa-VPN-Linux-$(arch).tar.gz"
   download "$file"
   tar -xzf "$tmp/$file" -C "$tmp"
   [ -f "$tmp/arman-vpn/arman-vpn" ] || die "not an Arman VPN archive"
@@ -555,7 +555,7 @@ EOF
 # writable). Downloaded this way it carries no quarantine flag, so macOS
 # opens it without asking.
 install_mac_app() {
-  local file="Arman-VPN-macOS.dmg" dest=/Applications
+  local file="Homa-VPN-macOS.dmg" dest=/Applications
   [ -w "$dest" ] || dest="$HOME/Applications"
   mkdir -p "$dest"
   download "$file"

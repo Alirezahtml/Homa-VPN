@@ -55,8 +55,8 @@ try {
     $env:APP_VERSION = $version
     go generate ./cmd/arman-vpn-core
     if ($LASTEXITCODE -ne 0) { throw 'go generate failed' }
-    $ldflags = "-s -w -X github.com/armanlife/arman-vpn-client/core/internal/version.Current=$version"
-    if ($public) { $ldflags += " -X github.com/armanlife/arman-vpn-client/core/internal/signing.Key=$public" }
+    $ldflags = "-s -w -X github.com/Alirezahtml/Homa-VPN/core/internal/version.Current=$version"
+    if ($public) { $ldflags += " -X github.com/Alirezahtml/Homa-VPN/core/internal/signing.Key=$public" }
     go build -trimpath -ldflags $ldflags -o "$coreOut\arman-vpn-core.exe" ./cmd/arman-vpn-core
     if ($LASTEXITCODE -ne 0) { throw 'go build failed' }
 } finally {

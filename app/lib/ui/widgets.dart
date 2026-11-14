@@ -495,10 +495,22 @@ class CountryFlag extends StatelessWidget {
               height: height,
               alignment: Alignment.center,
               color: scheme.primaryContainer,
-              child: Icon(
-                Icons.auto_awesome_rounded,
-                size: height * 0.7,
-                color: scheme.onPrimaryContainer,
+              // Mozilla's own mark: the recommended location is Mozilla's
+              // recommender's pick, and the mark says so.
+              child: SvgPicture.asset(
+                'assets/brand/mozilla_logo.svg',
+                width: height * 0.62,
+                height: height * 0.72,
+                fit: BoxFit.contain,
+                colorFilter: ColorFilter.mode(
+                  scheme.onPrimaryContainer,
+                  BlendMode.srcIn,
+                ),
+                errorBuilder: (_, _, _) => Icon(
+                  Icons.auto_awesome_rounded,
+                  size: height * 0.7,
+                  color: scheme.onPrimaryContainer,
+                ),
               ),
             )
           : code.length != 2

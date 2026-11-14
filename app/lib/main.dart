@@ -13,6 +13,7 @@ import 'core/ports.dart';
 import 'core/tun_service.dart';
 import 'desktop/desktop_integration.dart';
 import 'ui/app.dart';
+import 'ui/whats_new.dart';
 
 /// The desktop app starts the core as its child process (`-app`) and stops
 /// it on quit. Arguments: `--data-dir=<path>` (default: see
@@ -50,6 +51,16 @@ Future<void> main(List<String> args) async {
   final navigatorKey = GlobalKey<NavigatorState>();
   // Before the desktop's: a version installed at the start goes first.
   Updates.start(core, settings, args: args);
+  // A version just installed shows its What's New once, after the first
+  // frame, so it lands on a drawn page instead of a blank one.
+  if (whatsNewPending(settings)) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final context = navigatorKey.currentState?.overlay?.context;
+      if (context != null && context.mounted) {
+        showWhatsNew(context, settings);
+      }
+    });
+  }
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     DesktopIntegration(
       core: core,
@@ -81,6 +92,9 @@ Future<void> runAndroid() async {
   final dataDir = await AndroidCore.dataDir();
   final settings = await AppSettings.load(dataDir);
   await AndroidCore.loadMode();
+  // The connection safety switches live on the Android side (CoreService.kt).
+  await AndroidCore.loadKillSwitch();
+  await AndroidCore.loadAutoConnectBoot();
   await AndroidCore.prepareFirstRunRouting(
     settings,
     systemCountry:
@@ -91,11 +105,22 @@ Future<void> runAndroid() async {
     turnOn: AndroidCore.setOn,
     appSettings: settings,
   )..start();
+  final navigatorKey = GlobalKey<NavigatorState>();
   AppLifecycleListener(
     onResume: core.retryNow,
     onShow: () => core.onScreen = true,
     onHide: () => core.onScreen = false,
   );
   Updates.start(core, settings);
-  runApp(VpnApp(core: core, settings: settings));
+  // A version just installed shows its What's New once, after the first
+  // frame, so it lands on a drawn home page instead of a blank one.
+  if (whatsNewPending(settings)) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final context = navigatorKey.currentState?.overlay?.context;
+      if (context != null && context.mounted) {
+        showWhatsNew(context, settings);
+      }
+    });
+  }
+  runApp(VpnApp(core: core, settings: settings, navigatorKey: navigatorKey));
 }

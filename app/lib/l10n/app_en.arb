@@ -1109,9 +1109,65 @@
   },
   "protection": "Protection",
   "killSwitch": "Kill switch",
-  "killSwitchHint": "If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.",
+  "killSwitchHint": "If the VPN dies, traffic is held — never leaked — until it reconnects.",
   "alwaysOnVpn": "Always-on VPN",
   "alwaysOnVpnHint": "Android's own guard: no connection without the VPN.",
   "floatingIsland": "Floating island",
-  "floatingIslandHint": "Carries the connection over the other apps while the app is away."
+  "floatingIslandHint": "Carries the connection over the other apps while the app is away.",
+  "whatsNewTitle": "What's new in {version}",
+  "@whatsNewTitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewContinue": "Got it",
+  "whatsNewMenu": "What's New",
+  "whatsNewView": "View again",
+  "customColorTitle": "Custom color",
+  "customColorHint": "Pick any color for the app, with a live preview",
+  "customColorSeed": "Base color",
+  "customColorAccent": "Highlights",
+  "customColorIntensity": "Intensity",
+  "customColorSwatches": "Kept colors",
+  "customColorKeep": "Keep this color",
+  "customColorReset": "Back to default",
+  "customColorPreview": "Preview",
+  "customColorNote": "Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.",
+  "customColorHex": "HEX",
+  "customColorPreviewButton": "Connect",
+  "customColorPreviewChip": "Protected",
+  "customColorPreviewSwitch": "Live updates",
+  "updateServers": "Update servers",
+  "updatingServers": "Updating…",
+  "serversUpdated": "{count} locations from Mozilla's official list",
+  "@serversUpdated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "serversUpdateFailed": "The server list could not be updated; the previous list is kept.",
+  "smartPickTitle": "Fastest right now",
+  "smartPickUse": "Use",
+  "connectAtBoot": "Connect after the phone starts",
+  "connectAtBootHint": "Connects by itself at boot, when the VPN permission is already granted.",
+  "gamingProfile": "Gaming profile",
+  "gamingProfileHint": "Shows the connection's live delay and quality; pairs with the fastest measured server.",
+  "diagnosticsRun": "Run diagnostics",
+  "diagnosticsHint": "Connection, DNS, and tunnel, checked in one tap",
+  "diagnosticsTunnel": "Tunnel",
+  "diagnosticsTunnelUp": "Up and carrying traffic",
+  "diagnosticsTunnelDown": "Down",
+  "diagnosticsExit": "Exit country",
+  "diagnosticsMismatch": "Exit differs from the choice",
+  "diagnosticsConnection": "Connection test",
+  "diagnosticsPassed": "Passed",
+  "diagnosticsFailed": "Failed",
+  "diagnosticsDnsFiltered": "Blocked or filtered answer",
+  "diagnosticsDnsOk": "Answered",
+  "diagnosticsPrivacy": "Nothing here is stored; the results stay in this window and the core's own log.",
+  "diagnosticsAgain": "Run again"
 }
