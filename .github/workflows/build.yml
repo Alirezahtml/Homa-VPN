@@ -143,8 +143,8 @@ jobs:
         run: |
           $v = '${{ needs.test.outputs.version }}'
           New-Item -ItemType Directory out | Out-Null
-          Move-Item "dist/Arman-VPN-$v-Windows-x64.zip" out/Homa-VPN-Windows-x64.zip
-          Move-Item "dist/Arman-VPN-$v-Windows-Setup-x64.exe" out/Homa-VPN-Windows-Setup-x64.exe
+          Move-Item "dist/Homa-VPN-$v-Windows-x64.zip" out/Homa-VPN-Windows-x64.zip
+          Move-Item "dist/Homa-VPN-$v-Windows-Setup-x64.exe" out/Homa-VPN-Windows-Setup-x64.exe
       - uses: actions/upload-artifact@v7
         with:
           name: windows
@@ -232,8 +232,8 @@ jobs:
       - name: Release name
         run: |
           mkdir out
-          for f in dist/arman-vpn-core-linux-*.tar.gz; do
-            mv "$f" "out/homa-vpn-core-linux-${f#dist/arman-vpn-core-linux-}"
+          for f in dist/homa-vpn-core-linux-*.tar.gz; do
+            mv "$f" "out/homa-vpn-core-linux-${f#dist/homa-vpn-core-linux-}"
           done
       - uses: actions/upload-artifact@v7
         with:
@@ -306,7 +306,7 @@ jobs:
       - name: Release name
         run: |
           mkdir out
-          mv "dist/Arman-VPN-${{ needs.test.outputs.version }}-Linux-${{ matrix.arch }}.tar.gz" "out/Homa-VPN-Linux-${{ matrix.arch }}.tar.gz"
+          mv "dist/Homa-VPN-${{ needs.test.outputs.version }}-Linux-${{ matrix.arch }}.tar.gz" "out/Homa-VPN-Linux-${{ matrix.arch }}.tar.gz"
       - uses: actions/upload-artifact@v7
         with:
           name: linux-desktop-${{ matrix.arch }}
@@ -395,8 +395,8 @@ jobs:
       - name: Release name
         run: |
           mkdir out
-          mv "dist/Arman-VPN-${{ needs.test.outputs.version }}-macOS.dmg" out/Homa-VPN-macOS.dmg
-          mv "dist/Arman-VPN-${{ needs.test.outputs.version }}-macOS.tar.gz" out/Homa-VPN-macOS.tar.gz
+          mv "dist/Homa-VPN-${{ needs.test.outputs.version }}-macOS.dmg" out/Homa-VPN-macOS.dmg
+          mv "dist/Homa-VPN-${{ needs.test.outputs.version }}-macOS.tar.gz" out/Homa-VPN-macOS.tar.gz
       - uses: actions/upload-artifact@v7
         with:
           name: macos
