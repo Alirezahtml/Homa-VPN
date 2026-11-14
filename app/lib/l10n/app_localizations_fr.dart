@@ -1899,50 +1899,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get whatsNewView => 'Revoir';
 
   @override
-  String get customColorTitle => 'Couleur personnalisée';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Couleur de base';
-
-  @override
-  String get customColorAccent => 'Couleur d\'accent';
-
-  @override
-  String get customColorIntensity => 'Intensité';
-
-  @override
-  String get customColorSwatches => 'Couleurs enregistrées';
-
-  @override
-  String get customColorKeep => 'Garder cette couleur';
-
-  @override
-  String get customColorReset => 'Rétablir par défaut';
-
-  @override
-  String get customColorPreview => 'Aperçu';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'Code HEX';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Mettre à jour les serveurs';
 
   @override
@@ -2045,4 +2001,60 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Le symbole de Mozilla repose proprement sur sa tuile, arrondi comme les drapeaux.';
+
+  @override
+  String get designTitle => 'Design de l’accueil';
+
+  @override
+  String get designHint => 'La mise en page de l’accueil';
+
+  @override
+  String get designWheel => 'Roue';
+
+  @override
+  String get designWheelDesc =>
+      'Les drapeaux sur leur roue de verre, l’interrupteur dessous';
+
+  @override
+  String get designBento => 'Tuiles';
+
+  @override
+  String get designBentoDesc =>
+      'Un plateau de tuiles arrondies : connexion, chiffres, lieu';
+
+  @override
+  String get designPixel => 'Compacte';
+
+  @override
+  String get designPixelDesc =>
+      'Une seule carte calme : le lieu, l’interrupteur, les chiffres';
+
+  @override
+  String get notifFlag => 'Drapeau du pays dans la notification';
+
+  @override
+  String get notifFlagHint => 'Le drapeau du pays même, à côté de son nom';
+
+  @override
+  String get wnDesignAdded =>
+      'Un réglage de design de l’accueil : roue, tuiles ou carte compacte';
+
+  @override
+  String get wnMapAdded =>
+      'Une vraie carte du monde vectorielle derrière l’accueil, le pays choisi en lumière';
+
+  @override
+  String get wnWheelAdded =>
+      'La roue des drapeaux redessinée : verre plus profond, mouvement plus doux';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'La notification peut montrer le drapeau SVG du pays, et peut être éteinte';
+
+  @override
+  String get wnColorRemoved =>
+      'La page de couleur personnalisée a été retirée ; la liste garde son code HEX';
+
+  @override
+  String get whatsNewRemoved => 'Retiré';
 }

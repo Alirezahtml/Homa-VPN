@@ -3351,90 +3351,6 @@ abstract class AppLocalizations {
   /// **'View again'**
   String get whatsNewView;
 
-  /// No description provided for @customColorTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Custom color'**
-  String get customColorTitle;
-
-  /// No description provided for @customColorHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick any color for the app, with a live preview'**
-  String get customColorHint;
-
-  /// No description provided for @customColorSeed.
-  ///
-  /// In en, this message translates to:
-  /// **'Base color'**
-  String get customColorSeed;
-
-  /// No description provided for @customColorAccent.
-  ///
-  /// In en, this message translates to:
-  /// **'Highlights'**
-  String get customColorAccent;
-
-  /// No description provided for @customColorIntensity.
-  ///
-  /// In en, this message translates to:
-  /// **'Intensity'**
-  String get customColorIntensity;
-
-  /// No description provided for @customColorSwatches.
-  ///
-  /// In en, this message translates to:
-  /// **'Kept colors'**
-  String get customColorSwatches;
-
-  /// No description provided for @customColorKeep.
-  ///
-  /// In en, this message translates to:
-  /// **'Keep this color'**
-  String get customColorKeep;
-
-  /// No description provided for @customColorReset.
-  ///
-  /// In en, this message translates to:
-  /// **'Back to default'**
-  String get customColorReset;
-
-  /// No description provided for @customColorPreview.
-  ///
-  /// In en, this message translates to:
-  /// **'Preview'**
-  String get customColorPreview;
-
-  /// No description provided for @customColorNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.'**
-  String get customColorNote;
-
-  /// No description provided for @customColorHex.
-  ///
-  /// In en, this message translates to:
-  /// **'HEX'**
-  String get customColorHex;
-
-  /// No description provided for @customColorPreviewButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Connect'**
-  String get customColorPreviewButton;
-
-  /// No description provided for @customColorPreviewChip.
-  ///
-  /// In en, this message translates to:
-  /// **'Protected'**
-  String get customColorPreviewChip;
-
-  /// No description provided for @customColorPreviewSwitch.
-  ///
-  /// In en, this message translates to:
-  /// **'Live updates'**
-  String get customColorPreviewSwitch;
-
   /// No description provided for @updateServers.
   ///
   /// In en, this message translates to:
@@ -3620,6 +3536,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mozilla\'s mark sits clean on its tile, rounded like the flags.'**
   String get wnMarkFixed;
+
+  /// No description provided for @designTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Home design'**
+  String get designTitle;
+
+  /// No description provided for @designHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How the home page is laid out'**
+  String get designHint;
+
+  /// No description provided for @designWheel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wheel'**
+  String get designWheel;
+
+  /// No description provided for @designWheelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags in their glass wheel, the switch under them'**
+  String get designWheelDesc;
+
+  /// No description provided for @designBento.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiles'**
+  String get designBento;
+
+  /// No description provided for @designBentoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A board of rounded tiles: connect, numbers, place'**
+  String get designBentoDesc;
+
+  /// No description provided for @designPixel.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact'**
+  String get designPixel;
+
+  /// No description provided for @designPixelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One quiet card: the place, the switch, the numbers'**
+  String get designPixelDesc;
+
+  /// No description provided for @notifFlag.
+  ///
+  /// In en, this message translates to:
+  /// **'Country flag in the notification'**
+  String get notifFlag;
+
+  /// No description provided for @notifFlagHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification\'s own flag beside the country\'s name'**
+  String get notifFlagHint;
+
+  /// No description provided for @wnDesignAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'A Home design setting: the wheel, the tiles, or the compact card'**
+  String get wnDesignAdded;
+
+  /// No description provided for @wnMapAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'A real vector world map behind the home page, with the chosen country lit'**
+  String get wnMapAdded;
+
+  /// No description provided for @wnWheelAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The flag wheel redrawn: deeper glass, smoother motion, richer depth'**
+  String get wnWheelAdded;
+
+  /// No description provided for @wnFlagNotifAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification can show the country\'s SVG flag, and be told not to'**
+  String get wnFlagNotifAdded;
+
+  /// No description provided for @wnColorRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The Custom color page was removed; the accent list keeps its hex'**
+  String get wnColorRemoved;
+
+  /// No description provided for @whatsNewRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get whatsNewRemoved;
 }
 
 class _AppLocalizationsDelegate

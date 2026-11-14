@@ -40,6 +40,20 @@ import java.util.concurrent.atomic.AtomicBoolean
 class CoreService : VpnService() {
     private val main = Handler(Looper.getMainLooper())
 
+    override fun onCreate() {
+        super.onCreate()
+        // The channel's "a flag bitmap arrived" finds the live service
+        // through this one reference.
+        instance = this
+    }
+
+    /** The flag art of the country the notification shows changed: the
+     * next poll rebuilds the card whatever else stayed the same. */
+    private fun flagArtArrived() {
+        shownCountry = null
+        refreshNotification()
+    }
+
     /** The country the notification shows; "" for "Connecting…", NO_NETWORK for none. */
     private var shownCountry: String? = null
 
@@ -311,6 +325,7 @@ class CoreService : VpnService() {
 
     override fun onDestroy() {
         destroyed = true
+        instance = null
         main.removeCallbacks(watchCountry)
         // A notification posted at the last moment goes too.
         getSystemService(NotificationManager::class.java).cancel(NOTIFICATION_ID)
@@ -447,12 +462,26 @@ class CoreService : VpnService() {
      * The VPN's notification: the flag and name (in the phone's language) of
      * the country [code] the traffic leaves from, or "Connecting…" while it
      * is unknown; a Stop action.
+     *
+     * The flag itself is the country's own SVG flag — the Flutter side
+     * renders it as a rounded PNG and hands it over ([saveFlagBitmap]),
+     * where it survives headless refreshes — shown as the card's large
+     * icon with the name alone in the text. Without one (the first
+     * connect before the app opened, an SVG this build does not carry)
+     * the emoji stands in, as it always did. The user's toggle
+     * ([notifFlag]) takes the flag off altogether.
      */
     private fun notification(code: String): Notification {
+        val showFlag = notifFlag(this)
+        val flagArt = if (showFlag && code.length == 2) flagBitmap(this, code) else null
         val state = when {
             code == NO_NETWORK -> getString(R.string.notification_no_network)
             code == BLOCKED -> getString(R.string.notification_blocked)
-            code.length == 2 -> "${flag(code)}  ${Locale.Builder().setRegion(code).build().displayCountry}"
+            code.length == 2 -> when {
+                flagArt != null -> Locale.Builder().setRegion(code).build().displayCountry
+                !showFlag -> Locale.Builder().setRegion(code).build().displayCountry
+                else -> "${flag(code)}  ${Locale.Builder().setRegion(code).build().displayCountry}"
+            }
             else -> getString(R.string.notification_connecting)
         }
         // The speed beside the place, on the line shown when collapsed; the
@@ -512,9 +541,9 @@ class CoreService : VpnService() {
         }
         return builder
             .setSmallIcon(R.drawable.ic_stat_logo)
-            // The official brand tile beside the text: the launcher icon's
-            // rounded black square with the white wordmark.
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+            // The official brand tile beside the text — or, when the
+            // country's own SVG flag arrived, the flag itself.
+            .setLargeIcon(flagArt ?: BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
             .setContentTitle(getString(R.string.app_name))
             .setContentText(text)
             .setContentIntent(open)
@@ -552,6 +581,63 @@ class CoreService : VpnService() {
 
         fun setShowSpeed(context: Context, on: Boolean) {
             prefs(context).edit().putBoolean(SHOW_SPEED, on).apply()
+        }
+
+        /** Whether the notification shows the country's flag (on unless
+         * turned off): the SVG flag as the card's art, the emoji without
+         * one, nothing at all when off. */
+        private const val NOTIF_FLAG = "notif_flag"
+
+        fun notifFlag(context: Context) = prefs(context).getBoolean(NOTIF_FLAG, true)
+
+        fun setNotifFlag(context: Context, on: Boolean) {
+            prefs(context).edit().putBoolean(NOTIF_FLAG, on).apply()
+        }
+
+        /** The running service, for the flag art's arrivals. */
+        @Volatile
+        private var instance: CoreService? = null
+
+        /** Asks the running service to rebuild its notification now — the
+         * flag's toggle changed, or its art arrived. Safe from any thread:
+         * the rebuild itself runs on the service's main thread. */
+        fun poke() {
+            instance?.let { s -> s.main.post { s.flagArtArrived() } }
+        }
+
+        /** The flag PNG last decoded, kept so the speed's own refreshes
+         * do not read the file again every time. */
+        @Volatile
+        private var cachedFlagCode: String? = null
+
+        @Volatile
+        private var cachedFlag: android.graphics.Bitmap? = null
+
+        /** Keeps a flag's rounded PNG (the Flutter side rendered its SVG)
+         * for the notification, in the app's own files: a headless
+         * service reads it there, without the UI's help. */
+        fun saveFlagBitmap(context: Context, code: String, bytes: ByteArray) {
+            if (code.length != 2 || bytes.isEmpty()) return
+            try {
+                val dir = File(context.filesDir, "flags").apply { mkdirs() }
+                File(dir, "${code.lowercase()}.png").writeBytes(bytes)
+                cachedFlagCode = null
+                poke()
+            } catch (e: Exception) {
+                Log.w(TAG, "saving the flag's art failed", e)
+            }
+        }
+
+        /** The flag's PNG for [code], or null when none arrived yet. */
+        fun flagBitmap(context: Context, code: String): android.graphics.Bitmap? {
+            if (cachedFlagCode == code) return cachedFlag
+            val file = File(File(context.filesDir, "flags"), "${code.lowercase()}.png")
+            val bitmap = if (file.isFile) runCatching {
+                BitmapFactory.decodeFile(file.absolutePath)
+            }.getOrNull() else null
+            cachedFlagCode = code
+            cachedFlag = bitmap
+            return bitmap
         }
 
         /** Whether the phone connects by itself after it starts (the

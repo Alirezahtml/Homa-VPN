@@ -1880,50 +1880,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get whatsNewView => 'Xem lại';
 
   @override
-  String get customColorTitle => 'Màu tùy chỉnh';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Màu chính';
-
-  @override
-  String get customColorAccent => 'Màu nhấn';
-
-  @override
-  String get customColorIntensity => 'Cường độ';
-
-  @override
-  String get customColorSwatches => 'Màu đã lưu';
-
-  @override
-  String get customColorKeep => 'Lưu màu này';
-
-  @override
-  String get customColorReset => 'Về mặc định';
-
-  @override
-  String get customColorPreview => 'Xem trước';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'Mã HEX';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Cập nhật máy chủ';
 
   @override
@@ -2026,4 +1982,57 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Dấu hiệu của Mozilla hiển thị sạch sẽ trên ô của nó, bo tròn như các lá cờ.';
+
+  @override
+  String get designTitle => 'Thiết kế trang chính';
+
+  @override
+  String get designHint => 'Trang chính được bố trí ra sao';
+
+  @override
+  String get designWheel => 'Vòng xoay';
+
+  @override
+  String get designWheelDesc => 'Lá cờ trên vòng kính, công tắc bên dưới';
+
+  @override
+  String get designBento => 'Ô lát';
+
+  @override
+  String get designBentoDesc => 'Bảng ô bo tròn: kết nối, số liệu, địa điểm';
+
+  @override
+  String get designPixel => 'Gọn';
+
+  @override
+  String get designPixelDesc => 'Một thẻ yên tĩnh: địa điểm, công tắc, số liệu';
+
+  @override
+  String get notifFlag => 'Cờ nước trong thông báo';
+
+  @override
+  String get notifFlagHint => 'Cờ của chính nước đó bên cạnh tên';
+
+  @override
+  String get wnDesignAdded =>
+      'Cài đặt thiết kế trang chính: vòng xoay, ô lát hay thẻ gọn';
+
+  @override
+  String get wnMapAdded =>
+      'Bản đồ thế giới vector thật sau trang chính, quốc gia đã chọn sáng lên';
+
+  @override
+  String get wnWheelAdded =>
+      'Vòng cờ vẽ lại: kính sâu hơn, chuyển động mượt hơn';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Thông báo có thể hiện cờ SVG của nước, và có thể tắt';
+
+  @override
+  String get wnColorRemoved =>
+      'Trang màu tuỳ chọn đã được bỏ; danh sách nhấn vẫn giữ mã HEX';
+
+  @override
+  String get whatsNewRemoved => 'Đã bỏ';
 }

@@ -1885,50 +1885,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatsNewView => 'View again';
 
   @override
-  String get customColorTitle => 'Custom color';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Base color';
-
-  @override
-  String get customColorAccent => 'Highlights';
-
-  @override
-  String get customColorIntensity => 'Intensity';
-
-  @override
-  String get customColorSwatches => 'Kept colors';
-
-  @override
-  String get customColorKeep => 'Keep this color';
-
-  @override
-  String get customColorReset => 'Back to default';
-
-  @override
-  String get customColorPreview => 'Preview';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'HEX';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Update servers';
 
   @override
@@ -2031,4 +1987,61 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Mozilla\'s mark sits clean on its tile, rounded like the flags.';
+
+  @override
+  String get designTitle => 'Home design';
+
+  @override
+  String get designHint => 'How the home page is laid out';
+
+  @override
+  String get designWheel => 'Wheel';
+
+  @override
+  String get designWheelDesc =>
+      'The flags in their glass wheel, the switch under them';
+
+  @override
+  String get designBento => 'Tiles';
+
+  @override
+  String get designBentoDesc =>
+      'A board of rounded tiles: connect, numbers, place';
+
+  @override
+  String get designPixel => 'Compact';
+
+  @override
+  String get designPixelDesc =>
+      'One quiet card: the place, the switch, the numbers';
+
+  @override
+  String get notifFlag => 'Country flag in the notification';
+
+  @override
+  String get notifFlagHint =>
+      'The notification\'s own flag beside the country\'s name';
+
+  @override
+  String get wnDesignAdded =>
+      'A Home design setting: the wheel, the tiles, or the compact card';
+
+  @override
+  String get wnMapAdded =>
+      'A real vector world map behind the home page, with the chosen country lit';
+
+  @override
+  String get wnWheelAdded =>
+      'The flag wheel redrawn: deeper glass, smoother motion, richer depth';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'The notification can show the country\'s SVG flag, and be told not to';
+
+  @override
+  String get wnColorRemoved =>
+      'The Custom color page was removed; the accent list keeps its hex';
+
+  @override
+  String get whatsNewRemoved => 'Removed';
 }

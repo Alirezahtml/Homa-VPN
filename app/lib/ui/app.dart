@@ -289,6 +289,12 @@ class _ShellState extends State<Shell> {
   void initState() {
     super.initState();
     AndroidCore.homeRequests.addListener(_openHome);
+    // The notification's flag art: whenever the core reports a new exit
+    // country (or, while connecting, a chosen one), the UI renders that
+    // flag's SVG and hands it to the service. The shell is the one place
+    // alive whatever page is showing, so the hook lives here.
+    widget.core.addListener(_syncFlagArt);
+    _syncFlagArt();
   }
 
   void _openHome() {
@@ -299,9 +305,23 @@ class _ShellState extends State<Shell> {
     });
   }
 
+  /// The country whose flag the notification should carry: the one the
+  /// traffic really leaves from when it is known, else the one chosen.
+  void _syncFlagArt() {
+    if (!Platform.isAndroid) return;
+    final status = widget.core.status;
+    final code = status?.exit?.countryCode.isNotEmpty == true
+        ? status!.exit!.countryCode
+        : status?.selection ?? '';
+    if (code.length == 2) {
+      AndroidCore.syncNotifFlag(code);
+    }
+  }
+
   @override
   void dispose() {
     AndroidCore.homeRequests.removeListener(_openHome);
+    widget.core.removeListener(_syncFlagArt);
     super.dispose();
   }
 

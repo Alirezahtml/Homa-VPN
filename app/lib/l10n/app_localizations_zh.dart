@@ -1806,48 +1806,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get whatsNewView => '再次查看';
 
   @override
-  String get customColorTitle => '自定义颜色';
-
-  @override
-  String get customColorHint => '为应用选择任意颜色，实时预览';
-
-  @override
-  String get customColorSeed => '主色';
-
-  @override
-  String get customColorAccent => '强调色';
-
-  @override
-  String get customColorIntensity => '强度';
-
-  @override
-  String get customColorSwatches => '已保存的颜色';
-
-  @override
-  String get customColorKeep => '保存此颜色';
-
-  @override
-  String get customColorReset => '恢复默认';
-
-  @override
-  String get customColorPreview => '预览';
-
-  @override
-  String get customColorNote => '浅色与深色模式下文字与图标保持清晰；颜色应用于整个应用并在重启后保留。';
-
-  @override
-  String get customColorHex => 'HEX 码';
-
-  @override
-  String get customColorPreviewButton => '连接';
-
-  @override
-  String get customColorPreviewChip => '已保护';
-
-  @override
-  String get customColorPreviewSwitch => '实时更新';
-
-  @override
   String get updateServers => '更新服务器';
 
   @override
@@ -1943,6 +1901,54 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wnMarkFixed => 'Mozilla 标志干净地呈现在其色块上，圆角与旗帜一致。';
+
+  @override
+  String get designTitle => '主页设计';
+
+  @override
+  String get designHint => '主页的布局方式';
+
+  @override
+  String get designWheel => '轮盘';
+
+  @override
+  String get designWheelDesc => '旗帜排在玻璃轮盘上，开关在下方';
+
+  @override
+  String get designBento => '拼块';
+
+  @override
+  String get designBentoDesc => '圆角拼块面板：连接、数字、位置';
+
+  @override
+  String get designPixel => '紧凑';
+
+  @override
+  String get designPixelDesc => '一张安静的卡片：位置、开关、数字';
+
+  @override
+  String get notifFlag => '通知中的国旗';
+
+  @override
+  String get notifFlagHint => '该国自己的旗帜显示在名称旁';
+
+  @override
+  String get wnDesignAdded => '新增主页设计设置：轮盘、拼块或紧凑卡片';
+
+  @override
+  String get wnMapAdded => '主页背景换成真实的矢量世界地图，选中的国家会被点亮';
+
+  @override
+  String get wnWheelAdded => '旗帜轮盘重绘：玻璃更深邃、动效更顺滑';
+
+  @override
+  String get wnFlagNotifAdded => '通知可显示国家的 SVG 国旗，也可关闭';
+
+  @override
+  String get wnColorRemoved => '移除了自定义颜色页面；强调色列表仍支持 HEX 码';
+
+  @override
+  String get whatsNewRemoved => '已移除';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3747,48 +3753,6 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get whatsNewView => '再次檢視';
 
   @override
-  String get customColorTitle => '自訂顏色';
-
-  @override
-  String get customColorHint => '為應用選擇任意顏色，即時預覽';
-
-  @override
-  String get customColorSeed => '主色';
-
-  @override
-  String get customColorAccent => '強調色';
-
-  @override
-  String get customColorIntensity => '強度';
-
-  @override
-  String get customColorSwatches => '已儲存的顏色';
-
-  @override
-  String get customColorKeep => '儲存此顏色';
-
-  @override
-  String get customColorReset => '回復預設';
-
-  @override
-  String get customColorPreview => '預覽';
-
-  @override
-  String get customColorNote => '淺色與深色模式下文字與圖示保持清晰；顏色套用於整個應用並在重新啟動後保留。';
-
-  @override
-  String get customColorHex => 'HEX 碼';
-
-  @override
-  String get customColorPreviewButton => '連線';
-
-  @override
-  String get customColorPreviewChip => '已保護';
-
-  @override
-  String get customColorPreviewSwitch => '即時更新';
-
-  @override
   String get updateServers => '更新伺服器';
 
   @override
@@ -3884,4 +3848,52 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wnMarkFixed => 'Mozilla 標誌乾淨地呈現在其色塊上，圓角與旗幟一致。';
+
+  @override
+  String get designTitle => '主頁設計';
+
+  @override
+  String get designHint => '主頁的佈局方式';
+
+  @override
+  String get designWheel => '轉盤';
+
+  @override
+  String get designWheelDesc => '旗幟排在玻璃轉盤上，開關在下方';
+
+  @override
+  String get designBento => '拼塊';
+
+  @override
+  String get designBentoDesc => '圓角拼塊面板：連線、數字、位置';
+
+  @override
+  String get designPixel => '精簡';
+
+  @override
+  String get designPixelDesc => '一張安靜的卡片：位置、開關、數字';
+
+  @override
+  String get notifFlag => '通知中的國旗';
+
+  @override
+  String get notifFlagHint => '該國自己的旗幟顯示在名稱旁';
+
+  @override
+  String get wnDesignAdded => '新增主頁設計設定：轉盤、拼塊或精簡卡片';
+
+  @override
+  String get wnMapAdded => '主頁背景換成真實的向量世界地圖，選中的國家會被點亮';
+
+  @override
+  String get wnWheelAdded => '旗幟轉盤重繪：玻璃更深邃、動效更順暢';
+
+  @override
+  String get wnFlagNotifAdded => '通知可顯示國家的 SVG 國旗，也可關閉';
+
+  @override
+  String get wnColorRemoved => '移除了自訂顏色頁面；強調色清單仍支援 HEX 碼';
+
+  @override
+  String get whatsNewRemoved => '已移除';
 }

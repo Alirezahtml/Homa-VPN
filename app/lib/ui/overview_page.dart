@@ -22,6 +22,7 @@ import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
 import 'widgets.dart';
+import 'world_map.dart';
 
 /// The home page: the switch, the state, where the traffic goes, and the
 /// data used; the phone's (_PhoneHome) and the computer's (_DesktopHome)
@@ -1104,29 +1105,28 @@ class _PhoneHome extends StatelessWidget {
             colors: [p.top, p.bottom],
           ),
         ),
-        // The world behind the switch: the sample's map, redrawn as quiet
-        // dots in the theme's own ink — no hue, no motion, no pointer.
-        // Centered, so it sits behind the switch rather than the top edge,
-        // and a little louder, so the continents read.
+        // The world behind the switch: the countries' own outlines, drawn
+        // live (world_map.dart) in the theme's ink — the graticule over
+        // the oceans, the chosen country lit in the state's color, its
+        // anchor's halo breathing while the VPN carries the traffic.
+        // Centered, so it sits behind the switch rather than the top
+        // edge; crisp at any screen, because it is drawn, not scaled.
         child: Stack(
           children: [
             Positioned.fill(
-              child: IgnorePointer(
-                child: Opacity(
-                  opacity: p.dark ? 0.16 : 0.12,
-                  child: Image.asset(
-                    p.dark
-                        ? 'assets/map_dots_light.png'
-                        : 'assets/map_dots_dark.png',
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.center,
-                    excludeFromSemantics: true,
-                    // The map is a quiet backdrop: decoded once, at the
-                    // screen's width, never sharper than it needs to be —
-                    // memory and the first frame both stay light.
-                    cacheWidth: 1080,
-                    filterQuality: FilterQuality.medium,
-                  ),
+              child: FutureBuilder<List<WorldCountry>>(
+                future: WorldMap.load(),
+                builder: (context, snapshot) => WorldMapBackdrop(
+                  countries: snapshot.data ?? const [],
+                  ink: p.dark ? Colors.white : const Color(0xFF0A0A0A),
+                  accent: status.state.phase == Phase.running
+                      ? p.connected
+                      : p.idle,
+                  selected: (status.exit?.countryCode.isNotEmpty == true
+                          ? status.exit!.countryCode
+                          : status.selection)
+                      .toUpperCase(),
+                  animated: status.state.phase == Phase.running,
                 ),
               ),
             ),
@@ -1215,6 +1215,12 @@ class _PhoneHome extends StatelessWidget {
     final place = homeLocation(l, status, connected: connected);
     final mismatch = exitMismatchText(l, status);
     final top = MediaQuery.paddingOf(context).top;
+    // The design the user chose for this home: the wheel, the tiles, or
+    // the compact card. Everything the designs share (the state's word,
+    // the problem boxes, the notices, the data) stays put; what changes
+    // is how the three own things are laid out: the place, the switch,
+    // and the numbers.
+    final design = settings.homeDesign;
     return Padding(
       // The bottom clears the floating pill navigation, which the page
       // runs beneath — with room to breathe, not a dead band: the cards
@@ -1225,82 +1231,160 @@ class _PhoneHome extends StatelessWidget {
         children: [
           // The brand: the official wordmark, in the theme's face.
           Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
-          const SizedBox(height: 12),
-          // The countries' wheel: drag to the one the traffic leaves
-          // from; it is the servers page's choice, read from the core.
-          Reveal(
-            index: 1,
-            child: FlagCarousel(
-              core: core,
-              text: p.text,
-              muted: p.muted,
-              card: p.card,
-              border: p.cardBorder,
-              accent: accent,
-              onOpenServers: onOpenServers,
-            ),
-          ),
-          const Spacer(),
-          // The hero (the state's word, the switch, its cards) sits a
-          // touch under the middle: 3.4% of the page's height lower. The
-          // box is twice that, and the two spacers each give up half of
-          // it — the group keeps its distances, only lower.
-          SizedBox(height: math.max(0.0, box.maxHeight * 0.068)),
-          SizedBox(height: short ? 4 : 16),
-          // The state, in words, where the island used to live.
-          Reveal(
-            index: 1,
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-                color: on ? accent : p.text,
-              ),
-            ),
-          ),
-          const SizedBox(height: 14),
-          Reveal(
-            index: 2,
-            child: Center(
-              child: SlideToConnect(
-                on: on,
-                busy: core.switchingProxy,
-                accent: accent,
-                dark: p.dark,
-                card: p.card,
-                border: p.cardBorder,
+          if (design == 'wheel') ...[
+            // The wheel sits a touch lower than the wordmark: a breath of
+            // space under the brand before the flags begin.
+            const SizedBox(height: 30),
+            // The countries' wheel: drag to the one the traffic leaves
+            // from; it is the servers page's choice, read from the core.
+            Reveal(
+              index: 1,
+              child: FlagCarousel(
+                core: core,
                 text: p.text,
                 muted: p.muted,
-                labelConnect: l.slideToConnect,
-                labelDisconnect: l.slideToDisconnect,
-                // The state's word stays in the track once connected;
-                // while the connection is still being confirmed the
-                // track keeps the connect hint (nothing is claimed yet).
-                labelOn: confirming ? '' : l.stateConnected,
-                tooltip: press,
-                // A TV starts on the switch, its ring showing.
-                autofocus: Platform.isAndroid && AndroidCore.isTv,
-                // No account yet: the accounts page, which explains
-                // them and links to Mozilla's sign-up.
-                onPressed: () => status.totalAccounts == 0
-                    ? _openAccounts(context, core, settings, onOpenAccounts)
-                    : runShowingErrors(context, () => _toggle(on)),
+                card: p.card,
+                border: p.cardBorder,
+                accent: accent,
+                onOpenServers: onOpenServers,
               ),
             ),
-          ),
-          SizedBox(height: short ? 8 : 14),
+            const Spacer(),
+            // The hero (the state's word, the switch, its cards) sits a
+            // touch under the middle: 3.4% of the page's height lower. The
+            // box is twice that, and the two spacers each give up half of
+            // it — the group keeps its distances, only lower.
+            SizedBox(height: math.max(0.0, box.maxHeight * 0.068)),
+            SizedBox(height: short ? 4 : 16),
+          ] else if (design == 'bento') ...[
+            // The tiles' home: the flags in their strip under the brand.
+            const SizedBox(height: 26),
+            Reveal(
+              index: 1,
+              child: FlagStrip(
+                core: core,
+                text: p.text,
+                border: p.cardBorder,
+                accent: accent,
+              ),
+            ),
+            const SizedBox(height: 26),
+          ] else ...[
+            // The compact home: its place is a chip in its own card
+            // below; here only the space the card breathes in.
+            const SizedBox(height: 24),
+          ],
+          // The state, in words, where the island used to live. The tiles'
+          // home carries it inside its connect bar instead.
+          if (design != 'bento')
+            Reveal(
+              index: 1,
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: on ? accent : p.text,
+                ),
+              ),
+            ),
+          if (design == 'wheel') ...[
+            const SizedBox(height: 14),
+            Reveal(
+              index: 2,
+              child: Center(
+                child: SlideToConnect(
+                  on: on,
+                  busy: core.switchingProxy,
+                  accent: accent,
+                  dark: p.dark,
+                  card: p.card,
+                  border: p.cardBorder,
+                  text: p.text,
+                  muted: p.muted,
+                  labelConnect: l.slideToConnect,
+                  labelDisconnect: l.slideToDisconnect,
+                  // The state's word stays in the track once connected;
+                  // while the connection is still being confirmed the
+                  // track keeps the connect hint (nothing is claimed yet).
+                  labelOn: confirming ? '' : l.stateConnected,
+                  tooltip: press,
+                  // A TV starts on the switch, its ring showing.
+                  autofocus: Platform.isAndroid && AndroidCore.isTv,
+                  // No account yet: the accounts page, which explains
+                  // them and links to Mozilla's sign-up.
+                  onPressed: () => status.totalAccounts == 0
+                      ? _openAccounts(context, core, settings, onOpenAccounts)
+                      : runShowingErrors(context, () => _toggle(on)),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
+          ] else if (design == 'bento') ...[
+            // The tiles' switch: one wide tile, the power's circle beside
+            // the state's own word — a tap on any of it flips the VPN.
+            Reveal(
+              index: 2,
+              child: Center(
+                child: _BentoConnectBar(
+                  palette: p,
+                  on: on,
+                  busy: core.switchingProxy || status.connectPending,
+                  accent: accent,
+                  label: label,
+                  hint: press,
+                  onPressed: () => status.totalAccounts == 0
+                      ? _openAccounts(context, core, settings, onOpenAccounts)
+                      : runShowingErrors(context, () => _toggle(on)),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 12 : 18),
+          ] else ...[
+            // The compact switch: the orb, on the place's own card.
+            const SizedBox(height: 14),
+            Reveal(
+              index: 2,
+              child: Center(
+                child: _PixelHomeCard(
+                  palette: p,
+                  place: place,
+                  on: on,
+                  busy: core.switchingProxy || status.connectPending,
+                  accent: accent,
+                  tooltip: press,
+                  onOpenServers: onOpenServers,
+                  onPressed: () => status.totalAccounts == 0
+                      ? _openAccounts(context, core, settings, onOpenAccounts)
+                      : runShowingErrors(context, () => _toggle(on)),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 18),
+          ],
           if (connected) ...[
             // The connection's numbers, in the page itself: the time
-            // it has been up, the real delay, the live rates.
-            _HomeStats(
-              core: core,
-              status: status,
-              palette: p,
-              startedAt: proxy?.startedAt,
-              pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-              showTraffic: settings.showTraffic,
-            ),
+            // it has been up, the real delay, the live rates. The wheel
+            // and the tiles lay them out as cards; the compact home as
+            // rows inside one card of its own.
+            if (design == 'pixel')
+              _FlatStats(
+                core: core,
+                status: status,
+                palette: p,
+                startedAt: proxy?.startedAt,
+                pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                showTraffic: settings.showTraffic,
+              )
+            else
+              _HomeStats(
+                core: core,
+                status: status,
+                palette: p,
+                startedAt: proxy?.startedAt,
+                pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                showTraffic: settings.showTraffic,
+              ),
             if (ip.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -1354,6 +1438,11 @@ class _PhoneHome extends StatelessWidget {
                 icon: Icons.data_usage_rounded,
               ),
             )
+          else if (design == 'bento')
+            // The tiles' connect bar already says the tap's own hint; the
+            // plain hint line below would only say it twice. The state's
+            // own guidance still has the problem boxes above.
+            const SizedBox.shrink()
           else
             // A start failure's hint is general; the core's reason is
             // on a long press.
@@ -1481,16 +1570,21 @@ class _PhoneHome extends StatelessWidget {
               ),
             )
           else ...[
-            Reveal(
-              index: 4,
-              child: _PlaceCard(
-                palette: p,
-                place: place,
-                accent: accent,
-                onTap: onOpenServers,
+            // The compact home already shows the place as the chip its
+            // switch sits on; the wheel's and the tiles' homes keep the
+            // place's own card down here.
+            if (design != 'pixel') ...[
+              Reveal(
+                index: 4,
+                child: _PlaceCard(
+                  palette: p,
+                  place: place,
+                  accent: accent,
+                  onTap: onOpenServers,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
+              const SizedBox(height: 12),
+            ],
             Reveal(
               index: 5,
               child: _HomeData(
@@ -2927,6 +3021,349 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The tiles' connect bar: one wide card, the power's own circle beside
+/// the state's word and the tap's hint — a tap anywhere on it flips the
+/// VPN. The circle lights in the state's color when it is on and carries
+/// the busy ring while the path comes up.
+class _BentoConnectBar extends StatelessWidget {
+  const _BentoConnectBar({
+    required this.palette,
+    required this.on,
+    required this.busy,
+    required this.accent,
+    required this.label,
+    required this.hint,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final bool on;
+  final bool busy;
+  final Color accent;
+  final String label;
+  final String hint;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 380),
+      child: _HomeCard(
+        palette: p,
+        onTap: busy ? null : onPressed,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(22, 20, 22, 20),
+          child: Row(
+            children: [
+              SizedBox.square(
+                dimension: 64,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: on ? accent : p.card,
+                    border: Border.all(
+                      color: on
+                          ? accent.withValues(alpha: 0.9)
+                          : p.cardBorder.withValues(alpha: 1),
+                      width: 1.5,
+                    ),
+                    boxShadow: on
+                        ? [
+                            BoxShadow(
+                              color: accent.withValues(alpha: p.dark ? 0.42 : 0.3),
+                              blurRadius: 24,
+                              spreadRadius: 1,
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (busy)
+                        const SizedBox.square(
+                          dimension: 64,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      Icon(
+                        Icons.power_settings_new_rounded,
+                        size: 30,
+                        color: on
+                            ? (accent.computeLuminance() > 0.5
+                                ? Colors.black
+                                : Colors.white)
+                            : p.muted,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 18),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: on ? accent : p.text,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      hint,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: p.muted,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The compact home's one card: the place as a chip on top (a tap opens
+/// the servers page), the switch's orb under it. Everything else the
+/// home shows stays where it always was — the numbers in this card's
+/// flat rows once the connection is up.
+class _PixelHomeCard extends StatelessWidget {
+  const _PixelHomeCard({
+    required this.palette,
+    required this.place,
+    required this.on,
+    required this.busy,
+    required this.accent,
+    required this.tooltip,
+    required this.onOpenServers,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final HomePlace place;
+  final bool on;
+  final bool busy;
+  final Color accent;
+  final String tooltip;
+  final VoidCallback? onOpenServers;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 420),
+      child: _HomeCard(
+        palette: p,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(18, 14, 18, 18),
+          child: Column(
+            children: [
+              // The place's chip: the flag, the name, and the way to the
+              // servers page to change it.
+              InkWell(
+                onTap: onOpenServers,
+                borderRadius: BorderRadius.circular(14),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                  child: Row(
+                    children: [
+                      CountryFlag(code: place.flag, width: 26),
+                      const SizedBox(width: 12),
+                      if (place.auto) ...[
+                        Icon(
+                          Icons.auto_awesome_rounded,
+                          size: 14,
+                          color: accent,
+                        ),
+                        const SizedBox(width: 4),
+                      ],
+                      Flexible(
+                        child: Text(
+                          place.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: p.text,
+                          ),
+                        ),
+                      ),
+                      if (onOpenServers != null)
+                        Icon(Icons.chevron_right_rounded, color: p.muted),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              // The compact home's orb: a touch smaller than the desktop's
+              // own, so its card stays a card and not a hall.
+              Transform.scale(
+                scale: 0.88,
+                child: _PowerOrb(
+                  palette: p,
+                  on: on,
+                  accent: accent,
+                  busy: busy,
+                  tooltip: tooltip,
+                  onPressed: onPressed,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The compact home's numbers: the connection's own rows — the time it
+/// has been up, the real delay, the live rates — inside one flat card,
+/// each a quiet line, not a tile of its own.
+class _FlatStats extends StatelessWidget {
+  const _FlatStats({
+    required this.core,
+    required this.status,
+    required this.palette,
+    required this.startedAt,
+    required this.pingMs,
+    required this.showTraffic,
+  });
+
+  final CoreController core;
+  final CoreStatus status;
+  final _HomePalette palette;
+  final DateTime? startedAt;
+  final int? pingMs;
+  final bool showTraffic;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final traffic = status.traffic;
+    final ping = pingMs;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 420),
+      child: _HomeCard(
+        palette: p,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 16, 14),
+          child: Column(
+            children: [
+              _FlatRow(
+                palette: p,
+                icon: Icons.schedule_rounded,
+                label: l.statElapsed,
+                value: startedAt == null
+                    ? const Text('—')
+                    : _ElapsedText(startedAt: startedAt!),
+              ),
+              const SizedBox(height: 10),
+              _FlatRow(
+                palette: p,
+                icon: Icons.bolt_rounded,
+                label: l.realDelay,
+                value: Text(
+                  core.testing
+                      ? ''
+                      : ping == null
+                      ? l.testConnection
+                      : l.milliseconds(ping),
+                ),
+                valueColor: ping == null ? p.muted : delayColor(ping),
+                onTap: core.testing
+                    ? null
+                    : () => runShowingErrors(context, core.runTest),
+              ),
+              if (showTraffic) ...[
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.south_rounded,
+                  label: l.statDown,
+                  value: Text(formatRate(traffic?.downRate ?? 0)),
+                ),
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.north_rounded,
+                  label: l.statUp,
+                  value: Text(formatRate(traffic?.upRate ?? 0)),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One row of the compact home's numbers: the icon and the muted label
+/// on the left, the value on the right — a line, not a tile.
+class _FlatRow extends StatelessWidget {
+  const _FlatRow({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.valueColor,
+    this.onTap,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final Widget value;
+  final Color? valueColor;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+        child: Row(
+          children: [
+            Icon(icon, size: 16, color: p.muted),
+            const SizedBox(width: 10),
+            Text(
+              label,
+              style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+            ),
+            const Spacer(),
+            DefaultTextStyle(
+              style: (theme.textTheme.labelLarge ?? const TextStyle()).copyWith(
+                fontWeight: FontWeight.w700,
+                fontFeatures: const [FontFeature.tabularFigures()],
+                color: valueColor ?? p.text,
+              ),
+              child: value,
+            ),
+          ],
         ),
       ),
     );

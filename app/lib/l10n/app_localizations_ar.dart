@@ -1890,49 +1890,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get whatsNewView => 'عرض مرة أخرى';
 
   @override
-  String get customColorTitle => 'لون مخصص';
-
-  @override
-  String get customColorHint => 'اختر أي لون للتطبيق مع معاينة حية';
-
-  @override
-  String get customColorSeed => 'اللون الأساسي';
-
-  @override
-  String get customColorAccent => 'لون التمييز';
-
-  @override
-  String get customColorIntensity => 'شدة اللون';
-
-  @override
-  String get customColorSwatches => 'الألوان المحفوظة';
-
-  @override
-  String get customColorKeep => 'حفظ هذا اللون';
-
-  @override
-  String get customColorReset => 'العودة إلى الافتراضي';
-
-  @override
-  String get customColorPreview => 'معاينة';
-
-  @override
-  String get customColorNote =>
-      'تبقى قراءة النص والأيقونات محفوظة في الوضعين الفاتح والداكن؛ تُطبق الألوان على التطبيق كله وتبقى بعد إعادة التشغيل.';
-
-  @override
-  String get customColorHex => 'كود HEX';
-
-  @override
-  String get customColorPreviewButton => 'اتصال';
-
-  @override
-  String get customColorPreviewChip => 'محمي';
-
-  @override
-  String get customColorPreviewSwitch => 'تحديثات حية';
-
-  @override
   String get updateServers => 'تحديث الخوادم';
 
   @override
@@ -2034,4 +1991,58 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'شعار موزيلا يستقر نظيفاً على بلاطته، بزوايا دائرية مثل الأعلام.';
+
+  @override
+  String get designTitle => 'تصميم الصفحة الرئيسية';
+
+  @override
+  String get designHint => 'كيف تُرتَّب الصفحة الرئيسية';
+
+  @override
+  String get designWheel => 'العجلة';
+
+  @override
+  String get designWheelDesc => 'الأعلام في عجلتها الزجاجية والمفتاح تحتها';
+
+  @override
+  String get designBento => 'الربعات';
+
+  @override
+  String get designBentoDesc =>
+      'لوح من ربعات مستديرة: الاتصال والأرقام والموقع';
+
+  @override
+  String get designPixel => 'المضغوط';
+
+  @override
+  String get designPixelDesc => 'بطاقة هادئة واحدة: الموقع والمفتاح والأرقام';
+
+  @override
+  String get notifFlag => 'علم الدولة في الإشعار';
+
+  @override
+  String get notifFlagHint => 'علم الدولة نفسها بجوار اسمها في الإشعار';
+
+  @override
+  String get wnDesignAdded =>
+      'إعداد لتصميم الصفحة الرئيسية: العجلة أو الربعات أو البطاقة المضغوطة';
+
+  @override
+  String get wnMapAdded =>
+      'خريطة عالم متجهة حقيقية خلف الصفحة الرئيسية، والدولة المختارة مضاءة';
+
+  @override
+  String get wnWheelAdded =>
+      'أُعيد رسم عجلة الأعلام: زجاج أعمق وحركة أنعم وعمق أوضح';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'يمكن للإشعار أن يعرض علم SVG للدولة، ويمكن إيقافه';
+
+  @override
+  String get wnColorRemoved =>
+      'أُزيلت صفحة اللون المخصص؛ قائمة لون التمييز تحتفظ برمز HEX';
+
+  @override
+  String get whatsNewRemoved => 'أُزيل';
 }

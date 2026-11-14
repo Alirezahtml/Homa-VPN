@@ -91,8 +91,14 @@ class AppSettings extends ChangeNotifier {
   /// for [customAccent], or '' for the monochrome design.
   String accentKey = '';
 
-  /// The user's own accent, as ARGB, when [accentKey] is 'custom'.
+  /// The user's own accent, as ARGB, when [accentKey] is 'custom' (the hex
+  /// the accent sheet asks for; the full Custom color page is gone).
   int customAccent = 0xFF60A5FA;
+
+  /// The home page's design: 'wheel' (the flags in their wheel), 'bento'
+  /// (the tiles), or 'pixel' (the compact card). Whatever else lands in the
+  /// file reads as the wheel.
+  String homeDesign = 'wheel';
 
   /// Puts the VPN back on by itself when the phone's connection drops
   /// without the user asking; off until the user turns it on.
@@ -116,9 +122,6 @@ class AppSettings extends ChangeNotifier {
   /// at first all but the time, the destination, the rule, and the
   /// protocol. Kept in this file.
   Set<String> hiddenConnectionColumns = {'inbound', 'traffic', 'duration'};
-
-  /// The colors the user kept for later (the panel's swatches).
-  List<int> savedColors = const [];
 
   /// The version whose What's New page was shown (or seen again): the page
   /// opens once per version, and About can show it again.
@@ -282,6 +285,7 @@ class AppSettings extends ChangeNotifier {
         s.autoInstallApk = j['auto_install_apk'] != false;
         if (j['accent'] case final String a) s.accentKey = a;
         if (j['custom_accent'] case final int v) s.customAccent = v;
+        if (j['home_design'] case final String d) s.homeDesign = d;
         s.autoReconnect = j['auto_reconnect'] == true;
         s.idleDisconnect = j['idle_disconnect'] == true;
         if (j['idle_timeout_min'] case final int v when v > 0) {
@@ -293,9 +297,6 @@ class AppSettings extends ChangeNotifier {
         }
         if (j['hidden_connection_columns'] case final List<Object?> v) {
           s.hiddenConnectionColumns = {...v.whereType<String>()};
-        }
-        if (j['saved_colors'] case final List<Object?> v) {
-          s.savedColors = [...v.whereType<int>()];
         }
         if (j['whats_new_seen'] case final String v) s.whatsNewSeen = v;
         s.gamingProfile = j['gaming_profile'] == true;
@@ -334,19 +335,18 @@ class AppSettings extends ChangeNotifier {
     bool? autoInstallApk,
     String? accentKey,
     int? customAccent,
+    String? homeDesign,
     bool? autoReconnect,
     bool? idleDisconnect,
     int? idleTimeoutMin,
     bool? dataLimit,
     int? dataLimitMb,
     Set<String>? hiddenConnectionColumns,
-    List<int>? savedColors,
     String? whatsNewSeen,
     bool? gamingProfile,
   }) {
     this.hiddenConnectionColumns =
         hiddenConnectionColumns ?? this.hiddenConnectionColumns;
-    this.savedColors = savedColors ?? this.savedColors;
     this.whatsNewSeen = whatsNewSeen ?? this.whatsNewSeen;
     this.gamingProfile = gamingProfile ?? this.gamingProfile;
     this.udpNotice = udpNotice ?? this.udpNotice;
@@ -358,6 +358,13 @@ class AppSettings extends ChangeNotifier {
     this.autoInstallApk = autoInstallApk ?? this.autoInstallApk;
     this.accentKey = accentKey ?? this.accentKey;
     this.customAccent = customAccent ?? this.customAccent;
+    if (homeDesign != null) {
+      this.homeDesign = switch (homeDesign) {
+        'bento' => 'bento',
+        'pixel' => 'pixel',
+        _ => 'wheel',
+      };
+    }
     this.autoReconnect = autoReconnect ?? this.autoReconnect;
     this.idleDisconnect = idleDisconnect ?? this.idleDisconnect;
     this.idleTimeoutMin = idleTimeoutMin ?? this.idleTimeoutMin;
@@ -414,13 +421,13 @@ class AppSettings extends ChangeNotifier {
           'auto_install_apk': autoInstallApk,
           'accent': accentKey,
           'custom_accent': customAccent,
+          'home_design': homeDesign,
           'auto_reconnect': autoReconnect,
           'idle_disconnect': idleDisconnect,
           'idle_timeout_min': idleTimeoutMin,
           'data_limit': dataLimit,
           'data_limit_mb': dataLimitMb,
           'hidden_connection_columns': hiddenConnectionColumns.toList(),
-          'saved_colors': savedColors,
           'whats_new_seen': whatsNewSeen,
           'gaming_profile': gamingProfile,
         }),

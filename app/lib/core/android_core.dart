@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:ui' as ui;
 
 import '../app_settings.dart';
 import 'core_api.dart';
 import 'ports.dart';
+import 'remote_flags.dart' show bundledFlags, RemoteFlags;
 
 /// An app installed on the phone.
 @immutable
@@ -213,6 +217,7 @@ class AndroidCore {
   static Future<void> loadMode() async {
     mode.value = await _channel.invokeMethod<String>('connectionMode') ?? 'vpn';
     showSpeed.value = await _channel.invokeMethod<bool>('showSpeed') ?? false;
+    notifFlag.value = await _channel.invokeMethod<bool>('notifFlag') ?? true;
     killSwitch.value = await _channel.invokeMethod<bool>('killSwitch') ?? false;
     isTv = await _channel.invokeMethod<bool>('isTv') ?? false;
   }
@@ -227,6 +232,105 @@ class AndroidCore {
   static Future<void> setShowSpeed(bool on) async {
     await _channel.invokeMethod<void>('setShowSpeed', {'on': on});
     showSpeed.value = on;
+  }
+
+  /// Whether the notification shows the country's flag (CoreService.kt
+  /// reads it): on, the country's own SVG flag as the card's art — or the
+  /// emoji until the art arrives; off, the country's name alone.
+  static final notifFlag = ValueNotifier<bool>(true);
+
+  static Future<void> setNotifFlag(bool on) async {
+    await _channel.invokeMethod<void>('setNotifFlag', {'on': on});
+    notifFlag.value = on;
+  }
+
+  /// The country whose flag art the service holds; '' for none yet. The
+  /// last one is kept so the core's every status change does not render
+  /// and send it again.
+  static String _lastFlagCode = '';
+
+  /// Renders [code]'s SVG flag (the app's own asset) as a rounded PNG and
+  /// hands it to the service for its notification — it keeps the file, so
+  /// its headless refreshes carry the art without the UI's help. Called
+  /// whenever the exit country (or the chosen one, while connecting)
+  /// changes; a code with no bundled SVG sends nothing, and the
+  /// notification falls back to the emoji by itself.
+  static Future<void> syncNotifFlag(String code) async {
+    final lc = code.trim().toLowerCase();
+    if (lc.length != 2 || lc == _lastFlagCode) return;
+    _lastFlagCode = lc;
+    Uint8List? svg;
+    try {
+      if (bundledFlags.contains(lc)) {
+        svg = (await rootBundle.load('assets/flags/$lc.svg'))
+            .buffer
+            .asUint8List();
+      } else {
+        // A location Mozilla added later: the core keeps its flag, asked
+        // once per run (RemoteFlags), so the notification's art follows
+        // the real server list, not the bundle's snapshot of it.
+        svg = await RemoteFlags.load(lc);
+      }
+    } on Exception {
+      // The engine was torn down, or the channel had no listener: the
+      // notification keeps the emoji — nothing here is worth a crash.
+      _lastFlagCode = '';
+      return;
+    }
+    if (svg == null || svg.isEmpty) {
+      // Not carried and not fetched yet: the next status change asks again
+      // (RemoteFlags caches its own ask, so this stays cheap).
+      _lastFlagCode = '';
+      return;
+    }
+    try {
+      final png = await _flagPng(svg);
+      if (png == null) return;
+      await _channel.invokeMethod<void>('setFlagBitmap', {
+        'code': lc,
+        'bytes': png,
+      });
+    } on Exception {
+      // The engine was torn down, or the channel had no listener: the
+      // notification keeps the emoji — nothing here is worth a crash.
+      _lastFlagCode = '';
+    }
+  }
+
+  /// One flag as a rounded PNG: the SVG's picture drawn onto a canvas of
+  /// [w] by [h], clipped to the corners the cards carry, so the
+  /// notification's own art matches the wheel's own look.
+  static Future<Uint8List?> _flagPng(
+    Uint8List svg, {
+    int w = 176,
+    int h = 132,
+  }) async {
+    final info = await vg.loadPicture(SvgBytesLoader(svg), null);
+    try {
+      if (info.size.isEmpty || info.size.width <= 0 || info.size.height <= 0) {
+        return null;
+      }
+      final recorder = ui.PictureRecorder();
+      final canvas = ui.Canvas(recorder);
+      canvas.clipRRect(
+        ui.RRect.fromRectAndRadius(
+          ui.Rect.fromLTWH(0, 0, w.toDouble(), h.toDouble()),
+          const ui.Radius.circular(30),
+        ),
+      );
+      final s = math.min(w / info.size.width, h / info.size.height);
+      canvas.translate(
+        (w - info.size.width * s) / 2,
+        (h - info.size.height * s) / 2,
+      );
+      canvas.scale(s);
+      canvas.drawPicture(info.picture);
+      final image = await recorder.endRecording().toImage(w, h);
+      final data = await image.toByteData(format: ui.ImageByteFormat.png);
+      return data?.buffer.asUint8List();
+    } finally {
+      info.picture.dispose();
+    }
   }
 
   /// The kill switch: a broken path keeps the VPN up — the traffic is

@@ -1877,50 +1877,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get whatsNewView => 'আবার দেখুন';
 
   @override
-  String get customColorTitle => 'কাস্টম রঙ';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'মূল রঙ';
-
-  @override
-  String get customColorAccent => 'অ্যাকসেন্ট রঙ';
-
-  @override
-  String get customColorIntensity => 'তীব্রতা';
-
-  @override
-  String get customColorSwatches => 'সংরক্ষিত রঙ';
-
-  @override
-  String get customColorKeep => 'এই রঙ সংরক্ষণ করুন';
-
-  @override
-  String get customColorReset => 'ডিফল্টে ফিরুন';
-
-  @override
-  String get customColorPreview => 'প্রিভিউ';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'HEX কোড';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'সার্ভার আপডেট করুন';
 
   @override
@@ -2023,4 +1979,56 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'মোজিলার মার্ক তার টাইলে পরিষ্কারভাবে বসে আছে, পতাকার মতো গোল কোণায়।';
+
+  @override
+  String get designTitle => 'হোম পেজের নকশা';
+
+  @override
+  String get designHint => 'হোম পেজ কীভাবে সাজানো থাকে';
+
+  @override
+  String get designWheel => 'চাকা';
+
+  @override
+  String get designWheelDesc => 'কাচের চাকায় পতাকা, নিচে সুইচ';
+
+  @override
+  String get designBento => 'টালি';
+
+  @override
+  String get designBentoDesc => 'গোল টালির বোর্ড: সংযোগ, সংখ্যা, স্থান';
+
+  @override
+  String get designPixel => 'কমপ্যাক্ট';
+
+  @override
+  String get designPixelDesc => 'একটি শান্ত কার্ড: স্থান, সুইচ, সংখ্যা';
+
+  @override
+  String get notifFlag => 'নোটিফিকেশনে দেশের পতাকা';
+
+  @override
+  String get notifFlagHint => 'দেশের নিজের পতাকা নামের পাশে';
+
+  @override
+  String get wnDesignAdded => 'হোম ডিজাইন সেটিং: চাকা, টালি বা কমপ্যাক্ট কার্ড';
+
+  @override
+  String get wnMapAdded =>
+      'হোম পেজের পেছনে সত্যিকারের ভেক্টর বিশ্বমানচিত্র, বাছাই দেশ আলোকিত';
+
+  @override
+  String get wnWheelAdded =>
+      'পতাকার চাকা নতুন আঁকা: গভীর কাচ, মসৃণ গতি, বেশি গভীরতা';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'নোটিফিকেশন দেশের SVG পতাকা দেখাতে পারে, বন্ধও করা যায়';
+
+  @override
+  String get wnColorRemoved =>
+      'কাস্টম রঙের পেজ সরানো হয়েছে; অ্যাকসেন্ট তালিকায় HEX কোড আছে';
+
+  @override
+  String get whatsNewRemoved => 'সরানো হয়েছে';
 }

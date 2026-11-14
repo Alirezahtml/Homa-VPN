@@ -149,6 +149,26 @@ class MainActivity : FlutterActivity() {
                     CoreService.setShowSpeed(this, call.argument<Boolean>("on") == true)
                     result.success(null)
                 }
+                // The notification's country flag: on (the SVG flag as the
+                // card's art, the emoji until it arrives) or off (the
+                // country's name alone).
+                "notifFlag" -> result.success(CoreService.notifFlag(this))
+                "setNotifFlag" -> {
+                    CoreService.setNotifFlag(this, call.argument<Boolean>("on") == true)
+                    CoreService.poke()
+                    result.success(null)
+                }
+                // The flag's own art, rendered by the UI (its SVG rastered
+                // to a rounded PNG), kept for the service's headless
+                // refreshes; the service rebuilds its card at once.
+                "setFlagBitmap" -> {
+                    val code = call.argument<String>("code") ?: ""
+                    val bytes = call.argument<ByteArray>("bytes")
+                    inBackground(result) {
+                        if (bytes != null) CoreService.saveFlagBitmap(this, code, bytes)
+                        CoreService.poke()
+                    }
+                }
                 // The kill switch: with it on, a broken path keeps the VPN
                 // up and dark — the traffic is held, nothing leaks — while
                 // the app puts the path back.

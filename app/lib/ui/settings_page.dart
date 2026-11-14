@@ -15,7 +15,6 @@ import '../l10n/app_localizations.dart';
 import '../platform.dart';
 import 'accent.dart';
 import 'bypass_apps_page.dart';
-import 'color_picker_page.dart';
 import 'connection_mode.dart';
 import '../core/diagnostics.dart';
 import 'format.dart';
@@ -475,6 +474,16 @@ class _SettingsPageState extends State<SettingsPage> {
           child: _AccentSwatch(settings: s),
           onTap: () => showAccentPicker(context, s),
         ),
+        // The home page's own design: the wheel, the tiles, or the
+        // compact card — each a real layout, each with the real list and
+        // the real switch. The choice holds across starts.
+        _Row(
+          icon: Icons.dashboard_outlined,
+          label: l.designTitle,
+          value: designName(l, s),
+          child: const Icon(Icons.chevron_right_rounded),
+          onTap: () => showDesignPicker(context, s),
+        ),
         if (!Platform.isAndroid)
           _Choice<CloseAction>(
             icon: Icons.close_rounded,
@@ -538,6 +547,24 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+        // The notification's country flag: the country's own SVG flag as
+        // the card's art — off leaves the name alone.
+        if (Platform.isAndroid)
+          ValueListenableBuilder(
+            valueListenable: AndroidCore.notifFlag,
+            builder: (context, on, _) => _Row(
+              icon: Icons.flag_outlined,
+              label: l.notifFlag,
+              value: l.notifFlagHint,
+              child: Switch(
+                value: on,
+                onChanged: (v) => runShowingErrors(
+                  context,
+                  () => AndroidCore.setNotifFlag(v),
+                ),
+              ),
+            ),
+          ),
         // A phone updates itself: the newer version downloads in the
         // background, and the system's installer asks before it installs.
         if (Platform.isAndroid) ...[
@@ -594,15 +621,6 @@ class _SettingsPageState extends State<SettingsPage> {
           child: IconButton(
             icon: const Icon(Icons.chevron_right_rounded),
             onPressed: () => showDiagnostics(context, widget.core),
-          ),
-        ),
-        _Row(
-          icon: Icons.color_lens_outlined,
-          label: l.customColorTitle,
-          value: l.customColorHint,
-          child: IconButton(
-            icon: const Icon(Icons.chevron_right_rounded),
-            onPressed: () => _openColorPicker(context, s),
           ),
         ),
         if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
@@ -697,15 +715,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     ),
   );
-
-  /// The Custom color panel, on a page of its own.
-  void _openColorPicker(BuildContext context, AppSettings s) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) => ColorPickerPage(settings: s),
-      ),
-    );
-  }
 
   Widget _connection(AppLocalizations l) {
     final status = _core.status;
@@ -3420,4 +3429,269 @@ int? _hexArgb(String text) {
   final hex = text.trim().replaceFirst('#', '');
   if (!RegExp(r'^[0-9a-fA-F]{6}$').hasMatch(hex)) return null;
   return 0xFF000000 | int.parse(hex, radix: 16);
+}
+
+/// The row's name for the design the settings carry, in the row's
+/// language.
+String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
+  'bento' => l.designBento,
+  'pixel' => l.designPixel,
+  _ => l.designWheel,
+};
+
+/// The home design picker: the three real layouts the home page has —
+/// the wheel, the tiles, the compact card — each as a card with a small
+/// mock-up of itself drawn in the theme's own ink, its name, and a word
+/// about what it is. A tap chooses; the home page follows at once (the
+/// app's root rebuilds on the settings).
+Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
+  await showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(AppLocalizations.of(context).designTitle),
+      content: SizedBox(
+        width: 460,
+        child: ListenableBuilder(
+          listenable: s,
+          builder: (context, _) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _DesignCard(
+                kind: 'wheel',
+                selected: s.homeDesign == 'wheel',
+                onTap: () => s.update(homeDesign: 'wheel'),
+              ),
+              const SizedBox(height: 10),
+              _DesignCard(
+                kind: 'bento',
+                selected: s.homeDesign == 'bento',
+                onTap: () => s.update(homeDesign: 'bento'),
+              ),
+              const SizedBox(height: 10),
+              _DesignCard(
+                kind: 'pixel',
+                selected: s.homeDesign == 'pixel',
+                onTap: () => s.update(homeDesign: 'pixel'),
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+        ),
+      ],
+    ),
+  );
+}
+
+/// One design's card: the mock-up on top, the name and the description
+/// under it, the chosen one framed in the accent — the pattern the
+/// designs' own source (ZedSecure's AppDesignPicker) made.
+class _DesignCard extends StatelessWidget {
+  const _DesignCard({
+    required this.kind,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String kind;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final accent = AppAccent.current;
+    final scheme = theme.colorScheme;
+    final (name, desc) = switch (kind) {
+      'bento' => (l.designBento, l.designBentoDesc),
+      'pixel' => (l.designPixel, l.designPixelDesc),
+      _ => (l.designWheel, l.designWheelDesc),
+    };
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: selected
+                ? (accent ?? scheme.primary).withValues(alpha: 0.9)
+                : scheme.outlineVariant,
+            width: selected ? 1.6 : 1,
+          ),
+          color: selected
+              ? (accent ?? scheme.primary).withValues(alpha: 0.07)
+              : null,
+        ),
+        child: Row(
+          children: [
+            SizedBox.square(
+              dimension: 92,
+              child: _DesignMockup(kind: kind, dark: theme.brightness == Brightness.dark, accent: accent),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    desc,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (selected)
+              Icon(
+                Icons.check_rounded,
+                color: accent ?? scheme.primary,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A small drawing of one design, made of the parts it lays out: the
+/// wheel's flags in their arc, the tiles' bar and grid, the compact
+/// card's chip and orb. In the theme's ink, the state's color on the
+/// chosen part — a thumbnail, honest about the layout it names.
+class _DesignMockup extends StatelessWidget {
+  const _DesignMockup({
+    required this.kind,
+    required this.dark,
+    required this.accent,
+  });
+
+  final String kind;
+  final bool dark;
+  final Color? accent;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final ink = dark ? const Color(0xFF3A3A3A) : const Color(0xFFC9C9C9);
+    final lit = accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
+    Widget tile({double w = 16, double h = 12, Color? color, double r = 4}) =>
+        Container(
+          width: w,
+          height: h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(r),
+            color: color ?? ink,
+            border: color == null
+                ? Border.all(color: scheme.outlineVariant, width: 0.5)
+                : null,
+          ),
+        );
+    switch (kind) {
+      case 'bento':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                tile(w: 22, h: 22, color: lit, r: 11),
+                const SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    tile(w: 34, h: 7),
+                    const SizedBox(height: 3),
+                    tile(w: 24, h: 5, color: ink.withValues(alpha: 0.5)),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            Row(
+              children: [
+                tile(w: 26, h: 20),
+                const SizedBox(width: 5),
+                tile(w: 26, h: 20),
+              ],
+            ),
+          ],
+        );
+      case 'pixel':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            tile(w: 30, h: 10, color: ink.withValues(alpha: 0.5)),
+            const SizedBox(height: 6),
+            Container(
+              width: 76,
+              height: 62,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: scheme.outlineVariant, width: 0.5),
+              ),
+              child: Center(
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: lit,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      default: // The wheel.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 46,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        lit.withValues(alpha: 0.25),
+                        lit.withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    tile(w: 13, h: 9, color: ink.withValues(alpha: 0.6)),
+                    const SizedBox(width: 4),
+                    tile(w: 22, h: 16, color: lit),
+                    const SizedBox(width: 4),
+                    tile(w: 13, h: 9, color: ink.withValues(alpha: 0.6)),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            tile(w: 30, h: 5, color: ink.withValues(alpha: 0.8)),
+          ],
+        );
+    }
+  }
 }

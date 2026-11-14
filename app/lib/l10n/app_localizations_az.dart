@@ -1882,50 +1882,6 @@ class AppLocalizationsAz extends AppLocalizations {
   String get whatsNewView => 'Yenidən bax';
 
   @override
-  String get customColorTitle => 'Xüsusi rəng';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Əsas rəng';
-
-  @override
-  String get customColorAccent => 'Vurğu rəngi';
-
-  @override
-  String get customColorIntensity => 'Güc';
-
-  @override
-  String get customColorSwatches => 'Saxlanılan rənglər';
-
-  @override
-  String get customColorKeep => 'Bu rəngi saxla';
-
-  @override
-  String get customColorReset => 'Standarta qaytar';
-
-  @override
-  String get customColorPreview => 'Önbaxış';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'HEX kodu';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Serverləri yenilə';
 
   @override
@@ -2028,4 +1984,57 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Mozilla nişanı öz plitəsində təmiz durur, küncləri bayraqlar kimi yumrudur.';
+
+  @override
+  String get designTitle => 'Ana səhifə dizaynı';
+
+  @override
+  String get designHint => 'Ana səhifənin düzülüşü';
+
+  @override
+  String get designWheel => 'Çarx';
+
+  @override
+  String get designWheelDesc => 'Bayraqlar şüşə çarxında, açar altında';
+
+  @override
+  String get designBento => 'Mozaika';
+
+  @override
+  String get designBentoDesc => 'Yumru mozaik lövhə: bağlantı, rəqəmlər, yer';
+
+  @override
+  String get designPixel => 'Yığcam';
+
+  @override
+  String get designPixelDesc => 'Sakit bir kart: yer, açar və rəqəmlər';
+
+  @override
+  String get notifFlag => 'Bildirişdə ölkə bayrağı';
+
+  @override
+  String get notifFlagHint => 'Ölkənin öz bayrağı adının yanında';
+
+  @override
+  String get wnDesignAdded =>
+      'Ana səhifə dizaynı seçimi: çarx, mozaika və ya yığcam kart';
+
+  @override
+  String get wnMapAdded =>
+      'Ana səhifənin arxasında real vektor dünya xəritəsi, seçilən ölkə işıqlı';
+
+  @override
+  String get wnWheelAdded =>
+      'Bayraq çarxı yenidən çəkildi: dərin şüşə, yumşaq hərəkət, dərinlik';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Bildiriş ölkənin SVG bayrağını göstərə bilər və söndürülə bilər';
+
+  @override
+  String get wnColorRemoved =>
+      'Xüsusi rəng səhifəsi silindi; vurğu rəng siyahısı HEX kodunu saxlayır';
+
+  @override
+  String get whatsNewRemoved => 'Silindi';
 }

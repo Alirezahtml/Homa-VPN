@@ -1869,50 +1869,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get whatsNewView => 'مشاهده دوباره';
 
   @override
-  String get customColorTitle => 'رنگ دلخواه';
-
-  @override
-  String get customColorHint =>
-      'هر رنگی برای برنامه انتخاب کنید، با پیش‌نمایش زنده';
-
-  @override
-  String get customColorSeed => 'رنگ اصلی';
-
-  @override
-  String get customColorAccent => 'رنگ تأکیدی';
-
-  @override
-  String get customColorIntensity => 'شدت رنگ';
-
-  @override
-  String get customColorSwatches => 'رنگ‌های ذخیره‌شده';
-
-  @override
-  String get customColorKeep => 'ذخیره این رنگ';
-
-  @override
-  String get customColorReset => 'بازگشت به پیش‌فرض';
-
-  @override
-  String get customColorPreview => 'پیش‌نمایش';
-
-  @override
-  String get customColorNote =>
-      'خوانایی متن و آیکون‌ها در حالت روشن و تاریک حفظ می‌شود؛ رنگ‌ها در کل برنامه اعمال و پس از بستن هم می‌مانند.';
-
-  @override
-  String get customColorHex => 'کد HEX';
-
-  @override
-  String get customColorPreviewButton => 'اتصال';
-
-  @override
-  String get customColorPreviewChip => 'محافظت‌شده';
-
-  @override
-  String get customColorPreviewSwitch => 'به‌روزرسانی زنده';
-
-  @override
   String get updateServers => 'بروزرسانی سرورها';
 
   @override
@@ -2014,4 +1970,56 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'نشان Mozilla تمیز روی کاشی خود نشسته و گوشه‌هایش مثل پرچم‌ها گرد است.';
+
+  @override
+  String get designTitle => 'طراحی صفحه اصلی';
+
+  @override
+  String get designHint => 'چیدمان صفحه اصلی برنامه';
+
+  @override
+  String get designWheel => 'چرخ';
+
+  @override
+  String get designWheelDesc => 'پرچم‌ها در چرخ شیشه‌ای و کلید زیر آن';
+
+  @override
+  String get designBento => 'کاشی';
+
+  @override
+  String get designBentoDesc => 'تخته‌ای از کاشی‌های گرد: اتصال، اعداد، مکان';
+
+  @override
+  String get designPixel => 'فشرده';
+
+  @override
+  String get designPixelDesc => 'یک کارت آرام: مکان، کلید و اعداد';
+
+  @override
+  String get notifFlag => 'پرچم کشور در اعلان';
+
+  @override
+  String get notifFlagHint => 'پرچم همان کشور کنار نامش در اعلان';
+
+  @override
+  String get wnDesignAdded => 'تنظیم طراحی صفحه اصلی: چرخ، کاشی یا کارت فشرده';
+
+  @override
+  String get wnMapAdded =>
+      'نقشه برداری واقعی جهان در پس‌زمینه، با روشنی کشور انتخابی';
+
+  @override
+  String get wnWheelAdded =>
+      'چرخ پرچم‌ها بازطراحی شد: شیشه عمیق‌تر، حرکت نرم‌تر، عمق بیشتر';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'اعلان می‌تواند پرچم SVG کشور را نشان دهد و می‌توان خاموشش کرد';
+
+  @override
+  String get wnColorRemoved =>
+      'صفحه رنگ دلخواه حذف شد؛ فهرست رنگ تأکیدی کد HEX را دارد';
+
+  @override
+  String get whatsNewRemoved => 'حذف‌شده';
 }

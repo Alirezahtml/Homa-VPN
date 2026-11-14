@@ -2,7 +2,7 @@ name: arman_vpn
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
 
-version: 1.0.30+151
+version: 1.0.31+152
 
 environment:
   sdk: ^3.13.5
@@ -49,10 +49,10 @@ flutter:
     # which Mozilla's recommender chooses.
     - assets/brand/
     - assets/fonts/Inter/OFL.txt
-    # The home's world map: a quiet dot-matrix in the theme's ink
-    # (scripts/make_world_map.py), light ink for the dark theme.
-    - assets/map_dots_light.png
-    - assets/map_dots_dark.png
+    # The home's world map: the countries' own outlines, one compact
+    # vector file (ZedSecure's world.bin — the same license, NOTICE),
+    # drawn live in the theme's ink with the chosen country lit.
+    - assets/map/world.bin
 
   fonts:
     - family: Inter

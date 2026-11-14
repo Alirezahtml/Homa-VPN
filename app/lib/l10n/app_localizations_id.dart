@@ -1881,50 +1881,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get whatsNewView => 'Lihat lagi';
 
   @override
-  String get customColorTitle => 'Warna khusus';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Warna dasar';
-
-  @override
-  String get customColorAccent => 'Warna aksen';
-
-  @override
-  String get customColorIntensity => 'Intensitas';
-
-  @override
-  String get customColorSwatches => 'Warna tersimpan';
-
-  @override
-  String get customColorKeep => 'Simpan warna ini';
-
-  @override
-  String get customColorReset => 'Kembali ke bawaan';
-
-  @override
-  String get customColorPreview => 'Pratinjau';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'Kode HEX';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Perbarui server';
 
   @override
@@ -2027,4 +1983,57 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Lambang Mozilla tampil bersih di petaknya, membulat seperti bendera.';
+
+  @override
+  String get designTitle => 'Desain halaman utama';
+
+  @override
+  String get designHint => 'Bagaimana halaman utama disusun';
+
+  @override
+  String get designWheel => 'Roda';
+
+  @override
+  String get designWheelDesc => 'Bendera pada roda kacanya, tombol di bawah';
+
+  @override
+  String get designBento => 'Ubin';
+
+  @override
+  String get designBentoDesc => 'Papan ubin membulat: sambungan, angka, lokasi';
+
+  @override
+  String get designPixel => 'Ringkas';
+
+  @override
+  String get designPixelDesc => 'Satu kartu tenang: lokasi, tombol, angka';
+
+  @override
+  String get notifFlag => 'Bendera negara di notifikasi';
+
+  @override
+  String get notifFlagHint => 'Bendera negaranya sendiri di samping namanya';
+
+  @override
+  String get wnDesignAdded =>
+      'Pengaturan desain halaman utama: roda, ubin, atau kartu ringkas';
+
+  @override
+  String get wnMapAdded =>
+      'Peta dunia vektor sungguhan di belakang halaman utama, negara pilihan menyala';
+
+  @override
+  String get wnWheelAdded =>
+      'Roda bendera digambar ulang: kaca lebih dalam, gerak lebih halus';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Notifikasi dapat menampilkan bendera SVG negara, dan bisa dimatikan';
+
+  @override
+  String get wnColorRemoved =>
+      'Halaman warna kustom dihapus; daftar aksen tetap menyimpan kode HEX';
+
+  @override
+  String get whatsNewRemoved => 'Dihapus';
 }

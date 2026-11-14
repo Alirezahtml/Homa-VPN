@@ -1,0 +1,338 @@
+import 'dart:math' as math;
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+/// The home page's world, drawn for real: the countries' own outlines from
+/// one compact vector file (ZedSecure's `world.bin`, carried under its
+/// NOTICE), the graticule over the oceans, and the chosen country lit in
+/// the connection's color with a breathing halo at its anchor. While the
+/// VPN carries the traffic the map breathes; off, it rests — the battery
+/// too. Nothing is tapped, nothing moves.
+
+/// One country of the world file: its ISO code, where its anchor sits on
+/// the map (the same units as [WorldMap.width]), and its outline rings.
+@immutable
+class WorldCountry {
+  const WorldCountry(this.code, this.anchorX, this.anchorY, this.rings);
+
+  final String code;
+  final double anchorX;
+  final double anchorY;
+  final List<List<ui.Offset>> rings;
+}
+
+/// The parsed `assets/map/world.bin`: the whole world in ~21 KB.
+///
+/// The file's own format (ZedSecure's WorldMap.kt): the magic `ZWM1`, a
+/// u16 count, then per country a two-letter code, u16 x and y anchor
+/// (the y half scale, undone here), a u8 ring count, and each ring a u16
+/// point count followed by u16 x,y pairs (the y again half scale).
+abstract final class WorldMap {
+  static const double width = 65535;
+  static const double height = width / 2;
+
+  static Future<List<WorldCountry>>? _loading;
+
+  /// Reads and parses the world once per run — the same future while it
+  /// reads, so a rebuilt page never waits again; the caller paints with it.
+  static Future<List<WorldCountry>> load() => _loading ??= _read();
+
+  static Future<List<WorldCountry>> _read() async {
+    final data = await rootBundle.load('assets/map/world.bin');
+    return _parse(data);
+  }
+
+  static List<WorldCountry> _parse(ByteData d) {
+    try {
+      if (d.lengthInBytes < 7) return const [];
+      if (d.getUint8(0) != 0x5A ||
+          d.getUint8(1) != 0x57 ||
+          d.getUint8(2) != 0x4D ||
+          d.getUint8(3) != 0x31) {
+        return const [];
+      }
+      var o = 4;
+      final count = d.getUint16(o, Endian.little);
+      o += 2;
+      final out = <WorldCountry>[];
+      for (var c = 0; c < count; c++) {
+        final code = String.fromCharCode(d.getUint8(o)) +
+            String.fromCharCode(d.getUint8(o + 1));
+        o += 2;
+        final ax = d.getUint16(o, Endian.little).toDouble();
+        final ay = d.getUint16(o + 2, Endian.little) * 0.5;
+        o += 4;
+        final ringCount = d.getUint8(o);
+        o += 1;
+        final rings = <List<ui.Offset>>[];
+        for (var r = 0; r < ringCount; r++) {
+          final points = d.getUint16(o, Endian.little);
+          o += 2;
+          final ring = <ui.Offset>[];
+          for (var p = 0; p < points; p++) {
+            final x = d.getUint16(o, Endian.little).toDouble();
+            final y = d.getUint16(o + 2, Endian.little) * 0.5;
+            o += 4;
+            ring.add(ui.Offset(x, y));
+          }
+          rings.add(ring);
+        }
+        out.add(WorldCountry(code, ax, ay, rings));
+      }
+      return out;
+    } on RangeError {
+      // A truncated file: an empty world, quietly, rather than a crash.
+      return const [];
+    }
+  }
+}
+
+/// The backdrop: the map at the screen's width, centered where asked, in
+/// the theme's ink with the chosen country lit in the state's color.
+///
+/// The [ink] is a light color on the dark theme and a dark one on the
+/// day — the same quiet look the old dot picture had, at any resolution
+/// now, because the world is drawn, not scaled.
+class WorldMapBackdrop extends StatefulWidget {
+  const WorldMapBackdrop({
+    super.key,
+    required this.countries,
+    required this.ink,
+    required this.accent,
+    required this.selected,
+    required this.animated,
+    this.alignment = Alignment.center,
+  });
+
+  /// The world, from [WorldMap.load]; empty until it arrives.
+  final List<WorldCountry> countries;
+
+  /// The theme's ink: the land's fills and edges read in it.
+  final Color ink;
+
+  /// The state's color: the chosen country is lit with it.
+  final Color accent;
+
+  /// The chosen country's ISO code, upper-case; '' for none.
+  final String selected;
+
+  /// Whether the map breathes: the halo and sheen move while the VPN
+  /// carries the traffic; off, everything holds still.
+  final bool animated;
+
+  final Alignment alignment;
+
+  @override
+  State<WorldMapBackdrop> createState() => _WorldMapBackdropState();
+}
+
+class _WorldMapBackdropState extends State<WorldMapBackdrop>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _breath =
+      AnimationController(vsync: this, duration: const Duration(seconds: 4));
+
+  @override
+  void initState() {
+    super.initState();
+    _breath.value = 0.5;
+    if (widget.animated) _breath.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(WorldMapBackdrop old) {
+    super.didUpdateWidget(old);
+    if (old.animated != widget.animated) {
+      if (widget.animated) {
+        _breath.repeat(reverse: true);
+      } else {
+        _breath.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: LayoutBuilder(
+        builder: (context, box) {
+          if (box.maxWidth <= 0 || widget.countries.isEmpty) {
+            return const SizedBox.expand();
+          }
+          // The world is 2:1: it fills the width and floats where asked.
+          final mapW = box.maxWidth;
+          final mapH = mapW / 2;
+          return SizedBox.expand(
+            child: Align(
+              alignment: widget.alignment,
+              child: SizedBox(
+                width: mapW,
+                height: mapH,
+                child: AnimatedBuilder(
+                  animation: _breath,
+                  builder: (context, _) => CustomPaint(
+                    size: Size(mapW, mapH),
+                    painter: _WorldPainter(
+                      countries: widget.countries,
+                      ink: widget.ink,
+                      accent: widget.accent,
+                      selected: widget.selected,
+                      t: widget.animated ? _breath.value : 0.5,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// The painter: the graticule, the land, the lit country, its anchor's
+/// halo, and a quiet sheen that follows the breath.
+class _WorldPainter extends CustomPainter {
+  _WorldPainter({
+    required this.countries,
+    required this.ink,
+    required this.accent,
+    required this.selected,
+    required this.t,
+  });
+
+  final List<WorldCountry> countries;
+  final Color ink;
+  final Color accent;
+  final String selected;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final sx = size.width / WorldMap.width;
+    final sy = size.height / WorldMap.height;
+    // A light ink on the night, a dark one on the day — the map's quiet
+    // is a matter of alpha, not hue, in either theme.
+    final dark = ink.computeLuminance() > 0.5;
+    final landInk = ink.withValues(alpha: dark ? 0.17 : 0.12);
+    final lineInk = ink.withValues(alpha: dark ? 0.35 : 0.28);
+
+    // The graticule: every 30 degrees, thinner than the land's edge.
+    final grid = Paint()
+      ..color = ink.withValues(alpha: dark ? 0.07 : 0.06)
+      ..strokeWidth = 0.6;
+    for (var lon = 0; lon <= 6; lon++) {
+      final x = lon / 6 * size.width;
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
+    }
+    for (var lat = 0; lat <= 3; lat++) {
+      final y = lat / 3 * size.height;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
+    }
+
+    // The chosen country, found once: it is lit while the rest stays ink.
+    WorldCountry? chosen;
+    if (selected.length == 2) {
+      for (final c in countries) {
+        if (c.code == selected) {
+          chosen = c;
+          break;
+        }
+      }
+    }
+
+    final land = Paint()
+      ..color = landInk
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+    final edge = Paint()
+      ..color = lineInk
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0
+      ..isAntiAlias = true;
+
+    for (final c in countries) {
+      if (identical(c, chosen)) continue;
+      for (final ring in c.rings) {
+        final path = _path(ring, sx, sy);
+        canvas.drawPath(path, land);
+        canvas.drawPath(path, edge);
+      }
+    }
+
+    // The breath every moving part below reads: 0 at rest's start, 1 at
+    // its peak, back and forth over the controller's period.
+    final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * t);
+
+    if (chosen != null) {
+      // The lit country: a fill in the state's color, soft, over an edge
+      // more present than the ink's own.
+      final fill = Paint()
+        ..color = accent.withValues(alpha: dark ? 0.30 : 0.22)
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true;
+      final litEdge = Paint()
+        ..color = accent.withValues(alpha: dark ? 0.85 : 0.70)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..isAntiAlias = true;
+      for (final ring in chosen.rings) {
+        final path = _path(ring, sx, sy);
+        canvas.drawPath(path, fill);
+        canvas.drawPath(path, litEdge);
+      }
+      // The anchor's halo: three rings of light that swell and shrink
+      // with the breath, and the dot at the middle of them.
+      final anchor = ui.Offset(chosen.anchorX * sx, chosen.anchorY * sy);
+      for (final (r, a) in [
+        (30.0, 0.14),
+        (20.0, 0.24),
+        (12.0, 0.40),
+      ]) {
+        canvas.drawCircle(
+          anchor,
+          r * (0.85 + 0.3 * breathe),
+          Paint()
+            ..color = accent.withValues(
+              alpha: a * (dark ? 1.0 : 0.7) * (0.5 + 0.5 * breathe),
+            )
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.drawCircle(
+        anchor,
+        3.0 + 1.4 * breathe,
+        Paint()
+          ..color = accent.withValues(alpha: dark ? 0.9 : 0.75)
+          ..isAntiAlias = true,
+      );
+    }
+  }
+
+  ui.Path _path(List<ui.Offset> ring, double sx, double sy) {
+    final path = ui.Path();
+    if (ring.isEmpty) return path;
+    path.moveTo(ring.first.dx * sx, ring.first.dy * sy);
+    for (var i = 1; i < ring.length; i++) {
+      path.lineTo(ring[i].dx * sx, ring[i].dy * sy);
+    }
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldRepaint(_WorldPainter old) =>
+      old.selected != selected ||
+      old.accent != accent ||
+      old.ink != ink ||
+      old.countries != countries ||
+      (old.t - t).abs() > 0.003;
+}

@@ -1893,50 +1893,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get whatsNewView => 'Показать снова';
 
   @override
-  String get customColorTitle => 'Свой цвет';
-
-  @override
-  String get customColorHint =>
-      'Любой цвет для приложения, с живым предпросмотром';
-
-  @override
-  String get customColorSeed => 'Основной цвет';
-
-  @override
-  String get customColorAccent => 'Цвет акцентов';
-
-  @override
-  String get customColorIntensity => 'Насыщенность';
-
-  @override
-  String get customColorSwatches => 'Сохранённые цвета';
-
-  @override
-  String get customColorKeep => 'Сохранить цвет';
-
-  @override
-  String get customColorReset => 'Вернуть по умолчанию';
-
-  @override
-  String get customColorPreview => 'Предпросмотр';
-
-  @override
-  String get customColorNote =>
-      'Читаемость текста и значков сохраняется в светлой и тёмной теме; цвета применяются ко всему приложению и остаются после перезапуска.';
-
-  @override
-  String get customColorHex => 'Код HEX';
-
-  @override
-  String get customColorPreviewButton => 'Подключить';
-
-  @override
-  String get customColorPreviewChip => 'Защищено';
-
-  @override
-  String get customColorPreviewSwitch => 'Живые обновления';
-
-  @override
   String get updateServers => 'Обновить серверы';
 
   @override
@@ -2038,4 +1994,58 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Знак Mozilla аккуратно расположен на своей плитке, со скруглением, как у флагов.';
+
+  @override
+  String get designTitle => 'Оформление главной';
+
+  @override
+  String get designHint => 'Как устроена главная страница';
+
+  @override
+  String get designWheel => 'Колесо';
+
+  @override
+  String get designWheelDesc => 'Флаги в стеклянном колесе, кнопка под ним';
+
+  @override
+  String get designBento => 'Плитки';
+
+  @override
+  String get designBentoDesc =>
+      'Доска скруглённых плиток: соединение, числа, место';
+
+  @override
+  String get designPixel => 'Компакт';
+
+  @override
+  String get designPixelDesc => 'Одна спокойная карточка: место, кнопка, числа';
+
+  @override
+  String get notifFlag => 'Флаг страны в уведомлении';
+
+  @override
+  String get notifFlagHint => 'Флаг самой страны рядом с её названием';
+
+  @override
+  String get wnDesignAdded =>
+      'Настройка оформления главной: колесо, плитки или компактная карточка';
+
+  @override
+  String get wnMapAdded =>
+      'Настоящая векторная карта мира за главной страницей, выбранная страна подсвечена';
+
+  @override
+  String get wnWheelAdded =>
+      'Колесо флагов перерисовано: глубже стекло, плавнее движение';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Уведомление может показывать SVG-флаг страны, и его можно выключить';
+
+  @override
+  String get wnColorRemoved =>
+      'Страница своего цвета удалена; список акцентов сохраняет код HEX';
+
+  @override
+  String get whatsNewRemoved => 'Удалено';
 }

@@ -1881,50 +1881,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get whatsNewView => 'Yeniden göster';
 
   @override
-  String get customColorTitle => 'Özel renk';
-
-  @override
-  String get customColorHint =>
-      'Uygulama için canlı önizlemeyle istediğiniz rengi seçin';
-
-  @override
-  String get customColorSeed => 'Ana renk';
-
-  @override
-  String get customColorAccent => 'Vurgu rengi';
-
-  @override
-  String get customColorIntensity => 'Yoğunluk';
-
-  @override
-  String get customColorSwatches => 'Kaydedilen renkler';
-
-  @override
-  String get customColorKeep => 'Bu rengi kaydet';
-
-  @override
-  String get customColorReset => 'Varsayılana dön';
-
-  @override
-  String get customColorPreview => 'Önizleme';
-
-  @override
-  String get customColorNote =>
-      'Açık ve koyu temada metin ve simgeler okunur kalır; renkler tüm uygulamaya uygulanır ve yeniden başlatmadan sonra da kalır.';
-
-  @override
-  String get customColorHex => 'HEX kodu';
-
-  @override
-  String get customColorPreviewButton => 'Bağlan';
-
-  @override
-  String get customColorPreviewChip => 'Korumalı';
-
-  @override
-  String get customColorPreviewSwitch => 'Canlı güncellemeler';
-
-  @override
   String get updateServers => 'Sunucuları güncelle';
 
   @override
@@ -2026,4 +1982,58 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'Mozilla\'nın işareti karo üzerinde temiz duruyor, köşeleri bayraklar gibi yuvarlak.';
+
+  @override
+  String get designTitle => 'Ana sayfa tasarımı';
+
+  @override
+  String get designHint => 'Ana sayfanın dizilişi';
+
+  @override
+  String get designWheel => 'Çark';
+
+  @override
+  String get designWheelDesc => 'Bayraklar cam çarkında, anahtar altında';
+
+  @override
+  String get designBento => 'Mozaik';
+
+  @override
+  String get designBentoDesc =>
+      'Yuvarlak mozaik levha: bağlantı, sayılar, konum';
+
+  @override
+  String get designPixel => 'Sade';
+
+  @override
+  String get designPixelDesc => 'Tek sakin bir kart: konum, anahtar, sayılar';
+
+  @override
+  String get notifFlag => 'Bildirimde ülke bayrağı';
+
+  @override
+  String get notifFlagHint => 'Ülkenin kendi bayrağı adının yanında';
+
+  @override
+  String get wnDesignAdded =>
+      'Ana sayfa tasarımı ayarı: çark, mozaik veya sade kart';
+
+  @override
+  String get wnMapAdded =>
+      'Ana sayfanın ardında gerçek vektör dünya haritası, seçilen ülke aydınlık';
+
+  @override
+  String get wnWheelAdded =>
+      'Bayrak çarkı yeniden çizildi: derin cam, yumuşak hareket';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Bildirim ülkenin SVG bayrağını gösterebilir ve kapatılabilir';
+
+  @override
+  String get wnColorRemoved =>
+      'Özel renk sayfası kaldırıldı; vurgu listesi HEX kodunu tutuyor';
+
+  @override
+  String get whatsNewRemoved => 'Kaldırıldı';
 }

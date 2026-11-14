@@ -1896,50 +1896,6 @@ class AppLocalizationsHu extends AppLocalizations {
   String get whatsNewView => 'Megint megtekintés';
 
   @override
-  String get customColorTitle => 'Egyéni szín';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Alapszín';
-
-  @override
-  String get customColorAccent => 'Kiemelő szín';
-
-  @override
-  String get customColorIntensity => 'Erősség';
-
-  @override
-  String get customColorSwatches => 'Mentett színek';
-
-  @override
-  String get customColorKeep => 'Szín mentése';
-
-  @override
-  String get customColorReset => 'Vissza az alapértelmezettre';
-
-  @override
-  String get customColorPreview => 'Előnézet';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'HEX kód';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Szerverek frissítése';
 
   @override
@@ -2042,4 +1998,57 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'A Mozilla jele tisztán ül a lapkáján, lekerekítve, mint a zászlók.';
+
+  @override
+  String get designTitle => 'Kezdőlap design';
+
+  @override
+  String get designHint => 'A kezdőlap elrendezése';
+
+  @override
+  String get designWheel => 'Korong';
+
+  @override
+  String get designWheelDesc => 'A zászlók üvegkorongján, a kapcsoló alattuk';
+
+  @override
+  String get designBento => 'Mozaik';
+
+  @override
+  String get designBentoDesc => 'Kerek mozaiklapok: kapcsolat, számok, hely';
+
+  @override
+  String get designPixel => 'Kompakt';
+
+  @override
+  String get designPixelDesc => 'Egy nyugodt kártya: hely, kapcsoló, számok';
+
+  @override
+  String get notifFlag => 'Országzászló az értesítésben';
+
+  @override
+  String get notifFlagHint => 'Az ország saját zászlója a neve mellett';
+
+  @override
+  String get wnDesignAdded =>
+      'Kezdőlap-design beállítás: korong, mozaik vagy kompakt kártya';
+
+  @override
+  String get wnMapAdded =>
+      'Valódi vektoros világtérkép a kezdőlap mögött, a választott ország fényben';
+
+  @override
+  String get wnWheelAdded =>
+      'A zászlókorong újrarajzolva: mélyebb üveg, lágyabb mozgás';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'Az értesítés mutathatja az ország SVG zászlaját, és kikapcsolható';
+
+  @override
+  String get wnColorRemoved =>
+      'A saját szín oldal eltűnt; az akcentlista megtartja a HEX kódot';
+
+  @override
+  String get whatsNewRemoved => 'Eltávolítva';
 }

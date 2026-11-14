@@ -1889,50 +1889,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get whatsNewView => 'Ver novamente';
 
   @override
-  String get customColorTitle => 'Cor personalizada';
-
-  @override
-  String get customColorHint =>
-      'Pick any color for the app, with a live preview';
-
-  @override
-  String get customColorSeed => 'Cor base';
-
-  @override
-  String get customColorAccent => 'Cor de destaque';
-
-  @override
-  String get customColorIntensity => 'Intensidade';
-
-  @override
-  String get customColorSwatches => 'Cores guardadas';
-
-  @override
-  String get customColorKeep => 'Guardar esta cor';
-
-  @override
-  String get customColorReset => 'Voltar ao padrão';
-
-  @override
-  String get customColorPreview => 'Pré-visualização';
-
-  @override
-  String get customColorNote =>
-      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
-
-  @override
-  String get customColorHex => 'Código HEX';
-
-  @override
-  String get customColorPreviewButton => 'Connect';
-
-  @override
-  String get customColorPreviewChip => 'Protected';
-
-  @override
-  String get customColorPreviewSwitch => 'Live updates';
-
-  @override
   String get updateServers => 'Atualizar servidores';
 
   @override
@@ -2035,4 +1991,60 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wnMarkFixed =>
       'A marca da Mozilla aparece limpa em seu ladrilho, arredondada como as bandeiras.';
+
+  @override
+  String get designTitle => 'Design da página inicial';
+
+  @override
+  String get designHint => 'Como a página inicial se organiza';
+
+  @override
+  String get designWheel => 'Roda';
+
+  @override
+  String get designWheelDesc =>
+      'As bandeiras na sua roda de vidro, o interruptor abaixo';
+
+  @override
+  String get designBento => 'Mosaico';
+
+  @override
+  String get designBentoDesc =>
+      'Um quadro de mosaicos arredondados: conexão, números, local';
+
+  @override
+  String get designPixel => 'Compacta';
+
+  @override
+  String get designPixelDesc =>
+      'Um cartão calmo: o local, o interruptor, os números';
+
+  @override
+  String get notifFlag => 'Bandeira do país na notificação';
+
+  @override
+  String get notifFlagHint => 'A bandeira do próprio país ao lado do nome';
+
+  @override
+  String get wnDesignAdded =>
+      'Uma configuração de design da página inicial: roda, mosaico ou cartão compacto';
+
+  @override
+  String get wnMapAdded =>
+      'Um mapa-múndi vetorial real atrás da página inicial, o país escolhido iluminado';
+
+  @override
+  String get wnWheelAdded =>
+      'A roda de bandeiras redesenhada: vidro mais profundo, movimento mais suave';
+
+  @override
+  String get wnFlagNotifAdded =>
+      'A notificação pode mostrar a bandeira SVG do país, e pode ser desligada';
+
+  @override
+  String get wnColorRemoved =>
+      'A página de cor personalizada foi removida; a lista de acentos mantém o HEX';
+
+  @override
+  String get whatsNewRemoved => 'Removido';
 }
