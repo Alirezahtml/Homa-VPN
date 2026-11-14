@@ -483,11 +483,17 @@ class CoreService : VpnService() {
             // the shade, where the duration and the speed keep running.
             builder
                 .setCategory(Notification.CATEGORY_PROGRESS)
+                .setShortCriticalText(state)
                 // The Live Update request itself, as the reference
                 // implementation does: the system may promote the card
-                // above the shade while the VPN runs.
-                .setRequestPromotedOngoing(true)
-                .setShortCriticalText(state)
+                // above the shade while the VPN runs. The builder method
+                // arrived in API 36.1; at compileSdk 36 the request goes
+                // through the extra its own compat helper sets.
+                .addExtras(
+                    android.os.Bundle().apply {
+                        putBoolean("android.requestPromotedOngoing", true)
+                    },
+                )
             if (code.isEmpty() && !offline) {
                 builder.setStyle(
                     Notification.ProgressStyle()
