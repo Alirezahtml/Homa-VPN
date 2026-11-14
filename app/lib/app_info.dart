@@ -279,7 +279,7 @@ Future<bool> _published(HttpClient client, String url) async {
       .timeout(const Duration(seconds: 20));
   req
     ..followRedirects = false
-    ..headers.set(HttpHeaders.userAgentHeader, 'arman-vpn/$appVersion');
+    ..headers.set(HttpHeaders.userAgentHeader, 'homa-vpn/$appVersion');
   final res = await req.close().timeout(const Duration(seconds: 20));
   await res.drain<void>();
   if (res.statusCode == 404) return false;
@@ -302,7 +302,7 @@ Future<(int, String)> _get(
       .timeout(const Duration(seconds: 20));
   req.headers
     ..set(HttpHeaders.acceptHeader, accept)
-    ..set(HttpHeaders.userAgentHeader, 'arman-vpn/$appVersion');
+    ..set(HttpHeaders.userAgentHeader, 'homa-vpn/$appVersion');
   final res = await req.close().timeout(const Duration(seconds: 20));
   final bytes = BytesBuilder(copy: false);
   await for (final chunk in res.timeout(const Duration(seconds: 20))) {
