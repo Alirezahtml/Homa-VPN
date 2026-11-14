@@ -1059,6 +1059,15 @@ class AppLocalizationsFa extends AppLocalizations {
   String get showPublicIp => 'نمایش IP عمومی';
 
   @override
+  String get hapticFeedback => 'لرزش هنگام تغییر اتصال';
+
+  @override
+  String get keepScreenOn => 'روشن ماندن صفحه هنگام اتصال';
+
+  @override
+  String get showTraffic => 'نمایش ترافیک زنده در صفحهٔ اصلی';
+
+  @override
   String get speedInNotification => 'نمایش سرعت در اعلان';
 
   @override

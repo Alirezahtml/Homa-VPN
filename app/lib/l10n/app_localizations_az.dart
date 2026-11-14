@@ -1067,6 +1067,15 @@ class AppLocalizationsAz extends AppLocalizations {
   String get showPublicIp => 'Xarici IP-ni göstər';
 
   @override
+  String get hapticFeedback => 'Bağlantı dəyişəndə titrəmə';
+
+  @override
+  String get keepScreenOn => 'Qoşulu olanda ekranı ayıq saxla';
+
+  @override
+  String get showTraffic => 'Ana səhifədə canlı trafiki göstər';
+
+  @override
   String get speedInNotification => 'Bildirişdə sürəti göstər';
 
   @override

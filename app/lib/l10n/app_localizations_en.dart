@@ -1068,6 +1068,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showPublicIp => 'Show the public IP';
 
   @override
+  String get hapticFeedback => 'Vibrate when the connection changes';
+
+  @override
+  String get keepScreenOn => 'Keep the screen awake while connected';
+
+  @override
+  String get showTraffic => 'Show live traffic on the home page';
+
+  @override
   String get speedInNotification => 'Show speed in the notification';
 
   @override

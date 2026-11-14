@@ -1074,6 +1074,15 @@ class AppLocalizationsHu extends AppLocalizations {
   String get showPublicIp => 'Nyilvános IP megjelenítése';
 
   @override
+  String get hapticFeedback => 'Rezgés a kapcsolat változásakor';
+
+  @override
+  String get keepScreenOn => 'A képernyő ébren tartása csatlakozás közben';
+
+  @override
+  String get showTraffic => 'Élő forgalom megjelenítése a kezdőlapon';
+
+  @override
   String get speedInNotification => 'Sebesség megjelenítése az értesítésben';
 
   @override

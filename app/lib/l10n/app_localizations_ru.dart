@@ -1070,6 +1070,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showPublicIp => 'Показывать публичный IP';
 
   @override
+  String get hapticFeedback => 'Вибрация при изменении соединения';
+
+  @override
+  String get keepScreenOn => 'Не гасить экран, пока включено подключение';
+
+  @override
+  String get showTraffic =>
+      'Показывать трафик в реальном времени на главном экране';
+
+  @override
   String get speedInNotification => 'Показывать скорость в уведомлении';
 
   @override

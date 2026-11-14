@@ -481,6 +481,34 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (v) => s.update(showPublicIp: v),
           ),
         ),
+        // A short vibration when the connection goes on or off.
+        _Row(
+          icon: Icons.vibration_rounded,
+          label: l.hapticFeedback,
+          child: Switch(
+            value: s.hapticFeedback,
+            onChanged: (v) => s.update(hapticFeedback: v),
+          ),
+        ),
+        // The screen stays awake while the VPN carries the traffic.
+        if (Platform.isAndroid)
+          _Row(
+            icon: Icons.screen_lock_portrait_rounded,
+            label: l.keepScreenOn,
+            child: Switch(
+              value: s.keepScreenOn,
+              onChanged: (v) => s.update(keepScreenOn: v),
+            ),
+          ),
+        // The home page's live traffic cards.
+        _Row(
+          icon: Icons.swap_vert_rounded,
+          label: l.showTraffic,
+          child: Switch(
+            value: s.showTraffic,
+            onChanged: (v) => s.update(showTraffic: v),
+          ),
+        ),
         if (Platform.isAndroid)
           ValueListenableBuilder(
             valueListenable: AndroidCore.showSpeed,

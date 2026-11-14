@@ -1161,259 +1161,249 @@ class _PhoneHome extends StatelessWidget {
       // runs beneath.
       padding: EdgeInsets.fromLTRB(side, top + 14, side, 116),
       child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // The brand: the official wordmark, in the theme's face.
-              Reveal(
-                index: 0,
-                child: Center(child: BrandWordmark(height: 24)),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // The brand: the official wordmark, in the theme's face.
+          Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
+          const Spacer(),
+          SizedBox(height: short ? 4 : 16),
+          // The state, in words, where the island used to live.
+          Reveal(
+            index: 1,
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                color: on ? accent : p.text,
               ),
-              const Spacer(),
-              SizedBox(height: short ? 4 : 16),
-              // The state, in words, where the island used to live.
-              Reveal(
-                index: 1,
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: on ? accent : p.text,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
-              Reveal(
-                index: 2,
-                child: Center(
-                  child: SlideToConnect(
-                    on: on,
-                    busy: core.switchingProxy,
-                    accent: accent,
-                    dark: p.dark,
-                    card: p.card,
-                    border: p.cardBorder,
-                    text: p.text,
-                    muted: p.muted,
-                    labelConnect: l.slideToConnect,
-                    labelDisconnect: l.slideToDisconnect,
-                    // The state's word stays in the track once connected;
-                    // while the connection is still being confirmed the
-                    // track keeps the connect hint (nothing is claimed yet).
-                    labelOn: confirming ? '' : l.stateConnected,
-                    tooltip: press,
-                    // A TV starts on the switch, its ring showing.
-                    autofocus: Platform.isAndroid && AndroidCore.isTv,
-                    // No account yet: the accounts page, which explains
-                    // them and links to Mozilla's sign-up.
-                    onPressed: () => status.totalAccounts == 0
-                        ? _openAccounts(context, core, settings, onOpenAccounts)
-                        : runShowingErrors(context, () => _toggle(on)),
-                  ),
-                ),
-              ),
-              SizedBox(height: short ? 8 : 14),
-              if (connected) ...[
-                // The connection's numbers, in the page itself: the time
-                // it has been up, the real delay, the live rates.
-                _HomeStats(
-                  core: core,
-                  status: status,
-                  palette: p,
-                  startedAt: proxy?.startedAt,
-                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                ),
-                if (ip.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: _HomeRow(
-                      palette: p,
-                      icon: Icons.public_rounded,
-                      label: l.publicIp,
-                      value: ltr(ip),
-                    ),
-                  ),
-                if (status.upstreamProxy.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: _UpstreamProxyPill(
-                        address: status.upstreamProxy,
-                        palette: p,
-                        onPressed: onOpenUpstreamProxy,
-                      ),
-                    ),
-                  ),
-              ]
-              else if (failing || noNetwork || gaveUp)
-                // Not connecting stands out from the ordinary hints.
-                problem(
-                  _ProblemBox(
-                    text: noNetwork
-                        ? l.noNetwork
-                        : failure != null
-                        ? failure.text
-                        : failureCodeText(l, status.connectFailure),
-                    color: p.error,
-                    icon: Icons.error_outline_rounded,
-                    tooltip: noNetwork ? '' : failure?.detail ?? '',
-                  ),
-                )
-              else
-                // A start failure's hint is general; the core's reason is
-                // on a long press.
-                Tooltip(
-                  message:
-                      !status.connectPending &&
-                          status.state.phase == Phase.error
-                      ? status.state.message
-                      : '',
-                  child: Text(
-                    look.hint.isNotEmpty ? look.hint : press,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyMedium?.copyWith(color: p.muted),
-                  ),
-                ),
-              // Where to find the proxy, on a line of its own under the delay.
-              if (connected && proxyOnly && proxy != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Center(
-                    child: _HomePill(
-                      palette: p,
-                      child: Text(
-                        '${l.modeProxyOnly} ${ltr('127.0.0.1:${portOf(proxy.listen) ?? 10810}')}',
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: p.muted,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (failure?.code == Failure.unreachable &&
-                  onOpenConnection != null)
-                _ConnectionSettingsButton(onPressed: onOpenConnection!),
-              if (failure?.code == Failure.upstreamProxy &&
-                  onOpenUpstreamProxy != null)
-                _ConnectionSettingsButton(
-                  onPressed: onOpenUpstreamProxy!,
-                  label: AppLocalizations.of(context).upstreamProxy,
-                ),
-              if (!connected &&
-                  status.upstreamProxy.isNotEmpty &&
-                  failure?.code != Failure.upstreamProxy)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Center(
-                    child: _UpstreamProxyPill(
-                      address: status.upstreamProxy,
-                      palette: p,
-                      onPressed: onOpenUpstreamProxy,
-                    ),
-                  ),
-                ),
-              if (isLocationRefused(failure?.code ?? '') ||
-                  (gaveUp && isLocationRefused(status.connectFailure)))
-                _RecommendedLocationButton(core: core),
-              if (connected && mismatch != null)
-                problem(_ExitMismatchNote(text: mismatch)),
-              if (canSwitch &&
-                  status.systemProxySet &&
-                  status.systemProxyTakenBy != null)
-                problem(
-                  _SystemProxyTakenNote(
-                    core: core,
-                    by: status.systemProxyTakenBy!,
-                  ),
-                ),
-              if (status.state.proxyPortBlocked) ...[
-                const SizedBox(height: 12),
-                Center(
-                  child: FilledButton.tonalIcon(
-                    onPressed: () async {
-                      final port = await showPortDialog(
-                        context,
-                        taken: status.state.address,
-                      );
-                      if (port != null && context.mounted) {
-                        await runShowingErrors(
-                          context,
-                          () => core.setProxyPort(port),
-                        );
-                      }
-                    },
-                    icon: const Icon(Icons.settings_ethernet_rounded),
-                    label: Text(l.changePort),
-                  ),
-                ),
-              ],
-              if (running &&
-                  proxy != null &&
-                  !canSwitch &&
-                  sharedWithLan(proxy.listen)) ...[
-                const SizedBox(height: 10),
-                Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
-              ],
-              const Spacer(),
-              SizedBox(height: short ? 12 : 16),
-              _UpdateNotice(core: core, settings: settings, palette: p),
-              _UdpNotice(status: status, settings: settings, palette: p),
-              _Notices(notices: homeNotices(status.notices)),
-              _LowQuotaNotice(
-                core: core,
-                status: status,
-                settings: settings,
-                connected: connected,
-                palette: p,
-              ),
-              if (short)
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: _PlaceCard(
-                          palette: p,
-                          place: place,
-                          accent: accent,
-                          onTap: onOpenServers,
-                          compact: true,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _HomeData(
-                          status: status,
-                          palette: p,
-                          onTap: onOpenAccounts,
-                          compact: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              else ...[
-                Reveal(
-                  index: 4,
-                  child: _PlaceCard(
-                    palette: p,
-                    place: place,
-                    accent: accent,
-                    onTap: onOpenServers,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Reveal(
-                  index: 5,
-                  child: _HomeData(
-                    status: status,
-                    palette: p,
-                    onTap: onOpenAccounts,
-                  ),
-                ),
-              ],
-            ],
+            ),
           ),
+          const SizedBox(height: 14),
+          Reveal(
+            index: 2,
+            child: Center(
+              child: SlideToConnect(
+                on: on,
+                busy: core.switchingProxy,
+                accent: accent,
+                dark: p.dark,
+                card: p.card,
+                border: p.cardBorder,
+                text: p.text,
+                muted: p.muted,
+                labelConnect: l.slideToConnect,
+                labelDisconnect: l.slideToDisconnect,
+                // The state's word stays in the track once connected;
+                // while the connection is still being confirmed the
+                // track keeps the connect hint (nothing is claimed yet).
+                labelOn: confirming ? '' : l.stateConnected,
+                tooltip: press,
+                // A TV starts on the switch, its ring showing.
+                autofocus: Platform.isAndroid && AndroidCore.isTv,
+                // No account yet: the accounts page, which explains
+                // them and links to Mozilla's sign-up.
+                onPressed: () => status.totalAccounts == 0
+                    ? _openAccounts(context, core, settings, onOpenAccounts)
+                    : runShowingErrors(context, () => _toggle(on)),
+              ),
+            ),
+          ),
+          SizedBox(height: short ? 8 : 14),
+          if (connected) ...[
+            // The connection's numbers, in the page itself: the time
+            // it has been up, the real delay, the live rates.
+            _HomeStats(
+              core: core,
+              status: status,
+              palette: p,
+              startedAt: proxy?.startedAt,
+              pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+              showTraffic: settings.showTraffic,
+            ),
+            if (ip.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: _HomeRow(
+                  palette: p,
+                  icon: Icons.public_rounded,
+                  label: l.publicIp,
+                  value: ltr(ip),
+                ),
+              ),
+            if (status.upstreamProxy.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Center(
+                  child: _UpstreamProxyPill(
+                    address: status.upstreamProxy,
+                    palette: p,
+                    onPressed: onOpenUpstreamProxy,
+                  ),
+                ),
+              ),
+          ] else if (failing || noNetwork || gaveUp)
+            // Not connecting stands out from the ordinary hints.
+            problem(
+              _ProblemBox(
+                text: noNetwork
+                    ? l.noNetwork
+                    : failure != null
+                    ? failure.text
+                    : failureCodeText(l, status.connectFailure),
+                color: p.error,
+                icon: Icons.error_outline_rounded,
+                tooltip: noNetwork ? '' : failure?.detail ?? '',
+              ),
+            )
+          else
+            // A start failure's hint is general; the core's reason is
+            // on a long press.
+            Tooltip(
+              message:
+                  !status.connectPending && status.state.phase == Phase.error
+                  ? status.state.message
+                  : '',
+              child: Text(
+                look.hint.isNotEmpty ? look.hint : press,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(color: p.muted),
+              ),
+            ),
+          // Where to find the proxy, on a line of its own under the delay.
+          if (connected && proxyOnly && proxy != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Center(
+                child: _HomePill(
+                  palette: p,
+                  child: Text(
+                    '${l.modeProxyOnly} ${ltr('127.0.0.1:${portOf(proxy.listen) ?? 10810}')}',
+                    style: theme.textTheme.labelLarge?.copyWith(color: p.muted),
+                  ),
+                ),
+              ),
+            ),
+          if (failure?.code == Failure.unreachable && onOpenConnection != null)
+            _ConnectionSettingsButton(onPressed: onOpenConnection!),
+          if (failure?.code == Failure.upstreamProxy &&
+              onOpenUpstreamProxy != null)
+            _ConnectionSettingsButton(
+              onPressed: onOpenUpstreamProxy!,
+              label: AppLocalizations.of(context).upstreamProxy,
+            ),
+          if (!connected &&
+              status.upstreamProxy.isNotEmpty &&
+              failure?.code != Failure.upstreamProxy)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Center(
+                child: _UpstreamProxyPill(
+                  address: status.upstreamProxy,
+                  palette: p,
+                  onPressed: onOpenUpstreamProxy,
+                ),
+              ),
+            ),
+          if (isLocationRefused(failure?.code ?? '') ||
+              (gaveUp && isLocationRefused(status.connectFailure)))
+            _RecommendedLocationButton(core: core),
+          if (connected && mismatch != null)
+            problem(_ExitMismatchNote(text: mismatch)),
+          if (canSwitch &&
+              status.systemProxySet &&
+              status.systemProxyTakenBy != null)
+            problem(
+              _SystemProxyTakenNote(core: core, by: status.systemProxyTakenBy!),
+            ),
+          if (status.state.proxyPortBlocked) ...[
+            const SizedBox(height: 12),
+            Center(
+              child: FilledButton.tonalIcon(
+                onPressed: () async {
+                  final port = await showPortDialog(
+                    context,
+                    taken: status.state.address,
+                  );
+                  if (port != null && context.mounted) {
+                    await runShowingErrors(
+                      context,
+                      () => core.setProxyPort(port),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.settings_ethernet_rounded),
+                label: Text(l.changePort),
+              ),
+            ),
+          ],
+          if (running &&
+              proxy != null &&
+              !canSwitch &&
+              sharedWithLan(proxy.listen)) ...[
+            const SizedBox(height: 10),
+            Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
+          ],
+          const Spacer(),
+          SizedBox(height: short ? 12 : 16),
+          _UpdateNotice(core: core, settings: settings, palette: p),
+          _UdpNotice(status: status, settings: settings, palette: p),
+          _Notices(notices: homeNotices(status.notices)),
+          _LowQuotaNotice(
+            core: core,
+            status: status,
+            settings: settings,
+            connected: connected,
+            palette: p,
+          ),
+          if (short)
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: _PlaceCard(
+                      palette: p,
+                      place: place,
+                      accent: accent,
+                      onTap: onOpenServers,
+                      compact: true,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _HomeData(
+                      status: status,
+                      palette: p,
+                      onTap: onOpenAccounts,
+                      compact: true,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          else ...[
+            Reveal(
+              index: 4,
+              child: _PlaceCard(
+                palette: p,
+                place: place,
+                accent: accent,
+                onTap: onOpenServers,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Reveal(
+              index: 5,
+              child: _HomeData(
+                status: status,
+                palette: p,
+                onTap: onOpenAccounts,
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }
@@ -1539,6 +1529,7 @@ class _HomeStats extends StatelessWidget {
     required this.palette,
     required this.startedAt,
     required this.pingMs,
+    this.showTraffic = true,
   });
 
   final CoreController core;
@@ -1546,6 +1537,9 @@ class _HomeStats extends StatelessWidget {
   final _HomePalette palette;
   final DateTime? startedAt;
   final int? pingMs;
+
+  /// The setting: the live up/down cards show while it is on.
+  final bool showTraffic;
 
   @override
   Widget build(BuildContext context) {
@@ -1612,18 +1606,20 @@ class _HomeStats extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        stat(
-          card(
-            Icons.south_rounded,
-            l.statDown,
-            Text(formatRate(traffic?.downRate ?? 0)),
+        // The live rates, until the setting turns them off.
+        if (showTraffic)
+          stat(
+            card(
+              Icons.south_rounded,
+              l.statDown,
+              Text(formatRate(traffic?.downRate ?? 0)),
+            ),
+            card(
+              Icons.north_rounded,
+              l.statUp,
+              Text(formatRate(traffic?.upRate ?? 0)),
+            ),
           ),
-          card(
-            Icons.north_rounded,
-            l.statUp,
-            Text(formatRate(traffic?.upRate ?? 0)),
-          ),
-        ),
       ],
     );
   }
@@ -1883,8 +1879,7 @@ class _PowerOrb extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color:
-                        on
+                    color: on
                         ? accent.withValues(alpha: 0.5)
                         : Colors.black.withValues(alpha: p.dark ? 0.45 : 0.14),
                     blurRadius: on ? 36 : 26,
@@ -2583,10 +2578,7 @@ class _UdpNoticeState extends State<_UdpNotice> {
             padding: const EdgeInsetsDirectional.fromSTEB(14, 8, 6, 8),
             child: Row(
               children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: StatusColors.busy,
-                ),
+                Icon(Icons.warning_amber_rounded, color: StatusColors.busy),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(

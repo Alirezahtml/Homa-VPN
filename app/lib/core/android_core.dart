@@ -228,6 +228,16 @@ class AndroidCore {
     showSpeed.value = on;
   }
 
+  /// Keeps the phone's screen awake (the window's keep-screen-on flag)
+  /// while the VPN is on; the setting's effect (MainActivity.kt).
+  static Future<void> setKeepScreenOn(bool on) async {
+    try {
+      await _channel.invokeMethod<void>('setKeepScreenOn', {'on': on});
+    } on PlatformException {
+      // A TV or an odd window: the flag is a wish, not a promise.
+    }
+  }
+
   /// Keeps the mode; a running proxy switches at once. Switching to the
   /// VPN the first time turns it off and on again, so Android asks for the
   /// VPN permission; it throws [VpnNotAllowed] when the user refuses.

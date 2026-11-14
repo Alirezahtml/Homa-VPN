@@ -119,9 +119,7 @@ ThemeData _theme(Brightness brightness, Locale locale) {
         fontFamily: font,
       ),
     ),
-    listTileTheme: ListTileThemeData(
-      iconColor: scheme.onSurfaceVariant,
-    ),
+    listTileTheme: ListTileThemeData(iconColor: scheme.onSurfaceVariant),
     dividerTheme: DividerThemeData(
       thickness: 1,
       color: scheme.outlineVariant.withValues(alpha: 0.5),
@@ -404,13 +402,17 @@ class _ShellState extends State<Shell> {
       // window: the phone layout, Home and Settings. The computer layout
       // offers computer-only choices, such as Windows' system proxy.
       if (Platform.isAndroid || MediaQuery.sizeOf(context).width < 640) {
-        return MobileShell(
+        return _KeepScreenOn(
           core: core,
           settings: widget.settings,
-          banner: core.unavailable != null && status != null
-              ? const _LostBanner()
-              : null,
-          noCore: status == null ? _NoCore(core: core) : null,
+          child: MobileShell(
+            core: core,
+            settings: widget.settings,
+            banner: core.unavailable != null && status != null
+                ? const _LostBanner()
+                : null,
+            noCore: status == null ? _NoCore(core: core) : null,
+          ),
         );
       }
       return Scaffold(
@@ -472,6 +474,43 @@ class _ShellState extends State<Shell> {
       );
     },
   );
+}
+
+/// Applies the keep-awake setting: the phone's screen stays on while the
+/// VPN carries the traffic, when the setting asks for it. The flag goes to
+/// the window once per change, not once per build.
+class _KeepScreenOn extends StatefulWidget {
+  const _KeepScreenOn({
+    required this.core,
+    required this.settings,
+    required this.child,
+  });
+
+  final CoreController core;
+  final AppSettings settings;
+  final Widget child;
+
+  @override
+  State<_KeepScreenOn> createState() => _KeepScreenOnState();
+}
+
+class _KeepScreenOnState extends State<_KeepScreenOn> {
+  bool _applied = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final status = widget.core.status;
+    final want =
+        widget.settings.keepScreenOn &&
+        status != null &&
+        status.proxyOn &&
+        status.state.phase == Phase.running;
+    if (want != _applied) {
+      _applied = want;
+      AndroidCore.setKeepScreenOn(want);
+    }
+    return widget.child;
+  }
 }
 
 /// The side menu's traffic: the speed now and the total since the core
@@ -647,9 +686,7 @@ class _NoCore extends StatelessWidget {
                                 );
                               }
                             },
-                            icon: const Icon(
-                              Icons.settings_ethernet_rounded,
-                            ),
+                            icon: const Icon(Icons.settings_ethernet_rounded),
                             label: Text(l.changePort),
                           ),
                         FilledButton.tonalIcon(

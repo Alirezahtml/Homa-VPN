@@ -65,6 +65,18 @@ class AppSettings extends ChangeNotifier {
   /// until the user turns it on. The core decides how (Daemon.AutoConnect).
   bool autoConnect = false;
 
+  /// A short vibration when the connection goes on or off; on unless the
+  /// user turned it off.
+  bool hapticFeedback = true;
+
+  /// Keeps the phone's screen awake while the VPN is on; off unless the
+  /// user turned it on.
+  bool keepScreenOn = false;
+
+  /// The home page's live traffic cards (up and down now); on unless the
+  /// user turned them off.
+  bool showTraffic = true;
+
   /// The home page's card when TUN mode refused a program's call or game
   /// (UDP); on unless the user turned it off.
   bool udpNotice = true;
@@ -219,6 +231,9 @@ class AppSettings extends ChangeNotifier {
         };
         s.autostart = j['autostart'] != false;
         s.autoConnect = j['auto_connect'] == true;
+        s.hapticFeedback = j['haptic_feedback'] != false;
+        s.keepScreenOn = j['keep_screen_on'] == true;
+        s.showTraffic = j['show_traffic'] != false;
         s.udpNotice = j['udp_notice'] != false;
         if (j['hidden_connection_columns'] case final List<Object?> v) {
           s.hiddenConnectionColumns = {...v.whereType<String>()};
@@ -251,6 +266,9 @@ class AppSettings extends ChangeNotifier {
     Map<String, int>? announcementAcknowledged,
     bool? autostart,
     bool? autoConnect,
+    bool? hapticFeedback,
+    bool? keepScreenOn,
+    bool? showTraffic,
     bool? udpNotice,
     Set<String>? hiddenConnectionColumns,
   }) {
@@ -259,6 +277,9 @@ class AppSettings extends ChangeNotifier {
     this.udpNotice = udpNotice ?? this.udpNotice;
     this.autostart = autostart ?? this.autostart;
     this.autoConnect = autoConnect ?? this.autoConnect;
+    this.hapticFeedback = hapticFeedback ?? this.hapticFeedback;
+    this.keepScreenOn = keepScreenOn ?? this.keepScreenOn;
+    this.showTraffic = showTraffic ?? this.showTraffic;
     this.showPublicIp = showPublicIp ?? this.showPublicIp;
     this.lowQuotaDismissedAt = lowQuotaDismissedAt ?? this.lowQuotaDismissedAt;
     this.dismissedUpdate = dismissedUpdate ?? this.dismissedUpdate;
@@ -303,6 +324,9 @@ class AppSettings extends ChangeNotifier {
           'announcement_acknowledged': announcementAcknowledged,
           'autostart': autostart,
           'auto_connect': autoConnect,
+          'haptic_feedback': hapticFeedback,
+          'keep_screen_on': keepScreenOn,
+          'show_traffic': showTraffic,
           'udp_notice': udpNotice,
           'hidden_connection_columns': hiddenConnectionColumns.toList(),
         }),

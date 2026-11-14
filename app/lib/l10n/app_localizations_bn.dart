@@ -1063,6 +1063,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get showPublicIp => 'পাবলিক IP দেখান';
 
   @override
+  String get hapticFeedback => 'সংযোগ বদলালে কম্পন';
+
+  @override
+  String get keepScreenOn => 'সংযুক্ত থাকলে স্ক্রিন জাগ্রত রাখো';
+
+  @override
+  String get showTraffic => 'হোম পেজে লাইভ ট্রাফিক দেখাও';
+
+  @override
   String get speedInNotification => 'বিজ্ঞপ্তিতে গতি দেখান';
 
   @override

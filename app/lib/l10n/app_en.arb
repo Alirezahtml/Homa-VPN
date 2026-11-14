@@ -626,6 +626,9 @@
     }
   },
   "showPublicIp": "Show the public IP",
+  "hapticFeedback": "Vibrate when the connection changes",
+  "keepScreenOn": "Keep the screen awake while connected",
+  "showTraffic": "Show live traffic on the home page",
   "speedInNotification": "Show speed in the notification",
   "liveTraffic": "Live traffic",
   "totalTraffic": "Total traffic",

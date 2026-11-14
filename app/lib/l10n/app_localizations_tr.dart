@@ -1065,6 +1065,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get showPublicIp => 'Genel IP\'yi göster';
 
   @override
+  String get hapticFeedback => 'Bağlantı değişince titret';
+
+  @override
+  String get keepScreenOn => 'Bağlıyken ekranı açık tut';
+
+  @override
+  String get showTraffic => 'Ana sayfada canlı trafiği göster';
+
+  @override
   String get speedInNotification => 'Bildirimde hızı göster';
 
   @override

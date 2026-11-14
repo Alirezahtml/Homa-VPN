@@ -1065,6 +1065,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get showPublicIp => 'Hiện IP công khai';
 
   @override
+  String get hapticFeedback => 'Rung khi kết nối thay đổi';
+
+  @override
+  String get keepScreenOn => 'Giữ màn hình sáng khi đang kết nối';
+
+  @override
+  String get showTraffic => 'Hiển thị lưu lượng trực tiếp trên trang chủ';
+
+  @override
   String get speedInNotification => 'Hiện tốc độ trong thông báo';
 
   @override

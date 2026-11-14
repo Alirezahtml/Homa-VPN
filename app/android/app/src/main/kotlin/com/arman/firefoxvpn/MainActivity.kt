@@ -13,6 +13,7 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.WindowManager
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -136,6 +137,16 @@ class MainActivity : FlutterActivity() {
                 "showSpeed" -> result.success(CoreService.showSpeed(this))
                 "setShowSpeed" -> {
                     CoreService.setShowSpeed(this, call.argument<Boolean>("on") == true)
+                    result.success(null)
+                }
+                // Keeps the screen awake while the VPN is on (the setting's
+                // flag on this window).
+                "setKeepScreenOn" -> {
+                    if (call.argument<Boolean>("on") == true) {
+                        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    } else {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    }
                     result.success(null)
                 }
                 "setConnectionMode" -> {

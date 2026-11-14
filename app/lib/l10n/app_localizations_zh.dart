@@ -1034,6 +1034,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get showPublicIp => '显示公网 IP';
 
   @override
+  String get hapticFeedback => '连接状态变化时振动';
+
+  @override
+  String get keepScreenOn => '连接期间保持屏幕常亮';
+
+  @override
+  String get showTraffic => '在主页显示实时流量';
+
+  @override
   String get speedInNotification => '在通知中显示速度';
 
   @override
@@ -2659,6 +2668,15 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get showPublicIp => '顯示公用 IP';
+
+  @override
+  String get hapticFeedback => '連線狀態變更時震動';
+
+  @override
+  String get keepScreenOn => '連線期間保持螢幕恆亮';
+
+  @override
+  String get showTraffic => '在首頁顯示即時流量';
 
   @override
   String get speedInNotification => '在通知中顯示速度';

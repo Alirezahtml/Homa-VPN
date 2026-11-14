@@ -1066,6 +1066,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get showPublicIp => 'Tampilkan IP publik';
 
   @override
+  String get hapticFeedback => 'Getar saat koneksi berubah';
+
+  @override
+  String get keepScreenOn => 'Biarkan layar tetap menyala saat terhubung';
+
+  @override
+  String get showTraffic => 'Tampilkan lalu lintas langsung di halaman utama';
+
+  @override
   String get speedInNotification => 'Tampilkan kecepatan di notifikasi';
 
   @override

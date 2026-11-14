@@ -1071,6 +1071,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get showPublicIp => 'إظهار عنوان IP العام';
 
   @override
+  String get hapticFeedback => 'اهتزاز عند تغيير الاتصال';
+
+  @override
+  String get keepScreenOn => 'إبقاء الشاشة مضاءة أثناء الاتصال';
+
+  @override
+  String get showTraffic => 'إظهار حركة المرور المباشرة في الصفحة الرئيسية';
+
+  @override
   String get speedInNotification => 'عرض السرعة في الإشعار';
 
   @override

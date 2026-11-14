@@ -1971,6 +1971,24 @@ abstract class AppLocalizations {
   /// **'Show the public IP'**
   String get showPublicIp;
 
+  /// No description provided for @hapticFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrate when the connection changes'**
+  String get hapticFeedback;
+
+  /// No description provided for @keepScreenOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screen awake while connected'**
+  String get keepScreenOn;
+
+  /// No description provided for @showTraffic.
+  ///
+  /// In en, this message translates to:
+  /// **'Show live traffic on the home page'**
+  String get showTraffic;
+
   /// No description provided for @speedInNotification.
   ///
   /// In en, this message translates to:
