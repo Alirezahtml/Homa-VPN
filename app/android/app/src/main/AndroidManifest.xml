@@ -10,6 +10,12 @@
     <!-- The app's own updates: a newer version downloads by itself, then
          Android's installer asks to install it. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- Android 16's Live Updates: the connected VPN's notification may be
+         promoted above the shade, where its duration and speeds keep
+         running. The system decides; the app only asks. -->
+    <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
+    <!-- Connect after the phone starts, when the user asked for it. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- The apps a user can route: also the system's, which have no icon
          (Google Play services, the download manager). The app is not on
          Google Play, whose rules limit this permission. -->
@@ -117,6 +123,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <!-- Connects after the phone starts (the user's choice). Only the
+            system sends BOOT_COMPLETED, so no other app can wake this. -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

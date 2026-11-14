@@ -5,7 +5,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Connecting…</string>
     <string name="notification_no_network">No internet connection</string>
-    <string name="notification_blocked">Blocked (kill switch)</string>
+    <string name="notification_blocked">Traffic blocked · reconnecting…</string>
     <string name="notification_proxy">Proxy only · %1$s</string>
     <string name="notification_stop">Disconnect</string>
     <!-- The home-screen widget: its name and description in the widget

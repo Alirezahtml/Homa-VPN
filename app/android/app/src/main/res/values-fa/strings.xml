@@ -3,7 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">در حال اتصال…</string>
     <string name="notification_no_network">اتصال اینترنت برقرار نیست</string>
-    <string name="notification_blocked">مسدود شد (کلید قطع اضطراری)</string>
+    <string name="notification_blocked">ترافیک مسدود شد · در حال اتصال مجدد…</string>
     <string name="notification_proxy">فقط پروکسی · %1$s</string>
     <string name="notification_stop">قطع اتصال</string>
     <!-- The home-screen widget: its name and description in the widget

@@ -3,7 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Đang kết nối…</string>
     <string name="notification_no_network">Không có kết nối internet</string>
-    <string name="notification_blocked">Đã chặn (công tắc ngắt)</string>
+    <string name="notification_blocked">Đã chặn lưu lượng · đang kết nối lại…</string>
     <string name="notification_proxy">Chỉ proxy · %1$s</string>
     <string name="notification_stop">Ngắt kết nối</string>
     <!-- The home-screen widget: its name and description in the widget

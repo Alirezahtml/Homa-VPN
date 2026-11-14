@@ -56,6 +56,11 @@ class CoreService : VpnService() {
     @Volatile
     private var offline = false
 
+    /** When this session's exit country became known: the notification's
+     * chronometer (the connected time) runs from it. */
+    @Volatile
+    private var connectedAt = 0L
+
     /** onDestroy ran: a network callback still in flight must not post again. */
     @Volatile
     private var destroyed = false
@@ -124,11 +129,20 @@ class CoreService : VpnService() {
                 else -> ""
             }
             connected = on && code.length == 2
+            if (connected && connectedAt == 0L) connectedAt = System.currentTimeMillis()
             IslandOverlay.refresh(this@CoreService)
             ConnectWidget.updateAll(this@CoreService)
             // Proxy mode names the address apps connect to; the VPN needs none.
             val proxy = if (usesVpn(this@CoreService) || !mobile.Mobile.running()) "" else mobile.Mobile.proxyAddress()
-            val speed = if (showSpeed(this@CoreService) && !offline && mobile.Mobile.running()) speedText(mobile.Mobile.speed()) else ""
+            // The live notification (Android 16 and later) carries the
+            // session's speed and duration; older Androids keep the user's
+            // choice (showSpeed).
+            val speed = when {
+                offline || !mobile.Mobile.running() -> ""
+                connected && Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA -> speedText(mobile.Mobile.speed())
+                showSpeed(this@CoreService) -> speedText(mobile.Mobile.speed())
+                else -> ""
+            }
             if (code != shownCountry || proxy != shownProxy || speed != shownSpeed) {
                 shownCountry = code
                 shownProxy = proxy
@@ -463,6 +477,32 @@ class CoreService : VpnService() {
             @Suppress("DEPRECATION")
             Notification.Builder(this)
         }
+        // The connected time runs in the notification by itself.
+        if (connected && connectedAt > 0) {
+            builder.setUsesChronometer(true).setWhen(connectedAt)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+            // A Live Update: the system may promote it to the space above
+            // the shade, where the duration and the speed keep running.
+            builder
+                .setCategory(Notification.CATEGORY_PROGRESS)
+                .setShortCriticalText(state)
+            if (code.isEmpty() && !offline) {
+                builder.setStyle(
+                    Notification.ProgressStyle()
+                        .setProgressSegments(
+                            listOf(
+                                Notification.ProgressStyle.Segment(1).setColor(0xFF5B5BD6.toInt()),
+                            ),
+                        )
+                        .setProgressIndeterminate(true),
+                )
+            } else {
+                builder.setStyle(Notification.BigTextStyle().bigText(text))
+            }
+        } else {
+            builder.setStyle(Notification.BigTextStyle().bigText(text))
+        }
         return builder
             .setSmallIcon(R.drawable.ic_stat_logo)
             // The official brand tile beside the text: the launcher icon's
@@ -470,7 +510,6 @@ class CoreService : VpnService() {
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
             .setContentTitle(getString(R.string.app_name))
             .setContentText(text)
-            .setStyle(Notification.BigTextStyle().bigText(text))
             .setContentIntent(open)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
@@ -508,6 +547,17 @@ class CoreService : VpnService() {
             prefs(context).edit().putBoolean(SHOW_SPEED, on).apply()
         }
 
+        /** Whether the phone connects by itself after it starts (the
+         * BootReceiver): the VPN permission must already be granted. */
+        private const val AUTO_CONNECT_BOOT = "auto_connect_boot"
+
+        fun autoConnectOnBoot(context: Context) =
+            prefs(context).getBoolean(AUTO_CONNECT_BOOT, false)
+
+        fun setAutoConnectOnBoot(context: Context, on: Boolean) {
+            prefs(context).edit().putBoolean(AUTO_CONNECT_BOOT, on).apply()
+        }
+
         /** The kill switch: a broken path keeps the VPN up — the traffic is
          * held, nothing leaks — while the app puts the path back. */
         private const val KILL_SWITCH = "kill_switch"
@@ -515,7 +565,7 @@ class CoreService : VpnService() {
         /** How often the kill switch re-asks a core that gave up. */
         private const val CORE_RETRY_MS = 30_000L
 
-        fun killSwitch(context: Context) = prefs(context).getBoolean(KILL_SWITCH, false)
+        fun killSwitch(context: Context) = prefs(context).getBoolean(KILL_SWITCH, true)
 
         fun setKillSwitch(context: Context, on: Boolean) {
             prefs(context).edit().putBoolean(KILL_SWITCH, on).apply()

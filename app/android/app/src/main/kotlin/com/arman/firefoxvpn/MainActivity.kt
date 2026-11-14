@@ -148,6 +148,11 @@ class MainActivity : FlutterActivity() {
                     }
                 }
                 "isRunning" -> result.success(mobile.Mobile.running())
+                "autoConnectBoot" -> result.success(CoreService.autoConnectOnBoot(this))
+                "setAutoConnectBoot" -> {
+                    CoreService.setAutoConnectOnBoot(this, call.argument<Boolean>("on") == true)
+                    result.success(null)
+                }
                 "lastError" -> result.success(mobile.Mobile.lastError())
                 "connectionMode" -> result.success(CoreService.connectionMode(this))
                 "showSpeed" -> result.success(CoreService.showSpeed(this))

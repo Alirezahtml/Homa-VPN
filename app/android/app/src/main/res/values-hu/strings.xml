@@ -3,7 +3,7 @@
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Csatlakozás…</string>
     <string name="notification_no_network">Nincs internetkapcsolat</string>
-    <string name="notification_blocked">Letiltva (biztonsági kapcsoló)</string>
+    <string name="notification_blocked">Forgalom blokkolva · újracsatlakozás…</string>
     <string name="notification_proxy">Csak proxy · %1$s</string>
     <string name="notification_stop">Kapcsolat bontása</string>
     <!-- The home-screen widget: its name and description in the widget
