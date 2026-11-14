@@ -17,6 +17,7 @@ import '../platform.dart';
 import 'accent.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
+import 'flag_carousel.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
@@ -1224,6 +1225,21 @@ class _PhoneHome extends StatelessWidget {
         children: [
           // The brand: the official wordmark, in the theme's face.
           Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
+          const SizedBox(height: 12),
+          // The countries' wheel: drag to the one the traffic leaves
+          // from; it is the servers page's choice, read from the core.
+          Reveal(
+            index: 1,
+            child: FlagCarousel(
+              core: core,
+              text: p.text,
+              muted: p.muted,
+              card: p.card,
+              border: p.cardBorder,
+              accent: accent,
+              onOpenServers: onOpenServers,
+            ),
+          ),
           const Spacer(),
           // The hero (the state's word, the switch, its cards) sits a
           // touch under the middle: 3.4% of the page's height lower. The

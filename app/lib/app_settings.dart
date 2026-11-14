@@ -117,13 +117,6 @@ class AppSettings extends ChangeNotifier {
   /// protocol. Kept in this file.
   Set<String> hiddenConnectionColumns = {'inbound', 'traffic', 'duration'};
 
-  /// The user's own color (the Custom color panel). The seed drives the
-  /// whole scheme; the accent recolors the highlights; the intensity says
-  /// how far the seed leans from the app's own. Nulls keep the defaults.
-  int? customSeed;
-  int? customAccent;
-  double colorIntensity = 1.0;
-
   /// The colors the user kept for later (the panel's swatches).
   List<int> savedColors = const [];
 
@@ -301,11 +294,6 @@ class AppSettings extends ChangeNotifier {
         if (j['hidden_connection_columns'] case final List<Object?> v) {
           s.hiddenConnectionColumns = {...v.whereType<String>()};
         }
-        if (j['custom_seed'] case final int v) s.customSeed = v;
-        if (j['custom_accent'] case final int v) s.customAccent = v;
-        if (j['color_intensity'] case final num v) {
-          s.colorIntensity = v.clamp(0.0, 1.0).toDouble();
-        }
         if (j['saved_colors'] case final List<Object?> v) {
           s.savedColors = [...v.whereType<int>()];
         }
@@ -352,18 +340,12 @@ class AppSettings extends ChangeNotifier {
     bool? dataLimit,
     int? dataLimitMb,
     Set<String>? hiddenConnectionColumns,
-    int? customSeed,
-    int? customAccent,
-    double? colorIntensity,
     List<int>? savedColors,
     String? whatsNewSeen,
     bool? gamingProfile,
   }) {
     this.hiddenConnectionColumns =
         hiddenConnectionColumns ?? this.hiddenConnectionColumns;
-    this.customSeed = customSeed ?? this.customSeed;
-    this.customAccent = customAccent ?? this.customAccent;
-    this.colorIntensity = colorIntensity ?? this.colorIntensity;
     this.savedColors = savedColors ?? this.savedColors;
     this.whatsNewSeen = whatsNewSeen ?? this.whatsNewSeen;
     this.gamingProfile = gamingProfile ?? this.gamingProfile;
@@ -438,9 +420,6 @@ class AppSettings extends ChangeNotifier {
           'data_limit': dataLimit,
           'data_limit_mb': dataLimitMb,
           'hidden_connection_columns': hiddenConnectionColumns.toList(),
-          'custom_seed': customSeed,
-          'custom_accent': customAccent,
-          'color_intensity': colorIntensity,
           'saved_colors': savedColors,
           'whats_new_seen': whatsNewSeen,
           'gaming_profile': gamingProfile,

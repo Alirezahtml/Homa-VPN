@@ -1864,11 +1864,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get protection => 'Protection';
 
   @override
-  String get killSwitch => 'Kill switch';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Si le tunnel casse, le VPN reste actif et retient le trafic — rien ne fuit.';
+      'Si le VPN tombe, le trafic est retenu — sans fuite — jusqu\'à la reconnexion.';
 
   @override
   String get alwaysOnVpn => 'VPN permanent';
@@ -1883,4 +1883,141 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Affiche la connexion au-dessus des autres apps quand vous quittez l’app.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Nouveautés de la version $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Compris';
+
+  @override
+  String get whatsNewMenu => 'Nouveautés';
+
+  @override
+  String get whatsNewView => 'Revoir';
+
+  @override
+  String get customColorTitle => 'Couleur personnalisée';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Couleur de base';
+
+  @override
+  String get customColorAccent => 'Couleur d\'accent';
+
+  @override
+  String get customColorIntensity => 'Intensité';
+
+  @override
+  String get customColorSwatches => 'Couleurs enregistrées';
+
+  @override
+  String get customColorKeep => 'Garder cette couleur';
+
+  @override
+  String get customColorReset => 'Rétablir par défaut';
+
+  @override
+  String get customColorPreview => 'Aperçu';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'Code HEX';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Mettre à jour les serveurs';
+
+  @override
+  String get updatingServers => 'Mise à jour…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count emplacements de la liste officielle de Mozilla';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'Impossible de mettre à jour la liste ; l\'ancienne est conservée.';
+
+  @override
+  String get smartPickTitle => 'Le plus rapide en ce moment';
+
+  @override
+  String get smartPickUse => 'Utiliser';
+
+  @override
+  String get connectAtBoot => 'Se connecter au démarrage du téléphone';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Profil gaming';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Lancer le diagnostic';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Test de connexion';
+
+  @override
+  String get diagnosticsPassed => 'Réussi';
+
+  @override
+  String get diagnosticsFailed => 'Échoué';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

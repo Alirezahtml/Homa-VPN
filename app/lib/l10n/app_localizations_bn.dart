@@ -1846,7 +1846,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get killSwitchHint =>
-      'টানেল ভেঙে গেলে VPN চালু থাকে এবং ট্রাফিক আটকে রাখে — কিছুই ফাঁস হয় না।';
+      'ভিপিএন বিচ্ছিন্ন হলে ট্রাফিক আটকে রাখা হয় — কোনো ফাঁস নেই — পুনঃসংযোগ পর্যন্ত।';
 
   @override
   String get alwaysOnVpn => 'সর্বদা চালু VPN';
@@ -1861,4 +1861,141 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'অ্যাপের বাইরে থাকলে অন্য অ্যাপের ওপর সংযোগের অবস্থা দেখায়।';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'সংস্করণ $version-এ নতুন কী';
+  }
+
+  @override
+  String get whatsNewContinue => 'বুঝেছি';
+
+  @override
+  String get whatsNewMenu => 'নতুন কী আছে';
+
+  @override
+  String get whatsNewView => 'আবার দেখুন';
+
+  @override
+  String get customColorTitle => 'কাস্টম রঙ';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'মূল রঙ';
+
+  @override
+  String get customColorAccent => 'অ্যাকসেন্ট রঙ';
+
+  @override
+  String get customColorIntensity => 'তীব্রতা';
+
+  @override
+  String get customColorSwatches => 'সংরক্ষিত রঙ';
+
+  @override
+  String get customColorKeep => 'এই রঙ সংরক্ষণ করুন';
+
+  @override
+  String get customColorReset => 'ডিফল্টে ফিরুন';
+
+  @override
+  String get customColorPreview => 'প্রিভিউ';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'HEX কোড';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'সার্ভার আপডেট করুন';
+
+  @override
+  String get updatingServers => 'আপডেট হচ্ছে…';
+
+  @override
+  String serversUpdated(int count) {
+    return 'মোজিলার অফিসিয়াল তালিকা থেকে $countটি অবস্থান';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'সার্ভার তালিকা আপডেট করা যায়নি; আগের তালিকা রাখা হয়েছে।';
+
+  @override
+  String get smartPickTitle => 'এখনকার দ্রুততম';
+
+  @override
+  String get smartPickUse => 'ব্যবহার করুন';
+
+  @override
+  String get connectAtBoot => 'ফোন চালু হলে সংযোগ করুন';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'গেমিং প্রোফাইল';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'ডায়াগনস্টিক চালান';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'সংযোগ পরীক্ষা';
+
+  @override
+  String get diagnosticsPassed => 'সফল';
+
+  @override
+  String get diagnosticsFailed => 'ব্যর্থ';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

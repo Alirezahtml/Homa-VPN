@@ -15,12 +15,16 @@ import '../l10n/app_localizations.dart';
 import '../platform.dart';
 import 'accent.dart';
 import 'bypass_apps_page.dart';
+import 'color_picker_page.dart';
 import 'connection_mode.dart';
+import '../core/diagnostics.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
 import 'relay_test_dialog.dart';
 import 'widgets.dart';
+
+/// The makers' social row and the rest of the page: this file's own state.
 
 /// The program file the user picks in the system's open dialog (title, the
 /// kind of file); tests replace it.
@@ -576,7 +580,61 @@ class _SettingsPageState extends State<SettingsPage> {
               onChanged: (v) => s.update(autoInstallApk: v),
             ),
           ),
+          // Connect when the phone starts (the BootReceiver): the VPN
+          // permission must already be granted, which a first connect does.
+          ValueListenableBuilder(
+            valueListenable: AndroidCore.autoConnectBoot,
+            builder: (context, on, _) => _Row(
+              icon: Icons.restart_alt_rounded,
+              label: l.connectAtBoot,
+              value: l.connectAtBootHint,
+              child: Switch(
+                value: on,
+                onChanged: (v) => runShowingErrors(
+                  context,
+                  () => AndroidCore.setAutoConnectBoot(v),
+                ),
+              ),
+            ),
+          ),
         ],
+        // Gaming: the connection's real delay and quality at a glance, and
+        // the notification's live speed; it promises nothing about ping.
+        _Row(
+          icon: Icons.sports_esports_rounded,
+          label: l.gamingProfile,
+          value: l.gamingProfileHint,
+          child: Switch(
+            value: s.gamingProfile,
+            onChanged: (v) {
+              s.update(gamingProfile: v);
+              if (v && Platform.isAndroid && !AndroidCore.showSpeed.value) {
+                runShowingErrors(
+                  context,
+                  () => AndroidCore.setShowSpeed(true),
+                );
+              }
+            },
+          ),
+        ),
+        _Row(
+          icon: Icons.healing_rounded,
+          label: l.diagnosticsRun,
+          value: l.diagnosticsHint,
+          child: IconButton(
+            icon: const Icon(Icons.chevron_right_rounded),
+            onPressed: () => showDiagnostics(context, widget.core),
+          ),
+        ),
+        _Row(
+          icon: Icons.color_lens_outlined,
+          label: l.customColorTitle,
+          value: l.customColorHint,
+          child: IconButton(
+            icon: const Icon(Icons.chevron_right_rounded),
+            onPressed: () => _openColorPicker(context, s),
+          ),
+        ),
         if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
           _Row(
             icon: Icons.power_settings_new_rounded,
@@ -669,6 +727,15 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     ),
   );
+
+  /// The Custom color panel, on a page of its own.
+  void _openColorPicker(BuildContext context, AppSettings s) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) => ColorPickerPage(settings: s),
+      ),
+    );
+  }
 
   Widget _connection(AppLocalizations l) {
     final status = _core.status;

@@ -2,7 +2,7 @@ name: arman_vpn
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
 
-version: 1.0.28+149
+version: 1.0.29+150
 
 environment:
   sdk: ^3.13.5
@@ -45,6 +45,9 @@ flutter:
     # Country flags from flag-icons (MIT, assets/flags/LICENSE), the same
     # SVG files as the core's web dashboard.
     - assets/flags/
+    # Mozilla's mark (protocol-assets), for the recommended location,
+    # which Mozilla's recommender chooses.
+    - assets/brand/
     - assets/fonts/Inter/OFL.txt
     # The home's world map: a quiet dot-matrix in the theme's ink
     # (scripts/make_world_map.py), light ink for the dark theme.

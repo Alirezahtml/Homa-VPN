@@ -92,8 +92,8 @@ Future<void> runAndroid() async {
   final dataDir = await AndroidCore.dataDir();
   final settings = await AppSettings.load(dataDir);
   await AndroidCore.loadMode();
-  // The connection safety switches live on the Android side (CoreService.kt).
-  await AndroidCore.loadKillSwitch();
+  // The connection safety switches live on the Android side (CoreService.kt);
+  // the kill switch rides in with loadMode, the boot choice loads here.
   await AndroidCore.loadAutoConnectBoot();
   await AndroidCore.prepareFirstRunRouting(
     settings,

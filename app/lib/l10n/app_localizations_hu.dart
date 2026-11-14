@@ -1861,11 +1861,11 @@ class AppLocalizationsHu extends AppLocalizations {
   String get protection => 'Védelem';
 
   @override
-  String get killSwitch => 'Biztonsági kapcsoló';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Ha az alagút megszakad, a VPN bekapcsolva marad, és visszatartja a forgalmat — semmi nem szivárog.';
+      'Ha a VPN megszakad, a forgalom visszatartva — szivárgás nélkül — amíg újra csatlakozik.';
 
   @override
   String get alwaysOnVpn => 'Mindig bekapcsolt VPN';
@@ -1880,4 +1880,141 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Amíg az alkalmazáson kívül van, a többi alkalmazás fölött mutatja a kapcsolatot.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Új ebben a verzióban ($version)';
+  }
+
+  @override
+  String get whatsNewContinue => 'Rendben';
+
+  @override
+  String get whatsNewMenu => 'Újdonságok';
+
+  @override
+  String get whatsNewView => 'Megint megtekintés';
+
+  @override
+  String get customColorTitle => 'Egyéni szín';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Alapszín';
+
+  @override
+  String get customColorAccent => 'Kiemelő szín';
+
+  @override
+  String get customColorIntensity => 'Erősség';
+
+  @override
+  String get customColorSwatches => 'Mentett színek';
+
+  @override
+  String get customColorKeep => 'Szín mentése';
+
+  @override
+  String get customColorReset => 'Vissza az alapértelmezettre';
+
+  @override
+  String get customColorPreview => 'Előnézet';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'HEX kód';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Szerverek frissítése';
+
+  @override
+  String get updatingServers => 'Frissítés…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count helyszín a Mozilla hivatalos listájából';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'A szerverlista frissítése nem sikerült; a régi lista megmaradt.';
+
+  @override
+  String get smartPickTitle => 'Most a leggyorsabb';
+
+  @override
+  String get smartPickUse => 'Használat';
+
+  @override
+  String get connectAtBoot => 'Csatlakozás a telefon bekapcsolása után';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Játék profil';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Diagnosztika futtatása';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Kapcsolat teszt';
+
+  @override
+  String get diagnosticsPassed => 'Sikeres';
+
+  @override
+  String get diagnosticsFailed => 'Sikertelen';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

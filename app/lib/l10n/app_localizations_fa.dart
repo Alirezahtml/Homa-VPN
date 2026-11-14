@@ -1838,7 +1838,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get killSwitchHint =>
-      'اگر تونل قطع شود، VPN بالا می‌ماند و ترافیک نگه داشته می‌شود — هیچ نشتی رخ نمی‌دهد.';
+      'اگر VPN قطع شود، ترافیک نگه داشته می‌شود — هرگز نشت نمی‌کند — تا اتصال برقرار شود.';
 
   @override
   String get alwaysOnVpn => 'VPN همیشه‌روشن';
@@ -1853,4 +1853,140 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'وقتی از برنامه بیرون هستید، وضعیت اتصال را روی دیگر برنامه‌ها نشان می‌دهد.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'امکانات جدید نسخه $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'متوجه شدم';
+
+  @override
+  String get whatsNewMenu => 'تغییرات نسخه';
+
+  @override
+  String get whatsNewView => 'مشاهده دوباره';
+
+  @override
+  String get customColorTitle => 'رنگ دلخواه';
+
+  @override
+  String get customColorHint =>
+      'هر رنگی برای برنامه انتخاب کنید، با پیش‌نمایش زنده';
+
+  @override
+  String get customColorSeed => 'رنگ اصلی';
+
+  @override
+  String get customColorAccent => 'رنگ تأکیدی';
+
+  @override
+  String get customColorIntensity => 'شدت رنگ';
+
+  @override
+  String get customColorSwatches => 'رنگ‌های ذخیره‌شده';
+
+  @override
+  String get customColorKeep => 'ذخیره این رنگ';
+
+  @override
+  String get customColorReset => 'بازگشت به پیش‌فرض';
+
+  @override
+  String get customColorPreview => 'پیش‌نمایش';
+
+  @override
+  String get customColorNote =>
+      'خوانایی متن و آیکون‌ها در حالت روشن و تاریک حفظ می‌شود؛ رنگ‌ها در کل برنامه اعمال و پس از بستن هم می‌مانند.';
+
+  @override
+  String get customColorHex => 'کد HEX';
+
+  @override
+  String get customColorPreviewButton => 'اتصال';
+
+  @override
+  String get customColorPreviewChip => 'محافظت‌شده';
+
+  @override
+  String get customColorPreviewSwitch => 'به‌روزرسانی زنده';
+
+  @override
+  String get updateServers => 'بروزرسانی سرورها';
+
+  @override
+  String get updatingServers => 'در حال بروزرسانی…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count لوکیشن از فهرست رسمی موزیلا';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'بروزرسانی فهرست سرورها انجام نشد؛ فهرست قبلی حفظ شد.';
+
+  @override
+  String get smartPickTitle => 'سریع‌ترین در حال حاضر';
+
+  @override
+  String get smartPickUse => 'استفاده';
+
+  @override
+  String get connectAtBoot => 'اتصال پس از روشن شدن گوشی';
+
+  @override
+  String get connectAtBootHint =>
+      'هنگام روشن شدن گوشی خودکار وصل می‌شود، اگر اجازه VPN از قبل داده شده باشد.';
+
+  @override
+  String get gamingProfile => 'حالت بازی';
+
+  @override
+  String get gamingProfileHint =>
+      'پینگ و کیفیت واقعی اتصال را زنده نشان می‌دهد؛ با سریع‌ترین سرور اندازه‌گیری‌شده همراه است.';
+
+  @override
+  String get diagnosticsRun => 'اجرای عیب‌یابی';
+
+  @override
+  String get diagnosticsHint => 'اتصال، DNS و تونل، با یک ضربه';
+
+  @override
+  String get diagnosticsTunnel => 'تونل';
+
+  @override
+  String get diagnosticsTunnelUp => 'برقرار و در حال انتقال ترافیک';
+
+  @override
+  String get diagnosticsTunnelDown => 'قطع';
+
+  @override
+  String get diagnosticsExit => 'کشور خروج';
+
+  @override
+  String get diagnosticsMismatch => 'کشور خروج با انتخاب شما فرق دارد';
+
+  @override
+  String get diagnosticsConnection => 'آزمون اتصال';
+
+  @override
+  String get diagnosticsPassed => 'موفق';
+
+  @override
+  String get diagnosticsFailed => 'ناموفق';
+
+  @override
+  String get diagnosticsDnsFiltered => 'پاسخ مسدود یا فیلتر شده';
+
+  @override
+  String get diagnosticsDnsOk => 'پاسخ داد';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'هیچ‌چیز از این‌ها ذخیره نمی‌شود؛ نتیجه فقط در همین پنجره و گزارش خود هسته می‌ماند.';
+
+  @override
+  String get diagnosticsAgain => 'اجرای دوباره';
 }

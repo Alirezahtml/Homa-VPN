@@ -3300,7 +3300,7 @@ abstract class AppLocalizations {
   /// No description provided for @killSwitchHint.
   ///
   /// In en, this message translates to:
-  /// **'If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.'**
+  /// **'If the VPN dies, traffic is held — never leaked — until it reconnects.'**
   String get killSwitchHint;
 
   /// No description provided for @alwaysOnVpn.
@@ -3326,6 +3326,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Carries the connection over the other apps while the app is away.'**
   String get floatingIslandHint;
+
+  /// No description provided for @whatsNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new in {version}'**
+  String whatsNewTitle(String version);
+
+  /// No description provided for @whatsNewContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get whatsNewContinue;
+
+  /// No description provided for @whatsNewMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s New'**
+  String get whatsNewMenu;
+
+  /// No description provided for @whatsNewView.
+  ///
+  /// In en, this message translates to:
+  /// **'View again'**
+  String get whatsNewView;
+
+  /// No description provided for @customColorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom color'**
+  String get customColorTitle;
+
+  /// No description provided for @customColorHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick any color for the app, with a live preview'**
+  String get customColorHint;
+
+  /// No description provided for @customColorSeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Base color'**
+  String get customColorSeed;
+
+  /// No description provided for @customColorAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights'**
+  String get customColorAccent;
+
+  /// No description provided for @customColorIntensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity'**
+  String get customColorIntensity;
+
+  /// No description provided for @customColorSwatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Kept colors'**
+  String get customColorSwatches;
+
+  /// No description provided for @customColorKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep this color'**
+  String get customColorKeep;
+
+  /// No description provided for @customColorReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to default'**
+  String get customColorReset;
+
+  /// No description provided for @customColorPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get customColorPreview;
+
+  /// No description provided for @customColorNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.'**
+  String get customColorNote;
+
+  /// No description provided for @customColorHex.
+  ///
+  /// In en, this message translates to:
+  /// **'HEX'**
+  String get customColorHex;
+
+  /// No description provided for @customColorPreviewButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get customColorPreviewButton;
+
+  /// No description provided for @customColorPreviewChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected'**
+  String get customColorPreviewChip;
+
+  /// No description provided for @customColorPreviewSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Live updates'**
+  String get customColorPreviewSwitch;
+
+  /// No description provided for @updateServers.
+  ///
+  /// In en, this message translates to:
+  /// **'Update servers'**
+  String get updateServers;
+
+  /// No description provided for @updatingServers.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating…'**
+  String get updatingServers;
+
+  /// No description provided for @serversUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} locations from Mozilla\'s official list'**
+  String serversUpdated(int count);
+
+  /// No description provided for @serversUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The server list could not be updated; the previous list is kept.'**
+  String get serversUpdateFailed;
+
+  /// No description provided for @smartPickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest right now'**
+  String get smartPickTitle;
+
+  /// No description provided for @smartPickUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get smartPickUse;
+
+  /// No description provided for @connectAtBoot.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect after the phone starts'**
+  String get connectAtBoot;
+
+  /// No description provided for @connectAtBootHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Connects by itself at boot, when the VPN permission is already granted.'**
+  String get connectAtBootHint;
+
+  /// No description provided for @gamingProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming profile'**
+  String get gamingProfile;
+
+  /// No description provided for @gamingProfileHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows the connection\'s live delay and quality; pairs with the fastest measured server.'**
+  String get gamingProfileHint;
+
+  /// No description provided for @diagnosticsRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Run diagnostics'**
+  String get diagnosticsRun;
+
+  /// No description provided for @diagnosticsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection, DNS, and tunnel, checked in one tap'**
+  String get diagnosticsHint;
+
+  /// No description provided for @diagnosticsTunnel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tunnel'**
+  String get diagnosticsTunnel;
+
+  /// No description provided for @diagnosticsTunnelUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Up and carrying traffic'**
+  String get diagnosticsTunnelUp;
+
+  /// No description provided for @diagnosticsTunnelDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Down'**
+  String get diagnosticsTunnelDown;
+
+  /// No description provided for @diagnosticsExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit country'**
+  String get diagnosticsExit;
+
+  /// No description provided for @diagnosticsMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit differs from the choice'**
+  String get diagnosticsMismatch;
+
+  /// No description provided for @diagnosticsConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection test'**
+  String get diagnosticsConnection;
+
+  /// No description provided for @diagnosticsPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get diagnosticsPassed;
+
+  /// No description provided for @diagnosticsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get diagnosticsFailed;
+
+  /// No description provided for @diagnosticsDnsFiltered.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked or filtered answer'**
+  String get diagnosticsDnsFiltered;
+
+  /// No description provided for @diagnosticsDnsOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered'**
+  String get diagnosticsDnsOk;
+
+  /// No description provided for @diagnosticsPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here is stored; the results stay in this window and the core\'s own log.'**
+  String get diagnosticsPrivacy;
+
+  /// No description provided for @diagnosticsAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Run again'**
+  String get diagnosticsAgain;
 }
 
 class _AppLocalizationsDelegate

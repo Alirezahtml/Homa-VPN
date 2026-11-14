@@ -240,6 +240,20 @@ class AndroidCore {
     killSwitch.value = on;
   }
 
+  /// Connects when the phone starts (the BootReceiver; the flag lives on
+  /// the Android side, in CoreService.kt).
+  static final autoConnectBoot = ValueNotifier<bool>(false);
+
+  static Future<void> loadAutoConnectBoot() async {
+    autoConnectBoot.value =
+        await _channel.invokeMethod<bool>('autoConnectBoot') ?? false;
+  }
+
+  static Future<void> setAutoConnectBoot(bool on) async {
+    await _channel.invokeMethod<void>('setAutoConnectBoot', {'on': on});
+    autoConnectBoot.value = on;
+  }
+
   /// The floating island: the connection's state in a small pill over the
   /// other apps, while the app itself is away (the flag lives on the
   /// Android side, in IslandOverlay.kt).

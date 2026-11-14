@@ -1858,11 +1858,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get protection => 'Защита';
 
   @override
-  String get killSwitch => 'Аварийный выключатель';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Если туннель рвётся, VPN остаётся включённым и удерживает трафик — ничего не утекает.';
+      'Если VPN оборвался, трафик удерживается — без утечек — пока связь не восстановится.';
 
   @override
   String get alwaysOnVpn => 'Постоянный VPN';
@@ -1877,4 +1877,140 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Показывает состояние соединения поверх других приложений, пока приложение закрыто.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Новое в версии $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Понятно';
+
+  @override
+  String get whatsNewMenu => 'Что нового';
+
+  @override
+  String get whatsNewView => 'Показать снова';
+
+  @override
+  String get customColorTitle => 'Свой цвет';
+
+  @override
+  String get customColorHint =>
+      'Любой цвет для приложения, с живым предпросмотром';
+
+  @override
+  String get customColorSeed => 'Основной цвет';
+
+  @override
+  String get customColorAccent => 'Цвет акцентов';
+
+  @override
+  String get customColorIntensity => 'Насыщенность';
+
+  @override
+  String get customColorSwatches => 'Сохранённые цвета';
+
+  @override
+  String get customColorKeep => 'Сохранить цвет';
+
+  @override
+  String get customColorReset => 'Вернуть по умолчанию';
+
+  @override
+  String get customColorPreview => 'Предпросмотр';
+
+  @override
+  String get customColorNote =>
+      'Читаемость текста и значков сохраняется в светлой и тёмной теме; цвета применяются ко всему приложению и остаются после перезапуска.';
+
+  @override
+  String get customColorHex => 'Код HEX';
+
+  @override
+  String get customColorPreviewButton => 'Подключить';
+
+  @override
+  String get customColorPreviewChip => 'Защищено';
+
+  @override
+  String get customColorPreviewSwitch => 'Живые обновления';
+
+  @override
+  String get updateServers => 'Обновить серверы';
+
+  @override
+  String get updatingServers => 'Обновление…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count локаций из официального списка Mozilla';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'Не удалось обновить список серверов; прежний список сохранён.';
+
+  @override
+  String get smartPickTitle => 'Быстрейший сейчас';
+
+  @override
+  String get smartPickUse => 'Выбрать';
+
+  @override
+  String get connectAtBoot => 'Подключаться при включении телефона';
+
+  @override
+  String get connectAtBootHint =>
+      'Сам подключается при загрузке, если разрешение VPN уже выдано.';
+
+  @override
+  String get gamingProfile => 'Игровой профиль';
+
+  @override
+  String get gamingProfileHint =>
+      'Показывает живой пинг и качество связи; вместе с самым быстрым измеренным сервером.';
+
+  @override
+  String get diagnosticsRun => 'Запустить диагностику';
+
+  @override
+  String get diagnosticsHint => 'Соединение, DNS и туннель одним касанием';
+
+  @override
+  String get diagnosticsTunnel => 'Туннель';
+
+  @override
+  String get diagnosticsTunnelUp => 'Поднят и передаёт трафик';
+
+  @override
+  String get diagnosticsTunnelDown => 'Не работает';
+
+  @override
+  String get diagnosticsExit => 'Страна выхода';
+
+  @override
+  String get diagnosticsMismatch => 'Страна выхода отличается от выбора';
+
+  @override
+  String get diagnosticsConnection => 'Тест соединения';
+
+  @override
+  String get diagnosticsPassed => 'Пройден';
+
+  @override
+  String get diagnosticsFailed => 'Не пройден';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Ответ заблокирован или отфильтрован';
+
+  @override
+  String get diagnosticsDnsOk => 'Отвечает';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Ничего из этого не сохраняется; результаты остаются в этом окне и в журнале ядра.';
+
+  @override
+  String get diagnosticsAgain => 'Запустить снова';
 }

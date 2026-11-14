@@ -8,61 +8,60 @@ import '../l10n/app_localizations.dart';
 /// (the same lines the release itself carries). A version without an entry
 /// here simply has no page to show: nothing is invented per release.
 const whatsNew = <String, List<({String title, List<String> lines})>>{
-  '1.0.19': [
+  '1.0.29': [
     (
-      title: 'Security and no leaks',
+      title: 'Android Live Updates',
       lines: [
-        'Kill Switch: when the tunnel or the core dies while the VPN is on, '
-            'the VPN stays up holding the traffic and reconnects — nothing '
-            'leaves the phone unencrypted.',
-        'The DNS and the IPv6 routes already travel inside the tunnel; the '
-            'diagnostics page can now check them in one tap.',
-        'Update offers now come from Homa\'s own release source, and a '
-            'release without its signed SHA-256 checksum list is never '
-            'offered.',
+        'While connected, the notification carries the session\'s duration '
+            '(it ticks by itself), the live download and upload speeds, and '
+            'the exit country, and it may be promoted by Android 16 above '
+            'the shade as a Live Update; a progress bar runs while the '
+            'connection is being made. No overlay, no new risky permission '
+            '- the system decides.',
       ],
     ),
     (
-      title: 'Connection',
+      title: 'The country wheel',
       lines: [
-        'Connect after the phone starts (a choice in the connection '
-            'settings); network changes (Wi-Fi ↔ mobile data) already '
-            'reconnect by themselves, now with a calmer retry beat.',
-        'Smart server pick: measure every location once, and the app '
-            'suggests the fastest one to use.',
-        '"Update servers" on the servers page fetches Mozilla\'s official '
-            'server list again, so new or removed locations apply.',
-        'The Recommended choice now carries the official Mozilla mark.',
+        'The home page carries the countries as a wheel: drag it, and the '
+            'flag in the middle - larger, named below - is the location the '
+            'VPN uses. The list is the core\'s real one, Mozilla\'s '
+            'recommended location first, under Mozilla\'s own mark.',
+      ],
+    ),
+    (
+      title: 'Servers',
+      lines: [
+        '"Update servers" fetches Mozilla\'s official server list again '
+            'through the core: locations Mozilla added appear, ones it '
+            'removed leave, and a failed fetch keeps the list you had.',
+        'After a delay test, the smart pick offers the measured fastest '
+            'country when it clearly beats the choice - the measurements '
+            'are real, the choice stays yours.',
+      ],
+    ),
+    (
+      title: 'Connection care',
+      lines: [
+        'Connect after the phone starts: a choice in the settings, which '
+            'the app honors at boot when the VPN permission is already '
+            'granted.',
+        'The kill switch now holds the traffic by default, and the '
+            'one-tap diagnostics check the tunnel, the exit country, a real '
+            'connection, and the DNS (a filtered answer is called out). '
+            'Nothing from it is stored.',
+        'The gaming profile surfaces the connection\'s real delay and '
+            'turns the notification\'s live speed on; it promises nothing '
+            'about ping.',
       ],
     ),
     (
       title: 'The app itself',
       lines: [
-        'Android Live Updates: while connected, the notification shows the '
-            'session\'s duration, the download and upload speeds, and the '
-            'exit country, with Disconnect in it (Android 16 and later; '
-            'earlier versions keep a standard, compatible notification).',
-        'A country carousel on the home page: swipe through the flags, the '
-            'chosen one sits larger in the middle, and picking one moves the '
-            'VPN there.',
-        'A full Custom color panel: wheel, HEX, RGB, the accent\'s own '
-            'color, an intensity slider, kept swatches, and a live preview.',
-        'The About page now links Instagram and Telegram in one row, in '
-            'their own colors.',
+        'A full custom color panel: a hue ring, a shade box, HEX and RGB, '
+            'the curated accents beside it, kept swatches, a live preview, '
+            'and the way back to the monochrome design.',
         'This What\'s New page, once per version.',
-      ],
-    ),
-  ],
-  '1.0.18': [
-    (
-      title: 'Homa VPN',
-      lines: [
-        'The app is Homa VPN now (com.homa.vpn): its own name, icon and '
-            'colors, independent of the project it started from.',
-        'The dashboard, the settings and the phone layout were redrawn in '
-            'one monochrome night look, with the slide-to-connect button.',
-        'Releases and updates are built and published by Homa\'s own '
-            'pipeline, signed with Homa\'s key.',
       ],
     ),
   ],

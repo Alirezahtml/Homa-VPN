@@ -1843,26 +1843,163 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get protection => 'Protection';
+  String get protection => 'Perlindungan';
 
   @override
-  String get killSwitch => 'Kill switch';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.';
+      'Jika VPN terputus, lalu lintas ditahan — tanpa kebocoran — sampai tersambung ulang.';
 
   @override
-  String get alwaysOnVpn => 'Always-on VPN';
+  String get alwaysOnVpn => 'VPN selalu aktif';
 
   @override
   String get alwaysOnVpnHint =>
-      'Android\'s own guard: no connection without the VPN.';
+      'Pengaman bawaan Android: tanpa VPN tidak ada koneksi lewat.';
 
   @override
-  String get floatingIsland => 'Floating island';
+  String get floatingIsland => 'Pulau mengambang';
 
   @override
   String get floatingIslandHint =>
-      'Carries the connection over the other apps while the app is away.';
+      'Menampilkan status koneksi di atas aplikasi lain saat Anda keluar dari aplikasi.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Yang baru di versi $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Mengerti';
+
+  @override
+  String get whatsNewMenu => 'Yang baru';
+
+  @override
+  String get whatsNewView => 'Lihat lagi';
+
+  @override
+  String get customColorTitle => 'Warna khusus';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Warna dasar';
+
+  @override
+  String get customColorAccent => 'Warna aksen';
+
+  @override
+  String get customColorIntensity => 'Intensitas';
+
+  @override
+  String get customColorSwatches => 'Warna tersimpan';
+
+  @override
+  String get customColorKeep => 'Simpan warna ini';
+
+  @override
+  String get customColorReset => 'Kembali ke bawaan';
+
+  @override
+  String get customColorPreview => 'Pratinjau';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'Kode HEX';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Perbarui server';
+
+  @override
+  String get updatingServers => 'Memperbarui…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count lokasi dari daftar resmi Mozilla';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'Daftar server tidak dapat diperbarui; daftar sebelumnya dipertahankan.';
+
+  @override
+  String get smartPickTitle => 'Tercepat saat ini';
+
+  @override
+  String get smartPickUse => 'Pakai';
+
+  @override
+  String get connectAtBoot => 'Sambungkan setelah telepon menyala';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Profil gaming';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Jalankan diagnostik';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Uji koneksi';
+
+  @override
+  String get diagnosticsPassed => 'Lulus';
+
+  @override
+  String get diagnosticsFailed => 'Gagal';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

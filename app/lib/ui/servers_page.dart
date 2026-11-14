@@ -35,6 +35,7 @@ class _ServersPageState extends State<ServersPage> {
   DateTime? _pingedAt;
   String _country = '';
   bool _testing = false;
+  bool _refreshing = false;
 
   /// The choice being saved ('' recommended, 'fastest', or a code).
   String? _busy;
@@ -139,6 +140,66 @@ class _ServersPageState extends State<ServersPage> {
     } finally {
       if (mounted) setState(() => _testing = false);
     }
+  }
+
+  /// Fetches Mozilla's server list again (Remote Settings) and shows what
+  /// it brought. A failed fetch (offline, Mozilla unreachable) keeps the
+  /// list the page already had, and says so.
+  Future<void> _refreshServers() async {
+    final l = AppLocalizations.of(context);
+    setState(() => _refreshing = true);
+    try {
+      final result = await _core.call((api) => api.refreshLocations());
+      final config = await _core.settings();
+      if (!mounted) return;
+      setState(() {
+        _locations = result.locations;
+        _pingedAt = result.pingedAt;
+        if (config['proxy'] case {'country': final String country}) {
+          _country = country;
+        }
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text(l.serversUpdated(result.locations.length)),
+              behavior: SnackBarBehavior.floating,
+              width: 520,
+            ),
+          );
+      }
+    } on CoreApiException {
+      if (mounted) showError(context, l.serversUpdateFailed);
+    } on CoreUnavailable catch (e) {
+      if (mounted) showError(context, describeProblem(l, e));
+    } finally {
+      if (mounted) setState(() => _refreshing = false);
+    }
+  }
+
+  /// The measured fastest country that is not the choice already, when
+  /// the page has real answers to compare. Null offers nothing.
+  Location? get _smartPick {
+    if (_testing || _refreshing) return null;
+    final answered = [
+      for (final loc in _locations ?? const <Location>[])
+        if (!isRecommendedPlace(loc.code) && loc.answered) loc,
+    ]..sort((a, b) => a.pingMs.compareTo(b.pingMs));
+    if (answered.isEmpty) return null;
+    final best = answered.first;
+    final chosen = _country.toLowerCase();
+    if (chosen == best.code.toLowerCase() || chosen == 'fastest') return null;
+    // A clear winner only: the choice must be measurably behind, or not
+    // have answered at all.
+    final chosenLoc = answered
+        .where((loc) => loc.code.toLowerCase() == chosen)
+        .firstOrNull;
+    if (chosenLoc != null && best.pingMs > chosenLoc.pingMs * 0.75) {
+      return null;
+    }
+    return best;
   }
 
   /// Every country, without Mozilla's recommended location (in the strip
@@ -246,19 +307,48 @@ class _ServersPageState extends State<ServersPage> {
             child: Text(autoHint, style: muted),
           ),
         const SizedBox(height: 20),
+        // The smart pick: when measurements say one country answers clearly
+        // faster than the choice, offer it — the measurements are real,
+        // through the tunnel, and the choice stays the user's.
+        if (_smartPick case final Location smart)
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 10),
+            child: _SmartPickCard(
+              location: smart,
+              onUse: () => _choose(smart.code),
+              busy: _busy?.toLowerCase() == smart.code.toLowerCase(),
+            ),
+          ),
         _SectionHeader(
           title: l.locationsSection,
-          action: TextButton.icon(
-            onPressed: !_testing && _locations != null && !noAccounts
-                ? _test
-                : null,
-            icon: _testing
-                ? const SizedBox.square(
-                    dimension: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.speed_rounded, size: 18),
-            label: Text(_testing ? l.testingDelay : l.testDelay),
+          action: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton.icon(
+                onPressed: _refreshing ? null : _refreshServers,
+                icon: _refreshing
+                    ? const SizedBox.square(
+                        dimension: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.sync_rounded, size: 18),
+                label: Text(
+                  _refreshing ? l.updatingServers : l.updateServers,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: !_testing && _locations != null && !noAccounts
+                    ? _test
+                    : null,
+                icon: _testing
+                    ? const SizedBox.square(
+                        dimension: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.speed_rounded, size: 18),
+                label: Text(_testing ? l.testingDelay : l.testDelay),
+              ),
+            ],
           ),
         ),
         if (delayLine != null)
@@ -348,6 +438,74 @@ class _ServersPageState extends State<ServersPage> {
 }
 
 /// A section's name, and its action (the delay test) at the far side.
+/// The smart pick's card: the measured winner, its delay, and Use.
+class _SmartPickCard extends StatelessWidget {
+  const _SmartPickCard({
+    required this.location,
+    required this.onUse,
+    required this.busy,
+  });
+
+  final Location location;
+  final VoidCallback onUse;
+  final bool busy;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10),
+      decoration: BoxDecoration(
+        color: scheme.primary.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.primary.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        children: [
+          CountryFlag(code: location.code, width: 36),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.smartPickTitle,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: scheme.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '${locationName(l, location.code, location.name)}'
+                  '  ·  ${l.milliseconds(location.pingMs)}',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          FilledButton.tonal(
+            onPressed: busy ? null : onUse,
+            child: busy
+                ? const SizedBox.square(
+                    dimension: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Text(l.smartPickUse),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _SectionHeader extends StatelessWidget {
   const _SectionHeader({required this.title, this.action});
 

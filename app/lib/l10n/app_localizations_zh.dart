@@ -1774,10 +1774,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protection => '保护';
 
   @override
-  String get killSwitch => '紧急断流开关';
+  String get killSwitch => 'Kill Switch（断网保护）';
 
   @override
-  String get killSwitchHint => '隧道中断时，VPN 保持开启并拦住流量 — 不会泄漏任何数据。';
+  String get killSwitchHint => 'VPN 断开时拦截流量——绝不泄漏——直至重连成功。';
 
   @override
   String get alwaysOnVpn => 'VPN 常开';
@@ -1790,6 +1790,136 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get floatingIslandHint => '离开应用时，在其他应用上方显示连接状态。';
+
+  @override
+  String whatsNewTitle(String version) {
+    return '版本 $version 的新功能';
+  }
+
+  @override
+  String get whatsNewContinue => '知道了';
+
+  @override
+  String get whatsNewMenu => '版本更新内容';
+
+  @override
+  String get whatsNewView => '再次查看';
+
+  @override
+  String get customColorTitle => '自定义颜色';
+
+  @override
+  String get customColorHint => '为应用选择任意颜色，实时预览';
+
+  @override
+  String get customColorSeed => '主色';
+
+  @override
+  String get customColorAccent => '强调色';
+
+  @override
+  String get customColorIntensity => '强度';
+
+  @override
+  String get customColorSwatches => '已保存的颜色';
+
+  @override
+  String get customColorKeep => '保存此颜色';
+
+  @override
+  String get customColorReset => '恢复默认';
+
+  @override
+  String get customColorPreview => '预览';
+
+  @override
+  String get customColorNote => '浅色与深色模式下文字与图标保持清晰；颜色应用于整个应用并在重启后保留。';
+
+  @override
+  String get customColorHex => 'HEX 码';
+
+  @override
+  String get customColorPreviewButton => '连接';
+
+  @override
+  String get customColorPreviewChip => '已保护';
+
+  @override
+  String get customColorPreviewSwitch => '实时更新';
+
+  @override
+  String get updateServers => '更新服务器';
+
+  @override
+  String get updatingServers => '正在更新…';
+
+  @override
+  String serversUpdated(int count) {
+    return '来自 Mozilla 官方列表的 $count 个位置';
+  }
+
+  @override
+  String get serversUpdateFailed => '服务器列表更新失败；已保留原列表。';
+
+  @override
+  String get smartPickTitle => '当前最快';
+
+  @override
+  String get smartPickUse => '使用';
+
+  @override
+  String get connectAtBoot => '开机后自动连接';
+
+  @override
+  String get connectAtBootHint => '开机时自动连接（需已授予 VPN 权限）。';
+
+  @override
+  String get gamingProfile => '游戏模式';
+
+  @override
+  String get gamingProfileHint => '实时显示连接延迟与质量；配合实测最快服务器使用。';
+
+  @override
+  String get diagnosticsRun => '运行诊断';
+
+  @override
+  String get diagnosticsHint => '一键检查连接、DNS 与隧道';
+
+  @override
+  String get diagnosticsTunnel => '隧道';
+
+  @override
+  String get diagnosticsTunnelUp => '已建立并在传输流量';
+
+  @override
+  String get diagnosticsTunnelDown => '未连接';
+
+  @override
+  String get diagnosticsExit => '出口国家';
+
+  @override
+  String get diagnosticsMismatch => '出口国家与所选不符';
+
+  @override
+  String get diagnosticsConnection => '连接测试';
+
+  @override
+  String get diagnosticsPassed => '通过';
+
+  @override
+  String get diagnosticsFailed => '失败';
+
+  @override
+  String get diagnosticsDnsFiltered => '响应被拦截或过滤';
+
+  @override
+  String get diagnosticsDnsOk => '有响应';
+
+  @override
+  String get diagnosticsPrivacy => '诊断结果不会保存；仅显示在此窗口与核心自身日志中。';
+
+  @override
+  String get diagnosticsAgain => '再次运行';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3562,10 +3692,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get protection => '保護';
 
   @override
-  String get killSwitch => '緊急斷流開關';
+  String get killSwitch => '緊急斷流保護';
 
   @override
-  String get killSwitchHint => '通道中斷時，VPN 保持開啟並攔住流量 — 不會外洩任何資料。';
+  String get killSwitchHint => 'VPN 中斷時攔截流量——絕不外洩——直至重新連線。';
 
   @override
   String get alwaysOnVpn => 'VPN 常開';
@@ -3578,4 +3708,134 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get floatingIslandHint => '離開應用程式時，在其他應用程式上方顯示連線狀態。';
+
+  @override
+  String whatsNewTitle(String version) {
+    return '版本 $version 的新功能';
+  }
+
+  @override
+  String get whatsNewContinue => '知道了';
+
+  @override
+  String get whatsNewMenu => '版本更新內容';
+
+  @override
+  String get whatsNewView => '再次檢視';
+
+  @override
+  String get customColorTitle => '自訂顏色';
+
+  @override
+  String get customColorHint => '為應用選擇任意顏色，即時預覽';
+
+  @override
+  String get customColorSeed => '主色';
+
+  @override
+  String get customColorAccent => '強調色';
+
+  @override
+  String get customColorIntensity => '強度';
+
+  @override
+  String get customColorSwatches => '已儲存的顏色';
+
+  @override
+  String get customColorKeep => '儲存此顏色';
+
+  @override
+  String get customColorReset => '回復預設';
+
+  @override
+  String get customColorPreview => '預覽';
+
+  @override
+  String get customColorNote => '淺色與深色模式下文字與圖示保持清晰；顏色套用於整個應用並在重新啟動後保留。';
+
+  @override
+  String get customColorHex => 'HEX 碼';
+
+  @override
+  String get customColorPreviewButton => '連線';
+
+  @override
+  String get customColorPreviewChip => '已保護';
+
+  @override
+  String get customColorPreviewSwitch => '即時更新';
+
+  @override
+  String get updateServers => '更新伺服器';
+
+  @override
+  String get updatingServers => '正在更新…';
+
+  @override
+  String serversUpdated(int count) {
+    return '來自 Mozilla 官方清單的 $count 個位置';
+  }
+
+  @override
+  String get serversUpdateFailed => '伺服器清單更新失敗；已保留原清單。';
+
+  @override
+  String get smartPickTitle => '目前最快';
+
+  @override
+  String get smartPickUse => '使用';
+
+  @override
+  String get connectAtBoot => '開機後自動連線';
+
+  @override
+  String get connectAtBootHint => '開機時自動連線（需已授予 VPN 權限）。';
+
+  @override
+  String get gamingProfile => '遊戲模式';
+
+  @override
+  String get gamingProfileHint => '即時顯示連線延遲與品質；搭配實測最快伺服器。';
+
+  @override
+  String get diagnosticsRun => '執行診斷';
+
+  @override
+  String get diagnosticsHint => '一鍵檢查連線、DNS 與通道';
+
+  @override
+  String get diagnosticsTunnel => '通道';
+
+  @override
+  String get diagnosticsTunnelUp => '已建立並在傳輸流量';
+
+  @override
+  String get diagnosticsTunnelDown => '未連線';
+
+  @override
+  String get diagnosticsExit => '出口國家';
+
+  @override
+  String get diagnosticsMismatch => '出口國家與所選不符';
+
+  @override
+  String get diagnosticsConnection => '連線測試';
+
+  @override
+  String get diagnosticsPassed => '通過';
+
+  @override
+  String get diagnosticsFailed => '失敗';
+
+  @override
+  String get diagnosticsDnsFiltered => '回應被攔截或過濾';
+
+  @override
+  String get diagnosticsDnsOk => '有回應';
+
+  @override
+  String get diagnosticsPrivacy => '診斷結果不會儲存；僅顯示於此視窗與核心自身日誌。';
+
+  @override
+  String get diagnosticsAgain => '再次執行';
 }

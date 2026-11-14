@@ -1854,7 +1854,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get killSwitchHint =>
-      'If the tunnel breaks, the VPN stays up and holds the traffic — nothing leaks.';
+      'If the VPN dies, traffic is held — never leaked — until it reconnects.';
 
   @override
   String get alwaysOnVpn => 'Always-on VPN';
@@ -1869,4 +1869,141 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Carries the connection over the other apps while the app is away.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'What\'s new in $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Got it';
+
+  @override
+  String get whatsNewMenu => 'What\'s New';
+
+  @override
+  String get whatsNewView => 'View again';
+
+  @override
+  String get customColorTitle => 'Custom color';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Base color';
+
+  @override
+  String get customColorAccent => 'Highlights';
+
+  @override
+  String get customColorIntensity => 'Intensity';
+
+  @override
+  String get customColorSwatches => 'Kept colors';
+
+  @override
+  String get customColorKeep => 'Keep this color';
+
+  @override
+  String get customColorReset => 'Back to default';
+
+  @override
+  String get customColorPreview => 'Preview';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'HEX';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Update servers';
+
+  @override
+  String get updatingServers => 'Updating…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count locations from Mozilla\'s official list';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'The server list could not be updated; the previous list is kept.';
+
+  @override
+  String get smartPickTitle => 'Fastest right now';
+
+  @override
+  String get smartPickUse => 'Use';
+
+  @override
+  String get connectAtBoot => 'Connect after the phone starts';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Gaming profile';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Run diagnostics';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Connection test';
+
+  @override
+  String get diagnosticsPassed => 'Passed';
+
+  @override
+  String get diagnosticsFailed => 'Failed';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

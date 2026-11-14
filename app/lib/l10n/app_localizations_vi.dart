@@ -1845,11 +1845,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get protection => 'Bảo vệ';
 
   @override
-  String get killSwitch => 'Công tắc ngắt khẩn cấp';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Nếu đường hầm đứt, VPN vẫn bật và giữ lưu lượng — không rò rỉ gì cả.';
+      'Nếu VPN đứt, lưu lượng bị giữ lại — không rò rỉ — cho đến khi kết nối lại.';
 
   @override
   String get alwaysOnVpn => 'VPN luôn bật';
@@ -1864,4 +1864,141 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Hiển thị trạng thái kết nối trên các ứng dụng khác khi bạn rời ứng dụng.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Có gì mới trong phiên bản $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Đã hiểu';
+
+  @override
+  String get whatsNewMenu => 'Có gì mới';
+
+  @override
+  String get whatsNewView => 'Xem lại';
+
+  @override
+  String get customColorTitle => 'Màu tùy chỉnh';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Màu chính';
+
+  @override
+  String get customColorAccent => 'Màu nhấn';
+
+  @override
+  String get customColorIntensity => 'Cường độ';
+
+  @override
+  String get customColorSwatches => 'Màu đã lưu';
+
+  @override
+  String get customColorKeep => 'Lưu màu này';
+
+  @override
+  String get customColorReset => 'Về mặc định';
+
+  @override
+  String get customColorPreview => 'Xem trước';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'Mã HEX';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Cập nhật máy chủ';
+
+  @override
+  String get updatingServers => 'Đang cập nhật…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count vị trí từ danh sách chính thức của Mozilla';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'Không thể cập nhật danh sách máy chủ; giữ nguyên danh sách cũ.';
+
+  @override
+  String get smartPickTitle => 'Nhanh nhất hiện tại';
+
+  @override
+  String get smartPickUse => 'Dùng';
+
+  @override
+  String get connectAtBoot => 'Kết nối sau khi bật điện thoại';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Hồ sơ gaming';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Chạy chẩn đoán';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Kiểm tra kết nối';
+
+  @override
+  String get diagnosticsPassed => 'Đạt';
+
+  @override
+  String get diagnosticsFailed => 'Thất bại';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

@@ -1861,11 +1861,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get protection => 'Protección';
 
   @override
-  String get killSwitch => 'Corte de emergencia';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Si el túnel se rompe, la VPN sigue activa y retiene el tráfico: nada se filtra.';
+      'Si la VPN se cae, el tráfico se retiene — sin fugas — hasta reconectar.';
 
   @override
   String get alwaysOnVpn => 'VPN siempre activa';
@@ -1880,4 +1880,141 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Muestra la conexión sobre las demás apps mientras estás fuera de la app.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'Novedades de la versión $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'Entendido';
+
+  @override
+  String get whatsNewMenu => 'Novedades';
+
+  @override
+  String get whatsNewView => 'Ver de nuevo';
+
+  @override
+  String get customColorTitle => 'Color personalizado';
+
+  @override
+  String get customColorHint =>
+      'Pick any color for the app, with a live preview';
+
+  @override
+  String get customColorSeed => 'Color base';
+
+  @override
+  String get customColorAccent => 'Color de acento';
+
+  @override
+  String get customColorIntensity => 'Intensidad';
+
+  @override
+  String get customColorSwatches => 'Colores guardados';
+
+  @override
+  String get customColorKeep => 'Guardar este color';
+
+  @override
+  String get customColorReset => 'Volver al valor predeterminado';
+
+  @override
+  String get customColorPreview => 'Vista previa';
+
+  @override
+  String get customColorNote =>
+      'Text and icons stay readable in light and dark; the colors apply to the whole app and survive a restart.';
+
+  @override
+  String get customColorHex => 'Código HEX';
+
+  @override
+  String get customColorPreviewButton => 'Connect';
+
+  @override
+  String get customColorPreviewChip => 'Protected';
+
+  @override
+  String get customColorPreviewSwitch => 'Live updates';
+
+  @override
+  String get updateServers => 'Actualizar servidores';
+
+  @override
+  String get updatingServers => 'Actualizando…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count ubicaciones de la lista oficial de Mozilla';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'No se pudo actualizar la lista; se conservó la anterior.';
+
+  @override
+  String get smartPickTitle => 'El más rápido ahora';
+
+  @override
+  String get smartPickUse => 'Usar';
+
+  @override
+  String get connectAtBoot => 'Conectar al encender el teléfono';
+
+  @override
+  String get connectAtBootHint =>
+      'Connects by itself at boot, when the VPN permission is already granted.';
+
+  @override
+  String get gamingProfile => 'Perfil de juegos';
+
+  @override
+  String get gamingProfileHint =>
+      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+
+  @override
+  String get diagnosticsRun => 'Ejecutar diagnóstico';
+
+  @override
+  String get diagnosticsHint =>
+      'Connection, DNS, and tunnel, checked in one tap';
+
+  @override
+  String get diagnosticsTunnel => 'Tunnel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+
+  @override
+  String get diagnosticsTunnelDown => 'Down';
+
+  @override
+  String get diagnosticsExit => 'Exit country';
+
+  @override
+  String get diagnosticsMismatch => 'Exit differs from the choice';
+
+  @override
+  String get diagnosticsConnection => 'Prueba de conexión';
+
+  @override
+  String get diagnosticsPassed => 'Correcta';
+
+  @override
+  String get diagnosticsFailed => 'Fallida';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+
+  @override
+  String get diagnosticsDnsOk => 'Answered';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+
+  @override
+  String get diagnosticsAgain => 'Run again';
 }

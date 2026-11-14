@@ -123,7 +123,7 @@ String? updateProxy(CoreStatus? status) {
   return CoreLocator.listenUri(proxy.listen).authority;
 }
 
-/// Looks for a newer release of Homa daily: the app looks a minute
+/// Looks for a newer release on GitHub daily: the app looks a minute
 /// after it starts, and then every hour, whether a day has passed since
 /// the last look that worked. What it finds is kept in the settings, so the
 /// home page shows it after a restart too; the computer also shows a
@@ -207,7 +207,7 @@ abstract final class Updates {
     AppSettings settings, {
     List<String> args = const [],
   }) {
-    if (updateRepo.isEmpty || _timer != null) return;
+    if (githubRepo.isEmpty || _timer != null) return;
     _core = core;
     _settings = settings;
     announcements.value = AnnouncementStore(settings, version: appVersion);

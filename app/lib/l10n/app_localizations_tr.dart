@@ -1846,11 +1846,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get protection => 'Koruma';
 
   @override
-  String get killSwitch => 'Acil kesme anahtarı';
+  String get killSwitch => 'Kill Switch';
 
   @override
   String get killSwitchHint =>
-      'Tünel koparsa VPN açık kalır ve trafiği tutar — hiçbir şey sızmaz.';
+      'VPN kesilirse trafik, bağlantı geri gelene kadar tutulur — asla sızmaz.';
 
   @override
   String get alwaysOnVpn => 'Her zaman açık VPN';
@@ -1865,4 +1865,140 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'Uygulamadan çıkarken bağlantıyı diğer uygulamaların üzerinde gösterir.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return '$version sürümündeki yenilikler';
+  }
+
+  @override
+  String get whatsNewContinue => 'Anladım';
+
+  @override
+  String get whatsNewMenu => 'Yenilikler';
+
+  @override
+  String get whatsNewView => 'Yeniden göster';
+
+  @override
+  String get customColorTitle => 'Özel renk';
+
+  @override
+  String get customColorHint =>
+      'Uygulama için canlı önizlemeyle istediğiniz rengi seçin';
+
+  @override
+  String get customColorSeed => 'Ana renk';
+
+  @override
+  String get customColorAccent => 'Vurgu rengi';
+
+  @override
+  String get customColorIntensity => 'Yoğunluk';
+
+  @override
+  String get customColorSwatches => 'Kaydedilen renkler';
+
+  @override
+  String get customColorKeep => 'Bu rengi kaydet';
+
+  @override
+  String get customColorReset => 'Varsayılana dön';
+
+  @override
+  String get customColorPreview => 'Önizleme';
+
+  @override
+  String get customColorNote =>
+      'Açık ve koyu temada metin ve simgeler okunur kalır; renkler tüm uygulamaya uygulanır ve yeniden başlatmadan sonra da kalır.';
+
+  @override
+  String get customColorHex => 'HEX kodu';
+
+  @override
+  String get customColorPreviewButton => 'Bağlan';
+
+  @override
+  String get customColorPreviewChip => 'Korumalı';
+
+  @override
+  String get customColorPreviewSwitch => 'Canlı güncellemeler';
+
+  @override
+  String get updateServers => 'Sunucuları güncelle';
+
+  @override
+  String get updatingServers => 'Güncelleniyor…';
+
+  @override
+  String serversUpdated(int count) {
+    return 'Mozilla\'nın resmi listesinden $count konum';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'Sunucu listesi güncellenemedi; önceki listeyi korundu.';
+
+  @override
+  String get smartPickTitle => 'Şu anki en hızlı';
+
+  @override
+  String get smartPickUse => 'Kullan';
+
+  @override
+  String get connectAtBoot => 'Telefon açılınca bağlan';
+
+  @override
+  String get connectAtBootHint =>
+      'VPN izni verilmişse açılışta kendiliğinden bağlanır.';
+
+  @override
+  String get gamingProfile => 'Oyun profili';
+
+  @override
+  String get gamingProfileHint =>
+      'Bağlantının canlı gecikmesini ve kalitesini gösterir; ölçülen en hızlı sunucuyla birlikte.';
+
+  @override
+  String get diagnosticsRun => 'Tanılamayı çalıştır';
+
+  @override
+  String get diagnosticsHint => 'Bağlantı, DNS ve tünel tek dokunuşta';
+
+  @override
+  String get diagnosticsTunnel => 'Tünel';
+
+  @override
+  String get diagnosticsTunnelUp => 'Kurulu ve trafik taşıyor';
+
+  @override
+  String get diagnosticsTunnelDown => 'Kapalı';
+
+  @override
+  String get diagnosticsExit => 'Çıkış ülkesi';
+
+  @override
+  String get diagnosticsMismatch => 'Çıkış ülkesi seçiminizden farklı';
+
+  @override
+  String get diagnosticsConnection => 'Bağlantı testi';
+
+  @override
+  String get diagnosticsPassed => 'Başarılı';
+
+  @override
+  String get diagnosticsFailed => 'Başarısız';
+
+  @override
+  String get diagnosticsDnsFiltered => 'Yanıt engellendi veya filtrelandı';
+
+  @override
+  String get diagnosticsDnsOk => 'Yanıtladı';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'Buradaki hiçbir şey kaydedilmez; sonuçlar bu pencerede ve çekirdeğin kendi günlüğünde kalır.';
+
+  @override
+  String get diagnosticsAgain => 'Yeniden çalıştır';
 }

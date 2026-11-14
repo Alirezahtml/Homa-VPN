@@ -5,13 +5,14 @@ import 'package:flutter/services.dart';
 
 import '../app_settings.dart';
 import '../l10n/app_localizations.dart';
-import 'app.dart';
+import 'accent.dart';
 import 'widgets.dart';
 
-/// The Custom color panel: a full picker (a hue ring's wheel, a lightness
-/// box, HEX and RGB), the roles the color applies to, how strongly it
-/// drives the scheme, a live preview, kept swatches, and the way back to
-/// the app's own colors. Everything the user picks holds across starts.
+/// The Custom color panel: a full picker (a hue ring, a shade box, HEX and
+/// RGB), the curated accents beside it, a live preview, kept swatches, and
+/// the way back to the monochrome design. The color becomes the app's
+/// accent - the connected state, the buttons, the sliders' fill - and
+/// holds across starts (accent.dart reads it from the settings).
 class ColorPickerPage extends StatefulWidget {
   const ColorPickerPage({super.key, required this.settings});
 
@@ -22,26 +23,16 @@ class ColorPickerPage extends StatefulWidget {
 }
 
 class _ColorPickerPageState extends State<ColorPickerPage> {
-  HSVColor _hsv = HSVColor.fromColor(const Color(0xFF5B5BD6));
-  int? _seed;
-  int? _accent;
-  double _intensity = 1.0;
+  late HSVColor _hsv;
   final _hex = TextEditingController();
   final _red = TextEditingController();
   final _green = TextEditingController();
   final _blue = TextEditingController();
 
-  /// The role the picker edits: the whole scheme's seed, or the highlights.
-  _Role _role = _Role.seed;
-
   @override
   void initState() {
     super.initState();
-    final s = widget.settings;
-    _seed = s.customSeed;
-    _accent = s.customAccent;
-    _intensity = s.colorIntensity;
-    _hsv = HSVColor.fromColor(Color(_roleColor()));
+    _hsv = HSVColor.fromColor(Color(widget.settings.customAccent));
     _syncFields();
   }
 
@@ -54,29 +45,18 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
     super.dispose();
   }
 
-  int _roleColor() => switch (_role) {
-    _Role.seed => _seed ?? 0xFF5B5BD6,
-    _Role.accent => _accent ?? 0xFF5B5BD6,
-  };
-
   void _pick(HSVColor hsv) {
     setState(() {
       _hsv = hsv;
-      final color = hsv.toColor();
-      final value = (color.toARGB32() & 0xFFFFFF) | 0xFF000000;
-      if (_role == _Role.seed) {
-        _seed = value;
-      } else {
-        _accent = value;
-      }
       _syncFields();
     });
+    _save();
   }
 
   /// Types a color in: a HEX code or one of the RGB channels. Empty, or a
-  /// mistake, is simply ignored — the fields follow the picker, not the
+  /// mistake, is simply ignored - the fields follow the picker, not the
   /// other way around while typing.
-  Color? _typed(String text, {int? r, int? g, int? b}) {
+  void _typed(String text, {int? r, int? g, int? b}) {
     Color? color;
     if (r != null || g != null || b != null) {
       final base = _hsv.toColor();
@@ -92,11 +72,7 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
         color = Color(int.parse('FF$hex', radix: 16));
       }
     }
-    if (color != null) {
-      _pick(HSVColor.fromColor(color));
-      return color;
-    }
-    return null;
+    if (color != null) _pick(HSVColor.fromColor(color));
   }
 
   void _syncFields() {
@@ -108,28 +84,22 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
   }
 
   void _save() {
-    final s = widget.settings;
-    s.update(
-      customSeed: _seed,
-      customAccent: _accent,
-      colorIntensity: _intensity,
+    widget.settings.update(
+      accentKey: 'custom',
+      customAccent: _hsv.toColor().toARGB32() & 0xFFFFFF | 0xFF000000,
     );
   }
 
   void _reset() {
     setState(() {
-      _seed = null;
-      _accent = null;
-      _intensity = 1.0;
-      _role = _Role.seed;
-      _hsv = HSVColor.fromColor(const Color(0xFF5B5BD6));
+      widget.settings.update(accentKey: '');
+      _hsv = HSVColor.fromColor(const Color(0xFF60A5FA));
       _syncFields();
     });
-    widget.settings.update(customSeed: null, customAccent: null, colorIntensity: 1.0);
   }
 
   void _keepSwatch() {
-    final color = _roleColor();
+    final color = _hsv.toColor().toARGB32() & 0xFFFFFF | 0xFF000000;
     final kept = [
       color,
       ...widget.settings.savedColors.where((c) => c != color),
@@ -142,29 +112,45 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final preview = ColorScheme.fromSeed(
-      seedColor: seedFor(widget.settings),
-      brightness: theme.brightness,
-    );
+    final dark = theme.brightness == Brightness.dark;
+    final accent = AppAccent.resolve(widget.settings);
     return ListView(
       padding: pagePadding(context),
       children: [
         PageTitle(l.customColorTitle),
         const SizedBox(height: 12),
-        // The roles: the whole scheme, or the highlights on top of it.
-        SegmentedButton<_Role>(
-          segments: [
-            ButtonSegment(value: _Role.seed, label: Text(l.customColorSeed)),
-            ButtonSegment(value: _Role.accent, label: Text(l.customColorAccent)),
+        // The curated accents first: a tap wears one; the wheel beneath
+        // makes any other color the user's own.
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            for (final (key, color) in AppAccent.presets)
+              InkWell(
+                borderRadius: BorderRadius.circular(999),
+                onTap: () {
+                  widget.settings.update(accentKey: key);
+                  setState(() => _hsv = HSVColor.fromColor(color));
+                  _syncFields();
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.settings.accentKey == key
+                          ? (scheme.onSurface)
+                          : scheme.outlineVariant,
+                      width: widget.settings.accentKey == key ? 3 : 1,
+                    ),
+                  ),
+                ),
+              ),
           ],
-          selected: {_role},
-          onSelectionChanged: (selection) => setState(() {
-            _role = selection.first;
-            _hsv = HSVColor.fromColor(Color(_roleColor()));
-            _syncFields();
-          }),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 18),
         _Wheel(hsv: _hsv, onPick: _pick),
         const SizedBox(height: 16),
         Row(
@@ -183,31 +169,7 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
             ],
           ],
         ),
-        const SizedBox(height: 20),
-        // How far the user's color drives the app: the app's own at the
-        // left end, theirs alone at the right.
-        Row(
-          children: [
-            SizedBox(
-              width: 96,
-              child: Text(l.customColorIntensity, style: theme.textTheme.bodyMedium),
-            ),
-            Expanded(
-              child: Slider(
-                value: _intensity,
-                min: 0.0,
-                max: 1.0,
-                divisions: 10,
-                label: '${(_intensity * 100).round()}%',
-                onChanged: (value) => setState(() {
-                  _intensity = value;
-                }),
-                onChangeEnd: (_) => _save(),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 18),
         // Kept colors: a tap wears one; a long press forgets it.
         if (widget.settings.savedColors.isNotEmpty) ...[
           Text(l.customColorSwatches, style: theme.textTheme.labelLarge),
@@ -227,7 +189,11 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
                     );
                     setState(() {});
                   },
-                  onTap: () => _pick(HSVColor.fromColor(Color(color))),
+                  onTap: () {
+                    setState(() => _hsv = HSVColor.fromColor(Color(color)));
+                    _syncFields();
+                    _save();
+                  },
                   child: Container(
                     width: 40,
                     height: 40,
@@ -251,9 +217,7 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
             ),
             const SizedBox(width: 8),
             TextButton.icon(
-              onPressed: () {
-                _reset();
-              },
+              onPressed: _reset,
               icon: const Icon(Icons.restart_alt_rounded, size: 18),
               label: Text(l.customColorReset),
             ),
@@ -262,7 +226,7 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
         const SizedBox(height: 16),
         Text(l.customColorPreview, style: theme.textTheme.labelLarge),
         const SizedBox(height: 8),
-        _Preview(scheme: preview, accent: widget.settings.customAccent),
+        _Preview(accent: accent, dark: dark),
         const SizedBox(height: 24),
         Text(l.customColorNote, style: theme.textTheme.bodySmall?.copyWith(
           color: scheme.onSurfaceVariant,
@@ -271,8 +235,6 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
     );
   }
 }
-
-enum _Role { seed, accent }
 
 /// The color wheel: a ring of hues around a square of the hue's shades,
 /// drawn by hand (no package). A drag picks; the dot follows.
@@ -345,7 +307,6 @@ class _HueRingPainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = thickness;
-    // Twelve arcs, each a hue step: a ring every wheel has.
     for (var i = 0; i < 360; i++) {
       paint.color = HSVColor.fromAHSV(1, i.toDouble(), 1, 1).toColor();
       canvas.drawArc(rect, i * math.pi / 180 - math.pi / 2, math.pi / 180 + 0.02, false, paint);
@@ -375,10 +336,9 @@ class _ShadeBoxPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final horizontal = Paint();
     canvas.drawRect(
       Offset.zero & size,
-      horizontal
+      Paint()
         ..shader = LinearGradient(
           colors: [
             Colors.white,
@@ -479,40 +439,54 @@ class _ChannelField extends StatelessWidget {
   );
 }
 
-/// A small, real slice of the app: cards, buttons, chips and icons in the
-/// colors the user is choosing, before they save anything.
+/// A small, real slice of the app's monochrome look, with the color the
+/// user is choosing as its accent: the connected state, a filled button,
+/// a toggle - before anything is saved.
 class _Preview extends StatelessWidget {
-  const _Preview({required this.scheme, this.accent});
+  const _Preview({required this.accent, required this.dark});
 
-  final ColorScheme scheme;
-  final int? accent;
+  final Color? accent;
+  final bool dark;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final localAccent = accent == null ? scheme.secondary : Color(accent!);
+    final surface = dark ? Colors.black : Colors.white;
+    final ink = dark ? Colors.white : Colors.black;
+    final a = accentForTheme(
+      accent ?? (dark ? Colors.white : Colors.black),
+      dark,
+    );
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerLowest,
+        color: surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: ink.withValues(alpha: 0.14),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
-              Icon(Icons.shield_outlined, color: scheme.primary),
+              Icon(Icons.shield_outlined, color: a),
               const SizedBox(width: 8),
-              Text(l.appTitle, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w600)),
+              Text(
+                l.appTitle,
+                style: TextStyle(color: ink, fontWeight: FontWeight.w600),
+              ),
               const Spacer(),
-              Icon(Icons.settings_outlined, color: localAccent),
+              Icon(Icons.settings_outlined, color: ink.withValues(alpha: 0.55)),
             ],
           ),
           const SizedBox(height: 12),
           FilledButton.icon(
-            style: FilledButton.styleFrom(backgroundColor: scheme.primary),
+            style: FilledButton.styleFrom(
+              backgroundColor: a,
+              foregroundColor: AppAccent.onAccent(a),
+            ),
             onPressed: () {},
             icon: const Icon(Icons.bolt_rounded, size: 18),
             label: Text(l.customColorPreviewButton),
@@ -522,9 +496,12 @@ class _Preview extends StatelessWidget {
             children: [
               Expanded(
                 child: Chip(
-                  avatar: Icon(Icons.check_circle_rounded, size: 18, color: scheme.primary),
-                  label: Text(l.customColorPreviewChip),
-                  backgroundColor: scheme.surfaceContainerHighest,
+                  avatar: Icon(Icons.check_circle_rounded, size: 18, color: a),
+                  label: Text(
+                    l.customColorPreviewChip,
+                    style: TextStyle(color: ink),
+                  ),
+                  backgroundColor: ink.withValues(alpha: 0.06),
                 ),
               ),
               const SizedBox(width: 8),
@@ -533,8 +510,11 @@ class _Preview extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   value: true,
                   onChanged: (_) {},
-                  activeThumbColor: localAccent,
-                  title: Text(l.customColorPreviewSwitch, style: const TextStyle(fontSize: 13)),
+                  activeThumbColor: a,
+                  title: Text(
+                    l.customColorPreviewSwitch,
+                    style: TextStyle(fontSize: 13, color: ink),
+                  ),
                 ),
               ),
             ],

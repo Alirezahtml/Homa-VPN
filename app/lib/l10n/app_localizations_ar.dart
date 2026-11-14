@@ -1856,11 +1856,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get protection => 'الحماية';
 
   @override
-  String get killSwitch => 'مفتاح الإيقاف الطارئ';
+  String get killSwitch => 'مفتاح الإيقاف';
 
   @override
   String get killSwitchHint =>
-      'إذا انقطع النفق، يبقى VPN قيد التشغيل ويحتجز البيانات — لا تسريب.';
+      'إذا توقف VPN يُحجز الترافيك — دون أي تسريب — حتى يعود الاتصال.';
 
   @override
   String get alwaysOnVpn => 'VPN دائم التشغيل';
@@ -1874,4 +1874,139 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get floatingIslandHint =>
       'يعرض حالة الاتصال فوق التطبيقات الأخرى أثناء غيابك عن التطبيق.';
+
+  @override
+  String whatsNewTitle(String version) {
+    return 'ما الجديد في الإصدار $version';
+  }
+
+  @override
+  String get whatsNewContinue => 'حسناً';
+
+  @override
+  String get whatsNewMenu => 'تغييرات الإصدار';
+
+  @override
+  String get whatsNewView => 'عرض مرة أخرى';
+
+  @override
+  String get customColorTitle => 'لون مخصص';
+
+  @override
+  String get customColorHint => 'اختر أي لون للتطبيق مع معاينة حية';
+
+  @override
+  String get customColorSeed => 'اللون الأساسي';
+
+  @override
+  String get customColorAccent => 'لون التمييز';
+
+  @override
+  String get customColorIntensity => 'شدة اللون';
+
+  @override
+  String get customColorSwatches => 'الألوان المحفوظة';
+
+  @override
+  String get customColorKeep => 'حفظ هذا اللون';
+
+  @override
+  String get customColorReset => 'العودة إلى الافتراضي';
+
+  @override
+  String get customColorPreview => 'معاينة';
+
+  @override
+  String get customColorNote =>
+      'تبقى قراءة النص والأيقونات محفوظة في الوضعين الفاتح والداكن؛ تُطبق الألوان على التطبيق كله وتبقى بعد إعادة التشغيل.';
+
+  @override
+  String get customColorHex => 'كود HEX';
+
+  @override
+  String get customColorPreviewButton => 'اتصال';
+
+  @override
+  String get customColorPreviewChip => 'محمي';
+
+  @override
+  String get customColorPreviewSwitch => 'تحديثات حية';
+
+  @override
+  String get updateServers => 'تحديث الخوادم';
+
+  @override
+  String get updatingServers => 'جارٍ التحديث…';
+
+  @override
+  String serversUpdated(int count) {
+    return '$count موقعاً من القائمة الرسمية لموزيلا';
+  }
+
+  @override
+  String get serversUpdateFailed =>
+      'تعذر تحديث قائمة الخوادم؛ أُبقيت القائمة السابقة.';
+
+  @override
+  String get smartPickTitle => 'الأسرع الآن';
+
+  @override
+  String get smartPickUse => 'استخدام';
+
+  @override
+  String get connectAtBoot => 'الاتصال بعد تشغيل الهاتف';
+
+  @override
+  String get connectAtBootHint =>
+      'يتصل تلقائياً عند الإقلاع إذا كان إذن VPN ممنوحاً مسبقاً.';
+
+  @override
+  String get gamingProfile => 'وضع الألعاب';
+
+  @override
+  String get gamingProfileHint =>
+      'يعرض البينغ والجودة الفعلية للاتصال مباشرة؛ ويعمل مع أسرع خادم مقاساً.';
+
+  @override
+  String get diagnosticsRun => 'تشغيل التشخيص';
+
+  @override
+  String get diagnosticsHint => 'الاتصال و DNS والنفق بنقرة واحدة';
+
+  @override
+  String get diagnosticsTunnel => 'النفق';
+
+  @override
+  String get diagnosticsTunnelUp => 'قائم وينقل البيانات';
+
+  @override
+  String get diagnosticsTunnelDown => 'متوقف';
+
+  @override
+  String get diagnosticsExit => 'بلد الخروج';
+
+  @override
+  String get diagnosticsMismatch => 'بلد الخروج يختلف عن اختيارك';
+
+  @override
+  String get diagnosticsConnection => 'اختبار الاتصال';
+
+  @override
+  String get diagnosticsPassed => 'نجح';
+
+  @override
+  String get diagnosticsFailed => 'فشل';
+
+  @override
+  String get diagnosticsDnsFiltered => 'رد محجوب أو مُرشَّح';
+
+  @override
+  String get diagnosticsDnsOk => 'أجاب';
+
+  @override
+  String get diagnosticsPrivacy =>
+      'لا يُخزَّن شيء من هذا؛ تبقى النتيجة في هذه النافذة وفي سجل النواة نفسه.';
+
+  @override
+  String get diagnosticsAgain => 'تشغيل مرة أخرى';
 }
