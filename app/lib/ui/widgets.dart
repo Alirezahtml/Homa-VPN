@@ -10,6 +10,7 @@ import '../core/remote_flags.dart';
 import '../core/updates.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
+import 'accent.dart';
 import 'country_names.dart';
 import 'format.dart';
 import 'local_country_names.dart';
@@ -67,15 +68,27 @@ class BrandWordmark extends StatelessWidget {
 /// Status colors that read in both themes. The palette is monochrome:
 /// a full-contrast point for the good state, a mid gray for the ones
 /// that wait; trouble shows full contrast again, and the icons and the
-/// words carry what the color used to.
+/// words carry what the color used to. A chosen accent ([AppAccent])
+/// takes the full-contrast points; the grays stay gray.
 abstract final class StatusColors {
   static bool get _dark =>
       WidgetsBinding.instance.platformDispatcher.platformBrightness ==
       Brightness.dark;
 
-  static Color get good => _dark ? Colors.white : const Color(0xFF0A0A0A);
+  static Color get good {
+    final accent = AppAccent.current;
+    if (accent != null) return accentForTheme(accent, _dark);
+    return _dark ? Colors.white : const Color(0xFF0A0A0A);
+  }
+
   static Color get busy => const Color(0xFF8A8A8A);
-  static Color get bad => _dark ? Colors.white : const Color(0xFF0A0A0A);
+
+  static Color get bad {
+    final accent = AppAccent.current;
+    if (accent != null) return accentForTheme(accent, _dark);
+    return _dark ? Colors.white : const Color(0xFF0A0A0A);
+  }
+
   static Color get idle => const Color(0xFF8A8A8A);
 }
 
@@ -184,18 +197,29 @@ String locationName(AppLocalizations l, String code, String name) =>
     : countryName(l, code, name);
 
 /// The phone home's colors: a pure black night and the state's light.
+/// The state's light follows the chosen accent ([AppAccent.current]); the
+/// surfaces stay pure black either way.
 abstract final class Midnight {
   static const top = Color(0xFF0A0A0A);
   static const bottom = Colors.black;
-  static const connected = Colors.white;
+
+  static Color get connected {
+    final accent = AppAccent.current;
+    if (accent != null) return accentForTheme(accent, true);
+    return Colors.white;
+  }
+
   static const busy = Color(0xFFBFBFBF);
-  static const error = Colors.white;
+
+  static Color get error => connected;
+
   static const idle = Color(0xFF8A8A8A);
   static const muted = Color(0xFF9E9E9E);
 }
 
 /// A dark theme for the phone's home, monochrome: pure black surfaces,
-/// white text, neutral grays only.
+/// white text, neutral grays only — with the chosen accent in the
+/// scheme's lights when one is set.
 ThemeData midnightTheme(ThemeData base) {
   const scheme = ColorScheme.dark(
     primary: Colors.white,
@@ -223,8 +247,18 @@ ThemeData midnightTheme(ThemeData base) {
     surfaceContainerLow: Color(0xFF0C0C0C),
     surfaceContainerLowest: Colors.black,
   );
+  final accent = AppAccent.current;
   return ThemeData(
-    colorScheme: scheme,
+    colorScheme: accent == null
+        ? scheme
+        : scheme.copyWith(
+            primary: accent,
+            onPrimary: AppAccent.onAccent(accent),
+            secondary: accent,
+            onSecondary: AppAccent.onAccent(accent),
+            tertiary: accent,
+            onTertiary: AppAccent.onAccent(accent),
+          ),
     fontFamily: base.textTheme.bodyMedium?.fontFamily,
   );
 }
@@ -593,9 +627,8 @@ class PageTitle extends StatelessWidget {
       : Reveal(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
+            style: Theme.of(context).textTheme.headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w800),
           ),
         );
 }

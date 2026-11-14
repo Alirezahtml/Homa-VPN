@@ -1738,4 +1738,103 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get noResults => 'কোনো লোকেশন খোঁজার সঙ্গে মেলে না।';
+
+  @override
+  String get accentColor => 'অ্যাকসেন্ট রং';
+
+  @override
+  String get accentMono => 'একবর্ণা (ডিফল্ট)';
+
+  @override
+  String get accentCustom => 'নিজের রং';
+
+  @override
+  String get accentEmber => 'অঙ্গার';
+
+  @override
+  String get accentGold => 'সোনালি';
+
+  @override
+  String get accentEmerald => 'পান্না';
+
+  @override
+  String get accentSapphire => 'নীলমণি';
+
+  @override
+  String get accentAmethyst => 'অ্যামেথিস্ট';
+
+  @override
+  String get accentRose => 'গোলাপি';
+
+  @override
+  String get autoReconnect => 'স্বয়ংক্রিয় পুনরায় সংযোগ';
+
+  @override
+  String get autoReconnectHint =>
+      'আপনার অনুরোধ ছাড়া সংযোগ ছিঁড়ে গেলে নিজে থেকেই ফিরিয়ে আনে।';
+
+  @override
+  String get androidOnlyHint => 'শুধু ফোনে।';
+
+  @override
+  String get idleDisconnect => 'অলস অবস্থায় বিচ্ছিন্ন করুন';
+
+  @override
+  String get idleDisconnectHint =>
+      'কিছুক্ষণ কোনো ট্রাফিক না গেলে সেশন শেষ করে।';
+
+  @override
+  String get idleTimeout => 'অলস সময়সীমা';
+
+  @override
+  String get minutes5 => '৫ মিনিট';
+
+  @override
+  String get minutes10 => '১০ মিনিট';
+
+  @override
+  String get minutes15 => '১৫ মিনিট';
+
+  @override
+  String get minutes30 => '৩০ মিনিট';
+
+  @override
+  String get minutes60 => '১ ঘণ্টা';
+
+  @override
+  String get dataLimit => 'সেশন ডেটা সীমা';
+
+  @override
+  String get dataLimitHint => 'ট্রাফিক সীমায় পৌঁছালে সেশন শেষ করে।';
+
+  @override
+  String get dataLimitAmount => 'সীমা';
+
+  @override
+  String get mb256 => '২৫৬ এমবি';
+
+  @override
+  String get mb512 => '৫১২ এমবি';
+
+  @override
+  String get mb1024 => '১ জিবি';
+
+  @override
+  String get mb2048 => '২ জিবি';
+
+  @override
+  String get mb5120 => '৫ জিবি';
+
+  @override
+  String get mb10240 => '১০ জিবি';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '$minutes মিনিট কোনো ট্রাফিক যায়নি, তাই সংযোগ বিচ্ছিন্ন হয়েছে।';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'সেশন তার $mb এমবি ডেটা সীমায় পৌঁছেছে, তাই সংযোগ বিচ্ছিন্ন হয়েছে।';
+  }
 }

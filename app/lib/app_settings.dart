@@ -86,6 +86,32 @@ class AppSettings extends ChangeNotifier {
   /// home page's notice still offer it by hand.
   bool autoInstallApk = true;
 
+  /// The accent the user picked for the app's lights (the connected state,
+  /// the buttons, the sliders): one of [AppAccent.presets]' keys, 'custom'
+  /// for [customAccent], or '' for the monochrome design.
+  String accentKey = '';
+
+  /// The user's own accent, as ARGB, when [accentKey] is 'custom'.
+  int customAccent = 0xFF60A5FA;
+
+  /// Puts the VPN back on by itself when the phone's connection drops
+  /// without the user asking; off until the user turns it on.
+  bool autoReconnect = false;
+
+  /// Hangs up by itself when no traffic moved for [idleTimeoutMin] minutes
+  /// while connected; off until the user turns it on.
+  bool idleDisconnect = false;
+
+  /// The idle wait, in whole minutes, before [idleDisconnect] hangs up.
+  int idleTimeoutMin = 15;
+
+  /// Ends the session by itself when its traffic reaches [dataLimitMb] MB;
+  /// off until the user turns it on.
+  bool dataLimit = false;
+
+  /// The session's data limit, in whole megabytes, for [dataLimit].
+  int dataLimitMb = 1024;
+
   /// The columns the Logs page's Connections tab hides (ConnectionsView):
   /// at first all but the time, the destination, the rule, and the
   /// protocol. Kept in this file.
@@ -241,6 +267,17 @@ class AppSettings extends ChangeNotifier {
         s.showTraffic = j['show_traffic'] != false;
         s.udpNotice = j['udp_notice'] != false;
         s.autoInstallApk = j['auto_install_apk'] != false;
+        if (j['accent'] case final String a) s.accentKey = a;
+        if (j['custom_accent'] case final int v) s.customAccent = v;
+        s.autoReconnect = j['auto_reconnect'] == true;
+        s.idleDisconnect = j['idle_disconnect'] == true;
+        if (j['idle_timeout_min'] case final int v when v > 0) {
+          s.idleTimeoutMin = v.clamp(1, 240);
+        }
+        s.dataLimit = j['data_limit'] == true;
+        if (j['data_limit_mb'] case final int v when v > 0) {
+          s.dataLimitMb = v.clamp(16, 1024 * 1024);
+        }
         if (j['hidden_connection_columns'] case final List<Object?> v) {
           s.hiddenConnectionColumns = {...v.whereType<String>()};
         }
@@ -277,6 +314,13 @@ class AppSettings extends ChangeNotifier {
     bool? showTraffic,
     bool? udpNotice,
     bool? autoInstallApk,
+    String? accentKey,
+    int? customAccent,
+    bool? autoReconnect,
+    bool? idleDisconnect,
+    int? idleTimeoutMin,
+    bool? dataLimit,
+    int? dataLimitMb,
     Set<String>? hiddenConnectionColumns,
   }) {
     this.hiddenConnectionColumns =
@@ -287,8 +331,14 @@ class AppSettings extends ChangeNotifier {
     this.hapticFeedback = hapticFeedback ?? this.hapticFeedback;
     this.keepScreenOn = keepScreenOn ?? this.keepScreenOn;
     this.showTraffic = showTraffic ?? this.showTraffic;
-    this.udpNotice = udpNotice ?? this.udpNotice;
     this.autoInstallApk = autoInstallApk ?? this.autoInstallApk;
+    this.accentKey = accentKey ?? this.accentKey;
+    this.customAccent = customAccent ?? this.customAccent;
+    this.autoReconnect = autoReconnect ?? this.autoReconnect;
+    this.idleDisconnect = idleDisconnect ?? this.idleDisconnect;
+    this.idleTimeoutMin = idleTimeoutMin ?? this.idleTimeoutMin;
+    this.dataLimit = dataLimit ?? this.dataLimit;
+    this.dataLimitMb = dataLimitMb ?? this.dataLimitMb;
     this.showPublicIp = showPublicIp ?? this.showPublicIp;
     this.lowQuotaDismissedAt = lowQuotaDismissedAt ?? this.lowQuotaDismissedAt;
     this.dismissedUpdate = dismissedUpdate ?? this.dismissedUpdate;
@@ -338,6 +388,13 @@ class AppSettings extends ChangeNotifier {
           'show_traffic': showTraffic,
           'udp_notice': udpNotice,
           'auto_install_apk': autoInstallApk,
+          'accent': accentKey,
+          'custom_accent': customAccent,
+          'auto_reconnect': autoReconnect,
+          'idle_disconnect': idleDisconnect,
+          'idle_timeout_min': idleTimeoutMin,
+          'data_limit': dataLimit,
+          'data_limit_mb': dataLimitMb,
           'hidden_connection_columns': hiddenConnectionColumns.toList(),
         }),
       );

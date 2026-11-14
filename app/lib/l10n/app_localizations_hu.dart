@@ -1756,4 +1756,104 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get noResults => 'A keresésnek megfelelő hely nincs.';
+
+  @override
+  String get accentColor => 'Kiemelő szín';
+
+  @override
+  String get accentMono => 'Egyszínű (alapértelmezett)';
+
+  @override
+  String get accentCustom => 'Egyéni szín';
+
+  @override
+  String get accentEmber => 'Parázs';
+
+  @override
+  String get accentGold => 'Arany';
+
+  @override
+  String get accentEmerald => 'Smaragd';
+
+  @override
+  String get accentSapphire => 'Zafír';
+
+  @override
+  String get accentAmethyst => 'Ametiszt';
+
+  @override
+  String get accentRose => 'Rózsa';
+
+  @override
+  String get autoReconnect => 'Automatikus újracsatlakozás';
+
+  @override
+  String get autoReconnectHint =>
+      'Önmagától visszakapcsol, ha a kapcsolat a kérése nélkül megszakad.';
+
+  @override
+  String get androidOnlyHint => 'Csak telefonon.';
+
+  @override
+  String get idleDisconnect => 'Bontás üresjáratnál';
+
+  @override
+  String get idleDisconnectHint =>
+      'Befejezi a munkamenetet, ha egy darabig nem folyik forgalom.';
+
+  @override
+  String get idleTimeout => 'Üresjárati várakozás';
+
+  @override
+  String get minutes5 => '5 perc';
+
+  @override
+  String get minutes10 => '10 perc';
+
+  @override
+  String get minutes15 => '15 perc';
+
+  @override
+  String get minutes30 => '30 perc';
+
+  @override
+  String get minutes60 => '1 óra';
+
+  @override
+  String get dataLimit => 'Munkamenet adatkorlátja';
+
+  @override
+  String get dataLimitHint =>
+      'Befejezi a munkamenetet, ha forgalma eléri a korlátot.';
+
+  @override
+  String get dataLimitAmount => 'Korlát';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '$minutes percig nem folyt forgalom, ezért a kapcsolat megszakadt.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'A munkamenet elérte a(z) $mb MB adatkorlátot, ezért a kapcsolat megszakadt.';
+  }
 }

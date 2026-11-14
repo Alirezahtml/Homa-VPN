@@ -14,6 +14,7 @@ import '../core/models.dart';
 import '../core/ports.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
+import 'accent.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
 import 'format.dart';
@@ -303,10 +304,7 @@ class _DesktopHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final base = Theme.of(context);
-    final p = base.brightness == Brightness.dark
-        ? _HomePalette.night
-        : _HomePalette.day;
+    final p = _homePalette(Theme.of(context).brightness);
     final page = DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -327,7 +325,9 @@ class _DesktopHome extends StatelessWidget {
         ),
       ),
     );
-    return p.dark ? Theme(data: midnightTheme(base), child: page) : page;
+    return p.dark
+        ? Theme(data: midnightTheme(Theme.of(context)), child: page)
+        : page;
   }
 
   bool get _running => status.state.phase == Phase.running;
@@ -458,6 +458,30 @@ class _DesktopHome extends StatelessWidget {
             color: p.error,
             icon: Icons.error_outline_rounded,
             tooltip: noNetwork ? '' : failure?.detail ?? '',
+          )
+        else if (core.autoStopReason == 'idle' && !noNetwork)
+          // The caretaker ended the session: the idle wait passed.
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: _problemBoxWidth),
+              child: _ProblemBox(
+                text: l.autoStoppedIdle(settings.idleTimeoutMin),
+                color: StatusColors.busy,
+                icon: Icons.hourglass_bottom_rounded,
+              ),
+            ),
+          )
+        else if (core.autoStopReason == 'data')
+          // The caretaker ended the session: the data limit.
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: _problemBoxWidth),
+              child: _ProblemBox(
+                text: l.autoStoppedData(settings.dataLimitMb),
+                color: StatusColors.busy,
+                icon: Icons.data_usage_rounded,
+              ),
+            ),
           )
         else
           // A start failure's hint is general; the core's reason is on
@@ -994,6 +1018,34 @@ class _HomePalette {
     discOff: [Colors.white, Color(0xFFF1F1F1)],
     discOffEdge: Color(0xFFD6D6D6),
   );
+
+  /// The palette with the chosen accent in the state's lights (connected,
+  /// error); the surfaces, the ink and the grays stay as they are.
+  _HomePalette tinted(Color accent) => _HomePalette(
+    dark: dark,
+    top: top,
+    bottom: bottom,
+    text: text,
+    muted: muted,
+    card: card,
+    cardBorder: cardBorder,
+    idle: idle,
+    connected: accentForTheme(accent, dark),
+    busy: busy,
+    error: accentForTheme(accent, dark),
+    discOff: discOff,
+    discOffEdge: discOffEdge,
+  );
+}
+
+/// The home's palette for this build: night or day, with the chosen
+/// accent ([AppAccent]) in the state's lights when one is set.
+_HomePalette _homePalette(Brightness brightness) {
+  final p = brightness == Brightness.dark
+      ? _HomePalette.night
+      : _HomePalette.day;
+  final accent = AppAccent.current;
+  return accent == null ? p : p.tinted(accent);
 }
 
 /// The phone's home: the switch in the middle over soft lights and wavy
@@ -1039,10 +1091,7 @@ class _PhoneHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final base = Theme.of(context);
-    final p = base.brightness == Brightness.dark
-        ? _HomePalette.night
-        : _HomePalette.day;
+    final p = _homePalette(Theme.of(context).brightness);
     final page = AnnotatedRegion<SystemUiOverlayStyle>(
       value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
           .copyWith(statusBarColor: Colors.transparent),
@@ -1087,7 +1136,9 @@ class _PhoneHome extends StatelessWidget {
         ),
       ),
     );
-    return p.dark ? Theme(data: midnightTheme(base), child: page) : page;
+    return p.dark
+        ? Theme(data: midnightTheme(Theme.of(context)), child: page)
+        : page;
   }
 
   Widget _content(BuildContext context, _HomePalette p, BoxConstraints box) {
@@ -1160,8 +1211,9 @@ class _PhoneHome extends StatelessWidget {
     final top = MediaQuery.paddingOf(context).top;
     return Padding(
       // The bottom clears the floating pill navigation, which the page
-      // runs beneath.
-      padding: EdgeInsets.fromLTRB(side, top + 14, side, 116),
+      // runs beneath — with room to breathe, not a dead band: the cards
+      // sit close above it.
+      padding: EdgeInsets.fromLTRB(side, top + 14, side, 72),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1256,6 +1308,24 @@ class _PhoneHome extends StatelessWidget {
                 color: p.error,
                 icon: Icons.error_outline_rounded,
                 tooltip: noNetwork ? '' : failure?.detail ?? '',
+              ),
+            )
+          else if (core.autoStopReason == 'idle' && !noNetwork)
+            // The caretaker ended the session: the idle wait passed.
+            problem(
+              _ProblemBox(
+                text: l.autoStoppedIdle(settings.idleTimeoutMin),
+                color: StatusColors.busy,
+                icon: Icons.hourglass_bottom_rounded,
+              ),
+            )
+          else if (core.autoStopReason == 'data')
+            // The caretaker ended the session: the data limit.
+            problem(
+              _ProblemBox(
+                text: l.autoStoppedData(settings.dataLimitMb),
+                color: StatusColors.busy,
+                icon: Icons.data_usage_rounded,
               ),
             )
           else

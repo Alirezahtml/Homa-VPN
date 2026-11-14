@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 
+import '../app_settings.dart';
 import 'core_api.dart';
 import 'remote_flags.dart';
 import 'models.dart';
@@ -9,7 +11,9 @@ import 'ports.dart';
 import 'tun_service.dart';
 
 /// Connects to the core, polls its status and accounts, and runs the
-/// user's actions. It holds no VPN logic: every decision is the core's.
+/// user's actions. It holds no VPN logic: every decision is the core's —
+/// except the quiet caretaker ([_caretake]), which only follows the app's
+/// own switches.
 class CoreController extends ChangeNotifier {
   CoreController(
     this._connect, {
@@ -18,7 +22,13 @@ class CoreController extends ChangeNotifier {
     this.retryStoppedCore,
     this.turnOn,
     this.tunService,
+    this.appSettings,
   });
+
+  /// The app's own preferences; the caretaker reads its switches. Null in
+  /// the tests that build a controller alone. (`settings` is the core's
+  /// own settings read, so this one takes the app's name.)
+  final AppSettings? appSettings;
 
   /// Installs and removes the TUN mode's service (Windows); null elsewhere.
   final TunService? tunService;
@@ -104,6 +114,28 @@ class CoreController extends ChangeNotifier {
   /// Accounts with an action in progress.
   final Set<String> busyAccounts = {};
 
+  /// Why the caretaker ended the session by itself: '' (it never did),
+  /// 'idle' (no traffic moved for the idle wait) or 'data' (the session
+  /// reached the data limit). The home page says it in the user's words;
+  /// the user's next connect clears it.
+  String autoStopReason = '';
+
+  /// Whether the last poll had the connection on (the caretaker's drop
+  /// detector needs the poll before the drop).
+  bool _wasOn = false;
+
+  /// When the user last turned the power off by hand: the caretaker never
+  /// puts the connection back behind their back.
+  DateTime? _userOffAt;
+
+  /// When the session last moved traffic, and the counters it started at,
+  /// for the idle wait and the data limit.
+  DateTime _lastMove = DateTime.now();
+  int _baseUp = 0;
+  int _baseDown = 0;
+  String? _sessionKey;
+  Timer? _reconnect;
+
   CoreApi? get api => _api;
   bool get connected => _api != null && unavailable == null;
 
@@ -125,6 +157,7 @@ class CoreController extends ChangeNotifier {
       final readAccounts = accountsToo || accounts == null || _tick % 3 == 0;
       _tick++;
       status = next;
+      _caretake(next);
       // The phone's VPN while on; the computer's proxy, which always runs,
       // in either mode.
       if (turnOn != null || next.systemProxySupported) {
@@ -175,6 +208,87 @@ class CoreController extends ChangeNotifier {
     unavailable = problem;
   }
 
+  /// The quiet caretaker, following only the app's own switches: it puts
+  /// the phone's connection back up after an unexpected drop, and ends the
+  /// session itself at the data limit or after the idle wait. The user's
+  /// own power-off is never second-guessed, and a failed connect (the core
+  /// has said why) is left alone — the app's connect flow owns that.
+  void _caretake(CoreStatus next) {
+    final s = appSettings;
+    if (s == null || _disposed) return;
+    final on = next.proxyOn;
+    if (turnOn != null) {
+      // The phone: a connection that dropped without the user asking goes
+      // back up after a short wait, once.
+      if (!on &&
+          _wasOn &&
+          s.autoReconnect &&
+          !_recentUserOff() &&
+          next.connectFailure.isEmpty) {
+        _reconnect ??= Timer(const Duration(seconds: 3), () {
+          _reconnect = null;
+          final now = status;
+          if (now != null &&
+              !now.proxyOn &&
+              s.autoReconnect &&
+              now.connectFailure.isEmpty &&
+              !_recentUserOff()) {
+            unawaited(setOn(true));
+          }
+        });
+      } else if (on || !s.autoReconnect) {
+        _reconnect?.cancel();
+        _reconnect = null;
+      }
+      _wasOn = on || next.connectPending;
+    }
+    // The session watch: per connection, from the first running poll.
+    final running = on && next.state.phase == Phase.running;
+    final key = next.proxy?.startedAt?.toIso8601String();
+    if (running && key != _sessionKey) {
+      _sessionKey = key;
+      _baseUp = next.traffic?.up ?? 0;
+      _baseDown = next.traffic?.down ?? 0;
+      _lastMove = DateTime.now();
+    }
+    if (!running) {
+      _sessionKey = null;
+      return;
+    }
+    final t = next.traffic;
+    final session =
+        math.max(0, (t?.up ?? 0) - _baseUp) +
+        math.max(0, (t?.down ?? 0) - _baseDown);
+    if ((t?.upRate ?? 0) + (t?.downRate ?? 0) > 2048) {
+      _lastMove = DateTime.now();
+    }
+    if (s.dataLimit && session >= s.dataLimitMb * 1024 * 1024) {
+      autoStopReason = 'data';
+      unawaited(
+        turnOn != null
+            ? setOn(false, caretaker: true)
+            : setSystemProxy('clear', caretaker: true),
+      );
+      return;
+    }
+    if (s.idleDisconnect &&
+        DateTime.now().difference(_lastMove) >
+            Duration(minutes: s.idleTimeoutMin)) {
+      autoStopReason = 'idle';
+      unawaited(
+        turnOn != null
+            ? setOn(false, caretaker: true)
+            : setSystemProxy('clear', caretaker: true),
+      );
+    }
+  }
+
+  /// The user's own power-off in the last half minute: the caretaker does
+  /// not put the connection back behind their back.
+  bool _recentUserOff() =>
+      _userOffAt != null &&
+      DateTime.now().difference(_userOffAt!) < const Duration(seconds: 30);
+
   Future<void> runTest() => _act(() async {
     testing = true;
     notifyListeners();
@@ -193,16 +307,22 @@ class CoreController extends ChangeNotifier {
 
   Future<void> restartProxy() => _act(() => _require().restartProxy());
 
-  /// Sets the system proxy mode: set (Windows uses the VPN) or clear.
-  Future<void> setSystemProxy(String mode) => _act(() async {
-    switchingProxy = true;
-    notifyListeners();
-    try {
-      await _require().setSystemProxy(mode);
-    } finally {
-      switchingProxy = false;
-    }
-  });
+  /// Sets the system proxy mode: set (Windows uses the VPN) or clear. A
+  /// caretaker clear ([caretaker]) keeps its own reason on the record.
+  Future<void> setSystemProxy(String mode, {bool caretaker = false}) =>
+      _act(() async {
+        if (!caretaker) {
+          if (mode != 'set') _userOffAt = DateTime.now();
+          autoStopReason = '';
+        }
+        switchingProxy = true;
+        notifyListeners();
+        try {
+          await _require().setSystemProxy(mode);
+        } finally {
+          switchingProxy = false;
+        }
+      });
 
   /// Installs the TUN service, with the system's administrator prompt;
   /// [prompt] is its reason on macOS.
@@ -241,8 +361,13 @@ class CoreController extends ChangeNotifier {
   }
 
   /// Turns the proxy on or off ([turnOn] on the phone, the core's API on the
-  /// computer) and waits, briefly, until the core reports it.
-  Future<void> setOn(bool on) => _act(() async {
+  /// computer) and waits, briefly, until the core reports it. A caretaker
+  /// stop ([caretaker]) clears neither the user-off mark nor its own reason.
+  Future<void> setOn(bool on, {bool caretaker = false}) => _act(() async {
+    if (!caretaker) {
+      if (!on) _userOffAt = DateTime.now();
+      autoStopReason = '';
+    }
     switchingProxy = true;
     notifyListeners();
     try {

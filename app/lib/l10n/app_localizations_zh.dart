@@ -1672,6 +1672,103 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noResults => '没有符合搜索的位置。';
+
+  @override
+  String get accentColor => '强调色';
+
+  @override
+  String get accentMono => '单色（默认）';
+
+  @override
+  String get accentCustom => '自定义颜色';
+
+  @override
+  String get accentEmber => '火焰';
+
+  @override
+  String get accentGold => '金色';
+
+  @override
+  String get accentEmerald => '祖母绿';
+
+  @override
+  String get accentSapphire => '蓝宝石';
+
+  @override
+  String get accentAmethyst => '紫水晶';
+
+  @override
+  String get accentRose => '玫瑰';
+
+  @override
+  String get autoReconnect => '自动重连';
+
+  @override
+  String get autoReconnectHint => '连接意外断开时自动重新连接。';
+
+  @override
+  String get androidOnlyHint => '仅限手机。';
+
+  @override
+  String get idleDisconnect => '空闲时断开';
+
+  @override
+  String get idleDisconnectHint => '一段时间没有流量时结束本次会话。';
+
+  @override
+  String get idleTimeout => '空闲时限';
+
+  @override
+  String get minutes5 => '5 分钟';
+
+  @override
+  String get minutes10 => '10 分钟';
+
+  @override
+  String get minutes15 => '15 分钟';
+
+  @override
+  String get minutes30 => '30 分钟';
+
+  @override
+  String get minutes60 => '1 小时';
+
+  @override
+  String get dataLimit => '会话流量上限';
+
+  @override
+  String get dataLimitHint => '流量达到上限时结束本次会话。';
+
+  @override
+  String get dataLimitAmount => '上限';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '已有 $minutes 分钟没有流量，连接已断开。';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return '会话流量达到 $mb MB 上限，连接已断开。';
+  }
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3342,4 +3439,101 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get noResults => '沒有符合搜尋的位置。';
+
+  @override
+  String get accentColor => '強調色';
+
+  @override
+  String get accentMono => '單色（預設）';
+
+  @override
+  String get accentCustom => '自訂顏色';
+
+  @override
+  String get accentEmber => '火焰';
+
+  @override
+  String get accentGold => '金色';
+
+  @override
+  String get accentEmerald => '祖母綠';
+
+  @override
+  String get accentSapphire => '藍寶石';
+
+  @override
+  String get accentAmethyst => '紫水晶';
+
+  @override
+  String get accentRose => '玫瑰';
+
+  @override
+  String get autoReconnect => '自動重新連線';
+
+  @override
+  String get autoReconnectHint => '連線意外中斷時自動重新連線。';
+
+  @override
+  String get androidOnlyHint => '僅限手機。';
+
+  @override
+  String get idleDisconnect => '閒置時中斷連線';
+
+  @override
+  String get idleDisconnectHint => '一段時間沒有流量時結束此次工作階段。';
+
+  @override
+  String get idleTimeout => '閒置時限';
+
+  @override
+  String get minutes5 => '5 分鐘';
+
+  @override
+  String get minutes10 => '10 分鐘';
+
+  @override
+  String get minutes15 => '15 分鐘';
+
+  @override
+  String get minutes30 => '30 分鐘';
+
+  @override
+  String get minutes60 => '1 小時';
+
+  @override
+  String get dataLimit => '工作階段流量上限';
+
+  @override
+  String get dataLimitHint => '流量達到上限時結束此次工作階段。';
+
+  @override
+  String get dataLimitAmount => '上限';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '已有 $minutes 分鐘沒有流量，連線已中斷。';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return '工作階段流量達到 $mb MB 上限，連線已中斷。';
+  }
 }

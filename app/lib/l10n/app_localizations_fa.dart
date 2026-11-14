@@ -1730,4 +1730,103 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get noResults => 'هیچ مکانی با جستجو هم‌خوانی ندارد.';
+
+  @override
+  String get accentColor => 'رنگ تاکیدی';
+
+  @override
+  String get accentMono => 'تک‌رنگ (پیش‌فرض)';
+
+  @override
+  String get accentCustom => 'رنگ دلخواه';
+
+  @override
+  String get accentEmber => 'شعله‌ای';
+
+  @override
+  String get accentGold => 'طلایی';
+
+  @override
+  String get accentEmerald => 'زمردی';
+
+  @override
+  String get accentSapphire => 'لاجوردی';
+
+  @override
+  String get accentAmethyst => 'یاقوت بنفش';
+
+  @override
+  String get accentRose => 'رزی';
+
+  @override
+  String get autoReconnect => 'اتصال دوباره خودکار';
+
+  @override
+  String get autoReconnectHint =>
+      'اگر اتصال بدون دست شما قطع شد، خودش دوباره وصل می‌کند.';
+
+  @override
+  String get androidOnlyHint => 'فقط روی گوشی.';
+
+  @override
+  String get idleDisconnect => 'قطع در حالت بی‌حرکتی';
+
+  @override
+  String get idleDisconnectHint =>
+      'اگر مدتی ترافیکی رد و بدل نشود، جلسه را تمام می‌کند.';
+
+  @override
+  String get idleTimeout => 'مهلت بی‌حرکتی';
+
+  @override
+  String get minutes5 => '۵ دقیقه';
+
+  @override
+  String get minutes10 => '۱۰ دقیقه';
+
+  @override
+  String get minutes15 => '۱۵ دقیقه';
+
+  @override
+  String get minutes30 => '۳۰ دقیقه';
+
+  @override
+  String get minutes60 => '۱ ساعت';
+
+  @override
+  String get dataLimit => 'محدودیت دادهٔ جلسه';
+
+  @override
+  String get dataLimitHint => 'وقتی دادهٔ جلسه به سقف رسید، آن را تمام می‌کند.';
+
+  @override
+  String get dataLimitAmount => 'سقف داده';
+
+  @override
+  String get mb256 => '۲۵۶ مگابایت';
+
+  @override
+  String get mb512 => '۵۱۲ مگابایت';
+
+  @override
+  String get mb1024 => '۱ گیگابایت';
+
+  @override
+  String get mb2048 => '۲ گیگابایت';
+
+  @override
+  String get mb5120 => '۵ گیگابایت';
+
+  @override
+  String get mb10240 => '۱۰ گیگابایت';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'به مدت $minutes دقیقه ترافیکی رد و بدل نشد و اتصال قطع شد.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'دادهٔ جلسه به سقف $mb مگابایت رسید و اتصال قطع شد.';
+  }
 }

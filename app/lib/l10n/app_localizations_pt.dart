@@ -1749,4 +1749,104 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get noResults => 'Nenhum local corresponde à pesquisa.';
+
+  @override
+  String get accentColor => 'Cor de destaque';
+
+  @override
+  String get accentMono => 'Monocromático (padrão)';
+
+  @override
+  String get accentCustom => 'Cor personalizada';
+
+  @override
+  String get accentEmber => 'Brasa';
+
+  @override
+  String get accentGold => 'Dourado';
+
+  @override
+  String get accentEmerald => 'Esmeralda';
+
+  @override
+  String get accentSapphire => 'Safira';
+
+  @override
+  String get accentAmethyst => 'Ametista';
+
+  @override
+  String get accentRose => 'Rosa';
+
+  @override
+  String get autoReconnect => 'Reconexão automática';
+
+  @override
+  String get autoReconnectHint =>
+      'Religa a conexão sozinha quando ela cai sem você pedir.';
+
+  @override
+  String get androidOnlyHint => 'Somente no celular.';
+
+  @override
+  String get idleDisconnect => 'Desconectar quando ociosa';
+
+  @override
+  String get idleDisconnectHint =>
+      'Encerra a sessão quando nenhum tráfego passa por um tempo.';
+
+  @override
+  String get idleTimeout => 'Espera de ociosidade';
+
+  @override
+  String get minutes5 => '5 minutos';
+
+  @override
+  String get minutes10 => '10 minutos';
+
+  @override
+  String get minutes15 => '15 minutos';
+
+  @override
+  String get minutes30 => '30 minutos';
+
+  @override
+  String get minutes60 => '1 hora';
+
+  @override
+  String get dataLimit => 'Limite de dados da sessão';
+
+  @override
+  String get dataLimitHint =>
+      'Encerra a sessão quando o tráfego dela atinge o limite.';
+
+  @override
+  String get dataLimitAmount => 'Limite';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'Não passou tráfego por $minutes minutos, então a conexão foi desconectada.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'A sessão atingiu o limite de $mb MB, então a conexão foi desconectada.';
+  }
 }

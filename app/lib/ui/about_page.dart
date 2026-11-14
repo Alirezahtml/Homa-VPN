@@ -95,11 +95,29 @@ class _AboutPageState extends State<AboutPage> {
       color: theme.colorScheme.onSurfaceVariant,
     );
     final ink = ColorFilter.mode(theme.colorScheme.onSurface, BlendMode.srcIn);
-    Widget social(String glyph, String handle, String url) => Expanded(
-      child: OutlinedButton.icon(
-        onPressed: () => openLink(context, url),
-        icon: SvgPicture.string(glyph, width: 18, height: 18, colorFilter: ink),
-        label: Text(handle, textDirection: TextDirection.ltr),
+    // The sponsor layout: every card hugs what it carries — wide enough
+    // for its own words in any language, never squeezed — and grows only
+    // when it must, by stepping to a line of its own when the row runs
+    // out of room. Nothing is compressed to fit.
+    Widget social(String glyph, String handle, String url) => OutlinedButton(
+      onPressed: () => openLink(context, url),
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.string(glyph, width: 18, height: 18, colorFilter: ink),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              handle,
+              textDirection: TextDirection.ltr,
+              maxLines: 2,
+              overflow: TextOverflow.visible,
+            ),
+          ),
+        ],
       ),
     );
     // The repository stays out of the app on purpose: no source link, no
@@ -124,14 +142,16 @@ class _AboutPageState extends State<AboutPage> {
               // The social channels: Instagram and Telegram, by their
               // handles. There is no code repository in this app.
               const SizedBox(height: 18),
-              Row(
+              Wrap(
+                spacing: 12,
+                runSpacing: 10,
+                alignment: WrapAlignment.center,
                 children: [
                   social(
                     _instagramGlyph,
                     '@Aliem061',
                     'https://instagram.com/Aliem061',
                   ),
-                  const SizedBox(width: 12),
                   social(
                     _telegramGlyph,
                     '@Aliem_061',

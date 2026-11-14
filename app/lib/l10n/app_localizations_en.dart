@@ -1745,4 +1745,104 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noResults => 'No location matches the search.';
+
+  @override
+  String get accentColor => 'Accent color';
+
+  @override
+  String get accentMono => 'Monochrome (default)';
+
+  @override
+  String get accentCustom => 'Custom color';
+
+  @override
+  String get accentEmber => 'Ember';
+
+  @override
+  String get accentGold => 'Gold';
+
+  @override
+  String get accentEmerald => 'Emerald';
+
+  @override
+  String get accentSapphire => 'Sapphire';
+
+  @override
+  String get accentAmethyst => 'Amethyst';
+
+  @override
+  String get accentRose => 'Rose';
+
+  @override
+  String get autoReconnect => 'Auto-reconnect';
+
+  @override
+  String get autoReconnectHint =>
+      'Puts the connection back up by itself when it drops.';
+
+  @override
+  String get androidOnlyHint => 'On the phone only.';
+
+  @override
+  String get idleDisconnect => 'Disconnect when idle';
+
+  @override
+  String get idleDisconnectHint =>
+      'Ends the session when no traffic moves for a while.';
+
+  @override
+  String get idleTimeout => 'Idle wait';
+
+  @override
+  String get minutes5 => '5 minutes';
+
+  @override
+  String get minutes10 => '10 minutes';
+
+  @override
+  String get minutes15 => '15 minutes';
+
+  @override
+  String get minutes30 => '30 minutes';
+
+  @override
+  String get minutes60 => '1 hour';
+
+  @override
+  String get dataLimit => 'Session data limit';
+
+  @override
+  String get dataLimitHint =>
+      'Ends the session when its traffic reaches the limit.';
+
+  @override
+  String get dataLimitAmount => 'Limit';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'No traffic moved for $minutes minutes, so the connection was disconnected.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'The session reached its $mb MB data limit, so it was disconnected.';
+  }
 }

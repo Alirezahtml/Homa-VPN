@@ -29,6 +29,7 @@ Future<void> main(List<String> args) async {
   );
   final core = CoreController(
     process.connect,
+    appSettings: settings,
     moveStoppedCore: (port) async {
       final listen = await CoreLocator.dashboardListen(dataDir);
       await CoreLocator.setDashboardListen(dataDir, withPort(listen, port));
@@ -88,6 +89,7 @@ Future<void> runAndroid() async {
   final core = CoreController(
     AndroidCore(dataDir).connect,
     turnOn: AndroidCore.setOn,
+    appSettings: settings,
   )..start();
   AppLifecycleListener(
     onResume: core.retryNow,

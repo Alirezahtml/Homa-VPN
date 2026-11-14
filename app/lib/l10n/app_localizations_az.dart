@@ -1743,4 +1743,103 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get noResults => 'Axtarışa uyğun yer yoxdur.';
+
+  @override
+  String get accentColor => 'Vurğu rəngi';
+
+  @override
+  String get accentMono => 'Tək rəng (standart)';
+
+  @override
+  String get accentCustom => 'Xüsusi rəng';
+
+  @override
+  String get accentEmber => 'Qızğın';
+
+  @override
+  String get accentGold => 'Qızıl';
+
+  @override
+  String get accentEmerald => 'Zümrüt';
+
+  @override
+  String get accentSapphire => 'Safir';
+
+  @override
+  String get accentAmethyst => 'Ametist';
+
+  @override
+  String get accentRose => 'Qızılgül';
+
+  @override
+  String get autoReconnect => 'Avtomatik yenidən qoşulma';
+
+  @override
+  String get autoReconnectHint =>
+      'Bağlantı sizin istəyiniz olmadan kəsilsə, özü yenidən qoşulur.';
+
+  @override
+  String get androidOnlyHint => 'Yalnız telefondada.';
+
+  @override
+  String get idleDisconnect => 'Fasilədə qopar';
+
+  @override
+  String get idleDisconnectHint =>
+      'Bir müddət trafik olmayanda sessiyanı bitirir.';
+
+  @override
+  String get idleTimeout => 'Fasilə gözləməsi';
+
+  @override
+  String get minutes5 => '5 dəqiqə';
+
+  @override
+  String get minutes10 => '10 dəqiqə';
+
+  @override
+  String get minutes15 => '15 dəqiqə';
+
+  @override
+  String get minutes30 => '30 dəqiqə';
+
+  @override
+  String get minutes60 => '1 saat';
+
+  @override
+  String get dataLimit => 'Sessiya data həddi';
+
+  @override
+  String get dataLimitHint => 'Trafik həddə çatanda sessiyanı bitirir.';
+
+  @override
+  String get dataLimitAmount => 'Hədd';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 QB';
+
+  @override
+  String get mb2048 => '2 QB';
+
+  @override
+  String get mb5120 => '5 QB';
+
+  @override
+  String get mb10240 => '10 QB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '$minutes dəqiqə trafik olmayıb, bağlantı kəsildi.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'Sessiya $mb MB data həddinə çatdı, bağlantı kəsildi.';
+  }
 }

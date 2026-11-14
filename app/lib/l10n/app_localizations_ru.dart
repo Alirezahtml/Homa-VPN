@@ -1754,4 +1754,103 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noResults => 'Нет локаций по этому запросу.';
+
+  @override
+  String get accentColor => 'Акцентный цвет';
+
+  @override
+  String get accentMono => 'Монохром (по умолчанию)';
+
+  @override
+  String get accentCustom => 'Свой цвет';
+
+  @override
+  String get accentEmber => 'Пламя';
+
+  @override
+  String get accentGold => 'Золото';
+
+  @override
+  String get accentEmerald => 'Изумруд';
+
+  @override
+  String get accentSapphire => 'Сапфир';
+
+  @override
+  String get accentAmethyst => 'Аметист';
+
+  @override
+  String get accentRose => 'Роза';
+
+  @override
+  String get autoReconnect => 'Автопереподключение';
+
+  @override
+  String get autoReconnectHint =>
+      'Сам возвращает соединение, если оно оборвалось без вашего участия.';
+
+  @override
+  String get androidOnlyHint => 'Только на телефоне.';
+
+  @override
+  String get idleDisconnect => 'Отключать при простое';
+
+  @override
+  String get idleDisconnectHint => 'Завершает сеанс, если трафика долго нет.';
+
+  @override
+  String get idleTimeout => 'Порог простоя';
+
+  @override
+  String get minutes5 => '5 минут';
+
+  @override
+  String get minutes10 => '10 минут';
+
+  @override
+  String get minutes15 => '15 минут';
+
+  @override
+  String get minutes30 => '30 минут';
+
+  @override
+  String get minutes60 => '1 час';
+
+  @override
+  String get dataLimit => 'Лимит данных сеанса';
+
+  @override
+  String get dataLimitHint =>
+      'Завершает сеанс, когда его трафик доходит до лимита.';
+
+  @override
+  String get dataLimitAmount => 'Лимит';
+
+  @override
+  String get mb256 => '256 МБ';
+
+  @override
+  String get mb512 => '512 МБ';
+
+  @override
+  String get mb1024 => '1 ГБ';
+
+  @override
+  String get mb2048 => '2 ГБ';
+
+  @override
+  String get mb5120 => '5 ГБ';
+
+  @override
+  String get mb10240 => '10 ГБ';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'Трафика не было $minutes минут, поэтому соединение отключено.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'Сеанс достиг лимита $mb МБ, поэтому соединение отключено.';
+  }
 }

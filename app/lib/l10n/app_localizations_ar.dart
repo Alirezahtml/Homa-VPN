@@ -1753,4 +1753,102 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noResults => 'لا موقع يطابق البحث.';
+
+  @override
+  String get accentColor => 'اللون المميز';
+
+  @override
+  String get accentMono => 'أحادي اللون (افتراضي)';
+
+  @override
+  String get accentCustom => 'لون مخصص';
+
+  @override
+  String get accentEmber => 'جمري';
+
+  @override
+  String get accentGold => 'ذهبي';
+
+  @override
+  String get accentEmerald => 'زمردي';
+
+  @override
+  String get accentSapphire => 'لازوردي';
+
+  @override
+  String get accentAmethyst => 'بنفسجي';
+
+  @override
+  String get accentRose => 'وردي';
+
+  @override
+  String get autoReconnect => 'إعادة الاتصال تلقائيًا';
+
+  @override
+  String get autoReconnectHint =>
+      'يعيد الاتصال من تلقاء نفسه إذا انقطع من غير طلبك.';
+
+  @override
+  String get androidOnlyHint => 'على الهاتف فقط.';
+
+  @override
+  String get idleDisconnect => 'قطع الاتصال عند السكون';
+
+  @override
+  String get idleDisconnectHint => 'ينهي الجلسة إذا لم يمر أي بيان لفترة.';
+
+  @override
+  String get idleTimeout => 'مدة السكون';
+
+  @override
+  String get minutes5 => '5 دقائق';
+
+  @override
+  String get minutes10 => '10 دقائق';
+
+  @override
+  String get minutes15 => '15 دقيقة';
+
+  @override
+  String get minutes30 => '30 دقيقة';
+
+  @override
+  String get minutes60 => 'ساعة واحدة';
+
+  @override
+  String get dataLimit => 'حد بيانات الجلسة';
+
+  @override
+  String get dataLimitHint => 'ينهي الجلسة عندما يصل بيانها إلى الحد.';
+
+  @override
+  String get dataLimitAmount => 'الحد';
+
+  @override
+  String get mb256 => '256 ميجابايت';
+
+  @override
+  String get mb512 => '512 ميجابايت';
+
+  @override
+  String get mb1024 => '1 جيجابايت';
+
+  @override
+  String get mb2048 => '2 جيجابايت';
+
+  @override
+  String get mb5120 => '5 جيجابايت';
+
+  @override
+  String get mb10240 => '10 جيجابايت';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'لم يمر أي بيان لمدة $minutes دقيقة، فُصل الاتصال.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'بلغت بيانات الجلسة حد $mb ميجابايت، فُصل الاتصال.';
+  }
 }

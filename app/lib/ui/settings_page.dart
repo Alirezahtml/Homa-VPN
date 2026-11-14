@@ -13,6 +13,7 @@ import '../core/tun_service.dart';
 import '../desktop/desktop_bridge.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
+import 'accent.dart';
 import 'bypass_apps_page.dart';
 import 'connection_mode.dart';
 import 'format.dart';
@@ -461,6 +462,15 @@ class _SettingsPageState extends State<SettingsPage> {
             (ThemeMode.dark, l.themeDark, null),
           ],
         ),
+        // The one personalization the design keeps: the accent behind the
+        // app's lights, monochrome by default. The surfaces never change.
+        _Row(
+          icon: Icons.palette_outlined,
+          label: l.accentColor,
+          value: accentName(context, s),
+          child: _AccentSwatch(settings: s),
+          onTap: () => showAccentPicker(context, s),
+        ),
         if (!Platform.isAndroid)
           _Choice<CloseAction>(
             icon: Icons.close_rounded,
@@ -559,6 +569,73 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+        // The caretaker: it follows the switches below and only them.
+        _Row(
+          icon: Icons.auto_mode_rounded,
+          label: l.autoReconnect,
+          value: Platform.isAndroid ? l.autoReconnectHint : l.androidOnlyHint,
+          child: Switch(
+            value: Platform.isAndroid && s.autoReconnect,
+            onChanged: Platform.isAndroid
+                ? (v) => s.update(autoReconnect: v)
+                : null,
+          ),
+        ),
+        _Row(
+          icon: Icons.hourglass_empty_rounded,
+          label: l.idleDisconnect,
+          value: l.idleDisconnectHint,
+          child: Switch(
+            value: s.idleDisconnect,
+            onChanged: (v) => s.update(idleDisconnect: v),
+          ),
+        ),
+        // The wait before the idle hang-up: dimmed while it is off.
+        Opacity(
+          opacity: s.idleDisconnect ? 1 : 0.5,
+          child: _Choice<int>(
+            icon: Icons.timer_outlined,
+            title: l.idleTimeout,
+            value: s.idleTimeoutMin,
+            onChanged: s.idleDisconnect
+                ? (v) => s.update(idleTimeoutMin: v)
+                : null,
+            options: [
+              (5, l.minutes5, null),
+              (10, l.minutes10, null),
+              (15, l.minutes15, null),
+              (30, l.minutes30, null),
+              (60, l.minutes60, null),
+            ],
+          ),
+        ),
+        _Row(
+          icon: Icons.data_saver_off_rounded,
+          label: l.dataLimit,
+          value: l.dataLimitHint,
+          child: Switch(
+            value: s.dataLimit,
+            onChanged: (v) => s.update(dataLimit: v),
+          ),
+        ),
+        // The session's data budget: dimmed while it is off.
+        Opacity(
+          opacity: s.dataLimit ? 1 : 0.5,
+          child: _Choice<int>(
+            icon: Icons.save_alt_rounded,
+            title: l.dataLimitAmount,
+            value: s.dataLimitMb,
+            onChanged: s.dataLimit ? (v) => s.update(dataLimitMb: v) : null,
+            options: [
+              (256, l.mb256, null),
+              (512, l.mb512, null),
+              (1024, l.mb1024, null),
+              (2048, l.mb2048, null),
+              (5120, l.mb5120, null),
+              (10240, l.mb10240, null),
+            ],
+          ),
+        ),
       ],
     ),
   );
@@ -2992,4 +3069,243 @@ class _DnsResultRow extends StatelessWidget {
       ),
     );
   }
+}
+
+/// The accent the row names, in the row's language: the monochrome design
+/// or the chosen one's name.
+String accentName(BuildContext context, AppSettings s) {
+  final l = AppLocalizations.of(context);
+  if (s.accentKey == 'custom') return l.accentCustom;
+  return accentPresetNames(l)[s.accentKey] ?? l.accentMono;
+}
+
+/// The presets' names in the user's language, by their settings key.
+Map<String, String> accentPresetNames(AppLocalizations l) => {
+  'ember': l.accentEmber,
+  'gold': l.accentGold,
+  'emerald': l.accentEmerald,
+  'sapphire': l.accentSapphire,
+  'amethyst': l.accentAmethyst,
+  'rose': l.accentRose,
+};
+
+/// The row's little preview: the current accent as a ring, gray when the
+/// design is its monochrome self.
+class _AccentSwatch extends StatelessWidget {
+  const _AccentSwatch({required this.settings});
+
+  final AppSettings settings;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final accent = AppAccent.resolve(settings);
+    final color = accent ?? (dark ? Colors.white : Colors.black);
+    return Container(
+      width: 22,
+      height: 22,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+          width: 1.5,
+        ),
+      ),
+    );
+  }
+}
+
+/// The accent picker: the monochrome design first, then the curated
+/// colors, then a custom one by its hex — all as clean round swatches in
+/// a sheet that follows the theme.
+Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
+  final l = AppLocalizations.of(context);
+  final dark = Theme.of(context).brightness == Brightness.dark;
+  final names = accentPresetNames(l);
+  await showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    backgroundColor: dark ? const Color(0xFF111111) : Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+    ),
+    builder: (context) => SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+        // Listens to the settings, so the checkmarks move as soon as a
+        // swatch is chosen.
+        child: ListenableBuilder(
+          listenable: s,
+          builder: (context, _) => Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                l.accentColor,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16),
+              _AccentTile(
+                label: l.accentMono,
+                color: dark ? Colors.white : Colors.black,
+                selected: s.accentKey.isEmpty,
+                onTap: () => s.update(accentKey: ''),
+              ),
+              for (final (key, color) in AppAccent.presets)
+                _AccentTile(
+                  label: names[key] ?? key,
+                  color: color,
+                  selected: s.accentKey == key,
+                  onTap: () => s.update(accentKey: key),
+                ),
+              _AccentTile(
+                label: l.accentCustom,
+                color: Color(s.customAccent),
+                selected: s.accentKey == 'custom',
+                onTap: () async {
+                  final hex = await _askAccentHex(context, s);
+                  if (hex != null && context.mounted) {
+                    s.update(accentKey: 'custom', customAccent: hex);
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class _AccentTile extends StatelessWidget {
+  const _AccentTile({
+    required this.label,
+    required this.color,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final Color color;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 4),
+        child: Row(
+          children: [
+            Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color,
+                border: Border.all(color: theme.colorScheme.outline),
+              ),
+              child: selected
+                  ? Icon(
+                      Icons.check_rounded,
+                      size: 17,
+                      color: AppAccent.onAccent(color),
+                    )
+                  : null,
+            ),
+            const SizedBox(width: 14),
+            Expanded(child: Text(label, style: theme.textTheme.bodyLarge)),
+            if (selected)
+              Icon(
+                Icons.check_rounded,
+                size: 20,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Asks for a custom accent by its hex (#RRGGBB or RRGGBB); returns it as
+/// ARGB, or null when the sheet was dismissed or the text was not one.
+Future<int?> _askAccentHex(BuildContext context, AppSettings s) async {
+  final controller = TextEditingController(
+    text: (s.customAccent & 0xFFFFFF).toRadixString(16).padLeft(6, '0'),
+  );
+  final l = AppLocalizations.of(context);
+  final dark = Theme.of(context).brightness == Brightness.dark;
+  return showDialog<int>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(l.accentCustom),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: controller,
+            autofocus: true,
+            textDirection: TextDirection.ltr,
+            maxLength: 7,
+            decoration: InputDecoration(
+              hintText: '#3ECF8E',
+              counterText: '',
+              prefixText: '# ',
+            ),
+          ),
+          const SizedBox(height: 12),
+          ListenableBuilder(
+            listenable: controller,
+            builder: (context, _) {
+              final color = _hexColor(controller.text);
+              return Center(
+                child: Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color ?? (dark ? Colors.white : Colors.black),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+        ),
+        FilledButton(
+          onPressed: () {
+            final argb = _hexArgb(controller.text);
+            if (argb != null) Navigator.pop(context, argb);
+          },
+          child: Text(MaterialLocalizations.of(context).okButtonLabel),
+        ),
+      ],
+    ),
+  );
+}
+
+/// The color in [text] (#RRGGBB or RRGGBB), or null when it is not one.
+Color? _hexColor(String text) {
+  final argb = _hexArgb(text);
+  return argb == null ? null : Color(argb);
+}
+
+/// The color in [text] as its ARGB integer, or null when it is not one.
+int? _hexArgb(String text) {
+  final hex = text.trim().replaceFirst('#', '');
+  if (!RegExp(r'^[0-9a-fA-F]{6}$').hasMatch(hex)) return null;
+  return 0xFF000000 | int.parse(hex, radix: 16);
 }

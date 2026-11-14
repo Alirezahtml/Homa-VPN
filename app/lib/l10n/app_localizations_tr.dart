@@ -1742,4 +1742,103 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get noResults => 'Aramayla eşleşen konum yok.';
+
+  @override
+  String get accentColor => 'Vurgu rengi';
+
+  @override
+  String get accentMono => 'Tek renk (varsayılan)';
+
+  @override
+  String get accentCustom => 'Özel renk';
+
+  @override
+  String get accentEmber => 'Kor';
+
+  @override
+  String get accentGold => 'Altın';
+
+  @override
+  String get accentEmerald => 'Zümrüt';
+
+  @override
+  String get accentSapphire => 'Safir';
+
+  @override
+  String get accentAmethyst => 'Ametist';
+
+  @override
+  String get accentRose => 'Gül';
+
+  @override
+  String get autoReconnect => 'Otomatik yeniden bağlanma';
+
+  @override
+  String get autoReconnectHint =>
+      'Bağlantı siz istemeden kopardığında kendisi yeniden bağlanır.';
+
+  @override
+  String get androidOnlyHint => 'Yalnızca telefonda.';
+
+  @override
+  String get idleDisconnect => 'Boşta kalınca bağlantıyı kes';
+
+  @override
+  String get idleDisconnectHint =>
+      'Bir süredir trafik akmıyorsa oturumu sonlandırır.';
+
+  @override
+  String get idleTimeout => 'Boşta bekleme';
+
+  @override
+  String get minutes5 => '5 dakika';
+
+  @override
+  String get minutes10 => '10 dakika';
+
+  @override
+  String get minutes15 => '15 dakika';
+
+  @override
+  String get minutes30 => '30 dakika';
+
+  @override
+  String get minutes60 => '1 saat';
+
+  @override
+  String get dataLimit => 'Oturum veri sınırı';
+
+  @override
+  String get dataLimitHint => 'Trafik sınıra ulaştığında oturumu sonlandırır.';
+
+  @override
+  String get dataLimitAmount => 'Sınır';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return '$minutes dakikadır trafik akmıyordu; bağlantı kesildi.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'Oturum $mb MB veri sınırına ulaştı; bağlantı kesildi.';
+  }
 }

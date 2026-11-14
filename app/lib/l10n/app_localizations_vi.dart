@@ -1741,4 +1741,103 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noResults => 'Không có vị trí nào khớp với tìm kiếm.';
+
+  @override
+  String get accentColor => 'Màu nhấn';
+
+  @override
+  String get accentMono => 'Đơn sắc (mặc định)';
+
+  @override
+  String get accentCustom => 'Màu tùy chọn';
+
+  @override
+  String get accentEmber => 'Hồng than';
+
+  @override
+  String get accentGold => 'Vàng';
+
+  @override
+  String get accentEmerald => 'Lục bảo';
+
+  @override
+  String get accentSapphire => 'Xa phi';
+
+  @override
+  String get accentAmethyst => 'Thạch anh tím';
+
+  @override
+  String get accentRose => 'Hồng';
+
+  @override
+  String get autoReconnect => 'Tự động kết nối lại';
+
+  @override
+  String get autoReconnectHint =>
+      'Tự kết nối lại khi kết nối bị đứt mà không phải do bạn.';
+
+  @override
+  String get androidOnlyHint => 'Chỉ trên điện thoại.';
+
+  @override
+  String get idleDisconnect => 'Ngắt khi không hoạt động';
+
+  @override
+  String get idleDisconnectHint =>
+      'Kết thúc phiên khi một lúc không có lưu lượng nào.';
+
+  @override
+  String get idleTimeout => 'Thời gian chờ';
+
+  @override
+  String get minutes5 => '5 phút';
+
+  @override
+  String get minutes10 => '10 phút';
+
+  @override
+  String get minutes15 => '15 phút';
+
+  @override
+  String get minutes30 => '30 phút';
+
+  @override
+  String get minutes60 => '1 giờ';
+
+  @override
+  String get dataLimit => 'Giới hạn dữ liệu phiên';
+
+  @override
+  String get dataLimitHint => 'Kết thúc phiên khi lưu lượng đạt tới giới hạn.';
+
+  @override
+  String get dataLimitAmount => 'Giới hạn';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'Không có lưu lượng trong $minutes phút nên kết nối đã bị ngắt.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'Phiên đã đạt giới hạn $mb MB nên kết nối đã bị ngắt.';
+  }
 }

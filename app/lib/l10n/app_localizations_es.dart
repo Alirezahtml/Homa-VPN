@@ -1756,4 +1756,104 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noResults => 'Ninguna ubicación coincide con la búsqueda.';
+
+  @override
+  String get accentColor => 'Color de acento';
+
+  @override
+  String get accentMono => 'Monocromo (predeterminado)';
+
+  @override
+  String get accentCustom => 'Color personalizado';
+
+  @override
+  String get accentEmber => 'Ascua';
+
+  @override
+  String get accentGold => 'Dorado';
+
+  @override
+  String get accentEmerald => 'Esmeralda';
+
+  @override
+  String get accentSapphire => 'Zafiro';
+
+  @override
+  String get accentAmethyst => 'Amatista';
+
+  @override
+  String get accentRose => 'Rosa';
+
+  @override
+  String get autoReconnect => 'Reconexión automática';
+
+  @override
+  String get autoReconnectHint =>
+      'Vuelve a conectar por sí mismo si la conexión se corta sin pedirlo.';
+
+  @override
+  String get androidOnlyHint => 'Solo en el teléfono.';
+
+  @override
+  String get idleDisconnect => 'Desconectar si está inactiva';
+
+  @override
+  String get idleDisconnectHint =>
+      'Termina la sesión cuando no pasa tráfico por un rato.';
+
+  @override
+  String get idleTimeout => 'Espera de inactividad';
+
+  @override
+  String get minutes5 => '5 minutos';
+
+  @override
+  String get minutes10 => '10 minutos';
+
+  @override
+  String get minutes15 => '15 minutos';
+
+  @override
+  String get minutes30 => '30 minutos';
+
+  @override
+  String get minutes60 => '1 hora';
+
+  @override
+  String get dataLimit => 'Límite de datos de la sesión';
+
+  @override
+  String get dataLimitHint =>
+      'Termina la sesión cuando su tráfico llega al límite.';
+
+  @override
+  String get dataLimitAmount => 'Límite';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'No pasó tráfico durante $minutes minutos, así que se desconectó.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'La sesión alcanzó su límite de $mb MB, así que se desconectó.';
+  }
 }

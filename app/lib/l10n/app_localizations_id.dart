@@ -1741,4 +1741,104 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get noResults => 'Tidak ada lokasi yang cocok dengan pencarian.';
+
+  @override
+  String get accentColor => 'Warna aksen';
+
+  @override
+  String get accentMono => 'Monokrom (bawaan)';
+
+  @override
+  String get accentCustom => 'Warna khusus';
+
+  @override
+  String get accentEmber => 'Bara';
+
+  @override
+  String get accentGold => 'Emas';
+
+  @override
+  String get accentEmerald => 'Zamrud';
+
+  @override
+  String get accentSapphire => 'Safir';
+
+  @override
+  String get accentAmethyst => 'Ametis';
+
+  @override
+  String get accentRose => 'Mawar';
+
+  @override
+  String get autoReconnect => 'Sambung ulang otomatis';
+
+  @override
+  String get autoReconnectHint =>
+      'Menyambung kembali dengan sendirinya saat koneksi terputus tanpa perintah Anda.';
+
+  @override
+  String get androidOnlyHint => 'Hanya di ponsel.';
+
+  @override
+  String get idleDisconnect => 'Putuskan saat senggang';
+
+  @override
+  String get idleDisconnectHint =>
+      'Mengakhiri sesi ketika tidak ada lalu lintas untuk sementara.';
+
+  @override
+  String get idleTimeout => 'Tenggang senggang';
+
+  @override
+  String get minutes5 => '5 menit';
+
+  @override
+  String get minutes10 => '10 menit';
+
+  @override
+  String get minutes15 => '15 menit';
+
+  @override
+  String get minutes30 => '30 menit';
+
+  @override
+  String get minutes60 => '1 jam';
+
+  @override
+  String get dataLimit => 'Batas data sesi';
+
+  @override
+  String get dataLimitHint =>
+      'Mengakhiri sesi ketika lalu lintasnya mencapai batas.';
+
+  @override
+  String get dataLimitAmount => 'Batas';
+
+  @override
+  String get mb256 => '256 MB';
+
+  @override
+  String get mb512 => '512 MB';
+
+  @override
+  String get mb1024 => '1 GB';
+
+  @override
+  String get mb2048 => '2 GB';
+
+  @override
+  String get mb5120 => '5 GB';
+
+  @override
+  String get mb10240 => '10 GB';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'Tidak ada lalu lintas selama $minutes menit, koneksi diputus.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'Sesi mencapai batas datanya $mb MB, koneksi diputus.';
+  }
 }

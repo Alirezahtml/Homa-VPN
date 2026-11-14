@@ -1061,5 +1061,50 @@
   "installNow": "Install",
   "updateAllowInstall": "To install the update, allow this app to install apps.",
   "allowInstall": "Allow",
-  "noResults": "No location matches the search."
+  "noResults": "No location matches the search.",
+  "accentColor": "Accent color",
+  "accentMono": "Monochrome (default)",
+  "accentCustom": "Custom color",
+  "accentEmber": "Ember",
+  "accentGold": "Gold",
+  "accentEmerald": "Emerald",
+  "accentSapphire": "Sapphire",
+  "accentAmethyst": "Amethyst",
+  "accentRose": "Rose",
+  "autoReconnect": "Auto-reconnect",
+  "autoReconnectHint": "Puts the connection back up by itself when it drops.",
+  "androidOnlyHint": "On the phone only.",
+  "idleDisconnect": "Disconnect when idle",
+  "idleDisconnectHint": "Ends the session when no traffic moves for a while.",
+  "idleTimeout": "Idle wait",
+  "minutes5": "5 minutes",
+  "minutes10": "10 minutes",
+  "minutes15": "15 minutes",
+  "minutes30": "30 minutes",
+  "minutes60": "1 hour",
+  "dataLimit": "Session data limit",
+  "dataLimitHint": "Ends the session when its traffic reaches the limit.",
+  "dataLimitAmount": "Limit",
+  "mb256": "256 MB",
+  "mb512": "512 MB",
+  "mb1024": "1 GB",
+  "mb2048": "2 GB",
+  "mb5120": "5 GB",
+  "mb10240": "10 GB",
+  "autoStoppedIdle": "No traffic moved for {minutes} minutes, so the connection was disconnected.",
+  "autoStoppedData": "The session reached its {mb} MB data limit, so it was disconnected.",
+  "@autoStoppedIdle": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "@autoStoppedData": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  }
 }

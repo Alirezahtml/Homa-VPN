@@ -10,6 +10,7 @@ import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'about_page.dart';
+import 'accent.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
 import 'focus_ring.dart';
@@ -23,10 +24,12 @@ import 'settings_page.dart';
 import 'welcome_page.dart';
 import 'widgets.dart';
 
-ThemeData _theme(Brightness brightness, Locale locale) {
+ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   final dark = brightness == Brightness.dark;
   // The monochrome scheme: pure black and white with neutral grays
-  // between — no hue anywhere, in either mode.
+  // between — no hue anywhere, in either mode. A chosen accent takes the
+  // scheme's lights (buttons, toggles, progress) only; the surfaces and
+  // the ink stay monochrome, and the containers keep their neutral gray.
   final scheme = dark
       ? const ColorScheme.dark(
           primary: Colors.white,
@@ -87,8 +90,19 @@ ThemeData _theme(Brightness brightness, Locale locale) {
   // Bundled Inter for English, Vazirmatn for Persian and Arabic, and the
   // platform's typography for the remaining languages.
   final font = languageFont(locale.languageCode);
+  final lit = accent == null ? null : accentForTheme(accent, dark);
   final theme = ThemeData(
-    colorScheme: scheme,
+    colorScheme: lit == null
+        ? scheme
+        : scheme.copyWith(
+            primary: lit,
+            onPrimary: AppAccent.onAccent(lit),
+            secondary: lit,
+            onSecondary: AppAccent.onAccent(lit),
+            tertiary: lit,
+            onTertiary: AppAccent.onAccent(lit),
+            inversePrimary: dark ? AppAccent.onAccent(lit) : lit,
+          ),
     fontFamily: font,
     scaffoldBackgroundColor: dark ? Colors.black : Colors.white,
     // Pixel-grade surfaces: one generous radius for every card, list and
@@ -230,8 +244,16 @@ class VpnApp extends StatelessWidget {
           ThemeMode.system =>
             MediaQuery.platformBrightnessOf(context) == Brightness.dark,
         };
+        // The static status colors (the problem boxes, the home's lights)
+        // read the same accent the scheme carries; this build is the one
+        // place both are decided, so they never disagree.
+        AppAccent.current = AppAccent.resolve(settings);
         return Theme(
-          data: _theme(dark ? Brightness.dark : Brightness.light, locale),
+          data: _theme(
+            dark ? Brightness.dark : Brightness.light,
+            locale,
+            AppAccent.current,
+          ),
           // A clear ring around what a remote or the keyboard chose.
           child: FocusRing(
             atStart: Platform.isAndroid && AndroidCore.isTv,

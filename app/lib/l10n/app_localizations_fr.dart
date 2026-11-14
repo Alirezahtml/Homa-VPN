@@ -1759,4 +1759,104 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noResults => 'Aucun lieu ne correspond à la recherche.';
+
+  @override
+  String get accentColor => 'Couleur d\'accent';
+
+  @override
+  String get accentMono => 'Monochrome (par défaut)';
+
+  @override
+  String get accentCustom => 'Couleur personnalisée';
+
+  @override
+  String get accentEmber => 'Braise';
+
+  @override
+  String get accentGold => 'Doré';
+
+  @override
+  String get accentEmerald => 'Émeraude';
+
+  @override
+  String get accentSapphire => 'Saphir';
+
+  @override
+  String get accentAmethyst => 'Améthyste';
+
+  @override
+  String get accentRose => 'Rose';
+
+  @override
+  String get autoReconnect => 'Reconnexion automatique';
+
+  @override
+  String get autoReconnectHint =>
+      'Remet la connexion toute seule si elle tombe sans votre demande.';
+
+  @override
+  String get androidOnlyHint => 'Sur le téléphone seulement.';
+
+  @override
+  String get idleDisconnect => 'Déconnecter si inactive';
+
+  @override
+  String get idleDisconnectHint =>
+      'Termine la session quand plus rien ne passe pendant un moment.';
+
+  @override
+  String get idleTimeout => 'Délai d\'inactivité';
+
+  @override
+  String get minutes5 => '5 minutes';
+
+  @override
+  String get minutes10 => '10 minutes';
+
+  @override
+  String get minutes15 => '15 minutes';
+
+  @override
+  String get minutes30 => '30 minutes';
+
+  @override
+  String get minutes60 => '1 heure';
+
+  @override
+  String get dataLimit => 'Limite de données de la session';
+
+  @override
+  String get dataLimitHint =>
+      'Termine la session quand son trafic atteint la limite.';
+
+  @override
+  String get dataLimitAmount => 'Limite';
+
+  @override
+  String get mb256 => '256 Mo';
+
+  @override
+  String get mb512 => '512 Mo';
+
+  @override
+  String get mb1024 => '1 Go';
+
+  @override
+  String get mb2048 => '2 Go';
+
+  @override
+  String get mb5120 => '5 Go';
+
+  @override
+  String get mb10240 => '10 Go';
+
+  @override
+  String autoStoppedIdle(int minutes) {
+    return 'Plus rien ne passait depuis $minutes minutes ; la connexion a été coupée.';
+  }
+
+  @override
+  String autoStoppedData(int mb) {
+    return 'La session a atteint sa limite de $mb Mo ; la connexion a été coupée.';
+  }
 }

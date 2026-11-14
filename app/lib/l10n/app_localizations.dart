@@ -3098,6 +3098,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No location matches the search.'**
   String get noResults;
+
+  /// No description provided for @accentColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent color'**
+  String get accentColor;
+
+  /// No description provided for @accentMono.
+  ///
+  /// In en, this message translates to:
+  /// **'Monochrome (default)'**
+  String get accentMono;
+
+  /// No description provided for @accentCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom color'**
+  String get accentCustom;
+
+  /// No description provided for @accentEmber.
+  ///
+  /// In en, this message translates to:
+  /// **'Ember'**
+  String get accentEmber;
+
+  /// No description provided for @accentGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get accentGold;
+
+  /// No description provided for @accentEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald'**
+  String get accentEmerald;
+
+  /// No description provided for @accentSapphire.
+  ///
+  /// In en, this message translates to:
+  /// **'Sapphire'**
+  String get accentSapphire;
+
+  /// No description provided for @accentAmethyst.
+  ///
+  /// In en, this message translates to:
+  /// **'Amethyst'**
+  String get accentAmethyst;
+
+  /// No description provided for @accentRose.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose'**
+  String get accentRose;
+
+  /// No description provided for @autoReconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-reconnect'**
+  String get autoReconnect;
+
+  /// No description provided for @autoReconnectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Puts the connection back up by itself when it drops.'**
+  String get autoReconnectHint;
+
+  /// No description provided for @androidOnlyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On the phone only.'**
+  String get androidOnlyHint;
+
+  /// No description provided for @idleDisconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnect when idle'**
+  String get idleDisconnect;
+
+  /// No description provided for @idleDisconnectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ends the session when no traffic moves for a while.'**
+  String get idleDisconnectHint;
+
+  /// No description provided for @idleTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle wait'**
+  String get idleTimeout;
+
+  /// No description provided for @minutes5.
+  ///
+  /// In en, this message translates to:
+  /// **'5 minutes'**
+  String get minutes5;
+
+  /// No description provided for @minutes10.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes'**
+  String get minutes10;
+
+  /// No description provided for @minutes15.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes'**
+  String get minutes15;
+
+  /// No description provided for @minutes30.
+  ///
+  /// In en, this message translates to:
+  /// **'30 minutes'**
+  String get minutes30;
+
+  /// No description provided for @minutes60.
+  ///
+  /// In en, this message translates to:
+  /// **'1 hour'**
+  String get minutes60;
+
+  /// No description provided for @dataLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Session data limit'**
+  String get dataLimit;
+
+  /// No description provided for @dataLimitHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ends the session when its traffic reaches the limit.'**
+  String get dataLimitHint;
+
+  /// No description provided for @dataLimitAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit'**
+  String get dataLimitAmount;
+
+  /// No description provided for @mb256.
+  ///
+  /// In en, this message translates to:
+  /// **'256 MB'**
+  String get mb256;
+
+  /// No description provided for @mb512.
+  ///
+  /// In en, this message translates to:
+  /// **'512 MB'**
+  String get mb512;
+
+  /// No description provided for @mb1024.
+  ///
+  /// In en, this message translates to:
+  /// **'1 GB'**
+  String get mb1024;
+
+  /// No description provided for @mb2048.
+  ///
+  /// In en, this message translates to:
+  /// **'2 GB'**
+  String get mb2048;
+
+  /// No description provided for @mb5120.
+  ///
+  /// In en, this message translates to:
+  /// **'5 GB'**
+  String get mb5120;
+
+  /// No description provided for @mb10240.
+  ///
+  /// In en, this message translates to:
+  /// **'10 GB'**
+  String get mb10240;
+
+  /// No description provided for @autoStoppedIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'No traffic moved for {minutes} minutes, so the connection was disconnected.'**
+  String autoStoppedIdle(int minutes);
+
+  /// No description provided for @autoStoppedData.
+  ///
+  /// In en, this message translates to:
+  /// **'The session reached its {mb} MB data limit, so it was disconnected.'**
+  String autoStoppedData(int mb);
 }
 
 class _AppLocalizationsDelegate
