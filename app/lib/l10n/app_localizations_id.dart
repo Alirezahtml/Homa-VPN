@@ -1708,4 +1708,37 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Pengujian berakhir sebelum hasil lengkap diterima.';
+
+  @override
+  String get searchLocations => 'Cari lokasi';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lokasi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Pembaruan otomatis';
+
+  @override
+  String get autoInstallApkHint =>
+      'Versi baru diunduh sendiri; penginstal bertanya sebelum memasang.';
+
+  @override
+  String get installNow => 'Pasang';
+
+  @override
+  String get updateAllowInstall =>
+      'Untuk memasang pembaruan, izinkan aplikasi ini memasang aplikasi.';
+
+  @override
+  String get allowInstall => 'Izinkan';
+
+  @override
+  String get noResults => 'Tidak ada lokasi yang cocok dengan pencarian.';
 }

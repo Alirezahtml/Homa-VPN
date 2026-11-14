@@ -524,6 +524,19 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+        // A phone updates itself: the newer version downloads in the
+        // background, and the system's installer asks before it installs.
+        if (Platform.isAndroid) ...[
+          _Row(
+            icon: Icons.system_update_rounded,
+            label: l.autoInstallApk,
+            value: l.autoInstallApkHint,
+            child: Switch(
+              value: s.autoInstallApk,
+              onChanged: (v) => s.update(autoInstallApk: v),
+            ),
+          ),
+        ],
         if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
           _Row(
             icon: Icons.power_settings_new_rounded,

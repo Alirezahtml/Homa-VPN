@@ -12,10 +12,10 @@ import 'browser_signin.dart';
 import 'motion.dart';
 import 'widgets.dart';
 
-/// The server list, one choice in one list: Recommended and Fastest, which
-/// the app picks, then the locations with their real delay. A tap on a row
-/// chooses it (`proxy.country`: empty for Mozilla's recommended location,
-/// `fastest` for the lowest real delay, otherwise a country).
+/// The server list: the two automatic choices in one strip, then the
+/// locations as tiles with their real delay, found by search. A tap on a
+/// tile chooses it (`proxy.country`: empty for Mozilla's recommended
+/// location, `fastest` for the lowest real delay, otherwise a country).
 class ServersPage extends StatefulWidget {
   const ServersPage({super.key, required this.core, required this.settings});
 
@@ -40,6 +40,11 @@ class _ServersPageState extends State<ServersPage> {
   String? _busy;
   String? _summary;
 
+  /// What the search field holds: a location must match it by its name
+  /// (in the app's language) or its code to show.
+  final _search = TextEditingController();
+  String _query = '';
+
   CoreController get _core => widget.core;
 
   /// No account yet: the delays cannot be measured (Mozilla's servers
@@ -49,7 +54,17 @@ class _ServersPageState extends State<ServersPage> {
   @override
   void initState() {
     super.initState();
+    _search.addListener(() {
+      if (_search.text == _query) return;
+      setState(() => _query = _search.text.trim().toLowerCase());
+    });
     _load();
+  }
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -126,7 +141,7 @@ class _ServersPageState extends State<ServersPage> {
     }
   }
 
-  /// Every country, without Mozilla's recommended location (the choice
+  /// Every country, without Mozilla's recommended location (in the strip
   /// above), fastest first, then by name in the app's language.
   List<Location> _countries(AppLocalizations l) {
     final list = [
@@ -149,8 +164,9 @@ class _ServersPageState extends State<ServersPage> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final muted = theme.textTheme.bodySmall?.copyWith(
-      color: theme.colorScheme.onSurfaceVariant,
+      color: scheme.onSurfaceVariant,
     );
     final chosen = _country.toLowerCase();
     final countries = _countries(l);
@@ -161,6 +177,24 @@ class _ServersPageState extends State<ServersPage> {
         _summary ??
         (_pingedAt == null ? null : l.testedAgo(formatAgo(l, _pingedAt!)));
     final noAccounts = _noAccounts;
+    // The two automatic choices' own hint, under the strip, in the words
+    // of the one chosen — a country chosen says nothing here.
+    final autoHint = switch (chosen) {
+      '' => l.modeRecommendedHint,
+      'fastest' => l.modeFastestHint,
+      _ => '',
+    };
+    // The search, over the name in the app's language and the code.
+    final visible = _query.isEmpty
+        ? countries
+        : [
+            for (final loc in countries)
+              if (locationName(l, loc.code, loc.name)
+                      .toLowerCase()
+                      .contains(_query) ||
+                  loc.code.toLowerCase().contains(_query))
+                loc,
+          ];
     return ListView(
       padding: pagePadding(context),
       children: [
@@ -174,30 +208,43 @@ class _ServersPageState extends State<ServersPage> {
         _SectionHeader(title: l.autoSection),
         Reveal(
           index: 1,
-          child: _ChoiceCard(
-            children: [
-              _ChoiceRow(
-                leading: const CountryFlag(code: 'REC', width: 36),
-                title: l.modeRecommended,
-                subtitle: l.modeRecommendedHint,
-                delay: recommended == null
-                    ? null
-                    : _Delay(location: recommended, testing: _testing),
-                selected: chosen == '',
-                busy: _busy == '',
-                onTap: () => _choose(''),
-              ),
-              _ChoiceRow(
-                leading: const _IconTile(icon: Icons.bolt_rounded),
-                title: l.modeFastest,
-                subtitle: l.modeFastestHint,
-                selected: chosen == 'fastest',
-                busy: _busy == 'fastest',
-                onTap: () => _choose('fastest'),
-              ),
-            ],
+          // The strip's two tiles stand equally tall, from their own
+          // content: a ListView passes no height of its own.
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: _AutoTile(
+                    icon: const CountryFlag(code: 'REC', width: 34),
+                    label: l.modeRecommended,
+                    selected: chosen == '',
+                    busy: _busy == '',
+                    onTap: () => _choose(''),
+                    delay: recommended == null
+                        ? null
+                        : _Delay(location: recommended, testing: _testing),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _AutoTile(
+                    icon: const _IconBadge(icon: Icons.bolt_rounded),
+                    label: l.modeFastest,
+                    selected: chosen == 'fastest',
+                    busy: _busy == 'fastest',
+                    onTap: () => _choose('fastest'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
+        if (autoHint.isNotEmpty)
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(4, 8, 4, 0),
+            child: Text(autoHint, style: muted),
+          ),
         const SizedBox(height: 20),
         _SectionHeader(
           title: l.locationsSection,
@@ -219,6 +266,31 @@ class _ServersPageState extends State<ServersPage> {
             padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 8),
             child: Text(delayLine, style: muted),
           ),
+        // The search over the locations, in the list's own shape. Hidden
+        // while there is nothing to search in.
+        if (_locations != null && countries.isNotEmpty) ...[
+          TextField(
+            controller: _search,
+            textInputAction: TextInputAction.search,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search_rounded, size: 22),
+              suffixIcon: _query.isEmpty
+                  ? null
+                  : IconButton(
+                      icon: const Icon(Icons.close_rounded, size: 20),
+                      onPressed: _search.clear,
+                    ),
+              hintText: l.searchLocations,
+              isDense: true,
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
         if (_locations == null)
           const Padding(
             padding: EdgeInsets.all(24),
@@ -226,38 +298,56 @@ class _ServersPageState extends State<ServersPage> {
           )
         else if (countries.isEmpty)
           Panel(child: Text(l.noServers, style: muted))
+        else if (visible.isEmpty)
+          Panel(
+            child: Text(
+              l.noResults,
+              style: muted,
+              textAlign: TextAlign.center,
+            ),
+          )
         else
           Reveal(
             index: 2,
-            child: _ChoiceCard(
-              children: [
-                for (final (i, loc) in countries.indexed)
-                  // Staggered by row, so a long list arrives like a wave.
-                  Reveal(
-                    index: i % 10,
-                    child: _ChoiceRow(
-                      leading: CountryFlag(code: loc.code, width: 36),
-                      title: locationName(l, loc.code, loc.name),
-                      subtitle: _subtitle(loc),
-                      delay: _Delay(location: loc, testing: _testing),
-                      selected: chosen == loc.code.toLowerCase(),
-                      busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
-                      onTap: () => _choose(loc.code),
-                    ),
-                  ),
-              ],
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 260,
+                mainAxisExtent: 72,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: visible.length,
+              itemBuilder: (context, i) {
+                final loc = visible[i];
+                return _LocationTile(
+                  flag: CountryFlag(code: loc.code, width: 34),
+                  title: locationName(l, loc.code, loc.name),
+                  delay: _Delay(location: loc, testing: _testing),
+                  selected: chosen == loc.code.toLowerCase(),
+                  busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
+                  onTap: () => _choose(loc.code),
+                );
+              },
+            ),
+          ),
+        if (_locations != null && visible.isNotEmpty)
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(4, 12, 4, 0),
+            child: Text(
+              l.locationCount(visible.length),
+              style: muted,
+              textAlign: TextAlign.center,
             ),
           ),
       ],
     );
   }
-
-  /// A location's second line: its city when it says more than the
-  /// country.
-  String? _subtitle(Location loc) =>
-      loc.city.isNotEmpty && loc.city != loc.name ? loc.city : null;
 }
 
+/// A section's name, and its action (the delay test) at the far side.
 class _SectionHeader extends StatelessWidget {
   const _SectionHeader({required this.title, this.action});
 
@@ -268,7 +358,7 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(4, 8, 0, 6),
+      padding: const EdgeInsetsDirectional.fromSTEB(4, 8, 0, 10),
       child: Row(
         children: [
           Expanded(
@@ -288,30 +378,99 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-/// Rows of choices in one card, divided by thin lines.
-class _ChoiceCard extends StatelessWidget {
-  const _ChoiceCard({required this.children});
+/// One of the two automatic choices, as a standing tile: the mark above
+/// the name, the real delay where there is one, a ring when chosen. Two
+/// of them fill the row together.
+class _AutoTile extends StatelessWidget {
+  const _AutoTile({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.busy,
+    required this.onTap,
+    this.delay,
+  });
 
-  final List<Widget> children;
+  final Widget icon;
+  final String label;
+  final bool selected;
+  final bool busy;
+  final VoidCallback onTap;
+
+  /// The choice's own real delay (the recommended place measures it; the
+  /// fastest picks one of the others').
+  final Widget? delay;
 
   @override
-  Widget build(BuildContext context) => Card(
-    margin: EdgeInsets.zero,
-    clipBehavior: Clip.antiAlias,
-    child: Column(
-      children: [
-        for (var i = 0; i < children.length; i++) ...[
-          if (i > 0) const Divider(height: 1),
-          children[i],
-        ],
-      ],
-    ),
-  );
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Material(
+      color: selected
+          ? scheme.primary.withValues(alpha: 0.08)
+          : scheme.surfaceContainerLow,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+        side: BorderSide(
+          color: selected
+              ? scheme.primary.withValues(alpha: 0.7)
+              : scheme.outlineVariant,
+          width: selected ? 1.6 : 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  icon,
+                  const Spacer(),
+                  if (busy)
+                    const SizedBox.square(
+                      dimension: 18,
+                      child: Padding(
+                        padding: EdgeInsets.all(2),
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    )
+                  else ...[
+                    ?delay,
+                    if (delay != null) const SizedBox(width: 8),
+                    if (selected)
+                      Icon(
+                        Icons.check_circle_rounded,
+                        size: 20,
+                        color: scheme.primary,
+                      ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                label,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// An icon in the size of a flag, for a choice that is not a country.
-class _IconTile extends StatelessWidget {
-  const _IconTile({required this.icon});
+class _IconBadge extends StatelessWidget {
+  const _IconBadge({required this.icon});
 
   final IconData icon;
 
@@ -319,33 +478,32 @@ class _IconTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Container(
-      width: 36,
-      height: 27,
+      width: 34,
+      height: 26,
       decoration: BoxDecoration(
-        color: scheme.tertiaryContainer,
-        borderRadius: BorderRadius.circular(4),
+        color: scheme.primary.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(6),
       ),
-      child: Icon(icon, size: 20, color: scheme.onTertiaryContainer),
+      child: Icon(icon, size: 20, color: scheme.onSurface),
     );
   }
 }
 
-/// One choice: what it is, its delay, and a radio mark; a tap chooses it.
-class _ChoiceRow extends StatelessWidget {
-  const _ChoiceRow({
-    required this.leading,
+/// One location, as a tile in the grid: the flag, the name, and the real
+/// delay in its own color; a tap chooses it, a ring marks the choice.
+class _LocationTile extends StatelessWidget {
+  const _LocationTile({
+    required this.flag,
     required this.title,
+    required this.delay,
     required this.selected,
     required this.busy,
     required this.onTap,
-    this.subtitle,
-    this.delay,
   });
 
-  final Widget leading;
+  final Widget flag;
   final String title;
-  final String? subtitle;
-  final Widget? delay;
+  final Widget delay;
   final bool selected;
   final bool busy;
   final VoidCallback onTap;
@@ -357,57 +515,62 @@ class _ChoiceRow extends StatelessWidget {
     return Material(
       color: selected
           ? scheme.primary.withValues(alpha: 0.08)
-          : Colors.transparent,
+          : scheme.surfaceContainerLow,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: selected
+              ? scheme.primary.withValues(alpha: 0.7)
+              : scheme.outlineVariant,
+          width: selected ? 1.6 : 1,
+        ),
+      ),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(14, 12, 12, 12),
-          child: Row(
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              leading,
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
+              Row(
+                children: [
+                  flag,
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
                       title,
                       style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: selected
-                            ? FontWeight.w700
-                            : FontWeight.w500,
+                        fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                       ),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    if (subtitle != null) ...[
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle!,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: scheme.onSurfaceVariant,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 6),
+                  SizedBox.square(
+                    dimension: 20,
+                    child: busy
+                        ? const Padding(
+                            padding: EdgeInsets.all(3),
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Icon(
+                            selected
+                                ? Icons.check_circle_rounded
+                                : Icons.radio_button_unchecked_rounded,
+                            size: 20,
+                            color: selected
+                                ? scheme.primary
+                                : scheme.outlineVariant,
+                          ),
+                  ),
+                ],
               ),
-              if (delay != null) ...[const SizedBox(width: 10), delay!],
-              const SizedBox(width: 6),
-              SizedBox.square(
-                dimension: 24,
-                child: busy
-                    ? const Padding(
-                        padding: EdgeInsets.all(3),
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : Icon(
-                        selected
-                            ? Icons.radio_button_checked_rounded
-                            : Icons.radio_button_unchecked_rounded,
-                        color: selected ? scheme.primary : scheme.outline,
-                      ),
+              const Spacer(),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: delay,
               ),
             ],
           ),

@@ -1714,4 +1714,39 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'O teste terminou antes de receber um resultado completo.';
+
+  @override
+  String get searchLocations => 'Pesquisar locais';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count locais',
+      many: '$count de locais',
+      one: '1 local',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Atualizações automáticas';
+
+  @override
+  String get autoInstallApkHint =>
+      'As versões novas baixam sozinhas; o instalador pergunta antes de instalar.';
+
+  @override
+  String get installNow => 'Instalar';
+
+  @override
+  String get updateAllowInstall =>
+      'Para instalar a atualização, permita que este aplicativo instale aplicativos.';
+
+  @override
+  String get allowInstall => 'Permitir';
+
+  @override
+  String get noResults => 'Nenhum local corresponde à pesquisa.';
 }

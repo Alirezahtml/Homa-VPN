@@ -487,5 +487,20 @@
   "relayTestPassed": "المرحّل جاهز",
   "relayTestFailed": "تعذّر تأكيد سلامة المرحّل",
   "relayTestCopy": "نسخ التقرير",
-  "relayTestInterrupted": "انتهى الاختبار قبل استلام نتيجة كاملة."
+  "relayTestInterrupted": "انتهى الاختبار قبل استلام نتيجة كاملة.",
+  "searchLocations": "البحث عن المواقع",
+  "locationCount": "{count, plural, =1{موقع واحد} =2{موقعان} few{{count} مواقع} many{{count} موقعًا} other{{count} موقع}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "التحديث التلقائي",
+  "autoInstallApkHint": "تُنزَّل النسخ الجديدة تلقائيًا؛ ويسألك المُثبِّت قبل التثبيت.",
+  "installNow": "تثبيت",
+  "updateAllowInstall": "لتثبيت التحديث، اسمح لهذا التطبيق بتثبيت التطبيقات.",
+  "allowInstall": "السماح",
+  "noResults": "لا موقع يطابق البحث."
 }

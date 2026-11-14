@@ -487,5 +487,20 @@
   "relayTestPassed": "Röle hazır",
   "relayTestFailed": "Rölenin sağlığı doğrulanamadı",
   "relayTestCopy": "Raporu kopyala",
-  "relayTestInterrupted": "Test, tam sonuç alınmadan sona erdi."
+  "relayTestInterrupted": "Test, tam sonuç alınmadan sona erdi.",
+  "searchLocations": "Konum ara",
+  "locationCount": "{count, plural, =1{1 konum} other{{count} konum}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Otomatik güncelleme",
+  "autoInstallApkHint": "Yeni sürümler kendiliğinden indirilir; yüklemeden önce yükleyici sorar.",
+  "installNow": "Yükle",
+  "updateAllowInstall": "Güncellemeyi yüklemek için bu uygulamanın uygulama yüklemesine izin verin.",
+  "allowInstall": "İzin ver",
+  "noResults": "Aramayla eşleşen konum yok."
 }

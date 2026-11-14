@@ -3050,6 +3050,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The test ended before a complete result was received.'**
   String get relayTestInterrupted;
+
+  /// No description provided for @searchLocations.
+  ///
+  /// In en, this message translates to:
+  /// **'Search locations'**
+  String get searchLocations;
+
+  /// No description provided for @locationCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 location} other{{count} locations}}'**
+  String locationCount(int count);
+
+  /// No description provided for @autoInstallApk.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic updates'**
+  String get autoInstallApk;
+
+  /// No description provided for @autoInstallApkHint.
+  ///
+  /// In en, this message translates to:
+  /// **'New versions download by themselves; the installer asks before it installs.'**
+  String get autoInstallApkHint;
+
+  /// No description provided for @installNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Install'**
+  String get installNow;
+
+  /// No description provided for @updateAllowInstall.
+  ///
+  /// In en, this message translates to:
+  /// **'To install the update, allow this app to install apps.'**
+  String get updateAllowInstall;
+
+  /// No description provided for @allowInstall.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get allowInstall;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No location matches the search.'**
+  String get noResults;
 }
 
 class _AppLocalizationsDelegate

@@ -333,6 +333,27 @@ class AndroidCore {
   static Future<String> abi() async =>
       await _channel.invokeMethod<String>('abi') ?? '';
 
+  /// A folder of this app's own for the downloaded update package: on the
+  /// shared storage when there is one (the installer reads it there), else
+  /// inside the app's private files. Empty when Android answers nothing.
+  static Future<String> updateDir() async =>
+      await _channel.invokeMethod<String>('updateDir') ?? '';
+
+  /// Whether this app may install packages (Android 8 asks once, in its
+  /// settings); always true before it.
+  static Future<bool> canInstallPackages() async =>
+      await _channel.invokeMethod<bool>('canInstallPackages') ?? false;
+
+  /// Android's own page for that permission.
+  static Future<void> openInstallPermissionSettings() =>
+      _channel.invokeMethod<void>('openInstallPermissionSettings');
+
+  /// Hands [path] (an APK inside [updateDir]) to the system's installer,
+  /// which asks the user. False when no installer answered (a TV without
+  /// one): the notice falls back to the download.
+  static Future<bool> installApk(String path) async =>
+      await _channel.invokeMethod<bool>('installApk', {'path': path}) ?? false;
+
   /// Opens [url] in the app that handles it (such as a tg:// link).
   static Future<bool> openUrl(String url) async =>
       await _channel.invokeMethod<bool>('openUrl', {'url': url}) ?? false;

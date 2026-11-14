@@ -487,5 +487,20 @@
   "relayTestPassed": "Le relais est prêt",
   "relayTestFailed": "L’état du relais n’a pas pu être confirmé",
   "relayTestCopy": "Copier le rapport",
-  "relayTestInterrupted": "Le test s’est terminé avant de recevoir un résultat complet."
+  "relayTestInterrupted": "Le test s’est terminé avant de recevoir un résultat complet.",
+  "searchLocations": "Rechercher des lieux",
+  "locationCount": "{count, plural, =1{1 lieu} many{{count} de lieux} other{{count} lieux}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Mises à jour automatiques",
+  "autoInstallApkHint": "Les nouvelles versions se téléchargent toutes seules ; l'installateur demande avant d'installer.",
+  "installNow": "Installer",
+  "updateAllowInstall": "Pour installer la mise à jour, autorisez cette application à installer des applications.",
+  "allowInstall": "Autoriser",
+  "noResults": "Aucun lieu ne correspond à la recherche."
 }

@@ -487,5 +487,20 @@
   "relayTestPassed": "中继已就绪",
   "relayTestFailed": "无法确认中继状态",
   "relayTestCopy": "复制报告",
-  "relayTestInterrupted": "测试在收到完整结果前结束。"
+  "relayTestInterrupted": "测试在收到完整结果前结束。",
+  "searchLocations": "搜索位置",
+  "locationCount": "{count, plural, other{{count} 个位置}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "自动更新",
+  "autoInstallApkHint": "自动下载新版本；安装前安装程序会先询问。",
+  "installNow": "安装",
+  "updateAllowInstall": "如需安装更新，请允许本应用安装应用。",
+  "allowInstall": "允许",
+  "noResults": "没有符合搜索的位置。"
 }

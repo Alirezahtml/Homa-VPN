@@ -487,5 +487,20 @@
   "relayTestPassed": "O relé está pronto",
   "relayTestFailed": "Não foi possível confirmar o estado do relé",
   "relayTestCopy": "Copiar relatório",
-  "relayTestInterrupted": "O teste terminou antes de receber um resultado completo."
+  "relayTestInterrupted": "O teste terminou antes de receber um resultado completo.",
+  "searchLocations": "Pesquisar locais",
+  "locationCount": "{count, plural, =1{1 local} many{{count} de locais} other{{count} locais}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Atualizações automáticas",
+  "autoInstallApkHint": "As versões novas baixam sozinhas; o instalador pergunta antes de instalar.",
+  "installNow": "Instalar",
+  "updateAllowInstall": "Para instalar a atualização, permita que este aplicativo instale aplicativos.",
+  "allowInstall": "Permitir",
+  "noResults": "Nenhum local corresponde à pesquisa."
 }

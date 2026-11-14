@@ -1718,4 +1718,40 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Проверка завершилась до получения полного результата.';
+
+  @override
+  String get searchLocations => 'Поиск локаций';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count локации',
+      many: '$count локаций',
+      few: '$count локации',
+      one: '1 локация',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Автообновление';
+
+  @override
+  String get autoInstallApkHint =>
+      'Новые версии скачиваются сами; перед установкой установщик спросит.';
+
+  @override
+  String get installNow => 'Установить';
+
+  @override
+  String get updateAllowInstall =>
+      'Чтобы установить обновление, разрешите приложению установку приложений.';
+
+  @override
+  String get allowInstall => 'Разрешить';
+
+  @override
+  String get noResults => 'Нет локаций по этому запросу.';
 }

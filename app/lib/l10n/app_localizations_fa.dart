@@ -1696,4 +1696,38 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'تست پیش از دریافت نتیجهٔ کامل متوقف شد.';
+
+  @override
+  String get searchLocations => 'جستجوی مکان‌ها';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مکان',
+      one: '۱ مکان',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'به‌روزرسانی خودکار';
+
+  @override
+  String get autoInstallApkHint =>
+      'نسخه‌های جدید خودشان دانلود می‌شوند؛ نصاب پیش از نصب می‌پرسد.';
+
+  @override
+  String get installNow => 'نصب';
+
+  @override
+  String get updateAllowInstall =>
+      'برای نصب به‌روزرسانی، اجازهٔ نصب برنامه را به این برنامه بدهید.';
+
+  @override
+  String get allowInstall => 'اجازه دادن';
+
+  @override
+  String get noResults => 'هیچ مکانی با جستجو هم‌خوانی ندارد.';
 }

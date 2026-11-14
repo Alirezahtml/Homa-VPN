@@ -487,5 +487,20 @@
   "relayTestPassed": "রিলে প্রস্তুত",
   "relayTestFailed": "রিলের অবস্থা নিশ্চিত করা যায়নি",
   "relayTestCopy": "রিপোর্ট কপি করুন",
-  "relayTestInterrupted": "সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।"
+  "relayTestInterrupted": "সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।",
+  "searchLocations": "লোকেশন খুঁজুন",
+  "locationCount": "{count, plural, =1{১টি লোকেশন} other{{count}টি লোকেশন}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "স্বয়ংক্রিয় আপডেট",
+  "autoInstallApkHint": "নতুন সংস্করণ নিজে নিজে ডাউনলোড হয়; ইনস্টল করার আগে ইনস্টলার জিজ্ঞেস করে।",
+  "installNow": "ইনস্টল করুন",
+  "updateAllowInstall": "আপডেট ইনস্টল করতে এই অ্যাপকে অ্যাপ ইনস্টলের অনুমতি দিন।",
+  "allowInstall": "অনুমতি দিন",
+  "noResults": "কোনো লোকেশন খোঁজার সঙ্গে মেলে না।"
 }

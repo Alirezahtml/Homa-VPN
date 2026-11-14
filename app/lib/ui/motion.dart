@@ -349,11 +349,15 @@ class _SlideToConnectState extends State<SlideToConnect>
 
   static const knobSize = 62.0;
 
-  /// The knob's travel: this box's width, less the knob itself.
+  /// The knob's side margin inside the track: the button rests within the
+  /// ring, with air around it, instead of riding past its ends.
+  static const knobInset = 8.0;
+
+  /// The knob's travel: this box's width, less the knob and its margins.
   double get _travel {
     final box = context.findRenderObject();
     return box is RenderBox && box.hasSize
-        ? math.max(box.size.width - knobSize, 1.0)
+        ? math.max(box.size.width - 2 * knobInset - knobSize, 1.0)
         : 1.0;
   }
 
@@ -361,11 +365,11 @@ class _SlideToConnectState extends State<SlideToConnect>
   Widget build(BuildContext context) {
     final w = widget;
     final rtl = Directionality.of(context) == TextDirection.rtl;
-    // The knob rides on the track's ends: the track is inset by the knob's
-    // radius, and the knob's center runs between those ends.
+    // The switch: a track the full width, its ends fully round, and the
+    // knob resting inside it between margins.
     const height = 78.0;
     const knob = knobSize;
-    const half = knob / 2;
+    const inset = knobInset;
     final dir = rtl ? -1.0 : 1.0;
     return Opacity(
       opacity: w.busy ? 0.75 : 1,
@@ -425,15 +429,17 @@ class _SlideToConnectState extends State<SlideToConnect>
                   return Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      // The track: inset so the knob covers its ends.
+                      // The track: the whole switch, its ends fully round.
+                      // The knob rests inside it — a button in a ring, not
+                      // one hanging past the ring's edge.
                       PositionedDirectional(
-                        start: half,
-                        end: half,
+                        start: 0,
+                        end: 0,
                         top: 0,
                         bottom: 0,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(half),
+                            borderRadius: BorderRadius.circular(height / 2),
                             color: w.card,
                             border: Border.all(
                               color: Color.lerp(
@@ -454,7 +460,7 @@ class _SlideToConnectState extends State<SlideToConnect>
                             ],
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(half),
+                            borderRadius: BorderRadius.circular(height / 2),
                             child: Stack(
                               children: [
                                 // The fill that follows the knob.
@@ -499,24 +505,25 @@ class _SlideToConnectState extends State<SlideToConnect>
                                     ),
                                   ),
                                 // The hint label. The knob at rest covers
-                                // the track's first [knob] pixels, so the
-                                // label starts past it; [end] keeps the
-                                // knob's far-side place free as well, and
-                                // the label centers in what is left. While
-                                // connected the label stays: the state's
-                                // own word ("Connected") in the track, not
-                                // an empty bar. A long translation shrinks
-                                // to fit rather than ellipsizing.
+                                // the track's first [inset + knob] pixels, so
+                                // the label starts a little past it; the same
+                                // room is kept on the other side, so the words
+                                // sit exactly in the middle of what is left —
+                                // in every language, reading either way. While
+                                // connected the label stays: the state's own
+                                // word ("Connected") in the track, not an
+                                // empty bar. A long translation shrinks to fit
+                                // rather than ellipsizing.
                                 PositionedDirectional(
-                                  start: knob + 8,
-                                  end: knob,
+                                  start: knob + inset + 4,
+                                  end: knob + inset + 4,
                                   top: 0,
                                   bottom: 0,
                                   child: Opacity(
                                     opacity:
                                         w.on ? 1 : (1 - p * 2.1).clamp(0, 1),
                                     child: Transform.translate(
-                                      offset: Offset(-14 * p, 0),
+                                      offset: Offset(-14 * p * dir, 0),
                                       child: Center(
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,
@@ -550,9 +557,13 @@ class _SlideToConnectState extends State<SlideToConnect>
                           ),
                         ),
                       ),
-                      // The success ring and the knob, on one line.
+                      // The success ring and the knob, inside the track:
+                      // the margins keep air between the button and the
+                      // ring, on both ends and above and below.
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: half),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: inset,
+                        ),
                         child: Align(
                           alignment: AlignmentDirectional(2 * p - 1, 0),
                           child: Stack(
@@ -562,8 +573,8 @@ class _SlideToConnectState extends State<SlideToConnect>
                               if (bloom > 0 && bloom < 1)
                                 IgnorePointer(
                                   child: Container(
-                                    width: knob + 20,
-                                    height: knob + 20,
+                                    width: knob + 16,
+                                    height: knob + 16,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(

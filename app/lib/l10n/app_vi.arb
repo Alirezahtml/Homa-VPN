@@ -487,5 +487,20 @@
   "relayTestPassed": "Relay đã sẵn sàng",
   "relayTestFailed": "Không thể xác nhận tình trạng relay",
   "relayTestCopy": "Sao chép báo cáo",
-  "relayTestInterrupted": "Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ."
+  "relayTestInterrupted": "Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ.",
+  "searchLocations": "Tìm vị trí",
+  "locationCount": "{count, plural, other{{count} vị trí}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Tự động cập nhật",
+  "autoInstallApkHint": "Các phiên bản mới tự tải về; trình cài đặt sẽ hỏi trước khi cài.",
+  "installNow": "Cài đặt",
+  "updateAllowInstall": "Để cài đặt bản cập nhật, hãy cho phép ứng dụng này cài đặt ứng dụng.",
+  "allowInstall": "Cho phép",
+  "noResults": "Không có vị trí nào khớp với tìm kiếm."
 }

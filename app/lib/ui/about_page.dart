@@ -119,11 +119,11 @@ class _AboutPageState extends State<AboutPage> {
               Text(l.unofficialNote, style: muted, textAlign: TextAlign.center),
               const SizedBox(height: 20),
               _Line(label: l.appVersionLabel, value: appVersion),
-              const Divider(height: 24),
+              const Divider(height: 28),
               _Line(label: l.coreVersionLabel, value: status?.version ?? '—'),
               // The social channels: Instagram and Telegram, by their
               // handles. There is no code repository in this app.
-              const SizedBox(height: 16),
+              const SizedBox(height: 18),
               Row(
                 children: [
                   social(
@@ -139,7 +139,7 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ],
               ),
-              const Divider(height: 24),
+              const Divider(height: 28),
               // The result and the Download button under the title, so a
               // phone's narrow screen keeps the text readable.
               if (githubRepo.isNotEmpty)
@@ -179,7 +179,7 @@ class _AboutPageState extends State<AboutPage> {
                 ],
               ],
               if (Platform.isAndroid) ...[
-                const Divider(height: 24),
+                const Divider(height: 28),
                 Row(
                   children: [
                     Expanded(
@@ -190,11 +190,12 @@ class _AboutPageState extends State<AboutPage> {
                             l.webDashboard,
                             style: theme.textTheme.titleSmall,
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 4),
                           Text(l.webDashboardHint, style: muted),
                         ],
                       ),
                     ),
+                    const SizedBox(width: 12),
                     OutlinedButton.icon(
                       onPressed: () => runShowingErrors(
                         context,
@@ -257,12 +258,16 @@ class _UpdateAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListenableBuilder(
-    listenable: Listenable.merge([core, Updates.failure]),
+    listenable: Listenable.merge([
+      core,
+      Updates.failure,
+      Updates.apkState,
+      Updates.apkProgress,
+    ]),
     builder: (context, _) {
       final l = AppLocalizations.of(context);
       final muted = Theme.of(context).textTheme.bodySmall
           ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
-      final update = core.status?.update;
       Widget button(String label, IconData icon, VoidCallback? onPressed) =>
           SizedBox(
             width: double.infinity,
@@ -272,6 +277,49 @@ class _UpdateAction extends StatelessWidget {
               label: Text(label),
             ),
           );
+      // Android updates the app itself: the package downloads here, then
+      // the system's installer asks — the repository stays out of it.
+      if (Platform.isAndroid) {
+        final progress = Updates.apkProgress.value;
+        return switch (Updates.apkState.value) {
+          ApkState.downloading => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(l.updateDownloading(release.version), style: muted),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(value: progress),
+            ],
+          ),
+          ApkState.ready => button(
+            l.installNow,
+            Icons.install_mobile_rounded,
+            () => Updates.installApkUpdate(),
+          ),
+          ApkState.permission => button(
+            l.allowInstall,
+            Icons.settings_rounded,
+            () => Updates.installApkUpdate(),
+          ),
+          ApkState.failed => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(l.updateFailed(release.version), style: muted),
+              const SizedBox(height: 8),
+              button(
+                l.tryAgain,
+                Icons.refresh_rounded,
+                () => Updates.update(release),
+              ),
+            ],
+          ),
+          ApkState.idle => button(
+            l.updateNow,
+            Icons.system_update_alt_rounded,
+            () => Updates.update(release),
+          ),
+        };
+      }
+      final update = core.status?.update;
       if (update == null) {
         return release.url.isEmpty
             ? const SizedBox.shrink()

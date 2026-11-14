@@ -1046,5 +1046,20 @@
   "relayTestPassed": "Relay is ready",
   "relayTestFailed": "Relay health could not be confirmed",
   "relayTestCopy": "Copy report",
-  "relayTestInterrupted": "The test ended before a complete result was received."
+  "relayTestInterrupted": "The test ended before a complete result was received.",
+  "searchLocations": "Search locations",
+  "locationCount": "{count, plural, =1{1 location} other{{count} locations}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Automatic updates",
+  "autoInstallApkHint": "New versions download by themselves; the installer asks before it installs.",
+  "installNow": "Install",
+  "updateAllowInstall": "To install the update, allow this app to install apps.",
+  "allowInstall": "Allow",
+  "noResults": "No location matches the search."
 }

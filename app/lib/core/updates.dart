@@ -15,6 +15,28 @@ import 'models.dart';
 /// .github/workflows/build.yml); others get the universal one.
 const _apkAbis = {'arm64-v8a', 'armeabi-v7a', 'x86_64'};
 
+/// Where an Android update stands. The phone's core does not update itself,
+/// so the app downloads the release's APK on its own and hands it to the
+/// system's installer, which asks the user; Android's rule to install
+/// packages may need a permission first (the "unknown apps" page).
+enum ApkState {
+  /// Nothing found, or the check said this version is the newest.
+  idle,
+
+  /// The package is coming; [Updates.apkProgress] says how far.
+  downloading,
+
+  /// The package is complete; the installer can ask.
+  ready,
+
+  /// The installer's permission is missing; the notice offers its page.
+  permission,
+
+  /// The download or the hand to the installer failed; the notice offers
+  /// another try.
+  failed,
+}
+
 /// Where the Download button goes: the release's file for this copy of the
 /// app, which the browser downloads at once (no page to choose from): on a
 /// phone the APK for its processor; on Windows the installer for an
@@ -124,6 +146,12 @@ abstract final class Updates {
   static final available = ValueNotifier<Release?>(null);
   static final announcements = ValueNotifier<AnnouncementStore?>(null);
 
+  /// The Android update's own state, progress, and why it failed; the
+  /// notice on the home page and the About page read them.
+  static final apkState = ValueNotifier<ApkState>(ApkState.idle);
+  static final apkProgress = ValueNotifier<double?>(null);
+  static final apkError = ValueNotifier<String>('');
+
   /// The app installs a downloaded version at its start (automatic
   /// updates) and quits in a moment, so it does not connect first.
   static final installingAtStart = ValueNotifier<bool>(false);
@@ -159,6 +187,17 @@ abstract final class Updates {
   /// The versions automatic updates asked to download in this run, so a
   /// failed one waits for the next start.
   static final _downloadsAsked = <String>{};
+
+  /// The Android update's package on the phone, once downloaded.
+  static String? _apkFile;
+
+  /// The Android version this run already took up, so a status tick or a
+  /// found release does not start it twice.
+  static String? _apkAsked;
+
+  /// Whether the package that just arrived installs by itself (the
+  /// automatic way) or waits for the user's tap.
+  static bool _apkAutoInstall = false;
 
   /// Starts looking. [args] are the app's own (`--autostart`, `--hidden`,
   /// `--data-dir=`), which a new version installed at the start keeps; an
@@ -206,6 +245,11 @@ abstract final class Updates {
     installingAtStart.value = false;
     failure.value = null;
     resultSeen.value = false;
+    apkState.value = ApkState.idle;
+    apkProgress.value = null;
+    apkError.value = '';
+    _apkFile = _apkAsked = null;
+    _apkAutoInstall = false;
     quitApp = null;
     windowHidden = () => false;
   }
@@ -216,7 +260,15 @@ abstract final class Updates {
   static void _onStatus() {
     final core = _core, settings = _settings;
     final update = core?.status?.update;
-    if (core == null || settings == null || update == null) return;
+    if (core == null || settings == null) return;
+    if (Platform.isAndroid) {
+      // The phone's core says nothing about updates; the app's own
+      // download starts with the first status, so the package is there
+      // (or on its way) however this run began.
+      _downloadApkInBackground();
+      return;
+    }
+    if (update == null) return;
     if (!_started) {
       _started = true;
       // Not right after an update that failed (the old version started
@@ -248,6 +300,10 @@ abstract final class Updates {
 
   /// With automatic updates, downloads the version found (once per run).
   static void _downloadInBackground() {
+    if (Platform.isAndroid) {
+      _downloadApkInBackground();
+      return;
+    }
     final core = _core, settings = _settings;
     final release = available.value;
     final update = core?.status?.update;
@@ -277,8 +333,15 @@ abstract final class Updates {
   }
 
   /// The Update button: downloads [release] when needed, then installs it;
-  /// the app closes and opens again as the new version.
+  /// the app closes and opens again as the new version. On Android the
+  /// system's installer asks instead of the app restarting itself.
   static Future<void> update(Release release) async {
+    if (Platform.isAndroid) {
+      apkError.value = '';
+      _apkAutoInstall = false;
+      await installApkUpdate();
+      return;
+    }
     final core = _core;
     if (core == null) return;
     failure.value = null;
@@ -378,4 +441,158 @@ abstract final class Updates {
 
   static void receiveAnnouncements(List<Announcement> items) =>
       announcements.value?.receive(items);
+
+  /// Android's automatic update, once per run: a package already complete
+  /// goes to the installer again; otherwise the version found downloads.
+  /// Off by the setting, nothing starts by itself — the notice's own
+  /// buttons still work.
+  static void _downloadApkInBackground() {
+    final settings = _settings;
+    final release = available.value;
+    if (settings == null || release == null) return;
+    if (!newerVersion(release.version, appVersion)) return;
+    if (_apkAsked == release.version) return;
+    _apkAsked = release.version;
+    if (!settings.autoInstallApk) return;
+    unawaited(_resumeApk(release));
+  }
+
+  /// Takes an Android update up this run: a complete package installs,
+  /// otherwise it downloads, installing when that was automatic.
+  static Future<void> _resumeApk(Release release) async {
+    final existing = await _apkFileFor(release.version);
+    if (existing != null && existing.existsSync()) {
+      _apkFile = existing.path;
+      apkState.value = ApkState.ready;
+      await installApkUpdate(auto: true);
+      return;
+    }
+    _apkAutoInstall = true;
+    await _downloadApk(release);
+  }
+
+  /// Where a version's package lands: the app's own update folder (the
+  /// channel answers it; the installer reads it there), named by version,
+  /// so a newer package never collides with an older one.
+  static Future<File?> _apkFileFor(String version) async {
+    final dir = await AndroidCore.updateDir().catchError((Object _) => '');
+    if (dir.isEmpty) return null;
+    return File(
+      '$dir${Platform.pathSeparator}Homa-VPN-$version.apk',
+    );
+  }
+
+  /// Downloads [release]'s APK (this phone's processor, else the universal
+  /// one) through the VPN's own proxy when it runs — GitHub is blocked on
+  /// some networks. The folder keeps only the newest package.
+  static Future<void> _downloadApk(Release release) async {
+    File? file;
+    try {
+      apkState.value = ApkState.downloading;
+      apkProgress.value = null;
+      apkError.value = '';
+      file = await _apkFileFor(release.version);
+      if (file == null) {
+        throw const HttpException('no folder for the update package');
+      }
+      await file.parent.create(recursive: true);
+      // The last package goes, so an abandoned download never fills the
+      // phone: only this version's name stays.
+      await for (final old in file.parent.list()) {
+        if (old is File &&
+            old.path.endsWith('.apk') &&
+            old.path != file.path) {
+          try {
+            await old.delete();
+          } on FileSystemException {
+            // Another copy is installing it right now; it goes next time.
+          }
+        }
+      }
+      final url = await downloadUrl(release);
+      final proxy = updateProxy(_core?.status);
+      final client = HttpClient()
+        ..connectionTimeout = const Duration(seconds: 20)
+        ..findProxy = (_) =>
+            proxy == null ? 'DIRECT' : 'PROXY $proxy; DIRECT';
+      try {
+        final req = await client
+            .getUrl(Uri.parse(url))
+            .timeout(const Duration(seconds: 20));
+        req.headers.set(HttpHeaders.userAgentHeader, 'arman-vpn/$appVersion');
+        final res = await req.close().timeout(const Duration(seconds: 30));
+        if (res.statusCode != 200) {
+          throw HttpException('HTTP ${res.statusCode}');
+        }
+        final total = res.contentLength;
+        var done = 0;
+        final sink = file.openWrite();
+        try {
+          await for (final chunk in res.timeout(
+            const Duration(seconds: 60),
+          )) {
+            sink.add(chunk);
+            done += chunk.length;
+            if (total > 0) {
+              apkProgress.value = (done / total).clamp(0.0, 1.0);
+            }
+          }
+          await sink.flush();
+        } finally {
+          await sink.close();
+        }
+      } finally {
+        client.close(force: true);
+      }
+      apkProgress.value = 1;
+      _apkFile = file.path;
+      apkState.value = ApkState.ready;
+      if (_apkAutoInstall) {
+        _apkAutoInstall = false;
+        await installApkUpdate(auto: true);
+      }
+    } on Exception catch (e) {
+      apkState.value = ApkState.failed;
+      apkProgress.value = null;
+      apkError.value = '$e';
+      // A partial package is not a package; the next try starts clean.
+      try {
+        await file?.delete();
+      } on FileSystemException {
+        // Already gone.
+      }
+      _apkFile = null;
+    }
+  }
+
+  /// Hands the downloaded package to the system's installer, which asks
+  /// the user; without the package (or after a failure) it downloads
+  /// first. Without the "install unknown apps" permission it goes to
+  /// [apkState] = permission: the notice offers Android's own page for it,
+  /// and a tap there returns to this. False when no installer answered (a
+  /// TV without one): the notice falls back to the download in a browser.
+  static Future<bool> installApkUpdate({bool auto = false}) async {
+    var path = _apkFile;
+    if (path == null || !File(path).existsSync()) {
+      final release = available.value;
+      if (release == null) return false;
+      _apkAutoInstall = auto;
+      unawaited(_downloadApk(release));
+      return true;
+    }
+    if (!await AndroidCore.canInstallPackages()) {
+      apkState.value = ApkState.permission;
+      if (!auto) {
+        await AndroidCore.openInstallPermissionSettings();
+      }
+      return true;
+    }
+    try {
+      if (await AndroidCore.installApk(path)) return true;
+    } on Exception catch (e) {
+      apkError.value = '$e';
+    }
+    apkState.value = ApkState.failed;
+    return false;
+  }
 }

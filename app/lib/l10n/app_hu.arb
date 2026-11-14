@@ -487,5 +487,20 @@
   "relayTestPassed": "Az átjátszó kész",
   "relayTestFailed": "Az átjátszó állapota nem igazolható",
   "relayTestCopy": "Jelentés másolása",
-  "relayTestInterrupted": "A teszt a teljes eredmény beérkezése előtt véget ért."
+  "relayTestInterrupted": "A teszt a teljes eredmény beérkezése előtt véget ért.",
+  "searchLocations": "Helyek keresése",
+  "locationCount": "{count, plural, =1{1 hely} other{{count} hely}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Automatikus frissítés",
+  "autoInstallApkHint": "Az új verziók maguktól letöltődnek; a telepítő rákérdez, mielőtt telepít.",
+  "installNow": "Telepítés",
+  "updateAllowInstall": "A frissítés telepítéséhez engedélyezze az alkalmazásnak alkalmazások telepítését.",
+  "allowInstall": "Engedélyezés",
+  "noResults": "A keresésnek megfelelő hely nincs."
 }

@@ -1641,6 +1641,37 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => '测试在收到完整结果前结束。';
+
+  @override
+  String get searchLocations => '搜索位置';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个位置',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => '自动更新';
+
+  @override
+  String get autoInstallApkHint => '自动下载新版本；安装前安装程序会先询问。';
+
+  @override
+  String get installNow => '安装';
+
+  @override
+  String get updateAllowInstall => '如需安装更新，请允许本应用安装应用。';
+
+  @override
+  String get allowInstall => '允许';
+
+  @override
+  String get noResults => '没有符合搜索的位置。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3280,4 +3311,35 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get relayTestInterrupted => '測試在收到完整結果前結束。';
+
+  @override
+  String get searchLocations => '搜尋位置';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 個位置',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => '自動更新';
+
+  @override
+  String get autoInstallApkHint => '自動下載新版本；安裝前安裝程式會先詢問。';
+
+  @override
+  String get installNow => '安裝';
+
+  @override
+  String get updateAllowInstall => '如需安裝更新，請允許此應用程式安裝應用程式。';
+
+  @override
+  String get allowInstall => '允許';
+
+  @override
+  String get noResults => '沒有符合搜尋的位置。';
 }

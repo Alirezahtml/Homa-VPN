@@ -81,6 +81,11 @@ class AppSettings extends ChangeNotifier {
   /// (UDP); on unless the user turned it off.
   bool udpNotice = true;
 
+  /// A newer version downloads by itself on a phone and the installer asks
+  /// at once; on unless the user turned it off. Off, the About page and the
+  /// home page's notice still offer it by hand.
+  bool autoInstallApk = true;
+
   /// The columns the Logs page's Connections tab hides (ConnectionsView):
   /// at first all but the time, the destination, the rule, and the
   /// protocol. Kept in this file.
@@ -235,6 +240,7 @@ class AppSettings extends ChangeNotifier {
         s.keepScreenOn = j['keep_screen_on'] == true;
         s.showTraffic = j['show_traffic'] != false;
         s.udpNotice = j['udp_notice'] != false;
+        s.autoInstallApk = j['auto_install_apk'] != false;
         if (j['hidden_connection_columns'] case final List<Object?> v) {
           s.hiddenConnectionColumns = {...v.whereType<String>()};
         }
@@ -270,6 +276,7 @@ class AppSettings extends ChangeNotifier {
     bool? keepScreenOn,
     bool? showTraffic,
     bool? udpNotice,
+    bool? autoInstallApk,
     Set<String>? hiddenConnectionColumns,
   }) {
     this.hiddenConnectionColumns =
@@ -280,6 +287,8 @@ class AppSettings extends ChangeNotifier {
     this.hapticFeedback = hapticFeedback ?? this.hapticFeedback;
     this.keepScreenOn = keepScreenOn ?? this.keepScreenOn;
     this.showTraffic = showTraffic ?? this.showTraffic;
+    this.udpNotice = udpNotice ?? this.udpNotice;
+    this.autoInstallApk = autoInstallApk ?? this.autoInstallApk;
     this.showPublicIp = showPublicIp ?? this.showPublicIp;
     this.lowQuotaDismissedAt = lowQuotaDismissedAt ?? this.lowQuotaDismissedAt;
     this.dismissedUpdate = dismissedUpdate ?? this.dismissedUpdate;
@@ -328,6 +337,7 @@ class AppSettings extends ChangeNotifier {
           'keep_screen_on': keepScreenOn,
           'show_traffic': showTraffic,
           'udp_notice': udpNotice,
+          'auto_install_apk': autoInstallApk,
           'hidden_connection_columns': hiddenConnectionColumns.toList(),
         }),
       );

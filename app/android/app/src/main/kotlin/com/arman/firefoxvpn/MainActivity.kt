@@ -21,9 +21,11 @@ import android.net.Uri
 import android.net.VpnService
 import android.os.Build
 import android.provider.OpenableColumns
+import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
+import androidx.core.content.FileProvider
 import androidx.webkit.ProxyConfig
 import androidx.webkit.ProxyController
 import androidx.webkit.WebViewFeature
@@ -31,6 +33,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
+import java.io.File
 
 /**
  * The Flutter UI. Channel "app/android": dataDir, startCore (with the proxy
@@ -261,6 +264,66 @@ class MainActivity : FlutterActivity() {
                 // The phone's main processor type (arm64-v8a, armeabi-v7a, ...).
                 "abi" -> result.success(Build.SUPPORTED_ABIS.firstOrNull() ?: "")
                 "isTv" -> result.success(isTv(resources.configuration))
+                // The update package's own folder: on the shared storage when
+                // there is one, so the system's installer reads it there.
+                "updateDir" -> {
+                    val dir = getExternalFilesDir("updates") ?: File(filesDir, "updates")
+                    result.success(dir.absolutePath)
+                }
+                // Android 8 and later: this app may install packages, asked
+                // once in its own settings page.
+                "canInstallPackages" -> result.success(
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        packageManager.canRequestPackageInstalls()
+                    } else {
+                        true
+                    }
+                )
+                "openInstallPermissionSettings" -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        try {
+                            startActivity(
+                                Intent(
+                                    Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                                    Uri.parse("package:$packageName")
+                                )
+                            )
+                        } catch (e: Exception) {
+                            // A rare system without the page: the app's own
+                            // settings page at least opens nearby.
+                            startActivity(Intent(Settings.ACTION_SETTINGS))
+                        }
+                    }
+                    result.success(null)
+                }
+                // The downloaded update's APK goes to the system's installer,
+                // which asks the user; no other app's page, no browser.
+                "installApk" -> {
+                    val path = call.argument<String>("path") ?: ""
+                    val file = File(path)
+                    if (!file.exists()) {
+                        result.error("no_apk", "the package is not there", null)
+                        return@setMethodCallHandler
+                    }
+                    try {
+                        val uri = FileProvider.getUriForFile(
+                            this, "$packageName.updates", file
+                        )
+                        val install = Intent(Intent.ACTION_INSTALL_PACKAGE).apply {
+                            data = uri
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        startActivity(install)
+                        result.success(true)
+                    } catch (e: ActivityNotFoundException) {
+                        // A TV without an installer: the notice falls back to
+                        // the download in a browser.
+                        result.success(false)
+                    } catch (e: Exception) {
+                        result.error("install_failed", e.message, null)
+                    }
+                }
                 "routingCountries" -> inBackground(result) { routingCountries() }
                 "openUrl" -> {
                     val url = call.argument<String>("url") ?: ""

@@ -113,4 +113,7 @@ dependencies {
     // ProxyController: the browser sign-in's WebView uses the core's
     // sign-in proxy. The version webview_flutter_android itself uses.
     implementation("androidx.webkit:webkit:1.15.0")
+    // FileProvider: the downloaded update's APK goes to the system's
+    // installer through it.
+    implementation("androidx.core:core:1.13.1")
 }

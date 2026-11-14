@@ -1056,18 +1056,20 @@ class _PhoneHome extends StatelessWidget {
         ),
         // The world behind the switch: the sample's map, redrawn as quiet
         // dots in the theme's own ink — no hue, no motion, no pointer.
+        // Centered, so it sits behind the switch rather than the top edge,
+        // and a little louder, so the continents read.
         child: Stack(
           children: [
             Positioned.fill(
               child: IgnorePointer(
                 child: Opacity(
-                  opacity: p.dark ? 0.10 : 0.07,
+                  opacity: p.dark ? 0.16 : 0.12,
                   child: Image.asset(
                     p.dark
                         ? 'assets/map_dots_light.png'
                         : 'assets/map_dots_dark.png',
                     fit: BoxFit.fitWidth,
-                    alignment: const Alignment(0, -0.45),
+                    alignment: Alignment.center,
                     excludeFromSemantics: true,
                   ),
                 ),
@@ -2224,6 +2226,8 @@ class _UpdateNotice extends StatelessWidget {
       Updates.available,
       Updates.failure,
       Updates.resultSeen,
+      Updates.apkState,
+      Updates.apkProgress,
     ]),
     builder: (context, _) {
       final l = AppLocalizations.of(context);
@@ -2249,6 +2253,69 @@ class _UpdateNotice extends StatelessWidget {
       final VoidCallback? dismiss = release.mandatory
           ? null
           : () => settings.update(dismissedUpdate: release.version);
+      // Android updates the app itself: the package downloads in the
+      // background, then the system's installer asks. No page of the
+      // release, no repository — only the version and what happens.
+      if (Platform.isAndroid) {
+        return switch (Updates.apkState.value) {
+          ApkState.downloading => _UpdateBanner(
+            palette: palette,
+            icon: Icons.downloading_rounded,
+            text: l.updateDownloading(release.version),
+            busy: true,
+            progress: Updates.apkProgress.value,
+          ),
+          ApkState.ready => _UpdateBanner(
+            palette: palette,
+            icon: Icons.install_mobile_rounded,
+            text: l.updateReady(release.version),
+            action: (
+              label: l.installNow,
+              icon: Icons.system_update_alt_rounded,
+              onPressed: () => Updates.installApkUpdate(),
+            ),
+            onClose: dismiss,
+          ),
+          ApkState.permission => _UpdateBanner(
+            palette: palette,
+            icon: Icons.install_mobile_rounded,
+            text: l.updateAllowInstall,
+            action: (
+              label: l.allowInstall,
+              icon: Icons.settings_rounded,
+              onPressed: () => Updates.installApkUpdate(),
+            ),
+            onClose: dismiss,
+          ),
+          ApkState.failed => _UpdateBanner(
+            palette: palette,
+            icon: Icons.error_outline_rounded,
+            text: l.updateFailed(release.version),
+            tooltip: Updates.apkError.value,
+            problem: true,
+            action: (
+              label: l.tryAgain,
+              icon: Icons.refresh_rounded,
+              onPressed: () => Updates.update(release),
+            ),
+            onClose: dismiss,
+          ),
+          ApkState.idle => _UpdateBanner(
+            palette: palette,
+            icon: Icons.system_update_rounded,
+            problem: release.mandatory,
+            text: release.mandatory
+                ? l.updateRequired(release.version)
+                : l.updateAvailable(release.version),
+            action: (
+              label: l.updateNow,
+              icon: Icons.system_update_alt_rounded,
+              onPressed: () => Updates.update(release),
+            ),
+            onClose: dismiss,
+          ),
+        };
+      }
       if (update == null) {
         return _UpdateBanner(
           palette: palette,

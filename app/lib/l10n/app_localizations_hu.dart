@@ -1722,4 +1722,38 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'A teszt a teljes eredmény beérkezése előtt véget ért.';
+
+  @override
+  String get searchLocations => 'Helyek keresése';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hely',
+      one: '1 hely',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Automatikus frissítés';
+
+  @override
+  String get autoInstallApkHint =>
+      'Az új verziók maguktól letöltődnek; a telepítő rákérdez, mielőtt telepít.';
+
+  @override
+  String get installNow => 'Telepítés';
+
+  @override
+  String get updateAllowInstall =>
+      'A frissítés telepítéséhez engedélyezze az alkalmazásnak alkalmazások telepítését.';
+
+  @override
+  String get allowInstall => 'Engedélyezés';
+
+  @override
+  String get noResults => 'A keresésnek megfelelő hely nincs.';
 }

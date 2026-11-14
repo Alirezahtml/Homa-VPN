@@ -155,13 +155,22 @@ String describeProblem(AppLocalizations l, CoreUnavailable e) =>
       CoreProblem.exited => l.errCoreExited(e.detail),
     };
 
-/// The color of a real delay: green when quick, amber when slow, red when
-/// very slow.
-Color delayColor(int ms) => ms < delayGoodMs
-    ? StatusColors.good
-    : ms < 1000
-    ? StatusColors.busy
-    : StatusColors.bad;
+/// The color of a real delay, by how fast the answer came: green when
+/// quick, amber when it takes a moment, orange when slow, red when very
+/// slow. The one place the app leaves its monochrome palette: a number
+/// alone cannot say "fast" at a glance, and the same order reads on the
+/// phone, the computer, and both themes (a touch darker in the day's).
+Color delayColor(int ms) {
+  final dark =
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+      Brightness.dark;
+  return switch (ms) {
+    < 200 => dark ? const Color(0xFF4ADE80) : const Color(0xFF15803D),
+    < 450 => dark ? const Color(0xFFFBBF24) : const Color(0xFFB45309),
+    < 800 => dark ? const Color(0xFFFB923C) : const Color(0xFFC2410C),
+    _ => dark ? const Color(0xFFF87171) : const Color(0xFFB91C1C),
+  };
+}
 
 /// Mozilla lists its recommended location as a country of its own, code
 /// REC (named "Recomended Location").

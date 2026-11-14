@@ -1708,4 +1708,37 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'Kiểm tra kết thúc trước khi nhận được kết quả đầy đủ.';
+
+  @override
+  String get searchLocations => 'Tìm vị trí';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count vị trí',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Tự động cập nhật';
+
+  @override
+  String get autoInstallApkHint =>
+      'Các phiên bản mới tự tải về; trình cài đặt sẽ hỏi trước khi cài.';
+
+  @override
+  String get installNow => 'Cài đặt';
+
+  @override
+  String get updateAllowInstall =>
+      'Để cài đặt bản cập nhật, hãy cho phép ứng dụng này cài đặt ứng dụng.';
+
+  @override
+  String get allowInstall => 'Cho phép';
+
+  @override
+  String get noResults => 'Không có vị trí nào khớp với tìm kiếm.';
 }

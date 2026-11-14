@@ -1709,4 +1709,38 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'Tam nəticə alınmadan test başa çatdı.';
+
+  @override
+  String get searchLocations => 'Yerləri axtar';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count yer',
+      one: '1 yer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Avtomatik yenilənmə';
+
+  @override
+  String get autoInstallApkHint =>
+      'Yeni versiyalar özü yüklənir; quraşdırmadan əvvəl quraşdırıcı soruşur.';
+
+  @override
+  String get installNow => 'Quraşdır';
+
+  @override
+  String get updateAllowInstall =>
+      'Yeniləməni quraşdırmaq üçün bu tətbiqə tətbiq quraşdırmağa icazə verin.';
+
+  @override
+  String get allowInstall => 'İcazə ver';
+
+  @override
+  String get noResults => 'Axtarışa uyğun yer yoxdur.';
 }

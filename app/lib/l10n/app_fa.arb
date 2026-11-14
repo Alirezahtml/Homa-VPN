@@ -487,5 +487,20 @@
   "relayTestPassed": "رله آماده است",
   "relayTestFailed": "سلامت رله تأیید نشد",
   "relayTestCopy": "کپی گزارش",
-  "relayTestInterrupted": "تست پیش از دریافت نتیجهٔ کامل متوقف شد."
+  "relayTestInterrupted": "تست پیش از دریافت نتیجهٔ کامل متوقف شد.",
+  "searchLocations": "جستجوی مکان‌ها",
+  "locationCount": "{count, plural, =1{۱ مکان} other{{count} مکان}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "به‌روزرسانی خودکار",
+  "autoInstallApkHint": "نسخه‌های جدید خودشان دانلود می‌شوند؛ نصاب پیش از نصب می‌پرسد.",
+  "installNow": "نصب",
+  "updateAllowInstall": "برای نصب به‌روزرسانی، اجازهٔ نصب برنامه را به این برنامه بدهید.",
+  "allowInstall": "اجازه دادن",
+  "noResults": "هیچ مکانی با جستجو هم‌خوانی ندارد."
 }

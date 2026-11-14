@@ -487,5 +487,20 @@
   "relayTestPassed": "Реле готово",
   "relayTestFailed": "Не удалось подтвердить исправность реле",
   "relayTestCopy": "Копировать отчёт",
-  "relayTestInterrupted": "Проверка завершилась до получения полного результата."
+  "relayTestInterrupted": "Проверка завершилась до получения полного результата.",
+  "searchLocations": "Поиск локаций",
+  "locationCount": "{count, plural, =1{1 локация} few{{count} локации} many{{count} локаций} other{{count} локации}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Автообновление",
+  "autoInstallApkHint": "Новые версии скачиваются сами; перед установкой установщик спросит.",
+  "installNow": "Установить",
+  "updateAllowInstall": "Чтобы установить обновление, разрешите приложению установку приложений.",
+  "allowInstall": "Разрешить",
+  "noResults": "Нет локаций по этому запросу."
 }

@@ -487,5 +487,20 @@
   "relayTestPassed": "Relai siap",
   "relayTestFailed": "Kesehatan relai tidak dapat dipastikan",
   "relayTestCopy": "Salin laporan",
-  "relayTestInterrupted": "Pengujian berakhir sebelum hasil lengkap diterima."
+  "relayTestInterrupted": "Pengujian berakhir sebelum hasil lengkap diterima.",
+  "searchLocations": "Cari lokasi",
+  "locationCount": "{count, plural, other{{count} lokasi}}",
+  "@locationCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "autoInstallApk": "Pembaruan otomatis",
+  "autoInstallApkHint": "Versi baru diunduh sendiri; penginstal bertanya sebelum memasang.",
+  "installNow": "Pasang",
+  "updateAllowInstall": "Untuk memasang pembaruan, izinkan aplikasi ini memasang aplikasi.",
+  "allowInstall": "Izinkan",
+  "noResults": "Tidak ada lokasi yang cocok dengan pencarian."
 }

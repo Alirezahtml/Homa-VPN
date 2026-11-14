@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The downloaded update's package, the only file the system's
+     installer reads from this app: on the shared storage (the update
+     folder), or inside the private files when there is none. -->
+<paths>
+    <external-files-path
+        name="updates"
+        path="updates/" />
+    <files-path
+        name="updates_private"
+        path="updates/" />
+</paths>

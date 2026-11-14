@@ -1716,4 +1716,41 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'انتهى الاختبار قبل استلام نتيجة كاملة.';
+
+  @override
+  String get searchLocations => 'البحث عن المواقع';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count موقع',
+      many: '$count موقعًا',
+      few: '$count مواقع',
+      two: 'موقعان',
+      one: 'موقع واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'التحديث التلقائي';
+
+  @override
+  String get autoInstallApkHint =>
+      'تُنزَّل النسخ الجديدة تلقائيًا؛ ويسألك المُثبِّت قبل التثبيت.';
+
+  @override
+  String get installNow => 'تثبيت';
+
+  @override
+  String get updateAllowInstall =>
+      'لتثبيت التحديث، اسمح لهذا التطبيق بتثبيت التطبيقات.';
+
+  @override
+  String get allowInstall => 'السماح';
+
+  @override
+  String get noResults => 'لا موقع يطابق البحث.';
 }

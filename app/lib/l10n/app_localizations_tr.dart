@@ -1708,4 +1708,38 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get relayTestInterrupted => 'Test, tam sonuç alınmadan sona erdi.';
+
+  @override
+  String get searchLocations => 'Konum ara';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count konum',
+      one: '1 konum',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'Otomatik güncelleme';
+
+  @override
+  String get autoInstallApkHint =>
+      'Yeni sürümler kendiliğinden indirilir; yüklemeden önce yükleyici sorar.';
+
+  @override
+  String get installNow => 'Yükle';
+
+  @override
+  String get updateAllowInstall =>
+      'Güncellemeyi yüklemek için bu uygulamanın uygulama yüklemesine izin verin.';
+
+  @override
+  String get allowInstall => 'İzin ver';
+
+  @override
+  String get noResults => 'Aramayla eşleşen konum yok.';
 }

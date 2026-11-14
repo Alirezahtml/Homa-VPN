@@ -1704,4 +1704,38 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get relayTestInterrupted =>
       'সম্পূর্ণ ফলাফল পাওয়ার আগে পরীক্ষা শেষ হয়েছে।';
+
+  @override
+  String get searchLocations => 'লোকেশন খুঁজুন';
+
+  @override
+  String locationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি লোকেশন',
+      one: '১টি লোকেশন',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get autoInstallApk => 'স্বয়ংক্রিয় আপডেট';
+
+  @override
+  String get autoInstallApkHint =>
+      'নতুন সংস্করণ নিজে নিজে ডাউনলোড হয়; ইনস্টল করার আগে ইনস্টলার জিজ্ঞেস করে।';
+
+  @override
+  String get installNow => 'ইনস্টল করুন';
+
+  @override
+  String get updateAllowInstall =>
+      'আপডেট ইনস্টল করতে এই অ্যাপকে অ্যাপ ইনস্টলের অনুমতি দিন।';
+
+  @override
+  String get allowInstall => 'অনুমতি দিন';
+
+  @override
+  String get noResults => 'কোনো লোকেশন খোঁজার সঙ্গে মেলে না।';
 }
