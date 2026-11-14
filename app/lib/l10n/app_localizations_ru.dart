@@ -2013,4 +2013,29 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Запустить снова';
+
+  @override
+  String get whatsNewAdded => 'Новое';
+
+  @override
+  String get whatsNewImproved => 'Улучшено';
+
+  @override
+  String get whatsNewFixed => 'Исправлено';
+
+  @override
+  String get wnWheelImproved =>
+      'Колесо стран перерисовано: выбранный флаг крупнее, в стеклянной рамке с тонким свечением и мягким ореолом света позади, остальные флаги мельче и глубже, а название под ними выезжает плавно.';
+
+  @override
+  String get wnLiveImproved =>
+      'Во время подключения уведомление просит Android 16 продвинуть его как Live Update, как это делает эталонная реализация; время продолжает идти, скорости живут.';
+
+  @override
+  String get wnL10nFixed =>
+      'Эта страница теперь говорит на языке приложения — на всех его пятнадцати языках, а не только на английском.';
+
+  @override
+  String get wnMarkFixed =>
+      'Знак Mozilla аккуратно расположен на своей плитке, со скруглением, как у флагов.';
 }

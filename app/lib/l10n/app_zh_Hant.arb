@@ -582,5 +582,12 @@
   "diagnosticsDnsFiltered": "回應被攔截或過濾",
   "diagnosticsDnsOk": "有回應",
   "diagnosticsPrivacy": "診斷結果不會儲存；僅顯示於此視窗與核心自身日誌。",
-  "diagnosticsAgain": "再次執行"
+  "diagnosticsAgain": "再次執行",
+  "whatsNewAdded": "新增",
+  "whatsNewImproved": "改進",
+  "whatsNewFixed": "修復",
+  "wnWheelImproved": "國家轉盤重新繪製：選中的旗幟以玻璃框呈現，帶精細光暈與身後柔和光圈，尺寸更大；其餘旗幟更小且有層次感；下方的名稱以滑動動畫出現。",
+  "wnLiveImproved": "連線期間，通知會像參考實作那樣請求 Android 16 將其提升為即時動態（Live Update）；時長自動計時，速度即時更新。",
+  "wnL10nFixed": "本頁面現在會跟隨應用程式語言顯示——全部十五種語言，而不只是英文。",
+  "wnMarkFixed": "Mozilla 標誌乾淨地呈現在其色塊上，圓角與旗幟一致。"
 }

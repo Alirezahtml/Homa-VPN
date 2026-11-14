@@ -2001,4 +2001,29 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Yeniden çalıştır';
+
+  @override
+  String get whatsNewAdded => 'Yeni';
+
+  @override
+  String get whatsNewImproved => 'İyileştirildi';
+
+  @override
+  String get whatsNewFixed => 'Düzeltildi';
+
+  @override
+  String get wnWheelImproved =>
+      'Ülke çarkı yeniden çizildi: seçilen bayrak cam bir çerçevede ince bir parıltı ve arkasında yumuşak bir ışık hâlesiyle daha büyük duruyor, diğer bayraklar derinlikle daha küçük, altındaki ad ise kayarak geliyor.';
+
+  @override
+  String get wnLiveImproved =>
+      'Bağlıyken bildirim, Android 16dan referans uygulamada olduğu gibi Live Update olarak yükseltilmesini ister; süre kendini sayar, hızlar canlıdır.';
+
+  @override
+  String get wnL10nFixed =>
+      'Bu sayfa artık uygulamanın dilinde konuşuyor — on beş dilinin hepsinde, yalnızca İngilizce değil.';
+
+  @override
+  String get wnMarkFixed =>
+      'Mozilla\'nın işareti karo üzerinde temiz duruyor, köşeleri bayraklar gibi yuvarlak.';
 }

@@ -565,5 +565,12 @@
   "diagnosticsRun": "Diaqnostikanı işə sal",
   "diagnosticsConnection": "Bağlantı testi",
   "diagnosticsPassed": "Uğurlu",
-  "diagnosticsFailed": "Uğursuz"
+  "diagnosticsFailed": "Uğursuz",
+  "whatsNewAdded": "Yeni",
+  "whatsNewImproved": "Təkmilləşdirmə",
+  "whatsNewFixed": "Düzəliş",
+  "wnWheelImproved": "Ölkə çarxı yenidən çəkildi: seçilmiş bayraq şənzər çərçivədə, zərif parıltı və arxasınca yumuşaq işıq haləsi ilə daha böyük durur, digər bayraqlar dərinliklə kiçik görünür və altındaki ad yumşaq sürüşmə ilə gəlir.",
+  "wnLiveImproved": "Qoşulu zamanı bildiriş Android 16-dan reference implementasiya kimi onu Live Update kimi yüksəltməyi xahiş edir; müddət özü sayılır, sürətlər canlı qalır.",
+  "wnL10nFixed": "Bu səhifə indi tətbiqin dilində danışır — onun on beş dilinin hamısı, yalnız ingilis deyil.",
+  "wnMarkFixed": "Mozilla nişanı öz plitəsində təmiz durur, küncləri bayraqlar kimi yumrudur."
 }

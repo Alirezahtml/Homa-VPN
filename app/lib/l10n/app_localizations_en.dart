@@ -2006,4 +2006,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'New';
+
+  @override
+  String get whatsNewImproved => 'Improved';
+
+  @override
+  String get whatsNewFixed => 'Fixed';
+
+  @override
+  String get wnWheelImproved =>
+      'The country wheel is redrawn: the chosen flag stands bigger in a glass frame with a fine glow and a soft halo of light behind it, the other flags sit smaller with depth, and the name below arrives with a slide.';
+
+  @override
+  String get wnLiveImproved =>
+      'While connected, the notification asks Android 16 to promote it as a Live Update, the way the reference implementation does; the duration keeps counting, the speeds keep running.';
+
+  @override
+  String get wnL10nFixed =>
+      'This page now speaks the app\'s language — every one of its fifteen languages, not only English.';
+
+  @override
+  String get wnMarkFixed =>
+      'Mozilla\'s mark sits clean on its tile, rounded like the flags.';
 }

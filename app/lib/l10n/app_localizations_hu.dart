@@ -2017,4 +2017,29 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Új';
+
+  @override
+  String get whatsNewImproved => 'Továbbfejlesztve';
+
+  @override
+  String get whatsNewFixed => 'Javítva';
+
+  @override
+  String get wnWheelImproved =>
+      'Az országkerék újrarajzolva: a választott zászló üvegbelkerőben, finom fénnyel és mögötte halvány fényudvarral nagyobban áll, a többi zászló kisebb, mélységgel, az alatta lévő név csúszva érkezik.';
+
+  @override
+  String get wnLiveImproved =>
+      'Csatlakozás közben az értesítés megkéri az Android 16-ot, hogy Live Update-ként emelje ki, ahogy a referencia-megvalósítás teszi; az idő magát számolja, a sebességek élnek.';
+
+  @override
+  String get wnL10nFixed =>
+      'Ez az oldal most az alkalmazás nyelvén szólal meg — mind a tizenöt nyelvén, nem csak angolul.';
+
+  @override
+  String get wnMarkFixed =>
+      'A Mozilla jele tisztán ül a lapkáján, lekerekítve, mint a zászlók.';
 }

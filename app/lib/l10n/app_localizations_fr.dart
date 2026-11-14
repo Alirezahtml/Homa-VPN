@@ -2020,4 +2020,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Nouveau';
+
+  @override
+  String get whatsNewImproved => 'Amélioré';
+
+  @override
+  String get whatsNewFixed => 'Corrigé';
+
+  @override
+  String get wnWheelImproved =>
+      'La roue des pays est redessinée : le drapeau choisi se tient plus grand dans un cadre de verre avec un fin halo lumineux derrière lui, les autres drapeaux restent plus petits avec de la profondeur, et le nom du dessous arrive en glissant.';
+
+  @override
+  String get wnLiveImproved =>
+      'Pendant la connexion, la notification demande à Android 16 de la promouvoir en Live Update, comme le fait l\'implémentation de référence ; la durée continue de compter et les vitesses restent vivantes.';
+
+  @override
+  String get wnL10nFixed =>
+      'Cette page parle désormais la langue de l\'application — ses quinze langues, pas seulement l\'anglais.';
+
+  @override
+  String get wnMarkFixed =>
+      'Le symbole de Mozilla repose proprement sur sa tuile, arrondi comme les drapeaux.';
 }

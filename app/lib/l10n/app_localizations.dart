@@ -3578,6 +3578,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Run again'**
   String get diagnosticsAgain;
+
+  /// No description provided for @whatsNewAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get whatsNewAdded;
+
+  /// No description provided for @whatsNewImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved'**
+  String get whatsNewImproved;
+
+  /// No description provided for @whatsNewFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed'**
+  String get whatsNewFixed;
+
+  /// No description provided for @wnWheelImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The country wheel is redrawn: the chosen flag stands bigger in a glass frame with a fine glow and a soft halo of light behind it, the other flags sit smaller with depth, and the name below arrives with a slide.'**
+  String get wnWheelImproved;
+
+  /// No description provided for @wnLiveImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'While connected, the notification asks Android 16 to promote it as a Live Update, the way the reference implementation does; the duration keeps counting, the speeds keep running.'**
+  String get wnLiveImproved;
+
+  /// No description provided for @wnL10nFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'This page now speaks the app\'s language — every one of its fifteen languages, not only English.'**
+  String get wnL10nFixed;
+
+  /// No description provided for @wnMarkFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mozilla\'s mark sits clean on its tile, rounded like the flags.'**
+  String get wnMarkFixed;
 }
 
 class _AppLocalizationsDelegate

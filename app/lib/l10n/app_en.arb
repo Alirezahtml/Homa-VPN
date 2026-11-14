@@ -1169,5 +1169,12 @@
   "diagnosticsDnsFiltered": "Blocked or filtered answer",
   "diagnosticsDnsOk": "Answered",
   "diagnosticsPrivacy": "Nothing here is stored; the results stay in this window and the core's own log.",
-  "diagnosticsAgain": "Run again"
+  "diagnosticsAgain": "Run again",
+  "whatsNewAdded": "New",
+  "whatsNewImproved": "Improved",
+  "whatsNewFixed": "Fixed",
+  "wnWheelImproved": "The country wheel is redrawn: the chosen flag stands bigger in a glass frame with a fine glow and a soft halo of light behind it, the other flags sit smaller with depth, and the name below arrives with a slide.",
+  "wnLiveImproved": "While connected, the notification asks Android 16 to promote it as a Live Update, the way the reference implementation does; the duration keeps counting, the speeds keep running.",
+  "wnL10nFixed": "This page now speaks the app's language — every one of its fifteen languages, not only English.",
+  "wnMarkFixed": "Mozilla's mark sits clean on its tile, rounded like the flags."
 }

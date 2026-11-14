@@ -565,5 +565,12 @@
   "diagnosticsRun": "Lancer le diagnostic",
   "diagnosticsConnection": "Test de connexion",
   "diagnosticsPassed": "Réussi",
-  "diagnosticsFailed": "Échoué"
+  "diagnosticsFailed": "Échoué",
+  "whatsNewAdded": "Nouveau",
+  "whatsNewImproved": "Amélioré",
+  "whatsNewFixed": "Corrigé",
+  "wnWheelImproved": "La roue des pays est redessinée : le drapeau choisi se tient plus grand dans un cadre de verre avec un fin halo lumineux derrière lui, les autres drapeaux restent plus petits avec de la profondeur, et le nom du dessous arrive en glissant.",
+  "wnLiveImproved": "Pendant la connexion, la notification demande à Android 16 de la promouvoir en Live Update, comme le fait l'implémentation de référence ; la durée continue de compter et les vitesses restent vivantes.",
+  "wnL10nFixed": "Cette page parle désormais la langue de l'application — ses quinze langues, pas seulement l'anglais.",
+  "wnMarkFixed": "Le symbole de Mozilla repose proprement sur sa tuile, arrondi comme les drapeaux."
 }

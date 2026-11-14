@@ -55,18 +55,7 @@ class MainActivity : FlutterActivity() {
         removeOtherCards()
     }
 
-    /** The app is in front: the floating island (if up) hides at once. */
-    override fun onStart() {
-        super.onStart()
-        IslandOverlay.hideNow()
-    }
 
-    /** The app went away: the island may take the state's place. */
-    override fun onStop() {
-        super.onStop()
-        IslandOverlay.wentBackground()
-        IslandOverlay.refresh(this)
-    }
 
     /** A tile long-press returns an already open UI to its home page. */
     override fun onNewIntent(intent: Intent) {
@@ -173,27 +162,6 @@ class MainActivity : FlutterActivity() {
                 "openVpnSettings" -> {
                     runCatching {
                         startActivity(Intent(Settings.ACTION_VPN_SETTINGS))
-                    }.onFailure {
-                        runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
-                    }
-                    result.success(null)
-                }
-                // The floating island: the state over the other apps while
-                // the app is away. Needs the system's "draw over apps".
-                "island" -> result.success(IslandOverlay.enabled(this))
-                "setIsland" -> {
-                    IslandOverlay.setEnabled(this, call.argument<Boolean>("on") == true)
-                    result.success(null)
-                }
-                "canDrawOverlays" -> result.success(IslandOverlay.canDraw(this))
-                "openOverlaySettings" -> {
-                    runCatching {
-                        startActivity(
-                            Intent(
-                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:$packageName"),
-                            )
-                        )
                     }.onFailure {
                         runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
                     }

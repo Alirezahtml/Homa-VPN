@@ -2009,4 +2009,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'تشغيل مرة أخرى';
+
+  @override
+  String get whatsNewAdded => 'جديد';
+
+  @override
+  String get whatsNewImproved => 'تحسينات';
+
+  @override
+  String get whatsNewFixed => 'إصلاحات';
+
+  @override
+  String get wnWheelImproved =>
+      'أعيد رسم دولاب الدول: يقف العلم المختار أكبر داخل إطار زجاجي بتوهج رقيق وهالة ضوء ناعمة خلفه، وتظهر الأعلام الأخرى أصغر بعمق، ويأتي الاسم تحته بانزلاق ناعم.';
+
+  @override
+  String get wnLiveImproved =>
+      'أثناء الاتصال، يطلب الإشعار من أندرويد 16 ترقيته كـ Live Update كما تفعل التنفيذية المرجعية؛ وتستمر المدة بالعد والسرعات بالعمل.';
+
+  @override
+  String get wnL10nFixed =>
+      'تتحدث هذه الصفحة الآن لغة التطبيق — كل لغاته الخمس عشرة، وليس الإنجليزية فقط.';
+
+  @override
+  String get wnMarkFixed =>
+      'شعار موزيلا يستقر نظيفاً على بلاطته، بزوايا دائرية مثل الأعلام.';
 }

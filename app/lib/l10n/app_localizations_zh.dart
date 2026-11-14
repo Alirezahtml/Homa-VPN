@@ -1920,6 +1920,29 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => '再次运行';
+
+  @override
+  String get whatsNewAdded => '新增';
+
+  @override
+  String get whatsNewImproved => '改进';
+
+  @override
+  String get whatsNewFixed => '修复';
+
+  @override
+  String get wnWheelImproved =>
+      '国家转盘重新绘制：选中的旗帜以玻璃框呈现，带精细光晕与身后柔和光圈，尺寸更大；其余旗帜更小且有层次感；下方的名称以滑动动画出现。';
+
+  @override
+  String get wnLiveImproved =>
+      '连接期间，通知会像参考实现那样请求 Android 16 将其提升为实时动态（Live Update）；时长自动计时，速度实时更新。';
+
+  @override
+  String get wnL10nFixed => '本页面现在会跟随应用语言显示——全部十五种语言，而不只是英文。';
+
+  @override
+  String get wnMarkFixed => 'Mozilla 标志干净地呈现在其色块上，圆角与旗帜一致。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3838,4 +3861,27 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get diagnosticsAgain => '再次執行';
+
+  @override
+  String get whatsNewAdded => '新增';
+
+  @override
+  String get whatsNewImproved => '改進';
+
+  @override
+  String get whatsNewFixed => '修復';
+
+  @override
+  String get wnWheelImproved =>
+      '國家轉盤重新繪製：選中的旗幟以玻璃框呈現，帶精細光暈與身後柔和光圈，尺寸更大；其餘旗幟更小且有層次感；下方的名稱以滑動動畫出現。';
+
+  @override
+  String get wnLiveImproved =>
+      '連線期間，通知會像參考實作那樣請求 Android 16 將其提升為即時動態（Live Update）；時長自動計時，速度即時更新。';
+
+  @override
+  String get wnL10nFixed => '本頁面現在會跟隨應用程式語言顯示——全部十五種語言，而不只是英文。';
+
+  @override
+  String get wnMarkFixed => 'Mozilla 標誌乾淨地呈現在其色塊上，圓角與旗幟一致。';
 }

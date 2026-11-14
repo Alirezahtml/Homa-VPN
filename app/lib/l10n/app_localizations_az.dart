@@ -2003,4 +2003,29 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Yeni';
+
+  @override
+  String get whatsNewImproved => 'Təkmilləşdirmə';
+
+  @override
+  String get whatsNewFixed => 'Düzəliş';
+
+  @override
+  String get wnWheelImproved =>
+      'Ölkə çarxı yenidən çəkildi: seçilmiş bayraq şənzər çərçivədə, zərif parıltı və arxasınca yumuşaq işıq haləsi ilə daha böyük durur, digər bayraqlar dərinliklə kiçik görünür və altındaki ad yumşaq sürüşmə ilə gəlir.';
+
+  @override
+  String get wnLiveImproved =>
+      'Qoşulu zamanı bildiriş Android 16-dan reference implementasiya kimi onu Live Update kimi yüksəltməyi xahiş edir; müddət özü sayılır, sürətlər canlı qalır.';
+
+  @override
+  String get wnL10nFixed =>
+      'Bu səhifə indi tətbiqin dilində danışır — onun on beş dilinin hamısı, yalnız ingilis deyil.';
+
+  @override
+  String get wnMarkFixed =>
+      'Mozilla nişanı öz plitəsində təmiz durur, küncləri bayraqlar kimi yumrudur.';
 }

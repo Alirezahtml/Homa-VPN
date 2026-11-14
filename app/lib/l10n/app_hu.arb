@@ -565,5 +565,12 @@
   "diagnosticsRun": "Diagnosztika futtatása",
   "diagnosticsConnection": "Kapcsolat teszt",
   "diagnosticsPassed": "Sikeres",
-  "diagnosticsFailed": "Sikertelen"
+  "diagnosticsFailed": "Sikertelen",
+  "whatsNewAdded": "Új",
+  "whatsNewImproved": "Továbbfejlesztve",
+  "whatsNewFixed": "Javítva",
+  "wnWheelImproved": "Az országkerék újrarajzolva: a választott zászló üvegbelkerőben, finom fénnyel és mögötte halvány fényudvarral nagyobban áll, a többi zászló kisebb, mélységgel, az alatta lévő név csúszva érkezik.",
+  "wnLiveImproved": "Csatlakozás közben az értesítés megkéri az Android 16-ot, hogy Live Update-ként emelje ki, ahogy a referencia-megvalósítás teszi; az idő magát számolja, a sebességek élnek.",
+  "wnL10nFixed": "Ez az oldal most az alkalmazás nyelvén szólal meg — mind a tizenöt nyelvén, nem csak angolul.",
+  "wnMarkFixed": "A Mozilla jele tisztán ül a lapkáján, lekerekítve, mint a zászlók."
 }

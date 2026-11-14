@@ -565,5 +565,12 @@
   "diagnosticsRun": "Chạy chẩn đoán",
   "diagnosticsConnection": "Kiểm tra kết nối",
   "diagnosticsPassed": "Đạt",
-  "diagnosticsFailed": "Thất bại"
+  "diagnosticsFailed": "Thất bại",
+  "whatsNewAdded": "Mới",
+  "whatsNewImproved": "Cải thiện",
+  "whatsNewFixed": "Đã sửa",
+  "wnWheelImproved": "Bánh xe quốc gia được vẽ lại: cờ được chọn lớn hơn trong khung kính với vầng sáng tinh tế và quầng sáng mềm phía sau, các cờ khác nhỏ hơn có chiều sâu, tên bên dưới trượt vào nhẹ nhàng.",
+  "wnLiveImproved": "Khi đang kết nối, thông báo xin Android 16 thăng cấp nó thành Live Update như bản triển khai tham chiếu; thời gian tự đếm, tốc độ vẫn chạy.",
+  "wnL10nFixed": "Trang này giờ nói theo ngôn ngữ của ứng dụng — đủ mười lăm ngôn ngữ, không chỉ tiếng Anh.",
+  "wnMarkFixed": "Dấu hiệu của Mozilla hiển thị sạch sẽ trên ô của nó, bo tròn như các lá cờ."
 }

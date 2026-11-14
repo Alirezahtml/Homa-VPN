@@ -2001,4 +2001,29 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Mới';
+
+  @override
+  String get whatsNewImproved => 'Cải thiện';
+
+  @override
+  String get whatsNewFixed => 'Đã sửa';
+
+  @override
+  String get wnWheelImproved =>
+      'Bánh xe quốc gia được vẽ lại: cờ được chọn lớn hơn trong khung kính với vầng sáng tinh tế và quầng sáng mềm phía sau, các cờ khác nhỏ hơn có chiều sâu, tên bên dưới trượt vào nhẹ nhàng.';
+
+  @override
+  String get wnLiveImproved =>
+      'Khi đang kết nối, thông báo xin Android 16 thăng cấp nó thành Live Update như bản triển khai tham chiếu; thời gian tự đếm, tốc độ vẫn chạy.';
+
+  @override
+  String get wnL10nFixed =>
+      'Trang này giờ nói theo ngôn ngữ của ứng dụng — đủ mười lăm ngôn ngữ, không chỉ tiếng Anh.';
+
+  @override
+  String get wnMarkFixed =>
+      'Dấu hiệu của Mozilla hiển thị sạch sẽ trên ô của nó, bo tròn như các lá cờ.';
 }

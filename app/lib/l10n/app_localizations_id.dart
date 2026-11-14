@@ -2002,4 +2002,29 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Baru';
+
+  @override
+  String get whatsNewImproved => 'Ditingkatkan';
+
+  @override
+  String get whatsNewFixed => 'Diperbaiki';
+
+  @override
+  String get wnWheelImproved =>
+      'Roda negara digambar ulang: bendera terpilih tampil lebih besar dalam bingkai kaca dengan kilau halus dan halo cahaya lembut di belakangnya, bendera lain tampak lebih kecil dengan kedalaman, dan nama di bawahnya datang dengan geseran.';
+
+  @override
+  String get wnLiveImproved =>
+      'Saat terhubung, notifikasi meminta Android 16 untuk mempromosikannya sebagai Live Update, seperti implementasi referensi; durasi terus menghitung, kecepatan tetap berjalan.';
+
+  @override
+  String get wnL10nFixed =>
+      'Halaman ini kini berbicara dalam bahasa aplikasi — semua lima belas bahasanya, bukan hanya bahasa Inggris.';
+
+  @override
+  String get wnMarkFixed =>
+      'Lambang Mozilla tampil bersih di petaknya, membulat seperti bendera.';
 }

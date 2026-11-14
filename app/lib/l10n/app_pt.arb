@@ -565,5 +565,12 @@
   "diagnosticsRun": "Executar diagnóstico",
   "diagnosticsConnection": "Teste de ligação",
   "diagnosticsPassed": "Passou",
-  "diagnosticsFailed": "Falhou"
+  "diagnosticsFailed": "Falhou",
+  "whatsNewAdded": "Novo",
+  "whatsNewImproved": "Melhorado",
+  "whatsNewFixed": "Corrigido",
+  "wnWheelImproved": "A roda de países foi redesenhada: a bandeira escolhida fica maior numa moldura de vidro com um brilho fino e um halo suave de luz atrás, as outras bandeiras ficam menores com profundidade, e o nome abaixo chega deslizando.",
+  "wnLiveImproved": "Enquanto conectado, a notificação pede ao Android 16 para promovê-la como Live Update, como faz a implementação de referência; a duração continua contando e as velocidades seguem ativas.",
+  "wnL10nFixed": "Esta página agora fala o idioma do app — todos os seus quinze idiomas, não só o inglês.",
+  "wnMarkFixed": "A marca da Mozilla aparece limpa em seu ladrilho, arredondada como as bandeiras."
 }

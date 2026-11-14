@@ -130,7 +130,6 @@ class CoreService : VpnService() {
             }
             connected = on && code.length == 2
             if (connected && connectedAt == 0L) connectedAt = System.currentTimeMillis()
-            IslandOverlay.refresh(this@CoreService)
             ConnectWidget.updateAll(this@CoreService)
             // Proxy mode names the address apps connect to; the VPN needs none.
             val proxy = if (usesVpn(this@CoreService) || !mobile.Mobile.running()) "" else mobile.Mobile.proxyAddress()
@@ -298,7 +297,6 @@ class CoreService : VpnService() {
         on = true
         offline = reportedDown
         QuickTile.refresh(this)
-        IslandOverlay.refresh(this)
         ConnectWidget.updateAll(this)
         main.removeCallbacks(watchCountry)
         main.post(watchCountry)
@@ -321,7 +319,6 @@ class CoreService : VpnService() {
         on = false
         connected = false
         QuickTile.refresh(this)
-        IslandOverlay.refresh(this)
         ConnectWidget.updateAll(this)
         super.onDestroy()
     }
@@ -486,6 +483,10 @@ class CoreService : VpnService() {
             // the shade, where the duration and the speed keep running.
             builder
                 .setCategory(Notification.CATEGORY_PROGRESS)
+                // The Live Update request itself, as the reference
+                // implementation does: the system may promote the card
+                // above the shade while the VPN runs.
+                .setRequestPromotedOngoing(true)
                 .setShortCriticalText(state)
             if (code.isEmpty() && !offline) {
                 builder.setStyle(
@@ -740,7 +741,6 @@ class CoreService : VpnService() {
             on = true
             connected = false
             QuickTile.refresh(context)
-            IslandOverlay.refresh(context)
             ConnectWidget.updateAll(context)
         }
 
@@ -758,7 +758,6 @@ class CoreService : VpnService() {
             connected = false
             context.stopService(Intent(context, CoreService::class.java))
             QuickTile.refresh(context)
-            IslandOverlay.refresh(context)
             ConnectWidget.updateAll(context)
         }
 

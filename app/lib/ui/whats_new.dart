@@ -4,74 +4,36 @@ import '../app_info.dart';
 import '../app_settings.dart';
 import '../l10n/app_localizations.dart';
 
-/// What a version brought, in the words of what actually changed in it
-/// (the same lines the release itself carries). A version without an entry
-/// here simply has no page to show: nothing is invented per release.
-const whatsNew = <String, List<({String title, List<String> lines})>>{
-  '1.0.29': [
+/// What a version brought, in the words of what actually changed in it.
+/// The words live in the app's translations, so the page speaks the app's
+/// language — every language the app has, not only English. A version
+/// without an entry here simply has no page to show: nothing is invented
+/// per release.
+List<({String title, List<String> lines})> whatsNewSections(
+  AppLocalizations l,
+  String version,
+) => switch (version) {
+  '1.0.30' => [
     (
-      title: 'Android Live Updates',
-      lines: [
-        'While connected, the notification carries the session\'s duration '
-            '(it ticks by itself), the live download and upload speeds, and '
-            'the exit country, and it may be promoted by Android 16 above '
-            'the shade as a Live Update; a progress bar runs while the '
-            'connection is being made. No overlay, no new risky permission '
-            '- the system decides.',
-      ],
+      title: l.whatsNewImproved,
+      lines: [l.wnWheelImproved, l.wnLiveImproved],
     ),
     (
-      title: 'The country wheel',
-      lines: [
-        'The home page carries the countries as a wheel: drag it, and the '
-            'flag in the middle - larger, named below - is the location the '
-            'VPN uses. The list is the core\'s real one, Mozilla\'s '
-            'recommended location first, under Mozilla\'s own mark.',
-      ],
-    ),
-    (
-      title: 'Servers',
-      lines: [
-        '"Update servers" fetches Mozilla\'s official server list again '
-            'through the core: locations Mozilla added appear, ones it '
-            'removed leave, and a failed fetch keeps the list you had.',
-        'After a delay test, the smart pick offers the measured fastest '
-            'country when it clearly beats the choice - the measurements '
-            'are real, the choice stays yours.',
-      ],
-    ),
-    (
-      title: 'Connection care',
-      lines: [
-        'Connect after the phone starts: a choice in the settings, which '
-            'the app honors at boot when the VPN permission is already '
-            'granted.',
-        'The kill switch now holds the traffic by default, and the '
-            'one-tap diagnostics check the tunnel, the exit country, a real '
-            'connection, and the DNS (a filtered answer is called out). '
-            'Nothing from it is stored.',
-        'The gaming profile surfaces the connection\'s real delay and '
-            'turns the notification\'s live speed on; it promises nothing '
-            'about ping.',
-      ],
-    ),
-    (
-      title: 'The app itself',
-      lines: [
-        'A full custom color panel: a hue ring, a shade box, HEX and RGB, '
-            'the curated accents beside it, kept swatches, a live preview, '
-            'and the way back to the monochrome design.',
-        'This What\'s New page, once per version.',
-      ],
+      title: l.whatsNewFixed,
+      lines: [l.wnL10nFixed, l.wnMarkFixed],
     ),
   ],
+  _ => const [],
 };
+
+/// The versions that carry a page (every language has it at once).
+const _whatsNewVersions = {'1.0.30'};
 
 /// Whether this version's page is still waiting to be seen.
 bool whatsNewPending(AppSettings settings) =>
     settings.whatsNewSeen != appVersion &&
-    whatsNew.containsKey(appVersion) &&
-    appVersion != '0.0.0';
+    appVersion != '0.0.0' &&
+    _whatsNewVersions.contains(appVersion);
 
 /// Shows the current version's page, and marks it seen (once per version;
 /// About can show it again without harm).
@@ -89,7 +51,8 @@ Future<void> showWhatsNew(
   );
 }
 
-/// The page itself: what the version added, improved, and fixed.
+/// The page itself: what the version improved, and what it fixed, each
+/// named in the app's own language.
 class WhatsNewDialog extends StatelessWidget {
   const WhatsNewDialog({super.key, required this.version});
 
@@ -99,7 +62,7 @@ class WhatsNewDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final sections = whatsNew[version] ?? const [];
+    final sections = whatsNewSections(l, version);
     return AlertDialog(
       title: Row(
         children: [
@@ -126,7 +89,10 @@ class WhatsNewDialog extends StatelessWidget {
                 const SizedBox(height: 6),
                 for (final line in section.lines)
                   Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 4, bottom: 6),
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 4,
+                      bottom: 6,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

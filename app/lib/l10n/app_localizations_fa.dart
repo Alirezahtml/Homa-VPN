@@ -1989,4 +1989,29 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'اجرای دوباره';
+
+  @override
+  String get whatsNewAdded => 'جدید';
+
+  @override
+  String get whatsNewImproved => 'بهبودها';
+
+  @override
+  String get whatsNewFixed => 'رفع اشکال';
+
+  @override
+  String get wnWheelImproved =>
+      'چرخ کشورها از نو طراحی شد: پرچم انتخاب‌شده بزرگ‌تر در قاب شیشه‌ای با درخشش ظریف و هاله‌ای ملایم از نور پشت آن می‌ایستد، پرچم‌های دیگر کوچک‌تر با عمق قرار می‌گیرند، و نام زیر آن با حرکتی نرم می‌آید.';
+
+  @override
+  String get wnLiveImproved =>
+      'هنگام اتصال، اعلان از اندروید ۱۶ می‌خواهد آن را به‌صورت Live Update ارتقا دهد، همان‌طور که پیاده‌سازی مرجع انجام می‌دهد؛ زمان اتصال خودش می‌شمارد و سرعت‌ها زنده می‌مانند.';
+
+  @override
+  String get wnL10nFixed =>
+      'این صفحه حالا به زبان برنامه صحبت می‌کند — هر پانزده زبان آن، نه فقط انگلیسی.';
+
+  @override
+  String get wnMarkFixed =>
+      'نشان Mozilla تمیز روی کاشی خود نشسته و گوشه‌هایش مثل پرچم‌ها گرد است.';
 }

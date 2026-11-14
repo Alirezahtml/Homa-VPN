@@ -2017,4 +2017,29 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'Nuevo';
+
+  @override
+  String get whatsNewImproved => 'Mejorado';
+
+  @override
+  String get whatsNewFixed => 'Corregido';
+
+  @override
+  String get wnWheelImproved =>
+      'La rueda de países se redibujó: la bandera elegida se ve más grande en un marco de cristal con un brillo fino y un halo suave de luz detrás, las otras banderas quedan más pequeñas con profundidad, y el nombre de abajo llega con un deslizamiento.';
+
+  @override
+  String get wnLiveImproved =>
+      'Mientras está conectado, la notificación pide a Android 16 promocionarla como Live Update, como hace la implementación de referencia; la duración sigue contando y las velocidades siguen vivas.';
+
+  @override
+  String get wnL10nFixed =>
+      'Esta página ahora habla el idioma de la app: sus quince idiomas, no solo inglés.';
+
+  @override
+  String get wnMarkFixed =>
+      'La marca de Mozilla se ve limpia en su mosaico, con esquinas redondeadas como las banderas.';
 }

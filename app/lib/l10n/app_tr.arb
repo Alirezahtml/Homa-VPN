@@ -582,5 +582,12 @@
   "diagnosticsDnsFiltered": "Yanıt engellendi veya filtrelandı",
   "diagnosticsDnsOk": "Yanıtladı",
   "diagnosticsPrivacy": "Buradaki hiçbir şey kaydedilmez; sonuçlar bu pencerede ve çekirdeğin kendi günlüğünde kalır.",
-  "diagnosticsAgain": "Yeniden çalıştır"
+  "diagnosticsAgain": "Yeniden çalıştır",
+  "whatsNewAdded": "Yeni",
+  "whatsNewImproved": "İyileştirildi",
+  "whatsNewFixed": "Düzeltildi",
+  "wnWheelImproved": "Ülke çarkı yeniden çizildi: seçilen bayrak cam bir çerçevede ince bir parıltı ve arkasında yumuşak bir ışık hâlesiyle daha büyük duruyor, diğer bayraklar derinlikle daha küçük, altındaki ad ise kayarak geliyor.",
+  "wnLiveImproved": "Bağlıyken bildirim, Android 16dan referans uygulamada olduğu gibi Live Update olarak yükseltilmesini ister; süre kendini sayar, hızlar canlıdır.",
+  "wnL10nFixed": "Bu sayfa artık uygulamanın dilinde konuşuyor — on beş dilinin hepsinde, yalnızca İngilizce değil.",
+  "wnMarkFixed": "Mozilla'nın işareti karo üzerinde temiz duruyor, köşeleri bayraklar gibi yuvarlak."
 }

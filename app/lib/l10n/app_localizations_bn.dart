@@ -1998,4 +1998,29 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get diagnosticsAgain => 'Run again';
+
+  @override
+  String get whatsNewAdded => 'নতুন';
+
+  @override
+  String get whatsNewImproved => 'উন্নতি';
+
+  @override
+  String get whatsNewFixed => 'সংশোধন';
+
+  @override
+  String get wnWheelImproved =>
+      'দেশের চাকা নতুন করে আঁকা হয়েছে: নির্বাচিত পতাকা কাচের ফ্রেমে, হালকা আভা ও পেছনে নরম আলোর হালোসহ বড় দেখায়, বাকি পতাকাগুলো গভীরতাসহ ছোট থাকে, আর নিচের নামটি মসৃণ স্লাইডে আসে।';
+
+  @override
+  String get wnLiveImproved =>
+      'সংযুক্ত থাকাকালীন নোটিফিকেশন অ্যান্ড্রয়েড ১৬-কে রেফারেন্স বাস্তবায়নের মতোই Live Update হিসেবে প্রমোট করতে বলে; সময় নিজে গোনে, গতি চলতে থাকে।';
+
+  @override
+  String get wnL10nFixed =>
+      'এই পেজ এখন অ্যাপের ভাষায় কথা বলে — এর পনেরোটি ভাষার প্রতিটিতে, শুধু ইংরেজিতে নয়।';
+
+  @override
+  String get wnMarkFixed =>
+      'মোজিলার মার্ক তার টাইলে পরিষ্কারভাবে বসে আছে, পতাকার মতো গোল কোণায়।';
 }

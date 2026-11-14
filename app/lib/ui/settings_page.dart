@@ -292,17 +292,6 @@ class _SettingsPageState extends State<SettingsPage> {
     if (mounted) _toast(AppLocalizations.of(context).saved);
   }
 
-  /// The floating island's switch. Without the system's "draw over other
-  /// apps" permission, the first tap opens the system's page for it; with
-  /// the grant in hand, the switch works.
-  Future<void> _setIsland(bool on) async {
-    if (on && !await AndroidCore.canDrawOverlays()) {
-      await AndroidCore.openOverlaySettings();
-      return;
-    }
-    await AndroidCore.setIsland(on);
-  }
-
   /// Android changes only the UI language. Desktop also offers the routing
   /// most of its speakers want (Persian: Iran, Chinese: China, Russian: Russia).
   Future<void> _pickLanguage(String language) async {
@@ -545,25 +534,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 onChanged: (v) => runShowingErrors(
                   context,
                   () => AndroidCore.setShowSpeed(v),
-                ),
-              ),
-            ),
-          ),
-        // The floating island: the connection over the other apps, while
-        // the app itself is away. The first tap asks for the system's
-        // "draw over other apps" permission; with it, the second enables.
-        if (Platform.isAndroid)
-          ValueListenableBuilder(
-            valueListenable: AndroidCore.island,
-            builder: (context, on, _) => _Row(
-              icon: Icons.messenger_outline_rounded,
-              label: l.floatingIsland,
-              value: l.floatingIslandHint,
-              child: Switch(
-                value: on,
-                onChanged: (v) => runShowingErrors(
-                  context,
-                  () => _setIsland(v),
                 ),
               ),
             ),
