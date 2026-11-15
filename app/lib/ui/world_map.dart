@@ -763,10 +763,12 @@ class _RotatedWorld {
   final ui.Path landStroke;
   final ui.Path landFill;
 
-  /// The chosen country: its outline and its fill when it lies wholly
-  /// in view (the fill is empty when it half crosses the limb).
+  /// The chosen country: its outline, its fill when it lies wholly in
+  /// view, and whether that fill is there at all (a country half over
+  /// the limb has no fill to draw).
   final ui.Path litStroke;
   final ui.Path litFill;
+  final bool litWhole;
 
   /// The chosen country's anchor, on screen; null when behind the ball.
   final Offset? anchor;
