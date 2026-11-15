@@ -457,6 +457,11 @@ class _SettingsList extends StatelessWidget {
             Icons.tune_rounded,
             l.sectionGeneral,
           ),
+          section(
+            SettingsSection.appearance,
+            Icons.palette_rounded,
+            l.sectionAppearance,
+          ),
           tile(Icons.public_rounded, l.navServers, onOpenServers),
           tile(Icons.people_outline_rounded, l.navAccounts, onOpenAccounts),
         ]),

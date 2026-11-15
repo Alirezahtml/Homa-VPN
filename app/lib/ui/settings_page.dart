@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +25,7 @@ import 'motion.dart';
 import 'port_dialog.dart';
 import 'relay_test_dialog.dart';
 import 'widgets.dart';
+import 'world_map.dart' show GlobePalette, GlobeStyle;
 
 /// The makers' social row and the rest of the page: this file's own state.
 
@@ -85,6 +88,7 @@ class SettingsPage extends StatefulWidget {
 /// The groups of settings, each on its own page.
 enum SettingsSection {
   general,
+  appearance,
   connection,
   relay,
   upstreamProxy,
@@ -110,6 +114,11 @@ List<(String, List<SettingsEntry>)> settingsGroups(
     l.sectionGeneral,
     [
       (SettingsSection.general, Icons.tune_rounded, l.sectionGeneral),
+      (
+        SettingsSection.appearance,
+        Icons.palette_rounded,
+        l.sectionAppearance,
+      ),
       (SettingsSection.connection, Icons.computer_rounded, l.sectionConnection),
       (SettingsSection.routing, Icons.alt_route_rounded, l.sectionRouting),
       (SettingsSection.dns, Icons.dns_rounded, l.sectionDns),
@@ -240,6 +249,13 @@ class _SettingsPageState extends State<SettingsPage> {
   String _str(List<String> path) => _get(path) as String? ?? '';
 
   bool _bool(List<String> path) => _get(path) == true;
+
+  /// A whole number at [path]: the config's ints come back as `int` (the
+  /// core's JSON), but a tolerant read keeps a stray double from raising.
+  int _int(List<String> path) => switch (_get(path)) {
+    final num n => n.toInt(),
+    _ => 0,
+  };
 
   List<String> _list(List<String> path) => [
     for (final v in (_get(path) as List<Object?>? ?? const [])) '$v',
@@ -446,6 +462,8 @@ class _SettingsPageState extends State<SettingsPage> {
             if (!fixed) const SizedBox(height: 16),
             if (open == SettingsSection.general)
               _general(l, s)
+            else if (open == SettingsSection.appearance)
+              _appearance(l, s)
             else if (_config == null)
               const LinearProgressIndicator()
             else
@@ -630,6 +648,17 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+          // Connect when the app itself opens: the VPN comes up as the
+          // home page does, with the location last chosen.
+          _Row(
+            icon: Icons.flash_on_rounded,
+            label: l.connectOnOpen,
+            value: l.connectOnOpenHint,
+            child: Switch(
+              value: s.connectOnOpen,
+              onChanged: (v) => s.update(connectOnOpen: v),
+            ),
+          ),
         ],
         // Gaming: the connection's real delay and quality at a glance, and
         // the notification's live speed; it promises nothing about ping.
@@ -657,6 +686,22 @@ class _SettingsPageState extends State<SettingsPage> {
           child: IconButton(
             icon: const Icon(Icons.chevron_right_rounded),
             onPressed: () => showDiagnostics(context, widget.core),
+          ),
+        ),
+        // The log's own detail: every step written down, for a report to
+        // read. Real — the core's verbose flag, read live — and a little
+        // heavier on the battery while it stays on.
+        _Row(
+          icon: Icons.bug_report_outlined,
+          label: l.verboseLogging,
+          value: l.verboseLoggingHint,
+          child: Switch(
+            value: _bool(['logging', 'verbose']),
+            onChanged: _saving
+                ? null
+                : (v) => _save({
+                    ['logging', 'verbose']: v,
+                  }),
           ),
         ),
         if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
@@ -750,6 +795,54 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ],
     ),
+  );
+
+  /// The home's look: the map's own styles, each with a small preview of
+  /// the real palette, and the battery saver that puts the map's motion
+  /// to rest while the connection stays as it is.
+  Widget _appearance(AppLocalizations l, AppSettings s) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Panel(
+        title: l.mapStyle,
+        icon: Icons.public_rounded,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l.mapStyleHint, style: Theme.of(context).textTheme.bodyMedium),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              runSpacing: 14,
+              children: [
+                for (final style in GlobeStyle.values)
+                  _GlobeStyleTile(
+                    style: style,
+                    name: mapStyleName(l, style),
+                    dark: Theme.of(context).brightness == Brightness.dark,
+                    selected: s.mapStyle == style.name,
+                    onTap: () => s.update(mapStyle: style.name),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 12),
+      Panel(
+        title: l.batterySaver,
+        icon: Icons.battery_saver_rounded,
+        child: _Row(
+          icon: Icons.motion_photos_paused_rounded,
+          label: l.batterySaver,
+          value: l.batterySaverHint,
+          child: Switch(
+            value: s.batterySaver,
+            onChanged: (v) => s.update(batterySaver: v),
+          ),
+        ),
+      ),
+    ],
   );
 
   Widget _connection(AppLocalizations l) {
@@ -999,6 +1092,89 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               // The phone never sleeps (the core turns it off there).
               if (!Platform.isAndroid) _sleepChoice(l),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        // The speed's own panel: how the tunnel carries the traffic.
+        // The parallel tunnels are the core's real pool — several
+        // sessions to Mozilla at once, the traffic split between them —
+        // and the connection limit keeps one busy app from carrying the
+        // whole phone through the VPN. Both are numbers the core reads
+        // live; nothing here is a promise.
+        Panel(
+          title: l.speedTitle,
+          icon: Icons.speed_rounded,
+          child: Column(
+            children: [
+              _Choice<int>(
+                icon: Icons.multiple_stop_rounded,
+                title: l.parallelTunnels,
+                value: switch (_int(['proxy', 'upstream_connections'])) {
+                  2 => 2,
+                  4 => 4,
+                  8 => 8,
+                  _ => 1,
+                },
+                onChanged: _saving
+                    ? null
+                    : (v) => _save({
+                        ['proxy', 'upstream_connections']: v,
+                      }),
+                options: [
+                  (1, l.tunnels1, null),
+                  (2, l.tunnels2, null),
+                  (4, l.tunnels4, null),
+                  (8, l.tunnels8, null),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    l.parallelTunnelsHint,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+              ),
+              _Choice<int>(
+                icon: Icons.device_hub_rounded,
+                title: l.connectionCap,
+                value: switch (_int(['proxy', 'max_connections'])) {
+                  128 => 128,
+                  512 => 512,
+                  1024 => 1024,
+                  0 => 0,
+                  _ => 256,
+                },
+                onChanged: _saving
+                    ? null
+                    : (v) => _save({
+                        ['proxy', 'max_connections']: v,
+                      }),
+                options: [
+                  (0, l.capNone, null),
+                  (128, '128', null),
+                  (256, '256', null),
+                  (512, '512', null),
+                  (1024, '1024', null),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    l.connectionCapHint,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -3961,4 +4137,173 @@ class _DesignMockup extends StatelessWidget {
         );
     }
   }
+}
+
+/// The name of one map style, in the app's own language.
+String mapStyleName(AppLocalizations l, GlobeStyle style) => switch (style) {
+  GlobeStyle.midnight => l.mapMidnight,
+  GlobeStyle.ocean => l.mapOcean,
+  GlobeStyle.mono => l.mapMono,
+  GlobeStyle.aurora => l.mapAurora,
+  _ => l.mapSilver,
+};
+
+/// One map style's tile: a small preview of the real palette — the same
+/// [GlobePalette] the home's globe paints with — and the style's name
+/// under it; the chosen one carries the accent's own frame.
+class _GlobeStyleTile extends StatelessWidget {
+  const _GlobeStyleTile({
+    required this.style,
+    required this.name,
+    required this.dark,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final GlobeStyle style;
+  final String name;
+  final bool dark;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final accent = selected ? theme.colorScheme.primary : Colors.transparent;
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(color: accent, width: 2),
+            ),
+            child: SizedBox.square(
+              dimension: 62,
+              child: CustomPaint(
+                painter: _GlobePreviewPainter(
+                  palette: GlobePalette.of(style, dark),
+                  dark: dark,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            name,
+            style: theme.textTheme.labelMedium?.copyWith(
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+              color: selected
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The style's preview: the ball's own gradient, a breath of land, the
+/// coordinate grid's arc, and the limb's light — small, but the same
+/// colors the home's globe wears.
+class _GlobePreviewPainter extends CustomPainter {
+  _GlobePreviewPainter({required this.palette, required this.dark});
+
+  final GlobePalette palette;
+  final bool dark;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width * 0.46;
+
+    // The ball, in the style's own metal.
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..shader = ui.Gradient.radial(
+          center + Offset(-radius * 0.34, -radius * 0.4),
+          radius * 1.7,
+          palette.ball,
+          const [0.0, 0.35, 0.72, 1.0],
+        ),
+    );
+
+    // The land: two quiet shapes, enough to read as a map at this size.
+    final land = Paint()..color = palette.landFill..isAntiAlias = true;
+    final edge = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1
+      ..color = palette.landStroke
+      ..isAntiAlias = true;
+    final path = ui.Path()
+      ..addOval(
+        Rect.fromCenter(
+          center: center + Offset(-radius * 0.22, -radius * 0.1),
+          width: radius * 0.95,
+          height: radius * 0.62,
+        ),
+      )
+      ..addOval(
+        Rect.fromCenter(
+          center: center + Offset(radius * 0.34, radius * 0.36),
+          width: radius * 0.6,
+          height: radius * 0.4,
+        ),
+      );
+    canvas.drawPath(path, land);
+    canvas.drawPath(path, edge);
+
+    // A meridian and a parallel: the grid's own breath.
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius * 0.99),
+      math.pi * 0.15,
+      math.pi * 1.7,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.8
+        ..color = palette.graticule,
+    );
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius * 0.62),
+      math.pi * 1.1,
+      math.pi * 1.4,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.8
+        ..color = palette.graticule,
+    );
+
+    // The limb's light, in the style's own halo.
+    canvas.drawCircle(
+      center,
+      radius - 0.5,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..shader = ui.Gradient.radial(
+          center,
+          radius,
+          [
+            palette.halo.withValues(alpha: 0.0),
+            palette.halo.withValues(alpha: dark ? 0.6 : 0.4),
+          ],
+          const [0.7, 1.0],
+        ),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_GlobePreviewPainter old) =>
+      old.palette != palette || old.dark != dark;
 }
