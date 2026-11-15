@@ -844,7 +844,10 @@ Future<void> showToast(
   ToastMark mark = ToastMark.check,
 }) async {
   _toastEntry?.remove();
-  final entry = OverlayEntry(
+  // The note's own way out removes its entry, and the late binding lets
+  // the closure name the entry it belongs to.
+  late final OverlayEntry entry;
+  entry = OverlayEntry(
     builder: (context) => _ToastNote(
       message: message,
       mark: mark,

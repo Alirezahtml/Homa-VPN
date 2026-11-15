@@ -632,7 +632,6 @@ class _FlagCard extends StatelessWidget {
           width: width,
           height: width * 2 / 3,
           fit: BoxFit.contain,
-          filterQuality: FilterQuality.high,
         ),
       );
     }
@@ -1011,7 +1010,6 @@ class _StripTile extends StatelessWidget {
         width: width,
         height: width * 2 / 3,
         fit: BoxFit.contain,
-        filterQuality: FilterQuality.high,
       );
     }
     return CountryFlag(code: code, width: width);
