@@ -2031,4 +2031,8 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'সরানো হয়েছে';
+
+  @override
+  String get wnCrashFixed =>
+      'অ্যাপ আর অ্যান্ড্রয়েড ১৬ ফোনে নিজে থেকে বন্ধ হয় না: বিজ্ঞপ্তি ফোনে যা এখনো ছিল না তা চেয়েছিল।';
 }

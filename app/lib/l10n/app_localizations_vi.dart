@@ -2035,4 +2035,8 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Đã bỏ';
+
+  @override
+  String get wnCrashFixed =>
+      'Ứng dụng không còn tự dừng trên máy Android 16: thông báo đã yêu cầu hệ thống điều máy chưa có.';
 }

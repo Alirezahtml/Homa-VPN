@@ -3632,6 +3632,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Removed'**
   String get whatsNewRemoved;
+
+  /// No description provided for @wnCrashFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The app no longer stops by itself on Android 16 phones: the notification asked the system for a piece the phone does not have yet.'**
+  String get wnCrashFixed;
 }
 
 class _AppLocalizationsDelegate

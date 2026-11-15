@@ -13,6 +13,12 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.32' => [
+    (
+      title: l.whatsNewFixed,
+      lines: [l.wnCrashFixed],
+    ),
+  ],
   '1.0.31' => [
     (
       title: l.whatsNewAdded,
@@ -41,7 +47,7 @@ List<({String title, List<String> lines})> whatsNewSections(
 };
 
 /// The versions that carry a page (every language has it at once).
-const _whatsNewVersions = {'1.0.30', '1.0.31'};
+const _whatsNewVersions = {'1.0.30', '1.0.31', '1.0.32'};
 
 /// Whether this version's page is still waiting to be seen.
 bool whatsNewPending(AppSettings settings) =>

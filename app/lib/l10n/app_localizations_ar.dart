@@ -2045,4 +2045,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'أُزيل';
+
+  @override
+  String get wnCrashFixed =>
+      'لم يعد التطبيق يتوقف من تلقاء نفسه على هواتف أندرويد 16: كان الإشعار يطلب من النظام شيئًا لا يملكه الهاتف بعد.';
 }

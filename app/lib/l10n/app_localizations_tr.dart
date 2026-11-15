@@ -2036,4 +2036,8 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Kaldırıldı';
+
+  @override
+  String get wnCrashFixed =>
+      'Uygulama, Android 16 telefonlarında artık kendi kendine kapanmıyor: bildirim, telefonda henüz olmayan bir şey istiyordu.';
 }

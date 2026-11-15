@@ -226,6 +226,12 @@ class AndroidCore {
   /// "press" rather than "tap". Read at start ([loadMode]).
   static bool isTv = false;
 
+  /// This process's Java crashes (CrashLog.kt), oldest first; "" while
+  /// there are none. The logs page shows them, so a crash report can
+  /// name its line — the core's own log does not carry these.
+  static Future<String> crashLog() async =>
+      await _channel.invokeMethod<String>('crashLog') ?? '';
+
   /// Whether the notification shows the speed (CoreService.kt reads it).
   static final showSpeed = ValueNotifier<bool>(false);
 

@@ -2048,4 +2048,8 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Удалено';
+
+  @override
+  String get wnCrashFixed =>
+      'Приложение больше не останавливается само на телефонах с Android 16: уведомление просило у системы то, чего в телефоне ещё не было.';
 }

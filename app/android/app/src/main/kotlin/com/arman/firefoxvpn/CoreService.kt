@@ -42,6 +42,7 @@ class CoreService : VpnService() {
 
     override fun onCreate() {
         super.onCreate()
+        CrashLog.install(this)
         // The channel's "a flag bitmap arrived" finds the live service
         // through this one reference.
         instance = this
@@ -160,7 +161,14 @@ class CoreService : VpnService() {
                 shownCountry = code
                 shownProxy = proxy
                 shownSpeed = speed
-                getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notification(code))
+                // A notification that the framework refuses (an OEM's own
+                // rule, a blocked channel) is logged, not fatal: the poll
+                // carries the VPN's state, and the phone's traffic with it.
+                try {
+                    getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notification(code))
+                } catch (e: Throwable) {
+                    Log.w(TAG, "posting the notification failed", e)
+                }
             }
             if (on && usesVpn(this@CoreService) && appMode(this@CoreService) == MODE_EXCLUDE) {
                 checkSuggested()
@@ -450,7 +458,20 @@ class CoreService : VpnService() {
         shownCountry = ""
         shownProxy = ""
         shownSpeed = ""
-        val notification = notification("")
+        // The card's own build is guarded inside (the new APIs are asked of
+        // the framework first): a build that still fails falls back to the
+        // plain one, for startForeground needs a notification either way.
+        val notification = try {
+            notification("")
+        } catch (e: Throwable) {
+            Log.w(TAG, "the notification fell back to the plain one", e)
+            Notification.Builder(this, CHANNEL)
+                .setSmallIcon(R.drawable.ic_stat_logo)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_connecting))
+                .setOngoing(true)
+                .build()
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         } else {
@@ -512,7 +533,6 @@ class CoreService : VpnService() {
             // the shade, where the duration and the speed keep running.
             builder
                 .setCategory(Notification.CATEGORY_PROGRESS)
-                .setShortCriticalText(state)
                 // The Live Update request itself, as the reference
                 // implementation does: the system may promote the card
                 // above the shade while the VPN runs. The builder method
@@ -523,16 +543,36 @@ class CoreService : VpnService() {
                         putBoolean("android.requestPromotedOngoing", true)
                     },
                 )
+            // The short critical text arrived with API 36.1, beside the
+            // promoted-ongoing builder: a phone still on Android 16.0
+            // (API 36) has no such method, and asking it ends the whole
+            // process — the crash behind "keeps stopping" on the phones
+            // that got Android 16 before its first minor update. The
+            // method is asked of the framework and taken only when it
+            // answers; the card works without it.
+            try {
+                builder.setShortCriticalText(state)
+            } catch (e: NoSuchMethodError) {
+                // Android 16.0: the method comes with the next update.
+            }
             if (code.isEmpty() && !offline) {
-                builder.setStyle(
-                    Notification.ProgressStyle()
-                        .setProgressSegments(
-                            listOf(
-                                Notification.ProgressStyle.Segment(1).setColor(0xFF5B5BD6.toInt()),
-                            ),
-                        )
-                        .setProgressIndeterminate(true),
-                )
+                try {
+                    builder.setStyle(
+                        Notification.ProgressStyle()
+                            .setProgressSegments(
+                                listOf(
+                                    Notification.ProgressStyle.Segment(1).setColor(0xFF5B5BD6.toInt()),
+                                ),
+                            )
+                            .setProgressIndeterminate(true),
+                    )
+                } catch (e: Throwable) {
+                    // A framework that answers none of the new styles: the
+                    // plain card carries on. The service must not die of
+                    // its notification.
+                    Log.w(TAG, "the notification's progress style is not available", e)
+                    builder.setStyle(Notification.BigTextStyle().bigText(text))
+                }
             } else {
                 builder.setStyle(Notification.BigTextStyle().bigText(text))
             }

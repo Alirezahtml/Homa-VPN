@@ -579,5 +579,6 @@
   "wnWheelAdded": "La rueda de banderas redibujada: cristal más hondo, movimiento más suave",
   "wnFlagNotifAdded": "La notificación puede mostrar la bandera SVG del país, y puede apagarse",
   "wnColorRemoved": "Se quitó la página de color personalizado; la lista de acento conserva su HEX",
-  "whatsNewRemoved": "Eliminado"
+  "whatsNewRemoved": "Eliminado",
+  "wnCrashFixed": "La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía."
 }

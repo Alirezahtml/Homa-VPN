@@ -2037,4 +2037,8 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Silindi';
+
+  @override
+  String get wnCrashFixed =>
+      'Tətbiq artıq Android 16 telefonlarında öz-özünə dayanmır: bildiriş telefonda hələ olmayan bir şey istəyirdi.';
 }

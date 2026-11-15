@@ -2047,4 +2047,8 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Removido';
+
+  @override
+  String get wnCrashFixed =>
+      'A aplicação já não para sozinha nos telefones com Android 16: a notificação pedia ao sistema algo que o telefone ainda não tinha.';
 }

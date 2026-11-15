@@ -109,6 +109,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        CrashLog.install(this)
         val channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "app/android")
         androidChannel = channel
         channel.setMethodCallHandler { call, result ->
@@ -143,6 +144,9 @@ class MainActivity : FlutterActivity() {
                     result.success(null)
                 }
                 "lastError" -> result.success(mobile.Mobile.lastError())
+                // This process's Java crashes (CrashLog): the logs page
+                // shows them, so a crash report can name its line.
+                "crashLog" -> result.success(CrashLog.read(this))
                 "connectionMode" -> result.success(CoreService.connectionMode(this))
                 "showSpeed" -> result.success(CoreService.showSpeed(this))
                 "setShowSpeed" -> {

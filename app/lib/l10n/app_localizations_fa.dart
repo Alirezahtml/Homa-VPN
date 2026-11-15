@@ -2022,4 +2022,8 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'حذف‌شده';
+
+  @override
+  String get wnCrashFixed =>
+      'برنامه دیگر روی گوشی‌های اندروید ۱۶ خودبه‌خود متوقف نمی‌شود: اعلان چیزی را از سیستم می‌خواست که هنوز در گوشی نبود.';
 }

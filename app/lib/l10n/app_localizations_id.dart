@@ -2036,4 +2036,8 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Dihapus';
+
+  @override
+  String get wnCrashFixed =>
+      'Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel.';
 }

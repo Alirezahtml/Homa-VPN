@@ -2054,4 +2054,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Eliminado';
+
+  @override
+  String get wnCrashFixed =>
+      'La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía.';
 }

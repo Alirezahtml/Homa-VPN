@@ -1178,5 +1178,6 @@
   "wnWheelAdded": "The flag wheel redrawn: deeper glass, smoother motion, richer depth",
   "wnFlagNotifAdded": "The notification can show the country's SVG flag, and be told not to",
   "wnColorRemoved": "The Custom color page was removed; the accent list keeps its hex",
-  "whatsNewRemoved": "Removed"
+  "whatsNewRemoved": "Removed",
+  "wnCrashFixed": "The app no longer stops by itself on Android 16 phones: the notification asked the system for a piece the phone does not have yet."
 }

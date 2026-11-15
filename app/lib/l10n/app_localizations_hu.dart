@@ -2051,4 +2051,8 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Eltávolítva';
+
+  @override
+  String get wnCrashFixed =>
+      'Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott.';
 }

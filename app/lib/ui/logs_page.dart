@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app_settings.dart';
+import '../core/android_core.dart' show AndroidCore;
 import '../core/core_api.dart';
 import '../core/core_controller.dart';
 import '../core/models.dart';
@@ -63,7 +64,41 @@ class _LogsPageState extends State<LogsPage> {
     _after = widget.core.logsClearedAfter;
     _readVerbose();
     _read();
+    _initCrashLog();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _read());
+  }
+
+  /// This process's Java crashes (CrashLog.kt), the newest last: the
+  /// core's log does not carry them, and a phone's "keeps stopping"
+  /// says nothing about where it came from. They come in as entries, so
+  /// the level filter and the copy reach them too. Stack traces are
+  /// what they are (a machine's), so the lines need no translation.
+  Future<void> _initCrashLog() async {
+    if (!Platform.isAndroid) return;
+    try {
+      final text = await AndroidCore.crashLog();
+      if (text.isEmpty || !mounted) return;
+      final entries = <LogEntry>[];
+      var id = -1;
+      for (final block in text.split('\n----- ')) {
+        final lines = block.trim().split('\n');
+        if (lines.isEmpty || lines.first.isEmpty) continue;
+        final head = lines.first.replaceAll('-----', '').trim();
+        final trace = lines.skip(1).join('\n').trim();
+        if (trace.isEmpty) continue;
+        entries.add(
+          LogEntry.fromJson(<String, Object?>{
+            'id': id--,
+            'level': 'ERROR',
+            'message': 'Java crash — $head\n$trace',
+          }),
+        );
+      }
+      if (entries.isEmpty || !mounted) return;
+      setState(() => _entries.insertAll(0, entries));
+    } on Exception {
+      // No crash log, or no channel: nothing to show.
+    }
   }
 
   @override

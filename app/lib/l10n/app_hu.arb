@@ -579,5 +579,6 @@
   "wnWheelAdded": "A zászlókorong újrarajzolva: mélyebb üveg, lágyabb mozgás",
   "wnFlagNotifAdded": "Az értesítés mutathatja az ország SVG zászlaját, és kikapcsolható",
   "wnColorRemoved": "A saját szín oldal eltűnt; az akcentlista megtartja a HEX kódot",
-  "whatsNewRemoved": "Eltávolítva"
+  "whatsNewRemoved": "Eltávolítva",
+  "wnCrashFixed": "Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott."
 }

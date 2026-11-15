@@ -2057,4 +2057,8 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => 'Retiré';
+
+  @override
+  String get wnCrashFixed =>
+      'L\'application ne s\'arrête plus d\'elle-même sur les téléphones Android 16 : la notification demandait au système quelque chose que le téléphone n\'avait pas encore.';
 }

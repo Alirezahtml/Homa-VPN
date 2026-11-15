@@ -1949,6 +1949,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get whatsNewRemoved => '已移除';
+
+  @override
+  String get wnCrashFixed => '应用不再在 Android 16 手机上自行停止：通知向系统索要了手机还没有的东西。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3896,4 +3899,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get whatsNewRemoved => '已移除';
+
+  @override
+  String get wnCrashFixed => '應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。';
 }

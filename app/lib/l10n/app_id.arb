@@ -579,5 +579,6 @@
   "wnWheelAdded": "Roda bendera digambar ulang: kaca lebih dalam, gerak lebih halus",
   "wnFlagNotifAdded": "Notifikasi dapat menampilkan bendera SVG negara, dan bisa dimatikan",
   "wnColorRemoved": "Halaman warna kustom dihapus; daftar aksen tetap menyimpan kode HEX",
-  "whatsNewRemoved": "Dihapus"
+  "whatsNewRemoved": "Dihapus",
+  "wnCrashFixed": "Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel."
 }
