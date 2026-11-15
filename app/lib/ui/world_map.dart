@@ -316,12 +316,224 @@ List<(double, double, double)> greatCirclePath(
   return out;
 }
 
-/// The home page's globe: the world's own outlines carried onto a silver
+/// The looks the settings offer for the home's map: five ways to paint
+/// the same real world. Every style carries its own metal, its own land,
+/// its own sky — the connection's light and the pin stay the accent's
+/// own, whatever the style.
+enum GlobeStyle { silver, midnight, ocean, mono, aurora }
+
+/// One style's colors: the ball's four gradient stops, the land's fill
+/// and edge, the faint coordinate grid on the metal, the sky's stars,
+/// the light that lands on the ball, and the halo outside the limb.
+@immutable
+class GlobePalette {
+  const GlobePalette({
+    required this.ball,
+    required this.landFill,
+    required this.landStroke,
+    required this.graticule,
+    required this.stars,
+    required this.starAlpha,
+    required this.specular,
+    required this.halo,
+    required this.shadow,
+  });
+
+  /// The ball's radial gradient, light source to dark limb: four stops.
+  final List<Color> ball;
+
+  /// The land's fill (every visible country) and its outline.
+  final Color landFill;
+  final Color landStroke;
+
+  /// The faint grid of meridians and parallels on the ball.
+  final Color graticule;
+
+  /// The sky behind the ball: its color and how strong the stars are.
+  final Color stars;
+  final double starAlpha;
+
+  /// The lamp's own light, high on the ball's upper left.
+  final Color specular;
+
+  /// The halo hugging the ball from outside.
+  final Color halo;
+
+  /// The land's shadow on the ball, a breath of depth.
+  final Color shadow;
+
+  /// The palette for [style] over [dark].
+  static GlobePalette of(GlobeStyle style, bool dark) => switch (style) {
+        GlobeStyle.midnight => _midnight,
+        GlobeStyle.ocean => dark ? _oceanNight : _oceanDay,
+        GlobeStyle.mono => dark ? _monoNight : _monoDay,
+        GlobeStyle.aurora => _aurora,
+        _ => dark ? _silverNight : _silverDay,
+      };
+
+  static const _silverNight = GlobePalette(
+    ball: [
+      Color(0xFF9AA3B2),
+      Color(0xFF4A5160),
+      Color(0xFF20242E),
+      Color(0xFF0B0D12),
+    ],
+    landFill: Color(0x1AFFFFFF),
+    landStroke: Color(0x57FFFFFF),
+    graticule: Color(0x12FFFFFF),
+    stars: Color(0xFFFFFFFF),
+    starAlpha: 0.38,
+    specular: Color(0x1AFFFFFF),
+    halo: Color(0xFF8FA0BC),
+    shadow: Color(0x40000000),
+  );
+
+  static const _silverDay = GlobePalette(
+    ball: [
+      Color(0xFFF4F6FA),
+      Color(0xFFC3C9D6),
+      Color(0xFF8C93A3),
+      Color(0xFF5D6371),
+    ],
+    landFill: Color(0x14000000),
+    landStroke: Color(0x6B000000),
+    graticule: Color(0x0F000000),
+    stars: Color(0xFF3A4664),
+    starAlpha: 0.10,
+    specular: Color(0x80FFFFFF),
+    halo: Color(0xFF9FB0CC),
+    shadow: Color(0x2E000000),
+  );
+
+  static const _midnight = GlobePalette(
+    ball: [
+      Color(0xFF31406E),
+      Color(0xFF1D2748),
+      Color(0xFF111830),
+      Color(0xFF070B18),
+    ],
+    landFill: Color(0x249EC5F2),
+    landStroke: Color(0x8C9EC5F2),
+    graticule: Color(0x1A7FA8E0),
+    stars: Color(0xFFE8F0FF),
+    starAlpha: 0.72,
+    specular: Color(0x24BFD4FF),
+    halo: Color(0xFF5F7FC0),
+    shadow: Color(0x52000000),
+  );
+
+  static const _oceanNight = GlobePalette(
+    ball: [
+      Color(0xFF1E5F8A),
+      Color(0xFF14486E),
+      Color(0xFF0B2B45),
+      Color(0xFF05131F),
+    ],
+    landFill: Color(0x333ECFA0),
+    landStroke: Color(0x809FE8CE),
+    graticule: Color(0x14BFEBFF),
+    stars: Color(0xFFDFF3FF),
+    starAlpha: 0.42,
+    specular: Color(0x1ECFEAFF),
+    halo: Color(0xFF3E88B8),
+    shadow: Color(0x4A001020),
+  );
+
+  static const _oceanDay = GlobePalette(
+    ball: [
+      Color(0xFF7EC3E8),
+      Color(0xFF4E9BC8),
+      Color(0xFF2F6F9E),
+      Color(0xFF1B4568),
+    ],
+    landFill: Color(0x4D2FA37E),
+    landStroke: Color(0x73134A38),
+    graticule: Color(0x14FFFFFF),
+    stars: Color(0xFF0A3550),
+    starAlpha: 0.08,
+    specular: Color(0x59FFFFFF),
+    halo: Color(0xFF63A3CC),
+    shadow: Color(0x33041E30),
+  );
+
+  static const _monoNight = GlobePalette(
+    ball: [
+      Color(0xFF3C3C3C),
+      Color(0xFF242424),
+      Color(0xFF141414),
+      Color(0xFF060606),
+    ],
+    landFill: Color(0x1FFFFFFF),
+    landStroke: Color(0x99FFFFFF),
+    graticule: Color(0x14FFFFFF),
+    stars: Color(0xFFFFFFFF),
+    starAlpha: 0.52,
+    specular: Color(0x24FFFFFF),
+    halo: Color(0xFF7E7E7E),
+    shadow: Color(0x59000000),
+  );
+
+  static const _monoDay = GlobePalette(
+    ball: [
+      Color(0xFFFFFFFF),
+      Color(0xFFF2F2F2),
+      Color(0xFFD9D9D9),
+      Color(0xFFB9B9B9),
+    ],
+    landFill: Color(0x1A000000),
+    landStroke: Color(0x8C000000),
+    graticule: Color(0x14000000),
+    stars: Color(0xFF2A2A2A),
+    starAlpha: 0.10,
+    specular: Color(0x40FFFFFF),
+    halo: Color(0xFFA8A8A8),
+    shadow: Color(0x33000000),
+  );
+
+  static const _aurora = GlobePalette(
+    ball: [
+      Color(0xFF3A2B6B),
+      Color(0xFF271E4E),
+      Color(0xFF160F30),
+      Color(0xFF0A0618),
+    ],
+    landFill: Color(0x214EF0C0),
+    landStroke: Color(0x997CF5D6),
+    graticule: Color(0x1F9B8CFF),
+    stars: Color(0xFFF2EFFF),
+    starAlpha: 0.75,
+    specular: Color(0x29D5C8FF),
+    halo: Color(0xFF8A6FD0),
+    shadow: Color(0x52060018),
+  );
+}
+
+/// The sky's own stars: one fixed field, the same every night, twinkling
+/// with the globe's breath. Positions in the unit square, never rebuilt.
+final _stars = () {
+  final rnd = math.Random(7);
+  return [
+    for (var i = 0; i < 110; i++)
+      (
+        rnd.nextDouble(),
+        rnd.nextDouble(),
+        0.4 + rnd.nextDouble() * 1.1,
+        rnd.nextDouble(),
+      ),
+  ];
+}();
+
+/// The home page's globe: the world's own outlines carried onto a metal
 /// ball, turned so the chosen country faces the viewer. The chosen
 /// country is lit in the connection's light; a glowing pin stands at its
 /// anchor, and a floating glass card names it. From the anchor, the
 /// great-circle paths to the nearest hubs burn slow in the same light
 /// while the VPN carries the traffic — off, everything rests.
+///
+/// The map has the settings' own looks ([GlobeStyle]); it zooms under two
+/// fingers, a double tap steps in and back out, and a change of country
+/// is a small flight: the camera pulls back, the ball turns, and the pin
+/// drops as the roads draw themselves to the hubs.
 class WorldGlobe extends StatefulWidget {
   const WorldGlobe({
     super.key,
@@ -331,6 +543,8 @@ class WorldGlobe extends StatefulWidget {
     required this.animated,
     required this.dark,
     required this.label,
+    this.style = GlobeStyle.silver,
+    this.still = false,
   });
 
   /// The world, from [WorldMap.load]; empty until it arrives.
@@ -347,29 +561,52 @@ class WorldGlobe extends StatefulWidget {
   /// still.
   final bool animated;
 
-  /// Whether the app's night is on: the silver reads darker over it.
+  /// Whether the app's night is on: the metal reads darker over it.
   final bool dark;
 
   /// The chosen country's name, for the floating card; '' hides it.
   final String label;
+
+  /// The map's look, from the settings; silver unless said otherwise.
+  final GlobeStyle style;
+
+  /// The battery saver's word: the globe rests — no breath, no comets —
+  /// whatever the connection says. A turn to a new country still plays.
+  final bool still;
 
   @override
   State<WorldGlobe> createState() => _WorldGlobeState();
 }
 
 class _WorldGlobeState extends State<WorldGlobe>
-    with TickerProviderStateMixin {
-  // Two clocks live here — the breath and the turn — so the plural
+    with TickerProviderStateMixin, WidgetsBindingObserver {
+  // Four clocks live here — breath, turn, arrival, zoom — so the plural
   // mixin: the single one would raise at the first build, where the
-  // AnimatedBuilder reads both controllers at once.
+  // AnimatedBuilder reads them all at once.
   /// The breath: the pin's rings, the card's bob, the paths' stream.
   late final AnimationController _breath =
       AnimationController(vsync: this, duration: const Duration(seconds: 5));
 
   /// The globe's turn: from the view it rests on to the chosen country's.
+  /// A small flight now — the camera pulls back a breath, the ball turns,
+  /// and the arrival plays when the flight lands.
   late final AnimationController _spin = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 900),
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  /// The arrival: the pin drops with a bounce, its rings burst, and the
+  /// roads draw themselves out to the hubs. It plays when the turn lands.
+  late final AnimationController _arrive = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 750),
+  );
+
+  /// The double tap's zoom: from wherever the map is to one step in (or
+  /// back out to the whole ball).
+  late final AnimationController _zoomAnim = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 420),
   );
 
   /// The view the spin starts from, and the one it lands on, in degrees.
@@ -381,23 +618,63 @@ class _WorldGlobeState extends State<WorldGlobe>
   /// frame, so the first real turn happens when it does.
   bool _turned = false;
 
+  /// The map's zoom: the whole ball at 1, a closer look up to 1.9. Two
+  /// fingers set it directly; a double tap steps it with the animation.
+  static const double _zoomMin = 1.0;
+  static const double _zoomMax = 1.9;
+  double _zoom = 1.0;
+  double _zoomFrom = 1.0, _zoomTo = 1.0;
+
+  /// The zoom a pinch started from, so the two fingers write an absolute
+  /// scale rather than fighting the last frame's.
+  double _zoomAtPinch = 1.0;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _breath.value = 0.5;
-    if (widget.animated) _breath.repeat(reverse: true);
+    _setBreathing();
+    _spin.addStatusListener((status) {
+      // The flight lands: the pin drops, the roads draw out.
+      if (status == AnimationStatus.completed) {
+        _arrive.forward(from: 0);
+      }
+    });
+    _zoomAnim.addListener(() {
+      final t = Curves.easeOutCubic.transform(_zoomAnim.value);
+      setState(() => _zoom = _zoomFrom + (_zoomTo - _zoomFrom) * t);
+    });
     _turnTo(widget.selected, animate: false);
+  }
+
+  /// Whether the breath should run: the connection's own wish, and the
+  /// battery saver's veto. A hidden window stops it either way.
+  bool get _breathWanted => widget.animated && !widget.still;
+
+  void _setBreathing() {
+    if (_breathWanted) {
+      if (!_breath.isAnimating) _breath.repeat(reverse: true);
+    } else {
+      _breath.stop();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      _breath.stop();
+    } else if (state == AppLifecycleState.resumed) {
+      _setBreathing();
+    }
   }
 
   @override
   void didUpdateWidget(WorldGlobe old) {
     super.didUpdateWidget(old);
-    if (old.animated != widget.animated) {
-      if (widget.animated) {
-        _breath.repeat(reverse: true);
-      } else {
-        _breath.stop();
-      }
+    if (old.animated != widget.animated || old.still != widget.still) {
+      _setBreathing();
     }
     if (old.selected != widget.selected ||
         (!_turned && widget.countries.isNotEmpty)) {
@@ -436,6 +713,7 @@ class _WorldGlobeState extends State<WorldGlobe>
     }
     _toLon = _fromLon + dLon;
     if (animate && widget.countries.isNotEmpty) {
+      _arrive.reset();
       _spin.forward(from: 0);
     } else {
       _currentLat = _toLat;
@@ -451,23 +729,62 @@ class _WorldGlobeState extends State<WorldGlobe>
     return (lat, lon);
   }
 
+  // The map's zoom, by hand: two fingers pinch the ball closer or set it
+  // back; a double tap steps in, and again steps out. The gesture lives
+  // on a layer that only answers where the page's own widgets do not sit,
+  // so a drag on the slider or the cards never becomes a zoom.
+  static const _kZoomStep = 1.5;
+
+  void _onScaleStart(ScaleStartDetails details) {
+    _zoomAtPinch = _zoom;
+  }
+
+  void _onScaleUpdate(ScaleUpdateDetails details) {
+    // One finger belongs to the page (its scroll); only a second one
+    // means "zoom".
+    if (details.pointerCount < 2) return;
+    final next = (_zoomAtPinch * details.scale)
+        .clamp(_zoomMin, _zoomMax)
+        .toDouble();
+    if ((next - _zoom).abs() > 0.002) {
+      setState(() => _zoom = next);
+    }
+  }
+
+  void _onDoubleTap() {
+    _zoomFrom = _zoom;
+    _zoomTo = _zoom > 1.05 ? _zoomMin : _kZoomStep;
+    _zoomAnim.forward(from: 0);
+  }
+
   /// The world at the view now on screen: built once per turn, redrawn
   /// cheaply on every frame after. The turn is the expensive thing (every
   /// point of every border moves); the breath is not, so the cache turns
   /// with the globe and the breath only re-lights what is already built.
+  /// The zoom never rebuilds: it scales what is already built.
   _RotatedWorld? _cache;
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _breath.dispose();
     _spin.dispose();
+    _arrive.dispose();
+    _zoomAnim.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.countries.isEmpty) return const SizedBox.expand();
-    return IgnorePointer(
+    // The map answers the hand where the page's own widgets do not sit:
+    // the pinch and the double tap live on a quiet layer under the
+    // content, so the slider and the cards keep their own gestures.
+    return GestureDetector(
+      behavior: HitTestBehavior.deferToChild,
+      onScaleStart: _onScaleStart,
+      onScaleUpdate: _onScaleUpdate,
+      onDoubleTap: _onDoubleTap,
       child: LayoutBuilder(
         builder: (context, box) {
           if (box.maxWidth <= 0 || box.maxHeight <= 0) {
@@ -481,14 +798,24 @@ class _WorldGlobeState extends State<WorldGlobe>
             child: Stack(
               alignment: Alignment.center,
               children: [
+                // A near-invisible ground: it lets the pinch and the
+                // double tap reach the map through the page's empty
+                // spaces, without ever painting anything.
+                const Positioned.fill(
+                  child: ColoredBox(color: Color(0x01000000)),
+                ),
                 AnimatedBuilder(
-                  animation: Listenable.merge([_breath, _spin]),
+                  animation: Listenable.merge([
+                    _breath,
+                    _spin,
+                    _arrive,
+                    _zoomAnim,
+                  ]),
                   builder: (context, _) {
                     // The turn, eased: the globe arrives at the chosen
                     // country instead of snapping to it.
-                    final t = Curves.easeInOutCubic.transform(
-                      _spin.value.clamp(0.0, 1.0),
-                    );
+                    final spinT = _spin.value.clamp(0.0, 1.0);
+                    final t = Curves.easeInOutCubic.transform(spinT);
                     _currentLat = _fromLat + (_toLat - _fromLat) * t;
                     _currentLon = _fromLon + (_toLon - _fromLon) * t;
                     final geometry = GlobeGeometry.of(widget.countries);
@@ -500,13 +827,24 @@ class _WorldGlobeState extends State<WorldGlobe>
                       radius,
                       center,
                     );
+                    // The camera: the user's zoom, and the flight's own
+                    // pull-back — a breath of distance while the ball
+                    // turns, landing as the arrival begins.
+                    final flight = 1.0 - 0.06 * math.sin(math.pi * spinT);
+                    final zoom = _zoom * flight;
                     return CustomPaint(
                       size: Size(box.maxWidth, box.maxHeight),
                       painter: _GlobePainter(
                         world: world,
                         accent: widget.accent,
+                        palette: GlobePalette.of(widget.style, widget.dark),
                         dark: widget.dark,
-                        breath: widget.animated ? _breath.value : 0.5,
+                        breath: widget.animated && !widget.still
+                            ? _breath.value
+                            : 0.5,
+                        animated: widget.animated && !widget.still,
+                        arrive: _arrive.value,
+                        zoom: zoom,
                       ),
                     );
                   },
@@ -517,19 +855,22 @@ class _WorldGlobeState extends State<WorldGlobe>
                     widget.selected.length == 2 &&
                     widget.countries.isNotEmpty)
                   Positioned.fill(
-                    child: _FloatingCard(
-                      countries: GlobeGeometry.of(widget.countries),
-                      selected: widget.selected,
-                      label: widget.label,
-                      accent: widget.accent,
-                      dark: widget.dark,
-                      animated: widget.animated,
-                      breath: _breath,
-                      spin: _spin,
-                      fromLat: _fromLat,
-                      fromLon: _fromLon,
-                      toLat: _toLat,
-                      toLon: _toLon,
+                    child: IgnorePointer(
+                      child: _FloatingCard(
+                        countries: GlobeGeometry.of(widget.countries),
+                        selected: widget.selected,
+                        label: widget.label,
+                        accent: widget.accent,
+                        dark: widget.dark,
+                        animated: widget.animated && !widget.still,
+                        breath: _breath,
+                        spin: _spin,
+                        fromLat: _fromLat,
+                        fromLon: _fromLon,
+                        toLat: _toLat,
+                        toLon: _toLon,
+                        zoom: _zoom,
+                      ),
                     ),
                   ),
               ],
@@ -573,7 +914,9 @@ class _WorldGlobeState extends State<WorldGlobe>
 /// The floating card that names the chosen country: a pane of glass with
 /// the country's flag and its name, hanging over the pin it belongs to,
 /// bobbing with the globe's breath. It follows the globe's own turn, so
-/// it never drifts off the country it names.
+/// it never drifts off the country it names, and it zooms with the map —
+/// its seat scales, its glass keeps its size. A new country's card
+/// crossfades over the old one's, while the ball turns under them.
 class _FloatingCard extends StatelessWidget {
   const _FloatingCard({
     required this.countries,
@@ -588,6 +931,7 @@ class _FloatingCard extends StatelessWidget {
     required this.fromLon,
     required this.toLat,
     required this.toLon,
+    required this.zoom,
   });
 
   final List<GlobeCountry> countries;
@@ -602,6 +946,9 @@ class _FloatingCard extends StatelessWidget {
   final double fromLon;
   final double toLat;
   final double toLon;
+
+  /// The map's own zoom: the seat under the card scales with it.
+  final double zoom;
 
   @override
   Widget build(BuildContext context) {
@@ -628,9 +975,13 @@ class _FloatingCard extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, box) {
         // The same ball the painter paints: its center and radius come
-        // from the page's own size, the way the painter reads them.
+        // from the page's own size, the way the painter reads them — and
+        // the seat scales with the map's zoom and the flight's own
+        // pull-back, exactly as the ball does.
         final d = math.min(box.maxWidth * 1.16, box.maxHeight * 1.28);
-        final radius = d / 2 * 0.94;
+        final spinT = spin.value.clamp(0.0, 1.0);
+        final flight = 1.0 - 0.06 * math.sin(math.pi * spinT);
+        final radius = d / 2 * 0.94 * zoom * flight;
         const cardW = 168.0;
         final dx = x * radius;
         final dy = -y * radius;
@@ -655,7 +1006,24 @@ class _FloatingCard extends StatelessWidget {
                     // a country rolling over the limb takes its card with
                     // it, quietly, before it can hang in space.
                     opacity: z > 0.08 ? 1.0 : 0.0,
-                    child: _cardBody(context),
+                    // One country's card melts into the next's while the
+                    // ball turns: no flag swaps in place without a word.
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 340),
+                      switchInCurve: Curves.easeOutCubic,
+                      switchOutCurve: Curves.easeIn,
+                      transitionBuilder: (child, anim) => FadeTransition(
+                        opacity: anim,
+                        child: ScaleTransition(
+                          scale: Tween(begin: 0.92, end: 1.0).animate(anim),
+                          child: child,
+                        ),
+                      ),
+                      child: KeyedSubtree(
+                        key: ValueKey(selected),
+                        child: _cardBody(context),
+                      ),
+                    ),
                   ),
                 );
               },
@@ -752,6 +1120,8 @@ class _RotatedWorld {
     required this.litWhole,
     required this.anchor,
     required this.roads,
+    required this.graticule,
+    required this.hubs,
   });
 
   final List<GlobeCountry> geometry;
@@ -779,6 +1149,14 @@ class _RotatedWorld {
   /// The chosen country's roads, one path per hub, only their front-of-
   /// ball runs.
   final List<ui.Path> roads;
+
+  /// The faint coordinate grid: the meridians and parallels' front-of-
+  /// ball runs, one path for them all.
+  final ui.Path graticule;
+
+  /// The world's exchange hubs, on screen — only the ones facing the
+  /// viewer. Small lights on the metal, wherever the globe is turned.
+  final List<Offset> hubs;
 
   /// Projects the whole world at the view (lat, lon): every country's
   /// rings become screen paths, roads included.
@@ -869,6 +1247,49 @@ class _RotatedWorld {
       }
     }
 
+    // The coordinate grid: meridians every thirty degrees, parallels
+    // every thirty, projected and kept only where the ball faces the
+    // viewer — the metal's own faint graph paper.
+    final graticule = ui.Path();
+    void line(Iterable<(double, double)> samples) {
+      var pen = false;
+      for (final (latDeg, lonDeg) in samples) {
+        final p = view.project(GlobePlace(latDeg, lonDeg).unit);
+        if (p.$3 > 0) {
+          final q = Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius);
+          if (pen) {
+            graticule.lineTo(q.dx, q.dy);
+          } else {
+            graticule.moveTo(q.dx, q.dy);
+            pen = true;
+          }
+        } else {
+          pen = false;
+        }
+      }
+    }
+
+    for (var lon = -150; lon <= 180; lon += 30) {
+      line([
+        for (var lat = -84; lat <= 84; lat += 4) (lat.toDouble(), lon.toDouble()),
+      ]);
+    }
+    for (var lat = -60; lat <= 60; lat += 30) {
+      line([
+        for (var lon = -180; lon <= 180; lon += 4) (lat.toDouble(), lon.toDouble()),
+      ]);
+    }
+
+    // The hubs, on screen: small lights where the internet's roads
+    // gather, whatever country the traffic leaves from.
+    final hubs = <Offset>[];
+    for (final hub in globeHubs) {
+      final (hx, hy, hz) = view.project(hub.unit);
+      if (hz > 0) {
+        hubs.add(Offset(center.dx + hx * radius, center.dy - hy * radius));
+      }
+    }
+
     return _RotatedWorld(
       geometry: geometry,
       selected: selected,
@@ -883,6 +1304,8 @@ class _RotatedWorld {
       litWhole: litWhole,
       anchor: anchor,
       roads: roads,
+      graticule: graticule,
+      hubs: hubs,
     );
   }
 
@@ -948,65 +1371,149 @@ class _RotatedWorld {
   }
 }
 
-/// The painter: the ball of silver, the land, the lit country, the pin,
-/// and the roads. Everything is already projected ([_RotatedWorld]); a
-/// frame only lights it.
+/// The painter: the sky's stars, the ball of metal in the style's own
+/// colors, the coordinate grid, the land, the lit country, the pin, and
+/// the roads. Everything is already projected ([_RotatedWorld]); a frame
+/// only lights it. The zoom is a scale of the canvas around the ball's
+/// center — the world is never rebuilt for it.
 class _GlobePainter extends CustomPainter {
   _GlobePainter({
     required this.world,
     required this.accent,
+    required this.palette,
     required this.dark,
     required this.breath,
+    required this.animated,
+    required this.arrive,
+    required this.zoom,
   });
 
   final _RotatedWorld world;
   final Color accent;
+  final GlobePalette palette;
   final bool dark;
   final double breath;
+
+  /// Whether the breath runs (the connection is up and the battery saver
+  /// is off): the comets fly only then.
+  final bool animated;
+
+  /// The arrival: 0 at the flight's landing, 1 when the pin has dropped
+  /// and the roads have drawn themselves out. 1 when nothing arrived.
+  final double arrive;
+
+  /// The camera: the map's zoom (user's zoom, times the flight's own
+  /// pull-back). The world stays as built; the canvas scales.
+  final double zoom;
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = world.center;
     final radius = world.radius;
+    final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * breath);
 
-    // The ball: silver metal — a light high on the upper left, falling
-    // away to a dark limb — the way a steel ball reads under a lamp. In
-    // the day theme the metal is lighter; the same shape reads in both.
+    // The sky first, behind everything: the style's own stars, twinkling
+    // on the breath's clock. The ball covers the ones it hides.
+    if (palette.starAlpha > 0.01) {
+      final star = Paint()..isAntiAlias = true;
+      for (final (x, y, r, phase) in _stars) {
+        final twinkle =
+            0.55 + 0.45 * math.sin(2 * math.pi * (breath * 1.4 + phase));
+        star.color = palette.stars
+            .withValues(alpha: palette.starAlpha * twinkle * (0.5 + 0.5 * r));
+        canvas.drawCircle(
+          Offset(x * size.width, y * size.height),
+          r * 0.9,
+          star,
+        );
+      }
+    }
+
+    // Everything of the ball scales with the camera: one transform
+    // around the ball's center carries the zoom, so a pinch never
+    // rebuilds the world.
+    canvas.save();
+    canvas.translate(center.dx, center.dy);
+    canvas.scale(zoom);
+    canvas.translate(-center.dx, -center.dy);
+
+    // The halo outside the limb: a breath of light leaving the ball, the
+    // state's own color mixed into the style's own.
+    final haloColor = Color.lerp(palette.halo, accent, 0.35)!;
+    canvas.drawCircle(
+      center,
+      radius + radius * 0.06,
+      Paint()
+        ..shader = ui.Gradient.radial(
+          center,
+          radius * 1.06,
+          [
+            haloColor.withValues(alpha: 0.0),
+            haloColor.withValues(alpha: dark ? 0.20 : 0.13),
+            haloColor.withValues(alpha: 0.0),
+          ],
+          const [0.62, 0.9, 1.0],
+        ),
+    );
+
+    // The ball: the style's metal — a light high on the upper left,
+    // falling away to a dark limb — the way a ball reads under a lamp.
     final ball = Paint()
       ..shader = ui.Gradient.radial(
         center + Offset(-radius * 0.36, -radius * 0.42),
         radius * 1.75,
-        dark
-            ? [
-                const Color(0xFF9AA3B2),
-                const Color(0xFF4A5160),
-                const Color(0xFF20242E),
-                const Color(0xFF0B0D12),
-              ]
-            : [
-                const Color(0xFFF4F6FA),
-                const Color(0xFFC3C9D6),
-                const Color(0xFF8C93A3),
-                const Color(0xFF5D6371),
-              ],
+        palette.ball,
         const [0.0, 0.35, 0.72, 1.0],
       );
     canvas.drawCircle(center, radius, ball);
 
-    final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * breath);
+    // The lamp's own light: a small, quiet bloom where the light lands.
+    canvas.drawCircle(
+      center + Offset(-radius * 0.38, -radius * 0.44),
+      radius * 0.42,
+      Paint()
+        ..shader = ui.Gradient.radial(
+          center + Offset(-radius * 0.38, -radius * 0.44),
+          radius * 0.42,
+          [
+            palette.specular.withValues(alpha: 0.9),
+            palette.specular.withValues(alpha: 0.0),
+          ],
+        ),
+    );
 
-    // The land: outlines for every visible country, fills for the ones
-    // that lie wholly in view — quiet, so the page's own words stay
-    // readable over the metal.
+    // The coordinate grid, under the land: the metal's own faint graph
+    // paper, meridians and parallels together.
+    canvas.drawPath(
+      world.graticule,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.7
+        ..isAntiAlias = true
+        ..color = palette.graticule,
+    );
+
+    // The land: a breath of shadow first — the relief reads lifted off
+    // the metal — then the fills, then the outlines for every visible
+    // country. Quiet, so the page's own words stay readable over it.
     canvas.drawPath(
       world.landFill,
       Paint()
         ..style = PaintingStyle.fill
         ..isAntiAlias = true
-        ..color = dark
-            ? Colors.white.withValues(alpha: 0.10)
-            : Colors.black.withValues(alpha: 0.08),
+        ..color = palette.shadow
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.6),
     );
+    canvas.save();
+    canvas.translate(0, -1.4);
+    canvas.drawPath(
+      world.landFill,
+      Paint()
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true
+        ..color = palette.landFill,
+    );
+    canvas.restore();
     canvas.drawPath(
       world.landStroke,
       Paint()
@@ -1015,50 +1522,59 @@ class _GlobePainter extends CustomPainter {
         ..isAntiAlias = true
         ..strokeJoin = StrokeJoin.round
         ..strokeCap = StrokeCap.round
-        ..color = (dark ? Colors.white : Colors.black)
-            .withValues(alpha: dark ? 0.34 : 0.42),
+        ..color = palette.landStroke,
     );
 
     // The roads first, under the lit country: wide soft glow, a bright
     // core, and — while the globe breathes — a comet of light gliding
-    // each road round and round.
+    // each road round and round. A fresh arrival draws the core on, from
+    // the country out to the hubs.
+    final roadGlow = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3.2
+      ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..color = accent.withValues(alpha: dark ? 0.34 : 0.22)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
+    final roadCore = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.1
+      ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..color = accent.withValues(
+        alpha: (dark ? 0.85 : 0.60) * (0.7 + 0.3 * breathe),
+      );
+    final run = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..color = Colors.white.withValues(alpha: dark ? 0.85 : 0.5);
     for (final road in world.roads) {
-      canvas.drawPath(
-        road,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 3.2
-          ..isAntiAlias = true
-          ..strokeCap = StrokeCap.round
-          ..color = accent.withValues(alpha: dark ? 0.34 : 0.22)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-      );
-      canvas.drawPath(
-        road,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.1
-          ..isAntiAlias = true
-          ..strokeCap = StrokeCap.round
-          ..color = accent.withValues(
-            alpha: (dark ? 0.85 : 0.60) * (0.7 + 0.3 * breathe),
-          ),
-      );
-      if (breathe > 0.05 && breath > 0.0) {
-        final run = Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.0
-          ..isAntiAlias = true
-          ..strokeCap = StrokeCap.round
-          ..color = Colors.white.withValues(alpha: dark ? 0.85 : 0.5);
+      canvas.drawPath(road, roadGlow);
+      if (arrive < 1.0) {
+        // The road draws itself: the arrival's clock carries the pen
+        // from the chosen country out to the hub.
         for (final m in road.computeMetrics()) {
-          if (m.length < 24) continue;
-          // One comet per road: a short bright dash gliding the whole
-          // length over the breath's period.
-          final t = (breath * m.length * 2) % m.length;
-          final head = (t + math.min(24.0, m.length * 0.18))
-              .clamp(0.0, m.length);
-          if (head > t) canvas.drawPath(m.extractPath(t, head), run);
+          if (m.length < 8) continue;
+          final head = m.length * Curves.easeOutCubic.transform(
+            arrive.clamp(0.0, 1.0),
+          );
+          canvas.drawPath(m.extractPath(0, head), roadCore);
+          canvas.drawPath(m.extractPath(0, head), run);
+        }
+      } else {
+        canvas.drawPath(road, roadCore);
+        if (animated) {
+          for (final m in road.computeMetrics()) {
+            if (m.length < 24) continue;
+            // One comet per road: a short bright dash gliding the whole
+            // length over the breath's period.
+            final t = (breath * m.length * 2) % m.length;
+            final head = (t + math.min(24.0, m.length * 0.18))
+                .clamp(0.0, m.length);
+            if (head > t) canvas.drawPath(m.extractPath(t, head), run);
+          }
         }
       }
     }
@@ -1085,45 +1601,32 @@ class _GlobePainter extends CustomPainter {
         ..strokeCap = StrokeCap.round,
     );
 
-    // The pin at the chosen country's anchor: a soft bloom, two rings
-    // swelling with the breath, and the bright seed they swell around.
-    final anchor = world.anchor;
-    if (anchor != null) {
+    // The hubs: small lights where the world's roads gather. The three
+    // the traffic reaches for read a touch brighter than the rest.
+    for (var i = 0; i < world.hubs.length; i++) {
+      final seat = world.hubs[i];
+      final near = i < 3;
       canvas.drawCircle(
-        anchor,
-        20 * (0.9 + 0.25 * breathe),
+        seat,
+        near ? 4.6 : 2.6,
         Paint()
-          ..color = accent.withValues(
-            alpha: (dark ? 0.38 : 0.26) * (0.45 + 0.55 * breathe),
-          )
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14)
-          ..isAntiAlias = true,
-      );
-      for (final (r, a) in [(22.0, 0.30), (13.0, 0.55)]) {
-        canvas.drawCircle(
-          anchor,
-          r * (0.85 + 0.3 * breathe),
-          Paint()
-            ..color = accent.withValues(alpha: a * (dark ? 1.0 : 0.75))
-            ..isAntiAlias = true,
-        );
-      }
-      canvas.drawCircle(
-        anchor,
-        3.4 + 1.2 * breathe,
-        Paint()
-          ..color = dark ? Colors.white : Colors.black
+          ..color = accent.withValues(alpha: near ? 0.16 : 0.10)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4)
           ..isAntiAlias = true,
       );
       canvas.drawCircle(
-        anchor,
-        2.0,
-        Paint()..color = accent..isAntiAlias = true,
+        seat,
+        near ? 1.7 : 1.15,
+        Paint()
+          ..color = (dark ? Colors.white : Colors.black)
+              .withValues(alpha: near ? 0.75 : 0.42)
+          ..isAntiAlias = true,
       );
     }
 
-    // The limb's atmosphere, last: a ring of the state's light hugging
-    // the edge from inside — the globe's edge reads lit, not cut.
+    // The limb's atmosphere, last inside the ball: a ring of the state's
+    // light hugging the edge from inside — the globe's edge reads lit,
+    // not cut.
     canvas.drawCircle(
       center,
       radius - 1,
@@ -1140,14 +1643,78 @@ class _GlobePainter extends CustomPainter {
           const [0.72, 1.0],
         ),
     );
+    canvas.restore();
+
+    // The pin at the chosen country's anchor, on the scaled ball: a soft
+    // bloom, two rings swelling with the breath, the bright seed they
+    // swell around — and, on a fresh arrival, the seed drops the last
+    // stretch with a bounce while a ring bursts outward from the pin.
+    final anchor = world.anchor;
+    if (anchor != null) {
+      final seat = Offset(
+        center.dx + (anchor.dx - center.dx) * zoom,
+        center.dy + (anchor.dy - center.dy) * zoom,
+      );
+      final drop = Curves.elasticOut.transform(arrive.clamp(0.0, 1.0));
+      final seedSeat = seat.translate(0, 10 * (1 - drop));
+      final burst = arrive < 1.0
+          ? 1.0 - arrive
+          : 0.0;
+      if (burst > 0) {
+        canvas.drawCircle(
+          seat,
+          14 + 26 * (1 - burst),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.4 * burst
+            ..color = accent.withValues(alpha: 0.55 * burst)
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.drawCircle(
+        seedSeat,
+        20 * (0.9 + 0.25 * breathe),
+        Paint()
+          ..color = accent.withValues(
+            alpha: (dark ? 0.38 : 0.26) * (0.45 + 0.55 * breathe),
+          )
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14)
+          ..isAntiAlias = true,
+      );
+      for (final (r, a) in [(22.0, 0.30), (13.0, 0.55)]) {
+        canvas.drawCircle(
+          seedSeat,
+          r * (0.85 + 0.3 * breathe),
+          Paint()
+            ..color = accent.withValues(alpha: a * (dark ? 1.0 : 0.75))
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.drawCircle(
+        seedSeat,
+        3.4 + 1.2 * breathe,
+        Paint()
+          ..color = dark ? Colors.white : Colors.black
+          ..isAntiAlias = true,
+      );
+      canvas.drawCircle(
+        seedSeat,
+        2.0,
+        Paint()..color = accent..isAntiAlias = true,
+      );
+    }
   }
 
   @override
   bool shouldRepaint(_GlobePainter old) =>
       old.world != world ||
       old.accent != accent ||
+      old.palette != palette ||
       old.dark != dark ||
-      (old.breath - breath).abs() > 0.003;
+      old.animated != animated ||
+      (old.breath - breath).abs() > 0.003 ||
+      (old.arrive - arrive).abs() > 0.003 ||
+      (old.zoom - zoom).abs() > 0.001;
 }
 
 /// The chosen country's anchor, back in degrees, for the hub search.

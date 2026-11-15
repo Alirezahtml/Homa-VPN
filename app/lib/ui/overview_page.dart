@@ -1134,6 +1134,10 @@ class _PhoneHome extends StatelessWidget {
                     label: selectedCode.length == 2
                         ? countryName(l, selectedCode)
                         : '',
+                    style: GlobeStyle.values
+                        .asNameMap()[settings.mapStyle] ??
+                        GlobeStyle.silver,
+                    still: settings.batterySaver,
                   );
                 },
               ),
@@ -1254,6 +1258,7 @@ class _PhoneHome extends StatelessWidget {
                 card: p.card,
                 border: p.cardBorder,
                 onOpenServers: onOpenServers,
+                still: settings.batterySaver,
               ),
             ),
             const Spacer(),
