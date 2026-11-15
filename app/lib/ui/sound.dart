@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart'
     show NavigatorObserver, Route;
@@ -67,7 +69,17 @@ abstract final class AppSounds {
     _ensure(cue);
     final pool = _pools[cue];
     if (pool == null) return;
-    pool.start().catchError((Object _) {});
+    unawaited(_start(pool));
+  }
+
+  /// One note, failures swallowed: a sound that cannot play is never an
+  /// error the app should carry.
+  static Future<void> _start(AudioPool pool) async {
+    try {
+      await pool.start();
+    } catch (_) {
+      // The next note plays; nothing to report.
+    }
   }
 }
 
