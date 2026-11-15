@@ -47,10 +47,35 @@ class FlagCarousel extends StatefulWidget {
 }
 
 class _FlagCarouselState extends State<FlagCarousel>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   List<Location>? _locations;
   PageController? _controller;
   bool _moving = false;
+
+  /// The page the landing spring last played for, so it plays once per
+  /// arrival, not on every scroll tick.
+  int _lastSpring = -1;
+
+  /// The choice's landing: one short swell when another country arrives
+  /// at the middle — the card rises past its size, holds a beat, and
+  /// eases back — the wheel says “this one” instead of only stopping.
+  late final AnimationController _settle = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 640),
+  );
+  late final Animation<double> _settlePulse = TweenSequence<double>([
+    TweenSequenceItem(
+      tween: Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeOut)),
+      weight: 38,
+    ),
+    TweenSequenceItem(tween: ConstantTween(1.0), weight: 14),
+    TweenSequenceItem(
+      tween: Tween(begin: 1.0, end: 0.0).chain(
+        CurveTween(curve: Curves.easeInOutCubic),
+      ),
+      weight: 48,
+    ),
+  ]).animate(_settle);
 
   /// The wheel's own slow breath (2.8 s out, 2.8 s back): the halo behind
   /// the chosen country and the glow on its card swell and shrink with
@@ -99,6 +124,7 @@ class _FlagCarouselState extends State<FlagCarousel>
     widget.core.removeListener(_followSoon);
     _controller?.dispose();
     _breath.dispose();
+    _settle.dispose();
     super.dispose();
   }
 
@@ -188,6 +214,12 @@ class _FlagCarouselState extends State<FlagCarousel>
             curve: Curves.easeOutCubic,
           )
           .whenComplete(() => _moving = false);
+      // The wheel followed a choice made somewhere else: its arrival
+      // lands with the same spring a drag's does.
+      if (target != _lastSpring) {
+        _lastSpring = target;
+        _settle.forward(from: 0);
+      }
     }
   }
 
@@ -284,6 +316,11 @@ class _FlagCarouselState extends State<FlagCarousel>
               if (!_moving && chosen != _selection) {
                 unawaited(_choose(loc));
               }
+              // A new country at the middle lands with its spring.
+              if (page != _lastSpring) {
+                _lastSpring = page;
+                _settle.forward(from: 0);
+              }
             },
             itemBuilder: (context, page) {
               final loc = entries[page % entries.length];
@@ -307,6 +344,7 @@ class _FlagCarouselState extends State<FlagCarousel>
                       distance: distance,
                       side: side,
                       breath: _breath,
+                      settle: _settlePulse,
                       accent: accent,
                       dark: dark,
                       border: widget.border,
@@ -381,12 +419,18 @@ class _FlagCarouselState extends State<FlagCarousel>
 /// shelf it faintly reflects in. The others: smaller cards that sink in
 /// an arc and turn a few degrees toward the middle, each with a little
 /// depth and less opacity, so the row reads as a wheel of flags.
+///
+/// The card shows the flag whole: its frame is the flag's own 3:2, so no
+/// country loses its edge to a crop. A card a few pages out fades away
+/// before it reaches the screen's edge — the wheel never hands the user
+/// half a flag — and the chosen one lands with a short spring.
 class _FlagCard extends StatelessWidget {
   const _FlagCard({
     required this.location,
     required this.distance,
     required this.side,
     required this.breath,
+    required this.settle,
     required this.accent,
     required this.dark,
     required this.border,
@@ -404,27 +448,47 @@ class _FlagCard extends StatelessWidget {
   /// The wheel's breath: only the chosen card moves with it.
   final Animation<double> breath;
 
+  /// The landing spring: one swell-and-settle when a choice arrives.
+  final Animation<double> settle;
+
   final Color accent;
   final bool dark;
   final Color border;
   final VoidCallback onTap;
+
+  /// The fade of a card this far from the middle: whole within a page
+  /// and a half, gone by two — before the screen's edge can cut it in
+  /// half. A smooth step, so the leaving is a dissolve, not a pop.
+  static double edgeFade(double distance) {
+    const start = 1.30, end = 1.95;
+    if (distance <= start) return 1;
+    if (distance >= end) return 0;
+    final t = (distance - start) / (end - start);
+    final smooth = t * t * (3 - 2 * t);
+    return 1.0 - smooth;
+  }
 
   @override
   Widget build(BuildContext context) {
     final chosen = distance < 0.5;
     // The size falls away from the middle exponentially, so the drop is
     // steep beside the chosen card and gentle far out: a wheel, not a
-    // ladder.
+    // ladder. The frame is the flag's own 3:2: the art fits whole.
     final width = 46.0 + 30.0 * math.exp(-1.35 * distance);
-    final height = width * 3 / 4;
+    final height = width * 2 / 3;
     final radius = 8.0 + 7.0 * math.exp(-1.35 * distance);
     // The arc: the neighbors sit a touch lower the further they are, so
     // the row bends gently — a wheel in perspective, not a scatter: a
     // deep dip and a wide turn read as a mess of flags, not a wheel.
     final dip = 2.0 + 6.0 * math.min(1.0, distance);
     // The turn: the neighbors face the middle by a few degrees, in
-    // perspective (a hair of it, not a cover flow).
-    final turn = -0.055 * math.min(1.2, distance) * side;
+    // perspective — a hair of it, barely there: enough for depth, too
+    // little for the smearing a cover flow brings.
+    final turn = -0.03 * math.min(1.2, distance) * side;
+    // The whole card's alpha: the wheel's step back, times the edge
+    // fade that dissolves the outermost pages.
+    final alpha =
+        (1.0 - 0.30 * math.min(1.25, distance)) * _FlagCard.edgeFade(distance);
     final scheme = Theme.of(context).colorScheme;
 
     final card = InkWell(
@@ -459,10 +523,11 @@ class _FlagCard extends StatelessWidget {
                 ]
               : [
                   // Depth for the smaller cards: they float a little
-                  // lower than the chosen one.
+                  // lower than the chosen one, in a shadow soft enough
+                  // that the row never reads as a pile of cards.
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: dark ? 0.45 : 0.16),
-                    blurRadius: 9,
+                    color: Colors.black.withValues(alpha: dark ? 0.34 : 0.12),
+                    blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
                 ],
@@ -481,13 +546,14 @@ class _FlagCard extends StatelessWidget {
                   ]
                 : [
                     Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-                    Colors.black.withValues(alpha: dark ? 0.28 : 0.10),
+                    Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
                   ],
           ),
         ),
         child: Opacity(
-          // The chosen one is fully there; the others step back.
-          opacity: (1.0 - 0.34 * math.min(1.25, distance)).clamp(0.0, 1.0),
+          // The chosen one is fully there; the others step back, and the
+          // outermost dissolve before the screen's edge cuts them.
+          opacity: alpha.clamp(0.0, 1.0),
           child: _content(scheme, width),
         ),
       ),
@@ -506,15 +572,16 @@ class _FlagCard extends StatelessWidget {
       );
     }
 
-    // The chosen card: it breathes with the wheel's own clock, and sits
-    // on a glass shelf — a faint reflection of the flag under it, fading
-    // away within a few pixels.
+    // The chosen card: it breathes with the wheel's own clock, lands
+    // with a short spring, and sits on a glass shelf — a faint
+    // reflection of the flag under it, fading away within a few pixels.
     return AnimatedBuilder(
-      animation: breath,
+      animation: Listenable.merge([breath, settle]),
       builder: (context, _) => Transform.translate(
         offset: Offset(0, -2.5 * breath.value),
         child: Transform.scale(
-          scale: 1.0 + 0.015 * breath.value,
+          scale:
+              (1.0 + 0.015 * breath.value) * (1.0 + 0.055 * settle.value),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -557,13 +624,15 @@ class _FlagCard extends StatelessWidget {
     if (bundledFlags.contains(code.toLowerCase())) {
       // The boundary keeps the flag's raster while the wheel's breath
       // recomposes the frame around it: the art repaints only when it
-      // really changes, not on every tick.
+      // really changes, not on every tick. The frame is 3:2, the flag's
+      // own shape: no country is cropped to fit.
       return RepaintBoundary(
         child: SvgPicture.asset(
           'assets/flags/${code.toLowerCase()}.svg',
           width: width,
-          height: width * 3 / 4,
-          fit: BoxFit.cover,
+          height: width * 2 / 3,
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.high,
         ),
       );
     }
@@ -856,7 +925,8 @@ class _StripTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final w = chosen ? 52.0 : 46.0;
-    final h = w * 3 / 4;
+    // The tile is the flag's own 3:2: the art fits whole, never cropped.
+    final h = w * 2 / 3;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -939,8 +1009,9 @@ class _StripTile extends StatelessWidget {
       return SvgPicture.asset(
         'assets/flags/${code.toLowerCase()}.svg',
         width: width,
-        height: width * 3 / 4,
-        fit: BoxFit.cover,
+        height: width * 2 / 3,
+        fit: BoxFit.contain,
+        filterQuality: FilterQuality.high,
       );
     }
     return CountryFlag(code: code, width: width);

@@ -90,8 +90,10 @@ abstract final class WorldMap {
   }
 }
 
-/// The backdrop: the map at the screen's width, centered where asked, in
-/// the theme's ink with the chosen country lit in the state's color.
+/// The backdrop: the map at more than the screen's width — bigger than
+/// the page, so the continents are not squeezed into a strip — centered
+/// where asked, in the theme's ink with the chosen country lit in the
+/// connection's color.
 ///
 /// The [ink] is a light color on the dark theme and a dark one on the
 /// day — the same quiet look the old dot picture had, at any resolution
@@ -105,6 +107,7 @@ class WorldMapBackdrop extends StatefulWidget {
     required this.selected,
     required this.animated,
     this.alignment = Alignment.center,
+    this.scale = 1.45,
   });
 
   /// The world, from [WorldMap.load]; empty until it arrives.
@@ -124,6 +127,11 @@ class WorldMapBackdrop extends StatefulWidget {
   final bool animated;
 
   final Alignment alignment;
+
+  /// How much wider than the page the world is drawn: 1 draws it exactly
+  /// the page's width, where every continent reads as a squeezed ribbon;
+  /// more gives the countries room, and the page clips what runs over.
+  final double scale;
 
   @override
   State<WorldMapBackdrop> createState() => _WorldMapBackdropState();
@@ -167,25 +175,29 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
           if (box.maxWidth <= 0 || widget.countries.isEmpty) {
             return const SizedBox.expand();
           }
-          // The world is 2:1: it fills the width and floats where asked.
-          final mapW = box.maxWidth;
+          // The world is 2:1: it is drawn wider than the page (scale),
+          // floats where asked, and what runs over the page's edge is
+          // clipped — bigger countries, no squeezed ribbon, no bleed.
+          final mapW = box.maxWidth * widget.scale;
           final mapH = mapW / 2;
           return SizedBox.expand(
-            child: Align(
-              alignment: widget.alignment,
-              child: SizedBox(
-                width: mapW,
-                height: mapH,
-                child: AnimatedBuilder(
-                  animation: _breath,
-                  builder: (context, _) => CustomPaint(
-                    size: Size(mapW, mapH),
-                    painter: _WorldPainter(
-                      countries: widget.countries,
-                      ink: widget.ink,
-                      accent: widget.accent,
-                      selected: widget.selected,
-                      t: widget.animated ? _breath.value : 0.5,
+            child: ClipRect(
+              child: Align(
+                alignment: widget.alignment,
+                child: SizedBox(
+                  width: mapW,
+                  height: mapH,
+                  child: AnimatedBuilder(
+                    animation: _breath,
+                    builder: (context, _) => CustomPaint(
+                      size: Size(mapW, mapH),
+                      painter: _WorldPainter(
+                        countries: widget.countries,
+                        ink: widget.ink,
+                        accent: widget.accent,
+                        selected: widget.selected,
+                        t: widget.animated ? _breath.value : 0.5,
+                      ),
                     ),
                   ),
                 ),
@@ -220,14 +232,16 @@ class _WorldPainter extends CustomPainter {
     final sx = size.width / WorldMap.width;
     final sy = size.height / WorldMap.height;
     // A light ink on the night, a dark one on the day — the map's quiet
-    // is a matter of alpha, not hue, in either theme.
+    // is a matter of alpha, not hue, in either theme. The land sits a
+    // shade above the graticule, so a country reads as a shape, not as
+    // noise.
     final dark = ink.computeLuminance() > 0.5;
-    final landInk = ink.withValues(alpha: dark ? 0.17 : 0.12);
-    final lineInk = ink.withValues(alpha: dark ? 0.35 : 0.28);
+    final landInk = ink.withValues(alpha: dark ? 0.20 : 0.14);
+    final lineInk = ink.withValues(alpha: dark ? 0.32 : 0.26);
 
     // The graticule: every 30 degrees, thinner than the land's edge.
     final grid = Paint()
-      ..color = ink.withValues(alpha: dark ? 0.07 : 0.06)
+      ..color = ink.withValues(alpha: dark ? 0.055 : 0.05)
       ..strokeWidth = 0.6;
     for (var lon = 0; lon <= 6; lon++) {
       final x = lon / 6 * size.width;
@@ -256,8 +270,12 @@ class _WorldPainter extends CustomPainter {
     final edge = Paint()
       ..color = lineInk
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0
-      ..isAntiAlias = true;
+      ..strokeWidth = 0.9
+      ..isAntiAlias = true
+      // Rounded joins and caps: the coastlines' corners meet smoothly —
+      // the map reads clean at any zoom, never as a jagged wire.
+      ..strokeJoin = StrokeJoin.round
+      ..strokeCap = StrokeCap.round;
 
     for (final c in countries) {
       if (identical(c, chosen)) continue;
@@ -282,16 +300,29 @@ class _WorldPainter extends CustomPainter {
       final litEdge = Paint()
         ..color = accent.withValues(alpha: dark ? 0.85 : 0.70)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.6
-        ..isAntiAlias = true;
+        ..strokeWidth = 1.5
+        ..isAntiAlias = true
+        ..strokeJoin = StrokeJoin.round
+        ..strokeCap = StrokeCap.round;
       for (final ring in chosen.rings) {
         final path = _path(ring, sx, sy);
         canvas.drawPath(path, fill);
         canvas.drawPath(path, litEdge);
       }
-      // The anchor's halo: three rings of light that swell and shrink
+      // The anchor's halo: a soft bloom of light first — blurred, so it
+      // glows rather than rings — then three rings that swell and shrink
       // with the breath, and the dot at the middle of them.
       final anchor = ui.Offset(chosen.anchorX * sx, chosen.anchorY * sy);
+      canvas.drawCircle(
+        anchor,
+        26 * (0.9 + 0.25 * breathe),
+        Paint()
+          ..color = accent.withValues(
+            alpha: (dark ? 0.30 : 0.20) * (0.45 + 0.55 * breathe),
+          )
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16)
+          ..isAntiAlias = true,
+      );
       for (final (r, a) in [
         (30.0, 0.14),
         (20.0, 0.24),
