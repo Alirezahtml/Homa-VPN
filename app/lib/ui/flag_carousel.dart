@@ -14,9 +14,11 @@ import 'widgets.dart';
 
 /// The home page's country wheel: the locations' flags in one horizontal,
 /// draggable row, the chosen one larger in the middle, over a glass shelf
-/// it reflects in, its name under it. The list is the core's real one
-/// (Mozilla's server list), and choosing a country moves the VPN there —
-/// the servers page follows, since it reads the same choice back.
+/// it reflects in — the chosen country's own name lives on the globe's
+/// floating card, so the wheel carries no second copy of it. The list is
+/// the core's real one (Mozilla's server list), and choosing a country
+/// moves the VPN there — the servers page follows, since it reads the
+/// same choice back.
 ///
 /// The motion: the neighbors shrink and sink in an arc away from the
 /// middle, each turned a few degrees toward it, so the row reads as a
@@ -31,6 +33,7 @@ class FlagCarousel extends StatefulWidget {
     required this.card,
     required this.border,
     this.onOpenServers,
+    this.still = false,
   });
 
   final CoreController core;
@@ -39,6 +42,11 @@ class FlagCarousel extends StatefulWidget {
   final Color card;
   final Color border;
   final VoidCallback? onOpenServers;
+
+  /// The battery saver's word: the wheel's glow rests — the halo and the
+  /// shelf hold one pose — while the flags themselves still answer the
+  /// hand. Nothing the choosing needs is touched.
+  final bool still;
 
   @override
   State<FlagCarousel> createState() => _FlagCarouselState();
@@ -77,11 +85,13 @@ class _FlagCarouselState extends State<FlagCarousel>
 
   /// The wheel's own slow breath (2.8 s out, 2.8 s back): the halo behind
   /// the chosen country and the glow on its card swell and shrink with
-  /// it, so the wheel feels alive even while nothing is dragged.
+  /// it, so the wheel feels alive even while nothing is dragged. It waits
+  /// for [initState] to say whether it may run — the battery saver holds
+  /// it still.
   late final AnimationController _breath = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2800),
-  )..repeat(reverse: true);
+  );
 
   /// The choice the core reports ('' recommended, 'fastest', or a code),
   /// lower-cased; the wheel keeps its page on it.
@@ -93,6 +103,7 @@ class _FlagCarouselState extends State<FlagCarousel>
     WidgetsBinding.instance.addObserver(this);
     _load();
     widget.core.addListener(_followSoon);
+    _setBreathing();
     // The cards size themselves by their page's distance from the
     // middle, which the controller only knows once the page view has
     // laid out. At rest nothing scrolls and nothing notifies, so the
@@ -101,6 +112,24 @@ class _FlagCarouselState extends State<FlagCarousel>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
+  }
+
+  /// Whether the wheel's own glow should breathe: not while the battery
+  /// saver holds it still.
+  bool get _breathWanted => !widget.still;
+
+  void _setBreathing() {
+    if (_breathWanted) {
+      if (!_breath.isAnimating) _breath.repeat(reverse: true);
+    } else {
+      _breath.stop();
+    }
+  }
+
+  @override
+  void didUpdateWidget(FlagCarousel old) {
+    super.didUpdateWidget(old);
+    if (old.still != widget.still) _setBreathing();
   }
 
   @override
@@ -112,7 +141,7 @@ class _FlagCarouselState extends State<FlagCarousel>
         state == AppLifecycleState.paused) {
       _breath.stop();
     } else if (state == AppLifecycleState.resumed) {
-      if (!_breath.isAnimating) _breath.repeat(reverse: true);
+      _setBreathing();
     }
   }
 
@@ -231,21 +260,18 @@ class _FlagCarouselState extends State<FlagCarousel>
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final entries = _entries(l);
+    final entries = _entries(AppLocalizations.of(context));
     if (_locations == null || entries.isEmpty) {
-      return const SizedBox(height: 234);
+      // The name lives on the globe's floating card alone now: the wheel
+      // keeps only its height, no second copy of it under the flags.
+      return const SizedBox(height: 198);
     }
-    final index = _indexOf(entries, _selection);
-    final centered = index >= 0 ? entries[index] : null;
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         _wheel(entries, dark),
         const SizedBox(height: 10),
         _indicators(entries, dark),
-        const SizedBox(height: 4),
-        _name(l, centered, dark),
       ],
     );
   }
@@ -470,46 +496,6 @@ class _FlagCarouselState extends State<FlagCarousel>
       ),
     );
   }
-
-  /// The chosen country's name under the flags, in white, arriving with a
-  /// slide and a small growth; the fastest choice has no country, and
-  /// keeps its own line empty rather than naming another.
-  Widget _name(AppLocalizations l, Location? centered, bool dark) => SizedBox(
-    height: 32,
-    child: AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      switchInCurve: Curves.easeOutCubic,
-      switchOutCurve: Curves.easeIn,
-      transitionBuilder: (child, anim) => FadeTransition(
-        opacity: anim,
-        child: SlideTransition(
-          position: Tween(
-            begin: const Offset(0, 0.5),
-            end: Offset.zero,
-          ).animate(anim),
-          child: ScaleTransition(
-            scale: Tween(begin: 0.94, end: 1.0).animate(anim),
-            child: child,
-          ),
-        ),
-      ),
-      child: Text(
-        centered == null
-            ? (_selection == 'fastest' ? l.modeFastest : '')
-            : locationName(l, centered.code, centered.name),
-        key: ValueKey(centered?.code ?? _selection),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: dark ? Colors.white : widget.text,
-          fontWeight: FontWeight.w800,
-          fontSize: 17,
-          letterSpacing: 0.3,
-        ),
-      ),
-    ),
-  );
 }
 
 /// One card of the wheel. The chosen one, in the middle: bigger and the
