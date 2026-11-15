@@ -244,14 +244,34 @@ class _SettingsPageState extends State<SettingsPage> {
     return ok;
   }
 
-  void _toast(String text) => ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(text),
-      behavior: SnackBarBehavior.floating,
-      width: 320,
-      duration: const Duration(seconds: 2),
-    ),
-  );
+  /// The confirmation lands as the iOS-style note (widgets.dart), not a
+  /// snack bar: a soft pill with a mark that draws itself.
+  void _toast(String text) => showToast(context, text);
+
+  /// The smart connection is one value in the config — the transport's
+  /// — written together with its two companions, so the three rows read
+  /// as one: proxy.transport "smart" means the MTU, the protocol, and
+  /// the IP version all follow the network.
+  bool get _smart => _str(['proxy', 'transport']) == 'smart';
+
+  Future<void> _setSmart(bool on) => _save({
+    ['proxy', 'transport']: on ? 'smart' : 'h2',
+    ['proxy', 'ip_version']: on ? 'smart' : 'auto',
+    ['tun', 'smart_mtu']: on,
+  });
+
+  /// The transport row's value while the smart connection runs: the
+  /// choice it measured, from the core's own status — not a promise,
+  /// the one actually in use ("Smart · HTTP/3").
+  String _smartTransportValue(AppLocalizations l) {
+    final resolved = _core.status?.proxy?.transport ?? '';
+    final label = switch (resolved) {
+      'h1' => l.transportH1,
+      'h3' => l.transportH3,
+      _ => l.transportH2,
+    };
+    return '${l.valueSmart} · $label';
+  }
 
   /// Removes the TUN service; in TUN mode the core first goes back to proxy
   /// only, so the computer is not left without its connection mode.
@@ -768,6 +788,31 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.cloud_outlined,
           child: Column(
             children: [
+              // The smart connection: one choice that sizes the MTU to
+              // the network, and picks the transport and the IP family
+              // by how the network answers — HTTP/3 where it is carried,
+              // the family that connects first kept until it fails. The
+              // core measures for real; nothing here is guessed. On,
+              // the three choices below stand down (they show what the
+              // measurement picked where it can).
+              _Row(
+                icon: Icons.auto_awesome,
+                label: l.smartNetwork,
+                value: l.smartNetworkHint,
+                child: Switch(
+                  value: _smart,
+                  onChanged: _saving ? null : _setSmart,
+                ),
+              ),
+              if (_smart) ...[
+                _Row(
+                  icon: Icons.http_rounded,
+                  label: l.transport,
+                  value: _smartTransportValue(l),
+                ),
+                _Row(icon: Icons.lan_outlined, label: l.ipVersion, value: l.valueSmart),
+                _Row(icon: Icons.settings_ethernet_rounded, label: l.tunMtu, value: l.mtuAutoValue),
+              ] else ...[
               _Choice<String>(
                 icon: Icons.http_rounded,
                 title: l.transport,
@@ -819,8 +864,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ('ipv6', l.ipVersionV6, null),
                 ],
               ),
+              ],
               // tun.mtu: the VPN interface's MTU (the phone's VPN, the
-              // computer's TUN); empty keeps each one's own.
+              // computer's TUN); empty keeps each one's own. The smart
+              // connection sizes it to the network instead, and the
+              // field stands down.
+              if (!_smart)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                 child: _TextSetting(
