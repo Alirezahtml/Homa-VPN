@@ -544,7 +544,7 @@ class _FlagCarouselState extends State<FlagCarousel>
           layoutBuilder: (current, previous) => Stack(
             alignment: Alignment.center,
             children: [
-              if (previous != null) previous,
+              ...previous,
               if (current != null) current,
             ],
           ),

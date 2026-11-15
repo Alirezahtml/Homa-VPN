@@ -880,8 +880,6 @@ class _PlaceCard extends StatelessWidget {
     required this.palette,
     required this.place,
     required this.accent,
-    this.exitIp = '',
-    this.connected = false,
     this.onTap,
     this.compact = false,
   });
