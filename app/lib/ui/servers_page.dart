@@ -523,30 +523,22 @@ class _SmartPickCard extends StatelessWidget {
 }
 
 class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title, this.action});
+  const _SectionHeader({required this.title});
 
   final String title;
-  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(4, 8, 0, 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
-          ?action,
-        ],
+      child: Text(
+        title,
+        style: theme.textTheme.labelLarge?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.3,
+        ),
       ),
     );
   }
