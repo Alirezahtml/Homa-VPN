@@ -3,7 +3,6 @@
 // live on the unit sphere, the hubs sort near-first, and a great circle
 // lands where it takes off.
 import 'dart:math' as math;
-import 'dart:ui' show Offset;
 
 import 'package:arman_vpn/ui/world_map.dart';
 import 'package:flutter_test/flutter_test.dart';
