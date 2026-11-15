@@ -304,6 +304,44 @@ class _ShellState extends State<Shell> {
     // alive whatever page is showing, so the hook lives here.
     widget.core.addListener(_syncFlagArt);
     _syncFlagArt();
+    // The open's own connect: when the user asked for it, the VPN comes
+    // up as the home page does. It waits for the core's first answers
+    // (the status and the accounts arrive together), and plays once.
+    widget.core.addListener(_maybeConnectOnOpen);
+  }
+
+  /// Whether the open's own connect already had its one chance.
+  bool _connectOnOpenDone = false;
+
+  /// The connect-on-open setting's one shot: the core is answering, the
+  /// welcome is finished, there is an account to connect with, and the
+  /// VPN is neither up nor already coming up. Then it connects, quietly
+  /// — a failure leaves the home page to say what went wrong, as it does
+  /// after a hand's own connect.
+  void _maybeConnectOnOpen() {
+    if (_connectOnOpenDone || !Platform.isAndroid) return;
+    final settings = widget.settings;
+    final core = widget.core;
+    if (!settings.connectOnOpen || settings.firstRun) return;
+    final status = core.status;
+    final accounts = core.accounts?.accounts ?? const [];
+    if (status == null || core.accounts == null || accounts.isEmpty) {
+      return; // the core's first answers are still on their way
+    }
+    _connectOnOpenDone = true;
+    final comingUp = status.proxyOn ||
+        status.connectPending ||
+        status.autoConnecting ||
+        core.switchingProxy;
+    if (comingUp) return; // nothing to bring up
+    Future<void>.microtask(() async {
+      try {
+        await core.setOn(true);
+      } on Exception {
+        // The home page reports a failed start on its own; a silent
+        // catch only keeps the shell from turning it into a crash.
+      }
+    });
   }
 
   void _openHome() {
@@ -331,6 +369,7 @@ class _ShellState extends State<Shell> {
   void dispose() {
     AndroidCore.homeRequests.removeListener(_openHome);
     widget.core.removeListener(_syncFlagArt);
+    widget.core.removeListener(_maybeConnectOnOpen);
     super.dispose();
   }
 

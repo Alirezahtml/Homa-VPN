@@ -100,6 +100,21 @@ class AppSettings extends ChangeNotifier {
   /// file reads as the wheel.
   String homeDesign = 'wheel';
 
+  /// The home map's look: one of [GlobeStyle]'s names ('silver',
+  /// 'midnight', 'ocean', 'mono', 'aurora'). Whatever else lands in the
+  /// file reads as the silver.
+  String mapStyle = 'silver';
+
+  /// Puts the map's own motion to rest — the globe's breath, the wheel's
+  /// glow — while the connection stays up. Nothing the connection needs
+  /// is touched; only the animation goes quiet, and the battery with it.
+  bool batterySaver = false;
+
+  /// Connects by itself when the app opens (the phone): the VPN comes up
+  /// as the home page does, the way [autoConnect] does at boot. Off until
+  /// the user turns it on.
+  bool connectOnOpen = false;
+
   /// Puts the VPN back on by itself when the phone's connection drops
   /// without the user asking; off until the user turns it on.
   bool autoReconnect = false;
@@ -286,6 +301,9 @@ class AppSettings extends ChangeNotifier {
         if (j['accent'] case final String a) s.accentKey = a;
         if (j['custom_accent'] case final int v) s.customAccent = v;
         if (j['home_design'] case final String d) s.homeDesign = d;
+        if (j['map_style'] case final String m) s.mapStyle = m;
+        s.batterySaver = j['battery_saver'] == true;
+        s.connectOnOpen = j['connect_on_open'] == true;
         s.autoReconnect = j['auto_reconnect'] == true;
         s.idleDisconnect = j['idle_disconnect'] == true;
         if (j['idle_timeout_min'] case final int v when v > 0) {
@@ -336,6 +354,9 @@ class AppSettings extends ChangeNotifier {
     String? accentKey,
     int? customAccent,
     String? homeDesign,
+    String? mapStyle,
+    bool? batterySaver,
+    bool? connectOnOpen,
     bool? autoReconnect,
     bool? idleDisconnect,
     int? idleTimeoutMin,
@@ -365,6 +386,17 @@ class AppSettings extends ChangeNotifier {
         _ => 'wheel',
       };
     }
+    if (mapStyle != null) {
+      this.mapStyle = switch (mapStyle) {
+        'midnight' => 'midnight',
+        'ocean' => 'ocean',
+        'mono' => 'mono',
+        'aurora' => 'aurora',
+        _ => 'silver',
+      };
+    }
+    this.batterySaver = batterySaver ?? this.batterySaver;
+    this.connectOnOpen = connectOnOpen ?? this.connectOnOpen;
     this.autoReconnect = autoReconnect ?? this.autoReconnect;
     this.idleDisconnect = idleDisconnect ?? this.idleDisconnect;
     this.idleTimeoutMin = idleTimeoutMin ?? this.idleTimeoutMin;
@@ -422,6 +454,9 @@ class AppSettings extends ChangeNotifier {
           'accent': accentKey,
           'custom_accent': customAccent,
           'home_design': homeDesign,
+          'map_style': mapStyle,
+          'battery_saver': batterySaver,
+          'connect_on_open': connectOnOpen,
           'auto_reconnect': autoReconnect,
           'idle_disconnect': idleDisconnect,
           'idle_timeout_min': idleTimeoutMin,
