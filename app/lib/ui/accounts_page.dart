@@ -124,9 +124,7 @@ class _QuotaHero extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final dark = theme.brightness == Brightness.dark;
-    final look = AppDesign.current.look(dark);
-    final accent =
-        look.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
+    final accent = dark ? Colors.white : const Color(0xFF0A0A0A);
     final withUsage = [
       for (final a in accounts)
         if (a.usedPercent > 0) a.usedPercent.clamp(0.0, 100.0),

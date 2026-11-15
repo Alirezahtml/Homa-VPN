@@ -1041,32 +1041,12 @@ class _HomePalette {
   );
 }
 
-/// The home's palette for this build: night or day, in the design the
-/// app wears — the monochrome design keeps the colors it always had,
-/// the neumorphism and the glass bring their own surfaces, ink and
-/// borders — with the chosen accent ([AppAccent]) in the state's lights
-/// when one is set.
+/// The home's palette for this build: night or day, in the app's one
+/// monochrome design, with the chosen accent ([AppAccent]) in the
+/// state's lights when one is set.
 _HomePalette _homePalette(Brightness brightness) {
   final dark = brightness == Brightness.dark;
-  var p = dark ? _HomePalette.night : _HomePalette.day;
-  final look = AppDesign.current.look(dark);
-  if (AppDesign.current.key != 'mono') {
-    p = _HomePalette(
-      dark: dark,
-      top: look.homeTop,
-      bottom: look.homeBottom,
-      text: look.ink,
-      muted: look.muted,
-      card: look.homeCard,
-      cardBorder: look.homeCardBorder,
-      idle: dark ? const Color(0xFF8A8A8A) : const Color(0xFF6B6B6B),
-      connected: dark ? Colors.white : const Color(0xFF0A0A0A),
-      busy: dark ? const Color(0xFFBFBFBF) : const Color(0xFF8A8A8A),
-      error: dark ? Colors.white : const Color(0xFF0A0A0A),
-      discOff: [look.homeCard, look.scaffold],
-      discOffEdge: look.homeCardBorder,
-    );
-  }
+  final p = dark ? _HomePalette.night : _HomePalette.day;
   final accent = AppAccent.current;
   return accent == null ? p : p.tinted(accent);
 }
@@ -1115,6 +1095,7 @@ class _PhoneHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = _homePalette(Theme.of(context).brightness);
+    final l = AppLocalizations.of(context);
     final page = AnnotatedRegion<SystemUiOverlayStyle>(
       value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
           .copyWith(statusBarColor: Colors.transparent),
@@ -1126,30 +1107,36 @@ class _PhoneHome extends StatelessWidget {
             colors: [p.top, p.bottom],
           ),
         ),
-        // The world behind the switch: the countries' own outlines, drawn
-        // live (world_map.dart) in the theme's ink — the graticule over
-        // the oceans, the chosen country lit in the state's color, its
-        // anchor's halo breathing while the VPN carries the traffic.
-        // Centered, so it sits behind the switch rather than the top
-        // edge; crisp at any screen, because it is drawn, not scaled.
+        // The world behind the switch: the globe (world_map.dart) — the
+        // countries' own official outlines carried onto a silver ball,
+        // turned so the chosen country faces the viewer, lit in the
+        // state's color, a glowing pin and a floating card at its anchor,
+        // and the great-circle paths to the hubs burning while the VPN
+        // carries the traffic.
         child: Stack(
           children: [
             Positioned.fill(
               child: FutureBuilder<List<WorldCountry>>(
                 future: WorldMap.load(),
-                builder: (context, snapshot) => WorldMapBackdrop(
-                  countries: snapshot.data ?? const [],
-                  ink: p.dark ? Colors.white : const Color(0xFF0A0A0A),
-                  accent: status.state.phase == Phase.running
-                      ? p.connected
-                      : p.idle,
-                  selected:
-                      (status.exit?.countryCode.isNotEmpty == true
-                              ? status.exit!.countryCode
-                              : status.selection)
-                          .toUpperCase(),
-                  animated: status.state.phase == Phase.running,
-                ),
+                builder: (context, snapshot) {
+                  final selectedCode = (status.exit?.countryCode.isNotEmpty ==
+                              true
+                          ? status.exit!.countryCode
+                          : status.selection)
+                      .toUpperCase();
+                  return WorldGlobe(
+                    countries: snapshot.data ?? const [],
+                    accent: status.state.phase == Phase.running
+                        ? p.connected
+                        : p.idle,
+                    selected: selectedCode,
+                    animated: status.state.phase == Phase.running,
+                    dark: p.dark,
+                    label: selectedCode.length == 2
+                        ? countryName(l, selectedCode)
+                        : '',
+                  );
+                },
               ),
             ),
             LayoutBuilder(
@@ -1267,7 +1254,6 @@ class _PhoneHome extends StatelessWidget {
                 muted: p.muted,
                 card: p.card,
                 border: p.cardBorder,
-                accent: accent,
                 onOpenServers: onOpenServers,
               ),
             ),

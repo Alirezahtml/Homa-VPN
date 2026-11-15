@@ -594,13 +594,6 @@
   "wnToastAdded": "A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.",
   "wnFlagsImproved": "A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.",
   "wnMapImproved": "A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.",
-  "lookTitle": "Alkalmazás dizájn",
-  "lookMono": "Egyszínű",
-  "lookMonoDesc": "Az app fekete-fehérje: teljes kontraszt, csendes, szín nélkül.",
-  "lookNeu": "Lágy neomorfizmus",
-  "lookNeuDesc": "Nappal meleg porcelán, éjjel matt obszidián — kártyák, mintha a lapba nyomhatnád, naplemente-narancs fénnyel.",
-  "lookGlass": "Sarki fény üveg",
-  "lookGlassDesc": "Mély éjszakai ég kék dérével — kártyák, mint üvegtáblák felette.",
   "smartWaiting": "Mérés folyamatban…",
   "smartFamilyRace": "Az első kapcsolatnál mindkettő versenyez",
   "dnsManual": "Kézi DNS",
@@ -613,10 +606,27 @@
   "wnDesignsAdded": "Alkalmazás-dizájnok: az egész app öltheti a Lágy neomorfizmust vagy a Sarkifény-üveget — minden oldal, minden kártya — a Beállítások → Általános alatt.",
   "wnWheelFixed": "A kerék félzászlója eltűnt: a kiválasztott zászló alatti polc egy fénytó, nem második zászló, és a képernyő szélén semmi nem vágódik félbe.",
   "wnMapReal": "A világtérkép a hivatalos országhatárokból készült újra — minden part, sziget és enkkláv, hűen és valódi arányban.",
+  "wnGlobeAdded": "A világ most gömb: az ezüst gömb a kiválasztott ország felé fordul, fénylő tű és lebegő kártya jelöli, a kapcsolat útjai a csomópontok felé futnak.",
+  "wnWheelGlowImproved": "A kiválasztott zászló nagyobban áll a saját kék halójával övezett üvegkeretben, a szomszédok láthatóan kisebbek, a kerék alatti jelzők pedig mutatják, hol tartasz.",
+  "wnDesignsRemoved": "Az alkalmazás-dizájn választó eltávolítva: az app megint a saját egyszínű külsejét viseli — a kiemelő színed és a témád marad, ahogy volt.",
   "wnDnsAdded": "Kézi DNS: sima IP-címek, DNS over HTTPS és DNS over TLS — minden sor típusa gépelés közben látszik és ellenőrződik.",
   "wnSmartImproved": "Az okos kapcsolat most megmutatja, mit felelt a hálózat: a választott szállítást és a megtartott IP-verziót, élőben.",
   "wnProtectionImproved": "A kill switch jelzi, ha az őre áll, és az appok oldala megmutatja, hányat választottál.",
   "wnWelcomeImproved": "A üdvözlő egy lélegző pajzzsal nyílik, sodródó sarki fény felett, és a fiókok oldala egy pillantással összegzi a hónapot.",
   "bypassAppsCount": "Kiválasztva: {n}",
-  "@bypassAppsCount": {"placeholders": {"n": {"type": "String"}}}
+  "@bypassAppsCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "mtuAutoMeasured": "Automatikus — a hálózat {mtu} visz",
+  "@mtuAutoMeasured": {
+    "placeholders": {
+      "mtu": {
+        "type": "int"
+      }
+    }
+  }
 }

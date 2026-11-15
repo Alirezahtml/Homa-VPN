@@ -2071,19 +2071,17 @@ class AppLocalizationsHu extends AppLocalizations {
   String get smartNetworkHint => 'Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.';
   String get valueSmart => 'Okos';
   String get mtuAutoValue => 'Automatikus — a hálózat szerint';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Automatikus — a hálózat $mtu visz';
+  }
   String get wnSmartAdded => 'Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.';
   String get wnToastAdded => 'A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.';
   String get wnFlagsImproved => 'A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.';
   String get wnMapImproved => 'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
 
   @override
-  String get lookTitle => 'Alkalmazás dizájn';
-  String get lookMono => 'Egyszínű';
-  String get lookMonoDesc => 'Az app fekete-fehérje: teljes kontraszt, csendes, szín nélkül.';
-  String get lookNeu => 'Lágy neomorfizmus';
-  String get lookNeuDesc => 'Nappal meleg porcelán, éjjel matt obszidián — kártyák, mintha a lapba nyomhatnád, naplemente-narancs fénnyel.';
-  String get lookGlass => 'Sarki fény üveg';
-  String get lookGlassDesc => 'Mély éjszakai ég kék dérével — kártyák, mint üvegtáblák felette.';
   String get smartWaiting => 'Mérés folyamatban…';
   String get smartFamilyRace => 'Az első kapcsolatnál mindkettő versenyez';
   String get dnsManual => 'Kézi DNS';
@@ -2096,6 +2094,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get wnDesignsAdded => 'Alkalmazás-dizájnok: az egész app öltheti a Lágy neomorfizmust vagy a Sarkifény-üveget — minden oldal, minden kártya — a Beállítások → Általános alatt.';
   String get wnWheelFixed => 'A kerék félzászlója eltűnt: a kiválasztott zászló alatti polc egy fénytó, nem második zászló, és a képernyő szélén semmi nem vágódik félbe.';
   String get wnMapReal => 'A világtérkép a hivatalos országhatárokból készült újra — minden part, sziget és enkkláv, hűen és valódi arányban.';
+  String get wnGlobeAdded => 'A világ most gömb: az ezüst gömb a kiválasztott ország felé fordul, fénylő tű és lebegő kártya jelöli, a kapcsolat útjai a csomópontok felé futnak.';
+  String get wnWheelGlowImproved => 'A kiválasztott zászló nagyobban áll a saját kék halójával övezett üvegkeretben, a szomszédok láthatóan kisebbek, a kerék alatti jelzők pedig mutatják, hol tartasz.';
+  String get wnDesignsRemoved => 'Az alkalmazás-dizájn választó eltávolítva: az app megint a saját egyszínű külsejét viseli — a kiemelő színed és a témád marad, ahogy volt.';
   String get wnDnsAdded => 'Kézi DNS: sima IP-címek, DNS over HTTPS és DNS over TLS — minden sor típusa gépelés közben látszik és ellenőrződik.';
   String get wnSmartImproved => 'Az okos kapcsolat most megmutatja, mit felelt a hálózat: a választott szállítást és a megtartott IP-verziót, élőben.';
   String get wnProtectionImproved => 'A kill switch jelzi, ha az őre áll, és az appok oldala megmutatja, hányat választottál.';

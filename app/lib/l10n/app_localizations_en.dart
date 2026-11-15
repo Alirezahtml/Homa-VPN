@@ -2064,19 +2064,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartNetworkHint => 'MTU, protocol, and IP version follow this network, picked for speed.';
   String get valueSmart => 'Smart';
   String get mtuAutoValue => 'Auto — follows the network';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Auto — the network carries $mtu';
+  }
   String get wnSmartAdded => 'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.';
   String get wnToastAdded => 'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.';
   String get wnFlagsImproved => 'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.';
   String get wnMapImproved => 'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
 
   @override
-  String get lookTitle => 'App design';
-  String get lookMono => 'Monochrome';
-  String get lookMonoDesc => 'The black and white the app was drawn in: full contrast, quiet, no hue.';
-  String get lookNeu => 'Soft neumorphism';
-  String get lookNeuDesc => 'Warm porcelain by day, matte obsidian by night — cards you could press into the page, a sunset-orange light.';
-  String get lookGlass => 'Aurora glass';
-  String get lookGlassDesc => 'A deep night sky with a blue frost — cards like panes of glass resting over it.';
   String get smartWaiting => 'Measuring…';
   String get smartFamilyRace => 'Both race on the first connect';
   String get dnsManual => 'Manual DNS';
@@ -2089,6 +2087,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wnDesignsAdded => 'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.';
   String get wnWheelFixed => 'The wheel\'s half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen\'s edge.';
   String get wnMapReal => 'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.';
+  String get wnGlobeAdded => 'The world is a globe now: the silver ball turns to face the chosen country, a glowing pin and a floating card mark it, and the connection\'s roads reach for the hubs.';
+  String get wnWheelGlowImproved => 'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.';
+  String get wnDesignsRemoved => 'The App Design picker has left: the app wears its own monochrome look again — your accent and your theme stay as they were.';
   String get wnDnsAdded => 'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line\'s kind shown and checked as you type.';
   String get wnSmartImproved => 'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.';
   String get wnProtectionImproved => 'The kill switch says when its guard stands, and the apps page shows how many apps you chose.';

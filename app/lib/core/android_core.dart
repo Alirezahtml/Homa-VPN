@@ -363,6 +363,15 @@ class AndroidCore {
     autoConnectBoot.value = on;
   }
 
+  /// The network's own MTU under the app right now, as the tunnel's
+  /// smart sizing computes it (CoreService.kt): the very number the VPN
+  /// interface would take — the network's own, plus room for the
+  /// tunnel's headers, when the network cannot carry a whole datagram
+  /// at the batching size. The batching size's own answer (8500) means
+  /// "the network is not the limit".
+  static Future<int> smartMtu() async =>
+      await _channel.invokeMethod<int>('smartMtu') ?? 0;
+
   /// The system's VPN page: Android's own "always-on" and its "block
   /// connections without VPN", the strongest guard there is.
   static Future<void> openVpnSettings() async {

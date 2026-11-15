@@ -223,10 +223,9 @@ abstract final class Midnight {
 }
 
 /// A dark theme for the phone's home: the monochrome design's pure black
-/// surfaces, or the chosen design's own night — the design wears the
-/// whole home, not only the settings.
+/// surfaces, the chosen accent taking the lights only.
 ThemeData midnightTheme(ThemeData base) {
-  var scheme = const ColorScheme.dark(
+  const scheme = ColorScheme.dark(
     primary: Colors.white,
     onPrimary: Colors.black,
     secondary: Colors.white,
@@ -252,20 +251,6 @@ ThemeData midnightTheme(ThemeData base) {
     surfaceContainerLow: Color(0xFF0C0C0C),
     surfaceContainerLowest: Colors.black,
   );
-  final look = AppDesign.current.night;
-  if (AppDesign.current.key != 'mono') {
-    scheme = scheme.copyWith(
-      surface: look.scaffold,
-      onSurface: look.ink,
-      onSurfaceVariant: look.muted,
-      outlineVariant: look.outline,
-      surfaceContainerHighest: look.containerHighest,
-      surfaceContainerHigh: look.surfaceHigh,
-      surfaceContainer: look.surface,
-      surfaceContainerLow: look.surface,
-      surfaceContainerLowest: look.scaffold,
-    );
-  }
   final accent = AppAccent.current;
   return ThemeData(
     colorScheme: accent == null
@@ -684,9 +669,7 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // The design's own card: the monochrome keeps the flat bordered
-    // card; the neumorphism extrudes — light up-left, shade down-right —
-    // and drops the border, because the shadows carry the edge.
+    // The design's card: the flat bordered card the monochrome wears.
     final look = AppDesign.current.look(
       theme.brightness == Brightness.dark,
     );

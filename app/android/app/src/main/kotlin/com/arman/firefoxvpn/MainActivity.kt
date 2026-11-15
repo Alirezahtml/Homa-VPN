@@ -139,6 +139,9 @@ class MainActivity : FlutterActivity() {
                 }
                 "isRunning" -> result.success(mobile.Mobile.running())
                 "autoConnectBoot" -> result.success(CoreService.autoConnectOnBoot(this))
+                // The smart sizing's own answer for the network under
+                // the app right now: the number the tunnel would take.
+                "smartMtu" -> result.success(CoreService.smartMtuValue(this))
                 "setAutoConnectBoot" -> {
                     CoreService.setAutoConnectOnBoot(this, call.argument<Boolean>("on") == true)
                     result.success(null)

@@ -27,9 +27,8 @@ import 'widgets.dart';
 
 ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   final dark = brightness == Brightness.dark;
-  // The design the app wears: the surfaces, the ink and the outlines
-  // come from it — the monochrome design carries the exact colors this
-  // theme always had, so nothing moves unless the user chose a look.
+  // The app's one design (the monochrome): the surfaces, the ink and the
+  // outlines come from it — the exact colors this theme always had.
   final look = AppDesign.current.look(dark);
   // The monochrome scheme: pure black and white with neutral grays
   // between — no hue anywhere, in either mode. A chosen accent takes the
@@ -92,27 +91,13 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
           surfaceContainerLow: Color(0xFFF9F9F9),
           surfaceContainerLowest: Colors.white,
         );
-  // The design's own surfaces replace the monochrome's when a look is
-  // worn: every page, card, dialog and tile follows in one pass.
-  final designed = scheme.copyWith(
-    surface: look.scaffold,
-    onSurface: look.ink,
-    onSurfaceVariant: look.muted,
-    outlineVariant: look.outline,
-    surfaceContainerHighest: look.containerHighest,
-    surfaceContainerHigh: look.surfaceHigh,
-    surfaceContainer: look.surface,
-    surfaceContainerLow: look.surface,
-    surfaceContainerLowest: look.scaffold,
-  );
-  final usedScheme = AppDesign.current.key == 'mono' ? scheme : designed;
   // Bundled Inter for English, Vazirmatn for Persian and Arabic, and the
   // platform's typography for the remaining languages.
   final font = languageFont(locale.languageCode);
   final lit = accent == null ? null : accentForTheme(accent, dark);
   final effective = lit == null
-      ? usedScheme
-      : usedScheme.copyWith(
+      ? scheme
+      : scheme.copyWith(
           primary: lit,
           onPrimary: AppAccent.onAccent(lit),
           secondary: lit,

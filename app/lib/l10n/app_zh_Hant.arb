@@ -606,13 +606,6 @@
   "wnToastAdded": "確認提示現在以 iOS 風格輕柔呈現，圖示會自己畫出。",
   "wnFlagsImproved": "旗幟轉輪乾淨俐落：邊緣不再切半面旗，旗幟完整呈現，選擇輕輕彈落。",
   "wnMapImproved": "世界地圖更大更清晰：不再壓縮大陸，海岸線平滑，落點處有光暈。",
-  "lookTitle": "應用程式設計",
-  "lookMono": "單色",
-  "lookMonoDesc": "應用程式最初的黑白本色：對比鮮明、安靜、沒有色相。",
-  "lookNeu": "柔軟新擬態",
-  "lookNeuDesc": "白天是溫潤的瓷白，夜晚是霧面黑曜石——卡片彷彿可以按進頁面，帶著日落橙的光。",
-  "lookGlass": "極光玻璃",
-  "lookGlassDesc": "深邃的夜空覆著藍色霜花——卡片如同擱在其上的玻璃板。",
   "smartWaiting": "正在測量……",
   "smartFamilyRace": "首次連線時兩族同時競速",
   "dnsManual": "手動 DNS",
@@ -625,10 +618,27 @@
   "wnDesignsAdded": "應用程式設計：整個應用程式可以換上柔軟新擬態或極光玻璃——每一頁、每一張卡片——在 設定 → 一般 中選擇。",
   "wnWheelFixed": "轉輪的半面旗消失了：選中旗幟下方的擱板是一泓光，不再是第二面旗，螢幕邊緣也不會切掉任何旗幟。",
   "wnMapReal": "世界地圖依據各國官方邊界重新繪製——每一處海岸、島嶼與飛地都忠實呈現，比例真實。",
+  "wnGlobeAdded": "世界變成了地球儀：銀色球體會轉向所選國家，發光的定位針與懸浮卡片標記它，連線的路線伸向各樞紐。",
+  "wnWheelGlowImproved": "選中的旗幟在藍色光暈與玻璃邊框中更大更醒目，兩側旗幟明顯更小，轉輪下方的指示點顯示目前位置。",
+  "wnDesignsRemoved": "應用程式設計選項已移除：應用程式恢復原本的單色外觀——您的強調色與主題保持不變。",
   "wnDnsAdded": "手動 DNS：普通 IP、DNS over HTTPS 與 DNS over TLS——每一行的類型隨手輸入即時顯示並校驗。",
   "wnSmartImproved": "智慧連線現在即時顯示網路的回答：它選中的傳輸方式與保留的 IP 版本。",
   "wnProtectionImproved": "Kill Switch 會在守護生效時說明狀態，應用頁面會顯示你選擇的應用數量。",
   "wnWelcomeImproved": "歡迎頁以一面呼吸的盾牌配上流動的極光開場，帳戶頁則將整月用量一覽彙總。",
   "bypassAppsCount": "已選：{n}",
-  "@bypassAppsCount": {"placeholders": {"n": {"type": "String"}}}
+  "@bypassAppsCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "mtuAutoMeasured": "自動 — 網路承載 {mtu}",
+  "@mtuAutoMeasured": {
+    "placeholders": {
+      "mtu": {
+        "type": "int"
+      }
+    }
+  }
 }

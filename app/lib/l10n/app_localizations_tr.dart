@@ -2056,19 +2056,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get smartNetworkHint => 'MTU, protokol ve IP sürümü bu ağa uyarlanır; amaç hız.';
   String get valueSmart => 'Akıllı';
   String get mtuAutoValue => 'Otomatik — ağa göre';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Otomatik — ağ $mtu taşıyor';
+  }
   String get wnSmartAdded => 'Akıllı bağlantı: MTU, protokol ve IP sürümü ağa uyarlanır; gerçek yanıtlarla, hız için seçilir.';
   String get wnToastAdded => 'Onaylar artık yumuşak, iOS tarzı bir not olarak geliyor; kendini çizen bir işaretle.';
   String get wnFlagsImproved => 'Bayrak çarkı temiz duruyor: ekran kenarında bayrak kesilmiyor, bayraklar tam görünür ve seçim yumuşak bir yayla yerleşiyor.';
   String get wnMapImproved => 'Dünya haritası daha büyük ve net çiziliyor: sıkışmış kıtalar yok, pürüzsüz kıyılar ve çapada ışıltılı bir hale.';
 
   @override
-  String get lookTitle => 'Uygulama tasarımı';
-  String get lookMono => 'Tek renk';
-  String get lookMonoDesc => 'Uygulamanın doğduğu siyah-beyaz: tam kontrast, sakin, renksiz.';
-  String get lookNeu => 'Yumuşak neomorfizm';
-  String get lookNeuDesc => 'Gündüz sıcak porselen, gece mat obsidyen — sayfaya gömülü kartlar, gün batımı turuncusu ışık.';
-  String get lookGlass => 'Kutup ışığı camı';
-  String get lookGlassDesc => 'Mavi kırağılı derin gece göğü — üstünde cam paneller gibi kartlar.';
   String get smartWaiting => 'Ölçülüyor…';
   String get smartFamilyRace => 'İlk bağlantıda ikisi de yarışır';
   String get dnsManual => 'Elle DNS';
@@ -2081,6 +2079,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wnDesignsAdded => 'Uygulama tasarımları: uygulamanın tamamı Yumuşak Neomorfizm veya Kutup Işığı Camı giyebilir — her sayfa, her kart — Ayarlar → Genel\'den.';
   String get wnWheelFixed => 'Çarxın yarım bayrağı gitti: seçili bayrağın altındaki raf bir ışık gölcüğü, ikinci bir bayrak değil; ekran kenarında hiçbir şey kesilmiyor.';
   String get wnMapReal => 'Dünya haritası ülkelerin resmi sınırlarından yeniden çizildi — her kıyı, ada ve eksklav, sadık ve gerçek oranında.';
+  String get wnGlobeAdded => 'Dünya artık küre: gümüş top seçili ülkeye dönüyor, ışıltılı bir pim ve yüzen bir kart onu işaretliyor, bağlantı yolları merkezlere uzanıyor.';
+  String get wnWheelGlowImproved => 'Seçilen bayrak kendi mavi hâlesiyle cam bir çerçevede daha büyük duruyor, komşuları belirgin biçimde küçük ve çarkın altındaki işaretler nerede olduğunuzu gösteriyor.';
+  String get wnDesignsRemoved => 'Uygulama tasarımı seçicisi kalktı: uygulama kendi tek renk görünümünü yeniden giydi — vurgu renginiz ve temanız olduğu gibi kaldı.';
   String get wnDnsAdded => 'Elle DNS: yalın IP\'ler, DNS-over-HTTPS ve DNS-over-TLS — her satırın türü yazarken gösterilir ve denetlenir.';
   String get wnSmartImproved => 'Akıllı bağlantı artık ağın yanıtını gösteriyor: seçtiği taşıma ve tuttuğu IP sürümü, canlı.';
   String get wnProtectionImproved => 'Kesme anahtarı nöbeti devredeyken haber verir; uygulamalar sayfası kaç uygulama seçtiğinizi gösterir.';

@@ -594,13 +594,6 @@
   "wnToastAdded": "Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.",
   "wnFlagsImproved": "Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.",
   "wnMapImproved": "Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.",
-  "lookTitle": "Desain aplikasi",
-  "lookMono": "Monokrom",
-  "lookMonoDesc": "Hitam-putih asli aplikasi: kontras penuh, tenang, tanpa warna.",
-  "lookNeu": "Neumorfisme lembut",
-  "lookNeuDesc": "Porselen hangat di siang, obsidian matte di malam — kartu yang bisa ditekan ke halaman, cahaya oranye senja.",
-  "lookGlass": "Kaca aurora",
-  "lookGlassDesc": "Langit malam pekat dengan embun beku biru — kartu seperti panel kaca di atasnya.",
   "smartWaiting": "Mengukur…",
   "smartFamilyRace": "Keduanya balapan pada koneksi pertama",
   "dnsManual": "DNS manual",
@@ -613,10 +606,27 @@
   "wnDesignsAdded": "Desain aplikasi: seluruh aplikasi bisa memakai Neumorfisme Lembut atau Kaca Aurora — setiap halaman, setiap kartu — di Setelan → Umum.",
   "wnWheelFixed": "Setengah bendera di roda hilang: rak di bawah bendera terpilih adalah genangan cahaya, bukan bendera kedua, dan tak ada bendera terpotong di tepi layar.",
   "wnMapReal": "Peta dunia digambar ulang dari perbatasan resmi negara — setiap pesisir, pulau, dan enklaf, setia dan berproporsi benar.",
+  "wnGlobeAdded": "Dunia kini berbentuk globe: bola perak berputar menghadap negara yang dipilih, pin bercahaya dan kart mengapung menandainya, serta jalur koneksi merambah hub.",
+  "wnWheelGlowImproved": "Bendera terpilih tampil lebih besar dalam bingkai kaca dengan halo biru khasnya, tetangganya terlihat jelas lebih kecil, dan penanda di bawah roda menunjukkan posisi Anda.",
+  "wnDesignsRemoved": "Pemilih Desain Aplikasi dihapus: aplikasi kembali memakai tampilan satu warnanya — warna aksen dan tema Anda tetap seperti semula.",
   "wnDnsAdded": "DNS manual: IP biasa, DNS over HTTPS, dan DNS over TLS — jenis tiap baris ditunjukkan dan diperiksa saat mengetik.",
   "wnSmartImproved": "Koneksi pintar kini menunjukkan jawaban jaringan: transport yang dipilih dan versi IP yang dipertahankan, langsung.",
   "wnProtectionImproved": "Kill switch memberi tahu saat penjaganya berdiri, dan halaman aplikasi menunjukkan berapa aplikasi yang kamu pilih.",
   "wnWelcomeImproved": "Halaman sambutan terbuka dengan perisai bernapas di atas aurora yang mengalir, dan halaman akun meringkas sebulan sekali lirik.",
   "bypassAppsCount": "Dipilih: {n}",
-  "@bypassAppsCount": {"placeholders": {"n": {"type": "String"}}}
+  "@bypassAppsCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "mtuAutoMeasured": "Otomatis — jaringan membawa {mtu}",
+  "@mtuAutoMeasured": {
+    "placeholders": {
+      "mtu": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -2056,19 +2056,17 @@ class AppLocalizationsId extends AppLocalizations {
   String get smartNetworkHint => 'MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.';
   String get valueSmart => 'Pintar';
   String get mtuAutoValue => 'Otomatis — mengikuti jaringan';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Otomatis — jaringan membawa $mtu';
+  }
   String get wnSmartAdded => 'Koneksi pintar: MTU, protokol, dan versi IP mengikuti jaringan, dipilih dari jawaban nyata demi kecepatan.';
   String get wnToastAdded => 'Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.';
   String get wnFlagsImproved => 'Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.';
   String get wnMapImproved => 'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
 
   @override
-  String get lookTitle => 'Desain aplikasi';
-  String get lookMono => 'Monokrom';
-  String get lookMonoDesc => 'Hitam-putih asli aplikasi: kontras penuh, tenang, tanpa warna.';
-  String get lookNeu => 'Neumorfisme lembut';
-  String get lookNeuDesc => 'Porselen hangat di siang, obsidian matte di malam — kartu yang bisa ditekan ke halaman, cahaya oranye senja.';
-  String get lookGlass => 'Kaca aurora';
-  String get lookGlassDesc => 'Langit malam pekat dengan embun beku biru — kartu seperti panel kaca di atasnya.';
   String get smartWaiting => 'Mengukur…';
   String get smartFamilyRace => 'Keduanya balapan pada koneksi pertama';
   String get dnsManual => 'DNS manual';
@@ -2081,6 +2079,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get wnDesignsAdded => 'Desain aplikasi: seluruh aplikasi bisa memakai Neumorfisme Lembut atau Kaca Aurora — setiap halaman, setiap kartu — di Setelan → Umum.';
   String get wnWheelFixed => 'Setengah bendera di roda hilang: rak di bawah bendera terpilih adalah genangan cahaya, bukan bendera kedua, dan tak ada bendera terpotong di tepi layar.';
   String get wnMapReal => 'Peta dunia digambar ulang dari perbatasan resmi negara — setiap pesisir, pulau, dan enklaf, setia dan berproporsi benar.';
+  String get wnGlobeAdded => 'Dunia kini berbentuk globe: bola perak berputar menghadap negara yang dipilih, pin bercahaya dan kart mengapung menandainya, serta jalur koneksi merambah hub.';
+  String get wnWheelGlowImproved => 'Bendera terpilih tampil lebih besar dalam bingkai kaca dengan halo biru khasnya, tetangganya terlihat jelas lebih kecil, dan penanda di bawah roda menunjukkan posisi Anda.';
+  String get wnDesignsRemoved => 'Pemilih Desain Aplikasi dihapus: aplikasi kembali memakai tampilan satu warnanya — warna aksen dan tema Anda tetap seperti semula.';
   String get wnDnsAdded => 'DNS manual: IP biasa, DNS over HTTPS, dan DNS over TLS — jenis tiap baris ditunjukkan dan diperiksa saat mengetik.';
   String get wnSmartImproved => 'Koneksi pintar kini menunjukkan jawaban jaringan: transport yang dipilih dan versi IP yang dipertahankan, langsung.';
   String get wnProtectionImproved => 'Kill switch memberi tahu saat penjaganya berdiri, dan halaman aplikasi menunjukkan berapa aplikasi yang kamu pilih.';

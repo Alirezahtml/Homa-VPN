@@ -3686,6 +3686,11 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Auto — follows the network'**
   String get mtuAutoValue;
+  /// No description provided for @mtuAutoMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto — the network carries {mtu}'**
+  String mtuAutoMeasured(int mtu);
   /// No description provided for @wnSmartAdded.
   ///
   /// In en, this message translates to:
@@ -3707,41 +3712,6 @@ abstract class AppLocalizations {
   /// **'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.'**
   String get wnMapImproved;
 
-  /// No description provided for @lookTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'App design'**
-  String get lookTitle;
-  /// No description provided for @lookMono.
-  ///
-  /// In en, this message translates to:
-  /// **'Monochrome'**
-  String get lookMono;
-  /// No description provided for @lookMonoDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The black and white the app was drawn in: full contrast, quiet, no hue.'**
-  String get lookMonoDesc;
-  /// No description provided for @lookNeu.
-  ///
-  /// In en, this message translates to:
-  /// **'Soft neumorphism'**
-  String get lookNeu;
-  /// No description provided for @lookNeuDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Warm porcelain by day, matte obsidian by night — cards you could press into the page, a sunset-orange light.'**
-  String get lookNeuDesc;
-  /// No description provided for @lookGlass.
-  ///
-  /// In en, this message translates to:
-  /// **'Aurora glass'**
-  String get lookGlass;
-  /// No description provided for @lookGlassDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'A deep night sky with a blue frost — cards like panes of glass resting over it.'**
-  String get lookGlassDesc;
   /// No description provided for @smartWaiting.
   ///
   /// In en, this message translates to:
@@ -3802,6 +3772,21 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.'**
   String get wnMapReal;
+  /// No description provided for @wnGlobeAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The world is a globe now: the silver ball turns to face the chosen country, a glowing pin and a floating card mark it, and the connection\'s roads reach for the hubs.'**
+  String get wnGlobeAdded;
+  /// No description provided for @wnWheelGlowImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.'**
+  String get wnWheelGlowImproved;
+  /// No description provided for @wnDesignsRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The App Design picker has left: the app wears its own monochrome look again — your accent and your theme stay as they were.'**
+  String get wnDesignsRemoved;
   /// No description provided for @wnDnsAdded.
   ///
   /// In en, this message translates to:

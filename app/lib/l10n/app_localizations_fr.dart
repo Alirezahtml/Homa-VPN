@@ -2077,19 +2077,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get smartNetworkHint => 'MTU, protocole et version IP suivent ce réseau, pour la vitesse.';
   String get valueSmart => 'Intelligent';
   String get mtuAutoValue => 'Automatique — selon le réseau';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Automatique — le réseau porte $mtu';
+  }
   String get wnSmartAdded => 'Connexion intelligente : MTU, protocole et version IP suivent le réseau, choisis d\'après des réponses réelles, pour la vitesse.';
   String get wnToastAdded => 'Les confirmations arrivent comme une note douce à la manière d\'iOS, avec un symbole qui se dessine.';
   String get wnFlagsImproved => 'La roue des drapeaux est nette : aucun drapeau n\'est coupé au bord de l\'écran, ils s\'affichent entiers, et le choix atterrit en douceur.';
   String get wnMapImproved => 'La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l\'ancre.';
 
   @override
-  String get lookTitle => 'Design de l\'appli';
-  String get lookMono => 'Monochrome';
-  String get lookMonoDesc => 'Le noir et blanc d\'origine de l\'appli : contraste plein, calme, sans teinte.';
-  String get lookNeu => 'Néomorphisme doux';
-  String get lookNeuDesc => 'Porcelaine chaude le jour, obsidienne mate la nuit — des cartes qu\'on croit enfoncer dans la page, une lumière orange couchant.';
-  String get lookGlass => 'Verre aurore';
-  String get lookGlassDesc => 'Un ciel nocturne profond au givre bleu — des cartes comme des vitres posées dessus.';
   String get smartWaiting => 'Mesure en cours…';
   String get smartFamilyRace => 'Les deux font la course à la première connexion';
   String get dnsManual => 'DNS manuel';
@@ -2102,6 +2100,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wnDesignsAdded => 'Designs de l\'appli : toute l\'appli peut porter le Néomorphisme doux ou le Verre aurore — chaque page, chaque carte — dans Réglages → Général.';
   String get wnWheelFixed => 'Le demi-drapeau de la roue a disparu : l\'étagère sous le drapeau choisi est une flaque de lumière, pas un second drapeau, et rien n\'est coupé au bord de l\'écran.';
   String get wnMapReal => 'La carte du monde est redessinée d\'après les frontières officielles — chaque côte, île et enclave, fidèle et à la vraie proportion.';
+  String get wnGlobeAdded => 'Le monde est un globe : la boule d\'argent se tourne vers le pays choisi, un repère lumineux et une carte flottante le marquent, et les routes de la connexion filent vers les hubs.';
+  String get wnWheelGlowImproved => 'Le drapeau choisi se tient plus grand dans un cadre de verre à l\'auréole bleue, les voisins sont visiblement plus petits et les repères sous la roue montrent où vous en êtes.';
+  String get wnDesignsRemoved => 'Le sélecteur de design de l\'appli s\'en va : l\'appli remet son monocrome d\'origine — votre accent et votre thème restent tels quels.';
   String get wnDnsAdded => 'DNS manuel : IP simples, DNS over HTTPS et DNS over TLS — le type de chaque ligne est montré et vérifié à la saisie.';
   String get wnSmartImproved => 'La connexion intelligente montre désormais la réponse du réseau : le transport choisi et la version IP conservée, en direct.';
   String get wnProtectionImproved => 'L\'interrupteur d\'arrêt annonce quand sa garde se tient, et la page des applis compte celles que vous avez choisies.';

@@ -2074,19 +2074,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get smartNetworkHint => 'MTU, protocolo y versión de IP se adaptan a esta red, buscando velocidad.';
   String get valueSmart => 'Inteligente';
   String get mtuAutoValue => 'Automático — según la red';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'Automático — la red lleva $mtu';
+  }
   String get wnSmartAdded => 'Conexión inteligente: MTU, protocolo y versión de IP siguen la red, elegidos por respuestas reales y para la velocidad.';
   String get wnToastAdded => 'Las confirmaciones llegan como una nota suave al estilo iOS, con una marca que se dibuja sola.';
   String get wnFlagsImproved => 'La rueda de banderas se ve limpia: ninguna bandera se corta en el borde de la pantalla, se muestran enteras y la elección cae con un suave resorte.';
   String get wnMapImproved => 'El mapa del mundo se dibuja más grande y claro: sin continentes apretados, costas suaves y un halo brillante en el punto.';
 
   @override
-  String get lookTitle => 'Diseño de la app';
-  String get lookMono => 'Monocromo';
-  String get lookMonoDesc => 'El blanco y negro con el que se dibujó la app: contraste pleno, sereno, sin color.';
-  String get lookNeu => 'Neumorfismo suave';
-  String get lookNeuDesc => 'Porcelana cálida de día, obsidiana mate de noche — tarjetas que se dejan hundir, con luz naranja de atardecer.';
-  String get lookGlass => 'Cristal aurora';
-  String get lookGlassDesc => 'Un cielo nocturno profundo con escarcha azul — tarjetas como paneles de vidrio sobre él.';
   String get smartWaiting => 'Midiendo…';
   String get smartFamilyRace => 'Ambos compiten en la primera conexión';
   String get dnsManual => 'DNS manual';
@@ -2099,6 +2097,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wnDesignsAdded => 'Diseños de la app: toda la app puede vestir Neumorfismo suave o Cristal aurora — cada página, cada tarjeta — en Ajustes → General.';
   String get wnWheelFixed => 'Adiós a la media bandera de la rueda: la repisa bajo la bandera elegida es un charco de luz, no otra bandera, y ninguna bandera se corta en el borde.';
   String get wnMapReal => 'El mapa del mundo se redibujó con las fronteras oficiales de los países — cada costa, isla y enclave, con fidelidad real y en su proporción verdadera.';
+  String get wnGlobeAdded => 'El mundo es un globo ahora: la bola de plata gira para mirar al país elegido, un pin brillante y una tarjeta flotante lo marcan, y los caminos de la conexión van hacia los nodos.';
+  String get wnWheelGlowImproved => 'La bandera elegida luce más grande en un marco de cristal con su propio halo azul, las vecinas se ven claramente más pequeñas y los marcadores bajo la rueda muestran dónde estás.';
+  String get wnDesignsRemoved => 'El selector de diseño de la app se ha ido: la app vuelve a vestir su monocromo original; su acento y su tema quedan como estaban.';
   String get wnDnsAdded => 'DNS manual: IP simples, DNS sobre HTTPS y DNS sobre TLS — se muestra y comprueba el tipo de cada línea al escribir.';
   String get wnSmartImproved => 'La conexión inteligente ahora muestra lo que respondió la red: el transporte elegido y la versión de IP que conservó, en vivo.';
   String get wnProtectionImproved => 'El interruptor de corte avisa cuando su guarda está de pie, y la página de apps muestra cuántas elegiste.';

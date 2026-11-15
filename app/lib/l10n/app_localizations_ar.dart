@@ -2065,19 +2065,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get smartNetworkHint => 'يُضبط MTU والبروتوكول ونسخة IP وفق هذه الشبكة، بحثًا عن السرعة.';
   String get valueSmart => 'ذكي';
   String get mtuAutoValue => 'تلقائي — حسب الشبكة';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return 'تلقائي — الشبكة تحمل $mtu';
+  }
   String get wnSmartAdded => 'اتصال ذكي: يُختار MTU والبروتوكول ونسخة IP وفق الشبكة، اعتمادًا على إجابات حقيقية وبحثًا عن السرعة.';
   String get wnToastAdded => 'تصل تأكيدات كإشعار ناعم بأسلوب iOS، مع علامة ترسم نفسها.';
   String get wnFlagsImproved => 'عجلة الأعلام تجلس نظيفة: لا يُقطع علم عند حافة الشاشة، وتظهر الأعلام كاملة، ويهبط الاختيار بنعومة.';
   String get wnMapImproved => 'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
 
   @override
-  String get lookTitle => 'تصميم التطبيق';
-  String get lookMono => 'أحادي اللون';
-  String get lookMonoDesc => 'الأبيض والأسود الذي رُسم به التطبيق: تباين كامل، هادئ، بلا لون.';
-  String get lookNeu => 'نيومورفيزم ناعم';
-  String get lookNeuDesc => 'بورسلان دافئ بالنهار، أوبسيدين مطفي بالليل — بطاقات كأنك تغرسها في الصفحة، وبضوء برتقالي كالغروب.';
-  String get lookGlass => 'زجاج الشفق';
-  String get lookGlassDesc => 'سماء ليل عميقة بصل أزرق — بطاقات كألواح زجاج فوقها.';
   String get smartWaiting => 'جارٍ القياس…';
   String get smartFamilyRace => 'كلاهما يتسابق عند أول اتصال';
   String get dnsManual => 'DNS يدوي';
@@ -2090,6 +2088,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get wnDesignsAdded => 'تصاميم التطبيق: يستطيع التطبيق كله الآن ارتداء النيومورفيزم الناعم أو زجاج الشفق — كل صفحة وكل بطاقة — من الإعدادات ← عام.';
   String get wnWheelFixed => 'نصف العلم في العجلة اختفى: الرف تحت العلم المختار بركة من الضوء لا علم ثانٍ، ولا يُقطع علم عند حافة الشاشة.';
   String get wnMapReal => 'أُعيد رسم خريطة العالم من الحدود الرسمية للدول — كل ساحل وجزيرة وجيب، بأمانة كاملة وبنسب حقيقية.';
+  String get wnGlobeAdded => 'العالم صار كرة الآن: الكرة الفضية تدور نحو البلد المختار، دبّوس متوهّج وبطاقة عائمة تحدّدان موقعه، وطرق الاتصال تمتد نحو المحاور.';
+  String get wnWheelGlowImproved => 'العلَم المختار أكبر داخل إطار زجاجي بهالة زرقاء، والأعلام المجاورة أصغر بوضوح، والمؤشرات أسفل العجلة تبين موقعك.';
+  String get wnDesignsRemoved => 'تمت إزالة منتقي تصميم التطبيق: يعود التطبيق إلى مظهره الأحادي اللون — لون التمييز وسمة التطبيق لديك كما هما.';
   String get wnDnsAdded => 'DNS يدوي: عناوين IP بسيطة، وDNS عبر HTTPS، وDNS عبر TLS — يُعرض نوع كل سطر ويُتحقق منه أثناء الكتابة.';
   String get wnSmartImproved => 'الاتصال الذكي يُظهر الآن ما أجابت به الشبكة: الناقل الذي اختاره ونسخة IP التي أبقاها، مباشرةً.';
   String get wnProtectionImproved => 'مفتاح القطع يخبرك حين تقف حمايته، وصفحة التطبيقات تعرض عدد التطبيقات التي اخترتها.';

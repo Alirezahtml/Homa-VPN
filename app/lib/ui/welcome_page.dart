@@ -126,8 +126,7 @@ class _WelcomePageState extends State<WelcomePage>
     final theme = Theme.of(context);
     final dark = theme.brightness == Brightness.dark;
     final look = AppDesign.current.look(dark);
-    final accent =
-        look.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
+    final accent = dark ? Colors.white : const Color(0xFF0A0A0A);
     final still = MediaQuery.of(context).disableAnimations;
     return Scaffold(
       backgroundColor: look.scaffold,
@@ -339,10 +338,8 @@ class _WelcomePageState extends State<WelcomePage>
   }
 }
 
-/// The selector's plate: on the neumorphism, the field sits on an
-/// extruded card of the design's own surface — the same dual shadows
-/// every card of the app wears, so the selectors read as the page's
-/// own buttons. The other designs keep the field's own fill.
+/// The selector's plate: the field sits on a card of the design's own
+/// surface, so the selectors read as the page's own buttons.
 class _WelcomeField extends StatelessWidget {
   const _WelcomeField({
     required this.look,

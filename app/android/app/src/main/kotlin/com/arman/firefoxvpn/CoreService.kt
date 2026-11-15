@@ -430,17 +430,8 @@ class CoreService : VpnService() {
      * a datagram goes out whole instead of being split on the way.
      * Unknown: the batching size, as before.
      */
-    private fun smartMtu(): Int {
-        val base = try {
-            val cm = getSystemService(ConnectivityManager::class.java)
-            val net = cm.activeNetwork ?: return MTU
-            cm.getLinkProperties(net)?.mtu ?: 0
-        } catch (_: Throwable) {
-            0
-        }
-        if (base <= 0 || base >= 1400) return MTU
-        return (base + 64).coerceIn(1280, MTU)
-    }
+    private fun smartMtu(): Int = smartMtuValue(this)
+
 
     /** When the VPN interface last came up. */
     @Volatile
@@ -868,6 +859,27 @@ class CoreService : VpnService() {
          * the outside connection's business, as they were.
          */
         private const val MTU = 8500
+
+        /**
+         * The smart sizing's own answer for the network under [context]:
+         * the number the tunnel's interface would take (the network's
+         * own MTU plus room for the tunnel's headers, when the network
+         * cannot carry a whole datagram at the batching size). The
+         * settings' smart-MTU row reads this same number — nothing is
+         * invented for the view.
+         */
+        fun smartMtuValue(context: Context): Int {
+            val base = try {
+                val cm =
+                    context.getSystemService(ConnectivityManager::class.java)
+                val net = cm.activeNetwork ?: return MTU
+                cm.getLinkProperties(net)?.mtu ?: 0
+            } catch (_: Throwable) {
+                0
+            }
+            if (base <= 0 || base >= 1400) return MTU
+            return (base + 64).coerceIn(1280, MTU)
+        }
 
         /** The core was last told that no network is connected. */
         @Volatile

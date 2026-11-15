@@ -30,7 +30,6 @@ class FlagCarousel extends StatefulWidget {
     required this.muted,
     required this.card,
     required this.border,
-    required this.accent,
     this.onOpenServers,
   });
 
@@ -39,7 +38,6 @@ class FlagCarousel extends StatefulWidget {
   final Color muted;
   final Color card;
   final Color border;
-  final Color accent;
   final VoidCallback? onOpenServers;
 
   @override
@@ -236,24 +234,31 @@ class _FlagCarouselState extends State<FlagCarousel>
     final l = AppLocalizations.of(context);
     final entries = _entries(l);
     if (_locations == null || entries.isEmpty) {
-      return const SizedBox(height: 152);
+      return const SizedBox(height: 234);
     }
     final index = _indexOf(entries, _selection);
     final centered = index >= 0 ? entries[index] : null;
     final dark = Theme.of(context).brightness == Brightness.dark;
-    return Column(children: [_wheel(entries, dark), _name(l, centered, dark)]);
+    return Column(
+      children: [
+        _wheel(entries, dark),
+        const SizedBox(height: 10),
+        _indicators(entries, dark),
+        const SizedBox(height: 4),
+        _name(l, centered, dark),
+      ],
+    );
   }
 
   Widget _wheel(List<Location> entries, bool dark) {
-    final accent = widget.accent;
     final controller = _controller;
-    if (controller == null) return const SizedBox(height: 152);
+    if (controller == null) return const SizedBox(height: 178);
     return SizedBox(
-      // The shelf and the halo breathe behind the chosen card, so the
+      // The halo and the shelf breathe behind the chosen card, so the
       // wheel carries its own headroom below and above. The whole wheel
       // fades out toward the screen's own edges — the last thing a flag
       // meets is a dissolve, never the viewport's hard cut.
-      height: 152,
+      height: 178,
       child: ShaderMask(
         blendMode: BlendMode.dstIn,
         shaderCallback: (bounds) => const LinearGradient(
@@ -271,42 +276,43 @@ class _FlagCarouselState extends State<FlagCarousel>
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-          // The halo: a very soft light behind the chosen country, in the
-          // state's color, fading into the black theme — breathing on its
-          // own clock, and following the wheel as it spins (it fades out
-          // over the drag rather than smearing across it).
+          // The halo: a soft blue light behind the chosen country — the
+          // wheel's own aurora, breathing on its own clock, and following
+          // the wheel as it spins (it fades out over the drag rather than
+          // smearing across it).
           AnimatedBuilder(
             animation: Listenable.merge([controller, _breath]),
             builder: (context, _) {
               final glow = _haloStrength();
               final breathe = _breath.value;
+              final blue = _FlagCard.glowBlue(dark);
               return IgnorePointer(
                 child: Transform.translate(
-                  offset: Offset(0, -6 * (1.0 - glow)),
+                  offset: Offset(0, -8 * (1.0 - glow)),
                   child: Transform.scale(
-                    scale: 1.0 + 0.06 * breathe * glow,
+                    scale: 1.0 + 0.07 * breathe * glow,
                     child: Container(
-                      width: 168 + 34 * glow + 10 * breathe * glow,
-                      height: 96 + 20 * glow + 6 * breathe * glow,
+                      width: 236 + 30 * glow + 12 * breathe * glow,
+                      height: 142 + 20 * glow + 8 * breathe * glow,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            accent.withValues(
+                            blue.withValues(
                               alpha:
-                                  (dark ? 0.22 : 0.15) *
+                                  (dark ? 0.40 : 0.22) *
                                   glow *
                                   (0.75 + 0.25 * breathe),
                             ),
-                            accent.withValues(
+                            blue.withValues(
                               alpha:
-                                  (dark ? 0.10 : 0.06) *
+                                  (dark ? 0.16 : 0.09) *
                                   glow *
                                   (0.75 + 0.25 * breathe),
                             ),
-                            accent.withValues(alpha: 0.0),
+                            blue.withValues(alpha: 0.0),
                           ],
-                          stops: const [0, 0.55, 1],
+                          stops: const [0, 0.5, 1],
                         ),
                       ),
                     ),
@@ -362,9 +368,15 @@ class _FlagCarouselState extends State<FlagCarousel>
                       side: side,
                       breath: _breath,
                       settle: _settlePulse,
-                      accent: accent,
                       dark: dark,
                       border: widget.border,
+                      // The card never grows past its own page's slot: a
+                      // narrow window shrinks the whole wheel instead of
+                      // letting the chosen flag ride over its neighbors.
+                      slot: controller.hasClients &&
+                              controller.position.haveDimensions
+                          ? controller.position.viewportDimension * 0.26 - 6
+                          : 100.0,
                       onTap: () => unawaited(_choose(loc)),
                     ),
                   );
@@ -389,6 +401,74 @@ class _FlagCarouselState extends State<FlagCarousel>
     }
     final page = controller.page ?? 0.0;
     return (1.0 - (page - page.roundToDouble()).abs() * 2).clamp(0.0, 1.0);
+  }
+
+  /// The position markers under the wheel: one dot per country, in a
+  /// sliding window when the list is long, the chosen one a lit pill of
+  /// the wheel's own blue — the carousel's quiet “you are here”.
+  Widget _indicators(List<Location> entries, bool dark) {
+    final controller = _controller;
+    if (controller == null) return const SizedBox(height: 10);
+    const maxDots = 9;
+    return SizedBox(
+      height: 12,
+      child: Directionality(
+        // The wheel's pages run one way whatever the language reads:
+        // the dots keep the same order, so the pill travels with the
+        // drag, not against it.
+        textDirection: TextDirection.ltr,
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, _) {
+            final count = entries.length;
+            if (count == 0) return const SizedBox.shrink();
+            final page =
+                controller.hasClients && controller.position.haveDimensions
+                ? (controller.page ?? 0.0)
+                : _base(entries).toDouble();
+            final active = page.round() % count;
+            final window = math.min(count, maxDots);
+            final start = (active - window ~/ 2).clamp(0, count - window);
+            final blue = _FlagCard.glowBlue(dark);
+            final ink = dark ? Colors.white : const Color(0xFF0A0A0A);
+            return Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var i = start; i < start + window; i++)
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 280),
+                      curve: Curves.easeOutCubic,
+                      margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                      width: i == active ? 18 : 5,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: i == active
+                            ? blue
+                            : ink.withValues(
+                                alpha: (i - active).abs() <= 1 ? 0.30 : 0.13,
+                              ),
+                        borderRadius: BorderRadius.circular(3),
+                        boxShadow: i == active
+                            ? [
+                                BoxShadow(
+                                  color: blue.withValues(
+                                    alpha: dark ? 0.50 : 0.35,
+                                  ),
+                                  blurRadius: 10,
+                                  spreadRadius: 1,
+                                ),
+                              ]
+                            : const [],
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 
   /// The chosen country's name under the flags, in white, arriving with a
@@ -432,11 +512,12 @@ class _FlagCarouselState extends State<FlagCarousel>
   );
 }
 
-/// One card of the wheel. The chosen one, in the middle: bigger, inside a
-/// glass frame with rounded corners and a fine glowing border, over a
-/// shelf it faintly reflects in. The others: smaller cards that sink in
-/// an arc and turn a few degrees toward the middle, each with a little
-/// depth and less opacity, so the row reads as a wheel of flags.
+/// One card of the wheel. The chosen one, in the middle: bigger and the
+/// wheel's whole point — a glass frame around the flag, the frame's own
+/// blue glow breathing behind it, over a shelf it faintly reflects in.
+/// The others: clearly smaller cards that sink in an arc and turn a few
+/// degrees toward the middle, each with a little depth and less opacity,
+/// so the row reads as a wheel of flags with one lit at its center.
 ///
 /// The card shows the flag whole: its frame is the flag's own 3:2, so no
 /// country loses its edge to a crop. A card a few pages out fades away
@@ -449,9 +530,9 @@ class _FlagCard extends StatelessWidget {
     required this.side,
     required this.breath,
     required this.settle,
-    required this.accent,
     required this.dark,
     required this.border,
+    required this.slot,
     required this.onTap,
   });
 
@@ -469,10 +550,19 @@ class _FlagCard extends StatelessWidget {
   /// The landing spring: one swell-and-settle when a choice arrives.
   final Animation<double> settle;
 
-  final Color accent;
   final bool dark;
   final Color border;
+
+  /// The widest the card may grow: its page's own slot. The chosen flag
+  /// fills it; the neighbors never reach it.
+  final double slot;
+
   final VoidCallback onTap;
+
+  /// The wheel's glow: the one blue the halo, the frame and the markers
+  /// share — the aurora light the chosen flag stands in.
+  static Color glowBlue(bool dark) =>
+      dark ? const Color(0xFF3D6BFF) : const Color(0xFF2F5BE8);
 
   /// The fade of a card this far from the middle: whole within a page
   /// and a quarter, gone by under two — before the screen's edge can cut
@@ -490,11 +580,13 @@ class _FlagCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final chosen = distance < 0.5;
     // The size falls away from the middle exponentially, so the drop is
-    // steep beside the chosen card and gentle far out: a wheel, not a
-    // ladder. The frame is the flag's own 3:2: the art fits whole.
-    final width = 46.0 + 30.0 * math.exp(-1.35 * distance);
+    // steep beside the chosen card and gentle far out: the chosen flag
+    // fills its whole slot, the next ones read clearly smaller — a wheel
+    // with one lit card at its center, not a ladder of equals. The frame
+    // is the flag's own 3:2: the art fits whole.
+    final width = math.min(slot, 44.0 + 62.0 * math.exp(-0.85 * distance));
     final height = width * 2 / 3;
-    final radius = 8.0 + 7.0 * math.exp(-1.35 * distance);
+    final radius = 9.0 + 9.0 * math.exp(-1.1 * distance);
     // The arc: the neighbors sit a touch lower the further they are, so
     // the row bends gently — a wheel in perspective, not a scatter: a
     // deep dip and a wide turn read as a mess of flags, not a wheel.
@@ -520,35 +612,10 @@ class _FlagCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           border: Border.all(
             color: chosen
-                ? accent.withValues(alpha: 0.95)
+                ? _FlagCard.glowBlue(dark).withValues(alpha: 0.95)
                 : border.withValues(alpha: dark ? 0.6 : 0.5),
-            width: chosen ? 1.6 : 0.7,
+            width: chosen ? 1.5 : 0.7,
           ),
-          boxShadow: chosen
-              ? [
-                  // The fine glow around the chosen flag, over a soft drop
-                  // shadow; nothing louder, the theme stays black.
-                  BoxShadow(
-                    color: accent.withValues(alpha: dark ? 0.42 : 0.32),
-                    blurRadius: 24,
-                    spreadRadius: 1.5,
-                  ),
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: dark ? 0.55 : 0.20),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
-                  ),
-                ]
-              : [
-                  // Depth for the smaller cards: they float a little
-                  // lower than the chosen one, in a shadow soft enough
-                  // that the row never reads as a pile of cards.
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: dark ? 0.34 : 0.12),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
         ),
         // The glass: a light sweep on the chosen card, a darker one on the
         // neighbors, so the row carries depth without leaving the theme.
@@ -591,23 +658,67 @@ class _FlagCard extends StatelessWidget {
     }
 
     // The chosen card: it breathes with the wheel's own clock, lands
-    // with a short spring, and sits on a glass shelf — a soft pool of
-    // the state's light under it, NOT a mirrored flag: a reflected
-    // second flag read as one flag cut in half, the wheel's oldest
-    // complaint, so the shelf carries only light, never art.
+    // with a short spring, and sits inside a glass frame — a ring of
+    // frosted glass around the flag, the frame's own blue light glowing
+    // behind it — and on a glass shelf, a soft pool of light under it,
+    // NOT a mirrored flag: a reflected second flag read as one flag cut
+    // in half, the wheel's oldest complaint, so the shelf carries only
+    // light, never art.
+    final blue = _FlagCard.glowBlue(dark);
+    final framed = Container(
+      // The glass frame: a bezel of frosted glass around the flag — the
+      // sweep comes from up-left, the fine white edge holds the shape.
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius + 4),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withValues(alpha: dark ? 0.26 : 0.60),
+            Colors.white.withValues(alpha: dark ? 0.04 : 0.16),
+          ],
+        ),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: dark ? 0.30 : 0.55),
+          width: 1,
+        ),
+        boxShadow: [
+          // The blue light: a tight ring of it, then a wide, very soft
+          // bloom — the halo on the card itself, so the frame reads as
+          // lit from within, whatever the theme behind it.
+          BoxShadow(
+            color: blue.withValues(alpha: dark ? 0.55 : 0.34),
+            blurRadius: 26,
+            spreadRadius: 1.5,
+          ),
+          BoxShadow(
+            color: blue.withValues(alpha: dark ? 0.22 : 0.12),
+            blurRadius: 58,
+            spreadRadius: 6,
+          ),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: dark ? 0.45 : 0.16),
+            blurRadius: 14,
+            offset: const Offset(0, 7),
+          ),
+        ],
+      ),
+      child: card,
+    );
     return AnimatedBuilder(
       animation: Listenable.merge([breath, settle]),
       builder: (context, _) => Transform.translate(
         offset: Offset(0, -2.5 * breath.value),
         child: Transform.scale(
           scale:
-              (1.0 + 0.015 * breath.value) * (1.0 + 0.055 * settle.value),
+              (1.0 + 0.015 * breath.value) * (1.0 + 0.05 * settle.value),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              card,
-              const SizedBox(height: 5),
-              _ShelfGleam(width: width, accent: accent, dark: dark),
+              framed,
+              const SizedBox(height: 6),
+              _ShelfGleam(width: width + 6, accent: blue, dark: dark),
             ],
           ),
         ),

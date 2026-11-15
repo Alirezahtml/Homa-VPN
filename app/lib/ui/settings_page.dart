@@ -142,8 +142,7 @@ class SettingsGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // The design's card, as the Panel wears it: the monochrome flat and
-    // bordered, the neumorphism extruded with no border at all.
+    // The design's card, as the Panel wears it: flat and bordered.
     final look = AppDesign.current.look(
       theme.brightness == Brightness.dark,
     );
@@ -510,16 +509,6 @@ class _SettingsPageState extends State<SettingsPage> {
           value: accentName(context, s),
           child: _AccentSwatch(settings: s),
           onTap: () => showAccentPicker(context, s),
-        ),
-        // The app's design — the look EVERY page wears: the monochrome,
-        // the soft neumorphism, or the aurora glass. Choosing one
-        // restyles surfaces, cards, shadows and lights in place.
-        _Row(
-          icon: Icons.auto_awesome_mosaic_rounded,
-          label: l.lookTitle,
-          value: lookName(l, s),
-          child: const Icon(Icons.chevron_right_rounded),
-          onTap: () => showLookPicker(context, s),
         ),
         // The home page's own design: the wheel, the tiles, or the
         // compact card — each a real layout, each with the real list and
@@ -898,11 +887,31 @@ class _SettingsPageState extends State<SettingsPage> {
                             _ => l.smartFamilyRace,
                           },
                         ),
-                        _Row(
-                          icon: Icons.settings_ethernet_rounded,
-                          label: l.tunMtu,
-                          value: l.mtuAutoValue,
-                        ),
+                        // The MTU the tunnel would take, the network's
+                        // own answer (CoreService.kt computes the same
+                        // number when the VPN comes up) — a number, not
+                        // a promise, and only where the network is the
+                        // limit.
+                        if (Platform.isAndroid)
+                          FutureBuilder<int>(
+                            future: AndroidCore.smartMtu(),
+                            builder: (context, snap) {
+                              final v = snap.data ?? 0;
+                              return _Row(
+                                icon: Icons.settings_ethernet_rounded,
+                                label: l.tunMtu,
+                                value: v > 0 && v < 8500
+                                    ? l.mtuAutoMeasured(v)
+                                    : l.mtuAutoValue,
+                              );
+                            },
+                          )
+                        else
+                          _Row(
+                            icon: Icons.settings_ethernet_rounded,
+                            label: l.tunMtu,
+                            value: l.mtuAutoValue,
+                          ),
                       ],
                     );
                   },
@@ -3747,8 +3756,7 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
 }
 
 /// One design's card: the mock-up on top, the name and the description
-/// under it, the chosen one framed in the accent — the pattern the
-/// designs' own source (ZedSecure's AppDesignPicker) made.
+/// under it, the chosen one framed in the accent.
 class _DesignCard extends StatelessWidget {
   const _DesignCard({
     required this.kind,
@@ -3952,230 +3960,5 @@ class _DesignMockup extends StatelessWidget {
           ],
         );
     }
-  }
-}
-
-/// The row's name for the app-wide design the settings carry, in the
-/// row's language.
-String lookName(AppLocalizations l, AppSettings s) => switch (s.designKey) {
-  'neu' => l.lookNeu,
-  'glass' => l.lookGlass,
-  _ => l.lookMono,
-};
-
-/// The app design picker: the looks the WHOLE app can wear — the
-/// monochrome the app was drawn in, the soft neumorphism extracted from
-/// FoxyVPN's own Compose theme, and the aurora glass. Each card paints
-/// its mini screen with the look's own colors: what you see is what the
-/// app becomes. A tap chooses; the app's root rebuilds on the settings,
-/// so every page follows at once.
-Future<void> showLookPicker(BuildContext context, AppSettings s) async {
-  await showDialog<void>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(AppLocalizations.of(context).lookTitle),
-      content: SizedBox(
-        width: 460,
-        child: ListenableBuilder(
-          listenable: s,
-          builder: (context, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final look in AppDesign.all) ...[
-                _LookCard(
-                  look: look,
-                  selected: s.designKey == look.key,
-                  onTap: () => s.update(designKey: look.key),
-                ),
-                if (look != AppDesign.all.last) const SizedBox(height: 10),
-              ],
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(MaterialLocalizations.of(context).closeButtonLabel),
-        ),
-      ],
-    ),
-  );
-}
-
-/// One look's card: a mini screen painted with the look's own day or
-/// night colors — a card on the scaffold, a pill of its light — the
-/// name, and a word about what it is. The chosen one framed in the
-/// look's own light.
-class _LookCard extends StatelessWidget {
-  const _LookCard({required this.look, required this.selected, required this.onTap});
-
-  final DesignTheme look;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final dark = theme.brightness == Brightness.dark;
-    final tokens = look.look(dark);
-    final (name, desc) = switch (look.key) {
-      'neu' => (l.lookNeu, l.lookNeuDesc),
-      'glass' => (l.lookGlass, l.lookGlassDesc),
-      _ => (l.lookMono, l.lookMonoDesc),
-    };
-    final light = tokens.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: selected ? light.withValues(alpha: 0.9) : theme.colorScheme.outlineVariant,
-            width: selected ? 1.6 : 1,
-          ),
-          color: selected ? light.withValues(alpha: 0.07) : null,
-        ),
-        child: Row(
-          children: [
-            SizedBox.square(
-              dimension: 92,
-              child: _LookMockup(look: look, dark: dark),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    desc,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// The mini screen a look's card paints: the look's scaffold, one of its
-/// cards with its own shadows, its light as a pill and a dot — each
-/// look drawn with itself, not with the theme's colors.
-class _LookMockup extends StatelessWidget {
-  const _LookMockup({required this.look, required this.dark});
-
-  final DesignTheme look;
-  final bool dark;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = look.look(dark);
-    final shadow = t.cardShadow;
-    Widget screen(Widget child) => Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [t.scaffold, t.scaffoldBottom],
-        ),
-      ),
-      padding: const EdgeInsets.all(10),
-      child: child,
-    );
-    Widget card({required Widget child, double radius = 8}) => DecoratedBox(
-      decoration: BoxDecoration(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(radius),
-        border: shadow.isEmpty
-            ? Border.all(color: t.outline, width: 0.6)
-            : Border.all(color: t.outline, width: 0.4),
-        boxShadow: shadow,
-      ),
-      child: child,
-    );
-    return screen(
-      Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // One card with a row inside, as a settings group reads.
-            card(
-              child: Padding(
-                padding: const EdgeInsets.all(6),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: t.surfaceHigh,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(width: 34, height: 5, color: t.ink.withValues(alpha: 0.8)),
-                          const SizedBox(height: 3),
-                          Container(width: 24, height: 4, color: t.muted),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 16,
-                      height: 9,
-                      decoration: BoxDecoration(
-                        color: t.accent ?? t.ink,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 6),
-            // The pill navigation, in the look's own surface and light.
-            card(
-              radius: 11,
-              child: SizedBox(
-                height: 18,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          color: t.accent ?? t.ink,
-                          borderRadius: BorderRadius.circular(9),
-                        ),
-                      ),
-                    ),
-                    Expanded(child: const SizedBox.expand()),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

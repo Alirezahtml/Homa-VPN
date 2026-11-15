@@ -594,13 +594,6 @@
   "wnToastAdded": "Les confirmations arrivent comme une note douce à la manière d'iOS, avec un symbole qui se dessine.",
   "wnFlagsImproved": "La roue des drapeaux est nette : aucun drapeau n'est coupé au bord de l'écran, ils s'affichent entiers, et le choix atterrit en douceur.",
   "wnMapImproved": "La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l'ancre.",
-  "lookTitle": "Design de l'appli",
-  "lookMono": "Monochrome",
-  "lookMonoDesc": "Le noir et blanc d'origine de l'appli : contraste plein, calme, sans teinte.",
-  "lookNeu": "Néomorphisme doux",
-  "lookNeuDesc": "Porcelaine chaude le jour, obsidienne mate la nuit — des cartes qu'on croit enfoncer dans la page, une lumière orange couchant.",
-  "lookGlass": "Verre aurore",
-  "lookGlassDesc": "Un ciel nocturne profond au givre bleu — des cartes comme des vitres posées dessus.",
   "smartWaiting": "Mesure en cours…",
   "smartFamilyRace": "Les deux font la course à la première connexion",
   "dnsManual": "DNS manuel",
@@ -613,10 +606,27 @@
   "wnDesignsAdded": "Designs de l'appli : toute l'appli peut porter le Néomorphisme doux ou le Verre aurore — chaque page, chaque carte — dans Réglages → Général.",
   "wnWheelFixed": "Le demi-drapeau de la roue a disparu : l'étagère sous le drapeau choisi est une flaque de lumière, pas un second drapeau, et rien n'est coupé au bord de l'écran.",
   "wnMapReal": "La carte du monde est redessinée d'après les frontières officielles — chaque côte, île et enclave, fidèle et à la vraie proportion.",
+  "wnGlobeAdded": "Le monde est un globe : la boule d'argent se tourne vers le pays choisi, un repère lumineux et une carte flottante le marquent, et les routes de la connexion filent vers les hubs.",
+  "wnWheelGlowImproved": "Le drapeau choisi se tient plus grand dans un cadre de verre à l'auréole bleue, les voisins sont visiblement plus petits et les repères sous la roue montrent où vous en êtes.",
+  "wnDesignsRemoved": "Le sélecteur de design de l'appli s'en va : l'appli remet son monocrome d'origine — votre accent et votre thème restent tels quels.",
   "wnDnsAdded": "DNS manuel : IP simples, DNS over HTTPS et DNS over TLS — le type de chaque ligne est montré et vérifié à la saisie.",
   "wnSmartImproved": "La connexion intelligente montre désormais la réponse du réseau : le transport choisi et la version IP conservée, en direct.",
   "wnProtectionImproved": "L'interrupteur d'arrêt annonce quand sa garde se tient, et la page des applis compte celles que vous avez choisies.",
   "wnWelcomeImproved": "L'accueil s'ouvre sur un bouclier qui respire au-dessus d'une aurore dérivante, et la page des comptes résume le mois d'un coup d'œil.",
   "bypassAppsCount": "Choisies : {n}",
-  "@bypassAppsCount": {"placeholders": {"n": {"type": "String"}}}
+  "@bypassAppsCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "mtuAutoMeasured": "Automatique — le réseau porte {mtu}",
+  "@mtuAutoMeasured": {
+    "placeholders": {
+      "mtu": {
+        "type": "int"
+      }
+    }
+  }
 }

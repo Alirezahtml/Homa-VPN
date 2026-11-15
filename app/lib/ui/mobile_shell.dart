@@ -208,14 +208,9 @@ class _FloatingPillNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final dark = Theme.of(context).brightness == Brightness.dark;
-    // The design the app wears: the monochrome keeps its full-contrast
-    // light, the neumorphism and the glass light the selection with
-    // their own accent and wear their own surface.
-    final look = AppDesign.current.look(dark);
-    final designed = AppDesign.current.key != 'mono';
-    final accent = designed
-        ? (look.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A)))
-        : (dark ? Colors.white : const Color(0xFF0A0A0A));
+    // The app's one design: the monochrome — the pill keeps its
+    // full-contrast light and its own night glass.
+    final accent = dark ? Colors.white : const Color(0xFF0A0A0A);
     return SafeArea(
       top: false,
       child: Padding(
@@ -230,20 +225,14 @@ class _FloatingPillNav extends StatelessWidget {
             child: Container(
               height: 64,
               decoration: BoxDecoration(
-                color: designed
-                    // The design's own pill: its surface, lifted by the
-                    // same dual shadow the cards wear.
-                    ? look.surface
-                    : dark
+                color: dark
                     // The night glass: the pill is of the page it floats
                     // over, the midnight gradient showing through.
                     ? const Color(0xCC0F0F0F)
                     : Colors.white.withValues(alpha: 0.94),
                 borderRadius: BorderRadius.circular(32),
                 border: Border.all(
-                  color: designed
-                      ? look.outline
-                      : dark
+                  color: dark
                       ? Colors.white.withValues(alpha: 0.12)
                       : Colors.black.withValues(alpha: 0.05),
                 ),
@@ -349,9 +338,7 @@ class _FloatingPillNav extends StatelessWidget {
   }) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     final selected = index == i;
-    final idle = AppDesign.current.key != 'mono'
-        ? AppDesign.current.look(dark).muted
-        : (dark ? Midnight.muted : const Color(0xFF6B6B6B));
+    final idle = dark ? Midnight.muted : const Color(0xFF6B6B6B);
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,

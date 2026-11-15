@@ -1968,19 +1968,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
   String get valueSmart => '智能';
   String get mtuAutoValue => '自动 — 随网络调整';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return '自动 — 网络承载 $mtu';
+  }
   String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
   String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
   String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
   String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
 
   @override
-  String get lookTitle => '应用设计';
-  String get lookMono => '单色';
-  String get lookMonoDesc => '应用最初的黑白本色：对比鲜明、安静、没有色相。';
-  String get lookNeu => '柔和新拟态';
-  String get lookNeuDesc => '白天是温润的瓷白，夜晚是哑光黑曜石——卡片仿佛可以按进页面，带着日落橙的光。';
-  String get lookGlass => '极光玻璃';
-  String get lookGlassDesc => '深邃的夜空覆着蓝色霜花——卡片如同搁在其上的玻璃板。';
   String get smartWaiting => '正在测量……';
   String get smartFamilyRace => '首次连接时两族同时竞速';
   String get dnsManual => '手动 DNS';
@@ -1993,6 +1991,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wnDesignsAdded => '应用设计：整个应用可以换上柔和新拟态或极光玻璃——每一页、每一张卡片——在 设置 → 通用 中选择。';
   String get wnWheelFixed => '转轮的半面旗消失了：选中旗帜下方的搁板是一泓光，不再是第二面旗，屏幕边缘也不会切掉任何旗帜。';
   String get wnMapReal => '世界地图依据各国官方边界重新绘制——每一处海岸、岛屿与飞地都忠实呈现，比例真实。';
+  String get wnGlobeAdded => '世界变成了地球仪：银色球体会转向所选国家，发光的定位针与悬浮卡片标记它，连接的路线伸向各枢纽。';
+  String get wnWheelGlowImproved => '选中的旗帜在蓝色光晕与玻璃边框中更大更醒目，两侧旗帜明显更小，转轮下方的指示点显示当前位置。';
+  String get wnDesignsRemoved => '应用设计选项已移除：应用恢复原本的单色外观——您的强调色与主题保持不变。';
   String get wnDnsAdded => '手动 DNS：普通 IP、DNS over HTTPS 与 DNS over TLS——每一行的类型随手输入即时显示并校验。';
   String get wnSmartImproved => '智能连接现在实时显示网络的回答：它选中的传输方式与保留的 IP 版本。';
   String get wnProtectionImproved => 'Kill Switch 会在守护生效时说明状态，应用页面会显示你选择的应用数量。';
@@ -3965,19 +3966,17 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
   String get valueSmart => '智能';
   String get mtuAutoValue => '自动 — 随网络调整';
+
+  @override
+  String mtuAutoMeasured(int mtu) {
+    return '自動 — 網路承載 $mtu';
+  }
   String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
   String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
   String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
   String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
 
   @override
-  String get lookTitle => '应用设计';
-  String get lookMono => '单色';
-  String get lookMonoDesc => '应用最初的黑白本色：对比鲜明、安静、没有色相。';
-  String get lookNeu => '柔和新拟态';
-  String get lookNeuDesc => '白天是温润的瓷白，夜晚是哑光黑曜石——卡片仿佛可以按进页面，带着日落橙的光。';
-  String get lookGlass => '极光玻璃';
-  String get lookGlassDesc => '深邃的夜空覆着蓝色霜花——卡片如同搁在其上的玻璃板。';
   String get smartWaiting => '正在测量……';
   String get smartFamilyRace => '首次连接时两族同时竞速';
   String get dnsManual => '手动 DNS';
@@ -3990,6 +3989,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get wnDesignsAdded => '应用设计：整个应用可以换上柔和新拟态或极光玻璃——每一页、每一张卡片——在 设置 → 通用 中选择。';
   String get wnWheelFixed => '转轮的半面旗消失了：选中旗帜下方的搁板是一泓光，不再是第二面旗，屏幕边缘也不会切掉任何旗帜。';
   String get wnMapReal => '世界地图依据各国官方边界重新绘制——每一处海岸、岛屿与飞地都忠实呈现，比例真实。';
+  String get wnGlobeAdded => '世界變成了地球儀：銀色球體會轉向所選國家，發光的定位針與懸浮卡片標記它，連線的路線伸向各樞紐。';
+  String get wnWheelGlowImproved => '選中的旗幟在藍色光暈與玻璃邊框中更大更醒目，兩側旗幟明顯更小，轉輪下方的指示點顯示目前位置。';
+  String get wnDesignsRemoved => '應用程式設計選項已移除：應用程式恢復原本的單色外觀——您的強調色與主題保持不變。';
   String get wnDnsAdded => '手动 DNS：普通 IP、DNS over HTTPS 与 DNS over TLS——每一行的类型随手输入即时显示并校验。';
   String get wnSmartImproved => '智能连接现在实时显示网络的回答：它选中的传输方式与保留的 IP 版本。';
   String get wnProtectionImproved => 'Kill Switch 会在守护生效时说明状态，应用页面会显示你选择的应用数量。';
