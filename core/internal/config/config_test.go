@@ -554,3 +554,18 @@ func TestIPVersionDefaultsToAuto(t *testing.T) {
 		}
 	}
 }
+
+// The smart choices validate: one value for the transport and one for
+// the IP version that mean "measure and remember", not a fixed one.
+func TestValidateAcceptsSmart(t *testing.T) {
+	cfg := Default()
+	cfg.Proxy.Transport = "smart"
+	cfg.Proxy.IPVersion = "smart"
+	cfg.Tun.SmartMTU = true
+	if err := cfg.Validate(); err != nil {
+		t.Fatalf("smart choices refused: %v", err)
+	}
+	if cfg.Tun.MTU != 0 {
+		t.Fatalf("a config with smart MTU need not carry tun.mtu, got %d", cfg.Tun.MTU)
+	}
+}
