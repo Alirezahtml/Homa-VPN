@@ -1450,7 +1450,7 @@ void main() {
         )
         .map((t) => t.data)
         .join(', ');
-    expect(texts(0), 'General, General, Connection, Routing, DNS');
+    expect(texts(0), 'General, General, Appearance, Connection, Routing, DNS');
     expect(
       texts(1),
       'If Mozilla is blocked, Relay server, TLS fragmentation, '
@@ -2355,6 +2355,10 @@ void main() {
     expect(find.text('Sleep when idle after'), findsOneWidget);
 
     // Changing the proxy port starts from the current one, not from "taken".
+    // The speed panel sits above it now, so the row may live below the
+    // window's fold: bring it into view first.
+    await tester.ensureVisible(find.text('Proxy port'));
+    await settle(tester);
     await tester.tap(find.text('Proxy port'));
     await settle(tester);
     expect(find.textContaining('is taken'), findsNothing);
@@ -2366,6 +2370,8 @@ void main() {
     await settle(tester);
 
     // The proxy login: one form, both fields saved together.
+    await tester.ensureVisible(find.text('Proxy login'));
+    await settle(tester);
     await tester.tap(find.text('Proxy login'));
     await settle(tester);
     // Its form's Save: after the MTU's in the connection section, before
