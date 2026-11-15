@@ -282,7 +282,7 @@ jobs:
       # sound plugin there and stays silent, everything else working.
       - name: The sounds' GStreamer
         run: |
-          if sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev; then
+          if sudo apt-get install -y libunwind-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev; then
             echo "the sounds' backend is in"
           else
             echo "ARMAN_VPN_NO_AUDIO=1" >> "$GITHUB_ENV"

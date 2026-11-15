@@ -51,7 +51,10 @@ goflags="-s -w -X $module/internal/version.Current=$version"
 # else — the file dialogs included — keeps working.
 if [ -n "${ARMAN_VPN_NO_AUDIO:-}" ]; then
   echo "building without the sound plugin (no GStreamer)"
+  # Both generated files carry the plugin: the cmake list builds its
+  # library, the registrant includes its header and calls its register.
   sed -i '/audioplayers_linux/d' "$root/app/linux/flutter/generated_plugins.cmake"
+  sed -i '/audioplayers_linux/d' "$root/app/linux/flutter/generated_plugin_registrant.cc"
 fi
 
 (cd "$root/app" && flutter build linux --release --no-pub --dart-define=APP_VERSION="$version")
