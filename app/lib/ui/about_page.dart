@@ -121,17 +121,27 @@ class _AboutPageState extends State<AboutPage> {
       children: [
         PageTitle(l.navAbout),
         const SizedBox(height: 20),
-        // The identity: who this app is, in one card of its own.
+        // The identity: who this app is, in one card of its own. The
+        // Center stretches the block to the card's whole width, so the
+        // logo, the name and the note truly sit in its middle — a
+        // Column alone hugs its widest line and leans to the edge.
         arrived(
           Panel(
-            child: Column(
-              children: [
-                const AppLogo(size: 72),
-                const SizedBox(height: 10),
-                Text(l.appTitle, style: theme.textTheme.titleLarge),
-                const SizedBox(height: 4),
-                Text(l.unofficialNote, style: muted, textAlign: TextAlign.center),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const AppLogo(size: 72),
+                  const SizedBox(height: 10),
+                  Text(l.appTitle, style: theme.textTheme.titleLarge),
+                  const SizedBox(height: 4),
+                  Text(
+                    l.unofficialNote,
+                    style: muted,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

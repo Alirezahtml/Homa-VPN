@@ -2135,8 +2135,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get mapKindFlat => 'Lapos 2D';
   String get mapKindNight => 'Éjszaka';
   String get aboutChannels => 'Elérhetőségi oldalak';
-  String get soundFeedback => 'Csatlakozás hangja';
-  String get soundFeedbackHint => 'Rövid hang a csatlakozáskor és a lecsatlakozáskor';
+  String get soundFeedback => 'Hangok';
+  String get soundFeedbackHint => 'Lágy hangok érintéshez, kapcsolókhoz, csatlakozáshoz és lecsatlakozáshoz';
   String get rateUnit => 'Sebesség mértékegysége';
   String get lockInBackground => 'Zárolás távollétben';
   String get lockBgNever => 'Soha';
@@ -2147,6 +2147,11 @@ class AppLocalizationsHu extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'A csatlakozás hangja a rezgéssel együtt: a VPN rövid hangot szól le-, és felcsatlakozáskor (Beállítások → Általános).';
+  String get copyIp => 'IP másolása';
+  String get wn42Fonts => 'Minden nyelv az app saját betűivel olvas: Noto Sans a két kínaihoz és a bengálihoz, Inter a latin és a cirill nyelvekhez — már egyetlen nyelv sem a telefon betűire támaszkodik.';
+  String get wn42Sounds => 'Az app hangjai mostantól valóságosak: lágy koppanás minden szakaszban, két hang a kapcsolókhoz, fel-le szökő hang a csatlakozásnál és a lecsatlakozásnál, csengő a zárhoz — a hangkapcsoló mindet uralja.';
+  String get wn42AboutFixed => 'A Névjegy lap középre igazítja logóját, nevét és jegyzetét, és az elérési azonosítók a telefon szélességétől függetlenül épek és egy sorban maradnak.';
+  String get wn42Gaming => 'A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal.';
   String get wn41RateUnit => 'A sebesség a választott egységben olvasható: a megszokott KB/s vagy a kapcsolat Mbps-e.';
   String get wn41BackgroundLock => 'Az app távollétben magát is zárolhatja: a jelszó azonnal, 5 vagy 15 perc után újra kérhető.';
   String get wn41BiggerLimits => 'A munkamenet adatkerete 25, 50 vagy 100 GB-ra emelkedik.';

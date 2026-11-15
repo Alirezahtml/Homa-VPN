@@ -711,8 +711,8 @@
   "wn40Speed": "Tunnel kini membuka dua sesi paralel secara bawaan — jalur yang lebih kuat dan stabil.",
   "wn40LockFixed": "Gembok tombol sambungan tidak lagi menghilang di antara keadaannya.",
   "wn40IpRemoved": "Jendela IP pada kartu lokasi dihapus.",
-  "soundFeedback": "Suara koneksi",
-  "soundFeedbackHint": "Suara singkat saat koneksi menyala atau mati",
+  "soundFeedback": "Efek suara",
+  "soundFeedbackHint": "Suara lembut untuk ketukan, sakelar, dan saat koneksi menyala atau mati",
   "rateUnit": "Satuan kecepatan",
   "lockInBackground": "Kunci saat pergi",
   "lockBgNever": "Tidak pernah",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "Batas data sesi naik hingga 25, 50, atau 100 GB.",
   "wn41Motion": "Gerakan baru: orb yang terhubung bernapas, tanda centang menggambar dirinya sendiri, kata status meluncur di antara nilainya, dan kata sandi yang salah mengguncang kolomnya.",
   "wn41AboutFixed": "Halaman Tentang kini tertata: dua halaman berdampingan, tiap keterangan di barisnya sendiri, tanpa penekanan.",
-  "wn41HapticFixed": "Pengaturan getaran kini berfungsi lagi: nyala-mati setiap koneksi mengikutinya, bukan hanya slider."
+  "wn41HapticFixed": "Pengaturan getaran kini berfungsi lagi: nyala-mati setiap koneksi mengikutinya, bukan hanya slider.",
+  "copyIp": "Salin IP",
+  "wn42Fonts": "Setiap bahasa membaca dengan huruf milik aplikasi sendiri: Noto Sans untuk dua bahasa Tionghoa dan Bengali, Inter untuk bahasa Latin dan Kiril — tidak ada lagi yang bergantung pada huruf ponsel.",
+  "wn42Sounds": "Suara aplikasi kini nyata: ketukan lembut di setiap bagian, dua nada untuk sakelar, nada naik-turun saat koneksi menyala dan mati, ping untuk kunci — sakelar suara mengatur semuanya.",
+  "wn42AboutFixed": "Halaman Tentang memusat logo, nama, dan catatannya, dan ident kontak tetap utuh satu baris apa pun lebar ponselnya.",
+  "wn42Gaming": "Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen."
 }

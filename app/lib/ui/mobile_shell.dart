@@ -15,6 +15,7 @@ import 'motion.dart';
 import 'overview_page.dart';
 import 'servers_page.dart';
 import 'settings_page.dart';
+import 'sound.dart' show AppSounds, SoundCue;
 import 'widgets.dart';
 
 /// The phone layout: two tabs, Home and Settings, as phone apps have. The
@@ -344,6 +345,8 @@ class _FloatingPillNav extends StatelessWidget {
         onTap: () {
           if (!selected) {
             HapticFeedback.selectionClick();
+            // The ear hears the section change beside the finger.
+            AppSounds.play(SoundCue.tap);
             onSelect(i);
           }
         },

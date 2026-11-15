@@ -10,6 +10,7 @@ import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../core/remote_flags.dart' show bundledFlags;
 import '../l10n/app_localizations.dart';
+import 'sound.dart' show AppSounds, SoundCue;
 import 'widgets.dart';
 
 /// The home page's country wheel: the locations' flags in one horizontal,
@@ -260,6 +261,7 @@ class _FlagCarouselState extends State<FlagCarousel>
   Future<void> _choose(Location loc) async {
     // A small tick at the choice: the wheel says it heard the finger.
     HapticFeedback.selectionClick();
+    AppSounds.play(SoundCue.tap);
     // The recommended location is the empty choice; the rest are codes.
     final value = isRecommendedPlace(loc.code) ? '' : loc.code;
     await runShowingErrors(context, () => widget.core.setLocation(value));
@@ -999,6 +1001,7 @@ class _FlagStripState extends State<FlagStrip> {
 
   Future<void> _choose(Location loc) async {
     HapticFeedback.selectionClick();
+    AppSounds.play(SoundCue.tap);
     final value = isRecommendedPlace(loc.code) ? '' : loc.code;
     await runShowingErrors(context, () => widget.core.setLocation(value));
   }

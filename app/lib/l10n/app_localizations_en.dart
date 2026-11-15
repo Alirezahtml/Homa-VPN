@@ -2127,8 +2127,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapKindSatellite => 'Satellite';
   String get mapKindFlat => 'Flat 2D';
   String get mapKindNight => 'Night';
-  String get soundFeedback => 'Connection sound';
-  String get soundFeedbackHint => 'A short sound when the connection goes on or off';
+  String get soundFeedback => 'Sound effects';
+  String get soundFeedbackHint => 'Soft sounds for taps, switches, and the connection\'s turns';
   String get rateUnit => 'Speed unit';
   String get lockInBackground => 'Lock when leaving';
   String get lockBgNever => 'Never';
@@ -2140,6 +2140,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mb102400 => '100 GB';
   String get aboutChannels => 'Contact pages';
   String get wn41Sound => 'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).';
+  String get copyIp => 'Copy IP';
+  String get wn42Fonts => 'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.';
+  String get wn42Sounds => 'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.';
+  String get wn42AboutFixed => 'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.';
+  String get wn42Gaming => 'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.';
   String get wn41RateUnit => 'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.';
   String get wn41BackgroundLock => 'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.';
   String get wn41BiggerLimits => 'The session\'s data limit climbs to 25, 50, or 100 GB.';

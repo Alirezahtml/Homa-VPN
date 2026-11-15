@@ -2121,8 +2121,8 @@ class AppLocalizationsAz extends AppLocalizations {
   String get mapKindFlat => 'Düz 2D';
   String get mapKindNight => 'Gecə';
   String get aboutChannels => 'Əlaqə səhifələri';
-  String get soundFeedback => 'Qoşma səsi';
-  String get soundFeedbackHint => 'Qoşma yandırılan və ya söndürüləndə qısa səs';
+  String get soundFeedback => 'Səs effektləri';
+  String get soundFeedbackHint => 'Toxunuşlar, açarlar və qoşmanın yandırılıb-söndürülməsi üçün yumşaq səslər';
   String get rateUnit => 'Sürət vahidi';
   String get lockInBackground => 'Tərk edəndən sonra kilid';
   String get lockBgNever => 'Heç vaxt';
@@ -2133,6 +2133,11 @@ class AppLocalizationsAz extends AppLocalizations {
   String get mb51200 => '50 QB';
   String get mb102400 => '100 QB';
   String get wn41Sound => 'Qoşma səsi titrişə qoşuldu: VPN yandırılan və ya söndürüləndə qısa bir not çalır (Ayarlar ← Ümumi).';
+  String get copyIp => 'IP-ni kopyala';
+  String get wn42Fonts => 'Hər dil tətbiqin öz şriftlərini oxuyur: iki çincə və bengal üçün Noto Sans, latın və kiril dilləri üçün Inter — artıq heç bir dil telefonun şriftlərinə söykənmir.';
+  String get wn42Sounds => 'Tətbiqin səsləri artıq realdır: hər bölmədə yumşaq toxunuş, açarlar üçün iki nota, qoşmanın yaranıb-sönməsində qalxan və enən nota, kilid üçün zəng — Səs açarı hamısını idarə edir.';
+  String get wn42AboutFixed => 'Haqqında səhifəsi loqosunu, adını və qeydini mərkəzə qoyur, əlaqə identləri telefonun enindən asılı olmayaraq tam və bir sətirdə qalır.';
+  String get wn42Gaming => 'Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır.';
   String get wn41RateUnit => 'Sürət seçdiyiniz vahidlə oxunur: tanış KB/s və ya bağlantının öz Mbps-i.';
   String get wn41BackgroundLock => 'Tətbiq siz uzaqda olanda özünü kilidləyə bilər: şifrə dərhal, 5 və ya 15 dəqiqədən sonra yenidən soruşulur.';
   String get wn41BiggerLimits => 'Sessiyanın data həddi 25, 50 və ya 100 QB-yə qalxır.';

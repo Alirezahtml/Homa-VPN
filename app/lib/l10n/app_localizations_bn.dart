@@ -2115,8 +2115,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mapKindFlat => 'ফ্ল্যাট 2D';
   String get mapKindNight => 'রাত';
   String get aboutChannels => 'যোগাযোগের পৃষ্ঠা';
-  String get soundFeedback => 'সংযোগের শব্দ';
-  String get soundFeedbackHint => 'সংযোগ চালু বা বন্ধ হলে একটি ছোট শব্দ';
+  String get soundFeedback => 'সাউন্ড ইফেক্ট';
+  String get soundFeedbackHint => 'ট্যাপ, সুইচ ও সংযোগ চালু-বন্ধের জন্য নরম শব্দ';
   String get rateUnit => 'গতির একক';
   String get lockInBackground => 'ছেড়ে গেলে লক';
   String get lockBgNever => 'কখনও নয়';
@@ -2127,6 +2127,11 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mb51200 => '৫০ জিবি';
   String get mb102400 => '১০০ জিবি';
   String get wn41Sound => 'কম্পনের পাশে সংযোগের শব্দ: VPN চালু বা বন্ধ হলে একটি ছোট সুর বাজে (সেটিংস → সাধারণ)।';
+  String get copyIp => 'IP কপি করুন';
+  String get wn42Fonts => 'প্রতিটি ভাষা অ্যাপের নিজের ফন্টে পড়ে: দুই চীনা ও বাংলার জন্য Noto Sans, লাতিন ও সিরিলিকের জন্য Inter — আর কোনো ভাষা ফোনের ফন্টের ওপর ভরসা করে না।';
+  String get wn42Sounds => 'অ্যাপের শব্দ এখন সত্যি: প্রতিটি অংশে একটি নরম ট্যাপ, সুইচের জন্য দুটি সুর, সংযোগ চালু-বন্ধে ওঠা-নামা একটি সুর, লকের জন্য একটি পিং — সাউন্ড সুইচ সব নিয়ন্ত্রণ করে।';
+  String get wn42AboutFixed => 'সম্পর্কে পৃষ্ঠা তার লোগো, নাম ও নোট মাঝখানে বসায়, এবং যোগাযোগের আইডিগুলো ফোনের প্রস্থ যা-ই হোক, অক্ষত ও এক লাইনে থাকে।';
+  String get wn42Gaming => 'গেমিং প্রোফাইল এখন সত্যি: সার্ভার পৃষ্ঠা প্রতি আধা মিনিটে দেরি নতুন করে মাপে এবং মাপা দ্রুততমটিকে অ্যাকসেন্ট দিয়ে তুলে ধরে।';
   String get wn41RateUnit => 'গতি আপনার পছন্দের এককে দেখাবে: পরিচিত KB/s বা সংযোগের নিজের Mbps.';
   String get wn41BackgroundLock => 'অ্যাপ আপনার অনুপস্থিতিতে নিজেকে লক করতে পারে: পাসওয়ার্ড আবার সাথে সাথে, ৫ বা ১৫ মিনিট পরে চাওয়া হয়।';
   String get wn41BiggerLimits => 'সেশনের ডেটা সীমা এখন ২৫, ৫০ বা ১০০ জিবি পর্যন্ত।';

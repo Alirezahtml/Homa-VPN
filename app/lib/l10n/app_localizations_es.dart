@@ -2138,8 +2138,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mapKindFlat => 'Plano 2D';
   String get mapKindNight => 'Noche';
   String get aboutChannels => 'Páginas de contacto';
-  String get soundFeedback => 'Sonido de conexión';
-  String get soundFeedbackHint => 'Un sonido corto al conectar o desconectar';
+  String get soundFeedback => 'Efectos de sonido';
+  String get soundFeedbackHint => 'Sonidos suaves al tocar, en los interruptores y al conectar o desconectar';
   String get rateUnit => 'Unidad de velocidad';
   String get lockInBackground => 'Bloquear al salir';
   String get lockBgNever => 'Nunca';
@@ -2150,6 +2150,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'El sonido de conexión acompaña a la vibración: la VPN suena una nota corta al conectar o desconectar (Ajustes → General).';
+  String get copyIp => 'Copiar la IP';
+  String get wn42Fonts => 'Cada idioma lee con la propia tipografía de la app: Noto Sans para los dos chinos y el bengalí, Inter para los latinos y los cirílicos; ningún idioma depende ya de las fuentes del teléfono.';
+  String get wn42Sounds => 'Los sonidos de la app son reales ahora: un toque suave en cada sección, dos notas para los interruptores, una nota que sube y baja al conectar y desconectar, un pitido para el bloqueo; el interruptor de sonido los gobierna todos.';
+  String get wn42AboutFixed => 'La página Acerca de centra su logo, su nombre y su nota, y las direcciones de contacto quedan enteras en una línea, sea cual sea el ancho del teléfono.';
+  String get wn42Gaming => 'El perfil de juego es real ahora: la página de servidores mide los retrasos de nuevo cada medio minuto y realza el más rápido medido con el acento.';
   String get wn41RateUnit => 'La velocidad se lee en la unidad que elijas: el conocido KB/s o el Mbps de la conexión.';
   String get wn41BackgroundLock => 'La app puede bloquearse en tu ausencia: la contraseña se pide enseguida, tras 5 o tras 15 minutos.';
   String get wn41BiggerLimits => 'El límite de datos de la sesión sube hasta 25, 50 o 100 GB.';

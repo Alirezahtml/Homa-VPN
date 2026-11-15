@@ -69,10 +69,11 @@ class AppSettings extends ChangeNotifier {
   /// user turned it off.
   bool hapticFeedback = true;
 
-  /// A short sound when the connection goes on or off — the confirmation
-  /// the ear catches when the phone is out of sight; off until the user
-  /// turns it on.
-  bool soundFeedback = false;
+  /// The app's own sounds — the tap, the switches' two notes, the
+  /// connection's rising and falling notes, the lock's ping — the ear's
+  /// own confirmation for every section of the app; on unless the user
+  /// turns them off.
+  bool soundFeedback = true;
 
   /// Locks the app again after a while away: 0 never re-locks, 1 asks the
   /// password right away on return, 5 and 15 are whole minutes. Only when
@@ -332,7 +333,7 @@ class AppSettings extends ChangeNotifier {
         s.autostart = j['autostart'] != false;
         s.autoConnect = j['auto_connect'] == true;
         s.hapticFeedback = j['haptic_feedback'] != false;
-        s.soundFeedback = j['sound_feedback'] == true;
+        s.soundFeedback = j['sound_feedback'] != false;
         if (j['lock_background_min'] case final int v) {
           s.lockBackgroundMin = switch (v) { 1 || 5 || 15 => v, _ => 0 };
         }

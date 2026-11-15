@@ -2141,8 +2141,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get mapKindFlat => 'Plate 2D';
   String get mapKindNight => 'Nuit';
   String get aboutChannels => 'Pages de contact';
-  String get soundFeedback => 'Son de connexion';
-  String get soundFeedbackHint => 'Un son court à la connexion ou à la déconnexion';
+  String get soundFeedback => 'Effets sonores';
+  String get soundFeedbackHint => 'Des sons doux au toucher, sur les interrupteurs, à la connexion et à la déconnexion';
   String get rateUnit => 'Unité de vitesse';
   String get lockInBackground => 'Verrou après une absence';
   String get lockBgNever => 'Jamais';
@@ -2153,6 +2153,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get mb51200 => '50 Go';
   String get mb102400 => '100 Go';
   String get wn41Sound => 'Le son de connexion rejoint la vibration : le VPN joue une note courte à la connexion ou à la déconnexion (Réglages → Général).';
+  String get copyIp => 'Copier l\'adresse IP';
+  String get wn42Fonts => 'Chaque langue lit avec la police propre à l\'app : Noto Sans pour les deux chinois et le bengali, Inter pour les langues latines et cyrilliques — plus aucune langue ne s\'appuie sur les polices du téléphone.';
+  String get wn42Sounds => 'Les sons de l\'app sont réels désormais : un toucher doux dans chaque section, deux notes pour les interrupteurs, une note qui monte et descend à la connexion et à la déconnexion, un ping pour le verrou — l\'interrupteur sonore les gouverne tous.';
+  String get wn42AboutFixed => 'La page À propos centre son logo, son nom et sa note, et les identifiants de contact restent entiers sur une ligne, quelle que soit la largeur du téléphone.';
+  String get wn42Gaming => 'Le profil jeu est réel désormais : la page des serveurs remesure les délais chaque demi-minute et met en avant le plus rapide mesuré avec l\'accent.';
   String get wn41RateUnit => 'La vitesse se lit dans l\'unité choisie : le KB/s familier ou le Mbps de la connexion.';
   String get wn41BackgroundLock => 'L\'app peut se verrouiller en votre absence : le mot de passe se redemande immédiatement, après 5 ou après 15 minutes.';
   String get wn41BiggerLimits => 'La limite de données de la session monte à 25, 50 ou 100 Go.';

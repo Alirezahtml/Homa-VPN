@@ -2131,8 +2131,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get mapKindFlat => 'Plano 2D';
   String get mapKindNight => 'Noite';
   String get aboutChannels => 'Páginas de contato';
-  String get soundFeedback => 'Som de conexão';
-  String get soundFeedbackHint => 'Um som curto ao conectar ou desconectar';
+  String get soundFeedback => 'Efeitos sonoros';
+  String get soundFeedbackHint => 'Sons suaves ao tocar, nos interruptores e ao conectar ou desconectar';
   String get rateUnit => 'Unidade de velocidade';
   String get lockInBackground => 'Bloquear ao sair';
   String get lockBgNever => 'Nunca';
@@ -2143,6 +2143,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'O som de conexão acompanha a vibração: a VPN toca uma nota curta ao conectar ou desconectar (Ajustes → Geral).';
+  String get copyIp => 'Copiar o IP';
+  String get wn42Fonts => 'Cada idioma lê com a fonte própria do app: Noto Sans para os dois chineses e o bengali, Inter para os latinos e cirílicos — nenhum idioma depende mais das fontes do telefone.';
+  String get wn42Sounds => 'Os sons do app agora são reais: um toque suave em cada seção, duas notas para os interruptores, uma nota que sobe e desce ao conectar e desconectar, um ping para o bloqueio — o interruptor de som governa todos.';
+  String get wn42AboutFixed => 'A página Sobre centra o logotipo, o nome e a nota, e os identificadores de contato ficam inteiros numa linha, seja qual for a largura do telefone.';
+  String get wn42Gaming => 'O perfil de jogo agora é real: a página de servidores remede os atrasos a cada meio minuto e destaca o mais rápido medido com o acento.';
   String get wn41RateUnit => 'A velocidade é lida na unidade que você escolhe: o conhecido KB/s ou o Mbps da conexão.';
   String get wn41BackgroundLock => 'O app pode se bloquear na sua ausência: a senha é pedida de novo logo, após 5 ou após 15 minutos.';
   String get wn41BiggerLimits => 'O limite de dados da sessão sobe para 25, 50 ou 100 GB.';

@@ -2032,8 +2032,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mapKindFlat => '平面 2D';
   String get mapKindNight => '夜晚';
   String get aboutChannels => '联系页面';
-  String get soundFeedback => '连接提示音';
-  String get soundFeedbackHint => '连接开或关时播放一声短音';
+  String get soundFeedback => '音效';
+  String get soundFeedbackHint => '轻触、开关与连接切换时的轻柔音效';
   String get rateUnit => '速度单位';
   String get lockInBackground => '离开后重新上锁';
   String get lockBgNever => '从不';
@@ -2044,6 +2044,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => '连接提示音与振动同行：VPN 开启或关闭时会发出一声短音（设置 → 通用）。';
+  String get copyIp => '复制 IP';
+  String get wn42Fonts => '每种语言都用应用自带的字体阅读：两种中文与孟加拉文用 Noto Sans，拉丁与西里尔文用 Inter——不再依赖手机字体。';
+  String get wn42Sounds => '应用的音效现在是真的：每个分区都有轻柔的触碰声、开关的两声短音、连接建立与断开时的升降音、锁定时的一声提示——音效开关统一控制。';
+  String get wn42AboutFixed => '「关于」页面的标志、名称与说明居中显示，联系账号无论屏幕多窄都完整保持在一行。';
+  String get wn42Gaming => '游戏模式现在是真的：服务器页面每半分钟重新测量延迟，并用强调色突出实测最快的服务器。';
   String get wn41RateUnit => '速度按你选择的单位显示：熟悉的 KB/s 或连接本身的 Mbps。';
   String get wn41BackgroundLock => '应用可在你离开后自行上锁：密码会在立即、5 分钟或 15 分钟后重新询问。';
   String get wn41BiggerLimits => '会话的数据上限可升到 25、50 或 100 GB。';
@@ -4130,8 +4135,8 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get mapKindFlat => '平面 2D';
   String get mapKindNight => '夜晚';
   String get aboutChannels => '聯絡頁面';
-  String get soundFeedback => '連接提示音';
-  String get soundFeedbackHint => '連接開或關時播放一聲短音';
+  String get soundFeedback => '音效';
+  String get soundFeedbackHint => '輕觸、開關與連接切換時的輕柔音效';
   String get rateUnit => '速度單位';
   String get lockInBackground => '離開後重新上鎖';
   String get lockBgNever => '從不';
@@ -4142,6 +4147,11 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => '連接提示音與震動同行：VPN 開啟或關閉時會發出一聲短音（設定 → 一般）。';
+  String get copyIp => '複製 IP';
+  String get wn42Fonts => '每種語言都用應用自帶的字體閱讀：兩種中文與孟加拉文用 Noto Sans，拉丁與西里爾文用 Inter——不再依賴手機字體。';
+  String get wn42Sounds => '應用的音效現在是真的：每個分區都有輕柔的觸碰聲、開關的兩聲短音、連接建立與斷開時的升降音、鎖定時的一聲提示——音效開關統一控制。';
+  String get wn42AboutFixed => '「關於」頁面的標誌、名稱與說明置中顯示，聯繫帳號無論螢幕多窄都完整保持在一行。';
+  String get wn42Gaming => '遊戲模式現在是真的：伺服器頁面每半分鐘重新測量延遲，並用強調色突出實測最快的伺服器。';
   String get wn41RateUnit => '速度按你選擇的單位顯示：熟悉的 KB/s 或連接本身的 Mbps。';
   String get wn41BackgroundLock => '應用可在你離開後自行上鎖：密碼會在立即、5 分鐘或 15 分鐘後重新詢問。';
   String get wn41BiggerLimits => '會話的資料上限可升到 25、50 或 100 GB。';

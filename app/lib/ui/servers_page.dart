@@ -27,8 +27,12 @@ class ServersPage extends StatefulWidget {
 }
 
 /// How old measured delays are before the page measures them again when
-/// it opens.
-const _pingStale = Duration(minutes: 10);
+/// it opens — ten minutes ordinarily. The gaming profile lives in the
+/// fresh numbers: it asks again after half a minute, and the smart pick
+/// stands a little prouder (the Use button in the accent's own ink).
+Duration _pingStaleOf(AppSettings settings) => settings.gamingProfile
+    ? const Duration(seconds: 30)
+    : const Duration(minutes: 10);
 
 class _ServersPageState extends State<ServersPage> {
   List<Location>? _locations;
@@ -81,10 +85,12 @@ class _ServersPageState extends State<ServersPage> {
         }
       });
       // Delays measured a while ago, or never: measured again at once (the
-      // core does it also while the proxy is off).
+      // core does it also while the proxy is off). The gaming profile's
+      // window is the short one.
       final at = _pingedAt;
       if (!_noAccounts &&
-          (at == null || DateTime.now().difference(at) > _pingStale)) {
+          (at == null ||
+              DateTime.now().difference(at) > _pingStaleOf(widget.settings))) {
         unawaited(_test());
       }
     } on CoreApiException catch (e) {
@@ -320,6 +326,7 @@ class _ServersPageState extends State<ServersPage> {
                 location: smart,
                 onUse: () => _choose(smart.code),
                 busy: _busy?.toLowerCase() == smart.code.toLowerCase(),
+                lifted: widget.settings.gamingProfile,
               ),
             ),
             _ => const SizedBox(width: double.infinity),
@@ -456,11 +463,17 @@ class _SmartPickCard extends StatelessWidget {
     required this.location,
     required this.onUse,
     required this.busy,
+    this.lifted = false,
   });
 
   final Location location;
   final VoidCallback onUse;
   final bool busy;
+
+  /// The gaming profile's own lift: the card's frame and the Use button
+  /// wear the accent at full strength, so the measured fastest reads as
+  /// the offer it is, at a glance.
+  final bool lifted;
 
   @override
   Widget build(BuildContext context) {
@@ -470,9 +483,11 @@ class _SmartPickCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10),
       decoration: BoxDecoration(
-        color: scheme.primary.withValues(alpha: 0.06),
+        color: scheme.primary.withValues(alpha: lifted ? 0.10 : 0.06),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: scheme.primary.withValues(alpha: 0.25)),
+        border: Border.all(
+          color: scheme.primary.withValues(alpha: lifted ? 0.45 : 0.25),
+        ),
       ),
       child: Row(
         children: [
@@ -503,15 +518,25 @@ class _SmartPickCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          FilledButton.tonal(
-            onPressed: busy ? null : onUse,
-            child: busy
-                ? const SizedBox.square(
-                    dimension: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : Text(l.smartPickUse),
-          ),
+          lifted
+              ? FilledButton(
+                  onPressed: busy ? null : onUse,
+                  child: busy
+                      ? const SizedBox.square(
+                          dimension: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(l.smartPickUse),
+                )
+              : FilledButton.tonal(
+                  onPressed: busy ? null : onUse,
+                  child: busy
+                      ? const SizedBox.square(
+                          dimension: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(l.smartPickUse),
+                ),
         ],
       ),
     );

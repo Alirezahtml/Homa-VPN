@@ -711,8 +711,8 @@
   "wn40Speed": "O túnel agora abre duas sessões paralelas por padrão — uma linha mais forte e estável.",
   "wn40LockFixed": "O cadeado do botão de conexão não pisca mais entre seus estados.",
   "wn40IpRemoved": "A janela de IP do cartão de local foi removida.",
-  "soundFeedback": "Som de conexão",
-  "soundFeedbackHint": "Um som curto ao conectar ou desconectar",
+  "soundFeedback": "Efeitos sonoros",
+  "soundFeedbackHint": "Sons suaves ao tocar, nos interruptores e ao conectar ou desconectar",
   "rateUnit": "Unidade de velocidade",
   "lockInBackground": "Bloquear ao sair",
   "lockBgNever": "Nunca",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "O limite de dados da sessão sobe para 25, 50 ou 100 GB.",
   "wn41Motion": "Movimento novo: o orbe conectado respira, o visto se desenha sozinho, a palavra de estado desliza entre seus valores e uma senha errada sacode o campo.",
   "wn41AboutFixed": "A página Sobre fica arrumada: as duas páginas lado a lado, cada aviso na sua linha, nada comprimido.",
-  "wn41HapticFixed": "O ajuste de vibração responde de novo: toda conexão e desconexão o segue, não só o deslizador."
+  "wn41HapticFixed": "O ajuste de vibração responde de novo: toda conexão e desconexão o segue, não só o deslizador.",
+  "copyIp": "Copiar o IP",
+  "wn42Fonts": "Cada idioma lê com a fonte própria do app: Noto Sans para os dois chineses e o bengali, Inter para os latinos e cirílicos — nenhum idioma depende mais das fontes do telefone.",
+  "wn42Sounds": "Os sons do app agora são reais: um toque suave em cada seção, duas notas para os interruptores, uma nota que sobe e desce ao conectar e desconectar, um ping para o bloqueio — o interruptor de som governa todos.",
+  "wn42AboutFixed": "A página Sobre centra o logotipo, o nome e a nota, e os identificadores de contato ficam inteiros numa linha, seja qual for a largura do telefone.",
+  "wn42Gaming": "O perfil de jogo agora é real: a página de servidores remede os atrasos a cada meio minuto e destaca o mais rápido medido com o acento."
 }

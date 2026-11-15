@@ -711,8 +711,8 @@
   "wn40Speed": "Az alagút alapból két párhuzamos munkamenetet nyit — erősebb, stabilabb vonal.",
   "wn40LockFixed": "A csatlakozás gomb lakatja már nem villog ki az állapotok között.",
   "wn40IpRemoved": "A helykártya IP-ablakát eltávolítottuk.",
-  "soundFeedback": "Csatlakozás hangja",
-  "soundFeedbackHint": "Rövid hang a csatlakozáskor és a lecsatlakozáskor",
+  "soundFeedback": "Hangok",
+  "soundFeedbackHint": "Lágy hangok érintéshez, kapcsolókhoz, csatlakozáshoz és lecsatlakozáshoz",
   "rateUnit": "Sebesség mértékegysége",
   "lockInBackground": "Zárolás távollétben",
   "lockBgNever": "Soha",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "A munkamenet adatkerete 25, 50 vagy 100 GB-ra emelkedik.",
   "wn41Motion": "Új mozzanatok: a csatlakozott gömb lélegzik, a pipa magát rajzolja meg, az állapotszó értékei közt siklik, és a rossz jelszó megrázza a mezőt.",
   "wn41AboutFixed": "A Névjegy lap rendbe szedette: a két oldal egymás mellett, minden jegyzet a saját sorában, semmi összenyomás.",
-  "wn41HapticFixed": "A rezgés beállítása újra hallgat: minden kapcsolódás és lecsatlakozás követi, nem csak a csúszka."
+  "wn41HapticFixed": "A rezgés beállítása újra hallgat: minden kapcsolódás és lecsatlakozás követi, nem csak a csúszka.",
+  "copyIp": "IP másolása",
+  "wn42Fonts": "Minden nyelv az app saját betűivel olvas: Noto Sans a két kínaihoz és a bengálihoz, Inter a latin és a cirill nyelvekhez — már egyetlen nyelv sem a telefon betűire támaszkodik.",
+  "wn42Sounds": "Az app hangjai mostantól valóságosak: lágy koppanás minden szakaszban, két hang a kapcsolókhoz, fel-le szökő hang a csatlakozásnál és a lecsatlakozásnál, csengő a zárhoz — a hangkapcsoló mindet uralja.",
+  "wn42AboutFixed": "A Névjegy lap középre igazítja logóját, nevét és jegyzetét, és az elérési azonosítók a telefon szélességétől függetlenül épek és egy sorban maradnak.",
+  "wn42Gaming": "A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal."
 }

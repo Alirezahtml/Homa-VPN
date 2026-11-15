@@ -553,7 +553,7 @@ class _SettingsPageState extends State<SettingsPage> {
         _Row(
           icon: Icons.visibility_outlined,
           label: l.showPublicIp,
-          child: Switch(
+          child: AppSwitch(
             value: s.showPublicIp,
             onChanged: (v) => s.update(showPublicIp: v),
           ),
@@ -562,7 +562,7 @@ class _SettingsPageState extends State<SettingsPage> {
         _Row(
           icon: Icons.vibration_rounded,
           label: l.hapticFeedback,
-          child: Switch(
+          child: AppSwitch(
             value: s.hapticFeedback,
             onChanged: (v) => s.update(hapticFeedback: v),
           ),
@@ -573,7 +573,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.music_note_outlined,
           label: l.soundFeedback,
           value: l.soundFeedbackHint,
-          child: Switch(
+          child: AppSwitch(
             value: s.soundFeedback,
             onChanged: (v) => s.update(soundFeedback: v),
           ),
@@ -606,7 +606,7 @@ class _SettingsPageState extends State<SettingsPage> {
           _Row(
             icon: Icons.screen_lock_portrait_rounded,
             label: l.keepScreenOn,
-            child: Switch(
+            child: AppSwitch(
               value: s.keepScreenOn,
               onChanged: (v) => s.update(keepScreenOn: v),
             ),
@@ -615,7 +615,7 @@ class _SettingsPageState extends State<SettingsPage> {
         _Row(
           icon: Icons.swap_vert_rounded,
           label: l.showTraffic,
-          child: Switch(
+          child: AppSwitch(
             value: s.showTraffic,
             onChanged: (v) => s.update(showTraffic: v),
           ),
@@ -626,7 +626,7 @@ class _SettingsPageState extends State<SettingsPage> {
             builder: (context, on, _) => _Row(
               icon: Icons.speed_rounded,
               label: l.speedInNotification,
-              child: Switch(
+              child: AppSwitch(
                 value: on,
                 onChanged: (v) => runShowingErrors(
                   context,
@@ -644,7 +644,7 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: Icons.flag_outlined,
               label: l.notifFlag,
               value: l.notifFlagHint,
-              child: Switch(
+              child: AppSwitch(
                 value: on,
                 onChanged: (v) => runShowingErrors(
                   context,
@@ -660,7 +660,7 @@ class _SettingsPageState extends State<SettingsPage> {
             icon: Icons.system_update_rounded,
             label: l.autoInstallApk,
             value: l.autoInstallApkHint,
-            child: Switch(
+            child: AppSwitch(
               value: s.autoInstallApk,
               onChanged: (v) => s.update(autoInstallApk: v),
             ),
@@ -673,7 +673,7 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: Icons.restart_alt_rounded,
               label: l.connectAtBoot,
               value: l.connectAtBootHint,
-              child: Switch(
+              child: AppSwitch(
                 value: on,
                 onChanged: (v) => runShowingErrors(
                   context,
@@ -688,7 +688,7 @@ class _SettingsPageState extends State<SettingsPage> {
             icon: Icons.flash_on_rounded,
             label: l.connectOnOpen,
             value: l.connectOnOpenHint,
-            child: Switch(
+            child: AppSwitch(
               value: s.connectOnOpen,
               onChanged: (v) => s.update(connectOnOpen: v),
             ),
@@ -700,7 +700,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.sports_esports_rounded,
           label: l.gamingProfile,
           value: l.gamingProfileHint,
-          child: Switch(
+          child: AppSwitch(
             value: s.gamingProfile,
             onChanged: (v) {
               s.update(gamingProfile: v);
@@ -729,7 +729,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.bug_report_outlined,
           label: l.verboseLogging,
           value: l.verboseLoggingHint,
-          child: Switch(
+          child: AppSwitch(
             value: _bool(['logging', 'verbose']),
             onChanged: _saving
                 ? null
@@ -742,7 +742,7 @@ class _SettingsPageState extends State<SettingsPage> {
           _Row(
             icon: Icons.power_settings_new_rounded,
             label: l.startOnBoot,
-            child: Switch(
+            child: AppSwitch(
               value: s.autostart,
               onChanged: (v) => s.update(autostart: v),
             ),
@@ -754,7 +754,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: _Row(
               icon: Icons.link_rounded,
               label: l.connectOnStartup,
-              child: Switch(
+              child: AppSwitch(
                 value: s.autoConnect,
                 onChanged: s.autostart ? (v) => s.update(autoConnect: v) : null,
               ),
@@ -765,7 +765,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.auto_mode_rounded,
           label: l.autoReconnect,
           value: Platform.isAndroid ? l.autoReconnectHint : l.androidOnlyHint,
-          child: Switch(
+          child: AppSwitch(
             value: Platform.isAndroid && s.autoReconnect,
             onChanged: Platform.isAndroid
                 ? (v) => s.update(autoReconnect: v)
@@ -776,7 +776,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.hourglass_empty_rounded,
           label: l.idleDisconnect,
           value: l.idleDisconnectHint,
-          child: Switch(
+          child: AppSwitch(
             value: s.idleDisconnect,
             onChanged: (v) => s.update(idleDisconnect: v),
           ),
@@ -804,7 +804,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.data_saver_off_rounded,
           label: l.dataLimit,
           value: l.dataLimitHint,
-          child: Switch(
+          child: AppSwitch(
             value: s.dataLimit,
             onChanged: (v) => s.update(dataLimit: v),
           ),
@@ -903,7 +903,7 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.motion_photos_paused_rounded,
           label: l.batterySaver,
           value: l.batterySaverHint,
-          child: Switch(
+          child: AppSwitch(
             value: s.batterySaver,
             onChanged: (v) => s.update(batterySaver: v),
           ),
@@ -936,7 +936,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         icon: Icons.gpp_good_outlined,
                         label: l.killSwitch,
                         value: l.killSwitchHint,
-                        child: Switch(
+                        child: AppSwitch(
                           value: on,
                           onChanged: (v) => runShowingErrors(
                             context,
@@ -1013,7 +1013,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 icon: Icons.auto_awesome,
                 label: l.smartNetwork,
                 value: l.smartNetworkHint,
-                child: Switch(
+                child: AppSwitch(
                   value: _smart,
                   onChanged: _saving ? null : _setSmart,
                 ),
@@ -1081,7 +1081,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           icon: Icons.travel_explore_rounded,
                           label: l.smartLocation,
                           value: l.smartLocationHint,
-                          child: Switch(
+                          child: AppSwitch(
                             value: _str(['proxy', 'country']) == 'fastest',
                             onChanged: _saving
                                 ? null
@@ -1099,7 +1099,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           icon: Icons.bolt_rounded,
                           label: l.quicPass,
                           value: l.quicPassHint,
-                          child: Switch(
+                          child: AppSwitch(
                             value: _bool(['tun', 'quic']),
                             onChanged: _saving
                                 ? null
@@ -1284,7 +1284,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 icon: Icons.bolt_rounded,
                 label: l.quicPass,
                 value: l.quicPassHint,
-                child: Switch(
+                child: AppSwitch(
                   value: _bool(['tun', 'quic']),
                   onChanged: _saving
                       ? null
@@ -1395,7 +1395,7 @@ class _SettingsPageState extends State<SettingsPage> {
         icon: Icons.groups_outlined,
         trailing: Semantics(
           label: l.sharedRelay,
-          child: Switch(
+          child: AppSwitch(
             value: _bool(['network', 'shared_relay_enabled']),
             onChanged: _saving
                 ? null
@@ -1415,7 +1415,7 @@ class _SettingsPageState extends State<SettingsPage> {
         icon: Icons.shield_outlined,
         trailing: Semantics(
           label: l.apiRelayUse,
-          child: Switch(
+          child: AppSwitch(
             value:
                 _bool(['network', 'api_relay_enabled']) &&
                 _str(['network', 'api_relay']).isNotEmpty,
@@ -1563,7 +1563,7 @@ class _SettingsPageState extends State<SettingsPage> {
               _Row(
                 icon: Icons.alt_route_rounded,
                 label: l.routingDirect,
-                child: Switch(
+                child: AppSwitch(
                   value: on,
                   onChanged: _saving
                       ? null
@@ -1576,7 +1576,7 @@ class _SettingsPageState extends State<SettingsPage> {
               _Row(
                 icon: Icons.block_rounded,
                 label: l.blockAds,
-                child: Switch(
+                child: AppSwitch(
                   value: on && _blocksAds,
                   onChanged: _saving || !on ? null : _setBlockAds,
                 ),
@@ -1628,7 +1628,7 @@ class _SettingsPageState extends State<SettingsPage> {
               _Row(
                 icon: Icons.travel_explore_rounded,
                 label: l.resolveDomains,
-                child: Switch(
+                child: AppSwitch(
                   value: _bool(['routing', 'resolve_domains']),
                   onChanged: _saving
                       ? null
@@ -1832,7 +1832,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: _Row(
               icon: Icons.call_rounded,
               label: l.udpNoticeSetting,
-              child: Switch(
+              child: AppSwitch(
                 value: s.udpNotice,
                 onChanged: (v) => s.update(udpNotice: v),
               ),
@@ -2063,7 +2063,7 @@ class _SettingsPageState extends State<SettingsPage> {
           _Row(
             icon: Icons.settings_backup_restore_rounded,
             label: l.dnsFallback,
-            child: Switch(
+            child: AppSwitch(
               value: _bool(['dns', 'fallback_to_system']),
               onChanged: _saving
                   ? null
@@ -3053,7 +3053,7 @@ class _UpstreamProxyState extends State<_UpstreamProxy> {
       icon: Icons.lan_outlined,
       trailing: Semantics(
         label: l.upstreamProxy,
-        child: Switch(
+        child: AppSwitch(
           value: widget.enabled,
           onChanged: _saving ? null : _toggle,
         ),

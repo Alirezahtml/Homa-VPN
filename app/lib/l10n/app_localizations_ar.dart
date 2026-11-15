@@ -2129,8 +2129,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mapKindFlat => 'مسطحة ثنائية الأبعاد';
   String get mapKindNight => 'الليل';
   String get aboutChannels => 'صفحات التواصل';
-  String get soundFeedback => 'صوت الاتصال';
-  String get soundFeedbackHint => 'صوت قصير عند تشغيل الاتصال أو إيقافه';
+  String get soundFeedback => 'المؤثرات الصوتية';
+  String get soundFeedbackHint => 'أصوات ناعمة للمس، للمفاتيح، وتشغيل الاتصال وإيقافه';
   String get rateUnit => 'وحدة السرعة';
   String get lockInBackground => 'القفل بعد المغادرة';
   String get lockBgNever => 'أبدًا';
@@ -2141,6 +2141,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mb51200 => '50 جيجابايت';
   String get mb102400 => '100 جيجابايت';
   String get wn41Sound => 'صوت الاتصال يرافق الاهتزاز: تُصدر الشبكة الخاصة نغمة قصيرة عند تشغيلها أو إيقافها (الإعدادات ← عام).';
+  String get copyIp => 'نسخ عنوان IP';
+  String get wn42Fonts => 'كل لغة تقرأ بخطوط التطبيق نفسه: نوتو سانس للغتين الصينيتين والبنغالية، وإنتر للاتينية والسيريلية — لم تعد أي لغة تعتمد على خطوط الهاتف.';
+  String get wn42Sounds => 'أصوات التطبيق حقيقية الآن: لمسة ناعمة في كل قسم، نغمتان للمفاتيح، نغمة صاعدة ونازلة عند تشغيل الاتصال وإيقافه، ونبضة للقفل — ومفتاح الصوت يتحكم بها جميعًا.';
+  String get wn42AboutFixed => 'صفحة حول تضع شعارها واسمها وملاحظتها في الوسط، وتُبقي معرفات التواصل سليمة على سطر واحد مهما كان عرض الهاتف.';
+  String get wn42Gaming => 'الملف اللعبي حقيقي الآن: صفحة الخوادم تقيس التأخيرات من جديد كل نصف دقيقة وتُبرز الأسرع قياسًا بلون التمييز.';
   String get wn41RateUnit => 'تُقرأ السرعة بالوحدة التي تختارها: الكيلوبايت في الثانية المألوف أو الميجابت في الثانية.';
   String get wn41BackgroundLock => 'يمكن للتطبيق أن يقفل نفسه في غيابك: يُسأل كلمة السر فورًا، أو بعد ٥ أو ١٥ دقيقة.';
   String get wn41BiggerLimits => 'سقف بيانات الجلسة يصل إلى ٢٥ أو ٥٠ أو ١٠٠ جيجابايت.';

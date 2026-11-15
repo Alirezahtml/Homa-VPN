@@ -711,8 +711,8 @@
   "wn40Speed": "Le tunnel ouvre désormais deux sessions parallèles par défaut — une ligne plus forte et plus stable.",
   "wn40LockFixed": "Le cadenas du bouton de connexion ne clignote plus entre ses états.",
   "wn40IpRemoved": "La fenêtre IP de la carte de lieu a été retirée.",
-  "soundFeedback": "Son de connexion",
-  "soundFeedbackHint": "Un son court à la connexion ou à la déconnexion",
+  "soundFeedback": "Effets sonores",
+  "soundFeedbackHint": "Des sons doux au toucher, sur les interrupteurs, à la connexion et à la déconnexion",
   "rateUnit": "Unité de vitesse",
   "lockInBackground": "Verrou après une absence",
   "lockBgNever": "Jamais",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "La limite de données de la session monte à 25, 50 ou 100 Go.",
   "wn41Motion": "Nouveaux mouvements : l'orbe connectée respire, la coche se dessine toute seule, le mot d'état glisse entre ses valeurs, et un mot de passe erroné fait tressaillir le champ.",
   "wn41AboutFixed": "La page À propos se tient droite : les deux pages côte à côte, chaque note à sa ligne, rien de comprimé.",
-  "wn41HapticFixed": "Le réglage de vibration répond de nouveau : chaque connexion et déconnexion le suit, pas seulement le curseur."
+  "wn41HapticFixed": "Le réglage de vibration répond de nouveau : chaque connexion et déconnexion le suit, pas seulement le curseur.",
+  "copyIp": "Copier l'adresse IP",
+  "wn42Fonts": "Chaque langue lit avec la police propre à l'app : Noto Sans pour les deux chinois et le bengali, Inter pour les langues latines et cyrilliques — plus aucune langue ne s'appuie sur les polices du téléphone.",
+  "wn42Sounds": "Les sons de l'app sont réels désormais : un toucher doux dans chaque section, deux notes pour les interrupteurs, une note qui monte et descend à la connexion et à la déconnexion, un ping pour le verrou — l'interrupteur sonore les gouverne tous.",
+  "wn42AboutFixed": "La page À propos centre son logo, son nom et sa note, et les identifiants de contact restent entiers sur une ligne, quelle que soit la largeur du téléphone.",
+  "wn42Gaming": "Le profil jeu est réel désormais : la page des serveurs remesure les délais chaque demi-minute et met en avant le plus rapide mesuré avec l'accent."
 }

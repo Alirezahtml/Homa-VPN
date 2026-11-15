@@ -2120,8 +2120,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get mapKindFlat => 'Datar 2D';
   String get mapKindNight => 'Malam';
   String get aboutChannels => 'Halaman kontak';
-  String get soundFeedback => 'Suara koneksi';
-  String get soundFeedbackHint => 'Suara singkat saat koneksi menyala atau mati';
+  String get soundFeedback => 'Efek suara';
+  String get soundFeedbackHint => 'Suara lembut untuk ketukan, sakelar, dan saat koneksi menyala atau mati';
   String get rateUnit => 'Satuan kecepatan';
   String get lockInBackground => 'Kunci saat pergi';
   String get lockBgNever => 'Tidak pernah';
@@ -2132,6 +2132,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'Suara koneksi bergabung dengan getaran: VPN memainkan nada pendek saat menyala atau mati (Pengaturan → Umum).';
+  String get copyIp => 'Salin IP';
+  String get wn42Fonts => 'Setiap bahasa membaca dengan huruf milik aplikasi sendiri: Noto Sans untuk dua bahasa Tionghoa dan Bengali, Inter untuk bahasa Latin dan Kiril — tidak ada lagi yang bergantung pada huruf ponsel.';
+  String get wn42Sounds => 'Suara aplikasi kini nyata: ketukan lembut di setiap bagian, dua nada untuk sakelar, nada naik-turun saat koneksi menyala dan mati, ping untuk kunci — sakelar suara mengatur semuanya.';
+  String get wn42AboutFixed => 'Halaman Tentang memusat logo, nama, dan catatannya, dan ident kontak tetap utuh satu baris apa pun lebar ponselnya.';
+  String get wn42Gaming => 'Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen.';
   String get wn41RateUnit => 'Kecepatan dibaca dalam satuan pilihan Anda: KB/s yang biasa atau Mbps milik koneksi.';
   String get wn41BackgroundLock => 'Aplikasi bisa mengunci dirinya saat Anda pergi: kata sandi ditanya lagi langsung, setelah 5, atau setelah 15 menit.';
   String get wn41BiggerLimits => 'Batas data sesi naik hingga 25, 50, atau 100 GB.';

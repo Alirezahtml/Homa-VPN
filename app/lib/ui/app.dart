@@ -24,6 +24,7 @@ import 'overview_page.dart';
 import 'port_dialog.dart';
 import 'servers_page.dart';
 import 'settings_page.dart';
+import 'sound.dart' show AppSounds, SoundCue, SoundRoutes;
 import 'welcome_page.dart';
 import 'widgets.dart';
 
@@ -93,9 +94,13 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
           surfaceContainerLow: Color(0xFFF9F9F9),
           surfaceContainerLowest: Colors.white,
         );
-  // Bundled Inter for English, Vazirmatn for Persian and Arabic, and the
-  // platform's typography for the remaining languages.
-  final font = languageFont(locale.languageCode);
+  // Every language reads in its own bundled face — Inter's Latin,
+  // Cyrillic and Greek for most of them, Vazirmatn for the Persian and
+  // the Arabic, Noto Sans SC and TC for the two Chinese, Noto Sans
+  // Bengali for Bengali — and falls back through the app's other faces
+  // before the phone's.
+  final font = languageFont(AppSettings.languageFor(locale));
+  final fallbacks = fontFallbacks(font);
   final lit = accent == null ? null : accentForTheme(accent, dark);
   final effective = lit == null
       ? scheme
@@ -111,6 +116,7 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   final theme = ThemeData(
     colorScheme: effective,
     fontFamily: font,
+    fontFamilyFallback: fallbacks,
     scaffoldBackgroundColor: look.scaffold,
     // Pixel-grade surfaces: one generous radius for every card, list and
     // dialog, so the whole app reads as one system.
@@ -140,6 +146,7 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
         fontWeight: FontWeight.w700,
         color: effective.onSurface,
         fontFamily: font,
+        fontFamilyFallback: fallbacks,
       ),
     ),
     listTileTheme: ListTileThemeData(iconColor: effective.onSurfaceVariant),
@@ -238,6 +245,8 @@ class VpnApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       localeListResolutionCallback: (locales, _) =>
           AppSettings.localeOf(AppSettings.languageForList(locales)),
+      // Every page's arrival and leaving carries its soft tap.
+      navigatorObservers: [SoundRoutes()],
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -262,6 +271,8 @@ class VpnApp extends StatelessWidget {
         // page, the tiles, and the details sheet never disagree.
         AppAccent.current = AppDesign.resolveFor(settings);
         Rates.bits = settings.rateBits;
+        // The ear follows the settings' switch, whatever page is open.
+        AppSounds.enabled = settings.soundFeedback;
         return Theme(
           data: _theme(
             dark ? Brightness.dark : Brightness.light,
@@ -303,6 +314,9 @@ class _ShellState extends State<Shell> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    // The sounds' pools preload here, so the first tap answers as fast
+    // as the first haptic does.
+    AppSounds.warmup();
     AndroidCore.homeRequests.addListener(_openHome);
     // The notification's flag art: whenever the core reports a new exit
     // country (or, while connecting, a chosen one), the UI renders that
@@ -379,9 +393,10 @@ class _ShellState extends State<Shell> with WidgetsBindingObserver {
     final before = _cueConnected;
     _cueConnected = connected;
     if (before == null || before == connected) return;
-    if (widget.settings.soundFeedback) {
-      SystemSound.play(SystemSoundType.alert);
-    }
+    // The app's own note instead of the system's alert, which a phone
+    // keeps to itself: rising when the VPN comes up, falling when it
+    // goes down. The sound switch gates it in AppSounds itself.
+    AppSounds.play(connected ? SoundCue.connect : SoundCue.disconnect);
     if (widget.settings.hapticFeedback) {
       HapticFeedback.lightImpact();
     }

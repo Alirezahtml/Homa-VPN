@@ -21,6 +21,7 @@ import 'flag_carousel.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
+import 'sound.dart' show AppSounds, SoundCue;
 import 'widgets.dart';
 import 'world_map.dart';
 
@@ -408,9 +409,14 @@ class _DesktopHome extends StatelessWidget {
             batterySaver: settings.batterySaver,
             tooltip: on ? l.tapToDisconnect : l.tapToConnect,
             // No account yet: the accounts page, which explains them.
-            onPressed: () => status.totalAccounts == 0
-                ? _openAccounts(context, core, settings, onOpenAccounts)
-                : runShowingErrors(context, () => _power(!on)),
+            onPressed: () {
+              AppSounds.play(SoundCue.tap);
+              if (status.totalAccounts == 0) {
+                _openAccounts(context, core, settings, onOpenAccounts);
+              } else {
+                runShowingErrors(context, () => _power(!on));
+              }
+            },
           ),
         ),
         const SizedBox(height: 10),
@@ -437,6 +443,12 @@ class _DesktopHome extends StatelessWidget {
               if (ip.isNotEmpty)
                 _HomePill(
                   palette: p,
+                  // A tap copies the address: reports and checks need
+                  // it by hand, and the note says so.
+                  onTap: () {
+                    AppSounds.play(SoundCue.tap);
+                    _copyPublicIp(context, ip);
+                  },
                   child: Text(
                     '${l.publicIp} ${ltr(ip)}',
                     style: theme.textTheme.labelLarge?.copyWith(color: p.muted),
@@ -644,20 +656,35 @@ class _DesktopHome extends StatelessWidget {
 
 /// A small frosted pill on the home background.
 class _HomePill extends StatelessWidget {
-  const _HomePill({required this.palette, required this.child});
+  const _HomePill({required this.palette, required this.child, this.onTap});
 
   final _HomePalette palette;
   final Widget child;
 
+  /// Set where the pill answers a tap — the public IP's copy.
+  final VoidCallback? onTap;
+
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-    decoration: ShapeDecoration(
-      color: palette.card,
-      shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
-    ),
-    child: child,
-  );
+  Widget build(BuildContext context) {
+    final pill = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+      decoration: ShapeDecoration(
+        color: palette.card,
+        shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
+      ),
+      child: child,
+    );
+    if (onTap == null) return pill;
+    return Tooltip(
+      message: AppLocalizations.of(context).copyIp,
+      child: Material(
+        color: palette.card,
+        shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(onTap: onTap, child: pill),
+      ),
+    );
+  }
 }
 
 /// While the upstream proxy is on: says so whatever the connection's state, with
@@ -739,7 +766,12 @@ class _ModeSwitch extends StatelessWidget {
       final color = chosen ? p.text : p.muted;
       Widget child = InkWell(
         customBorder: const StadiumBorder(),
-        onTap: onSelected == null || chosen ? null : () => onSelected(m.value),
+        onTap: onSelected == null || chosen
+            ? null
+            : () {
+                AppSounds.play(SoundCue.tap);
+                onSelected(m.value);
+              },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(

@@ -2120,8 +2120,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mapKindFlat => 'Düz 2D';
   String get mapKindNight => 'Gece';
   String get aboutChannels => 'İletişim sayfaları';
-  String get soundFeedback => 'Bağlantı sesi';
-  String get soundFeedbackHint => 'Bağlantı açılıp kapanınca kısa bir ses';
+  String get soundFeedback => 'Ses efektleri';
+  String get soundFeedbackHint => 'Dokunuşlar, anahtarlar ve bağlanma-kopma için yumuşak sesler';
   String get rateUnit => 'Hız birimi';
   String get lockInBackground => 'Uzaklaşınca kilitle';
   String get lockBgNever => 'Asla';
@@ -2132,6 +2132,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'Bağlantı sesi titreşime katıldı: VPN açılıp kapanırken kısa bir nota çalıyor (Ayarlar → Genel).';
+  String get copyIp => 'IP\'yi kopyala';
+  String get wn42Fonts => 'Her dil uygulamanın kendi yazı tipiyle okunur: iki Çince ile Bengalce için Noto Sans, Latin ve Kiril dilleri için Inter — artık hiçbir dil telefonun yazı tiplerine yaslanmıyor.';
+  String get wn42Sounds => 'Uygulamanın sesleri artık gerçek: her bölümde yumuşak bir dokunuş, anahtarlar için iki nota, bağlantı açılıp kapanırken yükselen ve alçalan bir nota, kilit için bir zil — ses anahtarı hepsini yönetiyor.';
+  String get wn42AboutFixed => 'Hakkında sayfası logosunu, adını ve notunu ortalar; iletişim kimlikleri telefonun genişliğinden bağımsız olarak bozulmadan tek satırda kalır.';
+  String get wn42Gaming => 'Oyun profili artık gerçek: sunucular sayfası gecikmeleri yarım dakikada bir yeniden ölçüyor ve ölçülmüş en hızlısını vurgu rengiyle öne çıkarıyor.';
   String get wn41RateUnit => 'Hız, seçtiğiniz birimle okunur: tanıdık KB/s ya da bağlantının kendi Mbps\'i.';
   String get wn41BackgroundLock => 'Uygulama siz yokken kendini kilitleyebilir: şifre hemen, 5 veya 15 dakika sonra yeniden sorulur.';
   String get wn41BiggerLimits => 'Oturumun veri sınırı 25, 50 veya 100 GB\'a yükseliyor.';

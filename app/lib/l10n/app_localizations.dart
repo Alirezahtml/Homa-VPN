@@ -4050,6 +4050,36 @@ abstract class AppLocalizations {
   /// **'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).'**
   @override
   String get wn41Sound;
+  /// No description provided for @copyIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy IP'**
+  @override
+  String get copyIp;
+  /// No description provided for @wn42Fonts.
+  ///
+  /// In en, this message translates to:
+  /// **'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.'**
+  @override
+  String get wn42Fonts;
+  /// No description provided for @wn42Sounds.
+  ///
+  /// In en, this message translates to:
+  /// **'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.'**
+  @override
+  String get wn42Sounds;
+  /// No description provided for @wn42AboutFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.'**
+  @override
+  String get wn42AboutFixed;
+  /// No description provided for @wn42Gaming.
+  ///
+  /// In en, this message translates to:
+  /// **'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.'**
+  @override
+  String get wn42Gaming;
   /// No description provided for @wn41RateUnit.
   ///
   /// In en, this message translates to:

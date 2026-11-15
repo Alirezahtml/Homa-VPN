@@ -2105,8 +2105,8 @@ class AppLocalizationsFa extends AppLocalizations {
   String get mapKindSatellite => 'ماهواره‌ای';
   String get mapKindFlat => 'دو‌بعدی';
   String get mapKindNight => 'شب';
-  String get soundFeedback => 'صدای اتصال';
-  String get soundFeedbackHint => 'هنگام روشن یا خاموش شدن اتصال، صدایی کوتاه پخش می‌شود';
+  String get soundFeedback => 'جلوه‌های صوتی';
+  String get soundFeedbackHint => 'صداهای نرم برای لمس‌ها، کلیدها و روشن و خاموش شدن اتصال';
   String get rateUnit => 'واحد سرعت';
   String get lockInBackground => 'قفل پس از ترک برنامه';
   String get lockBgNever => 'هرگز';
@@ -2118,6 +2118,11 @@ class AppLocalizationsFa extends AppLocalizations {
   String get mb102400 => '۱۰۰ گیگابایت';
   String get aboutChannels => 'صفحه‌های ارتباطی';
   String get wn41Sound => 'صدای اتصال کنار لرزش نشست: VPN هنگام روشن یا خاموش شدن یک نت کوتاه پخش می‌کند (تنظیمات ← همگانی).';
+  String get copyIp => 'کپی آی‌پی';
+  String get wn42Fonts => 'هر زبان با قلم خود برنامه می‌خوانَد: نوتو سانس برای دو چینی و بنگالی، اینتر برای لاتین و سیریلیک — دیگر هیچ زبانی به فونت‌های گوشی تکیه نمی‌کند.';
+  String get wn42Sounds => 'صداهای برنامه حالا واقعی‌اند: لمسی نرم در هر بخش، دو نُت برای کلیدها، نُتی بالا رونده و پایین رونده هنگام برقراری و قطع اتصال، و یک بوق برای قفل — کلید صدا همه را کنترل می‌کند.';
+  String get wn42AboutFixed => 'صفحهٔ درباره لوگو، نام و توضیحش را در وسط می‌نشاند و نشانی‌های تماس در هر عرضی سالم و در یک سطر می‌مانند.';
+  String get wn42Gaming => 'نیم‌رخ گیمینگ حالا واقعی است: صفحهٔ سرورها تأخیرها را هر نیم دقیقه تازه می‌سنجد و سریع‌ترین را با رنگ تأکید نشان می‌دهد.';
   String get wn41RateUnit => 'سرعت با واحدی که انتخاب می‌کنید خوانده می‌شود: همان کیلوبایت بر ثانیهٔ آشنا یا مگابیت بر ثانیهٔ خود اتصال.';
   String get wn41BackgroundLock => 'برنامه می‌تواند در نبود شما خودش را قفل کند: رمز دوباره بلافاصله، پس از ۵ یا پس از ۱۵ دقیقه پرسیده می‌شود.';
   String get wn41BiggerLimits => 'سقف دادهٔ نشست تا ۲۵، ۵۰ یا ۱۰۰ گیگابایت بالا می‌رود.';

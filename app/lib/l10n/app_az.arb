@@ -711,8 +711,8 @@
   "wn40Speed": "Tunel indi standart olaraq iki paralel sessiya açır — daha güclü, daha sabit xətt.",
   "wn40LockFixed": "Qoşma düyməsinin kilidi halları arasında artıq yoxa ölmür.",
   "wn40IpRemoved": "Məkan kartının IP pəncərəsi götürüldü.",
-  "soundFeedback": "Qoşma səsi",
-  "soundFeedbackHint": "Qoşma yandırılan və ya söndürüləndə qısa səs",
+  "soundFeedback": "Səs effektləri",
+  "soundFeedbackHint": "Toxunuşlar, açarlar və qoşmanın yandırılıb-söndürülməsi üçün yumşaq səslər",
   "rateUnit": "Sürət vahidi",
   "lockInBackground": "Tərk edəndən sonra kilid",
   "lockBgNever": "Heç vaxt",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "Sessiyanın data həddi 25, 50 və ya 100 QB-yə qalxır.",
   "wn41Motion": "Yeni hərəkətlər: qoşulmuş kürə nəfəs alır, çek işarəsi özünü çəkir, halatın sözü qiymətləri arasında sürüşür, səhv şifrə sahəni silkələyir.",
   "wn41AboutFixed": "Haqqında səhifəsi qaydasına düşdü: iki səhifə yan-yanı, hər izah öz sətrində, sıxılmamış.",
-  "wn41HapticFixed": "Titriş ayarı yeniden cavab verir: hər qoşmanın yandırılıb-söndürülməsi onu izləyir, yalnız sürülənin deyil."
+  "wn41HapticFixed": "Titriş ayarı yeniden cavab verir: hər qoşmanın yandırılıb-söndürülməsi onu izləyir, yalnız sürülənin deyil.",
+  "copyIp": "IP-ni kopyala",
+  "wn42Fonts": "Hər dil tətbiqin öz şriftlərini oxuyur: iki çincə və bengal üçün Noto Sans, latın və kiril dilləri üçün Inter — artıq heç bir dil telefonun şriftlərinə söykənmir.",
+  "wn42Sounds": "Tətbiqin səsləri artıq realdır: hər bölmədə yumşaq toxunuş, açarlar üçün iki nota, qoşmanın yaranıb-sönməsində qalxan və enən nota, kilid üçün zəng — Səs açarı hamısını idarə edir.",
+  "wn42AboutFixed": "Haqqında səhifəsi loqosunu, adını və qeydini mərkəzə qoyur, əlaqə identləri telefonun enindən asılı olmayaraq tam və bir sətirdə qalır.",
+  "wn42Gaming": "Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır."
 }

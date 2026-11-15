@@ -711,8 +711,8 @@
   "wn40Speed": "El túnel ahora abre dos sesiones paralelas por defecto — una línea más fuerte y estable.",
   "wn40LockFixed": "El candado del botón de conexión ya no parpadea entre sus estados.",
   "wn40IpRemoved": "La ventana emergente de IP en la tarjeta de ubicación se eliminó.",
-  "soundFeedback": "Sonido de conexión",
-  "soundFeedbackHint": "Un sonido corto al conectar o desconectar",
+  "soundFeedback": "Efectos de sonido",
+  "soundFeedbackHint": "Sonidos suaves al tocar, en los interruptores y al conectar o desconectar",
   "rateUnit": "Unidad de velocidad",
   "lockInBackground": "Bloquear al salir",
   "lockBgNever": "Nunca",
@@ -728,5 +728,10 @@
   "wn41BiggerLimits": "El límite de datos de la sesión sube hasta 25, 50 o 100 GB.",
   "wn41Motion": "Movimiento nuevo: el orbe conectado respira, la marca de verificación se dibuja sola, la palabra de estado se desliza entre sus valores y una contraseña errónea sacude el campo.",
   "wn41AboutFixed": "La página Acerca de queda ordenada: las dos páginas lado a lado, cada aviso en su línea, nada comprimido.",
-  "wn41HapticFixed": "El ajuste de vibración responde otra vez: cada conexión y desconexión lo sigue, no solo el deslizador."
+  "wn41HapticFixed": "El ajuste de vibración responde otra vez: cada conexión y desconexión lo sigue, no solo el deslizador.",
+  "copyIp": "Copiar la IP",
+  "wn42Fonts": "Cada idioma lee con la propia tipografía de la app: Noto Sans para los dos chinos y el bengalí, Inter para los latinos y los cirílicos; ningún idioma depende ya de las fuentes del teléfono.",
+  "wn42Sounds": "Los sonidos de la app son reales ahora: un toque suave en cada sección, dos notas para los interruptores, una nota que sube y baja al conectar y desconectar, un pitido para el bloqueo; el interruptor de sonido los gobierna todos.",
+  "wn42AboutFixed": "La página Acerca de centra su logo, su nombre y su nota, y las direcciones de contacto quedan enteras en una línea, sea cual sea el ancho del teléfono.",
+  "wn42Gaming": "El perfil de juego es real ahora: la página de servidores mide los retrasos de nuevo cada medio minuto y realza el más rápido medido con el acento."
 }

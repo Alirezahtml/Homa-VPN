@@ -20,6 +20,7 @@ import 'design.dart';
 import 'format.dart';
 import 'local_country_names.dart';
 import 'motion.dart';
+import 'sound.dart' show AppSounds, SoundCue;
 
 /// Where a Firefox Account is made: Mozilla's site.
 const firefoxAccountSignUpUrl = 'https://accounts.firefox.com/';
@@ -264,6 +265,9 @@ ThemeData midnightTheme(ThemeData base) {
             onTertiary: AppAccent.onAccent(accent),
           ),
     fontFamily: base.textTheme.bodyMedium?.fontFamily,
+    // The night map's own theme keeps the base theme's faces, the
+    // language's and the fallbacks' both.
+    fontFamilyFallback: base.textTheme.bodyMedium?.fontFamilyFallback,
   );
 }
 
@@ -576,12 +580,28 @@ const languageNames = {
   'bn': 'বাংলা',
 };
 
-/// Bundled UI fonts for English and the Arabic script; other languages
-/// keep the platform typography and its script-specific fallbacks.
+/// Bundled UI fonts for every language the app speaks: Vazirmatn for
+/// the Persian and the Arabic, Noto Sans SC for Simplified Chinese,
+/// Noto Sans TC for Traditional, Noto Sans Bengali for Bengali, and
+/// Inter — whose Latin, Cyrillic and Greek cover the rest. No language
+/// reads in the phone's own face anymore; every one reads in the app's.
 String? languageFont(String code) => switch (code) {
-  'en' => 'Inter',
   'fa' || 'ar' => 'Vazirmatn',
-  _ => null,
+  'zh' => 'NotoSansSC',
+  'zh_Hant' => 'NotoSansTC',
+  'bn' => 'NotoSansBengali',
+  _ => 'Inter',
+};
+
+/// The bundled faces a text falls back through when the language's own
+/// face misses a glyph — a Latin brand name inside Persian, a symbol
+/// inside Chinese — the app's other faces before the phone's fonts.
+List<String> fontFallbacks(String? font) => switch (font) {
+  'Vazirmatn' => ['Inter', 'NotoSansSC', 'NotoSansTC', 'NotoSansBengali'],
+  'NotoSansSC' => ['NotoSansTC', 'Inter', 'Vazirmatn', 'NotoSansBengali'],
+  'NotoSansTC' => ['NotoSansSC', 'Inter', 'Vazirmatn', 'NotoSansBengali'],
+  'NotoSansBengali' => ['Inter', 'NotoSansSC', 'NotoSansTC', 'Vazirmatn'],
+  _ => ['Vazirmatn', 'NotoSansSC', 'NotoSansTC', 'NotoSansBengali'],
 };
 
 /// A title or label in its own language's font.
@@ -1242,6 +1262,34 @@ PopupMenuItem<void> checkMenuItem({
   ),
 );
 
+/// The app's own switch: the Material switch with the ear added — a
+/// short sound on every turn, rising on, falling off, following the
+/// settings' sound switch. Every switch of the app is one of these, so
+/// every section answers the same way.
+class AppSwitch extends StatelessWidget {
+  const AppSwitch({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final bool value;
+
+  /// Null while a change is under way (or forbidden).
+  final ValueChanged<bool>? onChanged;
+
+  @override
+  Widget build(BuildContext context) => Switch(
+    value: value,
+    onChanged: onChanged == null
+        ? null
+        : (v) {
+            AppSounds.play(v ? SoundCue.toggleOn : SoundCue.toggleOff);
+            onChanged!(v);
+          },
+  );
+}
+
 /// A small on/off switch with its name beside it, for a page's toolbar
 /// (auto-scroll in the logs); the name toggles it too.
 class LabeledSwitch extends StatelessWidget {
@@ -1270,7 +1318,7 @@ class LabeledSwitch extends StatelessWidget {
           const SizedBox(width: 4),
           Transform.scale(
             scale: 0.75,
-            child: Switch(value: value, onChanged: onChanged),
+            child: AppSwitch(value: value, onChanged: onChanged),
           ),
         ],
       ),
@@ -1405,19 +1453,24 @@ class SocialChannelButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () => openLink(context, url),
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.string(glyph, width: 18, height: 18, colorFilter: ink),
-          const SizedBox(width: 10),
+          const SizedBox(width: 8),
+          // The handle never wraps and never clips: the pill shrinks its
+          // words to fit the row it is given — the narrowest phone keeps
+          // '@Aliem_061' on one line, whole.
           Flexible(
-            child: Text(
-              handle,
-              textDirection: TextDirection.ltr,
-              maxLines: 2,
-              overflow: TextOverflow.visible,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                handle,
+                textDirection: TextDirection.ltr,
+                maxLines: 1,
+              ),
             ),
           ),
         ],

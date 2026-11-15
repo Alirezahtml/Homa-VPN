@@ -1310,8 +1310,8 @@
   "wn40Speed": "The tunnel now opens two parallel sessions by default — a stronger, steadier line.",
   "wn40LockFixed": "The connect button's lock no longer blinks out between its states.",
   "wn40IpRemoved": "The IP popup on the location card is gone.",
-  "soundFeedback": "Connection sound",
-  "soundFeedbackHint": "A short sound when the connection goes on or off",
+  "soundFeedback": "Sound effects",
+  "soundFeedbackHint": "Soft sounds for taps, switches, and the connection's turns",
   "rateUnit": "Speed unit",
   "lockInBackground": "Lock when leaving",
   "lockBgNever": "Never",
@@ -1327,5 +1327,10 @@
   "wn41BiggerLimits": "The session's data limit climbs to 25, 50, or 100 GB.",
   "wn41Motion": "New motion: the connected orb breathes, the check draws itself in, the state's word glides between its values, and a wrong password shakes the field.",
   "wn41AboutFixed": "The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.",
-  "wn41HapticFixed": "The vibration setting answers again: every connection's on and off follows it, not just the slider's."
+  "wn41HapticFixed": "The vibration setting answers again: every connection's on and off follows it, not just the slider's.",
+  "copyIp": "Copy IP",
+  "wn42Fonts": "Every language reads in the app's own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone's fonts anymore.",
+  "wn42Sounds": "The app's sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.",
+  "wn42AboutFixed": "The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone's width.",
+  "wn42Gaming": "The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent."
 }

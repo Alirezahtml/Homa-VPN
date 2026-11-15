@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../app_settings.dart';
 import '../l10n/app_localizations.dart';
 import 'motion.dart';
+import 'sound.dart' show AppSounds, SoundCue;
 import 'widgets.dart';
 
 /// The account's own face and the app's own lock, both kept in the app's
@@ -458,6 +459,8 @@ class _LockPageState extends State<LockPage> {
     final hash = lockHashOf(_controller.text, widget.settings.lockSalt);
     if (hash == widget.settings.lockHash) {
       widget.settings.lockUnlocked = true;
+      // The lock lets go with its own double ping.
+      AppSounds.play(SoundCue.lock);
       widget.onUnlocked();
       return;
     }

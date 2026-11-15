@@ -2119,8 +2119,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get mapKindFlat => 'Phẳng 2D';
   String get mapKindNight => 'Đêm';
   String get aboutChannels => 'Trang liên hệ';
-  String get soundFeedback => 'Âm thanh kết nối';
-  String get soundFeedbackHint => 'Âm thanh ngắn khi kết nối bật hoặc tắt';
+  String get soundFeedback => 'Hiệu ứng âm thanh';
+  String get soundFeedbackHint => 'Âm thanh nhẹ nhàng khi chạm, khi gạt công tắc và khi kết nối bật hoặc tắt';
   String get rateUnit => 'Đơn vị tốc độ';
   String get lockInBackground => 'Khoá khi rời đi';
   String get lockBgNever => 'Không bao giờ';
@@ -2131,6 +2131,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get mb51200 => '50 GB';
   String get mb102400 => '100 GB';
   String get wn41Sound => 'Âm thanh kết nối tham gia cùng rung: VPN kêu một nốt ngắn khi bật hoặc tắt (Cài đặt → Chung).';
+  String get copyIp => 'Sao chép IP';
+  String get wn42Fonts => 'Mọi ngôn ngữ đều đọc bằng phông chữ riêng của ứng dụng: Noto Sans cho hai tiếng Trung và tiếng Bengal, Inter cho các ngôn ngữ Latinh và Kiryl — không còn ngôn ngữ nào dựa vào phông chữ của điện thoại.';
+  String get wn42Sounds => 'Âm thanh của ứng dụng giờ đây có thật: một cú chạm nhẹ ở mỗi phần, hai nốt cho công tắc, một nốt lên xuống khi kết nối bật và tắt, một tiếng ping cho khoá — công tắc âm thanh kiểm soát tất cả.';
+  String get wn42AboutFixed => 'Trang Giới thiệu đặt logo, tên và ghi chú vào giữa, và các định danh liên lạc luôn nguyên vẹn trên một dòng bất kể bề rộng điện thoại.';
+  String get wn42Gaming => 'Hồ sơ chơi game giờ có thật: trang máy chủ đo lại độ trễ mỗi nửa phút và nêu bật máy nhanh nhất đã đo bằng màu nhấn.';
   String get wn41RateUnit => 'Tốc độ hiển thị theo đơn vị bạn chọn: KB/s thân thuộc hay Mbps của kết nối.';
   String get wn41BackgroundLock => 'Ứng dụng có thể tự khoá khi bạn vắng mặt: mật khẩu được hỏi lại ngay, sau 5 hoặc sau 15 phút.';
   String get wn41BiggerLimits => 'Giới hạn dữ liệu của phiên nâng lên 25, 50 hoặc 100 GB.';

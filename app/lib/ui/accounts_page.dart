@@ -733,7 +733,7 @@ class _AccountCardState extends State<_AccountCard> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Switch(
+                    AppSwitch(
                       value: a.enabled,
                       onChanged: busy
                           ? null
