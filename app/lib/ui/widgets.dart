@@ -1269,3 +1269,48 @@ class NoAccountsPanel extends StatelessWidget {
     );
   }
 }
+
+/// One social channel's button: the glyph drawn in the page's own ink,
+/// the handle beside it, the link opening when tapped. The About page and
+/// the What's New page both carry it, so the makers' channels are never
+/// more than the same two taps away.
+class SocialChannelButton extends StatelessWidget {
+  const SocialChannelButton({
+    super.key,
+    required this.glyph,
+    required this.handle,
+    required this.url,
+  });
+
+  /// The channel's own mark, as an SVG string.
+  final String glyph;
+  final String handle;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final ink = ColorFilter.mode(theme.colorScheme.onSurface, BlendMode.srcIn);
+    return OutlinedButton(
+      onPressed: () => openLink(context, url),
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.string(glyph, width: 18, height: 18, colorFilter: ink),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              handle,
+              textDirection: TextDirection.ltr,
+              maxLines: 2,
+              overflow: TextOverflow.visible,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

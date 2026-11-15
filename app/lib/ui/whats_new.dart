@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../app_info.dart';
 import '../app_settings.dart';
 import '../l10n/app_localizations.dart';
+import 'about_page.dart' show instagramGlyph, telegramGlyph;
+import 'widgets.dart' show SocialChannelButton;
 
 /// What a version brought, in the words of what actually changed in it.
 /// The words live in the app's translations, so the page speaks the app's
@@ -13,6 +15,22 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.38' => [
+    (
+      title: l.whatsNewAdded,
+      lines: [
+        l.wn38MapStylesAdded,
+        l.wn38ZoomAdded,
+        l.wn38OptionsAdded,
+        l.wn38SocialAdded,
+      ],
+    ),
+    (
+      title: l.whatsNewImproved,
+      lines: [l.wn38FlightImproved, l.wn38EffectsImproved, l.wn38SpeedImproved],
+    ),
+    (title: l.whatsNewFixed, lines: [l.wn38NameFixed]),
+  ],
   '1.0.37' => [
     (title: l.whatsNewImproved, lines: [l.wnGlobeAdded, l.wnWheelGlowImproved]),
     (title: l.whatsNewRemoved, lines: [l.wnDesignsRemoved]),
@@ -69,6 +87,7 @@ const _whatsNewVersions = {
   '1.0.35',
   '1.0.36',
   '1.0.37',
+  '1.0.38',
 };
 
 /// Whether this version's page is still waiting to be seen.
@@ -146,6 +165,27 @@ class WhatsNewDialog extends StatelessWidget {
                     ),
                   ),
               ],
+            // The makers' channels, at the page's own bottom: the same
+            // two buttons the About page carries, one breath from the
+            // version's story.
+            const Divider(height: 26),
+            Wrap(
+              spacing: 12,
+              runSpacing: 10,
+              alignment: WrapAlignment.center,
+              children: const [
+                SocialChannelButton(
+                  glyph: instagramGlyph,
+                  handle: '@Aliem061',
+                  url: 'https://instagram.com/Aliem061',
+                ),
+                SocialChannelButton(
+                  glyph: telegramGlyph,
+                  handle: '@Aliem_061',
+                  url: 'https://t.me/Aliem_061',
+                ),
+              ],
+            ),
             ],
           ),
         ),
