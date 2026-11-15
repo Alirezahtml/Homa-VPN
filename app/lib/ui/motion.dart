@@ -928,7 +928,7 @@ class CrossfadeText extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           for (final entry in past) IgnorePointer(child: entry),
-          if (current != null) current,
+          ?current,
         ],
       ),
       transitionBuilder: (child, anim) => FadeTransition(

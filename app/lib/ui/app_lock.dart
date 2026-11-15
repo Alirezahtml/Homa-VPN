@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../app_settings.dart';
 import '../l10n/app_localizations.dart';
+import 'motion.dart';
 import 'widgets.dart';
 
 /// The account's own face and the app's own lock, both kept in the app's

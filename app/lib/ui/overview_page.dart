@@ -2105,7 +2105,7 @@ class _PowerOrb extends StatelessWidget {
     const disc = 148.0;
     // The connected face: the disc carries the power, and the check's
     // badge draws itself in at the disc's edge each time the VPN lands.
-    Widget disc = AnimatedContainer(
+    Widget face = AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       width: disc,
       height: disc,
@@ -2152,11 +2152,11 @@ class _PowerOrb extends StatelessWidget {
       // The connected breath, on the phone only: rings grow out of the
       // disc and fade — the desktop stays still, the way it always was.
       // The battery saver holds the rings to one quiet circle.
-      disc = PulseHalo(
+      face = PulseHalo(
         color: accent,
         baseSize: disc,
         paused: batterySaver,
-        child: disc,
+        child: face,
       );
     }
     return Tooltip(
@@ -2196,7 +2196,7 @@ class _PowerOrb extends StatelessWidget {
                 dimension: ring,
                 child: CircularProgressIndicator(strokeWidth: 2, color: accent),
               ),
-            disc,
+            face,
             // The arrival's own mark: the check strokes itself in, once,
             // each time the connection lands. Gone while the switch is
             // still turning, so it never blinks between states.
