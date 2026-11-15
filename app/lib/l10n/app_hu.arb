@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Megjelenés",
+  "mapStyle": "Térkép stílusa",
+  "mapStyleHint": "A kezdőlap gömbje úgy festődik, ahogy választja. A kapcsolat fénye változatlan marad.",
+  "mapSilver": "Ezüst",
+  "mapMidnight": "Éjfél",
+  "mapOcean": "Óceán",
+  "mapMono": "Egyszínű",
+  "mapAurora": "Aurora",
+  "batterySaver": "Akkumulátorkímélő",
+  "batterySaverHint": "Pihenre teszi a térkép mozgását kapcsolat közben — a gömb légzését, a kerék fényét. Maga a kapcsolat pontosan ugyanúgy marad.",
+  "connectOnOpen": "Csatlakozás az app megnyitásakor",
+  "connectOnOpenHint": "Az app megnyitásakor elindítja a VPN-t, az utoljára választott hellyel.",
+  "speedTitle": "Sebesség",
+  "parallelTunnels": "Párhuzamos alagutak",
+  "parallelTunnelsHint": "Egyszerre több alagutat nyit a Mozilla felé, és szétosztja köztük a forgalmat, így egy lassú alagút többé nem szab határt a sebességnek. A nyolc a legnehezebb az akkumulátorra.",
+  "tunnels1": "Egy — a legstabilabb",
+  "tunnels2": "Kettő",
+  "tunnels4": "Négy — lassabb hálózatokon gyorsabb",
+  "tunnels8": "Nyolc — a leggyorsabb",
+  "connectionCap": "Kapcsolatszám-korlát",
+  "connectionCapHint": "Hány app beszélhet egyszerre a VPN-en át; kisebb korlát akkumulátort és adatot spórol egy elfoglalt telefonon. Korlátlan az alapértelmezett.",
+  "capNone": "Korlátlan",
+  "verboseLogging": "Részletes diagnosztika",
+  "verboseLoggingHint": "Minden lépést a naplóba ír — hiba jelzésekor hasznos, az akkumulátort kicsit jobban terheli.",
+  "wn38MapStylesAdded": "Öt stílus a térképnek: ezüst, éjfél, óceán, egyszínű és aurora — a beállítások új Megjelenés oldala választ, mindegyik előnézetével.",
+  "wn38ZoomAdded": "A térkép nagyítható: csippentsd össze, vagy koppints kétszer a közelítéshez és vissza.",
+  "wn38OptionsAdded": "Hasznos beállítások: párhuzamos alagutak a nagyobb sebességért, kapcsolatszám-korlát, akkumulátorkímélő, csatlakozás az app megnyitásakor és részletes diagnosztika.",
+  "wn38SocialAdded": "Az Instagram és a Telegram most az oldal alján is otthon van.",
+  "wn38FlightImproved": "Egy ország választása kis repülés: a kamera hátrahúzódik, a gömb fordul, a tű pattanva ér földet, és az utak maguktól húzódnak a központok felé.",
+  "wn38EffectsImproved": "A térkép gazdagabban mutatkozik: csillagok a gömb mögött, koordináta-háló, a központok saját fényei, fényudvar a peremen és a szárazföld árnyéka.",
+  "wn38SpeedImproved": "A sebesség opció valós: a párhuzamos alagutak egyszerre több kapcsolatot nyitnak, a mag pedig szétosztja köztük a forgalmat.",
+  "wn38NameFixed": "A választott ország neve egyszer jelenik meg — a térkép lebegő kártyáján; a másolat a zászlók alatt eltűnt."
 }

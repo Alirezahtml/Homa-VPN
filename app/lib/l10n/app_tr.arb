@@ -640,5 +640,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Görünüm",
+  "mapStyle": "Harita stili",
+  "mapStyleHint": "Ana sayfanın küresi seçtiğiniz gibi boyanır. Bağlantının ışığı aynı kalır.",
+  "mapSilver": "Gümüş",
+  "mapMidnight": "Gece yarısı",
+  "mapOcean": "Okyanus",
+  "mapMono": "Tek renk",
+  "mapAurora": "Aurora",
+  "batterySaver": "Pil tasarrufu",
+  "batterySaverHint": "Bağlıyken haritanın hareketini dinlendirir — kürenin nefesi, çarxın parıltısı. Bağlantının kendisi aynı kalır.",
+  "connectOnOpen": "Uygulama açılınca bağlan",
+  "connectOnOpenHint": "Uygulama açılırken VPN'i kaldırır, son seçtiğiniz konumla.",
+  "speedTitle": "Hız",
+  "parallelTunnels": "Paralel tüneller",
+  "parallelTunnelsHint": "Aynı anda Mozillaya birkaç tünel açar ve trafiği aralarında böler; böylece yavaş bir tünel artık hızı sınırlamaz. Sekiz tanesi pil için en ağırıdır.",
+  "tunnels1": "Bir — en kararlısı",
+  "tunnels2": "İki",
+  "tunnels4": "Dört — yavaş ağlarda daha hızlı",
+  "tunnels8": "Sekiz — en hızlısı",
+  "connectionCap": "Bağlantı sınırı",
+  "connectionCapHint": "Kaç uygulamanın aynı anda VPN üzerinden konuşabileceği; küçük bir sınır meşgul bir telefonda pil ve veri tasarrufu sağlar. Sınırsız varsaylandır.",
+  "capNone": "Sınırsız",
+  "verboseLogging": "Ayrıntılı tanılama",
+  "verboseLoggingHint": "Her adımı günlüğe yazar — sorun bildirirken işe yarar, pili biraz daha yorar.",
+  "wn38MapStylesAdded": "Haritanın beş stili: gümüş, gece yarısı, okyanus, tek renk ve aurora — ayarlardaki yeni Görünüm sayfası seçer, her birinin önizlemesi var.",
+  "wn38ZoomAdded": "Harita yakınlaşıyor: iki parmakla çekin ya da çift dokunun — yaklaşır ve geri döner.",
+  "wn38OptionsAdded": "İşe yarar seçenekler: daha çok hız için paralel tüneller, bağlantı sınırı, pil tasarrufu, uygulama açılınca bağlanma ve ayrıntılı tanılama.",
+  "wn38SocialAdded": "Instagram ve Telegram artık bu sayfanın altında da duruyor.",
+  "wn38FlightImproved": "Bir ülke seçmek küçük bir uçuş: kamera geri çekilir, küre döner, iğne sekişle iner ve yollar kendi kendine merkezlere uzanır.",
+  "wn38EffectsImproved": "Harita daha zengin okunuyor: kürenin ardında yıldızlar, koordinat ızgarası, merkezlerin kendi ışıkları, kenarda bir hale ve karaların gölgesi.",
+  "wn38SpeedImproved": "Hız seçeneği gerçek: paralel tüneller aynı anda birkaç bağlantı açar ve çekirdek trafiği aralarında böler.",
+  "wn38NameFixed": "Seçilen ülkenin adı bir kez gösteriliyor — haritanın yüzen kartında; bayrakların altındaki kopya gitti."
 }

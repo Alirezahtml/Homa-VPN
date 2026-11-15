@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Görünüş",
+  "mapStyle": "Xəritə stili",
+  "mapStyleHint": "Ana səhifənin kürəsi seçdiyiniz kimi boyanır. Bağlantının işığı eyni qalır.",
+  "mapSilver": "Gümüşü",
+  "mapMidnight": "Gecə yarı",
+  "mapOcean": "Okean",
+  "mapMono": "Tək rəng",
+  "mapAurora": "Aurora",
+  "batterySaver": "Batareya qnağı",
+  "batterySaverHint": "Bağlantı zamanı xəritənin hərəkətini sakitləşdirir — kürənin nəfəsi, çarxın parıltısı. Bağlantının özü olduğu kimi qalır.",
+  "connectOnOpen": "Tətbiq açılanda bağlan",
+  "connectOnOpenHint": "Tətbiq açılanda VPN-i qaldırır, son seçdiyiniz yerdə.",
+  "speedTitle": "Sürət",
+  "parallelTunnels": "Paralel tunellər",
+  "parallelTunnelsHint": "Bir anda Mozillaya bir neçə tunel açır və trafiki onların arasında bölür — bir yavaş tunel artıq sürəti məhdudlaşdırmır. Səkkiz ən çox batareya aparır.",
+  "tunnels1": "Bir — ən sabit",
+  "tunnels2": "İki",
+  "tunnels4": "Dörd — yavaş şəbəkələrdə daha sürətli",
+  "tunnels8": "Səkkiz — ən sürətli",
+  "connectionCap": "Bağlantı limiti",
+  "connectionCapHint": "Necə tətbiqin bir anda VPN üzərindən danışmasına icazə var; kiçik limit məşğul telefonda batareya və trafikə qənaət edir. Susmaya görə limitsizdir.",
+  "capNone": "Limitsiz",
+  "verboseLogging": "Ətraflı diaqnostika",
+  "verboseLoggingHint": "Hər addımı jurnal yazır — problem bildirəndə faydalıdır, batareyaya bir az ağır gəlir.",
+  "wn38MapStylesAdded": "Xəritənin beş görünüşü: gümüşü, gecə yarı, okean, tək rəng və Aurora — parametrlərin yeni Görünüş səhifəsi seçir, hər birinin önbaxışı var.",
+  "wn38ZoomAdded": "Xəritə yaxınlaşdırılır: iki barmaqla çəkin, ya iki dəfə toxunun — yaxınlaşır, bir daha uzaqlaşır.",
+  "wn38OptionsAdded": "Faydalı seçimlər: daha çox sürət üçün paralel tunellər, bağlantı limiti, batareya qnağı, tətbiq açılanda bağlanma və ətraflı diaqnostika.",
+  "wn38SocialAdded": "İnstagram və Telegram indi bu səhifənin altında da var.",
+  "wn38FlightImproved": "Ölkə seçmək kiçik uçuşdur: kamera bir az geri çəkilir, kürə dönür, pin tullanaraq enir və yollar öz-özünə mərkəzlərə uzanır.",
+  "wn38EffectsImproved": "Xəritə zəngin oxunur: kürənin ardında ulduzlar, koordinat şəbəkəsi, mərkəzlərin öz işıqları, kənar ətrafında halə və qurunun kölgəsi.",
+  "wn38SpeedImproved": "Sürət seçimi real oldu: paralel tunellər bir neçə bağlantını bir anda açır və nüvə trafiki aralarında bölür.",
+  "wn38NameFixed": "Seçilmiş ölkənin adı bir dəfə göstərilir — xəritənin üzən kartında; bayraqların altındakı nüsxə gedib."
 }

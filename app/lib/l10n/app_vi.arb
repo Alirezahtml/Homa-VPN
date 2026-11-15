@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Diện mạo",
+  "mapStyle": "Kiểu bản đồ",
+  "mapStyleHint": "Quả cầu ở trang chủ được tô theo cách bạn chọn. Ánh sáng kết nối vẫn như cũ.",
+  "mapSilver": "Bạc",
+  "mapMidnight": "Nửa đêm",
+  "mapOcean": "Đại dương",
+  "mapMono": "Đơn sắc",
+  "mapAurora": "Cực quang",
+  "batterySaver": "Tiết kiệm pin",
+  "batterySaverHint": "Đưa chuyển động của bản đồ vào nghỉ khi đang kết nối — nhịp thở của quả cầu, ánh sáng của bánh xe. Kết nối vẫn nguyên như cũ.",
+  "connectOnOpen": "Kết nối khi mở ứng dụng",
+  "connectOnOpenHint": "Bật VPN ngay khi mở ứng dụng, với vị trí bạn chọn lần cuối.",
+  "speedTitle": "Tốc độ",
+  "parallelTunnels": "Đường hầm song song",
+  "parallelTunnelsHint": "Mở cùng lúc nhiều đường hầm tới Mozilla và chia lưu lượng giữa chúng, để một đường hầm chậm không còn chặn tốc độ. Tám là mức nặng nhất cho pin.",
+  "tunnels1": "Một — ổn định nhất",
+  "tunnels2": "Hai",
+  "tunnels4": "Bốn — nhanh hơn trên mạng chậm",
+  "tunnels8": "Tám — nhanh nhất",
+  "connectionCap": "Giới hạn kết nối",
+  "connectionCapHint": "Bao nhiêu ứng dụng có thể nói qua VPN cùng lúc; giới hạn nhỏ hơn tiết kiệm pin và dữ liệu trên điện thoại bận rộn. Mặc định là không giới hạn.",
+  "capNone": "Không giới hạn",
+  "verboseLogging": "Chẩn đoán chi tiết",
+  "verboseLoggingHint": "Ghi từng bước vào nhật ký — hữu ích khi báo lỗi, hơi tốn pin hơn.",
+  "wn38MapStylesAdded": "Năm kiểu cho bản đồ: bạc, nửa đêm, đại dương, đơn sắc và cực quang — trang Diện mạo mới trong cài đặt chọn, có xem trước từng kiểu.",
+  "wn38ZoomAdded": "Bản đồ có thể phóng to: kẹp hai ngón tay, hoặc chạm đôi để lại gần rồi quay lại.",
+  "wn38OptionsAdded": "Tùy chọn thực dụng: đường hầm song song cho tốc độ cao hơn, giới hạn kết nối, tiết kiệm pin, kết nối khi mở ứng dụng và chẩn đoán chi tiết.",
+  "wn38SocialAdded": "Instagram và Telegram giờ cũng ở ngay cuối trang này.",
+  "wn38FlightImproved": "Chọn một quốc gia là một chuyến bay nhỏ: camera lùi lại, quả cầu xoay, ghim rơi xuống nảy nhẹ và các đường nối tự vẽ tới các trung tâm.",
+  "wn38EffectsImproved": "Bản đồ nhìn giàu hơn: những ngôi sao sau quả cầu, lưới tọa độ, ánh sáng của các trung tâm, quầng sáng quanh viền và bóng của đất liền.",
+  "wn38SpeedImproved": "Tùy chọn tốc độ là thật: đường hầm song song mở nhiều kết nối cùng lúc, và lõi chia lưu lượng giữa chúng.",
+  "wn38NameFixed": "Tên quốc gia đã chọn chỉ hiện một lần — trên thẻ nổi của bản đồ; bản sao dưới các lá cờ đã được bỏ."
 }

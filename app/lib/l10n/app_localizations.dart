@@ -3782,6 +3782,166 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.'**
   String get wnWheelGlowImproved;
+  /// No description provided for @sectionAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get sectionAppearance;
+  /// No description provided for @mapStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Map style'**
+  String get mapStyle;
+  /// No description provided for @mapStyleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The home page\'s globe, painted the way you pick. The connection\'s light stays the same.'**
+  String get mapStyleHint;
+  /// No description provided for @mapSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get mapSilver;
+  /// No description provided for @mapMidnight.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight'**
+  String get mapMidnight;
+  /// No description provided for @mapOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get mapOcean;
+  /// No description provided for @mapMono.
+  ///
+  /// In en, this message translates to:
+  /// **'Mono'**
+  String get mapMono;
+  /// No description provided for @mapAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get mapAurora;
+  /// No description provided for @batterySaver.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery saver'**
+  String get batterySaver;
+  /// No description provided for @batterySaverHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Puts the map\'s motion to rest while connected — the globe\'s breath, the wheel\'s glow. The connection itself stays exactly as it is.'**
+  String get batterySaverHint;
+  /// No description provided for @connectOnOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect when the app opens'**
+  String get connectOnOpen;
+  /// No description provided for @connectOnOpenHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Brings the VPN up as the app opens, with the location you last chose.'**
+  String get connectOnOpenHint;
+  /// No description provided for @speedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get speedTitle;
+  /// No description provided for @parallelTunnels.
+  ///
+  /// In en, this message translates to:
+  /// **'Parallel tunnels'**
+  String get parallelTunnels;
+  /// No description provided for @parallelTunnelsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens several tunnels to Mozilla at once and splits the traffic between them, so one slow tunnel no longer caps the speed. Eight is the heaviest on the battery.'**
+  String get parallelTunnelsHint;
+  /// No description provided for @tunnels1.
+  ///
+  /// In en, this message translates to:
+  /// **'One — the most stable'**
+  String get tunnels1;
+  /// No description provided for @tunnels2.
+  ///
+  /// In en, this message translates to:
+  /// **'Two'**
+  String get tunnels2;
+  /// No description provided for @tunnels4.
+  ///
+  /// In en, this message translates to:
+  /// **'Four — faster on slow networks'**
+  String get tunnels4;
+  /// No description provided for @tunnels8.
+  ///
+  /// In en, this message translates to:
+  /// **'Eight — the fastest'**
+  String get tunnels8;
+  /// No description provided for @connectionCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection limit'**
+  String get connectionCap;
+  /// No description provided for @connectionCapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How many apps may talk through the VPN at once; a smaller cap saves battery and data on a busy phone. No limit is the default.'**
+  String get connectionCapHint;
+  /// No description provided for @capNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No limit'**
+  String get capNone;
+  /// No description provided for @verboseLogging.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed diagnostics'**
+  String get verboseLogging;
+  /// No description provided for @verboseLoggingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Writes every step to the log — helpful when reporting a problem, a little heavier on the battery.'**
+  String get verboseLoggingHint;
+  /// No description provided for @wn38MapStylesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Five looks for the map: silver, midnight, ocean, mono, and aurora — the settings\' new Appearance page picks, with a preview of each.'**
+  String get wn38MapStylesAdded;
+  /// No description provided for @wn38ZoomAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The map zooms: pinch it, or double-tap to step in and back out.'**
+  String get wn38ZoomAdded;
+  /// No description provided for @wn38OptionsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical options: parallel tunnels for more speed, a connection limit, battery saver, connect when the app opens, and detailed diagnostics.'**
+  String get wn38OptionsAdded;
+  /// No description provided for @wn38SocialAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram and Telegram now live at the bottom of this page too.'**
+  String get wn38SocialAdded;
+  /// No description provided for @wn38FlightImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Choosing a country is a small flight: the camera pulls back, the ball turns, the pin drops with a bounce, and the roads draw themselves out to the hubs.'**
+  String get wn38FlightImproved;
+  /// No description provided for @wn38EffectsImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The map reads richer: stars behind the ball, a coordinate grid, the hubs\' own lights, a halo around the limb, and the land\'s shadow.'**
+  String get wn38EffectsImproved;
+  /// No description provided for @wn38SpeedImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed option is real: parallel tunnels open several connections at once, and the core splits the traffic between them.'**
+  String get wn38SpeedImproved;
+  /// No description provided for @wn38NameFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.'**
+  String get wn38NameFixed;
   /// No description provided for @wnDesignsRemoved.
   ///
   /// In en, this message translates to:

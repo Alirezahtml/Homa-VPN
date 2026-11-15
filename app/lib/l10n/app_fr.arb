@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Apparence",
+  "mapStyle": "Style de carte",
+  "mapStyleHint": "Le globe de la page d'accueil se peint comme vous choisissez. La lumière de connexion reste la même.",
+  "mapSilver": "Argent",
+  "mapMidnight": "Minuit",
+  "mapOcean": "Océan",
+  "mapMono": "Monochrome",
+  "mapAurora": "Aurore",
+  "batterySaver": "Économiseur de batterie",
+  "batterySaverHint": "Met au repos le mouvement de la carte pendant la connexion — le souffle du globe, l'éclat de la roue. La connexion reste exactement la même.",
+  "connectOnOpen": "Connexion à l'ouverture de l'app",
+  "connectOnOpenHint": "Établit le VPN à l'ouverture de l'app, avec le dernier lieu choisi.",
+  "speedTitle": "Vitesse",
+  "parallelTunnels": "Tunnels parallèles",
+  "parallelTunnelsHint": "Ouvre plusieurs tunnels vers Mozilla à la fois et répartit le trafic entre eux, pour qu'un tunnel lent ne plafonne plus la vitesse. Huit est le plus lourd pour la batterie.",
+  "tunnels1": "Un — le plus stable",
+  "tunnels2": "Deux",
+  "tunnels4": "Quatre — plus rapide sur les réseaux lents",
+  "tunnels8": "Huit — le plus rapide",
+  "connectionCap": "Limite de connexions",
+  "connectionCapHint": "Combien d'apps peuvent parler par le VPN en même temps ; une limite plus basse économise batterie et données sur un téléphone bien occupé. Sans limite par défaut.",
+  "capNone": "Sans limite",
+  "verboseLogging": "Diagnostic détaillé",
+  "verboseLoggingHint": "Écrit chaque étape dans le journal — utile pour signaler un problème, un peu plus lourd pour la batterie.",
+  "wn38MapStylesAdded": "Cinq styles pour la carte : argent, minuit, océan, monochrome et aurore — la nouvelle page Apparence des réglages choisit, avec un aperçu de chacun.",
+  "wn38ZoomAdded": "La carte zoome : pincez-la, ou touchez deux fois pour approcher puis revenir.",
+  "wn38OptionsAdded": "Des options pratiques : tunnels parallèles pour plus de vitesse, limite de connexions, économiseur de batterie, connexion à l'ouverture de l'app et diagnostic détaillé.",
+  "wn38SocialAdded": "Instagram et Telegram habitent aussi désormais au bas de cette page.",
+  "wn38FlightImproved": "Choisir un pays est un petit vol : la caméra recule, le globe tourne, l'épingle rebondit en se posant et les routes se dessinent seules vers les nœuds.",
+  "wn38EffectsImproved": "La carte se lit plus riche : des étoiles derrière le globe, une grille de coordonnées, les lumières des nœuds, un halo au pourtour et l'ombre des terres.",
+  "wn38SpeedImproved": "L'option vitesse est réelle : les tunnels parallèles ouvrent plusieurs connexions à la fois et le noyau répartit le trafic entre elles.",
+  "wn38NameFixed": "Le nom du pays choisi s'affiche une fois — sur la carte flottante de la carte du monde ; la copie sous les drapeaux est partie."
 }

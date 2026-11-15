@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Apariencia",
+  "mapStyle": "Estilo del mapa",
+  "mapStyleHint": "El globo de la página de inicio se pinta como elija. La luz de la conexión queda igual.",
+  "mapSilver": "Plata",
+  "mapMidnight": "Medianoche",
+  "mapOcean": "Océano",
+  "mapMono": "Monocromo",
+  "mapAurora": "Aurora",
+  "batterySaver": "Ahorro de batería",
+  "batterySaverHint": "Pone en reposo el movimiento del mapa mientras estás conectado: el respiro del globo, el brillo de la rueda. La conexión queda exactamente igual.",
+  "connectOnOpen": "Conectar al abrir la app",
+  "connectOnOpenHint": "Levanta la VPN al abrir la app, con la última ubicación que eligió.",
+  "speedTitle": "Velocidad",
+  "parallelTunnels": "Túneles paralelos",
+  "parallelTunnelsHint": "Abre varios túneles hacia Mozilla a la vez y reparte el tráfico entre ellos, para que un túnel lento deje de limitar la velocidad. Ocho es lo más pesado para la batería.",
+  "tunnels1": "Uno — el más estable",
+  "tunnels2": "Dos",
+  "tunnels4": "Cuatro — más rápido en redes lentas",
+  "tunnels8": "Ocho — el más rápido",
+  "connectionCap": "Límite de conexiones",
+  "connectionCapHint": "Cuántas apps pueden hablar por la VPN a la vez; un límite menor ahorra batería y datos en un teléfono muy activo. Sin límite es lo predeterminado.",
+  "capNone": "Sin límite",
+  "verboseLogging": "Diagnóstico detallado",
+  "verboseLoggingHint": "Escribe cada paso en el registro — útil al informar de un problema, un poco más pesado para la batería.",
+  "wn38MapStylesAdded": "Cinco estilos para el mapa: plata, medianoche, océano, monocromo y aurora — la nueva página de Apariencia en los ajustes elige, con una vista previa de cada uno.",
+  "wn38ZoomAdded": "El mapa hace zoom: pellizca con dos dedos, o toca dos veces para acercarte y volver.",
+  "wn38OptionsAdded": "Opciones prácticas: túneles paralelos para más velocidad, límite de conexiones, ahorro de batería, conectar al abrir la app y diagnóstico detallado.",
+  "wn38SocialAdded": "Instagram y Telegram ahora también viven al pie de esta página.",
+  "wn38FlightImproved": "Elegir un país es un vuelo corto: la cámara retrocede, el globo gira, el pin cae con un rebote y los caminos se dibujan solos hasta los centros.",
+  "wn38EffectsImproved": "El mapa se lee más rico: estrellas detrás del globo, una cuadrícula de coordenadas, las luces de los centros, un halo en el borde y la sombra de la tierra.",
+  "wn38SpeedImproved": "La opción de velocidad es real: los túneles paralelos abren varias conexiones a la vez y el núcleo reparte el tráfico entre ellas.",
+  "wn38NameFixed": "El nombre del país elegido se muestra una vez — en la tarjeta flotante del mapa; la copia bajo las banderas se fue."
 }

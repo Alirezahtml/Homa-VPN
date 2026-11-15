@@ -628,5 +628,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "Tampilan",
+  "mapStyle": "Gaya peta",
+  "mapStyleHint": "Globe halaman beranda dicat sesuai pilihan Anda. Cahaya koneksi tetap sama.",
+  "mapSilver": "Perak",
+  "mapMidnight": "Tengah malam",
+  "mapOcean": "Samudra",
+  "mapMono": "Mono",
+  "mapAurora": "Aurora",
+  "batterySaver": "Penghemat baterai",
+  "batterySaverHint": "Menenangkan gerak peta saat terhubung — napas globe, cahaya roda. Koneksi itu sendiri tetap persis sama.",
+  "connectOnOpen": "Sambungkan saat aplikasi dibuka",
+  "connectOnOpenHint": "Menyalakan VPN begitu aplikasi dibuka, dengan lokasi terakhir yang Anda pilih.",
+  "speedTitle": "Kecepatan",
+  "parallelTunnels": "Terowongan paralel",
+  "parallelTunnelsHint": "Membuka beberapa terowongan ke Mozilla sekaligus dan membagi lalu lintas di antara mereka, agar satu terowongan lambat tak lagi membatasi kecepatan. Delapan paling berat untuk baterai.",
+  "tunnels1": "Satu — paling stabil",
+  "tunnels2": "Dua",
+  "tunnels4": "Empat — lebih cepat di jaringan lambat",
+  "tunnels8": "Delapan — paling cepat",
+  "connectionCap": "Batas koneksi",
+  "connectionCapHint": "Berapa banyak aplikasi yang boleh bicara lewat VPN sekaligus; batas lebih kecil menghemat baterai dan data di ponsel yang sibuk. Tanpa batas adalah bawaan.",
+  "capNone": "Tanpa batas",
+  "verboseLogging": "Diagnostik terperinci",
+  "verboseLoggingHint": "Menulis setiap langkah ke log — berguna saat melaporkan masalah, sedikit lebih berat untuk baterai.",
+  "wn38MapStylesAdded": "Lima gaya untuk peta: perak, tengah malam, samudra, mono, dan aurora — halaman Tampilan baru di pengaturan yang memilih, dengan pratinjau masing-masing.",
+  "wn38ZoomAdded": "Peta bisa di-zoom: cubit dengan dua jari, atau ketuk dua kali untuk mendekat dan kembali.",
+  "wn38OptionsAdded": "Opsi praktis: terowongan paralel untuk kecepatan lebih, batas koneksi, penghemat baterai, sambungkan saat aplikasi dibuka, dan diagnostik terperinci.",
+  "wn38SocialAdded": "Instagram dan Telegram kini juga berada di dasar halaman ini.",
+  "wn38FlightImproved": "Memilih negara adalah penerbangan kecil: kamera mundur, globe berputar, pin mendarat dengan pantulan, dan jalan-jalan menggambar diri ke hub.",
+  "wn38EffectsImproved": "Peta terasa lebih kaya: bintang di belakang globe, kisi koordinat, cahaya hub, halo di tepi, dan bayangan daratan.",
+  "wn38SpeedImproved": "Opsi kecepatan kini nyata: terowongan paralel membuka beberapa koneksi sekaligus, dan inti membagi lalu lintas di antara mereka.",
+  "wn38NameFixed": "Nama negara yang dipilih tampil sekali — pada kartu melayang peta; salinannya di bawah bendera sudah tiada."
 }

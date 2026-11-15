@@ -640,5 +640,37 @@
         "type": "int"
       }
     }
-  }
+  },
+  "sectionAppearance": "外觀",
+  "mapStyle": "地圖樣式",
+  "mapStyleHint": "主頁的地球會按您的選擇上色，連線的燈光保持不變。",
+  "mapSilver": "銀色",
+  "mapMidnight": "午夜",
+  "mapOcean": "海洋",
+  "mapMono": "單色",
+  "mapAurora": "極光",
+  "batterySaver": "省電模式",
+  "batterySaverHint": "連線時讓地圖動效安歇——地球的呼吸、轉輪的光暈。連線本身完全不受影響。",
+  "connectOnOpen": "開啟應用程式時連線",
+  "connectOnOpenHint": "應用程式一開啟就連上 VPN，使用您上次選擇的位置。",
+  "speedTitle": "速度",
+  "parallelTunnels": "並行隧道",
+  "parallelTunnelsHint": "同時開啟多條通往 Mozilla 的隧道並分擔流量，單條慢隧道不再限制速度。八條對電池負擔最大。",
+  "tunnels1": "一條——最穩定",
+  "tunnels2": "兩條",
+  "tunnels4": "四條——慢網路下更快",
+  "tunnels8": "八條——最快",
+  "connectionCap": "連線數上限",
+  "connectionCapHint": "多少應用程式可以同時透過 VPN 通訊；更小的上限在繁忙的手機上省電省流量。預設不限制。",
+  "capNone": "不限制",
+  "verboseLogging": "詳細診斷",
+  "verboseLoggingHint": "把每一步都寫進日誌——回報問題時很有用，略微多耗一點電。",
+  "wn38MapStylesAdded": "地圖的五種外觀：銀色、午夜、海洋、單色和極光——在設定裡新增的「外觀」頁選擇，每種都有預覽。",
+  "wn38ZoomAdded": "地圖可以縮放：雙指捏合，或雙擊放大、再次雙擊還原。",
+  "wn38OptionsAdded": "實用的新選項：並行隧道提升速度、連線數上限、省電模式、開啟應用程式時連線，以及詳細診斷。",
+  "wn38SocialAdded": "Instagram 和 Telegram 現在也在這個頁面的底部。",
+  "wn38FlightImproved": "選擇國家變成了一次小小的飛行：鏡頭後拉，球體轉動，圖釘帶彈跳落下，路徑自行延伸到各樞紐。",
+  "wn38EffectsImproved": "地圖更耐看了：球體背後的星辰、座標網格、樞紐自己的光點、邊緣的光暈，還有陸地的陰影。",
+  "wn38SpeedImproved": "速度選項是真實的：並行隧道同時開啟多條連線，核心在它們之間分配流量。",
+  "wn38NameFixed": "所選國家的名稱只顯示一次——在地圖的懸浮卡片上；旗幟下方的重複文字已移除。"
 }
