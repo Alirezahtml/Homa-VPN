@@ -585,5 +585,13 @@
   "statSession": "Sessiya",
   "copiedToClipboard": "Buferə köçürüldü",
   "wnTotalsAdded": "Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.",
-  "wnPolishImproved": "Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır."
+  "wnPolishImproved": "Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.",
+  "smartNetwork": "Ağıllı bağlantı",
+  "smartNetworkHint": "MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.",
+  "valueSmart": "Ağıllı",
+  "mtuAutoValue": "Avtomatik — şəbəkəyə görə",
+  "wnSmartAdded": "Ağıllı bağlantı: MTU, protokol və IP versiyası şəbəkəyə görə, real cavablara əsaslanaraq sürət üçün seçilir.",
+  "wnToastAdded": "Təsdiqlər indi yumşaq iOS üslubunda bildiriş kimi gəlir, özünü çəkən nişanla.",
+  "wnFlagsImproved": "Bayraq çarxı təmiz oturur: kənarədə bayraq yarılmır, bayraqlar tam görünür və seçim yumşaq yayla enir.",
+  "wnMapImproved": "Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə."
 }

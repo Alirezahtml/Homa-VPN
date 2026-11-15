@@ -2036,4 +2036,14 @@ class AppLocalizationsFa extends AppLocalizations {
   String get copiedToClipboard => 'در حافظه کپی شد';
   String get wnTotalsAdded => 'خانه مجموع آنچه در این نشست رد و بدل شد را نشان می‌دهد، و یک لمس، IP عمومی را کپی می‌کند.';
   String get wnPolishImproved => 'چرخ پرچم‌ها و صفحهٔ سرورها مرتب‌تر نشسته‌اند؛ متن‌ها فشرده‌ترند و تونل اندروید با سرعت بیشتری ترافیک را می‌برد.';
+
+  @override
+  String get smartNetwork => 'اتصال هوشمند';
+  String get smartNetworkHint => 'اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس همین شبکه و برای سرعت انتخاب می‌شوند.';
+  String get valueSmart => 'هوشمند';
+  String get mtuAutoValue => 'خودکار — بر اساس شبکه';
+  String get wnSmartAdded => 'اتصال هوشمند: اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس شبکه و با پاسخ‌های واقعی برای سرعت انتخاب می‌شوند.';
+  String get wnToastAdded => 'پیام‌های تأیید حالا نرم و به سبک iOS می‌آیند، با نشانه‌ای که خودش را می‌کشد.';
+  String get wnFlagsImproved => 'چرخ پرچم‌ها تمیز نشسته: هیچ پرچمی لبهٔ صفحه نصف نمی‌شود، پرچم‌ها کامل دیده می‌شوند و انتخاب با فنری نرم می‌نشیند.';
+  String get wnMapImproved => 'نقشهٔ جهان بزرگ‌تر و واضح‌تر کشیده می‌شود: بدون قاره‌های فشرده، با ساحل‌های صاف و هالهٔ درخشان روی مقصد.';
 }

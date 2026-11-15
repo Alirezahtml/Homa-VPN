@@ -2058,4 +2058,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copiedToClipboard => 'Copied to clipboard';
   String get wnTotalsAdded => 'The home shows what the session moved in total, and a tap copies the public IP.';
   String get wnPolishImproved => 'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.';
+
+  @override
+  String get smartNetwork => 'Smart connection';
+  String get smartNetworkHint => 'MTU, protocol, and IP version follow this network, picked for speed.';
+  String get valueSmart => 'Smart';
+  String get mtuAutoValue => 'Auto — follows the network';
+  String get wnSmartAdded => 'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.';
+  String get wnToastAdded => 'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.';
+  String get wnFlagsImproved => 'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.';
+  String get wnMapImproved => 'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
 }

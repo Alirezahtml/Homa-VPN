@@ -2051,4 +2051,14 @@ class AppLocalizationsAz extends AppLocalizations {
   String get copiedToClipboard => 'Buferə köçürüldü';
   String get wnTotalsAdded => 'Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.';
   String get wnPolishImproved => 'Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.';
+
+  @override
+  String get smartNetwork => 'Ağıllı bağlantı';
+  String get smartNetworkHint => 'MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.';
+  String get valueSmart => 'Ağıllı';
+  String get mtuAutoValue => 'Avtomatik — şəbəkəyə görə';
+  String get wnSmartAdded => 'Ağıllı bağlantı: MTU, protokol və IP versiyası şəbəkəyə görə, real cavablara əsaslanaraq sürət üçün seçilir.';
+  String get wnToastAdded => 'Təsdiqlər indi yumşaq iOS üslubunda bildiriş kimi gəlir, özünü çəkən nişanla.';
+  String get wnFlagsImproved => 'Bayraq çarxı təmiz oturur: kənarədə bayraq yarılmır, bayraqlar tam görünür və seçim yumşaq yayla enir.';
+  String get wnMapImproved => 'Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə.';
 }

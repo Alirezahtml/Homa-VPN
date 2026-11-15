@@ -2062,4 +2062,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get copiedToClipboard => 'Скопировано в буфер обмена';
   String get wnTotalsAdded => 'Главная показывает суммарный объём данных за сессию, а касание копирует публичный IP.';
   String get wnPolishImproved => 'Колесо флагов и страница серверов стали аккуратнее; тексты компактнее, а туннель Android несёт трафик быстрее.';
+
+  @override
+  String get smartNetwork => 'Умное подключение';
+  String get smartNetworkHint => 'MTU, протокол и версия IP подстраиваются под эту сеть — ради скорости.';
+  String get valueSmart => 'Умный';
+  String get mtuAutoValue => 'Авто — по сети';
+  String get wnSmartAdded => 'Умное подключение: MTU, протокол и версия IP следуют за сетью — по реальным ответам и ради скорости.';
+  String get wnToastAdded => 'Подтверждения приходят мягкой заметкой в стиле iOS, с значком, который рисует себя сам.';
+  String get wnFlagsImproved => 'Колесо флагов смотрится чисто: ни один флаг не обрезается краем экрана, флаги видны целиком, а выбор приземляется мягко.';
+  String get wnMapImproved => 'Карта мира рисуется крупнее и чётче: без сжатых континентов, с гладкими берегами и светящимся ореолом у точки.';
 }

@@ -2061,4 +2061,14 @@ class AppLocalizationsPt extends AppLocalizations {
   String get copiedToClipboard => 'Copiado para a área de transferência';
   String get wnTotalsAdded => 'A página inicial mostra o total que a sessão moveu, e um toque copia o IP público.';
   String get wnPolishImproved => 'A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.';
+
+  @override
+  String get smartNetwork => 'Conexão inteligente';
+  String get smartNetworkHint => 'MTU, protocolo e versão de IP seguem esta rede, em busca de velocidade.';
+  String get valueSmart => 'Inteligente';
+  String get mtuAutoValue => 'Automático — conforme a rede';
+  String get wnSmartAdded => 'Conexão inteligente: MTU, protocolo e versão de IP seguem a rede, escolhidos por respostas reais e para a velocidade.';
+  String get wnToastAdded => 'As confirmações chegam como uma nota suave ao estilo iOS, com uma marca que se desenha sozinha.';
+  String get wnFlagsImproved => 'A roda de bandeiras fica limpa: nenhuma bandeira é cortada na borda da tela, elas aparecem inteiras e a escolha pousa com uma mola suave.';
+  String get wnMapImproved => 'O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.';
 }

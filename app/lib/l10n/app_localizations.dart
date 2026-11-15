@@ -3665,6 +3665,47 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.'**
   String get wnPolishImproved;
+
+  /// No description provided for @smartNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart connection'**
+  String get smartNetwork;
+  /// No description provided for @smartNetworkHint.
+  ///
+  /// In en, this message translates to:
+  /// **'MTU, protocol, and IP version follow this network, picked for speed.'**
+  String get smartNetworkHint;
+  /// No description provided for @valueSmart.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart'**
+  String get valueSmart;
+  /// No description provided for @mtuAutoValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto — follows the network'**
+  String get mtuAutoValue;
+  /// No description provided for @wnSmartAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.'**
+  String get wnSmartAdded;
+  /// No description provided for @wnToastAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.'**
+  String get wnToastAdded;
+  /// No description provided for @wnFlagsImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The flag wheel sits clean: no flag is cut at the screen's edge, flags show whole, and the choice lands with a soft spring.'**
+  String get wnFlagsImproved;
+  /// No description provided for @wnMapImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.'**
+  String get wnMapImproved;
 }
 
 class _AppLocalizationsDelegate

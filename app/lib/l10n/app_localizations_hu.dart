@@ -2065,4 +2065,14 @@ class AppLocalizationsHu extends AppLocalizations {
   String get copiedToClipboard => 'A vágólapra másolva';
   String get wnTotalsAdded => 'A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.';
   String get wnPolishImproved => 'A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.';
+
+  @override
+  String get smartNetwork => 'Okos kapcsolat';
+  String get smartNetworkHint => 'Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.';
+  String get valueSmart => 'Okos';
+  String get mtuAutoValue => 'Automatikus — a hálózat szerint';
+  String get wnSmartAdded => 'Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.';
+  String get wnToastAdded => 'A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.';
+  String get wnFlagsImproved => 'A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.';
+  String get wnMapImproved => 'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
 }

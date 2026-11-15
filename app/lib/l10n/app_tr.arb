@@ -597,5 +597,13 @@
   "statSession": "Oturum",
   "copiedToClipboard": "Panoya kopyalandı",
   "wnTotalsAdded": "Ana sayfa oturumun toplam trafiğini gösteriyor; bir dokunuş genel IP'yi kopyalıyor.",
-  "wnPolishImproved": "Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor."
+  "wnPolishImproved": "Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor.",
+  "smartNetwork": "Akıllı bağlantı",
+  "smartNetworkHint": "MTU, protokol ve IP sürümü bu ağa uyarlanır; amaç hız.",
+  "valueSmart": "Akıllı",
+  "mtuAutoValue": "Otomatik — ağa göre",
+  "wnSmartAdded": "Akıllı bağlantı: MTU, protokol ve IP sürümü ağa uyarlanır; gerçek yanıtlarla, hız için seçilir.",
+  "wnToastAdded": "Onaylar artık yumuşak, iOS tarzı bir not olarak geliyor; kendini çizen bir işaretle.",
+  "wnFlagsImproved": "Bayrak çarkı temiz duruyor: ekran kenarında bayrak kesilmiyor, bayraklar tam görünür ve seçim yumuşak bir yayla yerleşiyor.",
+  "wnMapImproved": "Dünya haritası daha büyük ve net çiziliyor: sıkışmış kıtalar yok, pürüzsüz kıyılar ve çapada ışıltılı bir hale."
 }

@@ -585,5 +585,13 @@
   "statSession": "Munkamenet",
   "copiedToClipboard": "A vágólapra másolva",
   "wnTotalsAdded": "A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.",
-  "wnPolishImproved": "A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat."
+  "wnPolishImproved": "A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.",
+  "smartNetwork": "Okos kapcsolat",
+  "smartNetworkHint": "Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.",
+  "valueSmart": "Okos",
+  "mtuAutoValue": "Automatikus — a hálózat szerint",
+  "wnSmartAdded": "Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.",
+  "wnToastAdded": "A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.",
+  "wnFlagsImproved": "A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.",
+  "wnMapImproved": "A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton."
 }

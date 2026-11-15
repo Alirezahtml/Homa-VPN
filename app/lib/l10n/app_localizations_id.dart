@@ -2050,4 +2050,14 @@ class AppLocalizationsId extends AppLocalizations {
   String get copiedToClipboard => 'Disalin ke papan klip';
   String get wnTotalsAdded => 'Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.';
   String get wnPolishImproved => 'Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.';
+
+  @override
+  String get smartNetwork => 'Koneksi pintar';
+  String get smartNetworkHint => 'MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.';
+  String get valueSmart => 'Pintar';
+  String get mtuAutoValue => 'Otomatis — mengikuti jaringan';
+  String get wnSmartAdded => 'Koneksi pintar: MTU, protokol, dan versi IP mengikuti jaringan, dipilih dari jawaban nyata demi kecepatan.';
+  String get wnToastAdded => 'Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.';
+  String get wnFlagsImproved => 'Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.';
+  String get wnMapImproved => 'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
 }

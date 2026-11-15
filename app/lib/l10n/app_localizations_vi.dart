@@ -2049,4 +2049,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get copiedToClipboard => 'Đã sao chép vào bộ nhớ tạm';
   String get wnTotalsAdded => 'Trang chủ cho thấy tổng dữ liệu phiên đã truyền, và một chạm sao chép IP công khai.';
   String get wnPolishImproved => 'Bánh xe cờ và trang máy chủ gọn gàng hơn; chữ ngắn gọn, và đường hầm Android truyền lưu lượng nhanh hơn.';
+
+  @override
+  String get smartNetwork => 'Kết nối thông minh';
+  String get smartNetworkHint => 'MTU, giao thức và phiên bản IP theo mạng này, hướng tới tốc độ.';
+  String get valueSmart => 'Thông minh';
+  String get mtuAutoValue => 'Tự động — theo mạng';
+  String get wnSmartAdded => 'Kết nối thông minh: MTU, giao thức và phiên bản IP theo mạng, được chọn từ phản hồi thật để có tốc độ.';
+  String get wnToastAdded => 'Xác nhận giờ đến như một ghi chú mềm mại kiểu iOS, với dấu vẽ chính mình.';
+  String get wnFlagsImproved => 'Bánh xe cờ gọn gàng: không còn cờ bị cắt ở mép màn hình, cờ hiển thị trọn vẹn, và lựa chọn đáp xuống nhẹ nhàng.';
+  String get wnMapImproved => 'Bản đồ thế giới được vẽ lớn và rõ hơn: không còn lục địa bị nén, bờ biển mượt, và quầng sáng tại điểm neo.';
 }

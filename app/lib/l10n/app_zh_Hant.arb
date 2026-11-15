@@ -597,5 +597,13 @@
   "statSession": "工作階段",
   "copiedToClipboard": "已複製到剪貼簿",
   "wnTotalsAdded": "主頁顯示本次工作階段的總流量，輕點即可複製公共 IP。",
-  "wnPolishImproved": "旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。"
+  "wnPolishImproved": "旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。",
+  "smartNetwork": "智慧連線",
+  "smartNetworkHint": "MTU、通訊協定與 IP 版本依目前網路自動選擇，以速度為先。",
+  "valueSmart": "智慧",
+  "mtuAutoValue": "自動 — 隨網路調整",
+  "wnSmartAdded": "智慧連線：MTU、通訊協定與 IP 版本跟隨網路，按真實回應選擇，以速度為先。",
+  "wnToastAdded": "確認提示現在以 iOS 風格輕柔呈現，圖示會自己畫出。",
+  "wnFlagsImproved": "旗幟轉輪乾淨俐落：邊緣不再切半面旗，旗幟完整呈現，選擇輕輕彈落。",
+  "wnMapImproved": "世界地圖更大更清晰：不再壓縮大陸，海岸線平滑，落點處有光暈。"
 }

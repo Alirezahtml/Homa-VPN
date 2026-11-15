@@ -2071,4 +2071,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get copiedToClipboard => 'Copié dans le presse-papiers';
   String get wnTotalsAdded => 'La page d\'accueil montre le total déplacé par la session, et un appui copie l\'IP publique.';
   String get wnPolishImproved => 'La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite.';
+
+  @override
+  String get smartNetwork => 'Connexion intelligente';
+  String get smartNetworkHint => 'MTU, protocole et version IP suivent ce réseau, pour la vitesse.';
+  String get valueSmart => 'Intelligent';
+  String get mtuAutoValue => 'Automatique — selon le réseau';
+  String get wnSmartAdded => 'Connexion intelligente : MTU, protocole et version IP suivent le réseau, choisis d\'après des réponses réelles, pour la vitesse.';
+  String get wnToastAdded => 'Les confirmations arrivent comme une note douce à la manière d\'iOS, avec un symbole qui se dessine.';
+  String get wnFlagsImproved => 'La roue des drapeaux est nette : aucun drapeau n\'est coupé au bord de l\'écran, ils s\'affichent entiers, et le choix atterrit en douceur.';
+  String get wnMapImproved => 'La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l\'ancre.';
 }

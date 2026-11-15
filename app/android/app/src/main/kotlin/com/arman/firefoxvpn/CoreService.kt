@@ -354,8 +354,12 @@ class CoreService : VpnService() {
             return false
         }
         return try {
-            // tun.mtu when the user set one, else the app's own.
-            val mtu = mobile.Mobile.tunMTU().takeIf { it > 0 } ?: MTU
+            // The MTU the VPN interface carries: the user's own tun.mtu
+            // when one is set, else the network's own (smart), else the
+            // app's batching size.
+            val smart = mobile.Mobile.tunSmartMTU()
+            val mtu = mobile.Mobile.tunMTU().takeIf { it > 0 && !smart }
+                ?: (if (smart) smartMtu() else MTU)
             val config = mobile.Mobile.tunConfig(mtu)
             val builder = Builder()
                 .setSession(getString(R.string.app_name))
@@ -412,6 +416,30 @@ class CoreService : VpnService() {
         }
         builder.addDisallowedApplication(packageName)
         each(appSet(this, BYPASS) - packageName) { builder.addDisallowedApplication(it) }
+    }
+
+    /**
+     * The smart MTU: the interface follows the network it rides on
+     * (LinkProperties' own MTU of the active connection — a phone's
+     * radio, a hotspot, a VPN inside this one). Where the network can
+     * carry a whole datagram at the batching size — its MTU is 1400
+     * or more, every phone network is — the batching size stands: the
+     * download still moves with a fraction of the per-packet work.
+     * Where it cannot (a network inside a network), the interface
+     * takes the network's own plus room for the tunnel's headers, so
+     * a datagram goes out whole instead of being split on the way.
+     * Unknown: the batching size, as before.
+     */
+    private fun smartMtu(): Int {
+        val base = try {
+            val cm = getSystemService(ConnectivityManager::class.java)
+            val net = cm.activeNetwork ?: return MTU
+            cm.getLinkProperties(net)?.mtu ?: 0
+        } catch (_: Throwable) {
+            0
+        }
+        if (base <= 0 || base >= 1400) return MTU
+        return (base + 64).coerceIn(1280, MTU)
     }
 
     /** When the VPN interface last came up. */

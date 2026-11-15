@@ -1184,5 +1184,13 @@
   "statSession": "Session",
   "copiedToClipboard": "Copied to clipboard",
   "wnTotalsAdded": "The home shows what the session moved in total, and a tap copies the public IP.",
-  "wnPolishImproved": "The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed."
+  "wnPolishImproved": "The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.",
+  "smartNetwork": "Smart connection",
+  "smartNetworkHint": "MTU, protocol, and IP version follow this network, picked for speed.",
+  "valueSmart": "Smart",
+  "mtuAutoValue": "Auto — follows the network",
+  "wnSmartAdded": "Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.",
+  "wnToastAdded": "Confirmations arrive as a soft iOS-style note, with a mark that draws itself.",
+  "wnFlagsImproved": "The flag wheel sits clean: no flag is cut at the screen's edge, flags show whole, and the choice lands with a soft spring.",
+  "wnMapImproved": "The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor."
 }

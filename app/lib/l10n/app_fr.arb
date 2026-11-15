@@ -585,5 +585,13 @@
   "statSession": "Session",
   "copiedToClipboard": "Copié dans le presse-papiers",
   "wnTotalsAdded": "La page d'accueil montre le total déplacé par la session, et un appui copie l'IP publique.",
-  "wnPolishImproved": "La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite."
+  "wnPolishImproved": "La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite.",
+  "smartNetwork": "Connexion intelligente",
+  "smartNetworkHint": "MTU, protocole et version IP suivent ce réseau, pour la vitesse.",
+  "valueSmart": "Intelligent",
+  "mtuAutoValue": "Automatique — selon le réseau",
+  "wnSmartAdded": "Connexion intelligente : MTU, protocole et version IP suivent le réseau, choisis d'après des réponses réelles, pour la vitesse.",
+  "wnToastAdded": "Les confirmations arrivent comme une note douce à la manière d'iOS, avec un symbole qui se dessine.",
+  "wnFlagsImproved": "La roue des drapeaux est nette : aucun drapeau n'est coupé au bord de l'écran, ils s'affichent entiers, et le choix atterrit en douceur.",
+  "wnMapImproved": "La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l'ancre."
 }

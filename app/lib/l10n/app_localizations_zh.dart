@@ -1963,6 +1963,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wnTotalsAdded => '主页显示本次会话的总流量，轻点即可复制公共 IP。';
   String get wnPolishImproved => '旗帜转轮和服务器页面更整洁；文字更紧凑，Android 隧道以更高的速度传输流量。';
 
+  @override
+  String get smartNetwork => '智能连接';
+  String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
+  String get valueSmart => '智能';
+  String get mtuAutoValue => '自动 — 随网络调整';
+  String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
+  String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
+  String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
+  String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
+
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3923,4 +3933,14 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get copiedToClipboard => '已複製到剪貼簿';
   String get wnTotalsAdded => '主頁顯示本次工作階段的總流量，輕點即可複製公共 IP。';
   String get wnPolishImproved => '旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。';
+
+  @override
+  String get smartNetwork => '智能连接';
+  String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
+  String get valueSmart => '智能';
+  String get mtuAutoValue => '自动 — 随网络调整';
+  String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
+  String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
+  String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
+  String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
 }

@@ -2050,4 +2050,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String get copiedToClipboard => 'Panoya kopyalandı';
   String get wnTotalsAdded => 'Ana sayfa oturumun toplam trafiğini gösteriyor; bir dokunuş genel IP\'yi kopyalıyor.';
   String get wnPolishImproved => 'Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor.';
+
+  @override
+  String get smartNetwork => 'Akıllı bağlantı';
+  String get smartNetworkHint => 'MTU, protokol ve IP sürümü bu ağa uyarlanır; amaç hız.';
+  String get valueSmart => 'Akıllı';
+  String get mtuAutoValue => 'Otomatik — ağa göre';
+  String get wnSmartAdded => 'Akıllı bağlantı: MTU, protokol ve IP sürümü ağa uyarlanır; gerçek yanıtlarla, hız için seçilir.';
+  String get wnToastAdded => 'Onaylar artık yumuşak, iOS tarzı bir not olarak geliyor; kendini çizen bir işaretle.';
+  String get wnFlagsImproved => 'Bayrak çarkı temiz duruyor: ekran kenarında bayrak kesilmiyor, bayraklar tam görünür ve seçim yumuşak bir yayla yerleşiyor.';
+  String get wnMapImproved => 'Dünya haritası daha büyük ve net çiziliyor: sıkışmış kıtalar yok, pürüzsüz kıyılar ve çapada ışıltılı bir hale.';
 }

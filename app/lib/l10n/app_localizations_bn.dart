@@ -2045,4 +2045,14 @@ class AppLocalizationsBn extends AppLocalizations {
   String get copiedToClipboard => 'ক্লিপবোর্ডে কপি হয়েছে';
   String get wnTotalsAdded => 'হোম পাতা সেশনে মোট কত ডেটা গেল তা দেখায়, আর এক ট্যাপে পাবলিক আইপি কপি হয়।';
   String get wnPolishImproved => 'পতাকার চাকা ও সার্ভার পাতা আরও গোছানো; লেখা সংক্ষিপ্ত, আর Android টানেল বেশি গতিতে ট্রাফিক বহন করে।';
+
+  @override
+  String get smartNetwork => 'স্মার্ট সংযোগ';
+  String get smartNetworkHint => 'এই নেটওয়ার্ক অনুযায়ী গতির জন্য MTU, প্রোটোকল ও IP সংস্করণ বেছে নেওয়া হয়।';
+  String get valueSmart => 'স্মার্ট';
+  String get mtuAutoValue => 'অটো — নেটওয়ার্ক অনুযায়ী';
+  String get wnSmartAdded => 'স্মার্ট সংযোগ: MTU, প্রোটোকল ও IP সংস্করণ নেটওয়ার্ক অনুযায়ী, সত্যিকারের প্রতিক্রিয়া দেখে গতির জন্য বেছে নেওয়া হয়।';
+  String get wnToastAdded => 'নিশ্চিতকরণ এখন নরম iOS-স্টাইল বার্তায় আসে, যেখানে নিজেকে আঁকা একটি চিহ্ন থাকে।';
+  String get wnFlagsImproved => 'পতাকার চাকা পরিষ্কার বসে: স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না, পতাকা সম্পূর্ণ দেখা যায়, আর নির্বাচন নরমভাবে বসে।';
+  String get wnMapImproved => 'বিশ্ব মানচিত্র এখন বড় ও স্পষ্ট: চাপা মহাদেশ নেই, মসৃণ উপকূলরেখা, আর অ্যাঙ্করে উজ্জ্বল হ্যালো।';
 }

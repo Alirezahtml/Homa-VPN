@@ -2059,4 +2059,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get copiedToClipboard => 'تم النسخ إلى الحافظة';
   String get wnTotalsAdded => 'تعرض الصفحة الرئيسية مجموع ما نقلته الجلسة، وتنسخ اللمسة الواحدة عنوان IP العمومي.';
   String get wnPolishImproved => 'عجلة الأعلام وصفحة الخوادم أكثر ترتيبًا؛ النصوص مضغوطة، وينقل نفق أندرويد البيانات بسرعة أعلى.';
+
+  @override
+  String get smartNetwork => 'اتصال ذكي';
+  String get smartNetworkHint => 'يُضبط MTU والبروتوكول ونسخة IP وفق هذه الشبكة، بحثًا عن السرعة.';
+  String get valueSmart => 'ذكي';
+  String get mtuAutoValue => 'تلقائي — حسب الشبكة';
+  String get wnSmartAdded => 'اتصال ذكي: يُختار MTU والبروتوكول ونسخة IP وفق الشبكة، اعتمادًا على إجابات حقيقية وبحثًا عن السرعة.';
+  String get wnToastAdded => 'تصل تأكيدات كإشعار ناعم بأسلوب iOS، مع علامة ترسم نفسها.';
+  String get wnFlagsImproved => 'عجلة الأعلام تجلس نظيفة: لا يُقطع علم عند حافة الشاشة، وتظهر الأعلام كاملة، ويهبط الاختيار بنعومة.';
+  String get wnMapImproved => 'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
 }
