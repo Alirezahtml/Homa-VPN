@@ -10,7 +10,6 @@ import '../l10n/app_localizations.dart';
 import 'about_page.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
-import 'design.dart';
 import 'logs_page.dart';
 import 'motion.dart';
 import 'overview_page.dart';

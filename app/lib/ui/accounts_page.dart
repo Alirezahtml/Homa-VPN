@@ -8,7 +8,6 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'backup.dart';
 import 'browser_signin.dart';
-import 'design.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'signin_dialog.dart';

@@ -634,7 +634,8 @@ class _FloatingCard extends StatelessWidget {
         // Above the pin: the card's own stem points down at it.
         const lift = 58.0;
         final left = (box.maxWidth / 2 + dx - cardW / 2)
-            .clamp(12.0, math.max(12.0, box.maxWidth - cardW - 12));
+            .clamp(12.0, math.max(12.0, box.maxWidth - cardW - 12))
+            .toDouble();
         final top =
             (box.maxHeight / 2 + dy - lift).clamp(10.0, box.maxHeight - 120);
         return Stack(
@@ -745,6 +746,7 @@ class _RotatedWorld {
     required this.landFill,
     required this.litStroke,
     required this.litFill,
+    required this.litWhole,
     required this.anchor,
     required this.roads,
   });
@@ -787,7 +789,8 @@ class _RotatedWorld {
     final landStroke = ui.Path()..fillType = ui.PathFillType.evenOdd;
     final landFill = ui.Path()..fillType = ui.PathFillType.evenOdd;
     final litStroke = ui.Path()..fillType = ui.PathFillType.evenOdd;
-    var litFill = ui.Path()..fillType = ui.PathFillType.evenOdd;
+    final litFill = ui.Path()..fillType = ui.PathFillType.evenOdd;
+    var litWhole = false;
     Offset? anchor;
 
     for (final c in geometry) {
@@ -810,13 +813,14 @@ class _RotatedWorld {
 
       if (whole) {
         final shape = _ringPath(c.rings, view, center, radius);
-        (isChosen ? litFill : landFill).addPath(shape);
-        (isChosen ? litStroke : landStroke).addPath(shape);
+        (isChosen ? litFill : landFill).addPath(shape, ui.Offset.zero);
+        (isChosen ? litStroke : landStroke).addPath(shape, ui.Offset.zero);
+        if (isChosen) litWhole = true;
       } else {
         // Half over the limb: stroke only the visible runs, so no edge
         // lies about where the land ends.
         final runs = _visibleRuns(c.rings, view, center, radius);
-        (isChosen ? litStroke : landStroke).addPath(runs);
+        (isChosen ? litStroke : landStroke).addPath(runs, ui.Offset.zero);
       }
       if (isChosen) {
         final p = view.project(c.anchor.$1, c.anchor.$2, c.anchor.$3);
@@ -847,9 +851,9 @@ class _RotatedWorld {
               center.dy - p.$2 * radius,
             );
             if (pen) {
-              road.lineTo(q);
+              road.lineTo(q.dx, q.dy);
             } else {
-              road.moveTo(q);
+              road.moveTo(q.dx, q.dy);
               pen = true;
             }
           } else {
@@ -871,6 +875,7 @@ class _RotatedWorld {
       landFill: landFill,
       litStroke: litStroke,
       litFill: litFill,
+      litWhole: litWhole,
       anchor: anchor,
       roads: roads,
     );
@@ -923,9 +928,9 @@ class _RotatedWorld {
           );
           final q = Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius);
           if (pen) {
-            path.lineTo(q);
+            path.lineTo(q.dx, q.dy);
           } else {
-            path.moveTo(q);
+            path.moveTo(q.dx, q.dy);
             pen = true;
           }
         } else {
@@ -1055,7 +1060,7 @@ class _GlobePainter extends CustomPainter {
 
     // The chosen country, lit: the state's light fills it and holds its
     // edge.
-    if (!world.litFill.isEmpty) {
+    if (world.litWhole) {
       canvas.drawPath(
         world.litFill,
         Paint()
@@ -1138,4 +1143,11 @@ class _GlobePainter extends CustomPainter {
       old.accent != accent ||
       old.dark != dark ||
       (old.breath - breath).abs() > 0.003;
+}
+
+/// The chosen country's anchor, back in degrees, for the hub search.
+GlobePlace globePlaceOfVector((double, double, double) v) {
+  final lat = math.asin(v.$3.clamp(-1.0, 1.0)) * 180 / math.pi;
+  final lon = math.atan2(v.$2, v.$1) * 180 / math.pi;
+  return GlobePlace(lat, lon);
 }

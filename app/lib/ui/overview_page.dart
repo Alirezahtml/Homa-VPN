@@ -17,7 +17,6 @@ import '../platform.dart';
 import 'accent.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
-import 'design.dart';
 import 'flag_carousel.dart';
 import 'format.dart';
 import 'motion.dart';
