@@ -15,6 +15,19 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.41' => [
+    (
+      title: l.whatsNewAdded,
+      lines: [
+        l.wn41Sound,
+        l.wn41RateUnit,
+        l.wn41BackgroundLock,
+        l.wn41BiggerLimits,
+      ],
+    ),
+    (title: l.whatsNewImproved, lines: [l.wn41Motion, l.wn41AboutFixed]),
+    (title: l.whatsNewFixed, lines: [l.wn41HapticFixed]),
+  ],
   '1.0.40' => [
     (title: l.whatsNewAdded, lines: [l.wn40MapKindsNew]),
     (
@@ -123,6 +136,7 @@ const _whatsNewVersions = {
   '1.0.38',
   '1.0.39',
   '1.0.40',
+  '1.0.41',
 };
 
 /// Whether this version's page is still waiting to be seen.

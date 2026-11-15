@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../app_settings.dart';
@@ -257,7 +258,10 @@ class VpnApp extends StatelessWidget {
         // place both are decided, so they never disagree. The design is
         // decided here too: its surfaces reach the theme below, and its
         // own light stands in when the user has not picked an accent.
+        // The rate's unit is decided beside them: one place, so the home
+        // page, the tiles, and the details sheet never disagree.
         AppAccent.current = AppDesign.resolveFor(settings);
+        Rates.bits = settings.rateBits;
         return Theme(
           data: _theme(
             dark ? Brightness.dark : Brightness.light,
@@ -288,7 +292,7 @@ class Shell extends StatefulWidget {
 
 enum _Page { overview, servers, accounts, settings, logs, about }
 
-class _ShellState extends State<Shell> {
+class _ShellState extends State<Shell> with WidgetsBindingObserver {
   _Page _page = _Page.overview;
 
   /// The settings section the home page opened (Connection), until another
@@ -298,6 +302,7 @@ class _ShellState extends State<Shell> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     AndroidCore.homeRequests.addListener(_openHome);
     // The notification's flag art: whenever the core reports a new exit
     // country (or, while connecting, a chosen one), the UI renders that
@@ -309,6 +314,9 @@ class _ShellState extends State<Shell> {
     // up as the home page does. It waits for the core's first answers
     // (the status and the accounts arrive together), and plays once.
     widget.core.addListener(_maybeConnectOnOpen);
+    // The connection's own cue: a sound and a light haptic when the VPN
+    // comes up or goes down — whichever page is open, whoever asked.
+    widget.core.addListener(_connectionCue);
   }
 
   /// Whether the open's own connect already had its one chance.
@@ -353,6 +361,64 @@ class _ShellState extends State<Shell> {
     });
   }
 
+  /// The connected state the cue last saw: null until the core's first
+  /// status lands, so the app's very first answers never ring.
+  bool? _cueConnected;
+
+  /// The connection's own cue: on a real up↔down turn, a short sound (the
+  /// setting asks for it) and a light haptic. The user's own connect
+  /// already hums through the slider's commit, so the haptic here stays
+  /// light — a click on top of the commit's knock, and the only feedback
+  /// an automatic reconnect ever gives. "Up" reads the way the caretaker
+  /// reads it (`proxyOn || connectPending`), so a handover's brief dip
+  /// never rings twice.
+  void _connectionCue() {
+    final status = widget.core.status;
+    if (status == null) return;
+    final connected = status.proxyOn || status.connectPending;
+    final before = _cueConnected;
+    _cueConnected = connected;
+    if (before == null || before == connected) return;
+    if (widget.settings.soundFeedback) {
+      SystemSound.play(SystemSoundType.alert);
+    }
+    if (widget.settings.hapticFeedback) {
+      HapticFeedback.lightImpact();
+    }
+  }
+
+  /// When the app went to the background, for the lock's own wait.
+  DateTime? _leftAt;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.paused || AppLifecycleState.hidden:
+        _leftAt ??= DateTime.now();
+      case AppLifecycleState.resumed:
+        final left = _leftAt;
+        _leftAt = null;
+        _relockAfterAway(left);
+      case AppLifecycleState.inactive || AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  /// The lock's own caretaker: with a password standing and the setting
+  /// on, a return after the wait asks for the word again. Right away
+  /// means any real pause; the minutes mean a whole minute each.
+  void _relockAfterAway(DateTime? left) {
+    final s = widget.settings;
+    if (left == null || s.lockHash.isEmpty || !s.lockUnlocked) return;
+    final wait = s.lockBackgroundMin;
+    if (wait <= 0) return;
+    final away = DateTime.now().difference(left);
+    final relock = wait == 1 ? away.inMilliseconds > 0 : away.inMinutes >= wait;
+    if (relock && mounted) {
+      setState(() => s.lockUnlocked = false);
+    }
+  }
+
   /// The country whose flag the notification should carry: the one the
   /// traffic really leaves from when it is known, else the one chosen.
   void _syncFlagArt() {
@@ -368,9 +434,11 @@ class _ShellState extends State<Shell> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     AndroidCore.homeRequests.removeListener(_openHome);
     widget.core.removeListener(_syncFlagArt);
     widget.core.removeListener(_maybeConnectOnOpen);
+    widget.core.removeListener(_connectionCue);
     super.dispose();
   }
 

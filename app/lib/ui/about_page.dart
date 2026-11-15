@@ -9,6 +9,7 @@ import '../core/core_controller.dart';
 import '../core/updates.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
+import 'motion.dart';
 import 'widgets.dart';
 import 'whats_new.dart';
 
@@ -102,10 +103,8 @@ class _AboutPageState extends State<AboutPage> {
     final muted = theme.textTheme.bodySmall?.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
     );
-    // The sponsor layout: every card hugs what it carries — wide enough
-    // for its own words in any language, never squeezed — and grows only
-    // when it must, by stepping to a line of its own when the row runs
-    // out of room. Nothing is compressed to fit.
+    // The sponsor layout: the two pages sit side by side, each half the
+    // row — never stacked by luck, never squeezed to a wrap's mercy.
     Widget social(String glyph, String handle, String url) =>
         SocialChannelButton(glyph: glyph, handle: handle, url: url);
     // The repository stays out of the app on purpose: no source link, no
@@ -114,146 +113,150 @@ class _AboutPageState extends State<AboutPage> {
     // Each thing on this page is a card of its own: the app's identity,
     // the versions, What's New, the channels, the update check, the web
     // console, the data folder — a card per section, the way every other
-    // page of the app lays its own out.
+    // page of the app lays its own out. The cards arrive in a stagger.
+    var card = 0;
+    Widget arrived(Widget child) => Reveal(index: card++, child: child);
     return ListView(
       padding: pagePadding(context),
       children: [
         PageTitle(l.navAbout),
         const SizedBox(height: 20),
         // The identity: who this app is, in one card of its own.
-        Panel(
-          child: Column(
-            children: [
-              const AppLogo(size: 72),
-              const SizedBox(height: 10),
-              Text(l.appTitle, style: theme.textTheme.titleLarge),
-              const SizedBox(height: 4),
-              Text(l.unofficialNote, style: muted, textAlign: TextAlign.center),
-            ],
+        arrived(
+          Panel(
+            child: Column(
+              children: [
+                const AppLogo(size: 72),
+                const SizedBox(height: 10),
+                Text(l.appTitle, style: theme.textTheme.titleLarge),
+                const SizedBox(height: 4),
+                Text(l.unofficialNote, style: muted, textAlign: TextAlign.center),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 12),
         // The versions: this build and the core it carries.
-        Panel(
-          title: l.aboutVersions,
-          icon: Icons.tag_rounded,
-          child: Column(
-            children: [
-              _Line(label: l.appVersionLabel, value: appVersion),
-              const SizedBox(height: 14),
-              _Line(label: l.coreVersionLabel, value: status?.version ?? '—'),
-              // What this version brought: opens once per version on its
-              // own, and again whenever wanted.
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(l.whatsNewMenu, style: theme.textTheme.titleSmall),
-                  ),
-                  OutlinedButton.icon(
-                    onPressed: () => showWhatsNew(
-                      context,
-                      widget.settings ?? AppSettings(),
-                    ),
-                    icon: const Icon(Icons.new_releases_outlined, size: 18),
-                    label: Text(l.whatsNewView),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        // The social channels: Instagram and Telegram, by their handles,
-        // in a card of their own. There is no code repository in this app.
-        Panel(
-          title: l.aboutChannels,
-          icon: Icons.alternate_email_rounded,
-          child: Wrap(
-            spacing: 12,
-            runSpacing: 10,
-            alignment: WrapAlignment.center,
-            children: [
-              social(
-                instagramGlyph,
-                '@Aliem061',
-                'https://instagram.com/Aliem061',
-              ),
-              social(
-                telegramGlyph,
-                '@Aliem_061',
-                'https://t.me/Aliem_061',
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        // The update check: the button, the result, and the update's own
-        // action, in a card of their own.
-        if (githubRepo.isNotEmpty)
+        arrived(
           Panel(
-            title: l.checkUpdates,
-            icon: Icons.system_update_alt_rounded,
+            title: l.aboutVersions,
+            icon: Icons.tag_rounded,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                _Line(label: l.appVersionLabel, value: appVersion),
+                const SizedBox(height: 14),
+                _Line(label: l.coreVersionLabel, value: status?.version ?? '—'),
+                // What this version brought: opens once per version on its
+                // own, and again whenever wanted.
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        l.checkUpdatesHint,
-                        style: muted,
-                      ),
+                      child: Text(l.whatsNewMenu, style: theme.textTheme.titleSmall),
                     ),
-                    const SizedBox(width: 12),
                     OutlinedButton.icon(
-                      onPressed: _checking ? null : _check,
-                      icon: _checking
-                          ? const SizedBox.square(
-                              dimension: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Icon(Icons.update_rounded, size: 18),
-                      label: Text(
-                        _checking ? l.checkingUpdates : l.checkUpdates,
+                      onPressed: () => showWhatsNew(
+                        context,
+                        widget.settings ?? AppSettings(),
                       ),
+                      icon: const Icon(Icons.new_releases_outlined, size: 18),
+                      label: Text(l.whatsNewView),
                     ),
                   ],
                 ),
-                if (_result != null) ...[
-                  const SizedBox(height: 8),
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(_result!, style: muted),
-                  ),
-                ],
-                if (_release case final release?) ...[
-                  const SizedBox(height: 10),
-                  _UpdateAction(core: widget.core, release: release),
-                ],
               ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        // The contact pages: Instagram and Telegram, side by side, each
+        // half the row, in a card of their own. No code repository here.
+        arrived(
+          Panel(
+            title: l.aboutChannels,
+            icon: Icons.alternate_email_rounded,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: social(
+                    instagramGlyph,
+                    '@Aliem061',
+                    'https://instagram.com/Aliem061',
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: social(
+                    telegramGlyph,
+                    '@Aliem_061',
+                    'https://t.me/Aliem_061',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        // The update check: the hint gets the card's whole width, the
+        // button stands under it — no word squeezed into a corner row.
+        if (githubRepo.isNotEmpty)
+          arrived(
+            Panel(
+              title: l.checkUpdates,
+              icon: Icons.system_update_alt_rounded,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l.checkUpdatesHint, style: muted),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: _checking ? null : _check,
+                    icon: _checking
+                        ? const SizedBox.square(
+                            dimension: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.update_rounded, size: 18),
+                    label: Text(
+                      _checking ? l.checkingUpdates : l.checkUpdates,
+                    ),
+                  ),
+                  if (_result != null) ...[
+                    const SizedBox(height: 8),
+                    Text(_result!, style: muted),
+                  ],
+                  if (_release case final release?) ...[
+                    const SizedBox(height: 10),
+                    _UpdateAction(core: widget.core, release: release),
+                  ],
+                ],
+              ),
             ),
           ),
         if (Platform.isAndroid) ...[
           const SizedBox(height: 12),
           // The web console: advanced settings and more tools, in a card
-          // of its own.
-          Panel(
-            title: l.webDashboard,
-            icon: Icons.language_rounded,
-            child: Row(
-              children: [
-                Expanded(child: Text(l.webDashboardHint, style: muted)),
-                const SizedBox(width: 12),
-                OutlinedButton.icon(
-                  onPressed: () => runShowingErrors(
-                    context,
-                    () async => openUrl('${await widget.core.dashboardLink()}'),
+          // of its own — the hint above, the button under it.
+          arrived(
+            Panel(
+              title: l.webDashboard,
+              icon: Icons.language_rounded,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l.webDashboardHint, style: muted),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: () => runShowingErrors(
+                      context,
+                      () async => openUrl('${await widget.core.dashboardLink()}'),
+                    ),
+                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                    label: Text(l.webDashboardOpen),
                   ),
-                  icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                  label: Text(l.webDashboardOpen),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -263,26 +266,27 @@ class _AboutPageState extends State<AboutPage> {
             status != null &&
             status.dataDir.isNotEmpty) ...[
           const SizedBox(height: 12),
-          Panel(
-            title: l.dataFolder,
-            icon: Icons.folder_open_rounded,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
+          arrived(
+            Panel(
+              title: l.dataFolder,
+              icon: Icons.folder_open_rounded,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     status.dataDir,
                     style: muted,
                     textDirection: TextDirection.ltr,
                   ),
-                ),
-                const SizedBox(width: 12),
-                OutlinedButton.icon(
-                  onPressed: () =>
-                      runShowingErrors(context, widget.core.openFolder),
-                  icon: const Icon(Icons.folder_open_rounded, size: 18),
-                  label: Text(l.openFolder),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        runShowingErrors(context, widget.core.openFolder),
+                    icon: const Icon(Icons.folder_open_rounded, size: 18),
+                    label: Text(l.openFolder),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

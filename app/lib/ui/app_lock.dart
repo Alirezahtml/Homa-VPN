@@ -450,6 +450,9 @@ class _LockPageState extends State<LockPage> {
   final _controller = TextEditingController();
   final _focus = FocusNode();
 
+  /// The wrong word's counter: every bump replays the field's shake.
+  int _shake = 0;
+
   void _try() {
     final hash = lockHashOf(_controller.text, widget.settings.lockSalt);
     if (hash == widget.settings.lockHash) {
@@ -459,6 +462,7 @@ class _LockPageState extends State<LockPage> {
     }
     _controller.clear();
     _focus.requestFocus();
+    setState(() => _shake++);
     showToast(context, AppLocalizations.of(context).appPasswordWrong,
         mark: ToastMark.alert);
   }
@@ -500,17 +504,20 @@ class _LockPageState extends State<LockPage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 22),
-                TextField(
-                  controller: _controller,
-                  focusNode: _focus,
-                  autofocus: true,
-                  obscureText: true,
-                  onSubmitted: (_) => _try(),
-                  decoration: InputDecoration(
-                    labelText: l.appPasswordCurrent,
-                    suffixIcon: IconButton(
-                      onPressed: _try,
-                      icon: const Icon(Icons.arrow_forward_rounded),
+                Shake(
+                  trigger: _shake,
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focus,
+                    autofocus: true,
+                    obscureText: true,
+                    onSubmitted: (_) => _try(),
+                    decoration: InputDecoration(
+                      labelText: l.appPasswordCurrent,
+                      suffixIcon: IconButton(
+                        onPressed: _try,
+                        icon: const Icon(Icons.arrow_forward_rounded),
+                      ),
                     ),
                   ),
                 ),

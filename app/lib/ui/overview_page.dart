@@ -405,6 +405,7 @@ class _DesktopHome extends StatelessWidget {
             on: on,
             accent: accent,
             busy: core.switchingProxy,
+            batterySaver: settings.batterySaver,
             tooltip: on ? l.tapToDisconnect : l.tapToConnect,
             // No account yet: the accounts page, which explains them.
             onPressed: () => status.totalAccounts == 0
@@ -413,7 +414,7 @@ class _DesktopHome extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Text(
+        CrossfadeText(
           confirming
               ? l.stateConnecting
               : connected
@@ -1311,7 +1312,7 @@ class _PhoneHome extends StatelessWidget {
           if (design != 'bento')
             Reveal(
               index: 1,
-              child: Text(
+              child: CrossfadeText(
                 label,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall?.copyWith(
@@ -1341,6 +1342,8 @@ class _PhoneHome extends StatelessWidget {
                   // track keeps the connect hint (nothing is claimed yet).
                   labelOn: confirming ? '' : l.stateConnected,
                   tooltip: press,
+                  // The commit's knock answers to the vibration setting.
+                  haptic: settings.hapticFeedback,
                   // A TV starts on the switch, its ring showing.
                   autofocus: Platform.isAndroid && AndroidCore.isTv,
                   // No account yet: the accounts page, which explains
@@ -1385,6 +1388,7 @@ class _PhoneHome extends StatelessWidget {
                   busy: core.switchingProxy || status.connectPending,
                   accent: accent,
                   tooltip: press,
+                  batterySaver: settings.batterySaver,
                   onOpenServers: onOpenServers,
                   onPressed: () => status.totalAccounts == 0
                       ? _openAccounts(context, core, settings, onOpenAccounts)
@@ -2067,14 +2071,18 @@ class _HomeRow extends StatelessWidget {
 }
 
 /// The switch: an orb in the state's color with a glow and a thin ring.
-/// It stays still: an endless animation redraws the window every frame,
-/// and kept a CPU core busy even with the window hidden in the tray.
+/// It stays still on the desktop: an endless animation redraws the window
+/// every frame, and kept a CPU core busy even with the window hidden in
+/// the tray. The phone carries the one breath: rings that grow and fade
+/// around the connected disc — the phone's frames stop with its screen,
+/// and the battery saver holds them to a quiet ring.
 class _PowerOrb extends StatelessWidget {
   const _PowerOrb({
     required this.palette,
     required this.on,
     required this.accent,
     required this.busy,
+    required this.batterySaver,
     required this.tooltip,
     required this.onPressed,
   });
@@ -2083,6 +2091,9 @@ class _PowerOrb extends StatelessWidget {
   final bool on;
   final Color accent;
   final bool busy;
+
+  /// The battery saver's word: true holds the halo's rings still.
+  final bool batterySaver;
   final String tooltip;
   final VoidCallback onPressed;
 
@@ -2092,6 +2103,62 @@ class _PowerOrb extends StatelessWidget {
     const area = 250.0;
     const ring = 186.0;
     const disc = 148.0;
+    // The connected face: the disc carries the power, and the check's
+    // badge draws itself in at the disc's edge each time the VPN lands.
+    Widget disc = AnimatedContainer(
+      duration: const Duration(milliseconds: 400),
+      width: disc,
+      height: disc,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: on
+              ? [Color.lerp(accent, Colors.white, 0.28)!, accent]
+              : p.discOff,
+        ),
+        border: Border.all(
+          color: on
+              ? Colors.white.withValues(alpha: 0.4)
+              : p.discOffEdge,
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: on
+                ? accent.withValues(alpha: 0.5)
+                : Colors.black.withValues(alpha: p.dark ? 0.45 : 0.14),
+            blurRadius: on ? 36 : 26,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: busy ? null : onPressed,
+          child: Icon(
+            Icons.power_settings_new_rounded,
+            size: 58,
+            color: on ? Colors.white : (p.dark ? p.muted : p.idle),
+          ),
+        ),
+      ),
+    );
+    if (on && Platform.isAndroid) {
+      // The connected breath, on the phone only: rings grow out of the
+      // disc and fade — the desktop stays still, the way it always was.
+      // The battery saver holds the rings to one quiet circle.
+      disc = PulseHalo(
+        color: accent,
+        baseSize: disc,
+        paused: batterySaver,
+        child: disc,
+      );
+    }
     return Tooltip(
       message: tooltip,
       child: SizedBox.square(
@@ -2129,52 +2196,45 @@ class _PowerOrb extends StatelessWidget {
                 dimension: ring,
                 child: CircularProgressIndicator(strokeWidth: 2, color: accent),
               ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              width: disc,
-              height: disc,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: on
-                      ? [Color.lerp(accent, Colors.white, 0.28)!, accent]
-                      : p.discOff,
-                ),
-                border: Border.all(
-                  color: on
-                      ? Colors.white.withValues(alpha: 0.4)
-                      : p.discOffEdge,
-                  width: 1.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: on
-                        ? accent.withValues(alpha: 0.5)
-                        : Colors.black.withValues(alpha: p.dark ? 0.45 : 0.14),
-                    blurRadius: on ? 36 : 26,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: Material(
-                type: MaterialType.transparency,
-                shape: const CircleBorder(),
-                clipBehavior: Clip.antiAlias,
-                child: InkWell(
-                  onTap: busy ? null : onPressed,
-                  child: Icon(
-                    Icons.power_settings_new_rounded,
-                    size: 58,
-                    color: on ? Colors.white : (p.dark ? p.muted : p.idle),
-                  ),
-                ),
-              ),
-            ),
+            disc,
+            // The arrival's own mark: the check strokes itself in, once,
+            // each time the connection lands. Gone while the switch is
+            // still turning, so it never blinks between states.
+            if (on && !busy)
+              Positioned(left: 162, top: 162, child: _CheckBadge(accent: accent)),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The orb's own arrival badge: a white coin on the disc's edge with the
+/// check drawn in the accent. A key per connected turn replays the draw.
+class _CheckBadge extends StatelessWidget {
+  const _CheckBadge({required this.accent});
+
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: dark ? 0.35 : 0.18),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Center(child: DrawCheck(color: accent, size: 14, strokeWidth: 2.4)),
     );
   }
 }
@@ -3233,6 +3293,7 @@ class _PixelHomeCard extends StatelessWidget {
     required this.tooltip,
     required this.onOpenServers,
     required this.onPressed,
+    this.batterySaver = false,
   });
 
   final _HomePalette palette;
@@ -3243,6 +3304,9 @@ class _PixelHomeCard extends StatelessWidget {
   final String tooltip;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
+
+  /// The battery saver's word, for the orb's own breath.
+  final bool batterySaver;
 
   @override
   Widget build(BuildContext context) {
@@ -3302,6 +3366,7 @@ class _PixelHomeCard extends StatelessWidget {
                   on: on,
                   accent: accent,
                   busy: busy,
+                  batterySaver: batterySaver,
                   tooltip: tooltip,
                   onPressed: onPressed,
                 ),

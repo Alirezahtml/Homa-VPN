@@ -567,6 +567,40 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (v) => s.update(hapticFeedback: v),
           ),
         ),
+        // A short sound on the same turns — the ear's own confirmation,
+        // for the phone out of sight.
+        _Row(
+          icon: Icons.music_note_outlined,
+          label: l.soundFeedback,
+          value: l.soundFeedbackHint,
+          child: Switch(
+            value: s.soundFeedback,
+            onChanged: (v) => s.update(soundFeedback: v),
+          ),
+        ),
+        // The live rates' unit: bytes (KB/s) or bits (Mbps).
+        _Choice<bool>(
+          icon: Icons.numbers_rounded,
+          title: l.rateUnit,
+          value: s.rateBits,
+          onChanged: (v) => s.update(rateBits: v),
+          options: [(false, 'KB/s', null), (true, 'Mbps', null)],
+        ),
+        // The lock's own caretaker: with a password standing, the app can
+        // ask for it again after a while away. Hidden until a lock stands.
+        if (s.lockHash.isNotEmpty)
+          _Choice<int>(
+            icon: Icons.lock_clock_rounded,
+            title: l.lockInBackground,
+            value: s.lockBackgroundMin,
+            onChanged: (v) => s.update(lockBackgroundMin: v),
+            options: [
+              (0, l.lockBgNever, null),
+              (1, l.lockBgNow, null),
+              (5, l.lockBgMin5, null),
+              (15, l.lockBgMin15, null),
+            ],
+          ),
         // The screen stays awake while the VPN carries the traffic.
         if (Platform.isAndroid)
           _Row(
@@ -790,6 +824,9 @@ class _SettingsPageState extends State<SettingsPage> {
               (2048, l.mb2048, null),
               (5120, l.mb5120, null),
               (10240, l.mb10240, null),
+              (25600, l.mb25600, null),
+              (51200, l.mb51200, null),
+              (102400, l.mb102400, null),
             ],
           ),
         ),

@@ -69,6 +69,19 @@ class AppSettings extends ChangeNotifier {
   /// user turned it off.
   bool hapticFeedback = true;
 
+  /// A short sound when the connection goes on or off — the confirmation
+  /// the ear catches when the phone is out of sight; off until the user
+  /// turns it on.
+  bool soundFeedback = false;
+
+  /// Locks the app again after a while away: 0 never re-locks, 1 asks the
+  /// password right away on return, 5 and 15 are whole minutes. Only when
+  /// a lock stands at all (the accounts page's app password).
+  int lockBackgroundMin = 0;
+
+  /// The rate's unit: true shows bits (Mbps), false the familiar KB/s.
+  bool rateBits = false;
+
   /// Keeps the phone's screen awake while the VPN is on; off unless the
   /// user turned it on.
   bool keepScreenOn = false;
@@ -319,6 +332,11 @@ class AppSettings extends ChangeNotifier {
         s.autostart = j['autostart'] != false;
         s.autoConnect = j['auto_connect'] == true;
         s.hapticFeedback = j['haptic_feedback'] != false;
+        s.soundFeedback = j['sound_feedback'] == true;
+        if (j['lock_background_min'] case final int v) {
+          s.lockBackgroundMin = switch (v) { 1 || 5 || 15 => v, _ => 0 };
+        }
+        s.rateBits = j['rate_bits'] == true;
         s.keepScreenOn = j['keep_screen_on'] == true;
         s.showTraffic = j['show_traffic'] != false;
         s.udpNotice = j['udp_notice'] != false;
@@ -387,6 +405,9 @@ class AppSettings extends ChangeNotifier {
     bool? autostart,
     bool? autoConnect,
     bool? hapticFeedback,
+    bool? soundFeedback,
+    int? lockBackgroundMin,
+    bool? rateBits,
     bool? keepScreenOn,
     bool? showTraffic,
     bool? udpNotice,
@@ -419,6 +440,9 @@ class AppSettings extends ChangeNotifier {
     this.autostart = autostart ?? this.autostart;
     this.autoConnect = autoConnect ?? this.autoConnect;
     this.hapticFeedback = hapticFeedback ?? this.hapticFeedback;
+    this.soundFeedback = soundFeedback ?? this.soundFeedback;
+    this.lockBackgroundMin = lockBackgroundMin ?? this.lockBackgroundMin;
+    this.rateBits = rateBits ?? this.rateBits;
     this.keepScreenOn = keepScreenOn ?? this.keepScreenOn;
     this.showTraffic = showTraffic ?? this.showTraffic;
     this.autoInstallApk = autoInstallApk ?? this.autoInstallApk;
@@ -505,6 +529,9 @@ class AppSettings extends ChangeNotifier {
           'autostart': autostart,
           'auto_connect': autoConnect,
           'haptic_feedback': hapticFeedback,
+          'sound_feedback': soundFeedback,
+          'lock_background_min': lockBackgroundMin,
+          'rate_bits': rateBits,
           'keep_screen_on': keepScreenOn,
           'show_traffic': showTraffic,
           'udp_notice': udpNotice,

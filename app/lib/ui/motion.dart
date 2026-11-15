@@ -15,6 +15,13 @@
 /// - Shimmer: the light sweep on the slider's hint.
 /// - SlideToConnect: the power control; the knob snaps back when let go
 ///   early, commits with a bloom ring and a haptic.
+/// - DrawCheck: a checkmark that strokes itself in, once.
+/// - PulseHalo: two soft rings that breathe outward around the connected
+///   orb; still under reduce-motion and the battery saver.
+/// - CrossfadeText: a word that glides to its next self (the state's
+///   word), never a hard swap.
+/// - Shake: a small horizontal wiggle, replayed on demand — the wrong
+///   password's own word.
 library;
 
 import 'dart:math' as math;
@@ -258,6 +265,7 @@ class SlideToConnect extends StatefulWidget {
     required this.tooltip,
     required this.onPressed,
     this.autofocus = false,
+    this.haptic = true,
   });
 
   final bool on;
@@ -279,6 +287,10 @@ class SlideToConnect extends StatefulWidget {
   final String tooltip;
   final VoidCallback onPressed;
   final bool autofocus;
+
+  /// Whether the commit carries its haptic. The app's own vibration
+  /// setting arrives here; off, the knob still blooms but stays silent.
+  final bool haptic;
 
   @override
   State<SlideToConnect> createState() => _SlideToConnectState();
@@ -342,7 +354,7 @@ class _SlideToConnectState extends State<SlideToConnect>
   }
 
   void _commit() {
-    HapticFeedback.mediumImpact();
+    if (widget.haptic) HapticFeedback.mediumImpact();
     _bloom.forward(from: 0);
     widget.onPressed();
   }
@@ -702,6 +714,315 @@ class _SlideToConnectState extends State<SlideToConnect>
           ),
         ),
       ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// DrawCheck: the check that draws itself.
+// ---------------------------------------------------------------------------
+
+/// A checkmark that strokes itself in, once — the connection's own arrival
+/// mark. Still under reduce-motion (there it is simply there).
+class DrawCheck extends StatelessWidget {
+  const DrawCheck({
+    super.key,
+    required this.color,
+    this.size = 20,
+    this.strokeWidth = 2.6,
+  });
+
+  final Color color;
+  final double size;
+  final double strokeWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final still = _still(context);
+    return TweenAnimationBuilder(
+      tween: _unit,
+      duration: still ? Duration.zero : const Duration(milliseconds: 560),
+      curve: Curves.easeOutCubic,
+      builder: (context, v, _) => CustomPaint(
+        size: Size.square(size),
+        painter: _CheckPainter(color: color, strokeWidth: strokeWidth, t: v),
+      ),
+    );
+  }
+}
+
+/// The check's own path: short arm down-right, long arm up-right, trimmed
+/// by [t] along its length.
+class _CheckPainter extends CustomPainter {
+  _CheckPainter({
+    required this.color,
+    required this.strokeWidth,
+    required this.t,
+  });
+
+  final Color color;
+  final double strokeWidth;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final box = Offset.zero & size;
+    final inset = strokeWidth;
+    final path = Path()
+      ..moveTo(box.left + inset + size.width * 0.06, box.center.dy + size.height * 0.10)
+      ..lineTo(
+        box.left + size.width * 0.40,
+        box.bottom - inset - size.height * 0.10,
+      )
+      ..lineTo(box.right - inset - size.width * 0.06, box.top + inset + size.height * 0.16);
+    final metric = path.computeMetrics().first;
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    canvas.drawPath(metric.extractPath(0, metric.length * t.clamp(0, 1)), paint);
+  }
+
+  @override
+  bool shouldRepaint(_CheckPainter old) =>
+      old.color != color || old.t != t || old.strokeWidth != strokeWidth;
+}
+
+// ---------------------------------------------------------------------------
+// PulseHalo: the connected orb's breath.
+// ---------------------------------------------------------------------------
+
+/// Two soft rings that grow out of the child and fade — the connected
+/// state's breath. Repeating, but the one polite loop: it stops dead under
+/// reduce-motion ([still]) and when [paused] (the battery saver), where a
+/// quiet static ring keeps the light without the motion.
+class PulseHalo extends StatefulWidget {
+  const PulseHalo({
+    super.key,
+    required this.child,
+    required this.color,
+    this.baseSize = 148,
+    this.grow = 92,
+    this.paused = false,
+  });
+
+  final Widget child;
+
+  /// The ring's color; each ring carries it at a falling alpha.
+  final Color color;
+
+  /// The rings' starting diameter (the disc they grow from) and how far
+  /// past it they reach.
+  final double baseSize;
+  final double grow;
+
+  /// The battery saver's word: true holds a static ring, no loop.
+  final bool paused;
+
+  @override
+  State<PulseHalo> createState() => _PulseHaloState();
+}
+
+class _PulseHaloState extends State<PulseHalo>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2800),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.paused) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(PulseHalo old) {
+    super.didUpdateWidget(old);
+    if (widget.paused != old.paused) {
+      if (widget.paused) {
+        _c.stop();
+      } else {
+        _c.repeat();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final still = _still(context) || widget.paused;
+    if (still) {
+      // The quiet light: one static ring, no loop, no repaint.
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          _ring(0.16, 0.25),
+          widget.child,
+        ],
+      );
+    }
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = _c.value;
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            // Two rings half a period apart, each dying as it grows.
+            _ring(t, (1 - t) * 0.30),
+            _ring((t + 0.5) % 1, (1 - (t + 0.5) % 1) * 0.30),
+            child!,
+          ],
+        );
+      },
+      child: widget.child,
+    );
+  }
+
+  Widget _ring(double t, double alpha) => Container(
+    width: widget.baseSize + widget.grow * t,
+    height: widget.baseSize + widget.grow * t,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(color: widget.color.withValues(alpha: alpha), width: 1.4),
+    ),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// CrossfadeText: a word that glides to its next self.
+// ---------------------------------------------------------------------------
+
+/// Slides and fades between the word's own values — the state's word
+/// ("Connecting", "Connected") never hard-swaps; the old lifts away while
+/// the new settles in. The size is the Text's own.
+class CrossfadeText extends StatelessWidget {
+  const CrossfadeText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.textAlign,
+  });
+
+  final String text;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return Text(text, style: style, textAlign: textAlign);
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 340),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      layoutBuilder: (current, past) => Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
+        children: [
+          for (final entry in past) IgnorePointer(child: entry),
+          if (current != null) current,
+        ],
+      ),
+      transitionBuilder: (child, anim) => FadeTransition(
+        opacity: anim,
+        child: SlideTransition(
+          position: Tween(
+            begin: const Offset(0, 0.35),
+            end: Offset.zero,
+          ).animate(anim),
+          child: child,
+        ),
+      ),
+      child: Text(
+        text,
+        key: ValueKey(text),
+        style: style,
+        textAlign: textAlign,
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shake: the wrong word's wiggle.
+// ---------------------------------------------------------------------------
+
+/// Shakes its child horizontally, [trigger] times — bump [trigger] to play
+/// the wiggle again. The wrong password's own reply: the field shakes,
+/// the words say why. Reduce-motion holds the wiggle at rest — the
+/// controller still runs, the paint simply never moves.
+class Shake extends StatefulWidget {
+  const Shake({
+    super.key,
+    required this.child,
+    required this.trigger,
+    this.reaches = 8,
+  });
+
+  final Widget child;
+
+  /// A counter: every new value replays the shake once.
+  final int trigger;
+
+  /// How far the wiggle reaches, in logical pixels.
+  final double reaches;
+
+  @override
+  State<Shake> createState() => _ShakeState();
+}
+
+class _ShakeState extends State<Shake>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 420),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.trigger > 0) _play();
+  }
+
+  @override
+  void didUpdateWidget(Shake old) {
+    super.didUpdateWidget(old);
+    if (widget.trigger != old.trigger) _play();
+  }
+
+  void _play() {
+    _c.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final still = _still(context);
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = _c.value;
+        // Three decaying swings around the rest: sin over a half-wave
+        // each. Reduce-motion keeps the paint still; nothing moves.
+        final dx = still
+            ? 0.0
+            : math.sin(t * math.pi * 6) * (1 - t) * widget.reaches;
+        return Transform.translate(offset: Offset(dx, 0), child: child);
+      },
+      child: widget.child,
     );
   }
 }

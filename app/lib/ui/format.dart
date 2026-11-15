@@ -31,7 +31,29 @@ String formatBytes(int bytes) {
   return ltr('${value.toStringAsFixed(digits)} ${units[unit]}');
 }
 
-String formatRate(int bytesPerSecond) {
+/// The rate's unit the app shows: bytes (KB/s) or bits (Mbps). Decided
+/// once per build in the app's own builder — the same way the accent is —
+/// so every rate on every page reads in the unit the user picked.
+class Rates {
+  Rates._();
+
+  /// True shows bits (Mbps, decimal 1000); false, the familiar KB/s.
+  static bool bits = false;
+}
+
+String formatRate(int bytesPerSecond, {bool? bits}) {
+  if (bits ?? Rates.bits) {
+    // Bits, in decimal steps — the unit connection speeds are sold in.
+    var value = bytesPerSecond * 8 / 1000;
+    var unit = 0;
+    const units = ['Kbps', 'Mbps', 'Gbps'];
+    while (value >= 1000 && unit < units.length - 1) {
+      value /= 1000;
+      unit++;
+    }
+    final digits = value >= 100 || value == 0 ? 0 : 1;
+    return ltr('${value.toStringAsFixed(digits)} ${units[unit]}');
+  }
   final size = formatBytes(bytesPerSecond);
   return ltr('${size.substring(1, size.length - 1)}/s');
 }

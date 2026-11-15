@@ -3972,6 +3972,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Night'**
   String get mapKindNight;
+  /// No description provided for @soundFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection sound'**
+  @override
+  String get soundFeedback;
+  /// No description provided for @soundFeedbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A short sound when the connection goes on or off'**
+  @override
+  String get soundFeedbackHint;
+  /// No description provided for @rateUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed unit'**
+  @override
+  String get rateUnit;
+  /// No description provided for @lockInBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock when leaving'**
+  @override
+  String get lockInBackground;
+  /// No description provided for @lockBgNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  @override
+  String get lockBgNever;
+  /// No description provided for @lockBgNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Right away'**
+  @override
+  String get lockBgNow;
+  /// No description provided for @lockBgMin5.
+  ///
+  /// In en, this message translates to:
+  /// **'After 5 minutes'**
+  @override
+  String get lockBgMin5;
+  /// No description provided for @lockBgMin15.
+  ///
+  /// In en, this message translates to:
+  /// **'After 15 minutes'**
+  @override
+  String get lockBgMin15;
+  /// No description provided for @mb25600.
+  ///
+  /// In en, this message translates to:
+  /// **'25 GB'**
+  @override
+  String get mb25600;
+  /// No description provided for @mb51200.
+  ///
+  /// In en, this message translates to:
+  /// **'50 GB'**
+  @override
+  String get mb51200;
+  /// No description provided for @mb102400.
+  ///
+  /// In en, this message translates to:
+  /// **'100 GB'**
+  @override
+  String get mb102400;
+  /// No description provided for @aboutChannels.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact pages'**
+  @override
+  String get aboutChannels;
+  /// No description provided for @wn41Sound.
+  ///
+  /// In en, this message translates to:
+  /// **'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).'**
+  @override
+  String get wn41Sound;
+  /// No description provided for @wn41RateUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.'**
+  @override
+  String get wn41RateUnit;
+  /// No description provided for @wn41BackgroundLock.
+  ///
+  /// In en, this message translates to:
+  /// **'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.'**
+  @override
+  String get wn41BackgroundLock;
+  /// No description provided for @wn41BiggerLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'The session\'s data limit climbs to 25, 50, or 100 GB.'**
+  @override
+  String get wn41BiggerLimits;
+  /// No description provided for @wn41Motion.
+  ///
+  /// In en, this message translates to:
+  /// **'New motion: the connected orb breathes, the check draws itself in, the state\'s word glides between its values, and a wrong password shakes the field.'**
+  @override
+  String get wn41Motion;
+  /// No description provided for @wn41AboutFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.'**
+  @override
+  String get wn41AboutFixed;
+  /// No description provided for @wn41HapticFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The vibration setting answers again: every connection\'s on and off follows it, not just the slider\'s.'**
+  @override
+  String get wn41HapticFixed;
   /// No description provided for @mapKindTerrain.
   ///
   /// In en, this message translates to:
@@ -4027,11 +4141,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version'**
   String get aboutVersions;
-  /// No description provided for @aboutChannels.
-  ///
-  /// In en, this message translates to:
-  /// **'Social channels'**
-  String get aboutChannels;
   /// No description provided for @checkUpdatesHint.
   ///
   /// In en, this message translates to:
