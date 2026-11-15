@@ -1254,7 +1254,8 @@ class _RotatedWorld {
     void line(Iterable<(double, double)> samples) {
       var pen = false;
       for (final (latDeg, lonDeg) in samples) {
-        final p = view.project(GlobePlace(latDeg, lonDeg).unit);
+        final (ux, uy, uz) = GlobePlace(latDeg, lonDeg).unit;
+        final p = view.project(ux, uy, uz);
         if (p.$3 > 0) {
           final q = Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius);
           if (pen) {
@@ -1284,9 +1285,10 @@ class _RotatedWorld {
     // gather, whatever country the traffic leaves from.
     final hubs = <Offset>[];
     for (final hub in globeHubs) {
-      final (hx, hy, hz) = view.project(hub.unit);
-      if (hz > 0) {
-        hubs.add(Offset(center.dx + hx * radius, center.dy - hy * radius));
+      final (hx, hy, hz) = hub.unit;
+      final p = view.project(hx, hy, hz);
+      if (p.$3 > 0) {
+        hubs.add(Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius));
       }
     }
 
