@@ -358,7 +358,10 @@ class WorldGlobe extends StatefulWidget {
 }
 
 class _WorldGlobeState extends State<WorldGlobe>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
+  // Two clocks live here — the breath and the turn — so the plural
+  // mixin: the single one would raise at the first build, where the
+  // AnimatedBuilder reads both controllers at once.
   /// The breath: the pin's rings, the card's bob, the paths' stream.
   late final AnimationController _breath =
       AnimationController(vsync: this, duration: const Duration(seconds: 5));

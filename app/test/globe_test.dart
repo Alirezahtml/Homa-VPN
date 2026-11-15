@@ -153,10 +153,10 @@ void main() {
 
   group('GlobePlace.angleTo', () {
     test('knows how far apart two places really are', () {
-      // Helsinki to Frankfurt, over the sphere: about 15.6 degrees of arc.
+      // Helsinki to Frankfurt, over the sphere: about 13.6 degrees of arc.
       const a = GlobePlace(60.17, 24.94);
       const b = GlobePlace(50.11, 8.68);
-      expect(a.angleTo(b), closeTo(15.6, 0.5));
+      expect(a.angleTo(b), closeTo(13.6, 0.5));
       // And to its own antipode: half the world, 180 degrees.
       const antipode = GlobePlace(-60.17, -155.06);
       expect(a.angleTo(antipode), closeTo(180, 0.01));
