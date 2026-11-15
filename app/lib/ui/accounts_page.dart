@@ -8,7 +8,9 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'backup.dart';
 import 'browser_signin.dart';
+import 'design.dart';
 import 'format.dart';
+import 'motion.dart';
 import 'signin_dialog.dart';
 import 'widgets.dart';
 
@@ -43,27 +45,36 @@ class AccountsPage extends StatelessWidget {
         if (core.accounts == null)
           const Center(child: CircularProgressIndicator())
         else ...[
+          // The month at a glance: how many accounts carry the traffic
+          // and how much of their data the month has spent — one card
+          // with its own bar, arriving with the page's entrance.
+          if (list.isNotEmpty)
+            Reveal(child: _QuotaHero(accounts: list, threshold: threshold)),
+          const SizedBox(height: 12),
           if (list.isEmpty)
-            const NoAccountsPanel()
+            const Reveal(child: NoAccountsPanel())
           else
             for (var i = 0; i < list.length; i++) ...[
               if (i > 0) const SizedBox(height: 12),
-              _AccountCard(
-                core: core,
-                settings: settings,
-                account: list[i],
-                threshold: threshold,
-                count: list.length,
-                first: i == 0,
-                last: i == list.length - 1,
+              Reveal(
+                index: i + 1,
+                child: _AccountCard(
+                  core: core,
+                  settings: settings,
+                  account: list[i],
+                  threshold: threshold,
+                  count: list.length,
+                  first: i == 0,
+                  last: i == list.length - 1,
+                ),
               ),
             ],
           const SizedBox(height: 12),
-          _SignInMethodRow(settings: settings),
+          Reveal(child: _SignInMethodRow(settings: settings)),
           // Nothing to switch to with one account.
           if (list.length > 1) ...[
             const SizedBox(height: 12),
-            _AccountSwitching(core: core, percent: threshold),
+            Reveal(child: _AccountSwitching(core: core, percent: threshold)),
           ],
         ],
         // More accounts, more data: each has its own month's allowance,
@@ -94,6 +105,129 @@ class AccountsPage extends StatelessWidget {
         const SizedBox(height: 16),
         const _CreateAccountGuide(),
       ],
+    );
+  }
+}
+
+/// The month at a glance: every account's spent share drawn as one
+/// stacked bar — each account its own segment in the state's color, the
+/// switch threshold marked where the app moves to the next one. The
+/// numbers glide with CountUp, so a refresh never jumps.
+class _QuotaHero extends StatelessWidget {
+  const _QuotaHero({required this.accounts, required this.threshold});
+
+  final List<Account> accounts;
+  final double threshold;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final dark = theme.brightness == Brightness.dark;
+    final look = AppDesign.current.look(dark);
+    final accent =
+        look.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
+    final withUsage = [
+      for (final a in accounts)
+        if (a.usedPercent > 0) a.usedPercent.clamp(0.0, 100.0),
+    ];
+    final average = withUsage.isEmpty
+        ? 0.0
+        : withUsage.reduce((a, b) => a + b) / withUsage.length;
+    return Panel(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.data_usage_rounded, size: 18, color: accent),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  l.accountsUsageTitle,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+              ),
+              Text(
+                '${accounts.length}',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                l.accountsCountLabel,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // The month's spend, one bar: each account its own segment,
+          // separated by a hair of the scaffold's color.
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: SizedBox(
+              height: 10,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: 1),
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.easeOutCubic,
+                builder: (context, t, _) => Row(
+                  children: [
+                    for (var i = 0; i < accounts.length; i++) ...[
+                      if (i > 0) const SizedBox(width: 2),
+                      Expanded(
+                        flex: 1,
+                        child: FractionallySizedBox(
+                          widthFactor:
+                              (accounts[i].usedPercent / 100).clamp(0.0, 1.0) *
+                                  t,
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: quotaColor(
+                                accounts[i].usedPercent,
+                                threshold,
+                              ),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text(
+                '${average.round()}%',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: quotaColor(average, threshold),
+                ),
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  l.accountsUsageAverage,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

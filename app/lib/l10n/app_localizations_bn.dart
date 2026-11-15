@@ -2055,4 +2055,30 @@ class AppLocalizationsBn extends AppLocalizations {
   String get wnToastAdded => 'নিশ্চিতকরণ এখন নরম iOS-স্টাইল বার্তায় আসে, যেখানে নিজেকে আঁকা একটি চিহ্ন থাকে।';
   String get wnFlagsImproved => 'পতাকার চাকা পরিষ্কার বসে: স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না, পতাকা সম্পূর্ণ দেখা যায়, আর নির্বাচন নরমভাবে বসে।';
   String get wnMapImproved => 'বিশ্ব মানচিত্র এখন বড় ও স্পষ্ট: চাপা মহাদেশ নেই, মসৃণ উপকূলরেখা, আর অ্যাঙ্করে উজ্জ্বল হ্যালো।';
+
+  @override
+  String get lookTitle => 'অ্যাপ ডিজাইন';
+  String get lookMono => 'এক রঙ';
+  String get lookMonoDesc => 'অ্যাপটি যে কালো-সাদায় আঁকা: পূর্ণ কনট্রাস্ট, শান্ত, বর্ণহীন।';
+  String get lookNeu => 'সফট নিউমরফিজম';
+  String get lookNeuDesc => 'দিনে উষ্ণ পর্সেলিন, রাতে ম্যাট অবসিডিয়ান — পাতার মধ্যে চাপা দেওয়া যায় এমন কার্ড, সূর্যাস্ত-কমলা আলো।';
+  String get lookGlass => 'অরোরা গ্লাস';
+  String get lookGlassDesc => 'নীল তুষারভাবে গভীর রাতের আকাশ — তার ওপর কাচের ফলকের মতো কার্ড।';
+  String get smartWaiting => 'পরিমাপ চলছে…';
+  String get smartFamilyRace => 'প্রথম সংযোগে দুটোই প্রতিযোগিতা করে';
+  String get dnsManual => 'ম্যানুয়াল DNS';
+  String get dnsManualHint => 'প্রতি লাইনে একটি ঠিকানা: সাধারণ IP, https:// (DNS over HTTPS), বা tls://host (DNS over TLS)। প্রথম উত্তরই জেতে।';
+  String get dnsManualInvalid => 'একটি লাইন কোর ব্যবহার করতে পারে এমন ঠিকানা নয়: সাধারণ IP, https://…, বা tls://host।';
+  String get killSwitchGuarded => 'সুরক্ষিত: টানেল বন্ধ থাকলাকালীন ফোন থেকে কিছুই বেরোয় না।';
+  String get accountsUsageTitle => 'এই মাস';
+  String get accountsCountLabel => 'অ্যাকাউন্ট';
+  String get accountsUsageAverage => 'অ্যাকাউন্টগুলোর ব্যবহৃত অংশের গড়';
+  String get wnDesignsAdded => 'অ্যাপ ডিজাইন: পুরো অ্যাপ এখন সফট নিউমরফিজম বা অরোরা গ্লাস পরতে পারে — প্রতিটি পাতা, প্রতিটি কার্ড — সেটিংস → সাধারণ থেকে।';
+  String get wnWheelFixed => 'চাকার অর্ধেক পতাকা চলে গেছে: নির্বাচিত পতাকার নিচের তাকটি আলোর পুকুর, দ্বিতীয় পতাকা নয়, আর স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না।';
+  String get wnMapReal => 'বিশ্ব মানচিত্র দেশের সরকারি সীমানা থেকে নতুন করে আঁকা — প্রতিটি উপকূল, দ্বীপ ও এনক্লেভ, সত্যিকারের অনুপাতে।';
+  String get wnDnsAdded => 'ম্যানুয়াল DNS: সাধারণ IP, DNS over HTTPS, ও DNS over TLS — লেখার সময়ই প্রতিটি লাইনের ধরন দেখানো ও যাচাই হয়।';
+  String get wnSmartImproved => 'স্মার্ট সংযোগ এখন দেখায় নেটওয়ার্ক কী উত্তর দিয়েছে: এটি কোন ট্রান্সপোর্ট বেছে নিয়েছে ও কোন IP সংস্করণ ধরে রেখেছে, সরাসরি।';
+  String get wnProtectionImproved => 'কিল সুইচ তার প্রহরা দাঁড়ালে জানায়, আর অ্যাপ পাতায় দেখা যায় কতটি অ্যাপ বেছেছেন।';
+  String get wnWelcomeImproved => 'স্বাগত পাতা ভাসমান অরোরার ওপর নিঃশ্বাস নেওয়া ঢাল নিয়ে খোলে, আর অ্যাকাউন্ট পাতা মাসটি এক নজরে সারসংক্ষেপ করে।';
+  String bypassAppsCount(String n) => 'নির্বাচিত: {n}'.replaceFirst('{n}', n);
 }

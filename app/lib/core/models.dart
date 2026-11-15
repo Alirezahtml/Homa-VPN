@@ -492,6 +492,10 @@ class CoreStatus {
       noNetwork = _bool(j['no_network']),
       upstreamProxy = _str(j['upstream_proxy']),
       networkChangedAt = _time(j['network_changed_at']),
+      smart = switch (_mapOrNull(j['smart'])) {
+        final m? => SmartInfo.fromJson(m),
+        null => null,
+      },
       dataDir = _str(j['data_dir']);
 
   final EngineState state;
@@ -604,8 +608,30 @@ class CoreStatus {
   final String selectionName;
   final String dataDir;
 
+  /// What the smart connection measured on this network (the core's own
+  /// answers, only while proxy.transport is "smart"): the transport the
+  /// next session opens with and the IP family the last one took. Null
+  /// while the smart choice is off, or before the core answers with one.
+  final SmartInfo? smart;
+
   int get totalAccounts => accountCounts['total'] ?? 0;
   int get readyAccounts => accountCounts[AccountStatus.ready] ?? 0;
+}
+
+/// The smart connection's measured state, from the core's own memory
+/// (core/internal/proxy/smart.go): the transport the next session opens
+/// with, and the IP family the last connection took ("" while both
+/// families still race on the first connect).
+class SmartInfo {
+  SmartInfo.fromJson(Map<String, Object?> j)
+    : transport = _str(j['transport']),
+      family = _str(j['family']);
+
+  /// "h3", "h2", or "h1" — what the network's answers picked.
+  final String transport;
+
+  /// "4", "6", or "" (both still race).
+  final String family;
 }
 
 /// Sign-in steps (core/internal/service/signin_flow.go).

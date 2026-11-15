@@ -17,6 +17,7 @@ import '../platform.dart';
 import 'accent.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
+import 'design.dart';
 import 'flag_carousel.dart';
 import 'format.dart';
 import 'motion.dart';
@@ -1040,12 +1041,32 @@ class _HomePalette {
   );
 }
 
-/// The home's palette for this build: night or day, with the chosen
-/// accent ([AppAccent]) in the state's lights when one is set.
+/// The home's palette for this build: night or day, in the design the
+/// app wears — the monochrome design keeps the colors it always had,
+/// the neumorphism and the glass bring their own surfaces, ink and
+/// borders — with the chosen accent ([AppAccent]) in the state's lights
+/// when one is set.
 _HomePalette _homePalette(Brightness brightness) {
-  final p = brightness == Brightness.dark
-      ? _HomePalette.night
-      : _HomePalette.day;
+  final dark = brightness == Brightness.dark;
+  var p = dark ? _HomePalette.night : _HomePalette.day;
+  final look = AppDesign.current.look(dark);
+  if (AppDesign.current.key != 'mono') {
+    p = _HomePalette(
+      dark: dark,
+      top: look.homeTop,
+      bottom: look.homeBottom,
+      text: look.ink,
+      muted: look.muted,
+      card: look.homeCard,
+      cardBorder: look.homeCardBorder,
+      idle: dark ? const Color(0xFF8A8A8A) : const Color(0xFF6B6B6B),
+      connected: dark ? Colors.white : const Color(0xFF0A0A0A),
+      busy: dark ? const Color(0xFFBFBFBF) : const Color(0xFF8A8A8A),
+      error: dark ? Colors.white : const Color(0xFF0A0A0A),
+      discOff: [look.homeCard, look.scaffold],
+      discOffEdge: look.homeCardBorder,
+    );
+  }
   final accent = AppAccent.current;
   return accent == null ? p : p.tinted(accent);
 }

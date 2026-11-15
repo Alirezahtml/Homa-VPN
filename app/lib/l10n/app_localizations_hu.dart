@@ -2075,4 +2075,30 @@ class AppLocalizationsHu extends AppLocalizations {
   String get wnToastAdded => 'A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.';
   String get wnFlagsImproved => 'A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.';
   String get wnMapImproved => 'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
+
+  @override
+  String get lookTitle => 'Alkalmazás dizájn';
+  String get lookMono => 'Egyszínű';
+  String get lookMonoDesc => 'Az app fekete-fehérje: teljes kontraszt, csendes, szín nélkül.';
+  String get lookNeu => 'Lágy neomorfizmus';
+  String get lookNeuDesc => 'Nappal meleg porcelán, éjjel matt obszidián — kártyák, mintha a lapba nyomhatnád, naplemente-narancs fénnyel.';
+  String get lookGlass => 'Sarki fény üveg';
+  String get lookGlassDesc => 'Mély éjszakai ég kék dérével — kártyák, mint üvegtáblák felette.';
+  String get smartWaiting => 'Mérés folyamatban…';
+  String get smartFamilyRace => 'Az első kapcsolatnál mindkettő versenyez';
+  String get dnsManual => 'Kézi DNS';
+  String get dnsManualHint => 'Soronként egy cím: sima IP, https:// (DNS over HTTPS) vagy tls://host (DNS over TLS). Az első válasz nyer.';
+  String get dnsManualInvalid => 'Az egyik sor nem olyan cím, amellyel a mag dolgozhat: sima IP, https://… vagy tls://host.';
+  String get killSwitchGuarded => 'Őrzött: amíg az alagút áll, semmi nem hagyja el a telefont.';
+  String get accountsUsageTitle => 'E hónapban';
+  String get accountsCountLabel => 'fiók';
+  String get accountsUsageAverage => 'a fiókok elhasznált részének átlaga';
+  String get wnDesignsAdded => 'Alkalmazás-dizájnok: az egész app öltheti a Lágy neomorfizmust vagy a Sarkifény-üveget — minden oldal, minden kártya — a Beállítások → Általános alatt.';
+  String get wnWheelFixed => 'A kerék félzászlója eltűnt: a kiválasztott zászló alatti polc egy fénytó, nem második zászló, és a képernyő szélén semmi nem vágódik félbe.';
+  String get wnMapReal => 'A világtérkép a hivatalos országhatárokból készült újra — minden part, sziget és enkkláv, hűen és valódi arányban.';
+  String get wnDnsAdded => 'Kézi DNS: sima IP-címek, DNS over HTTPS és DNS over TLS — minden sor típusa gépelés közben látszik és ellenőrződik.';
+  String get wnSmartImproved => 'Az okos kapcsolat most megmutatja, mit felelt a hálózat: a választott szállítást és a megtartott IP-verziót, élőben.';
+  String get wnProtectionImproved => 'A kill switch jelzi, ha az őre áll, és az appok oldala megmutatja, hányat választottál.';
+  String get wnWelcomeImproved => 'A üdvözlő egy lélegző pajzzsal nyílik, sodródó sarki fény felett, és a fiókok oldala egy pillantással összegzi a hónapot.';
+  String bypassAppsCount(String n) => 'Kiválasztva: {n}'.replaceFirst('{n}', n);
 }

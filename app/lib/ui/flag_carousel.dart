@@ -250,12 +250,27 @@ class _FlagCarouselState extends State<FlagCarousel>
     if (controller == null) return const SizedBox(height: 152);
     return SizedBox(
       // The shelf and the halo breathe behind the chosen card, so the
-      // wheel carries its own headroom below and above.
+      // wheel carries its own headroom below and above. The whole wheel
+      // fades out toward the screen's own edges — the last thing a flag
+      // meets is a dissolve, never the viewport's hard cut.
       height: 152,
-      child: Stack(
-        alignment: Alignment.center,
-        clipBehavior: Clip.none,
-        children: [
+      child: ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (bounds) => const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromRGBO(255, 255, 255, 0),
+            Color.fromRGBO(255, 255, 255, 1),
+            Color.fromRGBO(255, 255, 255, 1),
+            Color.fromRGBO(255, 255, 255, 0),
+          ],
+          stops: [0, 0.065, 0.935, 1],
+        ).createShader(bounds),
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
           // The halo: a very soft light behind the chosen country, in the
           // state's color, fading into the black theme — breathing on its
           // own clock, and following the wheel as it spins (it fades out
@@ -300,7 +315,9 @@ class _FlagCarouselState extends State<FlagCarousel>
               );
             },
           ),
-          PageView.builder(
+            // The page view itself never clips: the dissolve above does
+            // the edge work, and every flag leaves whole.
+            PageView.builder(
             controller: controller,
             // The list repeats, so the wheel has no ends to bump into.
             // padEnds is what centers the resting page: the chosen flag
@@ -356,6 +373,7 @@ class _FlagCarouselState extends State<FlagCarousel>
             },
           ),
         ],
+        ),
       ),
     );
   }
@@ -457,10 +475,10 @@ class _FlagCard extends StatelessWidget {
   final VoidCallback onTap;
 
   /// The fade of a card this far from the middle: whole within a page
-  /// and a half, gone by two — before the screen's edge can cut it in
-  /// half. A smooth step, so the leaving is a dissolve, not a pop.
+  /// and a quarter, gone by under two — before the screen's edge can cut
+  /// it in half. A smooth step, so the leaving is a dissolve, not a pop.
   static double edgeFade(double distance) {
-    const start = 1.30, end = 1.95;
+    const start = 1.22, end = 1.78;
     if (distance <= start) return 1;
     if (distance >= end) return 0;
     final t = (distance - start) / (end - start);
@@ -573,8 +591,10 @@ class _FlagCard extends StatelessWidget {
     }
 
     // The chosen card: it breathes with the wheel's own clock, lands
-    // with a short spring, and sits on a glass shelf — a faint
-    // reflection of the flag under it, fading away within a few pixels.
+    // with a short spring, and sits on a glass shelf — a soft pool of
+    // the state's light under it, NOT a mirrored flag: a reflected
+    // second flag read as one flag cut in half, the wheel's oldest
+    // complaint, so the shelf carries only light, never art.
     return AnimatedBuilder(
       animation: Listenable.merge([breath, settle]),
       builder: (context, _) => Transform.translate(
@@ -586,13 +606,8 @@ class _FlagCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               card,
-              const SizedBox(height: 3),
-              _Reflection(
-                location: location,
-                width: width,
-                height: height * 0.42,
-                scheme: scheme,
-              ),
+              const SizedBox(height: 5),
+              _ShelfGleam(width: width, accent: accent, dark: dark),
             ],
           ),
         ),
@@ -640,64 +655,59 @@ class _FlagCard extends StatelessWidget {
   }
 }
 
-/// The glass shelf under the chosen flag: the flag again, mirrored and
-/// faded to nothing within its own height — a whisper of a reflection,
-/// not a second flag.
-class _Reflection extends StatelessWidget {
-  const _Reflection({
-    required this.location,
+/// The glass shelf under the chosen flag: a soft pool of the state's
+/// light — a lens of accent fading downward and outward, like a lamp
+/// standing on glass. It carries no art at all: the shelf can never
+/// read as a second, half-drawn flag, whatever the screen's scale.
+class _ShelfGleam extends StatelessWidget {
+  const _ShelfGleam({
     required this.width,
-    required this.height,
-    required this.scheme,
+    required this.accent,
+    required this.dark,
   });
 
-  final Location location;
   final double width;
-  final double height;
-  final ColorScheme scheme;
+  final Color accent;
+  final bool dark;
 
   @override
   Widget build(BuildContext context) {
-    Widget? art;
-    final code = location.code;
-    if (isRecommendedPlace(code)) {
-      art = SvgPicture.asset(
-        'assets/brand/mozilla_logo.svg',
-        width: width * 0.30,
-        height: height,
-        fit: BoxFit.contain,
-        colorFilter: ColorFilter.mode(
-          scheme.onPrimaryContainer.withValues(alpha: 0.5),
-          BlendMode.srcIn,
-        ),
-      );
-    } else if (bundledFlags.contains(code.toLowerCase())) {
-      art = RepaintBoundary(
-        child: SvgPicture.asset(
-          'assets/flags/${code.toLowerCase()}.svg',
-          width: width,
-          height: height,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
-    if (art == null) return const SizedBox.shrink();
+    final h = width * 0.16;
     return SizedBox(
       width: width,
-      height: height,
-      child: ShaderMask(
-        blendMode: BlendMode.dstIn,
-        shaderCallback: (bounds) => const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(255, 255, 255, 0.30),
-            Color.fromRGBO(0, 0, 0, 0),
-          ],
-        ).createShader(bounds),
-        child: Transform(
-          transform: Matrix4.identity()..scaleByDouble(1.0, -1.0, 1.0, 1.0),
-          child: art,
+      height: h,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(2),
+            bottom: Radius.circular(h / 2),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              accent.withValues(alpha: dark ? 0.34 : 0.26),
+              accent.withValues(alpha: dark ? 0.10 : 0.07),
+              accent.withValues(alpha: 0.0),
+            ],
+            stops: const [0, 0.45, 1],
+          ),
+        ),
+        // A lens shape, not a rectangle: the light gathers at the middle
+        // and thins toward the ends, the way a reflection of a lamp does.
+        child: ShaderMask(
+          blendMode: BlendMode.dstIn,
+          shaderCallback: (bounds) => LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              const Color.fromRGBO(255, 255, 255, 0),
+              const Color.fromRGBO(255, 255, 255, 1),
+              const Color.fromRGBO(255, 255, 255, 0),
+            ],
+            stops: const [0, 0.5, 1],
+          ).createShader(bounds),
+          child: const SizedBox.expand(),
         ),
       ),
     );

@@ -2071,4 +2071,30 @@ class AppLocalizationsPt extends AppLocalizations {
   String get wnToastAdded => 'As confirmações chegam como uma nota suave ao estilo iOS, com uma marca que se desenha sozinha.';
   String get wnFlagsImproved => 'A roda de bandeiras fica limpa: nenhuma bandeira é cortada na borda da tela, elas aparecem inteiras e a escolha pousa com uma mola suave.';
   String get wnMapImproved => 'O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.';
+
+  @override
+  String get lookTitle => 'Design do app';
+  String get lookMono => 'Monocromático';
+  String get lookMonoDesc => 'O preto e branco original do app: contraste pleno, calmo, sem cor.';
+  String get lookNeu => 'Neomorfismo suave';
+  String get lookNeuDesc => 'Porcelana quente de dia, obsidiana fosca de noite — cartões que parecem afundar na página, luz laranja de pôr do sol.';
+  String get lookGlass => 'Vidro aurora';
+  String get lookGlassDesc => 'Um céu noturno profundo com geada azul — cartões como painéis de vidro sobre ele.';
+  String get smartWaiting => 'Medindo…';
+  String get smartFamilyRace => 'Ambos correm na primeira conexão';
+  String get dnsManual => 'DNS manual';
+  String get dnsManualHint => 'Um endereço por linha: IP simples, https:// (DNS sobre HTTPS) ou tls://host (DNS sobre TLS). A primeira resposta vence.';
+  String get dnsManualInvalid => 'Uma linha não é um endereço que o núcleo possa usar: IP simples, https://… ou tls://host.';
+  String get killSwitchGuarded => 'Sob guarda: nada sai do telefone enquanto o túnel estiver fora.';
+  String get accountsUsageTitle => 'Este mês';
+  String get accountsCountLabel => 'contas';
+  String get accountsUsageAverage => 'média da parte gasta das contas';
+  String get wnDesignsAdded => 'Designs do app: o app inteiro pode vestir Neomorfismo suave ou Vidro aurora — cada página, cada cartão — em Ajustes → Geral.';
+  String get wnWheelFixed => 'A meia-bandeira da roda sumiu: a prateleira sob a bandeira escolhida é uma poça de luz, não uma segunda bandeira, e nada é cortado na borda da tela.';
+  String get wnMapReal => 'O mapa-múndi foi redesenhado com as fronteiras oficiais dos países — cada costa, ilha e enclave, fiel e na proporção real.';
+  String get wnDnsAdded => 'DNS manual: IPs simples, DNS sobre HTTPS e DNS sobre TLS — o tipo de cada linha é mostrado e conferido ao digitar.';
+  String get wnSmartImproved => 'A conexão inteligente agora mostra o que a rede respondeu: o transporte escolhido e a versão de IP mantida, em tempo real.';
+  String get wnProtectionImproved => 'O kill switch avisa quando a sua guarda está de pé, e a página de apps mostra quantos você escolheu.';
+  String get wnWelcomeImproved => 'A boas-vindas abre com um escudo que respira sobre uma aurora à deriva, e a página de contas resume o mês num relance.';
+  String bypassAppsCount(String n) => 'Escolhidos: {n}'.replaceFirst('{n}', n);
 }

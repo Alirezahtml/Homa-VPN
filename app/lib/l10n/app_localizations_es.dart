@@ -2078,4 +2078,30 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wnToastAdded => 'Las confirmaciones llegan como una nota suave al estilo iOS, con una marca que se dibuja sola.';
   String get wnFlagsImproved => 'La rueda de banderas se ve limpia: ninguna bandera se corta en el borde de la pantalla, se muestran enteras y la elección cae con un suave resorte.';
   String get wnMapImproved => 'El mapa del mundo se dibuja más grande y claro: sin continentes apretados, costas suaves y un halo brillante en el punto.';
+
+  @override
+  String get lookTitle => 'Diseño de la app';
+  String get lookMono => 'Monocromo';
+  String get lookMonoDesc => 'El blanco y negro con el que se dibujó la app: contraste pleno, sereno, sin color.';
+  String get lookNeu => 'Neumorfismo suave';
+  String get lookNeuDesc => 'Porcelana cálida de día, obsidiana mate de noche — tarjetas que se dejan hundir, con luz naranja de atardecer.';
+  String get lookGlass => 'Cristal aurora';
+  String get lookGlassDesc => 'Un cielo nocturno profundo con escarcha azul — tarjetas como paneles de vidrio sobre él.';
+  String get smartWaiting => 'Midiendo…';
+  String get smartFamilyRace => 'Ambos compiten en la primera conexión';
+  String get dnsManual => 'DNS manual';
+  String get dnsManualHint => 'Una dirección por línea: IP simple, https:// (DNS sobre HTTPS) o tls://host (DNS sobre TLS). Gana la primera respuesta.';
+  String get dnsManualInvalid => 'Una línea no es una dirección que el núcleo pueda usar: IP simple, https://… o tls://host.';
+  String get killSwitchGuarded => 'Protegido: nada sale del teléfono mientras el túnel esté caído.';
+  String get accountsUsageTitle => 'Este mes';
+  String get accountsCountLabel => 'cuentas';
+  String get accountsUsageAverage => 'promedio de la parte gastada de las cuentas';
+  String get wnDesignsAdded => 'Diseños de la app: toda la app puede vestir Neumorfismo suave o Cristal aurora — cada página, cada tarjeta — en Ajustes → General.';
+  String get wnWheelFixed => 'Adiós a la media bandera de la rueda: la repisa bajo la bandera elegida es un charco de luz, no otra bandera, y ninguna bandera se corta en el borde.';
+  String get wnMapReal => 'El mapa del mundo se redibujó con las fronteras oficiales de los países — cada costa, isla y enclave, con fidelidad real y en su proporción verdadera.';
+  String get wnDnsAdded => 'DNS manual: IP simples, DNS sobre HTTPS y DNS sobre TLS — se muestra y comprueba el tipo de cada línea al escribir.';
+  String get wnSmartImproved => 'La conexión inteligente ahora muestra lo que respondió la red: el transporte elegido y la versión de IP que conservó, en vivo.';
+  String get wnProtectionImproved => 'El interruptor de corte avisa cuando su guarda está de pie, y la página de apps muestra cuántas elegiste.';
+  String get wnWelcomeImproved => 'La bienvenida abre con un escudo que respira sobre una aurora a la deriva, y la página de cuentas resume el mes de un vistazo.';
+  String bypassAppsCount(String n) => 'Elegidas: {n}'.replaceFirst('{n}', n);
 }

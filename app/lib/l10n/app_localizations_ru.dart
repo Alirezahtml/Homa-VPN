@@ -2072,4 +2072,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String get wnToastAdded => 'Подтверждения приходят мягкой заметкой в стиле iOS, с значком, который рисует себя сам.';
   String get wnFlagsImproved => 'Колесо флагов смотрится чисто: ни один флаг не обрезается краем экрана, флаги видны целиком, а выбор приземляется мягко.';
   String get wnMapImproved => 'Карта мира рисуется крупнее и чётче: без сжатых континентов, с гладкими берегами и светящимся ореолом у точки.';
+
+  @override
+  String get lookTitle => 'Дизайн приложения';
+  String get lookMono => 'Монохром';
+  String get lookMonoDesc => 'Тот самый чёрно-белый стиль: полный контраст, спокойно, без цвета.';
+  String get lookNeu => 'Мягкий неоморфизм';
+  String get lookNeuDesc => 'Тёплый фарфор днём, матовый обсидиан ночью — карточки, будто вдавленные в страницу, и закатно-оранжевый свет.';
+  String get lookGlass => 'Стекло северного сияния';
+  String get lookGlassDesc => 'Глубокое ночное небо с синей изморозью — карточки, как стеклянные панели поверх.';
+  String get smartWaiting => 'Измеряется…';
+  String get smartFamilyRace => 'При первом соединении стартуют оба';
+  String get dnsManual => 'DNS вручную';
+  String get dnsManualHint => 'Один адрес на строку: обычный IP, https:// (DNS over HTTPS) или tls://host (DNS over TLS). Побеждает первый ответ.';
+  String get dnsManualInvalid => 'Одна из строк — не адрес, который ядро сможет использовать: обычный IP, https://… или tls://host.';
+  String get killSwitchGuarded => 'Под стражей: пока туннель лежит, из телефона не уходит ничего.';
+  String get accountsUsageTitle => 'В этом месяце';
+  String get accountsCountLabel => 'аккаунтов';
+  String get accountsUsageAverage => 'средняя израсходованная доля аккаунтов';
+  String get wnDesignsAdded => 'Дизайны приложения: всё приложение может носить Мягкий неоморфизм или Стекло северного сияния — каждая страница, каждая карточка — в Настройках → Общие.';
+  String get wnWheelFixed => 'Половина флага у колеса исчезла: полка под выбранным флагом — лужица света, а не второй флаг, и у края экрана ничего не обрезается.';
+  String get wnMapReal => 'Карта мира перерисована по официальным границам стран — каждый берег, остров и анклав, точно и в настоящих пропорциях.';
+  String get wnDnsAdded => 'DNS вручную: обычные IP, DNS over HTTPS и DNS over TLS — тип каждой строки виден и проверяется по мере ввода.';
+  String get wnSmartImproved => 'Умное подключение теперь показывает ответ сети: выбранный транспорт и удержанную версию IP — вживую.';
+  String get wnProtectionImproved => 'Аварийный выключатель говорит, когда стража на посту, а страница приложений — сколько приложений выбрано.';
+  String get wnWelcomeImproved => 'Приветствие открывается щитом, что дышит над плывущим сиянием, а страница аккаунтов сводит месяц в один взгляд.';
+  String bypassAppsCount(String n) => 'Выбрано: {n}'.replaceFirst('{n}', n);
 }

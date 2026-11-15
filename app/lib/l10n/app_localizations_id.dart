@@ -2060,4 +2060,30 @@ class AppLocalizationsId extends AppLocalizations {
   String get wnToastAdded => 'Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.';
   String get wnFlagsImproved => 'Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.';
   String get wnMapImproved => 'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
+
+  @override
+  String get lookTitle => 'Desain aplikasi';
+  String get lookMono => 'Monokrom';
+  String get lookMonoDesc => 'Hitam-putih asli aplikasi: kontras penuh, tenang, tanpa warna.';
+  String get lookNeu => 'Neumorfisme lembut';
+  String get lookNeuDesc => 'Porselen hangat di siang, obsidian matte di malam — kartu yang bisa ditekan ke halaman, cahaya oranye senja.';
+  String get lookGlass => 'Kaca aurora';
+  String get lookGlassDesc => 'Langit malam pekat dengan embun beku biru — kartu seperti panel kaca di atasnya.';
+  String get smartWaiting => 'Mengukur…';
+  String get smartFamilyRace => 'Keduanya balapan pada koneksi pertama';
+  String get dnsManual => 'DNS manual';
+  String get dnsManualHint => 'Satu alamat per baris: IP biasa, https:// (DNS over HTTPS), atau tls://host (DNS over TLS). Jawaban pertama menang.';
+  String get dnsManualInvalid => 'Satu baris bukan alamat yang bisa dipakai core: IP biasa, https://…, atau tls://host.';
+  String get killSwitchGuarded => 'Terjaga: tidak ada yang keluar dari ponsel selama terowongan mati.';
+  String get accountsUsageTitle => 'Bulan ini';
+  String get accountsCountLabel => 'akun';
+  String get accountsUsageAverage => 'rata-rata porsi terpakai dari tiap akun';
+  String get wnDesignsAdded => 'Desain aplikasi: seluruh aplikasi bisa memakai Neumorfisme Lembut atau Kaca Aurora — setiap halaman, setiap kartu — di Setelan → Umum.';
+  String get wnWheelFixed => 'Setengah bendera di roda hilang: rak di bawah bendera terpilih adalah genangan cahaya, bukan bendera kedua, dan tak ada bendera terpotong di tepi layar.';
+  String get wnMapReal => 'Peta dunia digambar ulang dari perbatasan resmi negara — setiap pesisir, pulau, dan enklaf, setia dan berproporsi benar.';
+  String get wnDnsAdded => 'DNS manual: IP biasa, DNS over HTTPS, dan DNS over TLS — jenis tiap baris ditunjukkan dan diperiksa saat mengetik.';
+  String get wnSmartImproved => 'Koneksi pintar kini menunjukkan jawaban jaringan: transport yang dipilih dan versi IP yang dipertahankan, langsung.';
+  String get wnProtectionImproved => 'Kill switch memberi tahu saat penjaganya berdiri, dan halaman aplikasi menunjukkan berapa aplikasi yang kamu pilih.';
+  String get wnWelcomeImproved => 'Halaman sambutan terbuka dengan perisai bernapas di atas aurora yang mengalir, dan halaman akun meringkas sebulan sekali lirik.';
+  String bypassAppsCount(String n) => 'Dipilih: {n}'.replaceFirst('{n}', n);
 }

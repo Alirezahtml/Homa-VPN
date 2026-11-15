@@ -2081,4 +2081,30 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wnToastAdded => 'Les confirmations arrivent comme une note douce à la manière d\'iOS, avec un symbole qui se dessine.';
   String get wnFlagsImproved => 'La roue des drapeaux est nette : aucun drapeau n\'est coupé au bord de l\'écran, ils s\'affichent entiers, et le choix atterrit en douceur.';
   String get wnMapImproved => 'La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l\'ancre.';
+
+  @override
+  String get lookTitle => 'Design de l\'appli';
+  String get lookMono => 'Monochrome';
+  String get lookMonoDesc => 'Le noir et blanc d\'origine de l\'appli : contraste plein, calme, sans teinte.';
+  String get lookNeu => 'Néomorphisme doux';
+  String get lookNeuDesc => 'Porcelaine chaude le jour, obsidienne mate la nuit — des cartes qu\'on croit enfoncer dans la page, une lumière orange couchant.';
+  String get lookGlass => 'Verre aurore';
+  String get lookGlassDesc => 'Un ciel nocturne profond au givre bleu — des cartes comme des vitres posées dessus.';
+  String get smartWaiting => 'Mesure en cours…';
+  String get smartFamilyRace => 'Les deux font la course à la première connexion';
+  String get dnsManual => 'DNS manuel';
+  String get dnsManualHint => 'Une adresse par ligne : IP simple, https:// (DNS over HTTPS) ou tls://host (DNS over TLS). La première réponse gagne.';
+  String get dnsManualInvalid => 'Une ligne n\'est pas une adresse que le cœur peut utiliser : IP simple, https://… ou tls://host.';
+  String get killSwitchGuarded => 'Sous garde : rien ne quitte le téléphone tant que le tunnel est coupé.';
+  String get accountsUsageTitle => 'Ce mois-ci';
+  String get accountsCountLabel => 'comptes';
+  String get accountsUsageAverage => 'moyenne de la part dépensée des comptes';
+  String get wnDesignsAdded => 'Designs de l\'appli : toute l\'appli peut porter le Néomorphisme doux ou le Verre aurore — chaque page, chaque carte — dans Réglages → Général.';
+  String get wnWheelFixed => 'Le demi-drapeau de la roue a disparu : l\'étagère sous le drapeau choisi est une flaque de lumière, pas un second drapeau, et rien n\'est coupé au bord de l\'écran.';
+  String get wnMapReal => 'La carte du monde est redessinée d\'après les frontières officielles — chaque côte, île et enclave, fidèle et à la vraie proportion.';
+  String get wnDnsAdded => 'DNS manuel : IP simples, DNS over HTTPS et DNS over TLS — le type de chaque ligne est montré et vérifié à la saisie.';
+  String get wnSmartImproved => 'La connexion intelligente montre désormais la réponse du réseau : le transport choisi et la version IP conservée, en direct.';
+  String get wnProtectionImproved => 'L\'interrupteur d\'arrêt annonce quand sa garde se tient, et la page des applis compte celles que vous avez choisies.';
+  String get wnWelcomeImproved => 'L\'accueil s\'ouvre sur un bouclier qui respire au-dessus d\'une aurore dérivante, et la page des comptes résume le mois d\'un coup d\'œil.';
+  String bypassAppsCount(String n) => 'Choisies : {n}'.replaceFirst('{n}', n);
 }

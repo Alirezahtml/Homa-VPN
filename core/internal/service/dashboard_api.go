@@ -113,6 +113,14 @@ type AccountView struct {
         DeviceRegistered bool `json:"device_registered"`
 }
 
+// smartView is the smart connection's own state for the status view:
+// the transport the next session would open with, and the IP family the
+// last connection took ("" while both families still race).
+type smartView struct {
+        Transport string `json:"transport"`
+        Family    string `json:"family,omitempty"`
+}
+
 type StatusView struct {
         State engineState `json:"state"`
         Proxy *proxyView  `json:"proxy,omitempty"`
@@ -177,6 +185,10 @@ type StatusView struct {
         // OpenFolderRequest counts the dashboard's requests to open the data
         // folder, for the tray to carry out.
         OpenFolderRequest uint64 `json:"open_folder_request"`
+        // Smart is what the smart connection measured on this network —
+        // the transport the next session opens with and the IP family the
+        // last connection took — set while proxy.transport is "smart".
+        Smart *smartView `json:"smart,omitempty"`
         // Traffic is what clients sent and received since the proxy started,
         // and the current speed.
         Traffic *proxy.Traffic `json:"traffic,omitempty"`
@@ -258,6 +270,10 @@ func (d *Daemon) StatusView() (StatusView, error) {
                         LoginRequired:   cfg.Proxy.Username != "",
                 }
                 view.ExitMismatch = exitMismatch(engine.cfg.Proxy, selected, view.Exit)
+                if cfg.Proxy.Transport == "smart" {
+                        transport, family := proxy.SmartSnapshot()
+                        view.Smart = &smartView{Transport: transport, Family: family}
+                }
                 if at, code, err := engine.wakeFailure(); err != nil {
                         view.Proxy.WakeError, view.Proxy.WakeFailedAt = err.Error(), at
                         view.Proxy.WakeErrorCode = code

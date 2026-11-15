@@ -2046,4 +2046,30 @@ class AppLocalizationsFa extends AppLocalizations {
   String get wnToastAdded => 'پیام‌های تأیید حالا نرم و به سبک iOS می‌آیند، با نشانه‌ای که خودش را می‌کشد.';
   String get wnFlagsImproved => 'چرخ پرچم‌ها تمیز نشسته: هیچ پرچمی لبهٔ صفحه نصف نمی‌شود، پرچم‌ها کامل دیده می‌شوند و انتخاب با فنری نرم می‌نشیند.';
   String get wnMapImproved => 'نقشهٔ جهان بزرگ‌تر و واضح‌تر کشیده می‌شود: بدون قاره‌های فشرده، با ساحل‌های صاف و هالهٔ درخشان روی مقصد.';
+
+  @override
+  String get lookTitle => 'طرح برنامه';
+  String get lookMono => 'تک‌رنگ';
+  String get lookMonoDesc => 'همان سیاه و سفیدی که برنامه با آن کشیده شده: پرکنتراست، آرام، بدون رنگ.';
+  String get lookNeu => 'نئومورفیسم نرم';
+  String get lookNeuDesc => 'پورسلان گرم در روز، ابسیدین مات در شب — کارت‌هایی انگار می‌شود آن‌ها را در صفحه فشار داد، با نوری نارنجی مثل غروب.';
+  String get lookGlass => 'شیشهٔ شفق';
+  String get lookGlassDesc => 'آسمان شب عمیق با شبنم آبی — کارت‌ها مثل تیغه‌های شیشه روی آن.';
+  String get smartWaiting => 'در حال سنجش…';
+  String get smartFamilyRace => 'در نخستین اتصال هر دو با هم می‌تازند';
+  String get dnsManual => 'DNS دستی';
+  String get dnsManualHint => 'هر نشانی در یک خط: یک IP ساده، https:// (DNS روی HTTPS) یا tls://host (DNS روی TLS). نخستین پاسخ برنده است.';
+  String get dnsManualInvalid => 'یکی از خط‌ها نشانی‌ای نیست که هسته بتواند استفاده کند: یک IP ساده، https://… یا tls://host.';
+  String get killSwitchGuarded => 'پاسداری می‌شود: تا وقتی تونل قطع است، هیچ چیزی از گوشی بیرون نمی‌رود.';
+  String get accountsUsageTitle => 'این ماه';
+  String get accountsCountLabel => 'حساب';
+  String get accountsUsageAverage => 'میانگین سهم مصرف‌شدهٔ حساب‌ها';
+  String get wnDesignsAdded => 'طرح‌های برنامه: حالا کل برنامه می‌تواند نئومورفیسم نرم یا شیشهٔ شفق را بپوشد — همهٔ صفحه‌ها، همهٔ کارت‌ها — از تنظیمات ← همگانی.';
+  String get wnWheelFixed => 'نیمه‌پرچمِ چرخ از بین رفت: قفسهٔ زیر پرچم انتخاب‌شده یک حوضچهٔ نور است، نه پرچمی دوم، و هیچ پرچمی لبهٔ صفحه نصف نمی‌شود.';
+  String get wnMapReal => 'نقشهٔ جهان با مرزهای رسمی کشورها بازکشیده شد — هر ساحل، جزیره و هم‌محوری با وفاداری کامل و در تناسب واقعی.';
+  String get wnDnsAdded => 'DNS دستی: IP ساده، DNS روی HTTPS و DNS روی TLS — نوع هر خط هنگام نوشتن نشان داده و بررسی می‌شود.';
+  String get wnSmartImproved => 'اتصال هوشمند حالا نشان می‌دهد شبکه چه پاسخی داد: تراکنشی که برگزیده و نسخهٔ IP که نگه داشته، زنده.';
+  String get wnProtectionImproved => 'کلید قطع، وقتی پاسداری برقرار است می‌گوید و صفحهٔ برنامه‌ها نشان می‌دهد چند برنامه انتخاب کرده‌اید.';
+  String get wnWelcomeImproved => 'صفحهٔ خوش‌آمد با سپری نفس‌کش بر شفقی روان باز می‌شود و صفحهٔ حساب‌ها ماه را در یک نگاه جمع می‌کند.';
+  String bypassAppsCount(String n) => 'انتخاب‌شده: {n}'.replaceFirst('{n}', n);
 }

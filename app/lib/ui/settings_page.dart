@@ -17,6 +17,7 @@ import 'accent.dart';
 import 'bypass_apps_page.dart';
 import 'connection_mode.dart';
 import '../core/diagnostics.dart';
+import 'design.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
@@ -45,6 +46,11 @@ const _dnsPresets = <String, List<String>>{
   'quad9': ['https://9.9.9.9/dns-query', 'https://149.112.112.112/dns-query'],
   'cloudflare_dot': ['tls://1.1.1.1', 'tls://1.0.0.1'],
 };
+
+/// The host part of a DoT line (tls://host): a server name.
+final RegExp _dnsHostRe = RegExp(
+  r'^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$',
+);
 
 /// The app's preferences and the core's settings (config.json, edited
 /// through the API so that every field the app does not show is kept).
@@ -136,6 +142,44 @@ class SettingsGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // The design's card, as the Panel wears it: the monochrome flat and
+    // bordered, the neumorphism extruded with no border at all.
+    final look = AppDesign.current.look(
+      theme.brightness == Brightness.dark,
+    );
+    Widget card = Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      color: look.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: look.cardShadow.isEmpty
+            ? BorderSide(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              )
+            : BorderSide.none,
+      ),
+      child: Column(
+        children: [
+          for (var i = 0; i < tiles.length; i++) ...[
+            // The line stops where the row's text starts (the icon
+            // box plus the row's own padding).
+            if (i > 0) const Divider(height: 1, indent: 68),
+            // Each tile arrives a beat after the one above it.
+            Reveal(index: i, child: tiles[i]),
+          ],
+        ],
+      ),
+    );
+    if (look.cardShadow.isNotEmpty) {
+      card = DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: look.cardShadow,
+        ),
+        child: card,
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -150,21 +194,7 @@ class SettingsGroup extends StatelessWidget {
             ),
           ),
         ),
-        Card(
-          margin: EdgeInsets.zero,
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              for (var i = 0; i < tiles.length; i++) ...[
-                // The line stops where the row's text starts (the icon
-                // box plus the row's own padding).
-                if (i > 0) const Divider(height: 1, indent: 68),
-                // Each tile arrives a beat after the one above it.
-                Reveal(index: i, child: tiles[i]),
-              ],
-            ],
-          ),
-        ),
+        card,
       ],
     );
   }
@@ -259,19 +289,6 @@ class _SettingsPageState extends State<SettingsPage> {
     ['proxy', 'ip_version']: on ? 'smart' : 'auto',
     ['tun', 'smart_mtu']: on,
   });
-
-  /// The transport row's value while the smart connection runs: the
-  /// choice it measured, from the core's own status — not a promise,
-  /// the one actually in use ("Smart · HTTP/3").
-  String _smartTransportValue(AppLocalizations l) {
-    final resolved = _core.status?.proxy?.transport ?? '';
-    final label = switch (resolved) {
-      'h1' => l.transportH1,
-      'h3' => l.transportH3,
-      _ => l.transportH2,
-    };
-    return '${l.valueSmart} · $label';
-  }
 
   /// Removes the TUN service; in TUN mode the core first goes back to proxy
   /// only, so the computer is not left without its connection mode.
@@ -493,6 +510,16 @@ class _SettingsPageState extends State<SettingsPage> {
           value: accentName(context, s),
           child: _AccentSwatch(settings: s),
           onTap: () => showAccentPicker(context, s),
+        ),
+        // The app's design — the look EVERY page wears: the monochrome,
+        // the soft neumorphism, or the aurora glass. Choosing one
+        // restyles surfaces, cards, shadows and lights in place.
+        _Row(
+          icon: Icons.auto_awesome_mosaic_rounded,
+          label: l.lookTitle,
+          value: lookName(l, s),
+          child: const Icon(Icons.chevron_right_rounded),
+          onTap: () => showLookPicker(context, s),
         ),
         // The home page's own design: the wheel, the tiles, or the
         // compact card — each a real layout, each with the real list and
@@ -754,17 +781,55 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 ValueListenableBuilder(
                   valueListenable: AndroidCore.killSwitch,
-                  builder: (context, on, _) => _Row(
-                    icon: Icons.gpp_good_outlined,
-                    label: l.killSwitch,
-                    value: l.killSwitchHint,
-                    child: Switch(
-                      value: on,
-                      onChanged: (v) => runShowingErrors(
-                        context,
-                        () => AndroidCore.setKillSwitch(v),
+                  builder: (context, on, _) => Column(
+                    children: [
+                      _Row(
+                        icon: Icons.gpp_good_outlined,
+                        label: l.killSwitch,
+                        value: l.killSwitchHint,
+                        child: Switch(
+                          value: on,
+                          onChanged: (v) => runShowingErrors(
+                            context,
+                            () => AndroidCore.setKillSwitch(v),
+                          ),
+                        ),
                       ),
-                    ),
+                      // The guard's own word while it stands: what the
+                      // switch actually holds back, in one line.
+                      AnimatedSize(
+                        duration: const Duration(milliseconds: 260),
+                        curve: Curves.easeOutCubic,
+                        child: on
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.verified_outlined,
+                                      size: 15,
+                                      color: StatusColors.good,
+                                    ),
+                                    const SizedBox(width: 7),
+                                    Expanded(
+                                      child: Text(
+                                        l.killSwitchGuarded,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurfaceVariant,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ],
                   ),
                 ),
                 _Row(
@@ -805,13 +870,43 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               if (_smart) ...[
-                _Row(
-                  icon: Icons.http_rounded,
-                  label: l.transport,
-                  value: _smartTransportValue(l),
+                // What the network's own answers picked, live from the
+                // core's memory — real measurements, not guesses. The
+                // rows stand still until the core reports.
+                ListenableBuilder(
+                  listenable: _core,
+                  builder: (context, _) {
+                    final smart = _core.status?.smart;
+                    return Column(
+                      children: [
+                        _Row(
+                          icon: Icons.http_rounded,
+                          label: l.transport,
+                          value: switch (smart?.transport) {
+                            'h3' => l.transportH3,
+                            'h2' => l.transportH2,
+                            'h1' => l.transportH1,
+                            _ => l.smartWaiting,
+                          },
+                        ),
+                        _Row(
+                          icon: Icons.lan_outlined,
+                          label: l.ipVersion,
+                          value: switch (smart?.family) {
+                            '4' => 'IPv4',
+                            '6' => 'IPv6',
+                            _ => l.smartFamilyRace,
+                          },
+                        ),
+                        _Row(
+                          icon: Icons.settings_ethernet_rounded,
+                          label: l.tunMtu,
+                          value: l.mtuAutoValue,
+                        ),
+                      ],
+                    );
+                  },
                 ),
-                _Row(icon: Icons.lan_outlined, label: l.ipVersion, value: l.valueSmart),
-                _Row(icon: Icons.settings_ethernet_rounded, label: l.tunMtu, value: l.mtuAutoValue),
               ] else ...[
               _Choice<String>(
                 icon: Icons.http_rounded,
@@ -1137,19 +1232,32 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
               if (Platform.isAndroid)
-                _Row(
-                  icon: Icons.apps_rounded,
-                  label: l.bypassApps,
-                  child: const Icon(Icons.chevron_right_rounded),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => BypassAppsPage(
-                        region: on && region.isNotEmpty
-                            ? regionName(l, region)
-                            : null,
+                FutureBuilder<AppRouting>(
+                  future: AndroidCore.appRouting(),
+                  builder: (context, snap) {
+                    final r = snap.data;
+                    final chosen = (r?.onlyChosen ?? false
+                            ? r?.only.length
+                            : r?.bypass.length) ??
+                        0;
+                    return _Row(
+                      icon: Icons.apps_rounded,
+                      label: l.bypassApps,
+                      value: chosen > 0
+                          ? l.bypassAppsCount('$chosen')
+                          : '',
+                      child: const Icon(Icons.chevron_right_rounded),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => BypassAppsPage(
+                            region: on && region.isNotEmpty
+                                ? regionName(l, region)
+                                : null,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               _Row(
                 icon: Icons.alt_route_rounded,
@@ -1531,7 +1639,7 @@ class _SettingsPageState extends State<SettingsPage> {
       'google': 'Google',
       'quad9': 'Quad9',
       'cloudflare_dot': 'Cloudflare (DNS over TLS)',
-      'custom': l.dnsCustom,
+      'custom': l.dnsManual,
     };
     return Panel(
       title: l.sectionDns,
@@ -1559,17 +1667,96 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           if (preset == 'custom') ...[
             const SizedBox(height: 16),
+            // The manual DNS: the addresses the tunnel's resolver asks
+            // first, one per line — a plain IP, an https:// address (DNS
+            // over HTTPS), or a server name (DNS over TLS). The lines
+            // read back with what each one is, so the list is never a
+            // pile of strings; a line the core could not use says so
+            // before it is saved.
             _TextSetting(
-              label: l.dnsCustom,
-              hint: l.dnsCustomHint,
+              label: l.dnsManual,
+              hint: l.dnsManualHint,
               value: servers.join('\n'),
               multiline: true,
+              validator: (v) {
+                for (final line in _lines(v)) {
+                  if (_dnsKind(line) == null) return l.dnsManualInvalid;
+                }
+                return null;
+              },
               onSave: (v) async {
                 await _save({
                   ['dns', 'servers']: _lines(v),
                 });
                 if (mounted) setState(() => _dnsPreset = null);
               },
+            ),
+            if (servers.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              // What each saved line is: the address, and the kind of
+              // resolver it names — plain, DoH, or DoT.
+              for (final server in servers)
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 4,
+                    bottom: 5,
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.network_check_rounded, size: 14),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          server,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Pill(
+                        switch (_dnsKind(server)) {
+                          'doh' => 'DoH',
+                          'dot' => 'DoT',
+                          _ => 'IP',
+                        },
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+            // A tap of the common resolvers, for a start without typing.
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final (name, addr) in const [
+                  ('1.1.1.1', '1.1.1.1'),
+                  ('8.8.8.8', '8.8.8.8'),
+                  ('9.9.9.9', '9.9.9.9'),
+                  ('DoH · Cloudflare', 'https://1.1.1.1/dns-query'),
+                  ('DoH · Google', 'https://8.8.8.8/dns-query'),
+                  ('DoT · Cloudflare', 'tls://1.1.1.1'),
+                ])
+                  ActionChip(
+                    label: Text(name, style: Theme.of(context).textTheme.labelSmall),
+                    tooltip: addr,
+                    onPressed: _saving
+                        ? null
+                        : () {
+                            final next = {
+                              ...servers.where((s) => s != addr),
+                              addr,
+                            }.toList();
+                            _save({
+                              ['dns', 'servers']: next,
+                            }).then((_) {
+                              if (mounted) setState(() => _dnsPreset = null);
+                            });
+                          },
+                  ),
+              ],
             ),
           ],
           _Row(
@@ -1589,6 +1776,29 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
+  }
+
+  /// What kind of resolver a DNS line names, in the core's own formats
+  /// (core/internal/config/config.go): 'doh' for an https:// URL, 'dot'
+  /// for a tls://host, 'ip' for a plain IP[:port] — null when the line is
+  /// none of them (a typo, a scheme the core has no use for).
+  String? _dnsKind(String line) {
+    final v = line.trim();
+    if (v.isEmpty) return null;
+    final lower = v.toLowerCase();
+    if (lower.startsWith('https://') || lower.startsWith('http://')) {
+      final uri = Uri.tryParse(v);
+      return uri != null && uri.host.isNotEmpty ? 'doh' : null;
+    }
+    if (lower.startsWith('tls://')) {
+      final host = v.substring(6).trim();
+      return _dnsHostRe.hasMatch(host) ? 'dot' : null;
+    }
+    // A plain IP, with an optional :port after it.
+    var host = v;
+    final colon = v.lastIndexOf(':');
+    if (colon > 0 && !v.contains(']')) host = v.substring(0, colon);
+    return InternetAddress.tryParse(host) != null ? 'ip' : null;
   }
 
   /// After how long without traffic the connection to Mozilla sleeps.
@@ -3742,5 +3952,230 @@ class _DesignMockup extends StatelessWidget {
           ],
         );
     }
+  }
+}
+
+/// The row's name for the app-wide design the settings carry, in the
+/// row's language.
+String lookName(AppLocalizations l, AppSettings s) => switch (s.designKey) {
+  'neu' => l.lookNeu,
+  'glass' => l.lookGlass,
+  _ => l.lookMono,
+};
+
+/// The app design picker: the looks the WHOLE app can wear — the
+/// monochrome the app was drawn in, the soft neumorphism extracted from
+/// FoxyVPN's own Compose theme, and the aurora glass. Each card paints
+/// its mini screen with the look's own colors: what you see is what the
+/// app becomes. A tap chooses; the app's root rebuilds on the settings,
+/// so every page follows at once.
+Future<void> showLookPicker(BuildContext context, AppSettings s) async {
+  await showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(AppLocalizations.of(context).lookTitle),
+      content: SizedBox(
+        width: 460,
+        child: ListenableBuilder(
+          listenable: s,
+          builder: (context, _) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final look in AppDesign.all) ...[
+                _LookCard(
+                  look: look,
+                  selected: s.designKey == look.key,
+                  onTap: () => s.update(designKey: look.key),
+                ),
+                if (look != AppDesign.all.last) const SizedBox(height: 10),
+              ],
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+        ),
+      ],
+    ),
+  );
+}
+
+/// One look's card: a mini screen painted with the look's own day or
+/// night colors — a card on the scaffold, a pill of its light — the
+/// name, and a word about what it is. The chosen one framed in the
+/// look's own light.
+class _LookCard extends StatelessWidget {
+  const _LookCard({required this.look, required this.selected, required this.onTap});
+
+  final DesignTheme look;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final dark = theme.brightness == Brightness.dark;
+    final tokens = look.look(dark);
+    final (name, desc) = switch (look.key) {
+      'neu' => (l.lookNeu, l.lookNeuDesc),
+      'glass' => (l.lookGlass, l.lookGlassDesc),
+      _ => (l.lookMono, l.lookMonoDesc),
+    };
+    final light = tokens.accent ?? (dark ? Colors.white : const Color(0xFF0A0A0A));
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: selected ? light.withValues(alpha: 0.9) : theme.colorScheme.outlineVariant,
+            width: selected ? 1.6 : 1,
+          ),
+          color: selected ? light.withValues(alpha: 0.07) : null,
+        ),
+        child: Row(
+          children: [
+            SizedBox.square(
+              dimension: 92,
+              child: _LookMockup(look: look, dark: dark),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    desc,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The mini screen a look's card paints: the look's scaffold, one of its
+/// cards with its own shadows, its light as a pill and a dot — each
+/// look drawn with itself, not with the theme's colors.
+class _LookMockup extends StatelessWidget {
+  const _LookMockup({required this.look, required this.dark});
+
+  final DesignTheme look;
+  final bool dark;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = look.look(dark);
+    final shadow = t.cardShadow;
+    Widget screen(Widget child) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [t.scaffold, t.scaffoldBottom],
+        ),
+      ),
+      padding: const EdgeInsets.all(10),
+      child: child,
+    );
+    Widget card({required Widget child, double radius = 8}) => DecoratedBox(
+      decoration: BoxDecoration(
+        color: t.surface,
+        borderRadius: BorderRadius.circular(radius),
+        border: shadow.isEmpty
+            ? Border.all(color: t.outline, width: 0.6)
+            : Border.all(color: t.outline, width: 0.4),
+        boxShadow: shadow,
+      ),
+      child: child,
+    );
+    return screen(
+      Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // One card with a row inside, as a settings group reads.
+            card(
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: t.surfaceHigh,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(width: 34, height: 5, color: t.ink.withValues(alpha: 0.8)),
+                          const SizedBox(height: 3),
+                          Container(width: 24, height: 4, color: t.muted),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 16,
+                      height: 9,
+                      decoration: BoxDecoration(
+                        color: t.accent ?? t.ink,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
+            // The pill navigation, in the look's own surface and light.
+            card(
+              radius: 11,
+              child: SizedBox(
+                height: 18,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: t.accent ?? t.ink,
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: const SizedBox.expand()),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

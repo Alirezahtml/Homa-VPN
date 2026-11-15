@@ -62,6 +62,25 @@ func SmartTransport() string {
         }
 }
 
+// SmartSnapshot is what the network's own answers picked so far, for the
+// status view: the transport the next session would open with and the IP
+// family the last connection took ("" while both still race). The same
+// real memory SmartTransport reads — nothing is invented for the view.
+func SmartSnapshot() (transport, family string) {
+        smart.mu.Lock()
+        defer smart.mu.Unlock()
+        transport = "h3"
+        switch {
+        case time.Since(smart.h3FailAt) >= smartFailureMemory:
+                transport = "h3"
+        case time.Since(smart.h2FailAt) >= smartFailureMemory:
+                transport = "h2"
+        default:
+                transport = "h1"
+        }
+        return transport, smart.family
+}
+
 // NoteTransport records how a transport answered on this network: its
 // failure keeps it away for smartFailureMemory, its success clears the
 // memory. It is safe to call for any transport and any result.

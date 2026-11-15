@@ -100,6 +100,11 @@ class AppSettings extends ChangeNotifier {
   /// file reads as the wheel.
   String homeDesign = 'wheel';
 
+  /// The app's design — the look every page wears: 'mono' (the
+  /// monochrome), 'neu' (soft neumorphism), 'glass' (aurora glass).
+  /// Whatever else lands in the file reads as the monochrome.
+  String designKey = 'mono';
+
   /// Puts the VPN back on by itself when the phone's connection drops
   /// without the user asking; off until the user turns it on.
   bool autoReconnect = false;
@@ -286,6 +291,7 @@ class AppSettings extends ChangeNotifier {
         if (j['accent'] case final String a) s.accentKey = a;
         if (j['custom_accent'] case final int v) s.customAccent = v;
         if (j['home_design'] case final String d) s.homeDesign = d;
+        if (j['design'] case final String d) s.designKey = d;
         s.autoReconnect = j['auto_reconnect'] == true;
         s.idleDisconnect = j['idle_disconnect'] == true;
         if (j['idle_timeout_min'] case final int v when v > 0) {
@@ -336,6 +342,7 @@ class AppSettings extends ChangeNotifier {
     String? accentKey,
     int? customAccent,
     String? homeDesign,
+    String? designKey,
     bool? autoReconnect,
     bool? idleDisconnect,
     int? idleTimeoutMin,
@@ -363,6 +370,13 @@ class AppSettings extends ChangeNotifier {
         'bento' => 'bento',
         'pixel' => 'pixel',
         _ => 'wheel',
+      };
+    }
+    if (designKey != null) {
+      this.designKey = switch (designKey) {
+        'neu' => 'neu',
+        'glass' => 'glass',
+        _ => 'mono',
       };
     }
     this.autoReconnect = autoReconnect ?? this.autoReconnect;
@@ -422,6 +436,7 @@ class AppSettings extends ChangeNotifier {
           'accent': accentKey,
           'custom_accent': customAccent,
           'home_design': homeDesign,
+          'design': designKey,
           'auto_reconnect': autoReconnect,
           'idle_disconnect': idleDisconnect,
           'idle_timeout_min': idleTimeoutMin,

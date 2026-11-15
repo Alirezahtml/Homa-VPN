@@ -5,12 +5,13 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// The home page's world, drawn for real: the countries' own outlines from
-/// one compact vector file (ZedSecure's `world.bin`, carried under its
-/// NOTICE), the graticule over the oceans, and the chosen country lit in
-/// the connection's color with a breathing halo at its anchor. While the
-/// VPN carries the traffic the map breathes; off, it rests — the battery
-/// too. Nothing is tapped, nothing moves.
+/// The home page's world, drawn for real: every country's own official
+/// outline from one compact vector file (assets/map/world.bin, generated
+/// from Natural Earth's admin-0 country polygons — public-domain data,
+/// 50 m resolution), the graticule over the oceans, and the chosen
+/// country lit in the connection's color with a breathing halo at its
+/// anchor. While the VPN carries the traffic the map breathes; off, it
+/// rests — the battery too. Nothing is tapped, nothing moves.
 
 /// One country of the world file: its ISO code, where its anchor sits on
 /// the map (the same units as [WorldMap.width]), and its outline rings.
@@ -24,12 +25,15 @@ class WorldCountry {
   final List<List<ui.Offset>> rings;
 }
 
-/// The parsed `assets/map/world.bin`: the whole world in ~21 KB.
+/// The parsed `assets/map/world.bin`: the whole world in ~400 KB, every
+/// border at Natural Earth's 50 m fidelity.
 ///
-/// The file's own format (ZedSecure's WorldMap.kt): the magic `ZWM1`, a
-/// u16 count, then per country a two-letter code, u16 x and y anchor
+/// The file's own format (magic `ZWM1`, generation in scripts/):
+/// a u16 count, then per country a two-letter code, u16 x and y anchor
 /// (the y half scale, undone here), a u8 ring count, and each ring a u16
 /// point count followed by u16 x,y pairs (the y again half scale).
+/// A country's rings carry its holes with it: the painter fills with an
+/// even-odd rule, so an enclave reads as its own land.
 abstract final class WorldMap {
   static const double width = 65535;
   static const double height = width / 2;
@@ -90,6 +94,19 @@ abstract final class WorldMap {
   }
 }
 
+/// One country's ready geometry: its code, where its anchor sits on the
+/// drawn map (already scaled), and its outline path — every ring of it,
+/// outer rings and holes together, filled by an even-odd rule so an
+/// enclave (Lesotho in South Africa, San Marino in Italy) reads through.
+@immutable
+class WorldShape {
+  const WorldShape(this.code, this.path, this.anchor);
+
+  final String code;
+  final ui.Path path;
+  final ui.Offset anchor;
+}
+
 /// The backdrop: the map at more than the screen's width — bigger than
 /// the page, so the continents are not squeezed into a strip — centered
 /// where asked, in the theme's ink with the chosen country lit in the
@@ -142,6 +159,47 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
   late final AnimationController _breath =
       AnimationController(vsync: this, duration: const Duration(seconds: 4));
 
+  /// The countries' paths, built once for the map's size on screen: the
+  /// outlines are the expensive part (the official borders carry about a
+  /// hundred thousand points), and the breath must not rebuild them —
+  /// only redraw the paths it already has.
+  List<WorldShape>? _shapes;
+  List<WorldCountry>? _builtFrom;
+  double? _builtForW;
+
+  void _ensureShapes(double mapW, double mapH) {
+    if (widget.countries.isEmpty) return;
+    if (identical(_builtFrom, widget.countries) && _builtForW == mapW) return;
+    final sx = mapW / WorldMap.width;
+    final sy = mapH / WorldMap.height;
+    _shapes = [
+      for (final c in widget.countries)
+        WorldShape(
+          c.code,
+          _pathOf(c, sx, sy),
+          ui.Offset(c.anchorX * sx, c.anchorY * sy),
+        ),
+    ];
+    _builtFrom = widget.countries;
+    _builtForW = mapW;
+  }
+
+  /// The country's whole outline, one path for every ring — the fill
+  /// runs with an even-odd rule, so a hole shows the country around it.
+  static ui.Path _pathOf(WorldCountry c, double sx, double sy) {
+    final path = ui.Path();
+    for (final ring in c.rings) {
+      if (ring.isEmpty) continue;
+      path.moveTo(ring.first.dx * sx, ring.first.dy * sy);
+      for (var i = 1; i < ring.length; i++) {
+        path.lineTo(ring[i].dx * sx, ring[i].dy * sy);
+      }
+      path.close();
+    }
+    path.fillType = ui.PathFillType.evenOdd;
+    return path;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -180,6 +238,7 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
           // clipped — bigger countries, no squeezed ribbon, no bleed.
           final mapW = box.maxWidth * widget.scale;
           final mapH = mapW / 2;
+          _ensureShapes(mapW, mapH);
           return SizedBox.expand(
             child: ClipRect(
               child: Align(
@@ -192,7 +251,7 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
                     builder: (context, _) => CustomPaint(
                       size: Size(mapW, mapH),
                       painter: _WorldPainter(
-                        countries: widget.countries,
+                        shapes: _shapes ?? const <WorldShape>[],
                         ink: widget.ink,
                         accent: widget.accent,
                         selected: widget.selected,
@@ -211,17 +270,18 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
 }
 
 /// The painter: the graticule, the land, the lit country, its anchor's
-/// halo, and a quiet sheen that follows the breath.
+/// halo, and a quiet sheen that follows the breath. The paths arrive
+/// built ([WorldShape]); a frame only draws them.
 class _WorldPainter extends CustomPainter {
   _WorldPainter({
-    required this.countries,
+    required this.shapes,
     required this.ink,
     required this.accent,
     required this.selected,
     required this.t,
   });
 
-  final List<WorldCountry> countries;
+  final List<WorldShape> shapes;
   final Color ink;
   final Color accent;
   final String selected;
@@ -229,8 +289,6 @@ class _WorldPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final sx = size.width / WorldMap.width;
-    final sy = size.height / WorldMap.height;
     // A light ink on the night, a dark one on the day — the map's quiet
     // is a matter of alpha, not hue, in either theme. The land sits a
     // shade above the graticule, so a country reads as a shape, not as
@@ -253,11 +311,11 @@ class _WorldPainter extends CustomPainter {
     }
 
     // The chosen country, found once: it is lit while the rest stays ink.
-    WorldCountry? chosen;
+    WorldShape? chosen;
     if (selected.length == 2) {
-      for (final c in countries) {
-        if (c.code == selected) {
-          chosen = c;
+      for (final s in shapes) {
+        if (s.code == selected) {
+          chosen = s;
           break;
         }
       }
@@ -277,13 +335,10 @@ class _WorldPainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round;
 
-    for (final c in countries) {
-      if (identical(c, chosen)) continue;
-      for (final ring in c.rings) {
-        final path = _path(ring, sx, sy);
-        canvas.drawPath(path, land);
-        canvas.drawPath(path, edge);
-      }
+    for (final s in shapes) {
+      if (identical(s, chosen)) continue;
+      canvas.drawPath(s.path, land);
+      canvas.drawPath(s.path, edge);
     }
 
     // The breath every moving part below reads: 0 at rest's start, 1 at
@@ -304,15 +359,12 @@ class _WorldPainter extends CustomPainter {
         ..isAntiAlias = true
         ..strokeJoin = StrokeJoin.round
         ..strokeCap = StrokeCap.round;
-      for (final ring in chosen.rings) {
-        final path = _path(ring, sx, sy);
-        canvas.drawPath(path, fill);
-        canvas.drawPath(path, litEdge);
-      }
+      canvas.drawPath(chosen.path, fill);
+      canvas.drawPath(chosen.path, litEdge);
       // The anchor's halo: a soft bloom of light first — blurred, so it
       // glows rather than rings — then three rings that swell and shrink
       // with the breath, and the dot at the middle of them.
-      final anchor = ui.Offset(chosen.anchorX * sx, chosen.anchorY * sy);
+      final anchor = chosen.anchor;
       canvas.drawCircle(
         anchor,
         26 * (0.9 + 0.25 * breathe),
@@ -348,22 +400,11 @@ class _WorldPainter extends CustomPainter {
     }
   }
 
-  ui.Path _path(List<ui.Offset> ring, double sx, double sy) {
-    final path = ui.Path();
-    if (ring.isEmpty) return path;
-    path.moveTo(ring.first.dx * sx, ring.first.dy * sy);
-    for (var i = 1; i < ring.length; i++) {
-      path.lineTo(ring[i].dx * sx, ring[i].dy * sy);
-    }
-    path.close();
-    return path;
-  }
-
   @override
   bool shouldRepaint(_WorldPainter old) =>
       old.selected != selected ||
       old.accent != accent ||
       old.ink != ink ||
-      old.countries != countries ||
+      old.shapes != shapes ||
       (old.t - t).abs() > 0.003;
 }

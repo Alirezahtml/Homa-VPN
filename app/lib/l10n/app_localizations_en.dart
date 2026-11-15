@@ -2068,4 +2068,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wnToastAdded => 'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.';
   String get wnFlagsImproved => 'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.';
   String get wnMapImproved => 'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
+
+  @override
+  String get lookTitle => 'App design';
+  String get lookMono => 'Monochrome';
+  String get lookMonoDesc => 'The black and white the app was drawn in: full contrast, quiet, no hue.';
+  String get lookNeu => 'Soft neumorphism';
+  String get lookNeuDesc => 'Warm porcelain by day, matte obsidian by night — cards you could press into the page, a sunset-orange light.';
+  String get lookGlass => 'Aurora glass';
+  String get lookGlassDesc => 'A deep night sky with a blue frost — cards like panes of glass resting over it.';
+  String get smartWaiting => 'Measuring…';
+  String get smartFamilyRace => 'Both race on the first connect';
+  String get dnsManual => 'Manual DNS';
+  String get dnsManualHint => 'One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.';
+  String get dnsManualInvalid => 'One line is not an address the core can use: a plain IP, https://…, or tls://host.';
+  String get killSwitchGuarded => 'Guarded: nothing leaves the phone while the tunnel is down.';
+  String get accountsUsageTitle => 'This month';
+  String get accountsCountLabel => 'accounts';
+  String get accountsUsageAverage => 'average of the accounts\' spent share';
+  String get wnDesignsAdded => 'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.';
+  String get wnWheelFixed => 'The wheel\'s half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen\'s edge.';
+  String get wnMapReal => 'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.';
+  String get wnDnsAdded => 'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line\'s kind shown and checked as you type.';
+  String get wnSmartImproved => 'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.';
+  String get wnProtectionImproved => 'The kill switch says when its guard stands, and the apps page shows how many apps you chose.';
+  String get wnWelcomeImproved => 'The welcome opens with a breathing shield over a drifting aurora, and the accounts page sums the month at a glance.';
+  String bypassAppsCount(String n) => 'Chosen: {n}'.replaceFirst('{n}', n);
 }

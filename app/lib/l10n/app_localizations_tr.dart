@@ -2060,4 +2060,30 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wnToastAdded => 'Onaylar artık yumuşak, iOS tarzı bir not olarak geliyor; kendini çizen bir işaretle.';
   String get wnFlagsImproved => 'Bayrak çarkı temiz duruyor: ekran kenarında bayrak kesilmiyor, bayraklar tam görünür ve seçim yumuşak bir yayla yerleşiyor.';
   String get wnMapImproved => 'Dünya haritası daha büyük ve net çiziliyor: sıkışmış kıtalar yok, pürüzsüz kıyılar ve çapada ışıltılı bir hale.';
+
+  @override
+  String get lookTitle => 'Uygulama tasarımı';
+  String get lookMono => 'Tek renk';
+  String get lookMonoDesc => 'Uygulamanın doğduğu siyah-beyaz: tam kontrast, sakin, renksiz.';
+  String get lookNeu => 'Yumuşak neomorfizm';
+  String get lookNeuDesc => 'Gündüz sıcak porselen, gece mat obsidyen — sayfaya gömülü kartlar, gün batımı turuncusu ışık.';
+  String get lookGlass => 'Kutup ışığı camı';
+  String get lookGlassDesc => 'Mavi kırağılı derin gece göğü — üstünde cam paneller gibi kartlar.';
+  String get smartWaiting => 'Ölçülüyor…';
+  String get smartFamilyRace => 'İlk bağlantıda ikisi de yarışır';
+  String get dnsManual => 'Elle DNS';
+  String get dnsManualHint => 'Her satıra bir adres: yalın IP, https:// (DNS-over-HTTPS) veya tls://host (DNS-over-TLS). İlk yanıt kazanır.';
+  String get dnsManualInvalid => 'Bir satır, çekirdeğin kullanabileceği bir adres değil: yalın IP, https://… veya tls://host.';
+  String get killSwitchGuarded => 'Korumalı: tünel kesikken telefondan hiçbir şey çıkmaz.';
+  String get accountsUsageTitle => 'Bu ay';
+  String get accountsCountLabel => 'hesap';
+  String get accountsUsageAverage => 'hesapların harcanan payının ortalaması';
+  String get wnDesignsAdded => 'Uygulama tasarımları: uygulamanın tamamı Yumuşak Neomorfizm veya Kutup Işığı Camı giyebilir — her sayfa, her kart — Ayarlar → Genel\'den.';
+  String get wnWheelFixed => 'Çarxın yarım bayrağı gitti: seçili bayrağın altındaki raf bir ışık gölcüğü, ikinci bir bayrak değil; ekran kenarında hiçbir şey kesilmiyor.';
+  String get wnMapReal => 'Dünya haritası ülkelerin resmi sınırlarından yeniden çizildi — her kıyı, ada ve eksklav, sadık ve gerçek oranında.';
+  String get wnDnsAdded => 'Elle DNS: yalın IP\'ler, DNS-over-HTTPS ve DNS-over-TLS — her satırın türü yazarken gösterilir ve denetlenir.';
+  String get wnSmartImproved => 'Akıllı bağlantı artık ağın yanıtını gösteriyor: seçtiği taşıma ve tuttuğu IP sürümü, canlı.';
+  String get wnProtectionImproved => 'Kesme anahtarı nöbeti devredeyken haber verir; uygulamalar sayfası kaç uygulama seçtiğinizi gösterir.';
+  String get wnWelcomeImproved => 'Karşılama, akan kutup ışığı üzerinde nefes alan bir kalkanla açılıyor; hesaplar sayfası ayı tek bakışta özetliyor.';
+  String bypassAppsCount(String n) => 'Seçili: {n}'.replaceFirst('{n}', n);
 }

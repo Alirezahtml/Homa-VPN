@@ -2059,4 +2059,30 @@ class AppLocalizationsVi extends AppLocalizations {
   String get wnToastAdded => 'Xác nhận giờ đến như một ghi chú mềm mại kiểu iOS, với dấu vẽ chính mình.';
   String get wnFlagsImproved => 'Bánh xe cờ gọn gàng: không còn cờ bị cắt ở mép màn hình, cờ hiển thị trọn vẹn, và lựa chọn đáp xuống nhẹ nhàng.';
   String get wnMapImproved => 'Bản đồ thế giới được vẽ lớn và rõ hơn: không còn lục địa bị nén, bờ biển mượt, và quầng sáng tại điểm neo.';
+
+  @override
+  String get lookTitle => 'Thiết kế ứng dụng';
+  String get lookMono => 'Đơn sắc';
+  String get lookMonoDesc => 'Đen trắng gốc của ứng dụng: tương phản trọn vẹn, tĩnh lặng, không màu.';
+  String get lookNeu => 'Neumorphism mềm';
+  String get lookNeuDesc => 'Sứ ấm ban ngày, obsidian mờ ban đêm — thẻ như có thể ấn vào trang, ánh cam hoàng hôn.';
+  String get lookGlass => 'Kính quang cực';
+  String get lookGlassDesc => 'Bầu trời đêm sâu với sương giá xanh — thẻ như những tấm kính phía trên.';
+  String get smartWaiting => 'Đang đo…';
+  String get smartFamilyRace => 'Cả hai đua ở lần kết nối đầu';
+  String get dnsManual => 'DNS thủ công';
+  String get dnsManualHint => 'Mỗi dòng một địa chỉ: IP thường, https:// (DNS over HTTPS), hoặc tls://host (DNS over TLS). Ai trả lời trước thắng.';
+  String get dnsManualInvalid => 'Một dòng không phải địa chỉ phần lõi dùng được: IP thường, https://…, hoặc tls://host.';
+  String get killSwitchGuarded => 'Được canh giữ: không gì rời điện thoại trong khi đường hầm ngắt.';
+  String get accountsUsageTitle => 'Tháng này';
+  String get accountsCountLabel => 'tài khoản';
+  String get accountsUsageAverage => 'phần trăm dùng trung bình của các tài khoản';
+  String get wnDesignsAdded => 'Thiết kế ứng dụng: cả ứng dụng có thể khoác Neumorphism mềm hoặc Kính quang cực — mọi trang, mọi thẻ — trong Cài đặt → Chung.';
+  String get wnWheelFixed => 'Nửa lá cờ ở bánh xe đã mất: giá dưới lá cờ được chọn là vũng sáng, không phải lá cờ thứ hai, và không cờ nào bị cắt ở mép màn hình.';
+  String get wnMapReal => 'Bản đồ thế giới được vẽ lại từ biên giới chính thức của các nước — mọi bờ biển, hòn đảo và vùng bao vây, đúng xác và đúng tỉ lệ.';
+  String get wnDnsAdded => 'DNS thủ công: IP thường, DNS over HTTPS và DNS over TLS — loại của từng dòng hiển thị và được kiểm tra khi gõ.';
+  String get wnSmartImproved => 'Kết nối thông minh giờ cho thấy mạng đã trả lời gì: phương tiện vận chuyển đã chọn và phiên bản IP đã giữ, trực tiếp.';
+  String get wnProtectionImproved => 'Công tắc ngắt báo khi lính gác đứng gác, và trang ứng dụng cho biết bạn đã chọn bao nhiêu ứng dụng.';
+  String get wnWelcomeImproved => 'Trang chào mừng mở ra với chiếc khiên đang thở trên vầng quang cực trôi, và trang tài khoản gói cả tháng trong một cái nhìn.';
+  String bypassAppsCount(String n) => 'Đã chọn: {n}'.replaceFirst('{n}', n);
 }

@@ -2069,4 +2069,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get wnToastAdded => 'تصل تأكيدات كإشعار ناعم بأسلوب iOS، مع علامة ترسم نفسها.';
   String get wnFlagsImproved => 'عجلة الأعلام تجلس نظيفة: لا يُقطع علم عند حافة الشاشة، وتظهر الأعلام كاملة، ويهبط الاختيار بنعومة.';
   String get wnMapImproved => 'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
+
+  @override
+  String get lookTitle => 'تصميم التطبيق';
+  String get lookMono => 'أحادي اللون';
+  String get lookMonoDesc => 'الأبيض والأسود الذي رُسم به التطبيق: تباين كامل، هادئ، بلا لون.';
+  String get lookNeu => 'نيومورفيزم ناعم';
+  String get lookNeuDesc => 'بورسلان دافئ بالنهار، أوبسيدين مطفي بالليل — بطاقات كأنك تغرسها في الصفحة، وبضوء برتقالي كالغروب.';
+  String get lookGlass => 'زجاج الشفق';
+  String get lookGlassDesc => 'سماء ليل عميقة بصل أزرق — بطاقات كألواح زجاج فوقها.';
+  String get smartWaiting => 'جارٍ القياس…';
+  String get smartFamilyRace => 'كلاهما يتسابق عند أول اتصال';
+  String get dnsManual => 'DNS يدوي';
+  String get dnsManualHint => 'عنوان واحد في كل سطر: IP بسيط، أو https://‏ (DNS عبر HTTPS)، أو tls://host‏ (DNS عبر TLS). أول إجابة هي الرابحة.';
+  String get dnsManualInvalid => 'أحد الأسطر ليس عنوانًا يمكن للنواة استخدامه: IP بسيط، أو https://…، أو tls://host.';
+  String get killSwitchGuarded => 'تحت الحماية: لا شيء يغادر الهاتف ما دام النفق مقطوعًا.';
+  String get accountsUsageTitle => 'هذا الشهر';
+  String get accountsCountLabel => 'حساب';
+  String get accountsUsageAverage => 'متوسط الحصص المستهلكة للحسابات';
+  String get wnDesignsAdded => 'تصاميم التطبيق: يستطيع التطبيق كله الآن ارتداء النيومورفيزم الناعم أو زجاج الشفق — كل صفحة وكل بطاقة — من الإعدادات ← عام.';
+  String get wnWheelFixed => 'نصف العلم في العجلة اختفى: الرف تحت العلم المختار بركة من الضوء لا علم ثانٍ، ولا يُقطع علم عند حافة الشاشة.';
+  String get wnMapReal => 'أُعيد رسم خريطة العالم من الحدود الرسمية للدول — كل ساحل وجزيرة وجيب، بأمانة كاملة وبنسب حقيقية.';
+  String get wnDnsAdded => 'DNS يدوي: عناوين IP بسيطة، وDNS عبر HTTPS، وDNS عبر TLS — يُعرض نوع كل سطر ويُتحقق منه أثناء الكتابة.';
+  String get wnSmartImproved => 'الاتصال الذكي يُظهر الآن ما أجابت به الشبكة: الناقل الذي اختاره ونسخة IP التي أبقاها، مباشرةً.';
+  String get wnProtectionImproved => 'مفتاح القطع يخبرك حين تقف حمايته، وصفحة التطبيقات تعرض عدد التطبيقات التي اخترتها.';
+  String get wnWelcomeImproved => 'صفحة الترحيب تُفتَح بدرع يتنفس فوق شفق ينساب، وصفحة الحسابات تجمع الشهر في نظرة.';
+  String bypassAppsCount(String n) => 'المختارة: {n}'.replaceFirst('{n}', n);
 }

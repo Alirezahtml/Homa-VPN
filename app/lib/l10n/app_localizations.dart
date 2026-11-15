@@ -3706,6 +3706,127 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.'**
   String get wnMapImproved;
+
+  /// No description provided for @lookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App design'**
+  String get lookTitle;
+  /// No description provided for @lookMono.
+  ///
+  /// In en, this message translates to:
+  /// **'Monochrome'**
+  String get lookMono;
+  /// No description provided for @lookMonoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The black and white the app was drawn in: full contrast, quiet, no hue.'**
+  String get lookMonoDesc;
+  /// No description provided for @lookNeu.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft neumorphism'**
+  String get lookNeu;
+  /// No description provided for @lookNeuDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm porcelain by day, matte obsidian by night — cards you could press into the page, a sunset-orange light.'**
+  String get lookNeuDesc;
+  /// No description provided for @lookGlass.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora glass'**
+  String get lookGlass;
+  /// No description provided for @lookGlassDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A deep night sky with a blue frost — cards like panes of glass resting over it.'**
+  String get lookGlassDesc;
+  /// No description provided for @smartWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Measuring…'**
+  String get smartWaiting;
+  /// No description provided for @smartFamilyRace.
+  ///
+  /// In en, this message translates to:
+  /// **'Both race on the first connect'**
+  String get smartFamilyRace;
+  /// No description provided for @dnsManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual DNS'**
+  String get dnsManual;
+  /// No description provided for @dnsManualHint.
+  ///
+  /// In en, this message translates to:
+  /// **'One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.'**
+  String get dnsManualHint;
+  /// No description provided for @dnsManualInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'One line is not an address the core can use: a plain IP, https://…, or tls://host.'**
+  String get dnsManualInvalid;
+  /// No description provided for @killSwitchGuarded.
+  ///
+  /// In en, this message translates to:
+  /// **'Guarded: nothing leaves the phone while the tunnel is down.'**
+  String get killSwitchGuarded;
+  /// No description provided for @accountsUsageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get accountsUsageTitle;
+  /// No description provided for @accountsCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'accounts'**
+  String get accountsCountLabel;
+  /// No description provided for @accountsUsageAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'average of the accounts' spent share'**
+  String get accountsUsageAverage;
+  /// No description provided for @wnDesignsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.'**
+  String get wnDesignsAdded;
+  /// No description provided for @wnWheelFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheel's half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen's edge.'**
+  String get wnWheelFixed;
+  /// No description provided for @wnMapReal.
+  ///
+  /// In en, this message translates to:
+  /// **'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.'**
+  String get wnMapReal;
+  /// No description provided for @wnDnsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line's kind shown and checked as you type.'**
+  String get wnDnsAdded;
+  /// No description provided for @wnSmartImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.'**
+  String get wnSmartImproved;
+  /// No description provided for @wnProtectionImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The kill switch says when its guard stands, and the apps page shows how many apps you chose.'**
+  String get wnProtectionImproved;
+  /// No description provided for @wnWelcomeImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The welcome opens with a breathing shield over a drifting aurora, and the accounts page sums the month at a glance.'**
+  String get wnWelcomeImproved;
+  /// No description provided for @bypassAppsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen: {n}'**
+  String bypassAppsCount(String n);
 }
 
 class _AppLocalizationsDelegate

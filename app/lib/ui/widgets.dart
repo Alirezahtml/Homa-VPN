@@ -16,6 +16,7 @@ import '../l10n/app_localizations.dart';
 import '../platform.dart';
 import 'accent.dart';
 import 'country_names.dart';
+import 'design.dart';
 import 'format.dart';
 import 'local_country_names.dart';
 import 'motion.dart';
@@ -221,11 +222,11 @@ abstract final class Midnight {
   static const muted = Color(0xFF9E9E9E);
 }
 
-/// A dark theme for the phone's home, monochrome: pure black surfaces,
-/// white text, neutral grays only — with the chosen accent in the
-/// scheme's lights when one is set.
+/// A dark theme for the phone's home: the monochrome design's pure black
+/// surfaces, or the chosen design's own night — the design wears the
+/// whole home, not only the settings.
 ThemeData midnightTheme(ThemeData base) {
-  const scheme = ColorScheme.dark(
+  var scheme = const ColorScheme.dark(
     primary: Colors.white,
     onPrimary: Colors.black,
     secondary: Colors.white,
@@ -251,6 +252,20 @@ ThemeData midnightTheme(ThemeData base) {
     surfaceContainerLow: Color(0xFF0C0C0C),
     surfaceContainerLowest: Colors.black,
   );
+  final look = AppDesign.current.night;
+  if (AppDesign.current.key != 'mono') {
+    scheme = scheme.copyWith(
+      surface: look.scaffold,
+      onSurface: look.ink,
+      onSurfaceVariant: look.muted,
+      outlineVariant: look.outline,
+      surfaceContainerHighest: look.containerHighest,
+      surfaceContainerHigh: look.surfaceHigh,
+      surfaceContainer: look.surface,
+      surfaceContainerLow: look.surface,
+      surfaceContainerLowest: look.scaffold,
+    );
+  }
   final accent = AppAccent.current;
   return ThemeData(
     colorScheme: accent == null
@@ -669,45 +684,70 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Reveal(
-      child: Card(
-        margin: EdgeInsets.zero,
-        child: Padding(
-          padding: padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (title != null) ...[
-                Row(
-                  children: [
-                    if (icon != null) ...[
-                      Icon(
-                        icon,
-                        size: 18,
+    // The design's own card: the monochrome keeps the flat bordered
+    // card; the neumorphism extrudes — light up-left, shade down-right —
+    // and drops the border, because the shadows carry the edge.
+    final look = AppDesign.current.look(
+      theme.brightness == Brightness.dark,
+    );
+    Widget card = Card(
+      margin: EdgeInsets.zero,
+      color: look.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: look.cardShadow.isEmpty
+            ? BorderSide(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              )
+            : BorderSide.none,
+      ),
+      child: Padding(
+        padding: padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (title != null) ...[
+              Row(
+                children: [
+                  if (icon != null) ...[
+                    Icon(
+                      icon,
+                      size: 18,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                  Expanded(
+                    child: Text(
+                      title!,
+                      style: theme.textTheme.labelLarge?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                    Expanded(
-                      child: Text(
-                        title!,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                          letterSpacing: 0.4,
-                        ),
+                        letterSpacing: 0.4,
                       ),
                     ),
-                    ?trailing,
-                  ],
-                ),
-                const SizedBox(height: 14),
-              ],
-              child,
+                  ),
+                  ?trailing,
+                ],
+              ),
+              const SizedBox(height: 14),
             ],
-          ),
+            child,
+          ],
         ),
       ),
     );
+    // The neumorphism's card is drawn twice: once for its dual shadow
+    // (a Card paints no negative offsets), then itself over it.
+    if (look.cardShadow.isNotEmpty) {
+      card = DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: look.cardShadow,
+        ),
+        child: card,
+      );
+    }
+    return Reveal(child: card);
   }
 }
 

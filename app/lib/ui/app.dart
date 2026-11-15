@@ -13,6 +13,7 @@ import 'about_page.dart';
 import 'accent.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
+import 'design.dart';
 import 'focus_ring.dart';
 import 'format.dart';
 import 'logs_page.dart';
@@ -26,32 +27,36 @@ import 'widgets.dart';
 
 ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   final dark = brightness == Brightness.dark;
+  // The design the app wears: the surfaces, the ink and the outlines
+  // come from it — the monochrome design carries the exact colors this
+  // theme always had, so nothing moves unless the user chose a look.
+  final look = AppDesign.current.look(dark);
   // The monochrome scheme: pure black and white with neutral grays
   // between — no hue anywhere, in either mode. A chosen accent takes the
   // scheme's lights (buttons, toggles, progress) only; the surfaces and
   // the ink stay monochrome, and the containers keep their neutral gray.
   final scheme = dark
-      ? const ColorScheme.dark(
+      ? ColorScheme.dark(
           primary: Colors.white,
           onPrimary: Colors.black,
           secondary: Colors.white,
           onSecondary: Colors.black,
           tertiary: Colors.white,
           onTertiary: Colors.black,
-          primaryContainer: Color(0xFF2A2A2A),
+          primaryContainer: const Color(0xFF2A2A2A),
           onPrimaryContainer: Colors.white,
-          secondaryContainer: Color(0xFF1E1E1E),
+          secondaryContainer: const Color(0xFF1E1E1E),
           onSecondaryContainer: Colors.white,
-          tertiaryContainer: Color(0xFF1E1E1E),
+          tertiaryContainer: const Color(0xFF1E1E1E),
           onTertiaryContainer: Colors.white,
           surface: Colors.black,
           onSurface: Colors.white,
           onSurfaceVariant: Color(0xFF9E9E9E),
-          outline: Color(0xFF3A3A3A),
+          outline: const Color(0xFF3A3A3A),
           outlineVariant: Color(0xFF262626),
           inverseSurface: Colors.white,
           onInverseSurface: Colors.black,
-          inversePrimary: Color(0xFF0A0A0A),
+          inversePrimary: const Color(0xFF0A0A0A),
           surfaceTint: Colors.transparent,
           surfaceContainerHighest: Color(0xFF161616),
           surfaceContainerHigh: Color(0xFF1A1A1A),
@@ -59,25 +64,25 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
           surfaceContainerLow: Color(0xFF0C0C0C),
           surfaceContainerLowest: Colors.black,
         )
-      : const ColorScheme.light(
-          primary: Color(0xFF0A0A0A),
+      : ColorScheme.light(
+          primary: const Color(0xFF0A0A0A),
           onPrimary: Colors.white,
-          secondary: Color(0xFF0A0A0A),
+          secondary: const Color(0xFF0A0A0A),
           onSecondary: Colors.white,
-          tertiary: Color(0xFF0A0A0A),
+          tertiary: const Color(0xFF0A0A0A),
           onTertiary: Colors.white,
-          primaryContainer: Color(0xFFE8E8E8),
-          onPrimaryContainer: Color(0xFF0A0A0A),
-          secondaryContainer: Color(0xFFF0F0F0),
-          onSecondaryContainer: Color(0xFF0A0A0A),
-          tertiaryContainer: Color(0xFFF0F0F0),
-          onTertiaryContainer: Color(0xFF0A0A0A),
+          primaryContainer: const Color(0xFFE8E8E8),
+          onPrimaryContainer: const Color(0xFF0A0A0A),
+          secondaryContainer: const Color(0xFFF0F0F0),
+          onSecondaryContainer: const Color(0xFF0A0A0A),
+          tertiaryContainer: const Color(0xFFF0F0F0),
+          onTertiaryContainer: const Color(0xFF0A0A0A),
           surface: Colors.white,
-          onSurface: Color(0xFF0A0A0A),
-          onSurfaceVariant: Color(0xFF6B6B6B),
-          outline: Color(0xFFC9C9C9),
+          onSurface: const Color(0xFF0A0A0A),
+          onSurfaceVariant: const Color(0xFF6B6B6B),
+          outline: const Color(0xFFC9C9C9),
           outlineVariant: Color(0xFFE4E4E4),
-          inverseSurface: Color(0xFF0A0A0A),
+          inverseSurface: const Color(0xFF0A0A0A),
           onInverseSurface: Colors.white,
           inversePrimary: Colors.white,
           surfaceTint: Colors.transparent,
@@ -87,56 +92,73 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
           surfaceContainerLow: Color(0xFFF9F9F9),
           surfaceContainerLowest: Colors.white,
         );
+  // The design's own surfaces replace the monochrome's when a look is
+  // worn: every page, card, dialog and tile follows in one pass.
+  final designed = scheme.copyWith(
+    surface: look.scaffold,
+    onSurface: look.ink,
+    onSurfaceVariant: look.muted,
+    outlineVariant: look.outline,
+    surfaceContainerHighest: look.containerHighest,
+    surfaceContainerHigh: look.surfaceHigh,
+    surfaceContainer: look.surface,
+    surfaceContainerLow: look.surface,
+    surfaceContainerLowest: look.scaffold,
+  );
+  final usedScheme = AppDesign.current.key == 'mono' ? scheme : designed;
   // Bundled Inter for English, Vazirmatn for Persian and Arabic, and the
   // platform's typography for the remaining languages.
   final font = languageFont(locale.languageCode);
   final lit = accent == null ? null : accentForTheme(accent, dark);
+  final effective = lit == null
+      ? usedScheme
+      : usedScheme.copyWith(
+          primary: lit,
+          onPrimary: AppAccent.onAccent(lit),
+          secondary: lit,
+          onSecondary: AppAccent.onAccent(lit),
+          tertiary: lit,
+          onTertiary: AppAccent.onAccent(lit),
+          inversePrimary: dark ? AppAccent.onAccent(lit) : lit,
+        );
   final theme = ThemeData(
-    colorScheme: lit == null
-        ? scheme
-        : scheme.copyWith(
-            primary: lit,
-            onPrimary: AppAccent.onAccent(lit),
-            secondary: lit,
-            onSecondary: AppAccent.onAccent(lit),
-            tertiary: lit,
-            onTertiary: AppAccent.onAccent(lit),
-            inversePrimary: dark ? AppAccent.onAccent(lit) : lit,
-          ),
+    colorScheme: effective,
     fontFamily: font,
-    scaffoldBackgroundColor: dark ? Colors.black : Colors.white,
+    scaffoldBackgroundColor: look.scaffold,
     // Pixel-grade surfaces: one generous radius for every card, list and
     // dialog, so the whole app reads as one system.
     cardTheme: CardThemeData(
       elevation: 0,
-      color: dark ? const Color(0xFF0D0D0D) : const Color(0xFFF7F7F7),
+      color: look.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.5)),
+        side: BorderSide(
+          color: effective.outlineVariant.withValues(alpha: 0.5),
+        ),
       ),
       margin: EdgeInsets.zero,
     ),
     dialogTheme: DialogThemeData(
-      backgroundColor: dark ? const Color(0xFF111111) : Colors.white,
+      backgroundColor: look.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: dark ? Colors.black : Colors.white,
-      foregroundColor: scheme.onSurface,
+      backgroundColor: look.scaffold,
+      foregroundColor: effective.onSurface,
       elevation: 0,
       scrolledUnderElevation: 0,
       centerTitle: false,
       titleTextStyle: TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.w700,
-        color: scheme.onSurface,
+        color: effective.onSurface,
         fontFamily: font,
       ),
     ),
-    listTileTheme: ListTileThemeData(iconColor: scheme.onSurfaceVariant),
+    listTileTheme: ListTileThemeData(iconColor: effective.onSurfaceVariant),
     dividerTheme: DividerThemeData(
       thickness: 1,
-      color: scheme.outlineVariant.withValues(alpha: 0.5),
+      color: effective.outlineVariant.withValues(alpha: 0.5),
     ),
     // Pages arrive with a soft fade and a lift, everywhere.
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -151,26 +173,26 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   );
   return theme.copyWith(
     navigationRailTheme: NavigationRailThemeData(
-      backgroundColor: dark ? Colors.black : const Color(0xFFF2F2F2),
+      backgroundColor: dark ? look.scaffoldBottom : look.scaffoldBottom,
       // NavigationRail replaces DefaultTextStyle, so retain the resolved
       // platform font instead of letting a null family choose a fallback.
       selectedLabelTextStyle: theme.textTheme.labelLarge!.copyWith(
         fontSize: 15.5,
         fontWeight: FontWeight.w700,
-        color: scheme.onSurface,
+        color: effective.onSurface,
       ),
       unselectedLabelTextStyle: theme.textTheme.labelLarge!.copyWith(
         fontSize: 15.5,
         fontWeight: FontWeight.w600,
-        color: scheme.onSurfaceVariant,
+        color: effective.onSurfaceVariant,
       ),
       selectedIconTheme: IconThemeData(
         size: 24,
-        color: scheme.onSecondaryContainer,
+        color: effective.onSecondaryContainer,
       ),
       unselectedIconTheme: IconThemeData(
         size: 24,
-        color: scheme.onSurfaceVariant,
+        color: effective.onSurfaceVariant,
       ),
     ),
   );
@@ -246,8 +268,10 @@ class VpnApp extends StatelessWidget {
         };
         // The static status colors (the problem boxes, the home's lights)
         // read the same accent the scheme carries; this build is the one
-        // place both are decided, so they never disagree.
-        AppAccent.current = AppAccent.resolve(settings);
+        // place both are decided, so they never disagree. The design is
+        // decided here too: its surfaces reach the theme below, and its
+        // own light stands in when the user has not picked an accent.
+        AppAccent.current = AppDesign.resolveFor(settings);
         return Theme(
           data: _theme(
             dark ? Brightness.dark : Brightness.light,
