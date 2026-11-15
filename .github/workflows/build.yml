@@ -276,10 +276,17 @@ jobs:
       - name: Build tools
         run: |
           sudo apt-get update -qq
-          # GStreamer is audioplayers_linux's own backend: the app's
-          # sounds play on the desktop build through it.
-          sudo apt-get install -y -qq clang cmake ninja-build pkg-config libgtk-3-dev \
-            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+          sudo apt-get install -y -qq clang cmake ninja-build pkg-config libgtk-3-dev
+      # The sounds' own backend on Linux: GStreamer. An image whose
+      # packages cannot install it still builds — the app carries no
+      # sound plugin there and stays silent, everything else working.
+      - name: The sounds' GStreamer
+        run: |
+          if sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev; then
+            echo "the sounds' backend is in"
+          else
+            echo "ARMAN_VPN_NO_AUDIO=1" >> "$GITHUB_ENV"
+          fi
       # A real TUN, as root, for a minute (internal/tunservice/e2e_test.go):
       # this computer is CI's.
       - name: TUN end to end

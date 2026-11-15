@@ -42,7 +42,19 @@ fi
 goflags="-s -w -X $module/internal/version.Current=$version"
 [ -z "$public" ] || goflags="$goflags -X $module/internal/signing.Key=$public"
 
-(cd "$root/app" && flutter pub get && flutter build linux --release --no-pub --dart-define=APP_VERSION="$version")
+(cd "$root/app" && flutter pub get)
+
+# The sounds' own backend on Linux is GStreamer (audioplayers_linux).
+# Where its dev packages cannot be installed (ARMAN_VPN_NO_AUDIO=1,
+# which CI sets when the image's packages are broken), the build drops
+# the sound plugin only: the app stays silent there and everything
+# else — the file dialogs included — keeps working.
+if [ -n "${ARMAN_VPN_NO_AUDIO:-}" ]; then
+  echo "building without the sound plugin (no GStreamer)"
+  sed -i '/audioplayers_linux/d' "$root/app/linux/flutter/generated_plugins.cmake"
+fi
+
+(cd "$root/app" && flutter build linux --release --no-pub --dart-define=APP_VERSION="$version")
 
 stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
