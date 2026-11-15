@@ -3644,6 +3644,27 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The app no longer kicks itself out when opened: the notification's flag art answered with a value the system's messenger refuses.'**
   String get wnFlagArtFixed;
+
+  /// No description provided for @statSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get statSession;
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get copiedToClipboard;
+  /// No description provided for @wnTotalsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The home shows what the session moved in total, and a tap copies the public IP.'**
+  String get wnTotalsAdded;
+  /// No description provided for @wnPolishImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.'**
+  String get wnPolishImproved;
 }
 
 class _AppLocalizationsDelegate

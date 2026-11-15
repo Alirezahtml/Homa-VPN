@@ -197,7 +197,7 @@
   "modeRecommendedHint": "Mozilla elige la ubicación por usted.",
   "modeFastestHint": "La ubicación con menor latencia en cada conexión.",
   "testDelay": "Medir latencia real",
-  "testingDelay": "Probando… puede tardar un minuto",
+  "testingDelay": "Midiendo…",
   "search": "Buscar",
   "noAnswer": "Sin respuesta",
   "testedAgo": "Probado {ago}",
@@ -581,5 +581,9 @@
   "wnColorRemoved": "Se quitó la página de color personalizado; la lista de acento conserva su HEX",
   "whatsNewRemoved": "Eliminado",
   "wnCrashFixed": "La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía.",
-  "wnFlagArtFixed": "La aplicación ya no se cierra sola al abrirse: el arte de la bandera de la notificación devolvía un valor que el mensajero del sistema rechaza."
+  "wnFlagArtFixed": "La aplicación ya no se cierra sola al abrirse: el arte de la bandera de la notificación devolvía un valor que el mensajero del sistema rechaza.",
+  "statSession": "Sesión",
+  "copiedToClipboard": "Copiado al portapapeles",
+  "wnTotalsAdded": "La página principal muestra el total que movió la sesión, y un toque copia la IP pública.",
+  "wnPolishImproved": "La rueda de banderas y la página de servidores se ven más ordenadas; los textos son compactos y el túnel de Android lleva el tráfico a mayor velocidad."
 }

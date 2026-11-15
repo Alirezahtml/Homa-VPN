@@ -197,7 +197,7 @@
   "modeRecommendedHint": "Məkanı Mozilla sizin üçün seçir.",
   "modeFastestHint": "Hər qoşulanda ən az gecikməli məkan seçilir.",
   "testDelay": "Real gecikməni yoxla",
-  "testingDelay": "Yoxlanılır… bu bir dəqiqə çəkə bilər",
+  "testingDelay": "Ölçülür…",
   "search": "Axtar",
   "noAnswer": "Cavab yoxdur",
   "testedAgo": "Yoxlanıb: {ago}",
@@ -581,5 +581,9 @@
   "wnColorRemoved": "Xüsusi rəng səhifəsi silindi; vurğu rəng siyahısı HEX kodunu saxlayır",
   "whatsNewRemoved": "Silindi",
   "wnCrashFixed": "Tətbiq artıq Android 16 telefonlarında öz-özünə dayanmır: bildiriş telefonda hələ olmayan bir şey istəyirdi.",
-  "wnFlagArtFixed": "Tətbiq artıq açılanda özünü çıxarmır: bildirişin bayraq şəkli sistemin mesajlaşmasının qəbul etmədiyi bir dəyər qaytarırdı."
+  "wnFlagArtFixed": "Tətbiq artıq açılanda özünü çıxarmır: bildirişin bayraq şəkli sistemin mesajlaşmasının qəbul etmədiyi bir dəyər qaytarırdı.",
+  "statSession": "Sessiya",
+  "copiedToClipboard": "Buferə köçürüldü",
+  "wnTotalsAdded": "Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.",
+  "wnPolishImproved": "Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır."
 }

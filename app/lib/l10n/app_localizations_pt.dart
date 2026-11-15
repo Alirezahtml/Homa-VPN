@@ -699,7 +699,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get testDelay => 'Testar latência real';
 
   @override
-  String get testingDelay => 'Testando… isso pode levar um minuto';
+  String get testingDelay => 'Medindo…';
 
   @override
   String get search => 'Pesquisar';
@@ -2055,4 +2055,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'A aplicação já não se fecha sozinha ao abrir: a arte da bandeira da notificação devolvia um valor que o mensageiro do sistema recusa.';
+
+  @override
+  String get statSession => 'Sessão';
+  String get copiedToClipboard => 'Copiado para a área de transferência';
+  String get wnTotalsAdded => 'A página inicial mostra o total que a sessão moveu, e um toque copia o IP público.';
+  String get wnPolishImproved => 'A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.';
 }

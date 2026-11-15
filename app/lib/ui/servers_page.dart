@@ -250,9 +250,11 @@ class _ServersPageState extends State<ServersPage> {
         ? countries
         : [
             for (final loc in countries)
-              if (locationName(l, loc.code, loc.name)
-                      .toLowerCase()
-                      .contains(_query) ||
+              if (locationName(
+                    l,
+                    loc.code,
+                    loc.name,
+                  ).toLowerCase().contains(_query) ||
                   loc.code.toLowerCase().contains(_query))
                 loc,
           ];
@@ -309,22 +311,32 @@ class _ServersPageState extends State<ServersPage> {
         const SizedBox(height: 20),
         // The smart pick: when measurements say one country answers clearly
         // faster than the choice, offer it — the measurements are real,
-        // through the tunnel, and the choice stays the user's.
-        if (_smartPick case final Location smart)
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 10),
-            child: _SmartPickCard(
-              location: smart,
-              onUse: () => _choose(smart.code),
-              busy: _busy?.toLowerCase() == smart.code.toLowerCase(),
+        // through the tunnel, and the choice stays the user's. It grows
+        // and folds away with the list, not over it.
+        AnimatedSize(
+          duration: const Duration(milliseconds: 260),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.topCenter,
+          child: switch (_smartPick) {
+            final Location smart => Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 10),
+              child: _SmartPickCard(
+                location: smart,
+                onUse: () => _choose(smart.code),
+                busy: _busy?.toLowerCase() == smart.code.toLowerCase(),
+              ),
             ),
-          ),
-        _SectionHeader(
-          title: l.locationsSection,
-          action: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton.icon(
+            _ => const SizedBox(width: double.infinity),
+          },
+        ),
+        _SectionHeader(title: l.locationsSection),
+        // The page's two actions on a row of their own: inside the header's
+        // row they squeezed a narrow phone's title into a vertical word.
+        // Both keep their labels, and a long one steps out of the way.
+        Row(
+          children: [
+            Expanded(
+              child: TextButton.icon(
                 onPressed: _refreshing ? null : _refreshServers,
                 icon: _refreshing
                     ? const SizedBox.square(
@@ -334,9 +346,13 @@ class _ServersPageState extends State<ServersPage> {
                     : const Icon(Icons.sync_rounded, size: 18),
                 label: Text(
                   _refreshing ? l.updatingServers : l.updateServers,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              TextButton.icon(
+            ),
+            Expanded(
+              child: TextButton.icon(
                 onPressed: !_testing && _locations != null && !noAccounts
                     ? _test
                     : null,
@@ -346,10 +362,14 @@ class _ServersPageState extends State<ServersPage> {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : const Icon(Icons.speed_rounded, size: 18),
-                label: Text(_testing ? l.testingDelay : l.testDelay),
+                label: Text(
+                  _testing ? l.testingDelay : l.testDelay,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         if (delayLine != null)
           Padding(
@@ -390,11 +410,7 @@ class _ServersPageState extends State<ServersPage> {
           Panel(child: Text(l.noServers, style: muted))
         else if (visible.isEmpty)
           Panel(
-            child: Text(
-              l.noResults,
-              style: muted,
-              textAlign: TextAlign.center,
-            ),
+            child: Text(l.noResults, style: muted, textAlign: TextAlign.center),
           )
         else
           Reveal(
@@ -699,13 +715,18 @@ class _LocationTile extends StatelessWidget {
                     child: Text(
                       title,
                       style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                        fontWeight: selected
+                            ? FontWeight.w700
+                            : FontWeight.w500,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const SizedBox(width: 6),
+                  // Only the choice carries a mark, and only while it is
+                  // being saved a spinner: an unchecked circle on every
+                  // tile made the list read as a page of clocks.
                   SizedBox.square(
                     dimension: 20,
                     child: busy
@@ -713,23 +734,18 @@ class _LocationTile extends StatelessWidget {
                             padding: EdgeInsets.all(3),
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : Icon(
-                            selected
-                                ? Icons.check_circle_rounded
-                                : Icons.radio_button_unchecked_rounded,
+                        : selected
+                        ? Icon(
+                            Icons.check_circle_rounded,
                             size: 20,
-                            color: selected
-                                ? scheme.primary
-                                : scheme.outlineVariant,
-                          ),
+                            color: scheme.primary,
+                          )
+                        : const SizedBox.shrink(),
                   ),
                 ],
               ),
               const Spacer(),
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: delay,
-              ),
+              Align(alignment: AlignmentDirectional.centerStart, child: delay),
             ],
           ),
         ),
@@ -767,18 +783,37 @@ class _Delay extends StatelessWidget {
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: testing
-          ? SizedBox.square(
-              dimension: 12,
-              child: CircularProgressIndicator(strokeWidth: 1.5, color: muted),
-            )
-          : Text(
-              text,
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: color,
-                fontWeight: FontWeight.w700,
+      // The spinner and the value cross-fade, so the badge's answer
+      // arrives instead of snapping in.
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 220),
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeIn,
+        transitionBuilder: (child, anim) => FadeTransition(
+          opacity: anim,
+          child: ScaleTransition(
+            scale: Tween(begin: 0.9, end: 1.0).animate(anim),
+            child: child,
+          ),
+        ),
+        child: testing
+            ? SizedBox.square(
+                key: const ValueKey('testing'),
+                dimension: 12,
+                child: CircularProgressIndicator(
+                  strokeWidth: 1.5,
+                  color: muted,
+                ),
+              )
+            : Text(
+                text,
+                key: ValueKey('value:$text'),
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
+      ),
     );
   }
 }

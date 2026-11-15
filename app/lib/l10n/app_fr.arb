@@ -197,7 +197,7 @@
   "modeRecommendedHint": "Mozilla choisit l'emplacement pour vous.",
   "modeFastestHint": "L'emplacement avec la latence la plus faible à chaque connexion.",
   "testDelay": "Tester la latence réelle",
-  "testingDelay": "Test en cours… cela peut prendre une minute",
+  "testingDelay": "Mesure…",
   "search": "Rechercher",
   "noAnswer": "Pas de réponse",
   "testedAgo": "Testé {ago}",
@@ -581,5 +581,9 @@
   "wnColorRemoved": "La page de couleur personnalisée a été retirée ; la liste garde son code HEX",
   "whatsNewRemoved": "Retiré",
   "wnCrashFixed": "L'application ne s'arrête plus d'elle-même sur les téléphones Android 16 : la notification demandait au système quelque chose que le téléphone n'avait pas encore.",
-  "wnFlagArtFixed": "L'application ne se ferme plus d'elle-même à l'ouverture : l'image du drapeau de la notification renvoyait une valeur que le messager du système refuse."
+  "wnFlagArtFixed": "L'application ne se ferme plus d'elle-même à l'ouverture : l'image du drapeau de la notification renvoyait une valeur que le messager du système refuse.",
+  "statSession": "Session",
+  "copiedToClipboard": "Copié dans le presse-papiers",
+  "wnTotalsAdded": "La page d'accueil montre le total déplacé par la session, et un appui copie l'IP publique.",
+  "wnPolishImproved": "La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite."
 }

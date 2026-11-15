@@ -197,7 +197,7 @@
   "modeRecommendedHint": "由 Mozilla 為您選擇位置。",
   "modeFastestHint": "每次連線時自動選擇延遲最低的位置。",
   "testDelay": "測試真實延遲",
-  "testingDelay": "正在測試…可能需要一分鐘",
+  "testingDelay": "正在測量…",
   "search": "搜尋",
   "noAnswer": "無回應",
   "testedAgo": "測試於 {ago}",
@@ -593,5 +593,9 @@
   "wnColorRemoved": "移除了自訂顏色頁面；強調色清單仍支援 HEX 碼",
   "whatsNewRemoved": "已移除",
   "wnCrashFixed": "應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。",
-  "wnFlagArtFixed": "應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。"
+  "wnFlagArtFixed": "應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。",
+  "statSession": "工作階段",
+  "copiedToClipboard": "已複製到剪貼簿",
+  "wnTotalsAdded": "主頁顯示本次工作階段的總流量，輕點即可複製公共 IP。",
+  "wnPolishImproved": "旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。"
 }

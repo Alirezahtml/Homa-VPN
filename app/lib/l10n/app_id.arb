@@ -197,7 +197,7 @@
   "modeRecommendedHint": "Mozilla memilihkan lokasi untuk Anda.",
   "modeFastestHint": "Lokasi dengan ping terendah, dipilih di setiap koneksi.",
   "testDelay": "Uji ping asli",
-  "testingDelay": "Menguji… bisa sampai satu menit",
+  "testingDelay": "Mengukur…",
   "search": "Cari",
   "noAnswer": "Tidak merespons",
   "testedAgo": "Diuji {ago}",
@@ -581,5 +581,9 @@
   "wnColorRemoved": "Halaman warna kustom dihapus; daftar aksen tetap menyimpan kode HEX",
   "whatsNewRemoved": "Dihapus",
   "wnCrashFixed": "Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel.",
-  "wnFlagArtFixed": "Aplikasi tidak lagi mengeluarkan dirinya saat dibuka: gambar bendera notifikasi menjawab dengan nilai yang ditolak sistem."
+  "wnFlagArtFixed": "Aplikasi tidak lagi mengeluarkan dirinya saat dibuka: gambar bendera notifikasi menjawab dengan nilai yang ditolak sistem.",
+  "statSession": "Sesi",
+  "copiedToClipboard": "Disalin ke papan klip",
+  "wnTotalsAdded": "Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.",
+  "wnPolishImproved": "Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi."
 }

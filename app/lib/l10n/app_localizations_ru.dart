@@ -699,7 +699,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get testDelay => 'Проверить задержку';
 
   @override
-  String get testingDelay => 'Проверка… это может занять до минуты';
+  String get testingDelay => 'Измерение…';
 
   @override
   String get search => 'Поиск';
@@ -2056,4 +2056,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Приложение больше не выкидывает само себя при открытии: картинка флага в уведомлении возвращала значение, которое отказывается принимать системный канал сообщений.';
+
+  @override
+  String get statSession => 'Сессия';
+  String get copiedToClipboard => 'Скопировано в буфер обмена';
+  String get wnTotalsAdded => 'Главная показывает суммарный объём данных за сессию, а касание копирует публичный IP.';
+  String get wnPolishImproved => 'Колесо флагов и страница серверов стали аккуратнее; тексты компактнее, а туннель Android несёт трафик быстрее.';
 }

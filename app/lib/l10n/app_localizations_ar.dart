@@ -698,7 +698,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get testDelay => 'اختبار التأخير الفعلي';
 
   @override
-  String get testingDelay => 'جارٍ الاختبار… قد يستغرق ذلك دقيقة';
+  String get testingDelay => 'جارٍ القياس…';
 
   @override
   String get search => 'بحث';
@@ -2053,4 +2053,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'لم يعد التطبيق يطرح نفسه عند فتحه: كانت صورة علم الإشعار تعيد قيمة لا يقبلها مُرسِل الرسائل في النظام.';
+
+  @override
+  String get statSession => 'الجلسة';
+  String get copiedToClipboard => 'تم النسخ إلى الحافظة';
+  String get wnTotalsAdded => 'تعرض الصفحة الرئيسية مجموع ما نقلته الجلسة، وتنسخ اللمسة الواحدة عنوان IP العمومي.';
+  String get wnPolishImproved => 'عجلة الأعلام وصفحة الخوادم أكثر ترتيبًا؛ النصوص مضغوطة، وينقل نفق أندرويد البيانات بسرعة أعلى.';
 }

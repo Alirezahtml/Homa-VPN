@@ -698,7 +698,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get testDelay => 'Test real delay';
 
   @override
-  String get testingDelay => 'Testing… this can take a minute';
+  String get testingDelay => 'Measuring…';
 
   @override
   String get search => 'Search';
@@ -2052,4 +2052,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'The app no longer kicks itself out when opened: the notification\'s flag art answered with a value the system\'s messenger refuses.';
+
+  @override
+  String get statSession => 'Session';
+  String get copiedToClipboard => 'Copied to clipboard';
+  String get wnTotalsAdded => 'The home shows what the session moved in total, and a tap copies the public IP.';
+  String get wnPolishImproved => 'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.';
 }

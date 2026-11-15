@@ -697,7 +697,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get testDelay => 'Gerçek gecikmeyi test et';
 
   @override
-  String get testingDelay => 'Test ediliyor… bu bir dakika sürebilir';
+  String get testingDelay => 'Ölçülüyor…';
 
   @override
   String get search => 'Ara';
@@ -2044,4 +2044,10 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Uygulama artık açılınca kendini dışarı atmıyor: bildirimin bayrak görseli sistemin mesajlaşma katmanının reddettiği bir değer döndürüyordu.';
+
+  @override
+  String get statSession => 'Oturum';
+  String get copiedToClipboard => 'Panoya kopyalandı';
+  String get wnTotalsAdded => 'Ana sayfa oturumun toplam trafiğini gösteriyor; bir dokunuş genel IP\'yi kopyalıyor.';
+  String get wnPolishImproved => 'Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor.';
 }

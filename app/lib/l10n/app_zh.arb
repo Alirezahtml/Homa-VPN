@@ -197,7 +197,7 @@
   "modeRecommendedHint": "由 Mozilla 为你选择节点。",
   "modeFastestHint": "每次连接时自动选择延迟最低的节点。",
   "testDelay": "测试真实延迟",
-  "testingDelay": "正在测试…可能需要一分钟",
+  "testingDelay": "正在测量…",
   "search": "搜索",
   "noAnswer": "无响应",
   "testedAgo": "{ago}测试",
@@ -593,5 +593,9 @@
   "wnColorRemoved": "移除了自定义颜色页面；强调色列表仍支持 HEX 码",
   "whatsNewRemoved": "已移除",
   "wnCrashFixed": "应用不再在 Android 16 手机上自行停止：通知向系统索要了手机还没有的东西。",
-  "wnFlagArtFixed": "应用打开后不再把自己踢出去：通知的国旗图片返回了系统消息通道不接受的值。"
+  "wnFlagArtFixed": "应用打开后不再把自己踢出去：通知的国旗图片返回了系统消息通道不接受的值。",
+  "statSession": "会话",
+  "copiedToClipboard": "已复制到剪贴板",
+  "wnTotalsAdded": "主页显示本次会话的总流量，轻点即可复制公共 IP。",
+  "wnPolishImproved": "旗帜转轮和服务器页面更整洁；文字更紧凑，Android 隧道以更高的速度传输流量。"
 }

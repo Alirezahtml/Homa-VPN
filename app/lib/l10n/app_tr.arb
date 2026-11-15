@@ -197,7 +197,7 @@
   "modeRecommendedHint": "Konumu Mozilla sizin için seçer.",
   "modeFastestHint": "Her bağlantıda en düşük gecikmeli konum.",
   "testDelay": "Gerçek gecikmeyi test et",
-  "testingDelay": "Test ediliyor… bu bir dakika sürebilir",
+  "testingDelay": "Ölçülüyor…",
   "search": "Ara",
   "noAnswer": "Yanıt yok",
   "testedAgo": "{ago} test edildi",
@@ -593,5 +593,9 @@
   "wnColorRemoved": "Özel renk sayfası kaldırıldı; vurgu listesi HEX kodunu tutuyor",
   "whatsNewRemoved": "Kaldırıldı",
   "wnCrashFixed": "Uygulama, Android 16 telefonlarında artık kendi kendine kapanmıyor: bildirim, telefonda henüz olmayan bir şey istiyordu.",
-  "wnFlagArtFixed": "Uygulama artık açılınca kendini dışarı atmıyor: bildirimin bayrak görseli sistemin mesajlaşma katmanının reddettiği bir değer döndürüyordu."
+  "wnFlagArtFixed": "Uygulama artık açılınca kendini dışarı atmıyor: bildirimin bayrak görseli sistemin mesajlaşma katmanının reddettiği bir değer döndürüyordu.",
+  "statSession": "Oturum",
+  "copiedToClipboard": "Panoya kopyalandı",
+  "wnTotalsAdded": "Ana sayfa oturumun toplam trafiğini gösteriyor; bir dokunuş genel IP'yi kopyalıyor.",
+  "wnPolishImproved": "Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor."
 }

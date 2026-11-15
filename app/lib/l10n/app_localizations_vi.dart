@@ -698,7 +698,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get testDelay => 'Đo độ trễ thực';
 
   @override
-  String get testingDelay => 'Đang đo… có thể mất một phút';
+  String get testingDelay => 'Đang đo…';
 
   @override
   String get search => 'Tìm kiếm';
@@ -2043,4 +2043,10 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Ứng dụng không còn tự đẩy mình ra khi mở: hình cờ của thông báo trả về một giá trị mà bộ phận nhắn tin của hệ thống không chấp nhận.';
+
+  @override
+  String get statSession => 'Phiên';
+  String get copiedToClipboard => 'Đã sao chép vào bộ nhớ tạm';
+  String get wnTotalsAdded => 'Trang chủ cho thấy tổng dữ liệu phiên đã truyền, và một chạm sao chép IP công khai.';
+  String get wnPolishImproved => 'Bánh xe cờ và trang máy chủ gọn gàng hơn; chữ ngắn gọn, và đường hầm Android truyền lưu lượng nhanh hơn.';
 }

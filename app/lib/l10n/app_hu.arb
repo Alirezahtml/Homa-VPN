@@ -197,7 +197,7 @@
   "modeRecommendedHint": "A Mozilla választja ki a helyszínt.",
   "modeFastestHint": "A legkisebb késleltetésű helyszín minden csatlakozáskor.",
   "testDelay": "Valós késleltetés mérése",
-  "testingDelay": "Tesztelés… ez egy percig is eltarthat",
+  "testingDelay": "Mérés…",
   "search": "Keresés",
   "noAnswer": "Nincs válasz",
   "testedAgo": "Tesztelve: {ago}",
@@ -581,5 +581,9 @@
   "wnColorRemoved": "A saját szín oldal eltűnt; az akcentlista megtartja a HEX kódot",
   "whatsNewRemoved": "Eltávolítva",
   "wnCrashFixed": "Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott.",
-  "wnFlagArtFixed": "Az alkalmazás már nem zárja be magát megnyitáskor: az értesítés zászlóképe olyan értéket adott vissza, amelyet a rendszer üzenetközvetítője nem fogad el."
+  "wnFlagArtFixed": "Az alkalmazás már nem zárja be magát megnyitáskor: az értesítés zászlóképe olyan értéket adott vissza, amelyet a rendszer üzenetközvetítője nem fogad el.",
+  "statSession": "Munkamenet",
+  "copiedToClipboard": "A vágólapra másolva",
+  "wnTotalsAdded": "A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.",
+  "wnPolishImproved": "A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat."
 }

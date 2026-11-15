@@ -463,7 +463,7 @@
   "modeRecommendedHint": "Mozilla picks the location for you.",
   "modeFastestHint": "The location with the lowest delay at each connection.",
   "testDelay": "Test real delay",
-  "testingDelay": "Testing… this can take a minute",
+  "testingDelay": "Measuring…",
   "search": "Search",
   "noAnswer": "No answer",
   "testedAgo": "Tested {ago}",
@@ -1180,5 +1180,9 @@
   "wnColorRemoved": "The Custom color page was removed; the accent list keeps its hex",
   "whatsNewRemoved": "Removed",
   "wnCrashFixed": "The app no longer stops by itself on Android 16 phones: the notification asked the system for a piece the phone does not have yet.",
-  "wnFlagArtFixed": "The app no longer kicks itself out when opened: the notification's flag art answered with a value the system's messenger refuses."
+  "wnFlagArtFixed": "The app no longer kicks itself out when opened: the notification's flag art answered with a value the system's messenger refuses.",
+  "statSession": "Session",
+  "copiedToClipboard": "Copied to clipboard",
+  "wnTotalsAdded": "The home shows what the session moved in total, and a tap copies the public IP.",
+  "wnPolishImproved": "The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed."
 }

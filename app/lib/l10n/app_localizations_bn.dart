@@ -697,7 +697,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get testDelay => 'আসল ডিলে পরীক্ষা করুন';
 
   @override
-  String get testingDelay => 'পরীক্ষা চলছে… এতে এক মিনিট লাগতে পারে';
+  String get testingDelay => 'মাপা হচ্ছে…';
 
   @override
   String get search => 'খুঁজুন';
@@ -2039,4 +2039,10 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'অ্যাপ আর খুলতেই নিজে থেকে বন্ধ হয় না: বিজ্ঞপ্তির পতাকার ছবি এমন একটি মান পাঠাত যা সিস্টেমের বার্তাবাহক গ্রহণ করত না।';
+
+  @override
+  String get statSession => 'সেশন';
+  String get copiedToClipboard => 'ক্লিপবোর্ডে কপি হয়েছে';
+  String get wnTotalsAdded => 'হোম পাতা সেশনে মোট কত ডেটা গেল তা দেখায়, আর এক ট্যাপে পাবলিক আইপি কপি হয়।';
+  String get wnPolishImproved => 'পতাকার চাকা ও সার্ভার পাতা আরও গোছানো; লেখা সংক্ষিপ্ত, আর Android টানেল বেশি গতিতে ট্রাফিক বহন করে।';
 }

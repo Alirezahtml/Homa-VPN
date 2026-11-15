@@ -830,8 +830,16 @@ class CoreService : VpnService() {
                 .map { String(Character.toChars(0x1F1E6 + (it - 'A'))) }
                 .joinToString("")
 
-        /** The VPN interface's MTU, which the tunnel gets too. */
-        private const val MTU = 1500
+        /**
+         * The VPN interface's MTU, which the tunnel gets too. 8500, not
+         * the line's 1500: the packets cross no wire here — the tunnel
+         * reads them and forwards them over the loopback to the core —
+         * so a bigger MTU just means fewer, bigger reads, and a download
+         * moves with a fraction of the per-packet work (the desktop's own
+         * TUN runs 9000 for the same reason). The real path's limits stay
+         * the outside connection's business, as they were.
+         */
+        private const val MTU = 8500
 
         /** The core was last told that no network is connected. */
         @Volatile

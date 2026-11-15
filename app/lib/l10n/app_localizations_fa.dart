@@ -694,7 +694,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get testDelay => 'تست تأخیر واقعی';
 
   @override
-  String get testingDelay => 'در حال تست… ممکن است یک دقیقه طول بکشد';
+  String get testingDelay => 'در حال اندازه‌گیری…';
 
   @override
   String get search => 'جستجو';
@@ -2030,4 +2030,10 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'برنامه دیگر هنگام باز شدن خودش را بیرون نمی‌اندازد: هنر پرچم اعلان مقداری را برمی‌گرداند که پیام‌رسان سیستم نمی‌پذیرفت.';
+
+  @override
+  String get statSession => 'نشست';
+  String get copiedToClipboard => 'در حافظه کپی شد';
+  String get wnTotalsAdded => 'خانه مجموع آنچه در این نشست رد و بدل شد را نشان می‌دهد، و یک لمس، IP عمومی را کپی می‌کند.';
+  String get wnPolishImproved => 'چرخ پرچم‌ها و صفحهٔ سرورها مرتب‌تر نشسته‌اند؛ متن‌ها فشرده‌ترند و تونل اندروید با سرعت بیشتری ترافیک را می‌برد.';
 }

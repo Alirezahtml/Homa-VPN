@@ -702,7 +702,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get testDelay => 'Valós késleltetés mérése';
 
   @override
-  String get testingDelay => 'Tesztelés… ez egy percig is eltarthat';
+  String get testingDelay => 'Mérés…';
 
   @override
   String get search => 'Keresés';
@@ -2059,4 +2059,10 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Az alkalmazás már nem zárja be magát megnyitáskor: az értesítés zászlóképe olyan értéket adott vissza, amelyet a rendszer üzenetközvetítője nem fogad el.';
+
+  @override
+  String get statSession => 'Munkamenet';
+  String get copiedToClipboard => 'A vágólapra másolva';
+  String get wnTotalsAdded => 'A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.';
+  String get wnPolishImproved => 'A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.';
 }

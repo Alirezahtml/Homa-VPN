@@ -697,7 +697,7 @@ class AppLocalizationsAz extends AppLocalizations {
   String get testDelay => 'Real gecikməni yoxla';
 
   @override
-  String get testingDelay => 'Yoxlanılır… bu bir dəqiqə çəkə bilər';
+  String get testingDelay => 'Ölçülür…';
 
   @override
   String get search => 'Axtar';
@@ -2045,4 +2045,10 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Tətbiq artıq açılanda özünü çıxarmır: bildirişin bayraq şəkli sistemin mesajlaşmasının qəbul etmədiyi bir dəyər qaytarırdı.';
+
+  @override
+  String get statSession => 'Sessiya';
+  String get copiedToClipboard => 'Buferə köçürüldü';
+  String get wnTotalsAdded => 'Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.';
+  String get wnPolishImproved => 'Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.';
 }

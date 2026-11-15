@@ -47,7 +47,7 @@ class FlagCarousel extends StatefulWidget {
 }
 
 class _FlagCarouselState extends State<FlagCarousel>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   List<Location>? _locations;
   PageController? _controller;
   bool _moving = false;
@@ -67,6 +67,7 @@ class _FlagCarouselState extends State<FlagCarousel>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _load();
     widget.core.addListener(_followSoon);
     // The cards size themselves by their page's distance from the
@@ -80,7 +81,21 @@ class _FlagCarouselState extends State<FlagCarousel>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // A hidden window stops the breath: an endless animation redraws
+    // every frame, and the orb's own note says one of those kept a CPU
+    // core busy even with the window hidden in the tray.
+    if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      _breath.stop();
+    } else if (state == AppLifecycleState.resumed) {
+      if (!_breath.isAnimating) _breath.repeat(reverse: true);
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     widget.core.removeListener(_followSoon);
     _controller?.dispose();
     _breath.dispose();
@@ -126,16 +141,19 @@ class _FlagCarouselState extends State<FlagCarousel>
       _entriesFor(l, _locations ?? const <Location>[]);
 
   List<Location> _entriesFor(AppLocalizations l, List<Location> all) {
-    final recommended = all.where((loc) => isRecommendedPlace(loc.code)).toList();
-    final countries = [
-      for (final loc in all)
-        if (!isRecommendedPlace(loc.code)) loc,
-    ]..sort(
-      (a, b) => nameSortKey(
-        l.localeName,
-        locationName(l, a.code, a.name),
-      ).compareTo(nameSortKey(l.localeName, locationName(l, b.code, b.name))),
-    );
+    final recommended = all
+        .where((loc) => isRecommendedPlace(loc.code))
+        .toList();
+    final countries =
+        [
+          for (final loc in all)
+            if (!isRecommendedPlace(loc.code)) loc,
+        ]..sort(
+          (a, b) => nameSortKey(l.localeName, locationName(l, a.code, a.name))
+              .compareTo(
+                nameSortKey(l.localeName, locationName(l, b.code, b.name)),
+              ),
+        );
     return [...recommended, ...countries];
   }
 
@@ -191,9 +209,7 @@ class _FlagCarouselState extends State<FlagCarousel>
     final index = _indexOf(entries, _selection);
     final centered = index >= 0 ? entries[index] : null;
     final dark = Theme.of(context).brightness == Brightness.dark;
-    return Column(
-      children: [_wheel(entries, dark), _name(l, centered, dark)],
-    );
+    return Column(children: [_wheel(entries, dark), _name(l, centered, dark)]);
   }
 
   Widget _wheel(List<Location> entries, bool dark) {
@@ -230,11 +246,15 @@ class _FlagCarouselState extends State<FlagCarousel>
                         gradient: RadialGradient(
                           colors: [
                             accent.withValues(
-                              alpha: (dark ? 0.22 : 0.15) * glow *
+                              alpha:
+                                  (dark ? 0.22 : 0.15) *
+                                  glow *
                                   (0.75 + 0.25 * breathe),
                             ),
                             accent.withValues(
-                              alpha: (dark ? 0.10 : 0.06) * glow *
+                              alpha:
+                                  (dark ? 0.10 : 0.06) *
+                                  glow *
                                   (0.75 + 0.25 * breathe),
                             ),
                             accent.withValues(alpha: 0.0),
@@ -318,43 +338,42 @@ class _FlagCarouselState extends State<FlagCarousel>
   /// The chosen country's name under the flags, in white, arriving with a
   /// slide and a small growth; the fastest choice has no country, and
   /// keeps its own line empty rather than naming another.
-  Widget _name(AppLocalizations l, Location? centered, bool dark) =>
-      SizedBox(
-        height: 32,
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          switchInCurve: Curves.easeOutCubic,
-          switchOutCurve: Curves.easeIn,
-          transitionBuilder: (child, anim) => FadeTransition(
-            opacity: anim,
-            child: SlideTransition(
-              position: Tween(
-                begin: const Offset(0, 0.5),
-                end: Offset.zero,
-              ).animate(anim),
-              child: ScaleTransition(
-                scale: Tween(begin: 0.94, end: 1.0).animate(anim),
-                child: child,
-              ),
-            ),
-          ),
-          child: Text(
-            centered == null
-                ? (_selection == 'fastest' ? l.modeFastest : '')
-                : locationName(l, centered.code, centered.name),
-            key: ValueKey(centered?.code ?? _selection),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: dark ? Colors.white : widget.text,
-              fontWeight: FontWeight.w800,
-              fontSize: 17,
-              letterSpacing: 0.3,
-            ),
+  Widget _name(AppLocalizations l, Location? centered, bool dark) => SizedBox(
+    height: 32,
+    child: AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeIn,
+      transitionBuilder: (child, anim) => FadeTransition(
+        opacity: anim,
+        child: SlideTransition(
+          position: Tween(
+            begin: const Offset(0, 0.5),
+            end: Offset.zero,
+          ).animate(anim),
+          child: ScaleTransition(
+            scale: Tween(begin: 0.94, end: 1.0).animate(anim),
+            child: child,
           ),
         ),
-      );
+      ),
+      child: Text(
+        centered == null
+            ? (_selection == 'fastest' ? l.modeFastest : '')
+            : locationName(l, centered.code, centered.name),
+        key: ValueKey(centered?.code ?? _selection),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: dark ? Colors.white : widget.text,
+          fontWeight: FontWeight.w800,
+          fontSize: 17,
+          letterSpacing: 0.3,
+        ),
+      ),
+    ),
+  );
 }
 
 /// One card of the wheel. The chosen one, in the middle: bigger, inside a
@@ -400,11 +419,12 @@ class _FlagCard extends StatelessWidget {
     final height = width * 3 / 4;
     final radius = 8.0 + 7.0 * math.exp(-1.35 * distance);
     // The arc: the neighbors sit a touch lower the further they are, so
-    // the row bends like a wheel seen a little from above.
-    final dip = 3.0 + 9.0 * math.min(1.0, distance);
+    // the row bends gently — a wheel in perspective, not a scatter: a
+    // deep dip and a wide turn read as a mess of flags, not a wheel.
+    final dip = 2.0 + 6.0 * math.min(1.0, distance);
     // The turn: the neighbors face the middle by a few degrees, in
     // perspective (a hair of it, not a cover flow).
-    final turn = -0.07 * math.min(1.2, distance) * side;
+    final turn = -0.055 * math.min(1.2, distance) * side;
     final scheme = Theme.of(context).colorScheme;
 
     final card = InkWell(
@@ -535,11 +555,16 @@ class _FlagCard extends StatelessWidget {
       );
     }
     if (bundledFlags.contains(code.toLowerCase())) {
-      return SvgPicture.asset(
-        'assets/flags/${code.toLowerCase()}.svg',
-        width: width,
-        height: width * 3 / 4,
-        fit: BoxFit.cover,
+      // The boundary keeps the flag's raster while the wheel's breath
+      // recomposes the frame around it: the art repaints only when it
+      // really changes, not on every tick.
+      return RepaintBoundary(
+        child: SvgPicture.asset(
+          'assets/flags/${code.toLowerCase()}.svg',
+          width: width,
+          height: width * 3 / 4,
+          fit: BoxFit.cover,
+        ),
       );
     }
     // Not carried: from the core, the code until it arrives.
@@ -579,11 +604,13 @@ class _Reflection extends StatelessWidget {
         ),
       );
     } else if (bundledFlags.contains(code.toLowerCase())) {
-      art = SvgPicture.asset(
-        'assets/flags/${code.toLowerCase()}.svg',
-        width: width,
-        height: height,
-        fit: BoxFit.cover,
+      art = RepaintBoundary(
+        child: SvgPicture.asset(
+          'assets/flags/${code.toLowerCase()}.svg',
+          width: width,
+          height: height,
+          fit: BoxFit.cover,
+        ),
       );
     }
     if (art == null) return const SizedBox.shrink();
@@ -595,9 +622,15 @@ class _Reflection extends StatelessWidget {
         shaderCallback: (bounds) => const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color.fromRGBO(255, 255, 255, 0.30), Color.fromRGBO(0, 0, 0, 0)],
+          colors: [
+            Color.fromRGBO(255, 255, 255, 0.30),
+            Color.fromRGBO(0, 0, 0, 0),
+          ],
         ).createShader(bounds),
-        child: Transform(transform: Matrix4.identity()..scaleByDouble(1.0, -1.0, 1.0, 1.0), child: art),
+        child: Transform(
+          transform: Matrix4.identity()..scaleByDouble(1.0, -1.0, 1.0, 1.0),
+          child: art,
+        ),
       ),
     );
   }
@@ -671,16 +704,19 @@ class _FlagStripState extends State<FlagStrip> {
 
   List<Location> _entries(AppLocalizations l) {
     final all = _locations ?? const <Location>[];
-    final recommended = all.where((loc) => isRecommendedPlace(loc.code)).toList();
-    final countries = [
-      for (final loc in all)
-        if (!isRecommendedPlace(loc.code)) loc,
-    ]..sort(
-      (a, b) => nameSortKey(
-        l.localeName,
-        locationName(l, a.code, a.name),
-      ).compareTo(nameSortKey(l.localeName, locationName(l, b.code, b.name))),
-    );
+    final recommended = all
+        .where((loc) => isRecommendedPlace(loc.code))
+        .toList();
+    final countries =
+        [
+          for (final loc in all)
+            if (!isRecommendedPlace(loc.code)) loc,
+        ]..sort(
+          (a, b) => nameSortKey(l.localeName, locationName(l, a.code, a.name))
+              .compareTo(
+                nameSortKey(l.localeName, locationName(l, b.code, b.name)),
+              ),
+        );
     return [...recommended, ...countries];
   }
 

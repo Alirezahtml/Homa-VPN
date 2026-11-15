@@ -13,47 +13,30 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.34' => [
+    (title: l.whatsNewAdded, lines: [l.wnTotalsAdded]),
+    (title: l.whatsNewImproved, lines: [l.wnPolishImproved]),
+  ],
   '1.0.33' => [
-    (
-      title: l.whatsNewFixed,
-      lines: [l.wnFlagArtFixed],
-    ),
+    (title: l.whatsNewFixed, lines: [l.wnFlagArtFixed]),
   ],
   '1.0.32' => [
-    (
-      title: l.whatsNewFixed,
-      lines: [l.wnCrashFixed],
-    ),
+    (title: l.whatsNewFixed, lines: [l.wnCrashFixed]),
   ],
   '1.0.31' => [
-    (
-      title: l.whatsNewAdded,
-      lines: [l.wnDesignAdded, l.wnFlagNotifAdded],
-    ),
-    (
-      title: l.whatsNewImproved,
-      lines: [l.wnMapAdded, l.wnWheelAdded],
-    ),
-    (
-      title: l.whatsNewRemoved,
-      lines: [l.wnColorRemoved],
-    ),
+    (title: l.whatsNewAdded, lines: [l.wnDesignAdded, l.wnFlagNotifAdded]),
+    (title: l.whatsNewImproved, lines: [l.wnMapAdded, l.wnWheelAdded]),
+    (title: l.whatsNewRemoved, lines: [l.wnColorRemoved]),
   ],
   '1.0.30' => [
-    (
-      title: l.whatsNewImproved,
-      lines: [l.wnWheelImproved, l.wnLiveImproved],
-    ),
-    (
-      title: l.whatsNewFixed,
-      lines: [l.wnL10nFixed, l.wnMarkFixed],
-    ),
+    (title: l.whatsNewImproved, lines: [l.wnWheelImproved, l.wnLiveImproved]),
+    (title: l.whatsNewFixed, lines: [l.wnL10nFixed, l.wnMarkFixed]),
   ],
   _ => const [],
 };
 
 /// The versions that carry a page (every language has it at once).
-const _whatsNewVersions = {'1.0.30', '1.0.31', '1.0.32', '1.0.33'};
+const _whatsNewVersions = {'1.0.30', '1.0.31', '1.0.32', '1.0.33', '1.0.34'};
 
 /// Whether this version's page is still waiting to be seen.
 bool whatsNewPending(AppSettings settings) =>
@@ -124,10 +107,7 @@ class WhatsNewDialog extends StatelessWidget {
                       children: [
                         const Text('•  '),
                         Expanded(
-                          child: Text(
-                            line,
-                            style: theme.textTheme.bodyMedium,
-                          ),
+                          child: Text(line, style: theme.textTheme.bodyMedium),
                         ),
                       ],
                     ),

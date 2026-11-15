@@ -703,7 +703,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get testDelay => 'Tester la latence réelle';
 
   @override
-  String get testingDelay => 'Test en cours… cela peut prendre une minute';
+  String get testingDelay => 'Mesure…';
 
   @override
   String get search => 'Rechercher';
@@ -2065,4 +2065,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'L\'application ne se ferme plus d\'elle-même à l\'ouverture : l\'image du drapeau de la notification renvoyait une valeur que le messager du système refuse.';
+
+  @override
+  String get statSession => 'Session';
+  String get copiedToClipboard => 'Copié dans le presse-papiers';
+  String get wnTotalsAdded => 'La page d\'accueil montre le total déplacé par la session, et un appui copie l\'IP publique.';
+  String get wnPolishImproved => 'La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite.';
 }

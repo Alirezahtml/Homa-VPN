@@ -696,7 +696,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get testDelay => 'Uji ping asli';
 
   @override
-  String get testingDelay => 'Menguji… bisa sampai satu menit';
+  String get testingDelay => 'Mengukur…';
 
   @override
   String get search => 'Cari';
@@ -2044,4 +2044,10 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wnFlagArtFixed =>
       'Aplikasi tidak lagi mengeluarkan dirinya saat dibuka: gambar bendera notifikasi menjawab dengan nilai yang ditolak sistem.';
+
+  @override
+  String get statSession => 'Sesi';
+  String get copiedToClipboard => 'Disalin ke papan klip';
+  String get wnTotalsAdded => 'Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.';
+  String get wnPolishImproved => 'Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.';
 }

@@ -1122,10 +1122,11 @@ class _PhoneHome extends StatelessWidget {
                   accent: status.state.phase == Phase.running
                       ? p.connected
                       : p.idle,
-                  selected: (status.exit?.countryCode.isNotEmpty == true
-                          ? status.exit!.countryCode
-                          : status.selection)
-                      .toUpperCase(),
+                  selected:
+                      (status.exit?.countryCode.isNotEmpty == true
+                              ? status.exit!.countryCode
+                              : status.selection)
+                          .toUpperCase(),
                   animated: status.state.phase == Phase.running,
                 ),
               ),
@@ -1393,6 +1394,13 @@ class _PhoneHome extends StatelessWidget {
                   icon: Icons.public_rounded,
                   label: l.publicIp,
                   value: ltr(ip),
+                  // The address is the kind of thing a report needs: a
+                  // tap carries it to the clipboard, and a word says so.
+                  onTap: () => _copyPublicIp(context, ip),
+                  trailing: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 8),
+                    child: Icon(Icons.copy_rounded, size: 14, color: p.muted),
+                  ),
                 ),
               ),
             if (status.upstreamProxy.isNotEmpty)
@@ -1799,7 +1807,7 @@ class _HomeStats extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         // The live rates, until the setting turns them off.
-        if (showTraffic)
+        if (showTraffic) ...[
           stat(
             card(
               Icons.south_rounded,
@@ -1812,6 +1820,19 @@ class _HomeStats extends StatelessWidget {
               Text(formatRate(traffic?.upRate ?? 0)),
             ),
           ),
+          const SizedBox(height: 12),
+          // What the whole session moved, through the tunnel and routed
+          // directly: the rates say how fast, this says how much.
+          _HomeRow(
+            palette: p,
+            icon: Icons.swap_vert_rounded,
+            label: l.statSession,
+            value:
+                '↓ ${formatBytes((traffic?.down ?? 0) + (traffic?.directDown ?? 0))}'
+                ' · '
+                '↑ ${formatBytes((traffic?.up ?? 0) + (traffic?.directUp ?? 0))}',
+          ),
+        ],
       ],
     );
   }
@@ -1938,26 +1959,45 @@ class _ElapsedTextState extends State<_ElapsedText> {
   }
 }
 
+/// Copies the exit's public IP for the user's clipboard, and says so: an
+/// address is the kind of thing a report or a check needs by hand.
+void _copyPublicIp(BuildContext context, String ip) {
+  Clipboard.setData(ClipboardData(text: ip));
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context).copiedToClipboard),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+}
+
 /// A full-width stat row: an icon, a muted label, then the value, all in
-/// one quiet card.
+/// one quiet card. A row with [onTap] answers a tap (the public IP's
+/// copy), with [trailing] a small mark after the value.
 class _HomeRow extends StatelessWidget {
   const _HomeRow({
     required this.palette,
     required this.icon,
     required this.label,
     required this.value,
+    this.onTap,
+    this.trailing,
   });
 
   final _HomePalette palette;
   final IconData icon;
   final String label;
   final String value;
+  final VoidCallback? onTap;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
     final p = palette;
     final theme = Theme.of(context);
-    return Container(
+    final child = Container(
       padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
       decoration: BoxDecoration(
         color: p.card,
@@ -1981,7 +2021,17 @@ class _HomeRow extends StatelessWidget {
               color: p.text,
             ),
           ),
+          ?trailing,
         ],
+      ),
+    );
+    if (onTap == null) return child;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: child,
       ),
     );
   }
@@ -3078,7 +3128,9 @@ class _BentoConnectBar extends StatelessWidget {
                     boxShadow: on
                         ? [
                             BoxShadow(
-                              color: accent.withValues(alpha: p.dark ? 0.42 : 0.3),
+                              color: accent.withValues(
+                                alpha: p.dark ? 0.42 : 0.3,
+                              ),
                               blurRadius: 24,
                               spreadRadius: 1,
                             ),
@@ -3098,8 +3150,8 @@ class _BentoConnectBar extends StatelessWidget {
                         size: 30,
                         color: on
                             ? (accent.computeLuminance() > 0.5
-                                ? Colors.black
-                                : Colors.white)
+                                  ? Colors.black
+                                  : Colors.white)
                             : p.muted,
                       ),
                     ],
@@ -3308,6 +3360,17 @@ class _FlatStats extends StatelessWidget {
                   icon: Icons.north_rounded,
                   label: l.statUp,
                   value: Text(formatRate(traffic?.upRate ?? 0)),
+                ),
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.swap_vert_rounded,
+                  label: l.statSession,
+                  value: Text(
+                    '↓ ${formatBytes((traffic?.down ?? 0) + (traffic?.directDown ?? 0))}'
+                    ' · '
+                    '↑ ${formatBytes((traffic?.up ?? 0) + (traffic?.directUp ?? 0))}',
+                  ),
                 ),
               ],
             ],
