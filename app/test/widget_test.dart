@@ -2404,12 +2404,20 @@ void main() {
     await settle(tester);
     expect(find.text('DNS'), findsOneWidget);
 
-    // The accounts page says where to make an account.
+    // The accounts page says where to make an account. The month's
+    // usage hero sits above the cards now, so the guide lives a scroll
+    // below the fold — the page reads like a page, not a list of asserts.
     await tester.tap(
       find.descendant(
         of: find.byType(NavigationRail),
         matching: find.text('Accounts'),
       ),
+    );
+    await settle(tester);
+    await tester.scrollUntilVisible(
+      find.text("Don't have a Firefox Account?"),
+      300,
+      scrollable: find.byType(ListView).first,
     );
     await settle(tester);
     expect(find.text("Don't have a Firefox Account?"), findsOneWidget);
