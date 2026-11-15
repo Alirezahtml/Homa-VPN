@@ -647,15 +647,25 @@ class _SlideToConnectState extends State<SlideToConnect>
                                           )
                                         : AnimatedSwitcher(
                                             duration: const Duration(
-                                              milliseconds: 220,
+                                              milliseconds: 260,
                                             ),
-                                            switchInCurve: Curves.easeOutBack,
-                                            switchOutCurve: Curves.easeIn,
+                                            switchInCurve: Curves.easeOutCubic,
+                                            switchOutCurve: Curves.easeInCubic,
+                                            // A fade-through: the old mark
+                                            // shrinks a shade as it leaves
+                                            // while the new one grows the
+                                            // last of its way in, both
+                                            // always partly there — the
+                                            // knob's mark never blinks out
+                                            // between its two selves.
                                             transitionBuilder: (child, anim) =>
-                                                ScaleTransition(
-                                                  scale: anim,
-                                                  child: FadeTransition(
-                                                    opacity: anim,
+                                                FadeTransition(
+                                                  opacity: anim,
+                                                  child: ScaleTransition(
+                                                    scale: Tween(
+                                                      begin: 0.86,
+                                                      end: 1.0,
+                                                    ).animate(anim),
                                                     child: child,
                                                   ),
                                                 ),

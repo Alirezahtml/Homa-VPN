@@ -34,6 +34,7 @@ class FlagCarousel extends StatefulWidget {
     required this.border,
     this.onOpenServers,
     this.still = false,
+    this.showName = false,
   });
 
   final CoreController core;
@@ -47,6 +48,12 @@ class FlagCarousel extends StatefulWidget {
   /// shelf hold one pose — while the flags themselves still answer the
   /// hand. Nothing the choosing needs is touched.
   final bool still;
+
+  /// Whether the chosen country's name shows under the wheel: the flat
+  /// map kinds carry it there, where no floating card names the country;
+  /// the ball kinds name it on their own card, so the wheel carries no
+  /// second copy of it for them.
+  final bool showName;
 
   @override
   State<FlagCarousel> createState() => _FlagCarouselState();
@@ -262,21 +269,29 @@ class _FlagCarouselState extends State<FlagCarousel>
   Widget build(BuildContext context) {
     final entries = _entries(AppLocalizations.of(context));
     if (_locations == null || entries.isEmpty) {
-      // The name lives on the globe's floating card alone now: the wheel
-      // keeps only its height, no second copy of it under the flags.
-      return const SizedBox(height: 190);
+      // No countries yet: the wheel keeps its own room while the core
+      // answers, the name's seat with it.
+      return SizedBox(height: widget.showName ? 226 : 190);
     }
+    final l = AppLocalizations.of(context);
     final dark = Theme.of(context).brightness == Brightness.dark;
+    final index = _indexOf(entries, _selection);
+    final centered = index >= 0 ? entries[index] : null;
     return Column(
       children: [
         _wheel(entries, dark),
-        // The position markers ride up toward the flags: where the wheel's
-        // own shelf sits, close enough that the lit pill reads as part of
-        // the flags it points at, not a row under them.
+        // The position markers ride up toward the flags: tucked into the
+        // wheel's own shelf, a breath under the chosen card, so the lit
+        // pill reads as part of the flags it points at, not a row under
+        // them.
         Transform.translate(
-          offset: const Offset(0, -10),
+          offset: const Offset(0, -24),
           child: _indicators(entries, dark),
         ),
+        // The chosen country's name under the flags — only where the
+        // home's map is one of the flat kinds, which have no floating
+        // card of their own to say it.
+        if (widget.showName) _name(l, centered, dark),
       ],
     );
   }
@@ -501,6 +516,55 @@ class _FlagCarouselState extends State<FlagCarousel>
       ),
     );
   }
+
+  /// The chosen country's name under the flags, arriving with a soft
+  /// rise and a settled growth — never a pop: the old word fades out
+  /// where it stands while the new one rises into its place, so the
+  /// change reads as one name turning into another.
+  Widget _name(AppLocalizations l, Location? centered, bool dark) =>
+      SizedBox(
+        height: 34,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 340),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, anim) => FadeTransition(
+            opacity: anim,
+            child: SlideTransition(
+              position: Tween(
+                begin: const Offset(0, 0.35),
+                end: Offset.zero,
+              ).animate(anim),
+              child: ScaleTransition(
+                scale: Tween(begin: 0.96, end: 1.0).animate(anim),
+                child: child,
+              ),
+            ),
+          ),
+          layoutBuilder: (current, previous) => Stack(
+            alignment: Alignment.center,
+            children: [
+              if (previous != null) previous,
+              if (current != null) current,
+            ],
+          ),
+          child: Text(
+            centered == null
+                ? (_selection == 'fastest' ? l.modeFastest : '')
+                : locationName(l, centered.code, centered.name),
+            key: ValueKey(centered?.code ?? _selection),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: dark ? Colors.white : widget.text,
+              fontWeight: FontWeight.w800,
+              fontSize: 17,
+              letterSpacing: 0.3,
+            ),
+          ),
+        ),
+      );
 }
 
 /// One card of the wheel. The chosen one, in the middle: bigger and the

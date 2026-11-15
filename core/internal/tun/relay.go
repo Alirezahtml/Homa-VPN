@@ -41,13 +41,25 @@ func SOCKS5Dialer(addr, user, password string) (Dialer, error) {
 // closeWriter is a connection that can end its sending half.
 type closeWriter interface{ CloseWrite() error }
 
+// relayBuffer is one copy's window: 64 KB, the same size the proxy's own
+// relays carry. A bigger window keeps a fast path filled between reads —
+// the loop's traffic rides at the pipe's own pace, not the default 32 KB
+// read-by-read.
+const relayBufferSize = 64 * 1024
+
+var relayBufferPool = sync.Pool{
+	New: func() any { return make([]byte, relayBufferSize) },
+}
+
 // Relay copies between a and b until both directions end, passing on each
 // end of stream as a half close, then closes both.
 func Relay(a, b net.Conn) {
 	var wg sync.WaitGroup
 	copyHalf := func(dst, src net.Conn) {
 		defer wg.Done()
-		_, _ = io.Copy(dst, src)
+		buf := relayBufferPool.Get().([]byte)
+		_, _ = io.CopyBuffer(dst, src, buf)
+		relayBufferPool.Put(buf)
 		if cw, ok := dst.(closeWriter); ok {
 			_ = cw.CloseWrite()
 		} else {

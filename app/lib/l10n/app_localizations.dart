@@ -3947,11 +3947,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Map type'**
   String get mapKind;
-  /// No description provided for @mapKindHint.
-  ///
-  /// In en, this message translates to:
-  /// **'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the metal ball, or the satellite\'s earth.'**
-  String get mapKindHint;
   /// No description provided for @mapKindClassic.
   ///
   /// In en, this message translates to:
@@ -3972,26 +3967,61 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Flat 2D'**
   String get mapKindFlat;
+  /// No description provided for @mapKindNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get mapKindNight;
+  /// No description provided for @mapKindTerrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Terrain'**
+  String get mapKindTerrain;
+  /// No description provided for @mapKindHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the night earth, the terrain earth, the metal ball, or the satellite\'s earth. The borders are the real, official ones in every kind.'**
+  String get mapKindHint;
+  /// No description provided for @wn40MapKindsNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Two new map finishes: the night earth and the terrain earth.'**
+  String get wn40MapKindsNew;
+  /// No description provided for @wn40Flight.
+  ///
+  /// In en, this message translates to:
+  /// **'The 3D globe flies to the new country in one smooth turn — never a jump.'**
+  String get wn40Flight;
+  /// No description provided for @wn40Mercator.
+  ///
+  /// In en, this message translates to:
+  /// **'The flat maps draw in the standard Mercator projection: true proportions, standard borders, nothing squeezed.'**
+  String get wn40Mercator;
+  /// No description provided for @wn40NameBack.
+  ///
+  /// In en, this message translates to:
+  /// **'The chosen country\'s name is back under the flags on the flat maps.'**
+  String get wn40NameBack;
+  /// No description provided for @wn40Speed.
+  ///
+  /// In en, this message translates to:
+  /// **'The tunnel now opens two parallel sessions by default — a stronger, steadier line.'**
+  String get wn40Speed;
+  /// No description provided for @wn40LockFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The connect button\'s lock no longer blinks out between its states.'**
+  String get wn40LockFixed;
+  /// No description provided for @wn40IpRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The IP popup on the location card is gone.'**
+  String get wn40IpRemoved;
   /// No description provided for @mapStyleGlobeHint.
   ///
   /// In en, this message translates to:
   /// **'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.'**
   String get mapStyleGlobeHint;
-  /// No description provided for @showExitIp.
-  ///
-  /// In en, this message translates to:
-  /// **'Show this country\'s IP'**
-  String get showExitIp;
-  /// No description provided for @copyIp.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy IP'**
-  String get copyIp;
-  /// No description provided for @exitIpHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Connect, and the eye shows the address this country\'s traffic leaves from — ready to copy.'**
-  String get exitIpHint;
   /// No description provided for @aboutVersions.
   ///
   /// In en, this message translates to:

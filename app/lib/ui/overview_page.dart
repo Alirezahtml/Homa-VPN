@@ -889,89 +889,8 @@ class _PlaceCard extends StatelessWidget {
   final _HomePalette palette;
   final HomePlace place;
   final Color accent;
-
-  /// The connection's exit address: what the eye shows when it is here.
-  final String exitIp;
-
-  /// Whether the VPN is up: without it, the eye says the address comes
-  /// with the connection.
-  final bool connected;
   final VoidCallback? onTap;
   final bool compact;
-
-  /// The eye: the card names the country; the eye opens a small sheet
-  /// with the address the traffic leaves from, and a tap of it carries
-  /// the address to the clipboard.
-  void _showExitIp(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final ip = exitIp;
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: CountryFlag(code: place.flag, width: 36),
-        title: Text(place.name, style: theme.textTheme.titleMedium),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (ip.isNotEmpty) ...[
-              Text(
-                l.publicIp,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 6),
-              // The address itself: selectable by hand, and one tap on
-              // the row's button copies it whole.
-              Text(
-                ltr(ip),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4,
-                ),
-                textDirection: TextDirection.ltr,
-              ),
-              const SizedBox(height: 14),
-              FilledButton.tonalIcon(
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: ip));
-                  showToast(
-                    context,
-                    l.copiedToClipboard,
-                    mark: ToastMark.copy,
-                  );
-                },
-                icon: const Icon(Icons.copy_rounded, size: 16),
-                label: Text(l.copyIp),
-              ),
-            ] else ...[
-              Icon(
-                Icons.public_off_rounded,
-                size: 28,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                l.exitIpHint,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l.close),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1032,19 +951,6 @@ class _PlaceCard extends StatelessWidget {
                 ],
               ),
             ),
-            // The eye: the address this country's traffic leaves from,
-            // shown and copied on a tap. It stands here whatever the
-            // connection says; the sheet it opens explains itself.
-            IconButton(
-              visualDensity: VisualDensity.compact,
-              tooltip: lExitIp(context),
-              onPressed: () => _showExitIp(context),
-              icon: Icon(
-                Icons.visibility_outlined,
-                size: compact ? 18 : 20,
-                color: p.muted,
-              ),
-            ),
             if (onTap != null)
               Icon(Icons.chevron_right_rounded, color: p.muted),
           ],
@@ -1052,9 +958,6 @@ class _PlaceCard extends StatelessWidget {
       ),
     );
   }
-
-  String lExitIp(BuildContext context) =>
-      AppLocalizations.of(context).showExitIp;
 }
 
 class _HomePalette {
@@ -1194,6 +1097,11 @@ class _PhoneHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = _homePalette(Theme.of(context).brightness);
     final l = AppLocalizations.of(context);
+    // The home's map kind, read once: the world carries it, and the
+    // wheel's name rides on whether the kind has a floating card of its
+    // own (the ball kinds) or not (the flat kinds).
+    final mapKind = MapKind.values.asNameMap()[settings.mapKind] ??
+        MapKind.classic;
     final page = AnnotatedRegion<SystemUiOverlayStyle>(
       value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
           .copyWith(statusBarColor: Colors.transparent),
@@ -1222,23 +1130,27 @@ class _PhoneHome extends StatelessWidget {
                           ? status.exit!.countryCode
                           : status.selection)
                       .toUpperCase();
-                  return WorldBackdrop(
-                    kind: MapKind.values.asNameMap()[settings.mapKind] ??
-                        MapKind.classic,
-                    countries: snapshot.data ?? const [],
-                    accent: status.state.phase == Phase.running
-                        ? p.connected
-                        : p.idle,
-                    selected: selectedCode,
-                    animated: status.state.phase == Phase.running,
-                    dark: p.dark,
-                    label: selectedCode.length == 2
-                        ? countryName(l, selectedCode)
-                        : '',
-                    style: GlobeStyle.values
-                        .asNameMap()[settings.mapStyle] ??
-                        GlobeStyle.silver,
-                    still: settings.batterySaver,
+                  // A boundary of its own: the map redraws every frame it
+                  // breathes, and this keeps that redraw inside the map —
+                  // the page's own content never repaints for it.
+                  return RepaintBoundary(
+                    child: WorldBackdrop(
+                      kind: mapKind,
+                      countries: snapshot.data ?? const [],
+                      accent: status.state.phase == Phase.running
+                          ? p.connected
+                          : p.idle,
+                      selected: selectedCode,
+                      animated: status.state.phase == Phase.running,
+                      dark: p.dark,
+                      label: selectedCode.length == 2
+                          ? countryName(l, selectedCode)
+                          : '',
+                      style: GlobeStyle.values
+                          .asNameMap()[settings.mapStyle] ??
+                          GlobeStyle.silver,
+                      still: settings.batterySaver,
+                    ),
                   );
                 },
               ),
@@ -1264,6 +1176,11 @@ class _PhoneHome extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final look = PhaseLook.of(l, status);
+    // The home's map kind here too: the wheel's name rides on whether
+    // the kind has a floating card of its own (the ball kinds) or not
+    // (the flat kinds).
+    final mapKind = MapKind.values.asNameMap()[settings.mapKind] ??
+        MapKind.classic;
     final running = status.state.phase == Phase.running;
     final canSwitch = status.systemProxySupported;
     final width = box.maxWidth;
@@ -1309,11 +1226,6 @@ class _PhoneHome extends StatelessWidget {
         : status.exit?.ipv4.isNotEmpty == true
         ? status.exit!.ipv4
         : status.exit?.ipv6 ?? '';
-    // The eye's own address, whatever the IP row's setting says: the
-    // place card shows it when the user asks for it.
-    final exitIp = status.exit?.ipv4.isNotEmpty == true
-        ? status.exit!.ipv4
-        : status.exit?.ipv6 ?? '';
     final proxyOnly = Platform.isAndroid && AndroidCore.mode.value == 'proxy';
     final accent = !on
         ? p.idle
@@ -1357,14 +1269,18 @@ class _PhoneHome extends StatelessWidget {
             // from; it is the servers page's choice, read from the core.
             Reveal(
               index: 1,
-              child: FlagCarousel(
-                core: core,
-                text: p.text,
-                muted: p.muted,
-                card: p.card,
-                border: p.cardBorder,
-                onOpenServers: onOpenServers,
-                still: settings.batterySaver,
+              child: RepaintBoundary(
+                child: FlagCarousel(
+                  core: core,
+                  text: p.text,
+                  muted: p.muted,
+                  card: p.card,
+                  border: p.cardBorder,
+                  onOpenServers: onOpenServers,
+                  still: settings.batterySaver,
+                  showName: mapKind != MapKind.globe &&
+                      mapKind != MapKind.satellite,
+                ),
               ),
             ),
             const Spacer(),
@@ -1678,8 +1594,6 @@ class _PhoneHome extends StatelessWidget {
                       palette: p,
                       place: place,
                       accent: accent,
-                      exitIp: exitIp,
-                      connected: connected,
                       onTap: onOpenServers,
                       compact: true,
                     ),
@@ -1707,8 +1621,6 @@ class _PhoneHome extends StatelessWidget {
                   palette: p,
                   place: place,
                   accent: accent,
-                  exitIp: exitIp,
-                  connected: connected,
                   onTap: onOpenServers,
                 ),
               ),

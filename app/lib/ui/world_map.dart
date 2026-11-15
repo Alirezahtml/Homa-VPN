@@ -139,6 +139,30 @@ GlobePlace globePlaceOf(WorldCountry c) => GlobePlace(
       c.anchorX / WorldMap.width * 360 - 180,
     );
 
+/// The flat map's projection: the standard Web Mercator every atlas and
+/// every phone's map speaks. North stays north-up, shapes keep the
+/// proportions the eye expects from a real map — nothing squeezed flat
+/// by a 2:1 ribbon, nothing pulled wide at the top of the world. The
+/// file's points arrive in equirectangular degrees; the world's edge is
+/// the projection's own ±85.0511°, the same cut Google's and Apple's
+/// maps draw, so the borders land exactly where a standard map puts
+/// them.
+const mercatorMaxLat = 85.0511287798066;
+
+/// A latitude's row on the Mercator map: 0 at the south edge, [mapH]
+/// the north one. Latitudes past the projection's own edge clamp to it.
+double mercatorYOfLat(double latDeg, double mapH) {
+  final lat = latDeg.clamp(-mercatorMaxLat, mercatorMaxLat);
+  final rad = lat * math.pi / 180;
+  return mapH *
+      (0.5 - math.log(math.tan(math.pi / 4 + rad / 2)) / (2 * math.pi));
+}
+
+/// A point of the world file (its equirectangular units) on a Mercator
+/// map of the given size: x runs linear, y bends by the projection.
+double mercatorYOfWorldY(double yEq, double mapH) =>
+    mercatorYOfLat(90 - yEq / WorldMap.height * 180, mapH);
+
 /// One point of one ring, on the unit sphere: the three numbers every
 /// projection reads. Built once from the world file, never again.
 @immutable
@@ -324,11 +348,20 @@ List<(double, double, double)> greatCirclePath(
 /// - [MapKind.flat]: the same flat projection, a modern finish — the
 ///   land tinted in the connection's light, a deeper shadow, a stronger
 ///   lit country.
+/// - [MapKind.night]: the flat map as it reads after dark — a deep
+///   ocean under the land, the coasts lit faintly, the chosen country
+///   a lamp on the dark water.
+/// - [MapKind.terrain]: the flat map as the ground reads from above —
+///   green land on soft blue water, the way a physical atlas tints it.
 /// - [MapKind.globe]: the metal ball, turned so the chosen country
 ///   faces the viewer.
 /// - [MapKind.satellite]: the ball as the earth reads from orbit — deep
 ///   oceans, green land, drifting clouds.
-enum MapKind { classic, globe, satellite, flat }
+enum MapKind { classic, flat, night, terrain, globe, satellite }
+
+/// The flat map's finishes: how its land and its water take their
+/// color, whatever theme carries them.
+enum FlatFinish { classic, modern, night, terrain }
 
 /// The looks the settings offer for the home's map: six ways to paint
 /// the same real world. Every style carries its own metal, its own land,
@@ -779,7 +812,11 @@ class _WorldGlobeState extends State<WorldGlobe>
     }
     if (old.selected != widget.selected ||
         (!_turned && widget.countries.isNotEmpty)) {
-      _turnTo(widget.selected, animate: old.selected == widget.selected);
+      // A country changed, or the world just arrived: both fly — the
+      // first so the change never snaps, the second so the globe's very
+      // first facing of the chosen country reads as a gentle turn, not
+      // an appearance.
+      _turnTo(widget.selected, animate: true);
     }
   }
 
@@ -800,10 +837,21 @@ class _WorldGlobeState extends State<WorldGlobe>
     _turned = true;
     // The flight starts from wherever the camera rests now — even the
     // middle of a turn already flying — and rides the great circle to
-    // the new country's own anchor.
+    // the new country's own anchor. The ride's length is the journey's:
+    // a short hop is a quick, light turn; a long one gets the room to
+    // read as a journey, both at the same even pace.
     _fromVec = GlobePlace(_currentLat, _currentLon).unit;
     _toVec = country.anchor;
     if (animate && widget.countries.isNotEmpty) {
+      // How far the flight goes: the two views' great-circle angle, read
+      // straight off the unit vectors.
+      final (ax, ay, az) = _fromVec;
+      final (bx, by, bz) = _toVec;
+      final dot = (ax * bx + ay * by + az * bz).clamp(-1.0, 1.0);
+      final angle = math.acos(dot) * 180 / math.pi;
+      _spin.duration = Duration(
+        milliseconds: (700 + 900 * angle / 180).round().clamp(700, 1600),
+      );
       _arrive.reset();
       _spin.forward(from: 0);
     } else {
@@ -1857,17 +1905,16 @@ class WorldShape {
   final ui.Offset anchor;
 }
 
-/// The flat map, as it was before the globe arrived — restored word for
-/// word, and now one of the map's own kinds again. The world is drawn
-/// wider than the page ([scale]), centered where asked, in the theme's
-/// ink, with the graticule over the oceans and the chosen country lit in
-/// the connection's color, its anchor's halo breathing while the VPN
+/// The flat map, in the finish the settings picked — the quiet ink of
+/// the classic, the modern tint, the night water, or the terrain's
+/// greens. The world is drawn in the standard Web Mercator projection,
+/// wider than the page ([scale]), centered where asked, with the
+/// graticule over the water and the chosen country lit in the
+/// connection's color, its anchor's halo breathing while the VPN
 /// carries the traffic.
 ///
-/// [modern] is the flat map's second finish ([MapKind.flat]): the same
-/// projection and the same quiet, but the land reads a shade of the
-/// connection's own light, the coast carries a deeper shadow, and the
-/// lit country stands out more.
+/// [finish] is how the land and water take their color ([FlatFinish]);
+/// the borders themselves stay the official ones in every finish.
 class WorldMapBackdrop extends StatefulWidget {
   const WorldMapBackdrop({
     super.key,
@@ -1876,7 +1923,7 @@ class WorldMapBackdrop extends StatefulWidget {
     required this.accent,
     required this.selected,
     required this.animated,
-    this.modern = false,
+    this.finish = FlatFinish.classic,
     this.alignment = Alignment.center,
     this.scale = 1.45,
   });
@@ -1884,7 +1931,7 @@ class WorldMapBackdrop extends StatefulWidget {
   /// The world, from [WorldMap.load]; empty until it arrives.
   final List<WorldCountry> countries;
 
-  /// The theme's ink: the land's fills and edges read in it.
+  /// The theme's ink: the classic's land and edges read in it.
   final Color ink;
 
   /// The state's color: the chosen country is lit with it.
@@ -1897,8 +1944,8 @@ class WorldMapBackdrop extends StatefulWidget {
   /// carries the traffic; off, everything holds still.
   final bool animated;
 
-  /// The flat map's modern finish: the land tinted in the state's light.
-  final bool modern;
+  /// How the land and water take their color.
+  final FlatFinish finish;
 
   final Alignment alignment;
 
@@ -1928,13 +1975,15 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
     if (widget.countries.isEmpty) return;
     if (identical(_builtFrom, widget.countries) && _builtForW == mapW) return;
     final sx = mapW / WorldMap.width;
-    final sy = mapH / WorldMap.height;
     _shapes = [
       for (final c in widget.countries)
         WorldShape(
           c.code,
-          _pathOf(c, sx, sy),
-          ui.Offset(c.anchorX * sx, c.anchorY * sy),
+          _pathOf(c, sx, mapH),
+          ui.Offset(
+            c.anchorX * sx,
+            mercatorYOfWorldY(c.anchorY, mapH),
+          ),
         ),
     ];
     _builtFrom = widget.countries;
@@ -1943,13 +1992,21 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
 
   /// The country's whole outline, one path for every ring — the fill
   /// runs with an even-odd rule, so a hole shows the country around it.
-  static ui.Path _pathOf(WorldCountry c, double sx, double sy) {
+  /// Every point bends onto the Mercator map: x linear, y by the
+  /// projection, so the shapes land where a standard map draws them.
+  static ui.Path _pathOf(WorldCountry c, double sx, double mapH) {
     final path = ui.Path();
     for (final ring in c.rings) {
       if (ring.isEmpty) continue;
-      path.moveTo(ring.first.dx * sx, ring.first.dy * sy);
+      path.moveTo(
+        ring.first.dx * sx,
+        mercatorYOfWorldY(ring.first.dy, mapH),
+      );
       for (var i = 1; i < ring.length; i++) {
-        path.lineTo(ring[i].dx * sx, ring[i].dy * sy);
+        path.lineTo(
+          ring[i].dx * sx,
+          mercatorYOfWorldY(ring[i].dy, mapH),
+        );
       }
       path.close();
     }
@@ -1990,11 +2047,12 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
           if (box.maxWidth <= 0 || widget.countries.isEmpty) {
             return const SizedBox.expand();
           }
-          // The world is 2:1: it is drawn wider than the page (scale),
-          // floats where asked, and what runs over the page's edge is
-          // clipped — bigger countries, no squeezed ribbon, no bleed.
+          // The Mercator world is its own width tall (the standard
+          // ±85° cut): it is drawn wider than the page (scale), floats
+          // where asked, and what runs over the page's edge is clipped
+          // — bigger countries, real proportions, no bleed.
           final mapW = box.maxWidth * widget.scale;
-          final mapH = mapW / 2;
+          final mapH = mapW;
           _ensureShapes(mapW, mapH);
           return SizedBox.expand(
             child: ClipRect(
@@ -2012,7 +2070,7 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
                         ink: widget.ink,
                         accent: widget.accent,
                         selected: widget.selected,
-                        modern: widget.modern,
+                        finish: widget.finish,
                         t: widget.animated ? _breath.value : 0.5,
                       ),
                     ),
@@ -2027,16 +2085,17 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
   }
 }
 
-/// The flat map's painter: the graticule, the land, the lit country, its
-/// anchor's halo, and a quiet sheen that follows the breath. The paths
-/// arrive built ([WorldShape]); a frame only draws them.
+/// The flat map's painter: the water, the graticule, the land, the lit
+/// country, its anchor's halo, and a quiet sheen that follows the
+/// breath. The paths arrive built ([WorldShape]); a frame only draws
+/// them.
 class _WorldPainter extends CustomPainter {
   _WorldPainter({
     required this.shapes,
     required this.ink,
     required this.accent,
     required this.selected,
-    required this.modern,
+    required this.finish,
     required this.t,
   });
 
@@ -2045,36 +2104,87 @@ class _WorldPainter extends CustomPainter {
   final Color accent;
   final String selected;
 
-  /// The modern finish: the land tints toward the accent, the edges read
-  /// a little stronger, and the lit country carries more light.
-  final bool modern;
+  /// How the land and water take their color.
+  final FlatFinish finish;
   final double t;
 
   @override
   void paint(Canvas canvas, Size size) {
-    // A light ink on the night, a dark one on the day — the map's quiet
-    // is a matter of alpha, not hue, in either theme. The land sits a
-    // shade above the graticule, so a country reads as a shape, not as
-    // noise.
+    // A light ink on the night, a dark one on the day — the classic's
+    // quiet is a matter of alpha, not hue, in either theme. The finishes
+    // carry their own land and water instead: the night's deep water and
+    // slate land, the terrain's greens over soft blue. In every finish
+    // the land sits a shade above the graticule, so a country reads as a
+    // shape, not as noise.
     final dark = ink.computeLuminance() > 0.5;
-    final landColor = modern
-        ? Color.alphaBlend(
-            accent.withValues(alpha: dark ? 0.10 : 0.07),
-            ink.withValues(alpha: dark ? 0.20 : 0.14),
-          )
-        : ink.withValues(alpha: dark ? 0.20 : 0.14);
-    final lineInk = ink.withValues(alpha: dark ? 0.32 : 0.26);
+    final modern = finish == FlatFinish.modern;
+    final (landColor, lineInk) = switch (finish) {
+      FlatFinish.classic => (
+        ink.withValues(alpha: dark ? 0.20 : 0.14),
+        ink.withValues(alpha: dark ? 0.32 : 0.26),
+      ),
+      FlatFinish.modern => (
+        Color.alphaBlend(
+          accent.withValues(alpha: dark ? 0.10 : 0.07),
+          ink.withValues(alpha: dark ? 0.20 : 0.14),
+        ),
+        ink.withValues(alpha: dark ? 0.32 : 0.26),
+      ),
+      FlatFinish.night => (
+        dark ? const Color(0xFF1D2A45) : const Color(0xFF25335A),
+        dark ? const Color(0xFF42567F) : const Color(0xFF4E6392),
+      ),
+      FlatFinish.terrain => (
+        dark ? const Color(0xFF33534A) : const Color(0xFF9DBE93),
+        dark ? const Color(0xFF517A6A) : const Color(0xFF6F9566),
+      ),
+    };
 
-    // The graticule: every 30 degrees, thinner than the land's edge.
+    // The water, where the finish paints it: a wash under everything,
+    // fading to nothing at the map's own top and bottom, so the world
+    // meets the page as a horizon meets the sky — never a hard edge.
+    if (finish != FlatFinish.classic) {
+      final (water, waterFade) = switch (finish) {
+        FlatFinish.night => (
+          dark ? const Color(0xFF0A1526) : const Color(0xFF15233D),
+          dark ? const Color(0xFF060C18) : const Color(0xFF0B1424),
+        ),
+        FlatFinish.terrain => (
+          dark ? const Color(0xFF123047) : const Color(0xFFB5CFE2),
+          dark ? const Color(0xFF0A1D2E) : const Color(0xFFDCE9F2),
+        ),
+        _ => (
+          dark ? ink.withValues(alpha: 0.05) : ink.withValues(alpha: 0.035),
+          dark ? ink.withValues(alpha: 0.0) : ink.withValues(alpha: 0.0),
+        ),
+      };
+      canvas.drawRect(
+        Offset.zero & size,
+        Paint()
+          ..shader = ui.Gradient.linear(
+            Offset(0, 0),
+            Offset(0, size.height),
+            [waterFade, water, water, waterFade],
+            const [0, 0.16, 0.84, 1],
+          ),
+      );
+    }
+
+    // The graticule: meridians every 30 degrees the whole way round, and
+    // the parallels at their own rows on the Mercator map — the lines
+    // bend with the projection, the way a real atlas draws them, thinner
+    // than the land's edge.
     final grid = Paint()
-      ..color = ink.withValues(alpha: dark ? 0.055 : 0.05)
+      ..color = finish == FlatFinish.classic || finish == FlatFinish.modern
+          ? ink.withValues(alpha: dark ? 0.055 : 0.05)
+          : (dark ? Colors.white : Colors.black).withValues(alpha: 0.07)
       ..strokeWidth = 0.6;
-    for (var lon = 0; lon <= 6; lon++) {
-      final x = lon / 6 * size.width;
+    for (var lon = 0; lon <= 12; lon++) {
+      final x = lon / 12 * size.width;
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
     }
-    for (var lat = 0; lat <= 3; lat++) {
-      final y = lat / 3 * size.height;
+    for (final lat in const [60.0, 30.0, 0.0, -30.0, -60.0]) {
+      final y = mercatorYOfLat(lat, size.height);
       canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
     }
 
@@ -2089,7 +2199,7 @@ class _WorldPainter extends CustomPainter {
       }
     }
 
-    // The modern finish lays a breath of shadow under the land first, so
+    // The tinted finishes lay a breath of shadow under the land first, so
     // the continents read lifted off the page the way they do on the
     // globe; the classic keeps its quiet.
     if (modern) {
@@ -2111,7 +2221,7 @@ class _WorldPainter extends CustomPainter {
     final edge = Paint()
       ..color = lineInk
       ..style = PaintingStyle.stroke
-      ..strokeWidth = modern ? 1.0 : 0.9
+      ..strokeWidth = finish == FlatFinish.classic ? 0.9 : 1.0
       ..isAntiAlias = true
       // Rounded joins and caps: the coastlines' corners meet smoothly —
       // the map reads clean at any zoom, never as a jagged wire.
@@ -2133,16 +2243,20 @@ class _WorldPainter extends CustomPainter {
       // more present than the ink's own.
       final fill = Paint()
         ..color = accent.withValues(
-          alpha: modern ? (dark ? 0.36 : 0.28) : (dark ? 0.30 : 0.22),
+          alpha: finish == FlatFinish.classic
+              ? (dark ? 0.30 : 0.22)
+              : (dark ? 0.36 : 0.28),
         )
         ..style = PaintingStyle.fill
         ..isAntiAlias = true;
       final litEdge = Paint()
         ..color = accent.withValues(
-          alpha: (modern ? (dark ? 0.92 : 0.80) : (dark ? 0.85 : 0.70)),
+          alpha: finish == FlatFinish.classic
+              ? (dark ? 0.85 : 0.70)
+              : (dark ? 0.92 : 0.80),
         )
         ..style = PaintingStyle.stroke
-        ..strokeWidth = modern ? 1.6 : 1.5
+        ..strokeWidth = finish == FlatFinish.classic ? 1.5 : 1.6
         ..isAntiAlias = true
         ..strokeJoin = StrokeJoin.round
         ..strokeCap = StrokeCap.round;
@@ -2203,7 +2317,7 @@ class _WorldPainter extends CustomPainter {
       old.selected != selected ||
       old.accent != accent ||
       old.ink != ink ||
-      old.modern != modern ||
+      old.finish != finish ||
       old.shapes != shapes ||
       (old.t - t).abs() > 0.003;
 }
@@ -2259,8 +2373,13 @@ class WorldBackdrop extends StatelessWidget {
         accent: accent,
         selected: selected,
         animated: animated,
-        modern: kind == MapKind.flat,
-        scale: kind == MapKind.flat ? 1.32 : 1.45,
+        finish: switch (kind) {
+          MapKind.flat => FlatFinish.modern,
+          MapKind.night => FlatFinish.night,
+          MapKind.terrain => FlatFinish.terrain,
+          _ => FlatFinish.classic,
+        },
+        scale: kind == MapKind.classic ? 1.45 : 1.32,
       );
     }
     return AnimatedSwitcher(

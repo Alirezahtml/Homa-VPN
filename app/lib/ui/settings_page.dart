@@ -4393,6 +4393,8 @@ String mapKindName(AppLocalizations l, MapKind kind) => switch (kind) {
   MapKind.globe => l.mapKindGlobe,
   MapKind.satellite => l.mapKindSatellite,
   MapKind.flat => l.mapKindFlat,
+  MapKind.night => l.mapKindNight,
+  MapKind.terrain => l.mapKindTerrain,
   _ => l.mapKindClassic,
 };
 
@@ -4485,8 +4487,11 @@ class _MapKindPreviewPainter extends CustomPainter {
 
     if (!sphere) {
       // The flat kinds: a rounded map card, its graticule, the land, the
-      // lit country's halo. The modern finish tints the land toward the
-      // accent and lays a shadow under it.
+      // lit country's halo — the card and the land take the kind's own
+      // finish: the classic's quiet ink, the modern's shadow, the
+      // night's deep water, the terrain's green over soft blue.
+      final night = kind == MapKind.night;
+      final terrain = kind == MapKind.terrain;
       final modern = kind == MapKind.flat;
       final rect = Rect.fromCenter(
         center: c,
@@ -4494,26 +4499,42 @@ class _MapKindPreviewPainter extends CustomPainter {
         height: size.height * 0.5,
       );
       final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(7));
-      if (modern) {
+      // The water, where the finish carries it.
+      if (night || terrain) {
         canvas.drawRRect(
           rrect,
           Paint()
-            ..color = (dark ? Colors.black : ink).withValues(
-              alpha: dark ? 0.30 : 0.09,
-            )
+            ..color = night
+                ? (dark ? const Color(0xFF10203A) : const Color(0xFF17264A))
+                : (dark ? const Color(0xFF14304A) : const Color(0xFFC3D8E8)),
+        );
+      }
+      if (modern || night || terrain) {
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = night || terrain
+                ? Colors.black.withValues(alpha: dark ? 0.30 : 0.14)
+                : (dark ? Colors.black : ink).withValues(
+                    alpha: dark ? 0.30 : 0.09,
+                  )
             ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.2),
         );
       }
       canvas.drawRRect(
         rrect,
         Paint()
-          ..color = ink.withValues(alpha: dark ? 0.05 : 0.04)
+          ..color = night || terrain
+              ? (dark ? Colors.white : Colors.black).withValues(alpha: 0.14)
+              : ink.withValues(alpha: dark ? 0.05 : 0.04)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 0.8,
       );
       // The graticule: three meridians, one parallel.
       final grid = Paint()
-        ..color = ink.withValues(alpha: dark ? 0.09 : 0.08)
+        ..color = night || terrain
+            ? (dark ? Colors.white : Colors.black).withValues(alpha: 0.10)
+            : ink.withValues(alpha: dark ? 0.09 : 0.08)
         ..strokeWidth = 0.6;
       for (var i = 1; i <= 2; i++) {
         final x = rect.left + rect.width * i / 3;
@@ -4524,17 +4545,27 @@ class _MapKindPreviewPainter extends CustomPainter {
         Offset(rect.right, c.dy),
         grid,
       );
-      // A hint of continents: three blobs wide of the middle.
-      _ellipse(canvas, rect.left + rect.width * 0.18, c.dy, 6.5, 4.0, landPaint);
-      _ellipse(canvas, rect.left + rect.width * 0.46, c.dy - 2, 4.0, 3.0, landPaint);
-      _ellipse(canvas, rect.left + rect.width * 0.74, c.dy + 1, 5.5, 3.5, landPaint);
-      // The lit country: a small halo on the first blob, more present on
-      // the modern finish.
+      // A hint of continents: three blobs wide of the middle, in the
+      // finish's own land.
+      final land = Paint()
+        ..color = night
+            ? (dark ? const Color(0xFF2A3C63) : const Color(0xFF31446F))
+            : terrain
+                ? (dark ? const Color(0xFF3E6151) : const Color(0xFF8FAF85))
+                : landPaint.color
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true;
+      _ellipse(canvas, rect.left + rect.width * 0.18, c.dy, 6.5, 4.0, land);
+      _ellipse(canvas, rect.left + rect.width * 0.46, c.dy - 2, 4.0, 3.0, land);
+      _ellipse(canvas, rect.left + rect.width * 0.74, c.dy + 1, 5.5, 3.5, land);
+      // The lit country: a small halo on the first blob, brighter where
+      // a finish paints its own water.
       canvas.drawCircle(
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         7.5,
         Paint()
-          ..color = ink.withValues(alpha: modern ? 0.30 : 0.20)
+          ..color = (night || terrain ? Colors.white : ink)
+              .withValues(alpha: modern || night || terrain ? 0.34 : 0.20)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5)
           ..isAntiAlias = true,
       );
@@ -4542,7 +4573,8 @@ class _MapKindPreviewPainter extends CustomPainter {
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         1.8,
         Paint()
-          ..color = ink.withValues(alpha: dark ? 0.9 : 0.7)
+          ..color = (night || terrain ? Colors.white : ink)
+              .withValues(alpha: dark ? 0.9 : (night || terrain ? 0.9 : 0.7))
           ..isAntiAlias = true,
       );
       return;

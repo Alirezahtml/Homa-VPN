@@ -343,7 +343,7 @@ func Default() Config {
                         Listen:              DefaultProxyListen,
                         Transport:           "h2",
                         IPVersion:           "auto",
-                        UpstreamConnections: 1,
+                        UpstreamConnections: 2,
                         MaxConnections:      256,
                         IdleSleep:           Duration(DefaultIdleSleep),
                 },
