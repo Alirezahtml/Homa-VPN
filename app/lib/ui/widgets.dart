@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -821,6 +825,248 @@ Future<bool> runShowingErrors(
     }
   }
   return false;
+}
+
+/// The note that confirms an action arrived, in the way of iOS: a dark,
+/// blurred pill that springs up near the bottom edge, its mark drawing
+/// itself as it lands, waits a beat, and eases away. Not a snack bar —
+/// no wide box, no button; the word and the mark, and nothing else. The
+/// mark is a vector drawn by hand (a stroke that completes itself), not
+/// an emoji: the same clean icon at any size, in either theme.
+///
+/// A note still showing leaves when a new one arrives, so a queue never
+/// stacks pills on top of each other.
+OverlayEntry? _toastEntry;
+
+Future<void> showToast(
+  BuildContext context,
+  String message, {
+  ToastMark mark = ToastMark.check,
+}) async {
+  _toastEntry?.remove();
+  final entry = OverlayEntry(
+    builder: (context) => _ToastNote(
+      message: message,
+      mark: mark,
+      onDone: () {
+        _toastEntry?.remove();
+        if (_toastEntry == entry) _toastEntry = null;
+      },
+    ),
+  );
+  _toastEntry = entry;
+  Overlay.of(context, rootOverlay: true).insert(entry);
+}
+
+/// The vector a toast draws beside its word.
+enum ToastMark {
+  /// A check finishing its stroke: the work is done.
+  check,
+}
+
+/// One toast: its entrance (rise, fade, spring to size), its mark
+/// drawing itself, a quiet hold, and its exit (sink and fade). Honors
+/// the system's reduce-motion: then it only fades.
+class _ToastNote extends StatefulWidget {
+  const _ToastNote({required this.message, required this.mark, required this.onDone});
+
+  final String message;
+  final ToastMark mark;
+  final VoidCallback onDone;
+
+  @override
+  State<_ToastNote> createState() => _ToastNoteState();
+}
+
+class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
+  late final AnimationController _in = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 460),
+  );
+  late final AnimationController _draw = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 620),
+  );
+  late final AnimationController _out = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 240),
+  );
+  late final CurvedAnimation _inSpring = CurvedAnimation(
+    parent: _in,
+    curve: Curves.easeOutBack,
+  );
+  Timer? _hold;
+
+  @override
+  void initState() {
+    super.initState();
+    final still = WidgetsBinding
+        .instance.platformDispatcher
+        .accessibilityFeatures
+        .disableAnimations;
+    if (still) {
+      _in.value = _draw.value = 1;
+      _hold = Timer(const Duration(milliseconds: 2200), _leave);
+      return;
+    }
+    _in.forward();
+    Future.delayed(const Duration(milliseconds: 120), () {
+      if (mounted) _draw.forward();
+    });
+    _hold = Timer(const Duration(milliseconds: 2400), _leave);
+  }
+
+  @override
+  void dispose() {
+    _hold?.cancel();
+    _in.dispose();
+    _draw.dispose();
+    _out.dispose();
+    _inSpring.dispose();
+    super.dispose();
+  }
+
+  void _leave() {
+    _hold?.cancel();
+    if (!_out.isAnimating && _out.value == 0) {
+      _out.forward().whenCompleteOrCancel(widget.onDone);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+    return Stack(
+      children: [
+        // Nothing blocks the page: the note floats, and a tap on it
+        // alone sends it away.
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: media.padding.bottom + 28,
+          child: IgnorePointer(
+            ignoring: false,
+            child: Center(
+              child: FadeTransition(
+                opacity: Tween(begin: 1.0, end: 0.0).animate(_out),
+                child: SlideTransition(
+                  position: Tween(
+                    begin: Offset.zero,
+                    end: const Offset(0, 0.4),
+                  ).animate(CurvedAnimation(parent: _out, curve: Curves.easeIn)),
+                  child: FadeTransition(
+                    opacity: CurvedAnimation(parent: _in, curve: Curves.easeOut),
+                    child: ScaleTransition(
+                      scale: Tween(begin: 0.82, end: 1.0).animate(_inSpring),
+                      child: GestureDetector(
+                        onTap: _leave,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(22),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.72),
+                                borderRadius: BorderRadius.circular(22),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.10),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _ToastMarkView(mark: widget.mark, t: _draw),
+                                  const SizedBox(width: 10),
+                                  Flexible(
+                                    child: Text(
+                                      widget.message,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.5,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 0.2,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// The toast's mark, drawn as the [t] controller runs: a ring that
+/// closes itself, then a check that completes its stroke — vector lines
+/// with round caps, the shape crisp at any size, no emoji anywhere.
+class _ToastMarkView extends StatelessWidget {
+  const _ToastMarkView({required this.mark, required this.t});
+
+  final ToastMark mark;
+  final Animation<double> t;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: t,
+      builder: (context, _) => CustomPaint(
+        size: const Size(26, 26),
+        painter: _CheckMarkPainter(progress: t.value),
+      ),
+    );
+  }
+}
+
+class _CheckMarkPainter extends CustomPainter {
+  _CheckMarkPainter({required this.progress});
+
+  final double progress;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final radius = size.width * 0.40;
+    final paint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.4
+      ..strokeCap = StrokeCap.round
+      ..isAntiAlias = true;
+    // The ring draws itself over the first half; the check over the rest.
+    final ring = Rect.fromCircle(center: c, radius: radius);
+    canvas.drawArc(ring, -math.pi / 2, 2 * math.pi * (progress * 2).clamp(0.0, 1.0), false, paint);
+    if (progress > 0.45) {
+      final check = Path()
+        ..moveTo(size.width * 0.32, size.height * 0.52)
+        ..lineTo(size.width * 0.45, size.height * 0.65)
+        ..lineTo(size.width * 0.70, size.height * 0.36);
+      final metrics = check.computeMetrics().toList();
+      final draw = ((progress - 0.45) / 0.55).clamp(0.0, 1.0);
+      for (final m in metrics) {
+        final part = m.extractPath(0, m.length * draw);
+        canvas.drawPath(part, paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_CheckMarkPainter old) => old.progress != progress;
 }
 
 void showError(BuildContext context, String message) {
