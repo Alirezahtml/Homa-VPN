@@ -2026,4 +2026,8 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'برنامه دیگر روی گوشی‌های اندروید ۱۶ خودبه‌خود متوقف نمی‌شود: اعلان چیزی را از سیستم می‌خواست که هنوز در گوشی نبود.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'برنامه دیگر هنگام باز شدن خودش را بیرون نمی‌اندازد: هنر پرچم اعلان مقداری را برمی‌گرداند که پیام‌رسان سیستم نمی‌پذیرفت.';
 }

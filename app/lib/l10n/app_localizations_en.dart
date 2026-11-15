@@ -2048,4 +2048,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'The app no longer stops by itself on Android 16 phones: the notification asked the system for a piece the phone does not have yet.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'The app no longer kicks itself out when opened: the notification\'s flag art answered with a value the system\'s messenger refuses.';
 }

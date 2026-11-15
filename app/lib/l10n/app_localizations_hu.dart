@@ -2055,4 +2055,8 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'Az alkalmazás már nem zárja be magát megnyitáskor: az értesítés zászlóképe olyan értéket adott vissza, amelyet a rendszer üzenetközvetítője nem fogad el.';
 }

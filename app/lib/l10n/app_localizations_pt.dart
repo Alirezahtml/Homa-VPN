@@ -2051,4 +2051,8 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'A aplicação já não para sozinha nos telefones com Android 16: a notificação pedia ao sistema algo que o telefone ainda não tinha.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'A aplicação já não se fecha sozinha ao abrir: a arte da bandeira da notificação devolvia um valor que o mensageiro do sistema recusa.';
 }

@@ -2058,4 +2058,8 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'La aplicación ya no se cierra sola al abrirse: el arte de la bandera de la notificación devolvía un valor que el mensajero del sistema rechaza.';
 }

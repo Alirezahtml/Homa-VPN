@@ -580,5 +580,6 @@
   "wnFlagNotifAdded": "Az értesítés mutathatja az ország SVG zászlaját, és kikapcsolható",
   "wnColorRemoved": "A saját szín oldal eltűnt; az akcentlista megtartja a HEX kódot",
   "whatsNewRemoved": "Eltávolítva",
-  "wnCrashFixed": "Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott."
+  "wnCrashFixed": "Az alkalmazás már nem áll meg magától Android 16 telefonokon: az értesítés olyat kért a rendszertől, amit a telefon még nem tudott.",
+  "wnFlagArtFixed": "Az alkalmazás már nem zárja be magát megnyitáskor: az értesítés zászlóképe olyan értéket adott vissza, amelyet a rendszer üzenetközvetítője nem fogad el."
 }

@@ -2039,4 +2039,8 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'Ứng dụng không còn tự dừng trên máy Android 16: thông báo đã yêu cầu hệ thống điều máy chưa có.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'Ứng dụng không còn tự đẩy mình ra khi mở: hình cờ của thông báo trả về một giá trị mà bộ phận nhắn tin của hệ thống không chấp nhận.';
 }

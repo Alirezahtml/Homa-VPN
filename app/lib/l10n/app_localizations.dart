@@ -3638,6 +3638,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The app no longer stops by itself on Android 16 phones: the notification asked the system for a piece the phone does not have yet.'**
   String get wnCrashFixed;
+
+  /// No description provided for @wnFlagArtFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The app no longer kicks itself out when opened: the notification's flag art answered with a value the system's messenger refuses.'**
+  String get wnFlagArtFixed;
 }
 
 class _AppLocalizationsDelegate

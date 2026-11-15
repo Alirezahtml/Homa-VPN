@@ -580,5 +580,6 @@
   "wnFlagNotifAdded": "La notification peut montrer le drapeau SVG du pays, et peut être éteinte",
   "wnColorRemoved": "La page de couleur personnalisée a été retirée ; la liste garde son code HEX",
   "whatsNewRemoved": "Retiré",
-  "wnCrashFixed": "L'application ne s'arrête plus d'elle-même sur les téléphones Android 16 : la notification demandait au système quelque chose que le téléphone n'avait pas encore."
+  "wnCrashFixed": "L'application ne s'arrête plus d'elle-même sur les téléphones Android 16 : la notification demandait au système quelque chose que le téléphone n'avait pas encore.",
+  "wnFlagArtFixed": "L'application ne se ferme plus d'elle-même à l'ouverture : l'image du drapeau de la notification renvoyait une valeur que le messager du système refuse."
 }

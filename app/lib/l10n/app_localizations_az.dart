@@ -2041,4 +2041,8 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'Tətbiq artıq Android 16 telefonlarında öz-özünə dayanmır: bildiriş telefonda hələ olmayan bir şey istəyirdi.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'Tətbiq artıq açılanda özünü çıxarmır: bildirişin bayraq şəkli sistemin mesajlaşmasının qəbul etmədiyi bir dəyər qaytarırdı.';
 }

@@ -592,5 +592,6 @@
   "wnFlagNotifAdded": "Bildirim ülkenin SVG bayrağını gösterebilir ve kapatılabilir",
   "wnColorRemoved": "Özel renk sayfası kaldırıldı; vurgu listesi HEX kodunu tutuyor",
   "whatsNewRemoved": "Kaldırıldı",
-  "wnCrashFixed": "Uygulama, Android 16 telefonlarında artık kendi kendine kapanmıyor: bildirim, telefonda henüz olmayan bir şey istiyordu."
+  "wnCrashFixed": "Uygulama, Android 16 telefonlarında artık kendi kendine kapanmıyor: bildirim, telefonda henüz olmayan bir şey istiyordu.",
+  "wnFlagArtFixed": "Uygulama artık açılınca kendini dışarı atmıyor: bildirimin bayrak görseli sistemin mesajlaşma katmanının reddettiği bir değer döndürüyordu."
 }

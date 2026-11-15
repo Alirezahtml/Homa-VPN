@@ -2049,4 +2049,8 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'لم يعد التطبيق يتوقف من تلقاء نفسه على هواتف أندرويد 16: كان الإشعار يطلب من النظام شيئًا لا يملكه الهاتف بعد.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'لم يعد التطبيق يطرح نفسه عند فتحه: كانت صورة علم الإشعار تعيد قيمة لا يقبلها مُرسِل الرسائل في النظام.';
 }

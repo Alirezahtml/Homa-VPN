@@ -580,5 +580,6 @@
   "wnFlagNotifAdded": "Notifikasi dapat menampilkan bendera SVG negara, dan bisa dimatikan",
   "wnColorRemoved": "Halaman warna kustom dihapus; daftar aksen tetap menyimpan kode HEX",
   "whatsNewRemoved": "Dihapus",
-  "wnCrashFixed": "Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel."
+  "wnCrashFixed": "Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel.",
+  "wnFlagArtFixed": "Aplikasi tidak lagi mengeluarkan dirinya saat dibuka: gambar bendera notifikasi menjawab dengan nilai yang ditolak sistem."
 }

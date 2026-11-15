@@ -171,6 +171,7 @@ class MainActivity : FlutterActivity() {
                     inBackground(result) {
                         if (bytes != null) CoreService.saveFlagBitmap(this, code, bytes)
                         CoreService.poke()
+                        null
                     }
                 }
                 // The kill switch: with it on, a broken path keeps the VPN
@@ -421,11 +422,20 @@ class MainActivity : FlutterActivity() {
         )
     }
 
-    /** Runs [work] off the UI thread and answers with its value. */
+    /**
+     * Runs [work] off the UI thread and answers with its value. A body whose
+     * last line is a void call (a poke, a save) comes back kotlin.Unit,
+     * which the message codec refuses — the "Unsupported value: 'kotlin.Unit'"
+     * crash of release builds: a Unit is folded to null, the codec's own
+     * "nothing", so no handler can trip on it again.
+     */
     private fun inBackground(result: Result, work: () -> Any?) {
         worker.execute {
             val value = try {
-                work()
+                when (val v = work()) {
+                    Unit -> null
+                    else -> v
+                }
             } catch (e: Exception) {
                 null
             }

@@ -2061,4 +2061,8 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'L\'application ne s\'arrête plus d\'elle-même sur les téléphones Android 16 : la notification demandait au système quelque chose que le téléphone n\'avait pas encore.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'L\'application ne se ferme plus d\'elle-même à l\'ouverture : l\'image du drapeau de la notification renvoyait une valeur que le messager du système refuse.';
 }

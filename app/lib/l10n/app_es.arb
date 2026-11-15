@@ -580,5 +580,6 @@
   "wnFlagNotifAdded": "La notificación puede mostrar la bandera SVG del país, y puede apagarse",
   "wnColorRemoved": "Se quitó la página de color personalizado; la lista de acento conserva su HEX",
   "whatsNewRemoved": "Eliminado",
-  "wnCrashFixed": "La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía."
+  "wnCrashFixed": "La app ya no se detiene sola en los teléfonos con Android 16: la notificación pedía al sistema algo que el teléfono aún no tenía.",
+  "wnFlagArtFixed": "La aplicación ya no se cierra sola al abrirse: el arte de la bandera de la notificación devolvía un valor que el mensajero del sistema rechaza."
 }

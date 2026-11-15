@@ -580,5 +580,6 @@
   "wnFlagNotifAdded": "Thông báo có thể hiện cờ SVG của nước, và có thể tắt",
   "wnColorRemoved": "Trang màu tuỳ chọn đã được bỏ; danh sách nhấn vẫn giữ mã HEX",
   "whatsNewRemoved": "Đã bỏ",
-  "wnCrashFixed": "Ứng dụng không còn tự dừng trên máy Android 16: thông báo đã yêu cầu hệ thống điều máy chưa có."
+  "wnCrashFixed": "Ứng dụng không còn tự dừng trên máy Android 16: thông báo đã yêu cầu hệ thống điều máy chưa có.",
+  "wnFlagArtFixed": "Ứng dụng không còn tự đẩy mình ra khi mở: hình cờ của thông báo trả về một giá trị mà bộ phận nhắn tin của hệ thống không chấp nhận."
 }

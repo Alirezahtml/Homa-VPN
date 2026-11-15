@@ -1952,6 +1952,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wnCrashFixed => '应用不再在 Android 16 手机上自行停止：通知向系统索要了手机还没有的东西。';
+
+  @override
+  String get wnFlagArtFixed =>
+      '应用打开后不再把自己踢出去：通知的国旗图片返回了系统消息通道不接受的值。';
+
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -3902,4 +3907,8 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wnCrashFixed => '應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。';
+
+  @override
+  String get wnFlagArtFixed =>
+      '應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。';
 }

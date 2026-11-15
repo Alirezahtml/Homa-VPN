@@ -2040,4 +2040,8 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'Uygulama, Android 16 telefonlarında artık kendi kendine kapanmıyor: bildirim, telefonda henüz olmayan bir şey istiyordu.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'Uygulama artık açılınca kendini dışarı atmıyor: bildirimin bayrak görseli sistemin mesajlaşma katmanının reddettiği bir değer döndürüyordu.';
 }

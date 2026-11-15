@@ -2040,4 +2040,8 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wnCrashFixed =>
       'Aplikasi tidak lagi berhenti sendiri di ponsel Android 16: notifikasi meminta sesuatu yang belum dimiliki ponsel.';
+
+  @override
+  String get wnFlagArtFixed =>
+      'Aplikasi tidak lagi mengeluarkan dirinya saat dibuka: gambar bendera notifikasi menjawab dengan nilai yang ditolak sistem.';
 }

@@ -592,5 +592,6 @@
   "wnFlagNotifAdded": "通知可顯示國家的 SVG 國旗，也可關閉",
   "wnColorRemoved": "移除了自訂顏色頁面；強調色清單仍支援 HEX 碼",
   "whatsNewRemoved": "已移除",
-  "wnCrashFixed": "應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。"
+  "wnCrashFixed": "應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。",
+  "wnFlagArtFixed": "應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。"
 }
