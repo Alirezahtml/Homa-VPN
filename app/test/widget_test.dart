@@ -2417,7 +2417,9 @@ void main() {
     await tester.scrollUntilVisible(
       find.text("Don't have a Firefox Account?"),
       300,
-      scrollable: find.byType(ListView).first,
+      scrollable: find
+          .descendant(of: find.byType(ListView), matching: find.byType(Scrollable))
+          .first,
     );
     await settle(tester);
     expect(find.text("Don't have a Firefox Account?"), findsOneWidget);
