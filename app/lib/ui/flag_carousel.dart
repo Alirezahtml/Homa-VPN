@@ -545,7 +545,7 @@ class _FlagCarouselState extends State<FlagCarousel>
             alignment: Alignment.center,
             children: [
               ...previous,
-              if (current != null) current,
+              ?current,
             ],
           ),
           child: Text(
