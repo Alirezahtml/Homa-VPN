@@ -110,11 +110,17 @@ class _AboutPageState extends State<AboutPage> {
         SocialChannelButton(glyph: glyph, handle: handle, url: url);
     // The repository stays out of the app on purpose: no source link, no
     // GitHub row — only the app's own pages and the update check.
+    //
+    // Each thing on this page is a card of its own: the app's identity,
+    // the versions, What's New, the channels, the update check, the web
+    // console, the data folder — a card per section, the way every other
+    // page of the app lays its own out.
     return ListView(
       padding: pagePadding(context),
       children: [
         PageTitle(l.navAbout),
         const SizedBox(height: 20),
+        // The identity: who this app is, in one card of its own.
         Panel(
           child: Column(
             children: [
@@ -123,9 +129,18 @@ class _AboutPageState extends State<AboutPage> {
               Text(l.appTitle, style: theme.textTheme.titleLarge),
               const SizedBox(height: 4),
               Text(l.unofficialNote, style: muted, textAlign: TextAlign.center),
-              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        // The versions: this build and the core it carries.
+        Panel(
+          title: l.aboutVersions,
+          icon: Icons.tag_rounded,
+          child: Column(
+            children: [
               _Line(label: l.appVersionLabel, value: appVersion),
-              const Divider(height: 28),
+              const SizedBox(height: 14),
               _Line(label: l.coreVersionLabel, value: status?.version ?? '—'),
               // What this version brought: opens once per version on its
               // own, and again whenever wanted.
@@ -145,38 +160,52 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ],
               ),
-              // The social channels: Instagram and Telegram, by their
-              // handles. There is no code repository in this app.
-              const SizedBox(height: 18),
-              Wrap(
-                spacing: 12,
-                runSpacing: 10,
-                alignment: WrapAlignment.center,
-                children: [
-                  social(
-                    instagramGlyph,
-                    '@Aliem061',
-                    'https://instagram.com/Aliem061',
-                  ),
-                  social(
-                    telegramGlyph,
-                    '@Aliem_061',
-                    'https://t.me/Aliem_061',
-                  ),
-                ],
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        // The social channels: Instagram and Telegram, by their handles,
+        // in a card of their own. There is no code repository in this app.
+        Panel(
+          title: l.aboutChannels,
+          icon: Icons.alternate_email_rounded,
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 10,
+            alignment: WrapAlignment.center,
+            children: [
+              social(
+                instagramGlyph,
+                '@Aliem061',
+                'https://instagram.com/Aliem061',
               ),
-              const Divider(height: 28),
-              // The result and the Download button under the title, so a
-              // phone's narrow screen keeps the text readable.
-              if (githubRepo.isNotEmpty)
+              social(
+                telegramGlyph,
+                '@Aliem_061',
+                'https://t.me/Aliem_061',
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        // The update check: the button, the result, and the update's own
+        // action, in a card of their own.
+        if (githubRepo.isNotEmpty)
+          Panel(
+            title: l.checkUpdates,
+            icon: Icons.system_update_alt_rounded,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Row(
                   children: [
                     Expanded(
                       child: Text(
-                        l.checkUpdates,
-                        style: theme.textTheme.titleSmall,
+                        l.checkUpdatesHint,
+                        style: muted,
                       ),
                     ),
+                    const SizedBox(width: 12),
                     OutlinedButton.icon(
                       onPressed: _checking ? null : _check,
                       icon: _checking
@@ -191,7 +220,6 @@ class _AboutPageState extends State<AboutPage> {
                     ),
                   ],
                 ),
-              if (githubRepo.isNotEmpty) ...[
                 if (_result != null) ...[
                   const SizedBox(height: 8),
                   Align(
@@ -204,70 +232,60 @@ class _AboutPageState extends State<AboutPage> {
                   _UpdateAction(core: widget.core, release: release),
                 ],
               ],
-              if (Platform.isAndroid) ...[
-                const Divider(height: 28),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l.webDashboard,
-                            style: theme.textTheme.titleSmall,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(l.webDashboardHint, style: muted),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    OutlinedButton.icon(
-                      onPressed: () => runShowingErrors(
-                        context,
-                        () async =>
-                            openUrl('${await widget.core.dashboardLink()}'),
-                      ),
-                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                      label: Text(l.webDashboardOpen),
-                    ),
-                  ],
-                ),
-              ],
-              // The data folder: not on a phone, where it is the app's
-              // private storage, which nobody can open.
-              if (!Platform.isAndroid &&
-                  status != null &&
-                  status.dataDir.isNotEmpty) ...[
-                const Divider(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(l.dataFolder, style: theme.textTheme.titleSmall),
-                          const SizedBox(height: 2),
-                          Text(
-                            status.dataDir,
-                            style: muted,
-                            textDirection: TextDirection.ltr,
-                          ),
-                        ],
-                      ),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () =>
-                          runShowingErrors(context, widget.core.openFolder),
-                      icon: const Icon(Icons.folder_open_rounded, size: 18),
-                      label: Text(l.openFolder),
-                    ),
-                  ],
-                ),
-              ],
-            ],
+            ),
           ),
-        ),
+        if (Platform.isAndroid) ...[
+          const SizedBox(height: 12),
+          // The web console: advanced settings and more tools, in a card
+          // of its own.
+          Panel(
+            title: l.webDashboard,
+            icon: Icons.language_rounded,
+            child: Row(
+              children: [
+                Expanded(child: Text(l.webDashboardHint, style: muted)),
+                const SizedBox(width: 12),
+                OutlinedButton.icon(
+                  onPressed: () => runShowingErrors(
+                    context,
+                    () async => openUrl('${await widget.core.dashboardLink()}'),
+                  ),
+                  icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                  label: Text(l.webDashboardOpen),
+                ),
+              ],
+            ),
+          ),
+        ],
+        // The data folder: not on a phone, where it is the app's
+        // private storage, which nobody can open.
+        if (!Platform.isAndroid &&
+            status != null &&
+            status.dataDir.isNotEmpty) ...[
+          const SizedBox(height: 12),
+          Panel(
+            title: l.dataFolder,
+            icon: Icons.folder_open_rounded,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    status.dataDir,
+                    style: muted,
+                    textDirection: TextDirection.ltr,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                OutlinedButton.icon(
+                  onPressed: () =>
+                      runShowingErrors(context, widget.core.openFolder),
+                  icon: const Icon(Icons.folder_open_rounded, size: 18),
+                  label: Text(l.openFolder),
+                ),
+              ],
+            ),
+          ),
+        ],
       ],
     );
   }

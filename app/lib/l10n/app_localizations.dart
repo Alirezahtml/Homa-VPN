@@ -3942,6 +3942,226 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.'**
   String get wn38NameFixed;
+  /// No description provided for @mapKind.
+  ///
+  /// In en, this message translates to:
+  /// **'Map type'**
+  String get mapKind;
+  /// No description provided for @mapKindHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the metal ball, or the satellite\'s earth.'**
+  String get mapKindHint;
+  /// No description provided for @mapKindClassic.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic'**
+  String get mapKindClassic;
+  /// No description provided for @mapKindGlobe.
+  ///
+  /// In en, this message translates to:
+  /// **'3D globe'**
+  String get mapKindGlobe;
+  /// No description provided for @mapKindSatellite.
+  ///
+  /// In en, this message translates to:
+  /// **'Satellite'**
+  String get mapKindSatellite;
+  /// No description provided for @mapKindFlat.
+  ///
+  /// In en, this message translates to:
+  /// **'Flat 2D'**
+  String get mapKindFlat;
+  /// No description provided for @mapStyleGlobeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.'**
+  String get mapStyleGlobeHint;
+  /// No description provided for @showExitIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Show this country\'s IP'**
+  String get showExitIp;
+  /// No description provided for @copyIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy IP'**
+  String get copyIp;
+  /// No description provided for @exitIpHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect, and the eye shows the address this country\'s traffic leaves from — ready to copy.'**
+  String get exitIpHint;
+  /// No description provided for @aboutVersions.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get aboutVersions;
+  /// No description provided for @aboutChannels.
+  ///
+  /// In en, this message translates to:
+  /// **'Social channels'**
+  String get aboutChannels;
+  /// No description provided for @checkUpdatesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Look for a newer version; a found one downloads and the installer asks.'**
+  String get checkUpdatesHint;
+  /// No description provided for @smartLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest location'**
+  String get smartLocation;
+  /// No description provided for @smartLocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every start rides the server the core\'s own latency test says is fastest.'**
+  String get smartLocationHint;
+  /// No description provided for @quicPass.
+  ///
+  /// In en, this message translates to:
+  /// **'QUIC pass-through'**
+  String get quicPass;
+  /// No description provided for @quicPassHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps\' QUIC (UDP 443) rides the tunnel: calls and games keep their speed instead of falling back to TCP.'**
+  String get quicPassHint;
+  /// No description provided for @accountRename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename account'**
+  String get accountRename;
+  /// No description provided for @accountRenameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get accountRenameLabel;
+  /// No description provided for @accountProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile picture'**
+  String get accountProfile;
+  /// No description provided for @avatarReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the plain mark'**
+  String get avatarReset;
+  /// No description provided for @accountSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'App password'**
+  String get accountSecurity;
+  /// No description provided for @appPasswordOn.
+  ///
+  /// In en, this message translates to:
+  /// **'The app opens behind a password.'**
+  String get appPasswordOn;
+  /// No description provided for @appPasswordOff.
+  ///
+  /// In en, this message translates to:
+  /// **'No password: anyone who opens the app gets in.'**
+  String get appPasswordOff;
+  /// No description provided for @appPasswordSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set password'**
+  String get appPasswordSet;
+  /// No description provided for @appPasswordChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get appPasswordChange;
+  /// No description provided for @appPasswordRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove password'**
+  String get appPasswordRemove;
+  /// No description provided for @appPasswordCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get appPasswordCurrent;
+  /// No description provided for @appPasswordNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New password (4+ characters)'**
+  String get appPasswordNew;
+  /// No description provided for @appPasswordConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat the new password'**
+  String get appPasswordConfirm;
+  /// No description provided for @appPasswordShort.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 4 characters.'**
+  String get appPasswordShort;
+  /// No description provided for @appPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two words are not the same.'**
+  String get appPasswordMismatch;
+  /// No description provided for @appPasswordWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get appPasswordWrong;
+  /// No description provided for @appPasswordSetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'The password stands — the app asks for it from the next start.'**
+  String get appPasswordSetDone;
+  /// No description provided for @appPasswordRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The password is gone; the app opens freely.'**
+  String get appPasswordRemoved;
+  /// No description provided for @appPasswordUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'The app is locked'**
+  String get appPasswordUnlock;
+  /// No description provided for @appPasswordUnlockHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the app password to continue.'**
+  String get appPasswordUnlockHint;
+  /// No description provided for @wn39MapKinds.
+  ///
+  /// In en, this message translates to:
+  /// **'The map is a choice of kinds again: the flat map as it always was (the default), the 3D globe, the satellite\'s earth, and a modern flat 2D.'**
+  String get wn39MapKinds;
+  /// No description provided for @wn39EyeIp.
+  ///
+  /// In en, this message translates to:
+  /// **'The location card carries an eye: tap it to see the address the traffic leaves from, and copy it.'**
+  String get wn39EyeIp;
+  /// No description provided for @wn39Profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts carry their own name and profile picture, and the app can open behind a password.'**
+  String get wn39Profile;
+  /// No description provided for @wn39Smart.
+  ///
+  /// In en, this message translates to:
+  /// **'The smart connection grew: the fastest location by real latency, and QUIC pass-through for calls and games.'**
+  String get wn39Smart;
+  /// No description provided for @wn39Flight.
+  ///
+  /// In en, this message translates to:
+  /// **'A change of country flies smoother — the camera rides the great circle — and the flag wheel\'s markers sit closer to the flags.'**
+  String get wn39Flight;
+  /// No description provided for @wn39ToastEverywhere.
+  ///
+  /// In en, this message translates to:
+  /// **'The dynamic note is everywhere now: every saved, copied, and failed notice wears the same animated glass pill.'**
+  String get wn39ToastEverywhere;
+  /// No description provided for @wn39Updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates keep the storage clean: the installer replaces the old version, and no package is left behind.'**
+  String get wn39Updates;
   /// No description provided for @wnDesignsRemoved.
   ///
   /// In en, this message translates to:

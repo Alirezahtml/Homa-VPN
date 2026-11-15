@@ -13,6 +13,7 @@ import 'about_page.dart';
 import 'accent.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
+import 'app_lock.dart';
 import 'design.dart';
 import 'focus_ring.dart';
 import 'format.dart';
@@ -383,6 +384,16 @@ class _ShellState extends State<Shell> {
       final needsAttention = (core.accounts?.accounts ?? const [])
           .where((a) => a.enabled && a.needsSignIn)
           .length;
+      // The app's own password: the lock the app opens behind, set on
+      // the accounts page. Everything else — the welcome, the pages, the
+      // core's answers — waits behind the word.
+      if (widget.settings.lockHash.isNotEmpty &&
+          !widget.settings.lockUnlocked) {
+        return LockPage(
+          settings: widget.settings,
+          onUnlocked: () => setState(() {}),
+        );
+      }
       if (widget.settings.firstRun && status != null) {
         return WelcomePage(core: core, settings: widget.settings);
       }

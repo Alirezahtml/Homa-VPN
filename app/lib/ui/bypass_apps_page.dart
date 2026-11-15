@@ -153,11 +153,10 @@ class _BypassAppsPageState extends State<BypassAppsPage> {
                                   );
                                   setState(_sort);
                                   _save();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(l.suggestedAdded(added)),
-                                      behavior: SnackBarBehavior.floating,
-                                    ),
+                                  showToast(
+                                    context,
+                                    l.suggestedAdded(added),
+                                    mark: ToastMark.check,
                                   );
                                 },
                                 icon: const Icon(Icons.auto_awesome_rounded),

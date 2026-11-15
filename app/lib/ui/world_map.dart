@@ -316,11 +316,25 @@ List<(double, double, double)> greatCirclePath(
   return out;
 }
 
-/// The looks the settings offer for the home's map: five ways to paint
+/// The kinds the settings offer for the home's map: the whole world the
+/// same real borders draw, but carried differently.
+///
+/// - [MapKind.classic]: the flat map as it always was — the quiet ink
+///   over the page, the graticule, the chosen country lit.
+/// - [MapKind.flat]: the same flat projection, a modern finish — the
+///   land tinted in the connection's light, a deeper shadow, a stronger
+///   lit country.
+/// - [MapKind.globe]: the metal ball, turned so the chosen country
+///   faces the viewer.
+/// - [MapKind.satellite]: the ball as the earth reads from orbit — deep
+///   oceans, green land, drifting clouds.
+enum MapKind { classic, globe, satellite, flat }
+
+/// The looks the settings offer for the home's map: six ways to paint
 /// the same real world. Every style carries its own metal, its own land,
 /// its own sky — the connection's light and the pin stay the accent's
 /// own, whatever the style.
-enum GlobeStyle { silver, midnight, ocean, mono, aurora }
+enum GlobeStyle { silver, midnight, ocean, mono, aurora, satellite }
 
 /// One style's colors: the ball's four gradient stops, the land's fill
 /// and edge, the faint coordinate grid on the metal, the sky's stars,
@@ -368,8 +382,47 @@ class GlobePalette {
         GlobeStyle.ocean => dark ? _oceanNight : _oceanDay,
         GlobeStyle.mono => dark ? _monoNight : _monoDay,
         GlobeStyle.aurora => _aurora,
+        GlobeStyle.satellite => dark ? _satelliteNight : _satelliteDay,
         _ => dark ? _silverNight : _silverDay,
       };
+
+  // The satellite's earth: the ocean carries the ball (deep blue, lit
+  // where the light lands), the land reads green with a sandy coast, and
+  // the day sky is nearly empty — the photo does not change with the
+  // app's theme, only its depth does.
+  static const _satelliteNight = GlobePalette(
+    ball: [
+      Color(0xFF2E6FB0),
+      Color(0xFF1C4E8C),
+      Color(0xFF0E3158),
+      Color(0xFF071C33),
+    ],
+    landFill: Color(0x6B4E8A55),
+    landStroke: Color(0xA8D9C98A),
+    graticule: Color(0x12FFFFFF),
+    stars: Color(0xFFEAF2FF),
+    starAlpha: 0.30,
+    specular: Color(0x2EBFD8FF),
+    halo: Color(0xFF4A7FC0),
+    shadow: Color(0x4A001020),
+  );
+
+  static const _satelliteDay = GlobePalette(
+    ball: [
+      Color(0xFF3B7FC0),
+      Color(0xFF27609E),
+      Color(0xFF16406E),
+      Color(0xFF0B2440),
+    ],
+    landFill: Color(0x7D57975E),
+    landStroke: Color(0x99E3D39A),
+    graticule: Color(0x10FFFFFF),
+    stars: Color(0xFF12253F),
+    starAlpha: 0.06,
+    specular: Color(0x47D8EAFF),
+    halo: Color(0xFF5B8CC9),
+    shadow: Color(0x33041E30),
+  );
 
   static const _silverNight = GlobePalette(
     ball: [
@@ -523,6 +576,52 @@ final _stars = () {
   ];
 }();
 
+/// The satellite's own clouds: one fixed field of soft white wisps, the
+/// same every look, painted inside the ball over the land. Positions in
+/// the unit square (they map onto the ball's circle), never rebuilt.
+final _clouds = () {
+  final rnd = math.Random(11);
+  return [
+    for (var i = 0; i < 26; i++)
+      (
+        rnd.nextDouble(),
+        rnd.nextDouble(),
+        0.05 + rnd.nextDouble() * 0.09,
+        0.05 + rnd.nextDouble() * 0.09,
+      ),
+  ];
+}();
+
+/// A flight between two unit vectors, as (lat, lon) in degrees: the
+/// camera rides the great circle the two sit on, so a long turn arcs
+/// over the sphere instead of swinging through a pole the way a line
+/// between two latitudes would. The vectors are the unit ones the
+/// geometry already carries; [t] runs 0 to 1.
+(double, double) slerpDeg(
+  (double, double, double) a,
+  (double, double, double) b,
+  double t,
+) {
+  final dot = (a.$1 * b.$1 + a.$2 * b.$2 + a.$3 * b.$3).clamp(-1.0, 1.0);
+  final omega = math.acos(dot);
+  if (omega < 1e-9) {
+    return (
+      math.asin(b.$3.clamp(-1.0, 1.0)) * 180 / math.pi,
+      math.atan2(b.$2, b.$1) * 180 / math.pi,
+    );
+  }
+  final sinOmega = math.sin(omega);
+  final wa = math.sin((1 - t) * omega) / sinOmega;
+  final wb = math.sin(t * omega) / sinOmega;
+  final x = wa * a.$1 + wb * b.$1;
+  final y = wa * a.$2 + wb * b.$2;
+  final z = wa * a.$3 + wb * b.$3;
+  return (
+    math.asin(z.clamp(-1.0, 1.0)) * 180 / math.pi,
+    math.atan2(y, x) * 180 / math.pi,
+  );
+}
+
 /// The home page's globe: the world's own outlines carried onto a metal
 /// ball, turned so the chosen country faces the viewer. The chosen
 /// country is lit in the connection's light; a glowing pin stands at its
@@ -609,9 +708,11 @@ class _WorldGlobeState extends State<WorldGlobe>
     duration: const Duration(milliseconds: 420),
   );
 
-  /// The view the spin starts from, and the one it lands on, in degrees.
-  double _fromLat = 25, _fromLon = 10;
-  double _toLat = 25, _toLon = 10;
+  /// The flight the camera rides: the view it starts from and the one it
+  /// lands on, as unit vectors on the sphere — slerped every frame, so a
+  /// long turn rides the great circle instead of swinging through a pole.
+  (double, double, double) _fromVec = (1.0, 0.0, 0.0);
+  (double, double, double) _toVec = (1.0, 0.0, 0.0);
   double _currentLat = 25, _currentLon = 10;
 
   /// Whether a turn ever landed: the world file arrives after the first
@@ -697,36 +798,20 @@ class _WorldGlobeState extends State<WorldGlobe>
     }
     if (country == null) return;
     _turned = true;
-    final place = _placeOfVector(country.anchor);
-    _fromLat = _currentLat;
-    _fromLon = _currentLon;
-    _toLat = place.$1;
-    _toLon = place.$2;
-    // The long way around is never worth it: if the turn crosses more
-    // than half the world, come the other way.
-    var dLon = _toLon - _fromLon;
-    while (dLon > 180) {
-      dLon -= 360;
-    }
-    while (dLon < -180) {
-      dLon += 360;
-    }
-    _toLon = _fromLon + dLon;
+    // The flight starts from wherever the camera rests now — even the
+    // middle of a turn already flying — and rides the great circle to
+    // the new country's own anchor.
+    _fromVec = GlobePlace(_currentLat, _currentLon).unit;
+    _toVec = country.anchor;
     if (animate && widget.countries.isNotEmpty) {
       _arrive.reset();
       _spin.forward(from: 0);
     } else {
-      _currentLat = _toLat;
-      _currentLon = _toLon;
+      final (lat, lon) = slerpDeg(_fromVec, _toVec, 1.0);
+      _currentLat = lat;
+      _currentLon = lon;
       _spin.value = 1.0;
     }
-  }
-
-  /// A unit vector back to its own lat and lon, in degrees.
-  static (double, double) _placeOfVector((double, double, double) v) {
-    final lat = math.asin(v.$3.clamp(-1.0, 1.0)) * 180 / math.pi;
-    final lon = math.atan2(v.$2, v.$1) * 180 / math.pi;
-    return (lat, lon);
   }
 
   // The map's zoom, by hand: two fingers pinch the ball closer or set it
@@ -812,12 +897,15 @@ class _WorldGlobeState extends State<WorldGlobe>
                     _zoomAnim,
                   ]),
                   builder: (context, _) {
-                    // The turn, eased: the globe arrives at the chosen
-                    // country instead of snapping to it.
+                    // The turn, eased: the camera rides the great circle
+                    // between the two views, so the globe arrives at the
+                    // chosen country instead of snapping to it — and the
+                    // ride arcs over the sphere, never through a pole.
                     final spinT = _spin.value.clamp(0.0, 1.0);
                     final t = Curves.easeInOutCubic.transform(spinT);
-                    _currentLat = _fromLat + (_toLat - _fromLat) * t;
-                    _currentLon = _fromLon + (_toLon - _fromLon) * t;
+                    final (lat, lon) = slerpDeg(_fromVec, _toVec, t);
+                    _currentLat = lat;
+                    _currentLon = lon;
                     final geometry = GlobeGeometry.of(widget.countries);
                     final radius = d / 2 * 0.94;
                     final center =
@@ -845,6 +933,7 @@ class _WorldGlobeState extends State<WorldGlobe>
                         animated: widget.animated && !widget.still,
                         arrive: _arrive.value,
                         zoom: zoom,
+                        clouds: widget.style == GlobeStyle.satellite,
                       ),
                     );
                   },
@@ -865,10 +954,8 @@ class _WorldGlobeState extends State<WorldGlobe>
                         animated: widget.animated && !widget.still,
                         breath: _breath,
                         spin: _spin,
-                        fromLat: _fromLat,
-                        fromLon: _fromLon,
-                        toLat: _toLat,
-                        toLon: _toLon,
+                        fromVec: _fromVec,
+                        toVec: _toVec,
                         zoom: _zoom,
                       ),
                     ),
@@ -927,10 +1014,8 @@ class _FloatingCard extends StatelessWidget {
     required this.animated,
     required this.breath,
     required this.spin,
-    required this.fromLat,
-    required this.fromLon,
-    required this.toLat,
-    required this.toLon,
+    required this.fromVec,
+    required this.toVec,
     required this.zoom,
   });
 
@@ -942,10 +1027,11 @@ class _FloatingCard extends StatelessWidget {
   final bool animated;
   final Animation<double> breath;
   final Animation<double> spin;
-  final double fromLat;
-  final double fromLon;
-  final double toLat;
-  final double toLon;
+
+  /// The flight the camera rides — the same two vectors the painter's
+  /// turn reads, so the card sits over its pin the whole way.
+  final (double, double, double) fromVec;
+  final (double, double, double) toVec;
 
   /// The map's own zoom: the seat under the card scales with it.
   final double zoom;
@@ -954,8 +1040,7 @@ class _FloatingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // The same turn the painter paints, so the card sits over its pin.
     final t = Curves.easeInOutCubic.transform(spin.value.clamp(0.0, 1.0));
-    final lat = fromLat + (toLat - fromLat) * t;
-    final lon = fromLon + (toLon - fromLon) * t;
+    final (lat, lon) = slerpDeg(fromVec, toVec, t);
     final view = GlobeView.ofDeg(lat, lon);
     GlobeCountry? country;
     for (final c in countries) {
@@ -1388,6 +1473,7 @@ class _GlobePainter extends CustomPainter {
     required this.animated,
     required this.arrive,
     required this.zoom,
+    this.clouds = false,
   });
 
   final _RotatedWorld world;
@@ -1407,6 +1493,10 @@ class _GlobePainter extends CustomPainter {
   /// The camera: the map's zoom (user's zoom, times the flight's own
   /// pull-back). The world stays as built; the canvas scales.
   final double zoom;
+
+  /// The satellite's own clouds: soft wisps inside the ball, over the
+  /// land. Only the satellite's look carries them.
+  final bool clouds;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1526,6 +1616,34 @@ class _GlobePainter extends CustomPainter {
         ..strokeCap = StrokeCap.round
         ..color = palette.landStroke,
     );
+
+    // The satellite's clouds: soft white wisps laid over the land, only
+    // where the ball faces the viewer — the earth as it reads from
+    // orbit. They hold still, so they cost one draw, not a clock.
+    if (clouds) {
+      canvas.save();
+      canvas.clipPath(
+        ui.Path()..addOval(Rect.fromCircle(center: center, radius: radius)),
+      );
+      for (final (x, y, rx, ry) in _clouds) {
+        final seat = Offset(
+          center.dx + (x * 2 - 1) * radius * 0.86,
+          center.dy + (y * 2 - 1) * radius * 0.86,
+        );
+        canvas.drawOval(
+          Rect.fromCenter(
+            center: seat,
+            width: rx * 2 * radius * 0.55,
+            height: ry * 2 * radius * 0.30,
+          ),
+          Paint()
+            ..color = Colors.white.withValues(alpha: 0.10)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 9)
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.restore();
+    }
 
     // The roads first, under the lit country: wide soft glow, a bright
     // core, and — while the globe breathes — a comet of light gliding
@@ -1714,6 +1832,7 @@ class _GlobePainter extends CustomPainter {
       old.palette != palette ||
       old.dark != dark ||
       old.animated != animated ||
+      old.clouds != clouds ||
       (old.breath - breath).abs() > 0.003 ||
       (old.arrive - arrive).abs() > 0.003 ||
       (old.zoom - zoom).abs() > 0.001;
@@ -1724,4 +1843,438 @@ GlobePlace globePlaceOfVector((double, double, double) v) {
   final lat = math.asin(v.$3.clamp(-1.0, 1.0)) * 180 / math.pi;
   final lon = math.atan2(v.$2, v.$1) * 180 / math.pi;
   return GlobePlace(lat, lon);
+}
+
+/// One country's ready flat geometry: its code, its outline path (every
+/// ring, outer and holes together, even-odd filled), and its anchor's
+/// seat on the drawn map.
+@immutable
+class WorldShape {
+  const WorldShape(this.code, this.path, this.anchor);
+
+  final String code;
+  final ui.Path path;
+  final ui.Offset anchor;
+}
+
+/// The flat map, as it was before the globe arrived — restored word for
+/// word, and now one of the map's own kinds again. The world is drawn
+/// wider than the page ([scale]), centered where asked, in the theme's
+/// ink, with the graticule over the oceans and the chosen country lit in
+/// the connection's color, its anchor's halo breathing while the VPN
+/// carries the traffic.
+///
+/// [modern] is the flat map's second finish ([MapKind.flat]): the same
+/// projection and the same quiet, but the land reads a shade of the
+/// connection's own light, the coast carries a deeper shadow, and the
+/// lit country stands out more.
+class WorldMapBackdrop extends StatefulWidget {
+  const WorldMapBackdrop({
+    super.key,
+    required this.countries,
+    required this.ink,
+    required this.accent,
+    required this.selected,
+    required this.animated,
+    this.modern = false,
+    this.alignment = Alignment.center,
+    this.scale = 1.45,
+  });
+
+  /// The world, from [WorldMap.load]; empty until it arrives.
+  final List<WorldCountry> countries;
+
+  /// The theme's ink: the land's fills and edges read in it.
+  final Color ink;
+
+  /// The state's color: the chosen country is lit with it.
+  final Color accent;
+
+  /// The chosen country's ISO code, upper-case; '' for none.
+  final String selected;
+
+  /// Whether the map breathes: the halo and sheen move while the VPN
+  /// carries the traffic; off, everything holds still.
+  final bool animated;
+
+  /// The flat map's modern finish: the land tinted in the state's light.
+  final bool modern;
+
+  final Alignment alignment;
+
+  /// How much wider than the page the world is drawn: 1 draws it exactly
+  /// the page's width, where every continent reads as a squeezed ribbon;
+  /// more gives the countries room, and the page clips what runs over.
+  final double scale;
+
+  @override
+  State<WorldMapBackdrop> createState() => _WorldMapBackdropState();
+}
+
+class _WorldMapBackdropState extends State<WorldMapBackdrop>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _breath =
+      AnimationController(vsync: this, duration: const Duration(seconds: 4));
+
+  /// The countries' paths, built once for the map's size on screen: the
+  /// outlines are the expensive part (the official borders carry about a
+  /// hundred thousand points), and the breath must not rebuild them —
+  /// only redraw the paths it already has.
+  List<WorldShape>? _shapes;
+  List<WorldCountry>? _builtFrom;
+  double? _builtForW;
+
+  void _ensureShapes(double mapW, double mapH) {
+    if (widget.countries.isEmpty) return;
+    if (identical(_builtFrom, widget.countries) && _builtForW == mapW) return;
+    final sx = mapW / WorldMap.width;
+    final sy = mapH / WorldMap.height;
+    _shapes = [
+      for (final c in widget.countries)
+        WorldShape(
+          c.code,
+          _pathOf(c, sx, sy),
+          ui.Offset(c.anchorX * sx, c.anchorY * sy),
+        ),
+    ];
+    _builtFrom = widget.countries;
+    _builtForW = mapW;
+  }
+
+  /// The country's whole outline, one path for every ring — the fill
+  /// runs with an even-odd rule, so a hole shows the country around it.
+  static ui.Path _pathOf(WorldCountry c, double sx, double sy) {
+    final path = ui.Path();
+    for (final ring in c.rings) {
+      if (ring.isEmpty) continue;
+      path.moveTo(ring.first.dx * sx, ring.first.dy * sy);
+      for (var i = 1; i < ring.length; i++) {
+        path.lineTo(ring[i].dx * sx, ring[i].dy * sy);
+      }
+      path.close();
+    }
+    path.fillType = ui.PathFillType.evenOdd;
+    return path;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _breath.value = 0.5;
+    if (widget.animated) _breath.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(WorldMapBackdrop old) {
+    super.didUpdateWidget(old);
+    if (old.animated != widget.animated) {
+      if (widget.animated) {
+        _breath.repeat(reverse: true);
+      } else {
+        _breath.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: LayoutBuilder(
+        builder: (context, box) {
+          if (box.maxWidth <= 0 || widget.countries.isEmpty) {
+            return const SizedBox.expand();
+          }
+          // The world is 2:1: it is drawn wider than the page (scale),
+          // floats where asked, and what runs over the page's edge is
+          // clipped — bigger countries, no squeezed ribbon, no bleed.
+          final mapW = box.maxWidth * widget.scale;
+          final mapH = mapW / 2;
+          _ensureShapes(mapW, mapH);
+          return SizedBox.expand(
+            child: ClipRect(
+              child: Align(
+                alignment: widget.alignment,
+                child: SizedBox(
+                  width: mapW,
+                  height: mapH,
+                  child: AnimatedBuilder(
+                    animation: _breath,
+                    builder: (context, _) => CustomPaint(
+                      size: Size(mapW, mapH),
+                      painter: _WorldPainter(
+                        shapes: _shapes ?? const <WorldShape>[],
+                        ink: widget.ink,
+                        accent: widget.accent,
+                        selected: widget.selected,
+                        modern: widget.modern,
+                        t: widget.animated ? _breath.value : 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// The flat map's painter: the graticule, the land, the lit country, its
+/// anchor's halo, and a quiet sheen that follows the breath. The paths
+/// arrive built ([WorldShape]); a frame only draws them.
+class _WorldPainter extends CustomPainter {
+  _WorldPainter({
+    required this.shapes,
+    required this.ink,
+    required this.accent,
+    required this.selected,
+    required this.modern,
+    required this.t,
+  });
+
+  final List<WorldShape> shapes;
+  final Color ink;
+  final Color accent;
+  final String selected;
+
+  /// The modern finish: the land tints toward the accent, the edges read
+  /// a little stronger, and the lit country carries more light.
+  final bool modern;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // A light ink on the night, a dark one on the day — the map's quiet
+    // is a matter of alpha, not hue, in either theme. The land sits a
+    // shade above the graticule, so a country reads as a shape, not as
+    // noise.
+    final dark = ink.computeLuminance() > 0.5;
+    final landColor = modern
+        ? Color.alphaBlend(
+            accent.withValues(alpha: dark ? 0.10 : 0.07),
+            ink.withValues(alpha: dark ? 0.20 : 0.14),
+          )
+        : ink.withValues(alpha: dark ? 0.20 : 0.14);
+    final lineInk = ink.withValues(alpha: dark ? 0.32 : 0.26);
+
+    // The graticule: every 30 degrees, thinner than the land's edge.
+    final grid = Paint()
+      ..color = ink.withValues(alpha: dark ? 0.055 : 0.05)
+      ..strokeWidth = 0.6;
+    for (var lon = 0; lon <= 6; lon++) {
+      final x = lon / 6 * size.width;
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
+    }
+    for (var lat = 0; lat <= 3; lat++) {
+      final y = lat / 3 * size.height;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
+    }
+
+    // The chosen country, found once: it is lit while the rest stays ink.
+    WorldShape? chosen;
+    if (selected.length == 2) {
+      for (final s in shapes) {
+        if (s.code == selected) {
+          chosen = s;
+          break;
+        }
+      }
+    }
+
+    // The modern finish lays a breath of shadow under the land first, so
+    // the continents read lifted off the page the way they do on the
+    // globe; the classic keeps its quiet.
+    if (modern) {
+      canvas.drawPath(
+        _allLand(shapes, chosen),
+        Paint()
+          ..color = (dark ? Colors.black : ink)
+              .withValues(alpha: dark ? 0.34 : 0.10)
+          ..style = PaintingStyle.fill
+          ..isAntiAlias = true
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.4),
+      );
+    }
+
+    final land = Paint()
+      ..color = landColor
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+    final edge = Paint()
+      ..color = lineInk
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = modern ? 1.0 : 0.9
+      ..isAntiAlias = true
+      // Rounded joins and caps: the coastlines' corners meet smoothly —
+      // the map reads clean at any zoom, never as a jagged wire.
+      ..strokeJoin = StrokeJoin.round
+      ..strokeCap = StrokeCap.round;
+
+    for (final s in shapes) {
+      if (identical(s, chosen)) continue;
+      canvas.drawPath(s.path, land);
+      canvas.drawPath(s.path, edge);
+    }
+
+    // The breath every moving part below reads: 0 at rest's start, 1 at
+    // its peak, back and forth over the controller's period.
+    final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * t);
+
+    if (chosen != null) {
+      // The lit country: a fill in the state's color, soft, over an edge
+      // more present than the ink's own.
+      final fill = Paint()
+        ..color = accent.withValues(
+          alpha: modern ? (dark ? 0.36 : 0.28) : (dark ? 0.30 : 0.22),
+        )
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true;
+      final litEdge = Paint()
+        ..color = accent.withValues(
+          alpha: (modern ? (dark ? 0.92 : 0.80) : (dark ? 0.85 : 0.70)),
+        )
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = modern ? 1.6 : 1.5
+        ..isAntiAlias = true
+        ..strokeJoin = StrokeJoin.round
+        ..strokeCap = StrokeCap.round;
+      canvas.drawPath(chosen.path, fill);
+      canvas.drawPath(chosen.path, litEdge);
+      // The anchor's halo: a soft bloom of light first — blurred, so it
+      // glows rather than rings — then three rings that swell and shrink
+      // with the breath, and the dot at the middle of them.
+      final anchor = chosen.anchor;
+      canvas.drawCircle(
+        anchor,
+        26 * (0.9 + 0.25 * breathe),
+        Paint()
+          ..color = accent.withValues(
+            alpha: (dark ? 0.30 : 0.20) * (0.45 + 0.55 * breathe),
+          )
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16)
+          ..isAntiAlias = true,
+      );
+      for (final (r, a) in [
+        (30.0, 0.14),
+        (20.0, 0.24),
+        (12.0, 0.40),
+      ]) {
+        canvas.drawCircle(
+          anchor,
+          r * (0.85 + 0.3 * breathe),
+          Paint()
+            ..color = accent.withValues(
+              alpha: a * (dark ? 1.0 : 0.7) * (0.5 + 0.5 * breathe),
+            )
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.drawCircle(
+        anchor,
+        3.0 + 1.4 * breathe,
+        Paint()
+          ..color = accent.withValues(alpha: dark ? 0.9 : 0.75)
+          ..isAntiAlias = true,
+      );
+    }
+  }
+
+  /// Every country but the chosen one, as one path — the shadow's own
+  /// single draw.
+  static ui.Path _allLand(List<WorldShape> shapes, WorldShape? chosen) {
+    final path = ui.Path()..fillType = ui.PathFillType.evenOdd;
+    for (final s in shapes) {
+      if (identical(s, chosen)) continue;
+      path.addPath(s.path, ui.Offset.zero);
+    }
+    return path;
+  }
+
+  @override
+  bool shouldRepaint(_WorldPainter old) =>
+      old.selected != selected ||
+      old.accent != accent ||
+      old.ink != ink ||
+      old.modern != modern ||
+      old.shapes != shapes ||
+      (old.t - t).abs() > 0.003;
+}
+
+/// The home's world, in the kind the settings picked: the flat map (the
+/// classic and the modern finish) or the globe (the metal ball and the
+/// satellite's earth). A change of kind is a soft crossfade, so the map
+/// melts into its next self instead of popping.
+class WorldBackdrop extends StatelessWidget {
+  const WorldBackdrop({
+    super.key,
+    required this.kind,
+    required this.countries,
+    required this.accent,
+    required this.selected,
+    required this.animated,
+    required this.dark,
+    required this.label,
+    this.style = GlobeStyle.silver,
+    this.still = false,
+  });
+
+  final MapKind kind;
+  final List<WorldCountry> countries;
+  final Color accent;
+  final String selected;
+  final bool animated;
+  final bool dark;
+  final String label;
+  final GlobeStyle style;
+  final bool still;
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget world;
+    if (kind == MapKind.globe || kind == MapKind.satellite) {
+      world = WorldGlobe(
+        countries: countries,
+        accent: accent,
+        selected: selected,
+        animated: animated,
+        dark: dark,
+        label: label,
+        // The satellite carries its own earth; the ball wears the style
+        // the settings picked.
+        style: kind == MapKind.satellite ? GlobeStyle.satellite : style,
+        still: still,
+      );
+    } else {
+      world = WorldMapBackdrop(
+        countries: countries,
+        ink: dark ? Colors.white : const Color(0xFF0A0A0A),
+        accent: accent,
+        selected: selected,
+        animated: animated,
+        modern: kind == MapKind.flat,
+        scale: kind == MapKind.flat ? 1.32 : 1.45,
+      );
+    }
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 420),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeIn,
+      transitionBuilder: (child, anim) => FadeTransition(
+        opacity: anim,
+        child: ScaleTransition(
+          scale: Tween(begin: 0.985, end: 1.0).animate(anim),
+          child: child,
+        ),
+      ),
+      child: KeyedSubtree(key: ValueKey(kind), child: world),
+    );
+  }
 }

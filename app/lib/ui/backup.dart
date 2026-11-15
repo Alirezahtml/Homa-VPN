@@ -44,8 +44,11 @@ class BackupMenuButton extends StatelessWidget {
       saved = await _save(file.name, file.bytes);
     });
     if (saved != null && context.mounted) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(l.backupSaved(saved!))));
+      showToast(
+        context,
+        l.backupSaved(saved!),
+        mark: ToastMark.check,
+      );
     }
   }
 
@@ -71,8 +74,10 @@ class BackupMenuButton extends StatelessWidget {
       await core.refresh(accountsToo: true);
     });
     if (done != null && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l.backupImported(done!.added + done!.updated))),
+      showToast(
+        context,
+        l.backupImported(done!.added + done!.updated),
+        mark: ToastMark.check,
       );
     }
   }

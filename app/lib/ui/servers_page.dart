@@ -160,15 +160,11 @@ class _ServersPageState extends State<ServersPage> {
         }
       });
       if (mounted) {
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(
-            SnackBar(
-              content: Text(l.serversUpdated(result.locations.length)),
-              behavior: SnackBarBehavior.floating,
-              width: 520,
-            ),
-          );
+        showToast(
+          context,
+          l.serversUpdated(result.locations.length),
+          mark: ToastMark.info,
+        );
       }
     } on CoreApiException {
       if (mounted) showError(context, l.serversUpdateFailed);

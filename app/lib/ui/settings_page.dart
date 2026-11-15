@@ -25,7 +25,7 @@ import 'motion.dart';
 import 'port_dialog.dart';
 import 'relay_test_dialog.dart';
 import 'widgets.dart';
-import 'world_map.dart' show GlobePalette, GlobeStyle;
+import 'world_map.dart' show GlobePalette, GlobeStyle, MapKind;
 
 /// The makers' social row and the rest of the page: this file's own state.
 
@@ -797,19 +797,49 @@ class _SettingsPageState extends State<SettingsPage> {
     ),
   );
 
-  /// The home's look: the map's own styles, each with a small preview of
-  /// the real palette, and the battery saver that puts the map's motion
-  /// to rest while the connection stays as it is.
+  /// The home's look: the map's own kinds (the flat map as it always
+  /// was, its modern finish, the metal ball, the satellite's earth), the
+  /// ball's styles, and the battery saver that puts the map's motion to
+  /// rest while the connection stays as it is.
   Widget _appearance(AppLocalizations l, AppSettings s) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
+      Panel(
+        title: l.mapKind,
+        icon: Icons.map_rounded,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l.mapKindHint, style: Theme.of(context).textTheme.bodyMedium),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 14,
+              runSpacing: 14,
+              children: [
+                for (final kind in MapKind.values)
+                  _MapKindTile(
+                    kind: kind,
+                    name: mapKindName(l, kind),
+                    dark: Theme.of(context).brightness == Brightness.dark,
+                    selected: s.mapKind == kind.name,
+                    onTap: () => s.update(mapKind: kind.name),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 12),
       Panel(
         title: l.mapStyle,
         icon: Icons.public_rounded,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l.mapStyleHint, style: Theme.of(context).textTheme.bodyMedium),
+            Text(
+              l.mapStyleGlobeHint,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             const SizedBox(height: 16),
             Wrap(
               spacing: 12,
@@ -1005,6 +1035,40 @@ class _SettingsPageState extends State<SettingsPage> {
                             label: l.tunMtu,
                             value: l.mtuAutoValue,
                           ),
+                        // The location, too, measured: the core starts on
+                        // the server its own latency test says is fastest
+                        // (proxy.country "fastest"), and the wheel and the
+                        // servers page read the choice back. Off, the
+                        // recommended location stands as it always did.
+                        _Row(
+                          icon: Icons.travel_explore_rounded,
+                          label: l.smartLocation,
+                          value: l.smartLocationHint,
+                          child: Switch(
+                            value: _str(['proxy', 'country']) == 'fastest',
+                            onChanged: _saving
+                                ? null
+                                : (v) => _save({
+                                    ['proxy', 'country']: v
+                                        ? 'fastest'
+                                        : '',
+                                  }),
+                          ),
+                        ),
+                        // Apps' own QUIC rides the tunnel too, when the
+                        // smart network is on: one less thing to think
+                        // about for calls and games.
+                        _Row(
+                          icon: Icons.bolt_rounded,
+                          label: l.quicPass,
+                          value: l.quicPassHint,
+                          child: Switch(
+                            value: _bool(['tun', 'quic']),
+                            onChanged: _saving
+                                ? null
+                                : (v) => _save({['tun', 'quic']: v}),
+                          ),
+                        ),
                       ],
                     );
                   },
@@ -1173,6 +1237,21 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
+                ),
+              ),
+              // Apps' own QUIC (UDP to port 443) rides the tunnel instead
+              // of being refused: a call or a game keeps its UDP speed
+              // instead of falling back to TCP. A real pass of the core's
+              // TUN settings, off until asked for.
+              _Row(
+                icon: Icons.bolt_rounded,
+                label: l.quicPass,
+                value: l.quicPassHint,
+                child: Switch(
+                  value: _bool(['tun', 'quic']),
+                  onChanged: _saving
+                      ? null
+                      : (v) => _save({['tun', 'quic']: v}),
                 ),
               ),
             ],
@@ -4145,6 +4224,7 @@ String mapStyleName(AppLocalizations l, GlobeStyle style) => switch (style) {
   GlobeStyle.ocean => l.mapOcean,
   GlobeStyle.mono => l.mapMono,
   GlobeStyle.aurora => l.mapAurora,
+  GlobeStyle.satellite => l.mapKindSatellite,
   _ => l.mapSilver,
 };
 
@@ -4306,4 +4386,277 @@ class _GlobePreviewPainter extends CustomPainter {
   @override
   bool shouldRepaint(_GlobePreviewPainter old) =>
       old.palette != palette || old.dark != dark;
+}
+
+/// The name of one map kind, in the app's own language.
+String mapKindName(AppLocalizations l, MapKind kind) => switch (kind) {
+  MapKind.globe => l.mapKindGlobe,
+  MapKind.satellite => l.mapKindSatellite,
+  MapKind.flat => l.mapKindFlat,
+  _ => l.mapKindClassic,
+};
+
+/// One map kind's tile: a small preview of the way the home's world is
+/// carried — the flat map's quiet ink, its modern finish, the metal
+/// ball, the satellite's earth — and the kind's name under it; the
+/// chosen one carries the accent's own frame.
+class _MapKindTile extends StatelessWidget {
+  const _MapKindTile({
+    required this.kind,
+    required this.name,
+    required this.dark,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final MapKind kind;
+  final String name;
+  final bool dark;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final accent = selected ? theme.colorScheme.primary : Colors.transparent;
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(color: accent, width: 2),
+            ),
+            child: SizedBox.square(
+              dimension: 62,
+              child: CustomPaint(
+                painter: _MapKindPreviewPainter(kind: kind, dark: dark),
+              ),
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            name,
+            style: theme.textTheme.labelMedium?.copyWith(
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+              color: selected
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The kind's preview: a small map the kind's own way. The flat kinds
+/// draw a small world (land shapes, a graticule, the lit country's
+/// halo); the ball kinds draw a small sphere (the metal's gradient or
+/// the satellite's oceans, the land's breath, the limb's light).
+class _MapKindPreviewPainter extends CustomPainter {
+  _MapKindPreviewPainter({required this.kind, required this.dark});
+
+  final MapKind kind;
+  final bool dark;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final ink = dark ? Colors.white : const Color(0xFF0A0A0A);
+    final sphere = kind == MapKind.globe || kind == MapKind.satellite;
+
+    // The land's small shapes: a hint of continents, drawn as blobs so a
+    // preview reads as a world at 62 px without the real borders.
+    final landPaint = Paint()
+      ..color = sphere
+          ? (kind == MapKind.satellite
+                ? const Color(0x9E57975E)
+                : ink.withValues(alpha: dark ? 0.30 : 0.18))
+          : ink.withValues(alpha: dark ? 0.24 : 0.16)
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+
+    if (!sphere) {
+      // The flat kinds: a rounded map card, its graticule, the land, the
+      // lit country's halo. The modern finish tints the land toward the
+      // accent and lays a shadow under it.
+      final modern = kind == MapKind.flat;
+      final rect = Rect.fromCenter(
+        center: c,
+        width: size.width * 0.86,
+        height: size.height * 0.5,
+      );
+      final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(7));
+      if (modern) {
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = (dark ? Colors.black : ink).withValues(
+              alpha: dark ? 0.30 : 0.09,
+            )
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.2),
+        );
+      }
+      canvas.drawRRect(
+        rrect,
+        Paint()
+          ..color = ink.withValues(alpha: dark ? 0.05 : 0.04)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 0.8,
+      );
+      // The graticule: three meridians, one parallel.
+      final grid = Paint()
+        ..color = ink.withValues(alpha: dark ? 0.09 : 0.08)
+        ..strokeWidth = 0.6;
+      for (var i = 1; i <= 2; i++) {
+        final x = rect.left + rect.width * i / 3;
+        canvas.drawLine(Offset(x, rect.top), Offset(x, rect.bottom), grid);
+      }
+      canvas.drawLine(
+        Offset(rect.left, c.dy),
+        Offset(rect.right, c.dy),
+        grid,
+      );
+      // A hint of continents: three blobs wide of the middle.
+      _ellipse(canvas, rect.left + rect.width * 0.18, c.dy, 6.5, 4.0, landPaint);
+      _ellipse(canvas, rect.left + rect.width * 0.46, c.dy - 2, 4.0, 3.0, landPaint);
+      _ellipse(canvas, rect.left + rect.width * 0.74, c.dy + 1, 5.5, 3.5, landPaint);
+      // The lit country: a small halo on the first blob, more present on
+      // the modern finish.
+      canvas.drawCircle(
+        Offset(rect.left + rect.width * 0.18, c.dy - 1),
+        7.5,
+        Paint()
+          ..color = ink.withValues(alpha: modern ? 0.30 : 0.20)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5)
+          ..isAntiAlias = true,
+      );
+      canvas.drawCircle(
+        Offset(rect.left + rect.width * 0.18, c.dy - 1),
+        1.8,
+        Paint()
+          ..color = ink.withValues(alpha: dark ? 0.9 : 0.7)
+          ..isAntiAlias = true,
+      );
+      return;
+    }
+
+    // The ball kinds: the ball's own gradient, the land, the limb.
+    final radius = size.width * 0.42;
+    final ball = Paint()
+      ..shader = ui.Gradient.radial(
+        c + Offset(-radius * 0.36, -radius * 0.4),
+        radius * 1.7,
+        kind == MapKind.satellite
+            ? const [
+                Color(0xFF3B7FC0),
+                Color(0xFF27609E),
+                Color(0xFF16406E),
+                Color(0xFF0B2440),
+              ]
+            : (dark
+                ? const [
+                    Color(0xFF9AA3B2),
+                    Color(0xFF4A5160),
+                    Color(0xFF20242E),
+                    Color(0xFF0B0D12),
+                  ]
+                : const [
+                    Color(0xFFF4F6FA),
+                    Color(0xFFC3C9D6),
+                    Color(0xFF8C93A3),
+                    Color(0xFF5D6371),
+                  ]),
+        const [0.0, 0.35, 0.72, 1.0],
+      );
+    canvas.drawCircle(c, radius, ball);
+    // The land: a breath of continents on the ball's face.
+    canvas.save();
+    canvas.clipPath(
+      Path()..addOval(Rect.fromCircle(center: c, radius: radius)),
+    );
+    canvas.drawCircle(
+      c + Offset(-radius * 0.30, -radius * 0.10),
+      radius * 0.30,
+      landPaint,
+    );
+    _ellipse(
+      canvas,
+      c.dx + radius * 0.18,
+      c.dy - radius * 0.34,
+      radius * 0.16,
+      radius * 0.10,
+      landPaint,
+    );
+    _ellipse(
+      canvas,
+      c.dx + radius * 0.10,
+      c.dy + radius * 0.30,
+      radius * 0.22,
+      radius * 0.12,
+      landPaint,
+    );
+    if (kind == MapKind.satellite) {
+      // A breath of cloud over the satellite's earth.
+      canvas.drawCircle(
+        c + Offset(radius * 0.28, -radius * 0.18),
+        radius * 0.16,
+        Paint()
+          ..color = Colors.white.withValues(alpha: 0.16)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4)
+          ..isAntiAlias = true,
+      );
+    }
+    canvas.restore();
+    // The limb's light.
+    canvas.drawCircle(
+      c,
+      radius - 0.5,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..shader = ui.Gradient.radial(
+          c,
+          radius,
+          [
+            (kind == MapKind.satellite
+                    ? const Color(0xFF5B8CC9)
+                    : (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC)))
+                .withValues(alpha: 0.0),
+            (kind == MapKind.satellite
+                    ? const Color(0xFF5B8CC9)
+                    : (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC)))
+                .withValues(alpha: dark ? 0.6 : 0.4),
+          ],
+          const [0.7, 1.0],
+        ),
+    );
+  }
+
+  /// An oval at (cx, cy) with the radii [rx] and [ry] — the blobs the
+  /// previews read as continents.
+  void _ellipse(
+    Canvas canvas,
+    double cx,
+    double cy,
+    double rx,
+    double ry,
+    Paint paint,
+  ) {
+    canvas.drawOval(
+      Rect.fromCenter(center: Offset(cx, cy), width: rx * 2, height: ry * 2),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_MapKindPreviewPainter old) =>
+      old.kind != kind || old.dark != dark;
 }

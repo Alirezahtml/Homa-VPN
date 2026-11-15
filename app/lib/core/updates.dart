@@ -224,6 +224,11 @@ abstract final class Updates {
           ? Release(settings.updateVersion, settings.updateUrl)
           : releaseFromJson(settings.updateDetails);
     }
+    // The folder keeps only what a download needs. Any package present
+    // at the start is a leftover of an update already handed to the
+    // installer — the new version is running now, the old one is gone,
+    // and the package would only sit on the storage. It goes.
+    unawaited(_cleanupApks());
     core.addListener(_onStatus);
     _first = Timer(const Duration(minutes: 1), _due);
     _timer = Timer.periodic(const Duration(hours: 1), (_) => _due());
@@ -480,6 +485,27 @@ abstract final class Updates {
     return File(
       '$dir${Platform.pathSeparator}Homa-VPN-$version.apk',
     );
+  }
+
+  /// Every package left in the update folder goes: an install replaces
+  /// the app (Android's own replace of the same package), and a package
+  /// left over from it — or from a failed or interrupted one — is only
+  /// storage. A download running this very moment is left alone.
+  static Future<void> _cleanupApks() async {
+    final dir = await AndroidCore.updateDir().catchError((Object _) => '');
+    if (dir.isEmpty) return;
+    try {
+      await for (final item in Directory(dir).list()) {
+        if (item is! File || !item.path.endsWith('.apk')) continue;
+        try {
+          await item.delete();
+        } on FileSystemException {
+          // Another copy is installing it right now; it goes next start.
+        }
+      }
+    } on FileSystemException {
+      // No folder yet, or nothing readable in it: nothing to clean.
+    }
   }
 
   /// Downloads [release]'s APK (this phone's processor, else the universal

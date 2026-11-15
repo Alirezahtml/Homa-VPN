@@ -880,6 +880,8 @@ class _PlaceCard extends StatelessWidget {
     required this.palette,
     required this.place,
     required this.accent,
+    this.exitIp = '',
+    this.connected = false,
     this.onTap,
     this.compact = false,
   });
@@ -887,8 +889,89 @@ class _PlaceCard extends StatelessWidget {
   final _HomePalette palette;
   final HomePlace place;
   final Color accent;
+
+  /// The connection's exit address: what the eye shows when it is here.
+  final String exitIp;
+
+  /// Whether the VPN is up: without it, the eye says the address comes
+  /// with the connection.
+  final bool connected;
   final VoidCallback? onTap;
   final bool compact;
+
+  /// The eye: the card names the country; the eye opens a small sheet
+  /// with the address the traffic leaves from, and a tap of it carries
+  /// the address to the clipboard.
+  void _showExitIp(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final ip = exitIp;
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: CountryFlag(code: place.flag, width: 36),
+        title: Text(place.name, style: theme.textTheme.titleMedium),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (ip.isNotEmpty) ...[
+              Text(
+                l.publicIp,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 6),
+              // The address itself: selectable by hand, and one tap on
+              // the row's button copies it whole.
+              Text(
+                ltr(ip),
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.4,
+                ),
+                textDirection: TextDirection.ltr,
+              ),
+              const SizedBox(height: 14),
+              FilledButton.tonalIcon(
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: ip));
+                  showToast(
+                    context,
+                    l.copiedToClipboard,
+                    mark: ToastMark.copy,
+                  );
+                },
+                icon: const Icon(Icons.copy_rounded, size: 16),
+                label: Text(l.copyIp),
+              ),
+            ] else ...[
+              Icon(
+                Icons.public_off_rounded,
+                size: 28,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                l.exitIpHint,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l.close),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -949,6 +1032,19 @@ class _PlaceCard extends StatelessWidget {
                 ],
               ),
             ),
+            // The eye: the address this country's traffic leaves from,
+            // shown and copied on a tap. It stands here whatever the
+            // connection says; the sheet it opens explains itself.
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              tooltip: lExitIp(context),
+              onPressed: () => _showExitIp(context),
+              icon: Icon(
+                Icons.visibility_outlined,
+                size: compact ? 18 : 20,
+                color: p.muted,
+              ),
+            ),
             if (onTap != null)
               Icon(Icons.chevron_right_rounded, color: p.muted),
           ],
@@ -956,6 +1052,9 @@ class _PlaceCard extends StatelessWidget {
       ),
     );
   }
+
+  String lExitIp(BuildContext context) =>
+      AppLocalizations.of(context).showExitIp;
 }
 
 class _HomePalette {
@@ -1106,12 +1205,12 @@ class _PhoneHome extends StatelessWidget {
             colors: [p.top, p.bottom],
           ),
         ),
-        // The world behind the switch: the globe (world_map.dart) — the
-        // countries' own official outlines carried onto a silver ball,
-        // turned so the chosen country faces the viewer, lit in the
-        // state's color, a glowing pin and a floating card at its anchor,
-        // and the great-circle paths to the hubs burning while the VPN
-        // carries the traffic.
+        // The world behind the switch (world_map.dart): in the kind the
+        // settings picked — the flat map as it always was, the flat map's
+        // modern finish, the metal ball, or the satellite's earth — the
+        // countries' own official outlines, the chosen country lit in the
+        // state's color, and the change of country a soft flight while
+        // the VPN carries the traffic.
         child: Stack(
           children: [
             Positioned.fill(
@@ -1123,7 +1222,9 @@ class _PhoneHome extends StatelessWidget {
                           ? status.exit!.countryCode
                           : status.selection)
                       .toUpperCase();
-                  return WorldGlobe(
+                  return WorldBackdrop(
+                    kind: MapKind.values.asNameMap()[settings.mapKind] ??
+                        MapKind.classic,
                     countries: snapshot.data ?? const [],
                     accent: status.state.phase == Phase.running
                         ? p.connected
@@ -1206,6 +1307,11 @@ class _PhoneHome extends StatelessWidget {
     final ip = !showIp
         ? ''
         : status.exit?.ipv4.isNotEmpty == true
+        ? status.exit!.ipv4
+        : status.exit?.ipv6 ?? '';
+    // The eye's own address, whatever the IP row's setting says: the
+    // place card shows it when the user asks for it.
+    final exitIp = status.exit?.ipv4.isNotEmpty == true
         ? status.exit!.ipv4
         : status.exit?.ipv6 ?? '';
     final proxyOnly = Platform.isAndroid && AndroidCore.mode.value == 'proxy';
@@ -1572,6 +1678,8 @@ class _PhoneHome extends StatelessWidget {
                       palette: p,
                       place: place,
                       accent: accent,
+                      exitIp: exitIp,
+                      connected: connected,
                       onTap: onOpenServers,
                       compact: true,
                     ),
@@ -1599,6 +1707,8 @@ class _PhoneHome extends StatelessWidget {
                   palette: p,
                   place: place,
                   accent: accent,
+                  exitIp: exitIp,
+                  connected: connected,
                   onTap: onOpenServers,
                 ),
               ),
@@ -1970,18 +2080,16 @@ class _ElapsedTextState extends State<_ElapsedText> {
   }
 }
 
-/// Copies the exit's public IP for the user's clipboard, and says so: an
-/// address is the kind of thing a report or a check needs by hand.
+/// Copies the exit's public IP for the user's clipboard, and says so in
+/// the app's own dynamic note (widgets.dart): an address is the kind of
+/// thing a report or a check needs by hand.
 void _copyPublicIp(BuildContext context, String ip) {
   Clipboard.setData(ClipboardData(text: ip));
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context).copiedToClipboard),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+  showToast(
+    context,
+    AppLocalizations.of(context).copiedToClipboard,
+    mark: ToastMark.copy,
+  );
 }
 
 /// A full-width stat row: an icon, a muted label, then the value, all in
@@ -2347,12 +2455,10 @@ class _LanChipState extends State<_LanChip> {
       label: Text(l.lanAddress(ltr(address))),
       onPressed: () {
         Clipboard.setData(ClipboardData(text: address));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l.copied(address)),
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-          ),
+        showToast(
+          context,
+          l.copied(address),
+          mark: ToastMark.copy,
         );
       },
     );

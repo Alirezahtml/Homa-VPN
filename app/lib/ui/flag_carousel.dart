@@ -264,14 +264,19 @@ class _FlagCarouselState extends State<FlagCarousel>
     if (_locations == null || entries.isEmpty) {
       // The name lives on the globe's floating card alone now: the wheel
       // keeps only its height, no second copy of it under the flags.
-      return const SizedBox(height: 198);
+      return const SizedBox(height: 190);
     }
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         _wheel(entries, dark),
-        const SizedBox(height: 10),
-        _indicators(entries, dark),
+        // The position markers ride up toward the flags: where the wheel's
+        // own shelf sits, close enough that the lit pill reads as part of
+        // the flags it points at, not a row under them.
+        Transform.translate(
+          offset: const Offset(0, -10),
+          child: _indicators(entries, dark),
+        ),
       ],
     );
   }

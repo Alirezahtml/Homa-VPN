@@ -2,7 +2,7 @@ name: arman_vpn
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
 
-version: 1.0.38+159
+version: 1.0.39+160
 
 environment:
   sdk: ^3.13.5
@@ -17,6 +17,9 @@ dependencies:
   intl: any
   webview_flutter: ^4.14.1
   webview_windows: ^0.4.0
+  # The app password's own hash (accounts page): pure Dart, nothing on
+  # the platform side.
+  crypto: ^3.0.6
 
 # Packages published less than two weeks ago are held back until they have
 # been out longer.

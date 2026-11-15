@@ -865,6 +865,7 @@ Future<void> showToast(
   BuildContext context,
   String message, {
   ToastMark mark = ToastMark.check,
+  int maxLines = 2,
 }) async {
   _toastEntry?.remove();
   // The note's own way out removes its entry, and the late binding lets
@@ -874,6 +875,7 @@ Future<void> showToast(
     builder: (context) => _ToastNote(
       message: message,
       mark: mark,
+      maxLines: maxLines,
       onDone: () {
         _toastEntry?.remove();
         if (_toastEntry == entry) _toastEntry = null;
@@ -884,20 +886,36 @@ Future<void> showToast(
   Overlay.of(context, rootOverlay: true).insert(entry);
 }
 
-/// The vector a toast draws beside its word.
+/// The vector a toast draws beside its word. Every mark draws itself as
+/// the note lands — the same clean stroke at any size, no emoji anywhere.
 enum ToastMark {
   /// A check finishing its stroke: the work is done.
   check,
+
+  /// Two sheets: the copy went to the clipboard.
+  copy,
+
+  /// An “i”: something worth knowing, nothing done.
+  info,
+
+  /// An exclamation: something went wrong, in the state's own red.
+  alert,
 }
 
 /// One toast: its entrance (rise, fade, spring to size), its mark
 /// drawing itself, a quiet hold, and its exit (sink and fade). Honors
 /// the system's reduce-motion: then it only fades.
 class _ToastNote extends StatefulWidget {
-  const _ToastNote({required this.message, required this.mark, required this.onDone});
+  const _ToastNote({
+    required this.message,
+    required this.mark,
+    required this.maxLines,
+    required this.onDone,
+  });
 
   final String message;
   final ToastMark mark;
+  final int maxLines;
   final VoidCallback onDone;
 
   @override
@@ -1010,7 +1028,7 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
                                   Flexible(
                                     child: Text(
                                       widget.message,
-                                      maxLines: 2,
+                                      maxLines: widget.maxLines,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         color: Colors.white,
@@ -1039,8 +1057,9 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
 }
 
 /// The toast's mark, drawn as the [t] controller runs: a ring that
-/// closes itself, then a check that completes its stroke — vector lines
-/// with round caps, the shape crisp at any size, no emoji anywhere.
+/// closes itself, then the mark's own stroke completing — vector lines
+/// with round caps, the shape crisp at any size, no emoji anywhere. The
+/// alert reads in the state's own red, the rest in the note's ink.
 class _ToastMarkView extends StatelessWidget {
   const _ToastMarkView({required this.mark, required this.t});
 
@@ -1053,58 +1072,150 @@ class _ToastMarkView extends StatelessWidget {
       animation: t,
       builder: (context, _) => CustomPaint(
         size: const Size(26, 26),
-        painter: _CheckMarkPainter(progress: t.value),
+        painter: _ToastMarkPainter(progress: t.value, mark: mark),
       ),
     );
   }
 }
 
-class _CheckMarkPainter extends CustomPainter {
-  _CheckMarkPainter({required this.progress});
+class _ToastMarkPainter extends CustomPainter {
+  _ToastMarkPainter({required this.progress, required this.mark});
 
   final double progress;
+  final ToastMark mark;
 
   @override
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final radius = size.width * 0.40;
     final paint = Paint()
-      ..color = Colors.white
+      ..color = mark == ToastMark.alert
+          ? const Color(0xFFFFB4AB)
+          : Colors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.4
       ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
-    // The ring draws itself over the first half; the check over the rest.
+    // The ring draws itself over the first half; the mark over the rest.
     final ring = Rect.fromCircle(center: c, radius: radius);
-    canvas.drawArc(ring, -math.pi / 2, 2 * math.pi * (progress * 2).clamp(0.0, 1.0), false, paint);
-    if (progress > 0.45) {
-      final check = Path()
-        ..moveTo(size.width * 0.32, size.height * 0.52)
-        ..lineTo(size.width * 0.45, size.height * 0.65)
-        ..lineTo(size.width * 0.70, size.height * 0.36);
-      final metrics = check.computeMetrics().toList();
-      final draw = ((progress - 0.45) / 0.55).clamp(0.0, 1.0);
-      for (final m in metrics) {
-        final part = m.extractPath(0, m.length * draw);
-        canvas.drawPath(part, paint);
-      }
+    canvas.drawArc(
+      ring,
+      -math.pi / 2,
+      2 * math.pi * (progress * 2).clamp(0.0, 1.0),
+      false,
+      paint,
+    );
+    final draw = ((progress - 0.45) / 0.55).clamp(0.0, 1.0);
+    if (draw <= 0) return;
+    switch (mark) {
+      case ToastMark.check:
+        _stroke(
+          canvas,
+          paint,
+          Path()
+            ..moveTo(size.width * 0.32, size.height * 0.52)
+            ..lineTo(size.width * 0.45, size.height * 0.65)
+            ..lineTo(size.width * 0.70, size.height * 0.36),
+          draw,
+        );
+      case ToastMark.copy:
+        // The back sheet first (it appears whole by mid-draw), then the
+        // front sheet draws over it.
+        _stroke(
+          canvas,
+          paint,
+          Path()
+            ..addRRect(
+              RRect.fromRectAndRadius(
+                Rect.fromLTWH(
+                  size.width * 0.42,
+                  size.height * 0.22,
+                  size.width * 0.34,
+                  size.height * 0.42,
+                ),
+                const Radius.circular(3),
+              ),
+            ),
+          (draw * 2).clamp(0.0, 1.0),
+        );
+        _stroke(
+          canvas,
+          paint,
+          Path()
+            ..addRRect(
+              RRect.fromRectAndRadius(
+                Rect.fromLTWH(
+                  size.width * 0.24,
+                  size.height * 0.36,
+                  size.width * 0.42,
+                  size.height * 0.42,
+                ),
+                const Radius.circular(3),
+              ),
+            ),
+          draw,
+        );
+      case ToastMark.info:
+        // The dot lands, the stem rises.
+        if (draw > 0.3) {
+          canvas.drawCircle(
+            Offset(size.width * 0.5, size.height * 0.32),
+            1.6,
+            paint..style = PaintingStyle.fill,
+          );
+        }
+        _stroke(
+          canvas,
+          paint,
+          Path()
+            ..moveTo(size.width * 0.5, size.height * 0.48)
+            ..lineTo(size.width * 0.5, size.height * 0.70),
+          draw,
+        );
+      case ToastMark.alert:
+        // The stem drops in, the dot closes the mark.
+        _stroke(
+          canvas,
+          paint,
+          Path()
+            ..moveTo(size.width * 0.5, size.height * 0.28)
+            ..lineTo(size.width * 0.5, size.height * 0.58),
+          draw,
+        );
+        if (draw > 0.6) {
+          canvas.drawCircle(
+            Offset(size.width * 0.5, size.height * 0.72),
+            1.6,
+            paint..style = PaintingStyle.fill,
+          );
+        }
+    }
+  }
+
+  /// Draws [path] up to [draw] of its own length.
+  void _stroke(Canvas canvas, Paint paint, Path path, double draw) {
+    for (final m in path.computeMetrics()) {
+      canvas.drawPath(m.extractPath(0, m.length * draw), paint);
     }
   }
 
   @override
-  bool shouldRepaint(_CheckMarkPainter old) => old.progress != progress;
+  bool shouldRepaint(_ToastMarkPainter old) =>
+      old.progress != progress || old.mark != mark;
 }
 
+/// What went wrong, said in the app's own dynamic note — the same soft
+/// glass pill every notice wears, its mark the state's own red. The
+/// message keeps more lines than the small notes, so a failure still
+/// says what it failed at.
 void showError(BuildContext context, String message) {
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-        width: 520,
-      ),
-    );
+  showToast(
+    context,
+    message,
+    mark: ToastMark.alert,
+    maxLines: 5,
+  );
 }
 
 /// An on/off choice in a "⋮" menu, as narrow as its name: a check box

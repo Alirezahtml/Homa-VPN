@@ -105,6 +105,31 @@ class AppSettings extends ChangeNotifier {
   /// file reads as the silver.
   String mapStyle = 'silver';
 
+  /// The home map's kind: 'classic' (the flat map as it always was),
+  /// 'globe' (the metal ball), 'satellite' (the earth from orbit), or
+  /// 'flat' (the flat map's modern finish). The classic carries the
+  /// default: the map the home has always stood on.
+  String mapKind = 'classic';
+
+  /// The accounts' own display names (account id → name): the rename a
+  /// user gives an account, read back wherever its name shows. The
+  /// core's own name stays underneath.
+  Map<String, String> accountNames = const {};
+
+  /// The accounts' own profile art (account id → [AccountAvatar] key,
+  /// 'g0'…'g9'): the look the user picked for the account's avatar.
+  Map<String, String> accountAvatars = const {};
+
+  /// The app password's salt and hash (a lock on the app itself, set on
+  /// the accounts page): both empty when no password stands. The hash is
+  /// SHA-256 over salt+password, 10 rounds repeated.
+  String lockSalt = '';
+  String lockHash = '';
+
+  /// Whether this run has unlocked the app password already. Not saved:
+  /// a fresh start asks again.
+  bool lockUnlocked = false;
+
   /// Puts the map's own motion to rest — the globe's breath, the wheel's
   /// glow — while the connection stays up. Nothing the connection needs
   /// is touched; only the animation goes quiet, and the battery with it.
@@ -302,6 +327,21 @@ class AppSettings extends ChangeNotifier {
         if (j['custom_accent'] case final int v) s.customAccent = v;
         if (j['home_design'] case final String d) s.homeDesign = d;
         if (j['map_style'] case final String m) s.mapStyle = m;
+        if (j['map_kind'] case final String m) s.mapKind = m;
+        if (j['account_names'] case final Map<String, Object?> v) {
+          s.accountNames = {
+            for (final e in v.entries)
+              if (e.value is String) e.key: e.value! as String,
+          };
+        }
+        if (j['account_avatars'] case final Map<String, Object?> v) {
+          s.accountAvatars = {
+            for (final e in v.entries)
+              if (e.value is String) e.key: e.value! as String,
+          };
+        }
+        if (j['lock_salt'] case final String v) s.lockSalt = v;
+        if (j['lock_hash'] case final String v) s.lockHash = v;
         s.batterySaver = j['battery_saver'] == true;
         s.connectOnOpen = j['connect_on_open'] == true;
         s.autoReconnect = j['auto_reconnect'] == true;
@@ -355,6 +395,11 @@ class AppSettings extends ChangeNotifier {
     int? customAccent,
     String? homeDesign,
     String? mapStyle,
+    String? mapKind,
+    Map<String, String>? accountNames,
+    Map<String, String>? accountAvatars,
+    String? lockSalt,
+    String? lockHash,
     bool? batterySaver,
     bool? connectOnOpen,
     bool? autoReconnect,
@@ -392,9 +437,22 @@ class AppSettings extends ChangeNotifier {
         'ocean' => 'ocean',
         'mono' => 'mono',
         'aurora' => 'aurora',
+        'satellite' => 'satellite',
         _ => 'silver',
       };
     }
+    if (mapKind != null) {
+      this.mapKind = switch (mapKind) {
+        'globe' => 'globe',
+        'satellite' => 'satellite',
+        'flat' => 'flat',
+        _ => 'classic',
+      };
+    }
+    this.accountNames = accountNames ?? this.accountNames;
+    this.accountAvatars = accountAvatars ?? this.accountAvatars;
+    this.lockSalt = lockSalt ?? this.lockSalt;
+    this.lockHash = lockHash ?? this.lockHash;
     this.batterySaver = batterySaver ?? this.batterySaver;
     this.connectOnOpen = connectOnOpen ?? this.connectOnOpen;
     this.autoReconnect = autoReconnect ?? this.autoReconnect;
@@ -455,6 +513,11 @@ class AppSettings extends ChangeNotifier {
           'custom_accent': customAccent,
           'home_design': homeDesign,
           'map_style': mapStyle,
+          'map_kind': mapKind,
+          'account_names': accountNames,
+          'account_avatars': accountAvatars,
+          'lock_salt': lockSalt,
+          'lock_hash': lockHash,
           'battery_saver': batterySaver,
           'connect_on_open': connectOnOpen,
           'auto_reconnect': autoReconnect,

@@ -6,6 +6,7 @@ import '../core/core_api.dart';
 import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
+import 'app_lock.dart';
 import 'backup.dart';
 import 'browser_signin.dart';
 import 'format.dart';
@@ -70,6 +71,10 @@ class AccountsPage extends StatelessWidget {
             ],
           const SizedBox(height: 12),
           Reveal(child: _SignInMethodRow(settings: settings)),
+          const SizedBox(height: 12),
+          // The app's own password: the lock the app opens behind, set,
+          // changed, or removed here. Nothing about it leaves the device.
+          Reveal(child: _SecurityPanel(settings: settings)),
           // Nothing to switch to with one account.
           if (list.length > 1) ...[
             const SizedBox(height: 12),
@@ -104,6 +109,80 @@ class AccountsPage extends StatelessWidget {
         const SizedBox(height: 16),
         const _CreateAccountGuide(),
       ],
+    );
+  }
+}
+
+/// The app's own password, on the accounts page: what the lock is, and
+/// the three things it can do — set it where none stands, change it where
+/// one does, and remove it after the current word says it may.
+class _SecurityPanel extends StatelessWidget {
+  const _SecurityPanel({required this.settings});
+
+  final AppSettings settings;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final has = settings.lockHash.isNotEmpty;
+    return Panel(
+      title: l.accountSecurity,
+      icon: Icons.lock_outline_rounded,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                has ? Icons.lock_rounded : Icons.lock_open_rounded,
+                size: 18,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  has ? l.appPasswordOn : l.appPasswordOff,
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              if (!has)
+                FilledButton.tonalIcon(
+                  onPressed: () => showChangePasswordDialog(
+                    context,
+                    settings,
+                    hasPassword: false,
+                  ),
+                  icon: const Icon(Icons.password_rounded, size: 18),
+                  label: Text(l.appPasswordSet),
+                )
+              else ...[
+                OutlinedButton.icon(
+                  onPressed: () => showChangePasswordDialog(
+                    context,
+                    settings,
+                    hasPassword: true,
+                  ),
+                  icon: const Icon(Icons.password_rounded, size: 18),
+                  label: Text(l.appPasswordChange),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => showRemovePasswordDialog(context, settings),
+                  icon: const Icon(Icons.lock_open_rounded, size: 18),
+                  label: Text(l.appPasswordRemove),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -538,6 +617,8 @@ class _AccountCardState extends State<_AccountCard> {
     final theme = Theme.of(context);
     final a = widget.account;
     final core = widget.core;
+    // The name the user gave this account, over the core's own.
+    final displayName = widget.settings.accountNames[a.id] ?? a.name;
     final busy = core.busyAccounts.contains(a.id);
     final muted = theme.textTheme.bodySmall?.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
@@ -615,14 +696,26 @@ class _AccountCardState extends State<_AccountCard> {
                       ),
                       const SizedBox(width: 10),
                     ],
-                    _Monogram(name: a.name, active: a.active),
+                    _AccountAvatar(
+                      name: displayName,
+                      avatarKey:
+                          widget.settings.accountAvatars[a.id] ?? '',
+                      active: a.active,
+                      onTap: () => showAvatarPicker(
+                        context,
+                        widget.settings,
+                        a.id,
+                        displayName,
+                        widget.settings.accountAvatars[a.id] ?? '',
+                      ),
+                    ),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            a.name,
+                            displayName,
                             style: theme.textTheme.titleMedium,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -746,6 +839,17 @@ class _AccountCardState extends State<_AccountCard> {
                           const Spacer(),
                           IconButton(
                             visualDensity: VisualDensity.compact,
+                            tooltip: l.accountRename,
+                            onPressed: () => showRenameAccountDialog(
+                              context,
+                              widget.settings,
+                              a.id,
+                              displayName,
+                            ),
+                            icon: const Icon(Icons.edit_rounded),
+                          ),
+                          IconButton(
+                            visualDensity: VisualDensity.compact,
                             tooltip: l.refreshQuota,
                             onPressed: busy
                                 ? null
@@ -808,11 +912,13 @@ class _AccountCardState extends State<_AccountCard> {
   Future<void> _remove(BuildContext context) async {
     final l = AppLocalizations.of(context);
     final account = widget.account;
+    final displayName =
+        widget.settings.accountNames[account.id] ?? account.name;
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l.removeTitle),
-        content: Text(l.removeBody(account.name)),
+        content: Text(l.removeBody(displayName)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -832,44 +938,61 @@ class _AccountCardState extends State<_AccountCard> {
   }
 }
 
-/// The account's letter in a ring: filled with the accent's light when
-/// the account is the one carrying the traffic, quiet gray otherwise.
-class _Monogram extends StatelessWidget {
-  const _Monogram({required this.name, required this.active});
+/// An account's avatar, ready to be chosen: the face itself, a small
+/// pencil at its shoulder, and a tap that opens the profile's own picker.
+class _AccountAvatar extends StatelessWidget {
+  const _AccountAvatar({
+    required this.name,
+    required this.avatarKey,
+    required this.active,
+    required this.onTap,
+  });
 
   final String name;
+  final String avatarKey;
   final bool active;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final trimmed = name.trim();
-    final letter = trimmed.isEmpty
-        ? '?'
-        : trimmed.characters.first.toUpperCase();
-    final color = active
-        ? theme.colorScheme.primary
-        : theme.colorScheme.onSurfaceVariant;
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: active
-            ? color.withValues(alpha: 0.14)
-            : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
-        border: Border.all(
-          color: active
-              ? color.withValues(alpha: 0.55)
-              : theme.colorScheme.outlineVariant,
-        ),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        letter,
-        style: theme.textTheme.titleMedium?.copyWith(
-          color: color,
-          fontWeight: FontWeight.w700,
+    return Tooltip(
+      message: l.accountProfile,
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            AccountAvatar(
+              name: name,
+              avatarKey: avatarKey,
+              active: active,
+              size: 44,
+            ),
+            Positioned(
+              right: -3,
+              top: -3,
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: theme.colorScheme.surface,
+                  border: Border.all(
+                    color: theme.colorScheme.outlineVariant,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.edit_rounded,
+                  size: 10,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
