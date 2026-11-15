@@ -30,8 +30,14 @@ func TestSmartTransportRemembersFailures(t *testing.T) {
                 t.Errorf("after HTTP/3 and HTTP/2 failures: SmartTransport() = %q, want \"h1\"", got)
         }
         NoteTransport("h2", nil)
+        if got := SmartTransport(); got != "h2" {
+                t.Errorf("HTTP/2 answered, HTTP/3's failure is fresh: SmartTransport() = %q, want \"h2\"", got)
+        }
+        // Both fresh: the one that survives networks that cut long
+        // connections.
+        NoteTransport("h2", errTest)
         if got := SmartTransport(); got != "h1" {
-                t.Errorf("HTTP/2 answered but HTTP/3's failure is fresh: SmartTransport() = %q, want \"h1\"", got)
+                t.Errorf("after HTTP/3 and HTTP/2 failures: SmartTransport() = %q, want \"h1\"", got)
         }
         NoteTransport("h3", nil)
         if got := SmartTransport(); got != "h3" {
