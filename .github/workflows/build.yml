@@ -276,7 +276,10 @@ jobs:
       - name: Build tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq clang cmake ninja-build pkg-config libgtk-3-dev
+          # GStreamer is audioplayers_linux's own backend: the app's
+          # sounds play on the desktop build through it.
+          sudo apt-get install -y -qq clang cmake ninja-build pkg-config libgtk-3-dev \
+            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
       # A real TUN, as root, for a minute (internal/tunservice/e2e_test.go):
       # this computer is CI's.
       - name: TUN end to end
