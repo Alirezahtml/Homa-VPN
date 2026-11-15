@@ -32,7 +32,10 @@ class AccountAvatarPresets {
     [Color(0xFF4527A0), Color(0xFF7C4DFF)],
   ];
 
-  static const keys = [for (var i = 0; i < gradients.length) 'g$i'];
+  static const keys = [
+    'g0', 'g1', 'g2', 'g3', 'g4',
+    'g5', 'g6', 'g7', 'g8', 'g9',
+  ];
 
   /// The gradient [key] names, or null when it names none.
   static List<Color>? of(String key) {
@@ -294,7 +297,7 @@ Future<void> showRenameAccountDialog(
 /// repeated — slow enough to discourage a glance, quick enough to unlock
 /// in a breath.
 String lockHashOf(String password, String salt) {
-  var bytes = utf8.encode('$salt$password');
+  List<int> bytes = utf8.encode('$salt$password');
   for (var i = 0; i < 10; i++) {
     bytes = sha256.convert(bytes).bytes;
   }
