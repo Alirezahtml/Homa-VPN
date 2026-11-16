@@ -43,6 +43,12 @@ jobs:
       version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v7
+      # The Android app compiles only on a tag (the release build), so a
+      # broken Kotlin file would ride every main-branch run and break the
+      # release. Its braces, parens and brackets balance on every push
+      # instead, before anything else runs.
+      - name: Kotlin braces
+        run: python3 scripts/kotlin_braces.py app/android
       - id: version
         name: Version
         run: |

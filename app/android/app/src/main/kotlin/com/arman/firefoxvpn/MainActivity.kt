@@ -642,3 +642,4 @@ class MainActivity : FlutterActivity() {
         private const val UPDATES_CHANNEL = "updates"
         private const val UPDATES_NOTIFICATION_ID = 41
     }
+}
