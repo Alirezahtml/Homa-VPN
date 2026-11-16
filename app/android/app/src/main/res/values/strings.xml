@@ -14,4 +14,5 @@
     <string name="widget_description">Connect or disconnect with one tap</string>
     <string name="widget_connect">Tap to connect</string>
     <string name="widget_disconnect">Tap to disconnect</string>
+    <string name="updates_channel">New versions</string>
 </resources>

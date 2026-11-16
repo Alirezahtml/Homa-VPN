@@ -1308,7 +1308,7 @@ abstract class AppLocalizations {
   /// No description provided for @testingDelay.
   ///
   /// In en, this message translates to:
-  /// **'Testing… this can take a minute'**
+  /// **'Measuring…'**
   String get testingDelay;
 
   /// No description provided for @search.
@@ -3642,7 +3642,7 @@ abstract class AppLocalizations {
   /// No description provided for @wnFlagArtFixed.
   ///
   /// In en, this message translates to:
-  /// **'The app no longer kicks itself out when opened: the notification's flag art answered with a value the system's messenger refuses.'**
+  /// **'The app no longer kicks itself out when opened: the notification\'s flag art answered with a value the system\'s messenger refuses.'**
   String get wnFlagArtFixed;
 
   /// No description provided for @statSession.
@@ -3650,20 +3650,23 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Session'**
   String get statSession;
+
   /// No description provided for @copiedToClipboard.
   ///
   /// In en, this message translates to:
   /// **'Copied to clipboard'**
   String get copiedToClipboard;
+
   /// No description provided for @wnTotalsAdded.
   ///
   /// In en, this message translates to:
   /// **'The home shows what the session moved in total, and a tap copies the public IP.'**
   String get wnTotalsAdded;
+
   /// No description provided for @wnPolishImproved.
   ///
   /// In en, this message translates to:
-  /// **'The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.'**
+  /// **'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.'**
   String get wnPolishImproved;
 
   /// No description provided for @smartNetwork.
@@ -3671,41 +3674,43 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Smart connection'**
   String get smartNetwork;
+
   /// No description provided for @smartNetworkHint.
   ///
   /// In en, this message translates to:
   /// **'MTU, protocol, and IP version follow this network, picked for speed.'**
   String get smartNetworkHint;
+
   /// No description provided for @valueSmart.
   ///
   /// In en, this message translates to:
   /// **'Smart'**
   String get valueSmart;
+
   /// No description provided for @mtuAutoValue.
   ///
   /// In en, this message translates to:
   /// **'Auto — follows the network'**
   String get mtuAutoValue;
-  /// No description provided for @mtuAutoMeasured.
-  ///
-  /// In en, this message translates to:
-  /// **'Auto — the network carries {mtu}'**
-  String mtuAutoMeasured(int mtu);
+
   /// No description provided for @wnSmartAdded.
   ///
   /// In en, this message translates to:
   /// **'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.'**
   String get wnSmartAdded;
+
   /// No description provided for @wnToastAdded.
   ///
   /// In en, this message translates to:
   /// **'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.'**
   String get wnToastAdded;
+
   /// No description provided for @wnFlagsImproved.
   ///
   /// In en, this message translates to:
-  /// **'The flag wheel sits clean: no flag is cut at the screen's edge, flags show whole, and the choice lands with a soft spring.'**
+  /// **'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.'**
   String get wnFlagsImproved;
+
   /// No description provided for @wnMapImproved.
   ///
   /// In en, this message translates to:
@@ -3717,650 +3722,768 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Measuring…'**
   String get smartWaiting;
+
   /// No description provided for @smartFamilyRace.
   ///
   /// In en, this message translates to:
   /// **'Both race on the first connect'**
   String get smartFamilyRace;
+
   /// No description provided for @dnsManual.
   ///
   /// In en, this message translates to:
   /// **'Manual DNS'**
   String get dnsManual;
+
   /// No description provided for @dnsManualHint.
   ///
   /// In en, this message translates to:
   /// **'One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.'**
   String get dnsManualHint;
+
   /// No description provided for @dnsManualInvalid.
   ///
   /// In en, this message translates to:
   /// **'One line is not an address the core can use: a plain IP, https://…, or tls://host.'**
   String get dnsManualInvalid;
+
   /// No description provided for @killSwitchGuarded.
   ///
   /// In en, this message translates to:
   /// **'Guarded: nothing leaves the phone while the tunnel is down.'**
   String get killSwitchGuarded;
+
   /// No description provided for @accountsUsageTitle.
   ///
   /// In en, this message translates to:
   /// **'This month'**
   String get accountsUsageTitle;
+
   /// No description provided for @accountsCountLabel.
   ///
   /// In en, this message translates to:
   /// **'accounts'**
   String get accountsCountLabel;
+
   /// No description provided for @accountsUsageAverage.
   ///
   /// In en, this message translates to:
-  /// **'average of the accounts' spent share'**
+  /// **'average of the accounts\' spent share'**
   String get accountsUsageAverage;
+
   /// No description provided for @wnDesignsAdded.
   ///
   /// In en, this message translates to:
   /// **'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.'**
   String get wnDesignsAdded;
+
   /// No description provided for @wnWheelFixed.
   ///
   /// In en, this message translates to:
-  /// **'The wheel's half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen's edge.'**
+  /// **'The wheel\'s half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen\'s edge.'**
   String get wnWheelFixed;
+
   /// No description provided for @wnMapReal.
   ///
   /// In en, this message translates to:
   /// **'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.'**
   String get wnMapReal;
+
   /// No description provided for @wnGlobeAdded.
   ///
   /// In en, this message translates to:
   /// **'The world is a globe now: the silver ball turns to face the chosen country, a glowing pin and a floating card mark it, and the connection\'s roads reach for the hubs.'**
   String get wnGlobeAdded;
+
   /// No description provided for @wnWheelGlowImproved.
   ///
   /// In en, this message translates to:
   /// **'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.'**
   String get wnWheelGlowImproved;
-  /// No description provided for @sectionAppearance.
-  ///
-  /// In en, this message translates to:
-  /// **'Appearance'**
-  String get sectionAppearance;
-  /// No description provided for @mapStyle.
-  ///
-  /// In en, this message translates to:
-  /// **'Map style'**
-  String get mapStyle;
-  /// No description provided for @mapStyleHint.
-  ///
-  /// In en, this message translates to:
-  /// **'The home page\'s globe, painted the way you pick. The connection\'s light stays the same.'**
-  String get mapStyleHint;
-  /// No description provided for @mapSilver.
-  ///
-  /// In en, this message translates to:
-  /// **'Silver'**
-  String get mapSilver;
-  /// No description provided for @mapMidnight.
-  ///
-  /// In en, this message translates to:
-  /// **'Midnight'**
-  String get mapMidnight;
-  /// No description provided for @mapOcean.
-  ///
-  /// In en, this message translates to:
-  /// **'Ocean'**
-  String get mapOcean;
-  /// No description provided for @mapMono.
-  ///
-  /// In en, this message translates to:
-  /// **'Mono'**
-  String get mapMono;
-  /// No description provided for @mapAurora.
-  ///
-  /// In en, this message translates to:
-  /// **'Aurora'**
-  String get mapAurora;
-  /// No description provided for @batterySaver.
-  ///
-  /// In en, this message translates to:
-  /// **'Battery saver'**
-  String get batterySaver;
-  /// No description provided for @batterySaverHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Puts the map\'s motion to rest while connected — the globe\'s breath, the wheel\'s glow. The connection itself stays exactly as it is.'**
-  String get batterySaverHint;
-  /// No description provided for @connectOnOpen.
-  ///
-  /// In en, this message translates to:
-  /// **'Connect when the app opens'**
-  String get connectOnOpen;
-  /// No description provided for @connectOnOpenHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Brings the VPN up as the app opens, with the location you last chose.'**
-  String get connectOnOpenHint;
-  /// No description provided for @speedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Speed'**
-  String get speedTitle;
-  /// No description provided for @parallelTunnels.
-  ///
-  /// In en, this message translates to:
-  /// **'Parallel tunnels'**
-  String get parallelTunnels;
-  /// No description provided for @parallelTunnelsHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Opens several tunnels to Mozilla at once and splits the traffic between them, so one slow tunnel no longer caps the speed. Eight is the heaviest on the battery.'**
-  String get parallelTunnelsHint;
-  /// No description provided for @tunnels1.
-  ///
-  /// In en, this message translates to:
-  /// **'One — the most stable'**
-  String get tunnels1;
-  /// No description provided for @tunnels2.
-  ///
-  /// In en, this message translates to:
-  /// **'Two'**
-  String get tunnels2;
-  /// No description provided for @tunnels4.
-  ///
-  /// In en, this message translates to:
-  /// **'Four — faster on slow networks'**
-  String get tunnels4;
-  /// No description provided for @tunnels8.
-  ///
-  /// In en, this message translates to:
-  /// **'Eight — the fastest'**
-  String get tunnels8;
-  /// No description provided for @connectionCap.
-  ///
-  /// In en, this message translates to:
-  /// **'Connection limit'**
-  String get connectionCap;
-  /// No description provided for @connectionCapHint.
-  ///
-  /// In en, this message translates to:
-  /// **'How many apps may talk through the VPN at once; a smaller cap saves battery and data on a busy phone. No limit is the default.'**
-  String get connectionCapHint;
-  /// No description provided for @capNone.
-  ///
-  /// In en, this message translates to:
-  /// **'No limit'**
-  String get capNone;
-  /// No description provided for @verboseLogging.
-  ///
-  /// In en, this message translates to:
-  /// **'Detailed diagnostics'**
-  String get verboseLogging;
-  /// No description provided for @verboseLoggingHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Writes every step to the log — helpful when reporting a problem, a little heavier on the battery.'**
-  String get verboseLoggingHint;
-  /// No description provided for @wn38MapStylesAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'Five looks for the map: silver, midnight, ocean, mono, and aurora — the settings\' new Appearance page picks, with a preview of each.'**
-  String get wn38MapStylesAdded;
-  /// No description provided for @wn38ZoomAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'The map zooms: pinch it, or double-tap to step in and back out.'**
-  String get wn38ZoomAdded;
-  /// No description provided for @wn38OptionsAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'Practical options: parallel tunnels for more speed, a connection limit, battery saver, connect when the app opens, and detailed diagnostics.'**
-  String get wn38OptionsAdded;
-  /// No description provided for @wn38SocialAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'Instagram and Telegram now live at the bottom of this page too.'**
-  String get wn38SocialAdded;
-  /// No description provided for @wn38FlightImproved.
-  ///
-  /// In en, this message translates to:
-  /// **'Choosing a country is a small flight: the camera pulls back, the ball turns, the pin drops with a bounce, and the roads draw themselves out to the hubs.'**
-  String get wn38FlightImproved;
-  /// No description provided for @wn38EffectsImproved.
-  ///
-  /// In en, this message translates to:
-  /// **'The map reads richer: stars behind the ball, a coordinate grid, the hubs\' own lights, a halo around the limb, and the land\'s shadow.'**
-  String get wn38EffectsImproved;
-  /// No description provided for @wn38SpeedImproved.
-  ///
-  /// In en, this message translates to:
-  /// **'The speed option is real: parallel tunnels open several connections at once, and the core splits the traffic between them.'**
-  String get wn38SpeedImproved;
-  /// No description provided for @wn38NameFixed.
-  ///
-  /// In en, this message translates to:
-  /// **'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.'**
-  String get wn38NameFixed;
-  /// No description provided for @mapKind.
-  ///
-  /// In en, this message translates to:
-  /// **'Map type'**
-  String get mapKind;
-  /// No description provided for @mapKindClassic.
-  ///
-  /// In en, this message translates to:
-  /// **'Classic'**
-  String get mapKindClassic;
-  /// No description provided for @mapKindGlobe.
-  ///
-  /// In en, this message translates to:
-  /// **'3D globe'**
-  String get mapKindGlobe;
-  /// No description provided for @mapKindSatellite.
-  ///
-  /// In en, this message translates to:
-  /// **'Satellite'**
-  String get mapKindSatellite;
-  /// No description provided for @mapKindFlat.
-  ///
-  /// In en, this message translates to:
-  /// **'Flat 2D'**
-  String get mapKindFlat;
-  /// No description provided for @mapKindNight.
-  ///
-  /// In en, this message translates to:
-  /// **'Night'**
-  String get mapKindNight;
-  /// No description provided for @soundFeedback.
-  ///
-  /// In en, this message translates to:
-  /// **'Connection sound'**
-  @override
-  String get soundFeedback;
-  /// No description provided for @soundFeedbackHint.
-  ///
-  /// In en, this message translates to:
-  /// **'A short sound when the connection goes on or off'**
-  @override
-  String get soundFeedbackHint;
-  /// No description provided for @rateUnit.
-  ///
-  /// In en, this message translates to:
-  /// **'Speed unit'**
-  @override
-  String get rateUnit;
-  /// No description provided for @lockInBackground.
-  ///
-  /// In en, this message translates to:
-  /// **'Lock when leaving'**
-  @override
-  String get lockInBackground;
-  /// No description provided for @lockBgNever.
-  ///
-  /// In en, this message translates to:
-  /// **'Never'**
-  @override
-  String get lockBgNever;
-  /// No description provided for @lockBgNow.
-  ///
-  /// In en, this message translates to:
-  /// **'Right away'**
-  @override
-  String get lockBgNow;
-  /// No description provided for @lockBgMin5.
-  ///
-  /// In en, this message translates to:
-  /// **'After 5 minutes'**
-  @override
-  String get lockBgMin5;
-  /// No description provided for @lockBgMin15.
-  ///
-  /// In en, this message translates to:
-  /// **'After 15 minutes'**
-  @override
-  String get lockBgMin15;
-  /// No description provided for @mb25600.
-  ///
-  /// In en, this message translates to:
-  /// **'25 GB'**
-  @override
-  String get mb25600;
-  /// No description provided for @mb51200.
-  ///
-  /// In en, this message translates to:
-  /// **'50 GB'**
-  @override
-  String get mb51200;
-  /// No description provided for @mb102400.
-  ///
-  /// In en, this message translates to:
-  /// **'100 GB'**
-  @override
-  String get mb102400;
-  /// No description provided for @aboutChannels.
-  ///
-  /// In en, this message translates to:
-  /// **'Contact pages'**
-  @override
-  String get aboutChannels;
-  /// No description provided for @wn41Sound.
-  ///
-  /// In en, this message translates to:
-  /// **'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).'**
-  @override
-  String get wn41Sound;
-  /// No description provided for @copyIp.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy IP'**
-  @override
-  String get copyIp;
-  /// No description provided for @wn42Fonts.
-  ///
-  /// In en, this message translates to:
-  /// **'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.'**
-  @override
-  String get wn42Fonts;
-  /// No description provided for @wn42Sounds.
-  ///
-  /// In en, this message translates to:
-  /// **'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.'**
-  @override
-  String get wn42Sounds;
-  /// No description provided for @wn42AboutFixed.
-  ///
-  /// In en, this message translates to:
-  /// **'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.'**
-  @override
-  String get wn42AboutFixed;
-  /// No description provided for @wn42Gaming.
-  ///
-  /// In en, this message translates to:
-  /// **'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.'**
-  @override
-  String get wn42Gaming;
-  /// No description provided for @wn41RateUnit.
-  ///
-  /// In en, this message translates to:
-  /// **'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.'**
-  @override
-  String get wn41RateUnit;
-  /// No description provided for @wn41BackgroundLock.
-  ///
-  /// In en, this message translates to:
-  /// **'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.'**
-  @override
-  String get wn41BackgroundLock;
-  /// No description provided for @wn41BiggerLimits.
-  ///
-  /// In en, this message translates to:
-  /// **'The session\'s data limit climbs to 25, 50, or 100 GB.'**
-  @override
-  String get wn41BiggerLimits;
-  /// No description provided for @wn41Motion.
-  ///
-  /// In en, this message translates to:
-  /// **'New motion: the connected orb breathes, the check draws itself in, the state\'s word glides between its values, and a wrong password shakes the field.'**
-  @override
-  String get wn41Motion;
-  /// No description provided for @wn41AboutFixed.
-  ///
-  /// In en, this message translates to:
-  /// **'The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.'**
-  @override
-  String get wn41AboutFixed;
-  /// No description provided for @wn41HapticFixed.
-  ///
-  /// In en, this message translates to:
-  /// **'The vibration setting answers again: every connection\'s on and off follows it, not just the slider\'s.'**
-  @override
-  String get wn41HapticFixed;
-  /// No description provided for @mapKindTerrain.
-  ///
-  /// In en, this message translates to:
-  /// **'Terrain'**
-  String get mapKindTerrain;
-  /// No description provided for @mapKindHint.
-  ///
-  /// In en, this message translates to:
-  /// **'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the night earth, the terrain earth, the metal ball, or the satellite\'s earth. The borders are the real, official ones in every kind.'**
-  String get mapKindHint;
-  /// No description provided for @wn40MapKindsNew.
-  ///
-  /// In en, this message translates to:
-  /// **'Two new map finishes: the night earth and the terrain earth.'**
-  String get wn40MapKindsNew;
-  /// No description provided for @wn40Flight.
-  ///
-  /// In en, this message translates to:
-  /// **'The 3D globe flies to the new country in one smooth turn — never a jump.'**
-  String get wn40Flight;
-  /// No description provided for @wn40Mercator.
-  ///
-  /// In en, this message translates to:
-  /// **'The flat maps draw in the standard Mercator projection: true proportions, standard borders, nothing squeezed.'**
-  String get wn40Mercator;
-  /// No description provided for @wn40NameBack.
-  ///
-  /// In en, this message translates to:
-  /// **'The chosen country\'s name is back under the flags on the flat maps.'**
-  String get wn40NameBack;
-  /// No description provided for @wn40Speed.
-  ///
-  /// In en, this message translates to:
-  /// **'The tunnel now opens two parallel sessions by default — a stronger, steadier line.'**
-  String get wn40Speed;
-  /// No description provided for @wn40LockFixed.
-  ///
-  /// In en, this message translates to:
-  /// **'The connect button\'s lock no longer blinks out between its states.'**
-  String get wn40LockFixed;
-  /// No description provided for @wn40IpRemoved.
-  ///
-  /// In en, this message translates to:
-  /// **'The IP popup on the location card is gone.'**
-  String get wn40IpRemoved;
-  /// No description provided for @mapStyleGlobeHint.
-  ///
-  /// In en, this message translates to:
-  /// **'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.'**
-  String get mapStyleGlobeHint;
-  /// No description provided for @aboutVersions.
-  ///
-  /// In en, this message translates to:
-  /// **'Version'**
-  String get aboutVersions;
-  /// No description provided for @checkUpdatesHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Look for a newer version; a found one downloads and the installer asks.'**
-  String get checkUpdatesHint;
-  /// No description provided for @smartLocation.
-  ///
-  /// In en, this message translates to:
-  /// **'Fastest location'**
-  String get smartLocation;
-  /// No description provided for @smartLocationHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Every start rides the server the core\'s own latency test says is fastest.'**
-  String get smartLocationHint;
-  /// No description provided for @quicPass.
-  ///
-  /// In en, this message translates to:
-  /// **'QUIC pass-through'**
-  String get quicPass;
-  /// No description provided for @quicPassHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Apps\' QUIC (UDP 443) rides the tunnel: calls and games keep their speed instead of falling back to TCP.'**
-  String get quicPassHint;
-  /// No description provided for @accountRename.
-  ///
-  /// In en, this message translates to:
-  /// **'Rename account'**
-  String get accountRename;
-  /// No description provided for @accountRenameLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Account name'**
-  String get accountRenameLabel;
-  /// No description provided for @accountProfile.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile picture'**
-  String get accountProfile;
-  /// No description provided for @avatarReset.
-  ///
-  /// In en, this message translates to:
-  /// **'Back to the plain mark'**
-  String get avatarReset;
-  /// No description provided for @accountSecurity.
-  ///
-  /// In en, this message translates to:
-  /// **'App password'**
-  String get accountSecurity;
-  /// No description provided for @appPasswordOn.
-  ///
-  /// In en, this message translates to:
-  /// **'The app opens behind a password.'**
-  String get appPasswordOn;
-  /// No description provided for @appPasswordOff.
-  ///
-  /// In en, this message translates to:
-  /// **'No password: anyone who opens the app gets in.'**
-  String get appPasswordOff;
-  /// No description provided for @appPasswordSet.
-  ///
-  /// In en, this message translates to:
-  /// **'Set password'**
-  String get appPasswordSet;
-  /// No description provided for @appPasswordChange.
-  ///
-  /// In en, this message translates to:
-  /// **'Change password'**
-  String get appPasswordChange;
-  /// No description provided for @appPasswordRemove.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove password'**
-  String get appPasswordRemove;
-  /// No description provided for @appPasswordCurrent.
-  ///
-  /// In en, this message translates to:
-  /// **'Current password'**
-  String get appPasswordCurrent;
-  /// No description provided for @appPasswordNew.
-  ///
-  /// In en, this message translates to:
-  /// **'New password (4+ characters)'**
-  String get appPasswordNew;
-  /// No description provided for @appPasswordConfirm.
-  ///
-  /// In en, this message translates to:
-  /// **'Repeat the new password'**
-  String get appPasswordConfirm;
-  /// No description provided for @appPasswordShort.
-  ///
-  /// In en, this message translates to:
-  /// **'At least 4 characters.'**
-  String get appPasswordShort;
-  /// No description provided for @appPasswordMismatch.
-  ///
-  /// In en, this message translates to:
-  /// **'The two words are not the same.'**
-  String get appPasswordMismatch;
-  /// No description provided for @appPasswordWrong.
-  ///
-  /// In en, this message translates to:
-  /// **'Wrong password'**
-  String get appPasswordWrong;
-  /// No description provided for @appPasswordSetDone.
-  ///
-  /// In en, this message translates to:
-  /// **'The password stands — the app asks for it from the next start.'**
-  String get appPasswordSetDone;
-  /// No description provided for @appPasswordRemoved.
-  ///
-  /// In en, this message translates to:
-  /// **'The password is gone; the app opens freely.'**
-  String get appPasswordRemoved;
-  /// No description provided for @appPasswordUnlock.
-  ///
-  /// In en, this message translates to:
-  /// **'The app is locked'**
-  String get appPasswordUnlock;
-  /// No description provided for @appPasswordUnlockHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the app password to continue.'**
-  String get appPasswordUnlockHint;
-  /// No description provided for @wn39MapKinds.
-  ///
-  /// In en, this message translates to:
-  /// **'The map is a choice of kinds again: the flat map as it always was (the default), the 3D globe, the satellite\'s earth, and a modern flat 2D.'**
-  String get wn39MapKinds;
-  /// No description provided for @wn39EyeIp.
-  ///
-  /// In en, this message translates to:
-  /// **'The location card carries an eye: tap it to see the address the traffic leaves from, and copy it.'**
-  String get wn39EyeIp;
-  /// No description provided for @wn39Profile.
-  ///
-  /// In en, this message translates to:
-  /// **'Accounts carry their own name and profile picture, and the app can open behind a password.'**
-  String get wn39Profile;
-  /// No description provided for @wn39Smart.
-  ///
-  /// In en, this message translates to:
-  /// **'The smart connection grew: the fastest location by real latency, and QUIC pass-through for calls and games.'**
-  String get wn39Smart;
-  /// No description provided for @wn39Flight.
-  ///
-  /// In en, this message translates to:
-  /// **'A change of country flies smoother — the camera rides the great circle — and the flag wheel\'s markers sit closer to the flags.'**
-  String get wn39Flight;
-  /// No description provided for @wn39ToastEverywhere.
-  ///
-  /// In en, this message translates to:
-  /// **'The dynamic note is everywhere now: every saved, copied, and failed notice wears the same animated glass pill.'**
-  String get wn39ToastEverywhere;
-  /// No description provided for @wn39Updates.
-  ///
-  /// In en, this message translates to:
-  /// **'Updates keep the storage clean: the installer replaces the old version, and no package is left behind.'**
-  String get wn39Updates;
+
   /// No description provided for @wnDesignsRemoved.
   ///
   /// In en, this message translates to:
   /// **'The App Design picker has left: the app wears its own monochrome look again — your accent and your theme stay as they were.'**
   String get wnDesignsRemoved;
+
   /// No description provided for @wnDnsAdded.
   ///
   /// In en, this message translates to:
-  /// **'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line's kind shown and checked as you type.'**
+  /// **'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line\'s kind shown and checked as you type.'**
   String get wnDnsAdded;
+
   /// No description provided for @wnSmartImproved.
   ///
   /// In en, this message translates to:
   /// **'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.'**
   String get wnSmartImproved;
+
   /// No description provided for @wnProtectionImproved.
   ///
   /// In en, this message translates to:
   /// **'The kill switch says when its guard stands, and the apps page shows how many apps you chose.'**
   String get wnProtectionImproved;
+
   /// No description provided for @wnWelcomeImproved.
   ///
   /// In en, this message translates to:
   /// **'The welcome opens with a breathing shield over a drifting aurora, and the accounts page sums the month at a glance.'**
   String get wnWelcomeImproved;
+
   /// No description provided for @bypassAppsCount.
   ///
   /// In en, this message translates to:
   /// **'Chosen: {n}'**
   String bypassAppsCount(String n);
+
+  /// No description provided for @mtuAutoMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto — the network carries {mtu}'**
+  String mtuAutoMeasured(int mtu);
+
+  /// No description provided for @sectionAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get sectionAppearance;
+
+  /// No description provided for @mapStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Map style'**
+  String get mapStyle;
+
+  /// No description provided for @mapStyleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The home page\'s globe, painted the way you pick. The connection\'s light stays the same.'**
+  String get mapStyleHint;
+
+  /// No description provided for @mapSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get mapSilver;
+
+  /// No description provided for @mapMidnight.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight'**
+  String get mapMidnight;
+
+  /// No description provided for @mapOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get mapOcean;
+
+  /// No description provided for @mapMono.
+  ///
+  /// In en, this message translates to:
+  /// **'Mono'**
+  String get mapMono;
+
+  /// No description provided for @mapAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get mapAurora;
+
+  /// No description provided for @batterySaver.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery saver'**
+  String get batterySaver;
+
+  /// No description provided for @batterySaverHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Puts the map\'s motion to rest while connected — the globe\'s breath, the wheel\'s glow. The connection itself stays exactly as it is.'**
+  String get batterySaverHint;
+
+  /// No description provided for @connectOnOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect when the app opens'**
+  String get connectOnOpen;
+
+  /// No description provided for @connectOnOpenHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Brings the VPN up as the app opens, with the location you last chose.'**
+  String get connectOnOpenHint;
+
+  /// No description provided for @speedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get speedTitle;
+
+  /// No description provided for @parallelTunnels.
+  ///
+  /// In en, this message translates to:
+  /// **'Parallel tunnels'**
+  String get parallelTunnels;
+
+  /// No description provided for @parallelTunnelsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens several tunnels to Mozilla at once and splits the traffic between them, so one slow tunnel no longer caps the speed. Eight is the heaviest on the battery.'**
+  String get parallelTunnelsHint;
+
+  /// No description provided for @tunnels1.
+  ///
+  /// In en, this message translates to:
+  /// **'One — the most stable'**
+  String get tunnels1;
+
+  /// No description provided for @tunnels2.
+  ///
+  /// In en, this message translates to:
+  /// **'Two'**
+  String get tunnels2;
+
+  /// No description provided for @tunnels4.
+  ///
+  /// In en, this message translates to:
+  /// **'Four — faster on slow networks'**
+  String get tunnels4;
+
+  /// No description provided for @tunnels8.
+  ///
+  /// In en, this message translates to:
+  /// **'Eight — the fastest'**
+  String get tunnels8;
+
+  /// No description provided for @connectionCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection limit'**
+  String get connectionCap;
+
+  /// No description provided for @connectionCapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How many apps may talk through the VPN at once; a smaller cap saves battery and data on a busy phone. No limit is the default.'**
+  String get connectionCapHint;
+
+  /// No description provided for @capNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No limit'**
+  String get capNone;
+
+  /// No description provided for @verboseLogging.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed diagnostics'**
+  String get verboseLogging;
+
+  /// No description provided for @verboseLoggingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Writes every step to the log — helpful when reporting a problem, a little heavier on the battery.'**
+  String get verboseLoggingHint;
+
+  /// No description provided for @wn38MapStylesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Five looks for the map: silver, midnight, ocean, mono, and aurora — the settings\' new Appearance page picks, with a preview of each.'**
+  String get wn38MapStylesAdded;
+
+  /// No description provided for @wn38ZoomAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'The map zooms: pinch it, or double-tap to step in and back out.'**
+  String get wn38ZoomAdded;
+
+  /// No description provided for @wn38OptionsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical options: parallel tunnels for more speed, a connection limit, battery saver, connect when the app opens, and detailed diagnostics.'**
+  String get wn38OptionsAdded;
+
+  /// No description provided for @wn38SocialAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram and Telegram now live at the bottom of this page too.'**
+  String get wn38SocialAdded;
+
+  /// No description provided for @wn38FlightImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Choosing a country is a small flight: the camera pulls back, the ball turns, the pin drops with a bounce, and the roads draw themselves out to the hubs.'**
+  String get wn38FlightImproved;
+
+  /// No description provided for @wn38EffectsImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The map reads richer: stars behind the ball, a coordinate grid, the hubs\' own lights, a halo around the limb, and the land\'s shadow.'**
+  String get wn38EffectsImproved;
+
+  /// No description provided for @wn38SpeedImproved.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed option is real: parallel tunnels open several connections at once, and the core splits the traffic between them.'**
+  String get wn38SpeedImproved;
+
+  /// No description provided for @wn38NameFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.'**
+  String get wn38NameFixed;
+
+  /// No description provided for @mapKind.
+  ///
+  /// In en, this message translates to:
+  /// **'Map type'**
+  String get mapKind;
+
+  /// No description provided for @mapKindHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the night earth, the terrain earth, the metal ball, or the satellite\'s earth. The borders are the real, official ones in every kind.'**
+  String get mapKindHint;
+
+  /// No description provided for @mapKindClassic.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic'**
+  String get mapKindClassic;
+
+  /// No description provided for @mapKindGlobe.
+  ///
+  /// In en, this message translates to:
+  /// **'3D globe'**
+  String get mapKindGlobe;
+
+  /// No description provided for @mapKindSatellite.
+  ///
+  /// In en, this message translates to:
+  /// **'Satellite'**
+  String get mapKindSatellite;
+
+  /// No description provided for @mapKindFlat.
+  ///
+  /// In en, this message translates to:
+  /// **'Flat 2D'**
+  String get mapKindFlat;
+
+  /// No description provided for @mapStyleGlobeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.'**
+  String get mapStyleGlobeHint;
+
+  /// No description provided for @aboutVersions.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get aboutVersions;
+
+  /// No description provided for @aboutChannels.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact pages'**
+  String get aboutChannels;
+
+  /// No description provided for @checkUpdatesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Look for a newer version; a found one downloads and the installer asks.'**
+  String get checkUpdatesHint;
+
+  /// No description provided for @smartLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest location'**
+  String get smartLocation;
+
+  /// No description provided for @smartLocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every start rides the server the core\'s own latency test says is fastest.'**
+  String get smartLocationHint;
+
+  /// No description provided for @quicPass.
+  ///
+  /// In en, this message translates to:
+  /// **'QUIC pass-through'**
+  String get quicPass;
+
+  /// No description provided for @quicPassHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps\' QUIC (UDP 443) rides the tunnel: calls and games keep their speed instead of falling back to TCP.'**
+  String get quicPassHint;
+
+  /// No description provided for @accountRename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename account'**
+  String get accountRename;
+
+  /// No description provided for @accountRenameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get accountRenameLabel;
+
+  /// No description provided for @accountProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile picture'**
+  String get accountProfile;
+
+  /// No description provided for @avatarReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the plain mark'**
+  String get avatarReset;
+
+  /// No description provided for @accountSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'App password'**
+  String get accountSecurity;
+
+  /// No description provided for @appPasswordOn.
+  ///
+  /// In en, this message translates to:
+  /// **'The app opens behind a password.'**
+  String get appPasswordOn;
+
+  /// No description provided for @appPasswordOff.
+  ///
+  /// In en, this message translates to:
+  /// **'No password: anyone who opens the app gets in.'**
+  String get appPasswordOff;
+
+  /// No description provided for @appPasswordSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set password'**
+  String get appPasswordSet;
+
+  /// No description provided for @appPasswordChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get appPasswordChange;
+
+  /// No description provided for @appPasswordRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove password'**
+  String get appPasswordRemove;
+
+  /// No description provided for @appPasswordCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get appPasswordCurrent;
+
+  /// No description provided for @appPasswordNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New password (4+ characters)'**
+  String get appPasswordNew;
+
+  /// No description provided for @appPasswordConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat the new password'**
+  String get appPasswordConfirm;
+
+  /// No description provided for @appPasswordShort.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 4 characters.'**
+  String get appPasswordShort;
+
+  /// No description provided for @appPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two words are not the same.'**
+  String get appPasswordMismatch;
+
+  /// No description provided for @appPasswordWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get appPasswordWrong;
+
+  /// No description provided for @appPasswordSetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'The password stands — the app asks for it from the next start.'**
+  String get appPasswordSetDone;
+
+  /// No description provided for @appPasswordRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The password is gone; the app opens freely.'**
+  String get appPasswordRemoved;
+
+  /// No description provided for @appPasswordUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'The app is locked'**
+  String get appPasswordUnlock;
+
+  /// No description provided for @appPasswordUnlockHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the app password to continue.'**
+  String get appPasswordUnlockHint;
+
+  /// No description provided for @wn39MapKinds.
+  ///
+  /// In en, this message translates to:
+  /// **'The map is a choice of kinds again: the flat map as it always was (the default), the 3D globe, the satellite\'s earth, and a modern flat 2D.'**
+  String get wn39MapKinds;
+
+  /// No description provided for @wn39EyeIp.
+  ///
+  /// In en, this message translates to:
+  /// **'The location card carries an eye: tap it to see the address the traffic leaves from, and copy it.'**
+  String get wn39EyeIp;
+
+  /// No description provided for @wn39Profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts carry their own name and profile picture, and the app can open behind a password.'**
+  String get wn39Profile;
+
+  /// No description provided for @wn39Smart.
+  ///
+  /// In en, this message translates to:
+  /// **'The smart connection grew: the fastest location by real latency, and QUIC pass-through for calls and games.'**
+  String get wn39Smart;
+
+  /// No description provided for @wn39Flight.
+  ///
+  /// In en, this message translates to:
+  /// **'A change of country flies smoother — the camera rides the great circle — and the flag wheel\'s markers sit closer to the flags.'**
+  String get wn39Flight;
+
+  /// No description provided for @wn39ToastEverywhere.
+  ///
+  /// In en, this message translates to:
+  /// **'The dynamic note is everywhere now: every saved, copied, and failed notice wears the same animated glass pill.'**
+  String get wn39ToastEverywhere;
+
+  /// No description provided for @wn39Updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates keep the storage clean: the installer replaces the old version, and no package is left behind.'**
+  String get wn39Updates;
+
+  /// No description provided for @mapKindNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get mapKindNight;
+
+  /// No description provided for @mapKindTerrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Terrain'**
+  String get mapKindTerrain;
+
+  /// No description provided for @wn40MapKindsNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Two new map finishes: the night earth and the terrain earth.'**
+  String get wn40MapKindsNew;
+
+  /// No description provided for @wn40Flight.
+  ///
+  /// In en, this message translates to:
+  /// **'The 3D globe flies to the new country in one smooth turn — never a jump.'**
+  String get wn40Flight;
+
+  /// No description provided for @wn40Mercator.
+  ///
+  /// In en, this message translates to:
+  /// **'The flat maps draw in the standard Mercator projection: true proportions, standard borders, nothing squeezed.'**
+  String get wn40Mercator;
+
+  /// No description provided for @wn40NameBack.
+  ///
+  /// In en, this message translates to:
+  /// **'The chosen country\'s name is back under the flags on the flat maps.'**
+  String get wn40NameBack;
+
+  /// No description provided for @wn40Speed.
+  ///
+  /// In en, this message translates to:
+  /// **'The tunnel now opens two parallel sessions by default — a stronger, steadier line.'**
+  String get wn40Speed;
+
+  /// No description provided for @wn40LockFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The connect button\'s lock no longer blinks out between its states.'**
+  String get wn40LockFixed;
+
+  /// No description provided for @wn40IpRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The IP popup on the location card is gone.'**
+  String get wn40IpRemoved;
+
+  /// No description provided for @soundFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound effects'**
+  String get soundFeedback;
+
+  /// No description provided for @soundFeedbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft sounds for taps, switches, and the connection\'s turns'**
+  String get soundFeedbackHint;
+
+  /// No description provided for @rateUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed unit'**
+  String get rateUnit;
+
+  /// No description provided for @lockInBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock when leaving'**
+  String get lockInBackground;
+
+  /// No description provided for @lockBgNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get lockBgNever;
+
+  /// No description provided for @lockBgNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Right away'**
+  String get lockBgNow;
+
+  /// No description provided for @lockBgMin5.
+  ///
+  /// In en, this message translates to:
+  /// **'After 5 minutes'**
+  String get lockBgMin5;
+
+  /// No description provided for @lockBgMin15.
+  ///
+  /// In en, this message translates to:
+  /// **'After 15 minutes'**
+  String get lockBgMin15;
+
+  /// No description provided for @mb25600.
+  ///
+  /// In en, this message translates to:
+  /// **'25 GB'**
+  String get mb25600;
+
+  /// No description provided for @mb51200.
+  ///
+  /// In en, this message translates to:
+  /// **'50 GB'**
+  String get mb51200;
+
+  /// No description provided for @mb102400.
+  ///
+  /// In en, this message translates to:
+  /// **'100 GB'**
+  String get mb102400;
+
+  /// No description provided for @wn41Sound.
+  ///
+  /// In en, this message translates to:
+  /// **'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).'**
+  String get wn41Sound;
+
+  /// No description provided for @wn41RateUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.'**
+  String get wn41RateUnit;
+
+  /// No description provided for @wn41BackgroundLock.
+  ///
+  /// In en, this message translates to:
+  /// **'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.'**
+  String get wn41BackgroundLock;
+
+  /// No description provided for @wn41BiggerLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'The session\'s data limit climbs to 25, 50, or 100 GB.'**
+  String get wn41BiggerLimits;
+
+  /// No description provided for @wn41Motion.
+  ///
+  /// In en, this message translates to:
+  /// **'New motion: the connected orb breathes, the check draws itself in, the state\'s word glides between its values, and a wrong password shakes the field.'**
+  String get wn41Motion;
+
+  /// No description provided for @wn41AboutFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.'**
+  String get wn41AboutFixed;
+
+  /// No description provided for @wn41HapticFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The vibration setting answers again: every connection\'s on and off follows it, not just the slider\'s.'**
+  String get wn41HapticFixed;
+
+  /// No description provided for @copyIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy IP'**
+  String get copyIp;
+
+  /// No description provided for @wn42Fonts.
+  ///
+  /// In en, this message translates to:
+  /// **'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.'**
+  String get wn42Fonts;
+
+  /// No description provided for @wn42Sounds.
+  ///
+  /// In en, this message translates to:
+  /// **'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.'**
+  String get wn42Sounds;
+
+  /// No description provided for @wn42AboutFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.'**
+  String get wn42AboutFixed;
+
+  /// No description provided for @wn42Gaming.
+  ///
+  /// In en, this message translates to:
+  /// **'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.'**
+  String get wn42Gaming;
+
+  /// No description provided for @avatarPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Your photo'**
+  String get avatarPhoto;
+
+  /// No description provided for @avatarPhotoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That picture could not be used'**
+  String get avatarPhotoFailed;
 }
 
 class _AppLocalizationsDelegate

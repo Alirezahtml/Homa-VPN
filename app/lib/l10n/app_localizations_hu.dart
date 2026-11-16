@@ -2062,149 +2062,490 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get statSession => 'Munkamenet';
+
+  @override
   String get copiedToClipboard => 'A vágólapra másolva';
-  String get wnTotalsAdded => 'A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.';
-  String get wnPolishImproved => 'A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.';
+
+  @override
+  String get wnTotalsAdded =>
+      'A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.';
+
+  @override
+  String get wnPolishImproved =>
+      'A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.';
 
   @override
   String get smartNetwork => 'Okos kapcsolat';
-  String get smartNetworkHint => 'Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.';
+
+  @override
+  String get smartNetworkHint =>
+      'Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.';
+
+  @override
   String get valueSmart => 'Okos';
+
+  @override
   String get mtuAutoValue => 'Automatikus — a hálózat szerint';
+
+  @override
+  String get wnSmartAdded =>
+      'Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.';
+
+  @override
+  String get wnToastAdded =>
+      'A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.';
+
+  @override
+  String get wnFlagsImproved =>
+      'A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.';
+
+  @override
+  String get wnMapImproved =>
+      'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
+
+  @override
+  String get smartWaiting => 'Mérés folyamatban…';
+
+  @override
+  String get smartFamilyRace => 'Az első kapcsolatnál mindkettő versenyez';
+
+  @override
+  String get dnsManual => 'Kézi DNS';
+
+  @override
+  String get dnsManualHint =>
+      'Soronként egy cím: sima IP, https:// (DNS over HTTPS) vagy tls://host (DNS over TLS). Az első válasz nyer.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Az egyik sor nem olyan cím, amellyel a mag dolgozhat: sima IP, https://… vagy tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Őrzött: amíg az alagút áll, semmi nem hagyja el a telefont.';
+
+  @override
+  String get accountsUsageTitle => 'E hónapban';
+
+  @override
+  String get accountsCountLabel => 'fiók';
+
+  @override
+  String get accountsUsageAverage => 'a fiókok elhasznált részének átlaga';
+
+  @override
+  String get wnDesignsAdded =>
+      'Alkalmazás-dizájnok: az egész app öltheti a Lágy neomorfizmust vagy a Sarkifény-üveget — minden oldal, minden kártya — a Beállítások → Általános alatt.';
+
+  @override
+  String get wnWheelFixed =>
+      'A kerék félzászlója eltűnt: a kiválasztott zászló alatti polc egy fénytó, nem második zászló, és a képernyő szélén semmi nem vágódik félbe.';
+
+  @override
+  String get wnMapReal =>
+      'A világtérkép a hivatalos országhatárokból készült újra — minden part, sziget és enkkláv, hűen és valódi arányban.';
+
+  @override
+  String get wnGlobeAdded =>
+      'A világ most gömb: az ezüst gömb a kiválasztott ország felé fordul, fénylő tű és lebegő kártya jelöli, a kapcsolat útjai a csomópontok felé futnak.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'A kiválasztott zászló nagyobban áll a saját kék halójával övezett üvegkeretben, a szomszédok láthatóan kisebbek, a kerék alatti jelzők pedig mutatják, hol tartasz.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'Az alkalmazás-dizájn választó eltávolítva: az app megint a saját egyszínű külsejét viseli — a kiemelő színed és a témád marad, ahogy volt.';
+
+  @override
+  String get wnDnsAdded =>
+      'Kézi DNS: sima IP-címek, DNS over HTTPS és DNS over TLS — minden sor típusa gépelés közben látszik és ellenőrződik.';
+
+  @override
+  String get wnSmartImproved =>
+      'Az okos kapcsolat most megmutatja, mit felelt a hálózat: a választott szállítást és a megtartott IP-verziót, élőben.';
+
+  @override
+  String get wnProtectionImproved =>
+      'A kill switch jelzi, ha az őre áll, és az appok oldala megmutatja, hányat választottál.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'A üdvözlő egy lélegző pajzzsal nyílik, sodródó sarki fény felett, és a fiókok oldala egy pillantással összegzi a hónapot.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Kiválasztva: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Automatikus — a hálózat $mtu visz';
   }
-  String get wnSmartAdded => 'Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.';
-  String get wnToastAdded => 'A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.';
-  String get wnFlagsImproved => 'A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.';
-  String get wnMapImproved => 'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
 
   @override
-  String get smartWaiting => 'Mérés folyamatban…';
-  String get smartFamilyRace => 'Az első kapcsolatnál mindkettő versenyez';
-  String get dnsManual => 'Kézi DNS';
-  String get dnsManualHint => 'Soronként egy cím: sima IP, https:// (DNS over HTTPS) vagy tls://host (DNS over TLS). Az első válasz nyer.';
-  String get dnsManualInvalid => 'Az egyik sor nem olyan cím, amellyel a mag dolgozhat: sima IP, https://… vagy tls://host.';
-  String get killSwitchGuarded => 'Őrzött: amíg az alagút áll, semmi nem hagyja el a telefont.';
-  String get accountsUsageTitle => 'E hónapban';
-  String get accountsCountLabel => 'fiók';
-  String get accountsUsageAverage => 'a fiókok elhasznált részének átlaga';
-  String get wnDesignsAdded => 'Alkalmazás-dizájnok: az egész app öltheti a Lágy neomorfizmust vagy a Sarkifény-üveget — minden oldal, minden kártya — a Beállítások → Általános alatt.';
-  String get wnWheelFixed => 'A kerék félzászlója eltűnt: a kiválasztott zászló alatti polc egy fénytó, nem második zászló, és a képernyő szélén semmi nem vágódik félbe.';
-  String get wnMapReal => 'A világtérkép a hivatalos országhatárokból készült újra — minden part, sziget és enkkláv, hűen és valódi arányban.';
-  String get wnGlobeAdded => 'A világ most gömb: az ezüst gömb a kiválasztott ország felé fordul, fénylő tű és lebegő kártya jelöli, a kapcsolat útjai a csomópontok felé futnak.';
-  String get wnWheelGlowImproved => 'A kiválasztott zászló nagyobban áll a saját kék halójával övezett üvegkeretben, a szomszédok láthatóan kisebbek, a kerék alatti jelzők pedig mutatják, hol tartasz.';
   String get sectionAppearance => 'Megjelenés';
+
+  @override
   String get mapStyle => 'Térkép stílusa';
-  String get mapStyleHint => 'A kezdőlap gömbje úgy festődik, ahogy választja. A kapcsolat fénye változatlan marad.';
+
+  @override
+  String get mapStyleHint =>
+      'A kezdőlap gömbje úgy festődik, ahogy választja. A kapcsolat fénye változatlan marad.';
+
+  @override
   String get mapSilver => 'Ezüst';
+
+  @override
   String get mapMidnight => 'Éjfél';
+
+  @override
   String get mapOcean => 'Óceán';
+
+  @override
   String get mapMono => 'Egyszínű';
+
+  @override
   String get mapAurora => 'Aurora';
+
+  @override
   String get batterySaver => 'Akkumulátorkímélő';
-  String get batterySaverHint => 'Pihenre teszi a térkép mozgását kapcsolat közben — a gömb légzését, a kerék fényét. Maga a kapcsolat pontosan ugyanúgy marad.';
+
+  @override
+  String get batterySaverHint =>
+      'Pihenre teszi a térkép mozgását kapcsolat közben — a gömb légzését, a kerék fényét. Maga a kapcsolat pontosan ugyanúgy marad.';
+
+  @override
   String get connectOnOpen => 'Csatlakozás az app megnyitásakor';
-  String get connectOnOpenHint => 'Az app megnyitásakor elindítja a VPN-t, az utoljára választott hellyel.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Az app megnyitásakor elindítja a VPN-t, az utoljára választott hellyel.';
+
+  @override
   String get speedTitle => 'Sebesség';
+
+  @override
   String get parallelTunnels => 'Párhuzamos alagutak';
-  String get parallelTunnelsHint => 'Egyszerre több alagutat nyit a Mozilla felé, és szétosztja köztük a forgalmat, így egy lassú alagút többé nem szab határt a sebességnek. A nyolc a legnehezebb az akkumulátorra.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Egyszerre több alagutat nyit a Mozilla felé, és szétosztja köztük a forgalmat, így egy lassú alagút többé nem szab határt a sebességnek. A nyolc a legnehezebb az akkumulátorra.';
+
+  @override
   String get tunnels1 => 'Egy — a legstabilabb';
+
+  @override
   String get tunnels2 => 'Kettő';
+
+  @override
   String get tunnels4 => 'Négy — lassabb hálózatokon gyorsabb';
+
+  @override
   String get tunnels8 => 'Nyolc — a leggyorsabb';
+
+  @override
   String get connectionCap => 'Kapcsolatszám-korlát';
-  String get connectionCapHint => 'Hány app beszélhet egyszerre a VPN-en át; kisebb korlát akkumulátort és adatot spórol egy elfoglalt telefonon. Korlátlan az alapértelmezett.';
+
+  @override
+  String get connectionCapHint =>
+      'Hány app beszélhet egyszerre a VPN-en át; kisebb korlát akkumulátort és adatot spórol egy elfoglalt telefonon. Korlátlan az alapértelmezett.';
+
+  @override
   String get capNone => 'Korlátlan';
+
+  @override
   String get verboseLogging => 'Részletes diagnosztika';
-  String get verboseLoggingHint => 'Minden lépést a naplóba ír — hiba jelzésekor hasznos, az akkumulátort kicsit jobban terheli.';
-  String get wn38MapStylesAdded => 'Öt stílus a térképnek: ezüst, éjfél, óceán, egyszínű és aurora — a beállítások új Megjelenés oldala választ, mindegyik előnézetével.';
-  String get wn38ZoomAdded => 'A térkép nagyítható: csippentsd össze, vagy koppints kétszer a közelítéshez és vissza.';
-  String get wn38OptionsAdded => 'Hasznos beállítások: párhuzamos alagutak a nagyobb sebességért, kapcsolatszám-korlát, akkumulátorkímélő, csatlakozás az app megnyitásakor és részletes diagnosztika.';
-  String get wn38SocialAdded => 'Az Instagram és a Telegram most az oldal alján is otthon van.';
-  String get wn38FlightImproved => 'Egy ország választása kis repülés: a kamera hátrahúzódik, a gömb fordul, a tű pattanva ér földet, és az utak maguktól húzódnak a központok felé.';
-  String get wn38EffectsImproved => 'A térkép gazdagabban mutatkozik: csillagok a gömb mögött, koordináta-háló, a központok saját fényei, fényudvar a peremen és a szárazföld árnyéka.';
-  String get wn38SpeedImproved => 'A sebesség opció valós: a párhuzamos alagutak egyszerre több kapcsolatot nyitnak, a mag pedig szétosztja köztük a forgalmat.';
-  String get wn38NameFixed => 'A választott ország neve egyszer jelenik meg — a térkép lebegő kártyáján; a másolat a zászlók alatt eltűnt.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Minden lépést a naplóba ír — hiba jelzésekor hasznos, az akkumulátort kicsit jobban terheli.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Öt stílus a térképnek: ezüst, éjfél, óceán, egyszínű és aurora — a beállítások új Megjelenés oldala választ, mindegyik előnézetével.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'A térkép nagyítható: csippentsd össze, vagy koppints kétszer a közelítéshez és vissza.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Hasznos beállítások: párhuzamos alagutak a nagyobb sebességért, kapcsolatszám-korlát, akkumulátorkímélő, csatlakozás az app megnyitásakor és részletes diagnosztika.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Az Instagram és a Telegram most az oldal alján is otthon van.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Egy ország választása kis repülés: a kamera hátrahúzódik, a gömb fordul, a tű pattanva ér földet, és az utak maguktól húzódnak a központok felé.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'A térkép gazdagabban mutatkozik: csillagok a gömb mögött, koordináta-háló, a központok saját fényei, fényudvar a peremen és a szárazföld árnyéka.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'A sebesség opció valós: a párhuzamos alagutak egyszerre több kapcsolatot nyitnak, a mag pedig szétosztja köztük a forgalmat.';
+
+  @override
+  String get wn38NameFixed =>
+      'A választott ország neve egyszer jelenik meg — a térkép lebegő kártyáján; a másolat a zászlók alatt eltűnt.';
+
+  @override
   String get mapKind => 'Térkép típusa';
+
+  @override
+  String get mapKindHint =>
+      'Hogyan jelenik meg a kezdőlap világa: a lapos térkép, mint mindig (alapértelmezett), modern változata, az éjszakai Föld, a domborzati Föld, a fémgömb vagy a műholdas Föld. A határok minden típusban a valódi, hivatalos határok.';
+
+  @override
   String get mapKindClassic => 'Klasszikus';
+
+  @override
   String get mapKindGlobe => '3D gömb';
+
+  @override
   String get mapKindSatellite => 'Műhold';
+
+  @override
   String get mapKindFlat => 'Lapos 2D';
-  String get mapKindNight => 'Éjszaka';
-  String get aboutChannels => 'Elérhetőségi oldalak';
-  String get soundFeedback => 'Hangok';
-  String get soundFeedbackHint => 'Lágy hangok érintéshez, kapcsolókhoz, csatlakozáshoz és lecsatlakozáshoz';
-  String get rateUnit => 'Sebesség mértékegysége';
-  String get lockInBackground => 'Zárolás távollétben';
-  String get lockBgNever => 'Soha';
-  String get lockBgNow => 'Azonnal';
-  String get lockBgMin5 => '5 perc után';
-  String get lockBgMin15 => '15 perc után';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => 'A csatlakozás hangja a rezgéssel együtt: a VPN rövid hangot szól le-, és felcsatlakozáskor (Beállítások → Általános).';
-  String get copyIp => 'IP másolása';
-  String get wn42Fonts => 'Minden nyelv az app saját betűivel olvas: Noto Sans a két kínaihoz és a bengálihoz, Inter a latin és a cirill nyelvekhez — már egyetlen nyelv sem a telefon betűire támaszkodik.';
-  String get wn42Sounds => 'Az app hangjai mostantól valóságosak: lágy koppanás minden szakaszban, két hang a kapcsolókhoz, fel-le szökő hang a csatlakozásnál és a lecsatlakozásnál, csengő a zárhoz — a hangkapcsoló mindet uralja.';
-  String get wn42AboutFixed => 'A Névjegy lap középre igazítja logóját, nevét és jegyzetét, és az elérési azonosítók a telefon szélességétől függetlenül épek és egy sorban maradnak.';
-  String get wn42Gaming => 'A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal.';
-  String get wn41RateUnit => 'A sebesség a választott egységben olvasható: a megszokott KB/s vagy a kapcsolat Mbps-e.';
-  String get wn41BackgroundLock => 'Az app távollétben magát is zárolhatja: a jelszó azonnal, 5 vagy 15 perc után újra kérhető.';
-  String get wn41BiggerLimits => 'A munkamenet adatkerete 25, 50 vagy 100 GB-ra emelkedik.';
-  String get wn41Motion => 'Új mozzanatok: a csatlakozott gömb lélegzik, a pipa magát rajzolja meg, az állapotszó értékei közt siklik, és a rossz jelszó megrázza a mezőt.';
-  String get wn41AboutFixed => 'A Névjegy lap rendbe szedette: a két oldal egymás mellett, minden jegyzet a saját sorában, semmi összenyomás.';
-  String get wn41HapticFixed => 'A rezgés beállítása újra hallgat: minden kapcsolódás és lecsatlakozás követi, nem csak a csúszka.';
-  String get mapKindTerrain => 'Terep';
-  String get mapKindHint => 'Hogyan jelenik meg a kezdőlap világa: a lapos térkép, mint mindig (alapértelmezett), modern változata, az éjszakai Föld, a domborzati Föld, a fémgömb vagy a műholdas Föld. A határok minden típusban a valódi, hivatalos határok.';
-  String get wn40MapKindsNew => 'A térkép két új változata: az éjszakai Föld és a domborzati Föld.';
-  String get wn40Flight => 'A 3D gömb egyetlen sima fordulattal repül az új országhoz — soha nem ugrál.';
-  String get wn40Mercator => 'A lapos térképek a szabványos Mercator-vetülettel rajzolódnak: valódi arányok, szabványos határok, semmi összenyomás.';
-  String get wn40NameBack => 'A választott ország neve visszatért a zászlók alá a lapos térképeken.';
-  String get wn40Speed => 'Az alagút alapból két párhuzamos munkamenetet nyit — erősebb, stabilabb vonal.';
-  String get wn40LockFixed => 'A csatlakozás gomb lakatja már nem villog ki az állapotok között.';
-  String get wn40IpRemoved => 'A helykártya IP-ablakát eltávolítottuk.';
-  String get mapStyleGlobeHint => 'A 3D gömb színei. A műhold a saját Földjét viseli, a lapos térképek a saját tusukat.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'A 3D gömb színei. A műhold a saját Földjét viseli, a lapos térképek a saját tusukat.';
+
+  @override
   String get aboutVersions => 'Verzió';
-  String get checkUpdatesHint => 'Újabb verzió keresése; a megtalált letöltődik, és a telepítő megkérdezi.';
+
+  @override
+  String get aboutChannels => 'Elérhetőségi oldalak';
+
+  @override
+  String get checkUpdatesHint =>
+      'Újabb verzió keresése; a megtalált letöltődik, és a telepítő megkérdezi.';
+
+  @override
   String get smartLocation => 'Leggyorsabb helyszín';
-  String get smartLocationHint => 'Minden indítás a mag saját késleltetés-mérése szerint leggyorsabb szerverre ül.';
+
+  @override
+  String get smartLocationHint =>
+      'Minden indítás a mag saját késleltetés-mérése szerint leggyorsabb szerverre ül.';
+
+  @override
   String get quicPass => 'QUIC átengedés';
-  String get quicPassHint => 'Az appok QUIC-je (UDP 443) átmegy az alagúton: hívások és játékok megtartják sebességüket, TCP-re esés nélkül.';
+
+  @override
+  String get quicPassHint =>
+      'Az appok QUIC-je (UDP 443) átmegy az alagúton: hívások és játékok megtartják sebességüket, TCP-re esés nélkül.';
+
+  @override
   String get accountRename => 'Fiók átnevezése';
+
+  @override
   String get accountRenameLabel => 'Fiók neve';
+
+  @override
   String get accountProfile => 'Profilkép';
+
+  @override
   String get avatarReset => 'Vissza az egyszerű jelig';
+
+  @override
   String get accountSecurity => 'App jelszó';
+
+  @override
   String get appPasswordOn => 'Az app jelszó mögött nyílik meg.';
+
+  @override
   String get appPasswordOff => 'Nincs jelszó: aki megnyitja az appot, bemegy.';
+
+  @override
   String get appPasswordSet => 'Jelszó beállítása';
+
+  @override
   String get appPasswordChange => 'Jelszó módosítása';
+
+  @override
   String get appPasswordRemove => 'Jelszó eltávolítása';
+
+  @override
   String get appPasswordCurrent => 'Jelenlegi jelszó';
+
+  @override
   String get appPasswordNew => 'Új jelszó (4+ karakter)';
+
+  @override
   String get appPasswordConfirm => 'Új jelszó ismét';
+
+  @override
   String get appPasswordShort => 'Legalább 4 karakter.';
+
+  @override
   String get appPasswordMismatch => 'A két jelszó nem ugyanaz.';
+
+  @override
   String get appPasswordWrong => 'Hibás jelszó';
-  String get appPasswordSetDone => 'A jelszó megállt — az app legközelebb kérni fogja.';
+
+  @override
+  String get appPasswordSetDone =>
+      'A jelszó megállt — az app legközelebb kérni fogja.';
+
+  @override
   String get appPasswordRemoved => 'A jelszó eltűnt; az app szabadon nyílik.';
+
+  @override
   String get appPasswordUnlock => 'Az app zárolva van';
+
+  @override
   String get appPasswordUnlockHint => 'A folytatáshoz írd be az app jelszavát.';
-  String get wn39MapKinds => 'A térkép megint típusokat kínál: a régi lapos (alapértelmezett), a 3D gömb, a műholdas Föld és egy modern lapos 2D.';
-  String get wn39EyeIp => 'A helyszínkártya szemett tart: koppints rá, lásd a forgalom kimenő címét, és másold.';
-  String get wn39Profile => 'A fiókok saját nevet és profilképet viselnek, és az app jelszó mögött nyílhat.';
-  String get wn39Smart => 'Az okos kapcsolat kibővült: valós késleltetés alapján leggyorsabb helyszín és QUIC átengedés hívásoknak, játékoknak.';
-  String get wn39Flight => 'Az országváltás simábban repül — a kamera a főkörön halad — és a zászlókerék jelzői közelebb ülnek a zászlókhoz.';
-  String get wn39ToastEverywhere => 'A dinamikus jegyzet most mindenhol ott van: minden mentés, másolás és hiba ugyanazt az animált üvegbogyót viseli.';
-  String get wn39Updates => 'A frissítések tisztán tartják a tárolót: a telepítő a régi verziót cseréli, és csomag nem marad.';
-  String get wnDesignsRemoved => 'Az alkalmazás-dizájn választó eltávolítva: az app megint a saját egyszínű külsejét viseli — a kiemelő színed és a témád marad, ahogy volt.';
-  String get wnDnsAdded => 'Kézi DNS: sima IP-címek, DNS over HTTPS és DNS over TLS — minden sor típusa gépelés közben látszik és ellenőrződik.';
-  String get wnSmartImproved => 'Az okos kapcsolat most megmutatja, mit felelt a hálózat: a választott szállítást és a megtartott IP-verziót, élőben.';
-  String get wnProtectionImproved => 'A kill switch jelzi, ha az őre áll, és az appok oldala megmutatja, hányat választottál.';
-  String get wnWelcomeImproved => 'A üdvözlő egy lélegző pajzzsal nyílik, sodródó sarki fény felett, és a fiókok oldala egy pillantással összegzi a hónapot.';
-  String bypassAppsCount(String n) => 'Kiválasztva: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'A térkép megint típusokat kínál: a régi lapos (alapértelmezett), a 3D gömb, a műholdas Föld és egy modern lapos 2D.';
+
+  @override
+  String get wn39EyeIp =>
+      'A helyszínkártya szemett tart: koppints rá, lásd a forgalom kimenő címét, és másold.';
+
+  @override
+  String get wn39Profile =>
+      'A fiókok saját nevet és profilképet viselnek, és az app jelszó mögött nyílhat.';
+
+  @override
+  String get wn39Smart =>
+      'Az okos kapcsolat kibővült: valós késleltetés alapján leggyorsabb helyszín és QUIC átengedés hívásoknak, játékoknak.';
+
+  @override
+  String get wn39Flight =>
+      'Az országváltás simábban repül — a kamera a főkörön halad — és a zászlókerék jelzői közelebb ülnek a zászlókhoz.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'A dinamikus jegyzet most mindenhol ott van: minden mentés, másolás és hiba ugyanazt az animált üvegbogyót viseli.';
+
+  @override
+  String get wn39Updates =>
+      'A frissítések tisztán tartják a tárolót: a telepítő a régi verziót cseréli, és csomag nem marad.';
+
+  @override
+  String get mapKindNight => 'Éjszaka';
+
+  @override
+  String get mapKindTerrain => 'Terep';
+
+  @override
+  String get wn40MapKindsNew =>
+      'A térkép két új változata: az éjszakai Föld és a domborzati Föld.';
+
+  @override
+  String get wn40Flight =>
+      'A 3D gömb egyetlen sima fordulattal repül az új országhoz — soha nem ugrál.';
+
+  @override
+  String get wn40Mercator =>
+      'A lapos térképek a szabványos Mercator-vetülettel rajzolódnak: valódi arányok, szabványos határok, semmi összenyomás.';
+
+  @override
+  String get wn40NameBack =>
+      'A választott ország neve visszatért a zászlók alá a lapos térképeken.';
+
+  @override
+  String get wn40Speed =>
+      'Az alagút alapból két párhuzamos munkamenetet nyit — erősebb, stabilabb vonal.';
+
+  @override
+  String get wn40LockFixed =>
+      'A csatlakozás gomb lakatja már nem villog ki az állapotok között.';
+
+  @override
+  String get wn40IpRemoved => 'A helykártya IP-ablakát eltávolítottuk.';
+
+  @override
+  String get soundFeedback => 'Hangok';
+
+  @override
+  String get soundFeedbackHint =>
+      'Lágy hangok érintéshez, kapcsolókhoz, csatlakozáshoz és lecsatlakozáshoz';
+
+  @override
+  String get rateUnit => 'Sebesség mértékegysége';
+
+  @override
+  String get lockInBackground => 'Zárolás távollétben';
+
+  @override
+  String get lockBgNever => 'Soha';
+
+  @override
+  String get lockBgNow => 'Azonnal';
+
+  @override
+  String get lockBgMin5 => '5 perc után';
+
+  @override
+  String get lockBgMin15 => '15 perc után';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound =>
+      'A csatlakozás hangja a rezgéssel együtt: a VPN rövid hangot szól le-, és felcsatlakozáskor (Beállítások → Általános).';
+
+  @override
+  String get wn41RateUnit =>
+      'A sebesség a választott egységben olvasható: a megszokott KB/s vagy a kapcsolat Mbps-e.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'Az app távollétben magát is zárolhatja: a jelszó azonnal, 5 vagy 15 perc után újra kérhető.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'A munkamenet adatkerete 25, 50 vagy 100 GB-ra emelkedik.';
+
+  @override
+  String get wn41Motion =>
+      'Új mozzanatok: a csatlakozott gömb lélegzik, a pipa magát rajzolja meg, az állapotszó értékei közt siklik, és a rossz jelszó megrázza a mezőt.';
+
+  @override
+  String get wn41AboutFixed =>
+      'A Névjegy lap rendbe szedette: a két oldal egymás mellett, minden jegyzet a saját sorában, semmi összenyomás.';
+
+  @override
+  String get wn41HapticFixed =>
+      'A rezgés beállítása újra hallgat: minden kapcsolódás és lecsatlakozás követi, nem csak a csúszka.';
+
+  @override
+  String get copyIp => 'IP másolása';
+
+  @override
+  String get wn42Fonts =>
+      'Minden nyelv az app saját betűivel olvas: Noto Sans a két kínaihoz és a bengálihoz, Inter a latin és a cirill nyelvekhez — már egyetlen nyelv sem a telefon betűire támaszkodik.';
+
+  @override
+  String get wn42Sounds =>
+      'Az app hangjai mostantól valóságosak: lágy koppanás minden szakaszban, két hang a kapcsolókhoz, fel-le szökő hang a csatlakozásnál és a lecsatlakozásnál, csengő a zárhoz — a hangkapcsoló mindet uralja.';
+
+  @override
+  String get wn42AboutFixed =>
+      'A Névjegy lap középre igazítja logóját, nevét és jegyzetét, és az elérési azonosítók a telefon szélességétől függetlenül épek és egy sorban maradnak.';
+
+  @override
+  String get wn42Gaming =>
+      'A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal.';
+
+  @override
+  String get avatarPhoto => 'Saját fotód';
+
+  @override
+  String get avatarPhotoFailed => 'A fotó nem használható';
 }

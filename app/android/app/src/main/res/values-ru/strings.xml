@@ -12,4 +12,5 @@
     <string name="widget_description">Подключение и отключение одним нажатием</string>
     <string name="widget_connect">Нажмите, чтобы подключиться</string>
     <string name="widget_disconnect">Нажмите, чтобы отключиться</string>
+    <string name="updates_channel">Новые версии</string>
 </resources>

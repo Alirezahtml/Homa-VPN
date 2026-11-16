@@ -733,5 +733,7 @@
   "wn42Fonts": "Minden nyelv az app saját betűivel olvas: Noto Sans a két kínaihoz és a bengálihoz, Inter a latin és a cirill nyelvekhez — már egyetlen nyelv sem a telefon betűire támaszkodik.",
   "wn42Sounds": "Az app hangjai mostantól valóságosak: lágy koppanás minden szakaszban, két hang a kapcsolókhoz, fel-le szökő hang a csatlakozásnál és a lecsatlakozásnál, csengő a zárhoz — a hangkapcsoló mindet uralja.",
   "wn42AboutFixed": "A Névjegy lap középre igazítja logóját, nevét és jegyzetét, és az elérési azonosítók a telefon szélességétől függetlenül épek és egy sorban maradnak.",
-  "wn42Gaming": "A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal."
+  "wn42Gaming": "A játékprofil mostantól valóságos: a szerverek lapja félpercenként újraméri a késéseket, és a mért leggyorsabbat kiemeli az akcentussal.",
+  "avatarPhoto": "Saját fotód",
+  "avatarPhotoFailed": "A fotó nem használható"
 }

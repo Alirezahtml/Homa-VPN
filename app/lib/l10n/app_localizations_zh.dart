@@ -1954,157 +1954,442 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wnCrashFixed => '应用不再在 Android 16 手机上自行停止：通知向系统索要了手机还没有的东西。';
 
   @override
-  String get wnFlagArtFixed =>
-      '应用打开后不再把自己踢出去：通知的国旗图片返回了系统消息通道不接受的值。';
+  String get wnFlagArtFixed => '应用打开后不再把自己踢出去：通知的国旗图片返回了系统消息通道不接受的值。';
 
   @override
   String get statSession => '会话';
+
+  @override
   String get copiedToClipboard => '已复制到剪贴板';
+
+  @override
   String get wnTotalsAdded => '主页显示本次会话的总流量，轻点即可复制公共 IP。';
+
+  @override
   String get wnPolishImproved => '旗帜转轮和服务器页面更整洁；文字更紧凑，Android 隧道以更高的速度传输流量。';
 
   @override
   String get smartNetwork => '智能连接';
+
+  @override
   String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
+
+  @override
   String get valueSmart => '智能';
+
+  @override
   String get mtuAutoValue => '自动 — 随网络调整';
+
+  @override
+  String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
+
+  @override
+  String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
+
+  @override
+  String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
+
+  @override
+  String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
+
+  @override
+  String get smartWaiting => '正在测量……';
+
+  @override
+  String get smartFamilyRace => '首次连接时两族同时竞速';
+
+  @override
+  String get dnsManual => '手动 DNS';
+
+  @override
+  String get dnsManualHint =>
+      '每行一个地址：普通 IP、https://（DNS over HTTPS）或 tls://host（DNS over TLS）。以最先应答者为准。';
+
+  @override
+  String get dnsManualInvalid => '有一行不是内核可用的地址：普通 IP、https://… 或 tls://host。';
+
+  @override
+  String get killSwitchGuarded => '守护中：隧道中断期间，没有任何数据离开手机。';
+
+  @override
+  String get accountsUsageTitle => '本月';
+
+  @override
+  String get accountsCountLabel => '个账户';
+
+  @override
+  String get accountsUsageAverage => '各账户已用份额的平均值';
+
+  @override
+  String get wnDesignsAdded =>
+      '应用设计：整个应用可以换上柔和新拟态或极光玻璃——每一页、每一张卡片——在 设置 → 通用 中选择。';
+
+  @override
+  String get wnWheelFixed => '转轮的半面旗消失了：选中旗帜下方的搁板是一泓光，不再是第二面旗，屏幕边缘也不会切掉任何旗帜。';
+
+  @override
+  String get wnMapReal => '世界地图依据各国官方边界重新绘制——每一处海岸、岛屿与飞地都忠实呈现，比例真实。';
+
+  @override
+  String get wnGlobeAdded => '世界变成了地球仪：银色球体会转向所选国家，发光的定位针与悬浮卡片标记它，连接的路线伸向各枢纽。';
+
+  @override
+  String get wnWheelGlowImproved =>
+      '选中的旗帜在蓝色光晕与玻璃边框中更大更醒目，两侧旗帜明显更小，转轮下方的指示点显示当前位置。';
+
+  @override
+  String get wnDesignsRemoved => '应用设计选项已移除：应用恢复原本的单色外观——您的强调色与主题保持不变。';
+
+  @override
+  String get wnDnsAdded =>
+      '手动 DNS：普通 IP、DNS over HTTPS 与 DNS over TLS——每一行的类型随手输入即时显示并校验。';
+
+  @override
+  String get wnSmartImproved => '智能连接现在实时显示网络的回答：它选中的传输方式与保留的 IP 版本。';
+
+  @override
+  String get wnProtectionImproved => 'Kill Switch 会在守护生效时说明状态，应用页面会显示你选择的应用数量。';
+
+  @override
+  String get wnWelcomeImproved => '欢迎页以一面呼吸的盾牌配上流动的极光开场，账户页则将整月用量一览汇总。';
+
+  @override
+  String bypassAppsCount(String n) {
+    return '已选：$n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return '自动 — 网络承载 $mtu';
   }
-  String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
-  String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
-  String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
-  String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
 
   @override
-  String get smartWaiting => '正在测量……';
-  String get smartFamilyRace => '首次连接时两族同时竞速';
-  String get dnsManual => '手动 DNS';
-  String get dnsManualHint => '每行一个地址：普通 IP、https://（DNS over HTTPS）或 tls://host（DNS over TLS）。以最先应答者为准。';
-  String get dnsManualInvalid => '有一行不是内核可用的地址：普通 IP、https://… 或 tls://host。';
-  String get killSwitchGuarded => '守护中：隧道中断期间，没有任何数据离开手机。';
-  String get accountsUsageTitle => '本月';
-  String get accountsCountLabel => '个账户';
-  String get accountsUsageAverage => '各账户已用份额的平均值';
-  String get wnDesignsAdded => '应用设计：整个应用可以换上柔和新拟态或极光玻璃——每一页、每一张卡片——在 设置 → 通用 中选择。';
-  String get wnWheelFixed => '转轮的半面旗消失了：选中旗帜下方的搁板是一泓光，不再是第二面旗，屏幕边缘也不会切掉任何旗帜。';
-  String get wnMapReal => '世界地图依据各国官方边界重新绘制——每一处海岸、岛屿与飞地都忠实呈现，比例真实。';
-  String get wnGlobeAdded => '世界变成了地球仪：银色球体会转向所选国家，发光的定位针与悬浮卡片标记它，连接的路线伸向各枢纽。';
-  String get wnWheelGlowImproved => '选中的旗帜在蓝色光晕与玻璃边框中更大更醒目，两侧旗帜明显更小，转轮下方的指示点显示当前位置。';
   String get sectionAppearance => '外观';
-  String get mapStyle => '地图样式';
-  String get mapStyleHint => '主页的地球会按您的选择上色，连接的灯光保持不变。';
-  String get mapSilver => '银色';
-  String get mapMidnight => '午夜';
-  String get mapOcean => '海洋';
-  String get mapMono => '单色';
-  String get mapAurora => '极光';
-  String get batterySaver => '省电模式';
-  String get batterySaverHint => '连接时让地图动效安歇——地球的呼吸、转轮的光晕。连接本身完全不受影响。';
-  String get connectOnOpen => '打开应用时连接';
-  String get connectOnOpenHint => '应用一打开就连上 VPN，使用您上次选择的位置。';
-  String get speedTitle => '速度';
-  String get parallelTunnels => '并行隧道';
-  String get parallelTunnelsHint => '同时打开多条通往 Mozilla 的隧道并分担流量，单条慢隧道不再限制速度。八条对电池负担最大。';
-  String get tunnels1 => '一条——最稳定';
-  String get tunnels2 => '两条';
-  String get tunnels4 => '四条——慢网络下更快';
-  String get tunnels8 => '八条——最快';
-  String get connectionCap => '连接数上限';
-  String get connectionCapHint => '多少应用可以同时通过 VPN 通信；更小的上限在繁忙的手机上省电省流量。默认不限制。';
-  String get capNone => '不限制';
-  String get verboseLogging => '详细诊断';
-  String get verboseLoggingHint => '把每一步都写进日志——报告问题时很有用，略微多耗一点电。';
-  String get wn38MapStylesAdded => '地图的五种外观：银色、午夜、海洋、单色和极光——在设置里新增的「外观」页选择，每种都有预览。';
-  String get wn38ZoomAdded => '地图可以缩放：双指捏合，或双击放大、再次双击还原。';
-  String get wn38OptionsAdded => '实用的新选项：并行隧道提升速度、连接数上限、省电模式、打开应用时连接，以及详细诊断。';
-  String get wn38SocialAdded => 'Instagram 和 Telegram 现在也在这个页面的底部。';
-  String get wn38FlightImproved => '选择国家变成了一次小小的飞行：镜头后拉，球体转动，图钉带弹跳落下，路径自行延伸到各个枢纽。';
-  String get wn38EffectsImproved => '地图更耐看了：球体背后的星辰、坐标网格、枢纽自己的光点、边缘的光晕，还有陆地的阴影。';
-  String get wn38SpeedImproved => '速度选项是真实的：并行隧道同时打开多条连接，核心在它们之间分配流量。';
-  String get wn38NameFixed => '所选国家的名称只显示一次——在地图的悬浮卡片上；旗帜下方的重复文字已移除。';
-  String get mapKind => '地图类型';
-  String get mapKindClassic => '经典';
-  String get mapKindGlobe => '3D 球体';
-  String get mapKindSatellite => '卫星';
-  String get mapKindFlat => '平面 2D';
-  String get mapKindNight => '夜晚';
-  String get aboutChannels => '联系页面';
-  String get soundFeedback => '音效';
-  String get soundFeedbackHint => '轻触、开关与连接切换时的轻柔音效';
-  String get rateUnit => '速度单位';
-  String get lockInBackground => '离开后重新上锁';
-  String get lockBgNever => '从不';
-  String get lockBgNow => '立即';
-  String get lockBgMin5 => '5 分钟后';
-  String get lockBgMin15 => '15 分钟后';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => '连接提示音与振动同行：VPN 开启或关闭时会发出一声短音（设置 → 通用）。';
-  String get copyIp => '复制 IP';
-  String get wn42Fonts => '每种语言都用应用自带的字体阅读：两种中文与孟加拉文用 Noto Sans，拉丁与西里尔文用 Inter——不再依赖手机字体。';
-  String get wn42Sounds => '应用的音效现在是真的：每个分区都有轻柔的触碰声、开关的两声短音、连接建立与断开时的升降音、锁定时的一声提示——音效开关统一控制。';
-  String get wn42AboutFixed => '「关于」页面的标志、名称与说明居中显示，联系账号无论屏幕多窄都完整保持在一行。';
-  String get wn42Gaming => '游戏模式现在是真的：服务器页面每半分钟重新测量延迟，并用强调色突出实测最快的服务器。';
-  String get wn41RateUnit => '速度按你选择的单位显示：熟悉的 KB/s 或连接本身的 Mbps。';
-  String get wn41BackgroundLock => '应用可在你离开后自行上锁：密码会在立即、5 分钟或 15 分钟后重新询问。';
-  String get wn41BiggerLimits => '会话的数据上限可升到 25、50 或 100 GB。';
-  String get wn41Motion => '新的动效：连接后的圆球会呼吸、对勾自行绘出、状态文字在取值间平滑滑动、密码错误时输入框会晃动。';
-  String get wn41AboutFixed => '「关于」页面变得整齐：两个页面并排、每条说明独占一行，毫无挤压。';
-  String get wn41HapticFixed => '振动设置重新生效：每次连接的开启与关闭都会遵循它，而不只是滑块。';
-  String get mapKindTerrain => '地形';
-  String get mapKindHint => '主页的世界如何呈现：一如既往的平面地图（默认）、其现代风格、夜晚地球、地形地球、金属球体，或卫星地球。每种类型使用的都是真实、官方的边界。';
-  String get wn40MapKindsNew => '地图新增两种样式：夜晚地球与地形地球。';
-  String get wn40Flight => '3D 球体以一次平滑的旋转飞向新国家——绝不再生硬跳变。';
-  String get wn40Mercator => '平面地图改用标准墨卡托投影：真实比例、标准边界、毫无挤压变形。';
-  String get wn40NameBack => '平面地图上，所选国家的名称重新出现在旗帜下方。';
-  String get wn40Speed => '隧道默认开启两条并行会话——线路更强劲、更稳定。';
-  String get wn40LockFixed => '连接按钮上的锁在状态切换时不再闪烁消失。';
-  String get wn40IpRemoved => '位置卡片上的 IP 弹窗已移除。';
-  String get mapStyleGlobeHint => '3D 球体的配色。卫星有自己的地球，平面地图有自己的墨色。';
-  String get aboutVersions => '版本';
-  String get checkUpdatesHint => '查找更新的版本；找到后会下载，并由安装器进行确认。';
-  String get smartLocation => '最快位置';
-  String get smartLocationHint => '每次启动都落在核心延迟实测最快的服务器上。';
-  String get quicPass => 'QUIC 直通';
-  String get quicPassHint => '应用的 QUIC（UDP 443）从隧道通过：通话和游戏保持速度，不再回退到 TCP。';
-  String get accountRename => '重命名账户';
-  String get accountRenameLabel => '账户名称';
-  String get accountProfile => '个人头像';
-  String get avatarReset => '恢复默认头像';
-  String get accountSecurity => '应用密码';
-  String get appPasswordOn => '应用在密码保护下打开。';
-  String get appPasswordOff => '未设密码：任何打开应用的人都能进入。';
-  String get appPasswordSet => '设置密码';
-  String get appPasswordChange => '修改密码';
-  String get appPasswordRemove => '移除密码';
-  String get appPasswordCurrent => '当前密码';
-  String get appPasswordNew => '新密码（4 个字符以上）';
-  String get appPasswordConfirm => '重复新密码';
-  String get appPasswordShort => '至少 4 个字符。';
-  String get appPasswordMismatch => '两次输入的密码不一致。';
-  String get appPasswordWrong => '密码错误';
-  String get appPasswordSetDone => '密码已设置——下次启动应用时会要求输入。';
-  String get appPasswordRemoved => '密码已移除；应用可直接打开。';
-  String get appPasswordUnlock => '应用已锁定';
-  String get appPasswordUnlockHint => '输入应用密码以继续。';
-  String get wn39MapKinds => '地图重新可选类型：一如既往的平面地图（默认）、3D 球体、卫星地球和现代平面 2D。';
-  String get wn39EyeIp => '位置卡片带有眼睛图标：点按可查看流量出口地址并复制。';
-  String get wn39Profile => '账户可拥有自己的名称与头像，应用也可以在密码保护下打开。';
-  String get wn39Smart => '智能连接更完整：按真实延迟选择最快位置，并为通话和游戏提供 QUIC 直通。';
-  String get wn39Flight => '切换国家飞行更顺滑——相机沿大圆弧移动——旗帜轮盘的指示点也更贴近旗帜。';
-  String get wn39ToastEverywhere => '动态通知现在无处不在：每一次保存、复制和失败都穿上同一枚动画玻璃胶囊。';
-  String get wn39Updates => '更新保持存储干净：安装器直接替换旧版本，不留任何安装包。';
-  String get wnDesignsRemoved => '应用设计选项已移除：应用恢复原本的单色外观——您的强调色与主题保持不变。';
-  String get wnDnsAdded => '手动 DNS：普通 IP、DNS over HTTPS 与 DNS over TLS——每一行的类型随手输入即时显示并校验。';
-  String get wnSmartImproved => '智能连接现在实时显示网络的回答：它选中的传输方式与保留的 IP 版本。';
-  String get wnProtectionImproved => 'Kill Switch 会在守护生效时说明状态，应用页面会显示你选择的应用数量。';
-  String get wnWelcomeImproved => '欢迎页以一面呼吸的盾牌配上流动的极光开场，账户页则将整月用量一览汇总。';
-  String bypassAppsCount(String n) => '已选：{n}'.replaceFirst('{n}', n);
 
+  @override
+  String get mapStyle => '地图样式';
+
+  @override
+  String get mapStyleHint => '主页的地球会按您的选择上色，连接的灯光保持不变。';
+
+  @override
+  String get mapSilver => '银色';
+
+  @override
+  String get mapMidnight => '午夜';
+
+  @override
+  String get mapOcean => '海洋';
+
+  @override
+  String get mapMono => '单色';
+
+  @override
+  String get mapAurora => '极光';
+
+  @override
+  String get batterySaver => '省电模式';
+
+  @override
+  String get batterySaverHint => '连接时让地图动效安歇——地球的呼吸、转轮的光晕。连接本身完全不受影响。';
+
+  @override
+  String get connectOnOpen => '打开应用时连接';
+
+  @override
+  String get connectOnOpenHint => '应用一打开就连上 VPN，使用您上次选择的位置。';
+
+  @override
+  String get speedTitle => '速度';
+
+  @override
+  String get parallelTunnels => '并行隧道';
+
+  @override
+  String get parallelTunnelsHint =>
+      '同时打开多条通往 Mozilla 的隧道并分担流量，单条慢隧道不再限制速度。八条对电池负担最大。';
+
+  @override
+  String get tunnels1 => '一条——最稳定';
+
+  @override
+  String get tunnels2 => '两条';
+
+  @override
+  String get tunnels4 => '四条——慢网络下更快';
+
+  @override
+  String get tunnels8 => '八条——最快';
+
+  @override
+  String get connectionCap => '连接数上限';
+
+  @override
+  String get connectionCapHint => '多少应用可以同时通过 VPN 通信；更小的上限在繁忙的手机上省电省流量。默认不限制。';
+
+  @override
+  String get capNone => '不限制';
+
+  @override
+  String get verboseLogging => '详细诊断';
+
+  @override
+  String get verboseLoggingHint => '把每一步都写进日志——报告问题时很有用，略微多耗一点电。';
+
+  @override
+  String get wn38MapStylesAdded =>
+      '地图的五种外观：银色、午夜、海洋、单色和极光——在设置里新增的「外观」页选择，每种都有预览。';
+
+  @override
+  String get wn38ZoomAdded => '地图可以缩放：双指捏合，或双击放大、再次双击还原。';
+
+  @override
+  String get wn38OptionsAdded => '实用的新选项：并行隧道提升速度、连接数上限、省电模式、打开应用时连接，以及详细诊断。';
+
+  @override
+  String get wn38SocialAdded => 'Instagram 和 Telegram 现在也在这个页面的底部。';
+
+  @override
+  String get wn38FlightImproved =>
+      '选择国家变成了一次小小的飞行：镜头后拉，球体转动，图钉带弹跳落下，路径自行延伸到各个枢纽。';
+
+  @override
+  String get wn38EffectsImproved =>
+      '地图更耐看了：球体背后的星辰、坐标网格、枢纽自己的光点、边缘的光晕，还有陆地的阴影。';
+
+  @override
+  String get wn38SpeedImproved => '速度选项是真实的：并行隧道同时打开多条连接，核心在它们之间分配流量。';
+
+  @override
+  String get wn38NameFixed => '所选国家的名称只显示一次——在地图的悬浮卡片上；旗帜下方的重复文字已移除。';
+
+  @override
+  String get mapKind => '地图类型';
+
+  @override
+  String get mapKindHint =>
+      '主页的世界如何呈现：一如既往的平面地图（默认）、其现代风格、夜晚地球、地形地球、金属球体，或卫星地球。每种类型使用的都是真实、官方的边界。';
+
+  @override
+  String get mapKindClassic => '经典';
+
+  @override
+  String get mapKindGlobe => '3D 球体';
+
+  @override
+  String get mapKindSatellite => '卫星';
+
+  @override
+  String get mapKindFlat => '平面 2D';
+
+  @override
+  String get mapStyleGlobeHint => '3D 球体的配色。卫星有自己的地球，平面地图有自己的墨色。';
+
+  @override
+  String get aboutVersions => '版本';
+
+  @override
+  String get aboutChannels => '联系页面';
+
+  @override
+  String get checkUpdatesHint => '查找更新的版本；找到后会下载，并由安装器进行确认。';
+
+  @override
+  String get smartLocation => '最快位置';
+
+  @override
+  String get smartLocationHint => '每次启动都落在核心延迟实测最快的服务器上。';
+
+  @override
+  String get quicPass => 'QUIC 直通';
+
+  @override
+  String get quicPassHint => '应用的 QUIC（UDP 443）从隧道通过：通话和游戏保持速度，不再回退到 TCP。';
+
+  @override
+  String get accountRename => '重命名账户';
+
+  @override
+  String get accountRenameLabel => '账户名称';
+
+  @override
+  String get accountProfile => '个人头像';
+
+  @override
+  String get avatarReset => '恢复默认头像';
+
+  @override
+  String get accountSecurity => '应用密码';
+
+  @override
+  String get appPasswordOn => '应用在密码保护下打开。';
+
+  @override
+  String get appPasswordOff => '未设密码：任何打开应用的人都能进入。';
+
+  @override
+  String get appPasswordSet => '设置密码';
+
+  @override
+  String get appPasswordChange => '修改密码';
+
+  @override
+  String get appPasswordRemove => '移除密码';
+
+  @override
+  String get appPasswordCurrent => '当前密码';
+
+  @override
+  String get appPasswordNew => '新密码（4 个字符以上）';
+
+  @override
+  String get appPasswordConfirm => '重复新密码';
+
+  @override
+  String get appPasswordShort => '至少 4 个字符。';
+
+  @override
+  String get appPasswordMismatch => '两次输入的密码不一致。';
+
+  @override
+  String get appPasswordWrong => '密码错误';
+
+  @override
+  String get appPasswordSetDone => '密码已设置——下次启动应用时会要求输入。';
+
+  @override
+  String get appPasswordRemoved => '密码已移除；应用可直接打开。';
+
+  @override
+  String get appPasswordUnlock => '应用已锁定';
+
+  @override
+  String get appPasswordUnlockHint => '输入应用密码以继续。';
+
+  @override
+  String get wn39MapKinds => '地图重新可选类型：一如既往的平面地图（默认）、3D 球体、卫星地球和现代平面 2D。';
+
+  @override
+  String get wn39EyeIp => '位置卡片带有眼睛图标：点按可查看流量出口地址并复制。';
+
+  @override
+  String get wn39Profile => '账户可拥有自己的名称与头像，应用也可以在密码保护下打开。';
+
+  @override
+  String get wn39Smart => '智能连接更完整：按真实延迟选择最快位置，并为通话和游戏提供 QUIC 直通。';
+
+  @override
+  String get wn39Flight => '切换国家飞行更顺滑——相机沿大圆弧移动——旗帜轮盘的指示点也更贴近旗帜。';
+
+  @override
+  String get wn39ToastEverywhere => '动态通知现在无处不在：每一次保存、复制和失败都穿上同一枚动画玻璃胶囊。';
+
+  @override
+  String get wn39Updates => '更新保持存储干净：安装器直接替换旧版本，不留任何安装包。';
+
+  @override
+  String get mapKindNight => '夜晚';
+
+  @override
+  String get mapKindTerrain => '地形';
+
+  @override
+  String get wn40MapKindsNew => '地图新增两种样式：夜晚地球与地形地球。';
+
+  @override
+  String get wn40Flight => '3D 球体以一次平滑的旋转飞向新国家——绝不再生硬跳变。';
+
+  @override
+  String get wn40Mercator => '平面地图改用标准墨卡托投影：真实比例、标准边界、毫无挤压变形。';
+
+  @override
+  String get wn40NameBack => '平面地图上，所选国家的名称重新出现在旗帜下方。';
+
+  @override
+  String get wn40Speed => '隧道默认开启两条并行会话——线路更强劲、更稳定。';
+
+  @override
+  String get wn40LockFixed => '连接按钮上的锁在状态切换时不再闪烁消失。';
+
+  @override
+  String get wn40IpRemoved => '位置卡片上的 IP 弹窗已移除。';
+
+  @override
+  String get soundFeedback => '音效';
+
+  @override
+  String get soundFeedbackHint => '轻触、开关与连接切换时的轻柔音效';
+
+  @override
+  String get rateUnit => '速度单位';
+
+  @override
+  String get lockInBackground => '离开后重新上锁';
+
+  @override
+  String get lockBgNever => '从不';
+
+  @override
+  String get lockBgNow => '立即';
+
+  @override
+  String get lockBgMin5 => '5 分钟后';
+
+  @override
+  String get lockBgMin15 => '15 分钟后';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound => '连接提示音与振动同行：VPN 开启或关闭时会发出一声短音（设置 → 通用）。';
+
+  @override
+  String get wn41RateUnit => '速度按你选择的单位显示：熟悉的 KB/s 或连接本身的 Mbps。';
+
+  @override
+  String get wn41BackgroundLock => '应用可在你离开后自行上锁：密码会在立即、5 分钟或 15 分钟后重新询问。';
+
+  @override
+  String get wn41BiggerLimits => '会话的数据上限可升到 25、50 或 100 GB。';
+
+  @override
+  String get wn41Motion => '新的动效：连接后的圆球会呼吸、对勾自行绘出、状态文字在取值间平滑滑动、密码错误时输入框会晃动。';
+
+  @override
+  String get wn41AboutFixed => '「关于」页面变得整齐：两个页面并排、每条说明独占一行，毫无挤压。';
+
+  @override
+  String get wn41HapticFixed => '振动设置重新生效：每次连接的开启与关闭都会遵循它，而不只是滑块。';
+
+  @override
+  String get copyIp => '复制 IP';
+
+  @override
+  String get wn42Fonts =>
+      '每种语言都用应用自带的字体阅读：两种中文与孟加拉文用 Noto Sans，拉丁与西里尔文用 Inter——不再依赖手机字体。';
+
+  @override
+  String get wn42Sounds =>
+      '应用的音效现在是真的：每个分区都有轻柔的触碰声、开关的两声短音、连接建立与断开时的升降音、锁定时的一声提示——音效开关统一控制。';
+
+  @override
+  String get wn42AboutFixed => '「关于」页面的标志、名称与说明居中显示，联系账号无论屏幕多窄都完整保持在一行。';
+
+  @override
+  String get wn42Gaming => '游戏模式现在是真的：服务器页面每半分钟重新测量延迟，并用强调色突出实测最快的服务器。';
+
+  @override
+  String get avatarPhoto => '自定义头像';
+
+  @override
+  String get avatarPhotoFailed => '无法使用该图片';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -4057,154 +4342,441 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get wnCrashFixed => '應用程式不再在 Android 16 手機上自行停止：通知向系統要求了手機還沒有的東西。';
 
   @override
-  String get wnFlagArtFixed =>
-      '應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。';
+  String get wnFlagArtFixed => '應用程式開啟後不再把自己踢出去：通知的國旗圖片回傳了系統訊息通道不接受的值。';
 
   @override
   String get statSession => '工作階段';
+
+  @override
   String get copiedToClipboard => '已複製到剪貼簿';
+
+  @override
   String get wnTotalsAdded => '主頁顯示本次工作階段的總流量，輕點即可複製公共 IP。';
+
+  @override
   String get wnPolishImproved => '旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。';
 
   @override
-  String get smartNetwork => '智能连接';
-  String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
-  String get valueSmart => '智能';
-  String get mtuAutoValue => '自动 — 随网络调整';
+  String get smartNetwork => '智慧連線';
+
+  @override
+  String get smartNetworkHint => 'MTU、通訊協定與 IP 版本依目前網路自動選擇，以速度為先。';
+
+  @override
+  String get valueSmart => '智慧';
+
+  @override
+  String get mtuAutoValue => '自動 — 隨網路調整';
+
+  @override
+  String get wnSmartAdded => '智慧連線：MTU、通訊協定與 IP 版本跟隨網路，按真實回應選擇，以速度為先。';
+
+  @override
+  String get wnToastAdded => '確認提示現在以 iOS 風格輕柔呈現，圖示會自己畫出。';
+
+  @override
+  String get wnFlagsImproved => '旗幟轉輪乾淨俐落：邊緣不再切半面旗，旗幟完整呈現，選擇輕輕彈落。';
+
+  @override
+  String get wnMapImproved => '世界地圖更大更清晰：不再壓縮大陸，海岸線平滑，落點處有光暈。';
+
+  @override
+  String get smartWaiting => '正在測量……';
+
+  @override
+  String get smartFamilyRace => '首次連線時兩族同時競速';
+
+  @override
+  String get dnsManual => '手動 DNS';
+
+  @override
+  String get dnsManualHint =>
+      '每行一個位址：普通 IP、https://（DNS over HTTPS）或 tls://host（DNS over TLS）。以最先應答者為準。';
+
+  @override
+  String get dnsManualInvalid => '有一行不是核心可用的位址：普通 IP、https://… 或 tls://host。';
+
+  @override
+  String get killSwitchGuarded => '守護中：隧道中斷期間，沒有任何資料離開手機。';
+
+  @override
+  String get accountsUsageTitle => '本月';
+
+  @override
+  String get accountsCountLabel => '個帳戶';
+
+  @override
+  String get accountsUsageAverage => '各帳戶已用份額的平均值';
+
+  @override
+  String get wnDesignsAdded =>
+      '應用程式設計：整個應用程式可以換上柔軟新擬態或極光玻璃——每一頁、每一張卡片——在 設定 → 一般 中選擇。';
+
+  @override
+  String get wnWheelFixed => '轉輪的半面旗消失了：選中旗幟下方的擱板是一泓光，不再是第二面旗，螢幕邊緣也不會切掉任何旗幟。';
+
+  @override
+  String get wnMapReal => '世界地圖依據各國官方邊界重新繪製——每一處海岸、島嶼與飛地都忠實呈現，比例真實。';
+
+  @override
+  String get wnGlobeAdded => '世界變成了地球儀：銀色球體會轉向所選國家，發光的定位針與懸浮卡片標記它，連線的路線伸向各樞紐。';
+
+  @override
+  String get wnWheelGlowImproved =>
+      '選中的旗幟在藍色光暈與玻璃邊框中更大更醒目，兩側旗幟明顯更小，轉輪下方的指示點顯示目前位置。';
+
+  @override
+  String get wnDesignsRemoved => '應用程式設計選項已移除：應用程式恢復原本的單色外觀——您的強調色與主題保持不變。';
+
+  @override
+  String get wnDnsAdded =>
+      '手動 DNS：普通 IP、DNS over HTTPS 與 DNS over TLS——每一行的類型隨手輸入即時顯示並校驗。';
+
+  @override
+  String get wnSmartImproved => '智慧連線現在即時顯示網路的回答：它選中的傳輸方式與保留的 IP 版本。';
+
+  @override
+  String get wnProtectionImproved => 'Kill Switch 會在守護生效時說明狀態，應用頁面會顯示你選擇的應用數量。';
+
+  @override
+  String get wnWelcomeImproved => '歡迎頁以一面呼吸的盾牌配上流動的極光開場，帳戶頁則將整月用量一覽彙總。';
+
+  @override
+  String bypassAppsCount(String n) {
+    return '已選：$n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return '自動 — 網路承載 $mtu';
   }
-  String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
-  String get wnToastAdded => '确认提示现在以 iOS 风格轻柔呈现，图标会自己画出。';
-  String get wnFlagsImproved => '旗帜转轮干净利落：边缘不再切半面旗，旗帜完整呈现，选择轻轻弹落。';
-  String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
 
   @override
-  String get smartWaiting => '正在测量……';
-  String get smartFamilyRace => '首次连接时两族同时竞速';
-  String get dnsManual => '手动 DNS';
-  String get dnsManualHint => '每行一个地址：普通 IP、https://（DNS over HTTPS）或 tls://host（DNS over TLS）。以最先应答者为准。';
-  String get dnsManualInvalid => '有一行不是内核可用的地址：普通 IP、https://… 或 tls://host。';
-  String get killSwitchGuarded => '守护中：隧道中断期间，没有任何数据离开手机。';
-  String get accountsUsageTitle => '本月';
-  String get accountsCountLabel => '个账户';
-  String get accountsUsageAverage => '各账户已用份额的平均值';
-  String get wnDesignsAdded => '应用设计：整个应用可以换上柔和新拟态或极光玻璃——每一页、每一张卡片——在 设置 → 通用 中选择。';
-  String get wnWheelFixed => '转轮的半面旗消失了：选中旗帜下方的搁板是一泓光，不再是第二面旗，屏幕边缘也不会切掉任何旗帜。';
-  String get wnMapReal => '世界地图依据各国官方边界重新绘制——每一处海岸、岛屿与飞地都忠实呈现，比例真实。';
-  String get wnGlobeAdded => '世界變成了地球儀：銀色球體會轉向所選國家，發光的定位針與懸浮卡片標記它，連線的路線伸向各樞紐。';
-  String get wnWheelGlowImproved => '選中的旗幟在藍色光暈與玻璃邊框中更大更醒目，兩側旗幟明顯更小，轉輪下方的指示點顯示目前位置。';
   String get sectionAppearance => '外觀';
+
+  @override
   String get mapStyle => '地圖樣式';
+
+  @override
   String get mapStyleHint => '主頁的地球會按您的選擇上色，連線的燈光保持不變。';
+
+  @override
   String get mapSilver => '銀色';
+
+  @override
   String get mapMidnight => '午夜';
+
+  @override
   String get mapOcean => '海洋';
+
+  @override
   String get mapMono => '單色';
+
+  @override
   String get mapAurora => '極光';
+
+  @override
   String get batterySaver => '省電模式';
+
+  @override
   String get batterySaverHint => '連線時讓地圖動效安歇——地球的呼吸、轉輪的光暈。連線本身完全不受影響。';
+
+  @override
   String get connectOnOpen => '開啟應用程式時連線';
+
+  @override
   String get connectOnOpenHint => '應用程式一開啟就連上 VPN，使用您上次選擇的位置。';
+
+  @override
   String get speedTitle => '速度';
+
+  @override
   String get parallelTunnels => '並行隧道';
-  String get parallelTunnelsHint => '同時開啟多條通往 Mozilla 的隧道並分擔流量，單條慢隧道不再限制速度。八條對電池負擔最大。';
+
+  @override
+  String get parallelTunnelsHint =>
+      '同時開啟多條通往 Mozilla 的隧道並分擔流量，單條慢隧道不再限制速度。八條對電池負擔最大。';
+
+  @override
   String get tunnels1 => '一條——最穩定';
+
+  @override
   String get tunnels2 => '兩條';
+
+  @override
   String get tunnels4 => '四條——慢網路下更快';
+
+  @override
   String get tunnels8 => '八條——最快';
+
+  @override
   String get connectionCap => '連線數上限';
-  String get connectionCapHint => '多少應用程式可以同時透過 VPN 通訊；更小的上限在繁忙的手機上省電省流量。預設不限制。';
+
+  @override
+  String get connectionCapHint =>
+      '多少應用程式可以同時透過 VPN 通訊；更小的上限在繁忙的手機上省電省流量。預設不限制。';
+
+  @override
   String get capNone => '不限制';
+
+  @override
   String get verboseLogging => '詳細診斷';
+
+  @override
   String get verboseLoggingHint => '把每一步都寫進日誌——回報問題時很有用，略微多耗一點電。';
-  String get wn38MapStylesAdded => '地圖的五種外觀：銀色、午夜、海洋、單色和極光——在設定裡新增的「外觀」頁選擇，每種都有預覽。';
+
+  @override
+  String get wn38MapStylesAdded =>
+      '地圖的五種外觀：銀色、午夜、海洋、單色和極光——在設定裡新增的「外觀」頁選擇，每種都有預覽。';
+
+  @override
   String get wn38ZoomAdded => '地圖可以縮放：雙指捏合，或雙擊放大、再次雙擊還原。';
+
+  @override
   String get wn38OptionsAdded => '實用的新選項：並行隧道提升速度、連線數上限、省電模式、開啟應用程式時連線，以及詳細診斷。';
+
+  @override
   String get wn38SocialAdded => 'Instagram 和 Telegram 現在也在這個頁面的底部。';
-  String get wn38FlightImproved => '選擇國家變成了一次小小的飛行：鏡頭後拉，球體轉動，圖釘帶彈跳落下，路徑自行延伸到各樞紐。';
-  String get wn38EffectsImproved => '地圖更耐看了：球體背後的星辰、座標網格、樞紐自己的光點、邊緣的光暈，還有陸地的陰影。';
+
+  @override
+  String get wn38FlightImproved =>
+      '選擇國家變成了一次小小的飛行：鏡頭後拉，球體轉動，圖釘帶彈跳落下，路徑自行延伸到各樞紐。';
+
+  @override
+  String get wn38EffectsImproved =>
+      '地圖更耐看了：球體背後的星辰、座標網格、樞紐自己的光點、邊緣的光暈，還有陸地的陰影。';
+
+  @override
   String get wn38SpeedImproved => '速度選項是真實的：並行隧道同時開啟多條連線，核心在它們之間分配流量。';
+
+  @override
   String get wn38NameFixed => '所選國家的名稱只顯示一次——在地圖的懸浮卡片上；旗幟下方的重複文字已移除。';
+
+  @override
   String get mapKind => '地圖類型';
+
+  @override
+  String get mapKindHint =>
+      '主頁的世界如何呈現：一如既往的平面地圖（預設）、其現代風格、夜晚地球、地形地球、金屬球體，或衛星地球。';
+
+  @override
   String get mapKindClassic => '經典';
+
+  @override
   String get mapKindGlobe => '3D 球體';
+
+  @override
   String get mapKindSatellite => '衛星';
+
+  @override
   String get mapKindFlat => '平面 2D';
-  String get mapKindNight => '夜晚';
-  String get aboutChannels => '聯絡頁面';
-  String get soundFeedback => '音效';
-  String get soundFeedbackHint => '輕觸、開關與連接切換時的輕柔音效';
-  String get rateUnit => '速度單位';
-  String get lockInBackground => '離開後重新上鎖';
-  String get lockBgNever => '從不';
-  String get lockBgNow => '立即';
-  String get lockBgMin5 => '5 分鐘後';
-  String get lockBgMin15 => '15 分鐘後';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => '連接提示音與震動同行：VPN 開啟或關閉時會發出一聲短音（設定 → 一般）。';
-  String get copyIp => '複製 IP';
-  String get wn42Fonts => '每種語言都用應用自帶的字體閱讀：兩種中文與孟加拉文用 Noto Sans，拉丁與西里爾文用 Inter——不再依賴手機字體。';
-  String get wn42Sounds => '應用的音效現在是真的：每個分區都有輕柔的觸碰聲、開關的兩聲短音、連接建立與斷開時的升降音、鎖定時的一聲提示——音效開關統一控制。';
-  String get wn42AboutFixed => '「關於」頁面的標誌、名稱與說明置中顯示，聯繫帳號無論螢幕多窄都完整保持在一行。';
-  String get wn42Gaming => '遊戲模式現在是真的：伺服器頁面每半分鐘重新測量延遲，並用強調色突出實測最快的伺服器。';
-  String get wn41RateUnit => '速度按你選擇的單位顯示：熟悉的 KB/s 或連接本身的 Mbps。';
-  String get wn41BackgroundLock => '應用可在你離開後自行上鎖：密碼會在立即、5 分鐘或 15 分鐘後重新詢問。';
-  String get wn41BiggerLimits => '會話的資料上限可升到 25、50 或 100 GB。';
-  String get wn41Motion => '新的動效：連接後的圓球會呼吸、勾號自行繪出、狀態文字在取值間平滑滑動、密碼錯誤時輸入框會晃動。';
-  String get wn41AboutFixed => '「關於」頁面變得整齊：兩個頁面並排、每條說明獨佔一行，毫無擠壓。';
-  String get wn41HapticFixed => '震動設定重新生效：每次連接的開啟與關閉都會遵循它，而不只是滑塊。';
-  String get mapKindTerrain => '地形';
-  String get mapKindHint => '主頁的世界如何呈現：一如既往的平面地圖（預設）、其現代風格、夜晚地球、地形地球、金屬球體，或衛星地球。';
-  String get wn40MapKindsNew => '地圖新增兩種樣式：夜晚地球與地形地球。';
-  String get wn40Flight => '3D 球體以一次平滑的旋轉飛向新國家——絕不再生硬跳變。';
-  String get wn40Mercator => '平面地圖改用標準墨卡托投影：真實比例、標準邊界、毫無擠壓變形。';
-  String get wn40NameBack => '平面地圖上，所選國家的名稱重新出現在旗幟下方。';
-  String get wn40Speed => '隧道預設開啟兩條並行工作階段——線路更強勁、更穩定。';
-  String get wn40LockFixed => '連接按鈕上的鎖在狀態切換時不再閃爍消失。';
-  String get wn40IpRemoved => '位置卡片上的 IP 彈窗已移除。';
+
+  @override
   String get mapStyleGlobeHint => '3D 球體的配色。衛星有自己的地球，平面地圖有自己的墨色。';
+
+  @override
   String get aboutVersions => '版本';
+
+  @override
+  String get aboutChannels => '聯絡頁面';
+
+  @override
   String get checkUpdatesHint => '查找更新的版本；找到後會下載，並由安裝器進行確認。';
+
+  @override
   String get smartLocation => '最快位置';
+
+  @override
   String get smartLocationHint => '每次啟動都落在核心延遲實測最快的伺服器上。';
+
+  @override
   String get quicPass => 'QUIC 直通';
+
+  @override
   String get quicPassHint => '應用的 QUIC（UDP 443）從隧道通過：通話和遊戲保持速度，不再回退到 TCP。';
+
+  @override
   String get accountRename => '重新命名帳戶';
+
+  @override
   String get accountRenameLabel => '帳戶名稱';
+
+  @override
   String get accountProfile => '個人頭像';
+
+  @override
   String get avatarReset => '恢復預設頭像';
+
+  @override
   String get accountSecurity => '應用程式密碼';
+
+  @override
   String get appPasswordOn => '應用程式在密碼保護下開啟。';
+
+  @override
   String get appPasswordOff => '未設密碼：任何開啟應用程式的人都能進入。';
+
+  @override
   String get appPasswordSet => '設定密碼';
+
+  @override
   String get appPasswordChange => '修改密碼';
+
+  @override
   String get appPasswordRemove => '移除密碼';
+
+  @override
   String get appPasswordCurrent => '目前密碼';
+
+  @override
   String get appPasswordNew => '新密碼（4 個字元以上）';
+
+  @override
   String get appPasswordConfirm => '重複新密碼';
+
+  @override
   String get appPasswordShort => '至少 4 個字元。';
+
+  @override
   String get appPasswordMismatch => '兩次輸入的密碼不一致。';
+
+  @override
   String get appPasswordWrong => '密碼錯誤';
+
+  @override
   String get appPasswordSetDone => '密碼已設定——下次啟動應用程式時會要求輸入。';
+
+  @override
   String get appPasswordRemoved => '密碼已移除；應用程式可直接開啟。';
+
+  @override
   String get appPasswordUnlock => '應用程式已鎖定';
+
+  @override
   String get appPasswordUnlockHint => '輸入應用程式密碼以繼續。';
+
+  @override
   String get wn39MapKinds => '地圖重新可選類型：一如既往的平面地圖（預設）、3D 球體、衛星地球和現代平面 2D。';
+
+  @override
   String get wn39EyeIp => '位置卡片帶有眼睛圖示：點按可查看流量出口位址並複製。';
+
+  @override
   String get wn39Profile => '帳戶可擁有自己的名稱與頭像，應用程式也可以在密碼保護下開啟。';
+
+  @override
   String get wn39Smart => '智慧連接更完整：按真實延遲選擇最快位置，並為通話和遊戲提供 QUIC 直通。';
+
+  @override
   String get wn39Flight => '切換國家飛行更順滑——相機沿大圓弧移動——旗幟輪盤的指示點也更貼近旗幟。';
+
+  @override
   String get wn39ToastEverywhere => '動態通知現在無所不在：每一次儲存、複製和失敗都穿上同一枚動畫玻璃膠囊。';
+
+  @override
   String get wn39Updates => '更新保持儲存空間乾淨：安裝器直接替換舊版本，不留任何安裝包。';
-  String get wnDesignsRemoved => '應用程式設計選項已移除：應用程式恢復原本的單色外觀——您的強調色與主題保持不變。';
-  String get wnDnsAdded => '手动 DNS：普通 IP、DNS over HTTPS 与 DNS over TLS——每一行的类型随手输入即时显示并校验。';
-  String get wnSmartImproved => '智能连接现在实时显示网络的回答：它选中的传输方式与保留的 IP 版本。';
-  String get wnProtectionImproved => 'Kill Switch 会在守护生效时说明状态，应用页面会显示你选择的应用数量。';
-  String get wnWelcomeImproved => '欢迎页以一面呼吸的盾牌配上流动的极光开场，账户页则将整月用量一览汇总。';
-  String bypassAppsCount(String n) => '已选：{n}'.replaceFirst('{n}', n);
+
+  @override
+  String get mapKindNight => '夜晚';
+
+  @override
+  String get mapKindTerrain => '地形';
+
+  @override
+  String get wn40MapKindsNew => '地圖新增兩種樣式：夜晚地球與地形地球。';
+
+  @override
+  String get wn40Flight => '3D 球體以一次平滑的旋轉飛向新國家——絕不再生硬跳變。';
+
+  @override
+  String get wn40Mercator => '平面地圖改用標準墨卡托投影：真實比例、標準邊界、毫無擠壓變形。';
+
+  @override
+  String get wn40NameBack => '平面地圖上，所選國家的名稱重新出現在旗幟下方。';
+
+  @override
+  String get wn40Speed => '隧道預設開啟兩條並行工作階段——線路更強勁、更穩定。';
+
+  @override
+  String get wn40LockFixed => '連接按鈕上的鎖在狀態切換時不再閃爍消失。';
+
+  @override
+  String get wn40IpRemoved => '位置卡片上的 IP 彈窗已移除。';
+
+  @override
+  String get soundFeedback => '音效';
+
+  @override
+  String get soundFeedbackHint => '輕觸、開關與連接切換時的輕柔音效';
+
+  @override
+  String get rateUnit => '速度單位';
+
+  @override
+  String get lockInBackground => '離開後重新上鎖';
+
+  @override
+  String get lockBgNever => '從不';
+
+  @override
+  String get lockBgNow => '立即';
+
+  @override
+  String get lockBgMin5 => '5 分鐘後';
+
+  @override
+  String get lockBgMin15 => '15 分鐘後';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound => '連接提示音與震動同行：VPN 開啟或關閉時會發出一聲短音（設定 → 一般）。';
+
+  @override
+  String get wn41RateUnit => '速度按你選擇的單位顯示：熟悉的 KB/s 或連接本身的 Mbps。';
+
+  @override
+  String get wn41BackgroundLock => '應用可在你離開後自行上鎖：密碼會在立即、5 分鐘或 15 分鐘後重新詢問。';
+
+  @override
+  String get wn41BiggerLimits => '會話的資料上限可升到 25、50 或 100 GB。';
+
+  @override
+  String get wn41Motion => '新的動效：連接後的圓球會呼吸、勾號自行繪出、狀態文字在取值間平滑滑動、密碼錯誤時輸入框會晃動。';
+
+  @override
+  String get wn41AboutFixed => '「關於」頁面變得整齊：兩個頁面並排、每條說明獨佔一行，毫無擠壓。';
+
+  @override
+  String get wn41HapticFixed => '震動設定重新生效：每次連接的開啟與關閉都會遵循它，而不只是滑塊。';
+
+  @override
+  String get copyIp => '複製 IP';
+
+  @override
+  String get wn42Fonts =>
+      '每種語言都用應用自帶的字體閱讀：兩種中文與孟加拉文用 Noto Sans，拉丁與西里爾文用 Inter——不再依賴手機字體。';
+
+  @override
+  String get wn42Sounds =>
+      '應用的音效現在是真的：每個分區都有輕柔的觸碰聲、開關的兩聲短音、連接建立與斷開時的升降音、鎖定時的一聲提示——音效開關統一控制。';
+
+  @override
+  String get wn42AboutFixed => '「關於」頁面的標誌、名稱與說明置中顯示，聯繫帳號無論螢幕多窄都完整保持在一行。';
+
+  @override
+  String get wn42Gaming => '遊戲模式現在是真的：伺服器頁面每半分鐘重新測量延遲，並用強調色突出實測最快的伺服器。';
+
+  @override
+  String get avatarPhoto => '自訂頭像';
+
+  @override
+  String get avatarPhotoFailed => '無法使用該圖片';
 }

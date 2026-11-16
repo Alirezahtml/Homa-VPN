@@ -433,6 +433,16 @@ class AndroidCore {
     List<String> mimes = const ['application/zip', 'application/octet-stream'],
   }) => _channel.invokeMethod<Uint8List>('openFile', {'mimes': mimes});
 
+  /// The phone's own notification, from the app's side: a newer version
+  /// is out. The title and body come in the app's own language; the
+  /// system posts what it may — a permission the user kept closed stays
+  /// closed, and the notice waits on the home page as always.
+  static Future<void> notifyUpdate(String title, String body) =>
+      _channel.invokeMethod<void>('notifyUpdate', {
+        'title': title,
+        'body': body,
+      });
+
   /// The installed apps but this one, the system's too.
   static Future<List<InstalledApp>> installedApps() async {
     final list = await _channel.invokeListMethod<Map<Object?, Object?>>(

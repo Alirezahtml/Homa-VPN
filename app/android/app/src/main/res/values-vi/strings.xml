@@ -12,4 +12,5 @@
     <string name="widget_description">Kết nối hoặc ngắt kết nối chỉ với một chạm</string>
     <string name="widget_connect">Chạm để kết nối</string>
     <string name="widget_disconnect">Chạm để ngắt kết nối</string>
+    <string name="updates_channel">Phiên bản mới</string>
 </resources>

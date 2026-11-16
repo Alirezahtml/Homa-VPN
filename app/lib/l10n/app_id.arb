@@ -733,5 +733,7 @@
   "wn42Fonts": "Setiap bahasa membaca dengan huruf milik aplikasi sendiri: Noto Sans untuk dua bahasa Tionghoa dan Bengali, Inter untuk bahasa Latin dan Kiril — tidak ada lagi yang bergantung pada huruf ponsel.",
   "wn42Sounds": "Suara aplikasi kini nyata: ketukan lembut di setiap bagian, dua nada untuk sakelar, nada naik-turun saat koneksi menyala dan mati, ping untuk kunci — sakelar suara mengatur semuanya.",
   "wn42AboutFixed": "Halaman Tentang memusat logo, nama, dan catatannya, dan ident kontak tetap utuh satu baris apa pun lebar ponselnya.",
-  "wn42Gaming": "Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen."
+  "wn42Gaming": "Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen.",
+  "avatarPhoto": "Fotomu",
+  "avatarPhotoFailed": "Gambar itu tidak dapat dipakai"
 }

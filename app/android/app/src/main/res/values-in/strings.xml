@@ -12,4 +12,5 @@
     <string name="widget_description">Terhubung atau putuskan koneksi dengan satu ketukan</string>
     <string name="widget_connect">Ketuk untuk terhubung</string>
     <string name="widget_disconnect">Ketuk untuk memutus koneksi</string>
+    <string name="updates_channel">Versi baru</string>
 </resources>

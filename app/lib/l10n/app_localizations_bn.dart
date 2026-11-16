@@ -2042,149 +2042,491 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get statSession => 'সেশন';
+
+  @override
   String get copiedToClipboard => 'ক্লিপবোর্ডে কপি হয়েছে';
-  String get wnTotalsAdded => 'হোম পাতা সেশনে মোট কত ডেটা গেল তা দেখায়, আর এক ট্যাপে পাবলিক আইপি কপি হয়।';
-  String get wnPolishImproved => 'পতাকার চাকা ও সার্ভার পাতা আরও গোছানো; লেখা সংক্ষিপ্ত, আর Android টানেল বেশি গতিতে ট্রাফিক বহন করে।';
+
+  @override
+  String get wnTotalsAdded =>
+      'হোম পাতা সেশনে মোট কত ডেটা গেল তা দেখায়, আর এক ট্যাপে পাবলিক আইপি কপি হয়।';
+
+  @override
+  String get wnPolishImproved =>
+      'পতাকার চাকা ও সার্ভার পাতা আরও গোছানো; লেখা সংক্ষিপ্ত, আর Android টানেল বেশি গতিতে ট্রাফিক বহন করে।';
 
   @override
   String get smartNetwork => 'স্মার্ট সংযোগ';
-  String get smartNetworkHint => 'এই নেটওয়ার্ক অনুযায়ী গতির জন্য MTU, প্রোটোকল ও IP সংস্করণ বেছে নেওয়া হয়।';
+
+  @override
+  String get smartNetworkHint =>
+      'এই নেটওয়ার্ক অনুযায়ী গতির জন্য MTU, প্রোটোকল ও IP সংস্করণ বেছে নেওয়া হয়।';
+
+  @override
   String get valueSmart => 'স্মার্ট';
+
+  @override
   String get mtuAutoValue => 'অটো — নেটওয়ার্ক অনুযায়ী';
+
+  @override
+  String get wnSmartAdded =>
+      'স্মার্ট সংযোগ: MTU, প্রোটোকল ও IP সংস্করণ নেটওয়ার্ক অনুযায়ী, সত্যিকারের প্রতিক্রিয়া দেখে গতির জন্য বেছে নেওয়া হয়।';
+
+  @override
+  String get wnToastAdded =>
+      'নিশ্চিতকরণ এখন নরম iOS-স্টাইল বার্তায় আসে, যেখানে নিজেকে আঁকা একটি চিহ্ন থাকে।';
+
+  @override
+  String get wnFlagsImproved =>
+      'পতাকার চাকা পরিষ্কার বসে: স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না, পতাকা সম্পূর্ণ দেখা যায়, আর নির্বাচন নরমভাবে বসে।';
+
+  @override
+  String get wnMapImproved =>
+      'বিশ্ব মানচিত্র এখন বড় ও স্পষ্ট: চাপা মহাদেশ নেই, মসৃণ উপকূলরেখা, আর অ্যাঙ্করে উজ্জ্বল হ্যালো।';
+
+  @override
+  String get smartWaiting => 'পরিমাপ চলছে…';
+
+  @override
+  String get smartFamilyRace => 'প্রথম সংযোগে দুটোই প্রতিযোগিতা করে';
+
+  @override
+  String get dnsManual => 'ম্যানুয়াল DNS';
+
+  @override
+  String get dnsManualHint =>
+      'প্রতি লাইনে একটি ঠিকানা: সাধারণ IP, https:// (DNS over HTTPS), বা tls://host (DNS over TLS)। প্রথম উত্তরই জেতে।';
+
+  @override
+  String get dnsManualInvalid =>
+      'একটি লাইন কোর ব্যবহার করতে পারে এমন ঠিকানা নয়: সাধারণ IP, https://…, বা tls://host।';
+
+  @override
+  String get killSwitchGuarded =>
+      'সুরক্ষিত: টানেল বন্ধ থাকলাকালীন ফোন থেকে কিছুই বেরোয় না।';
+
+  @override
+  String get accountsUsageTitle => 'এই মাস';
+
+  @override
+  String get accountsCountLabel => 'অ্যাকাউন্ট';
+
+  @override
+  String get accountsUsageAverage => 'অ্যাকাউন্টগুলোর ব্যবহৃত অংশের গড়';
+
+  @override
+  String get wnDesignsAdded =>
+      'অ্যাপ ডিজাইন: পুরো অ্যাপ এখন সফট নিউমরফিজম বা অরোরা গ্লাস পরতে পারে — প্রতিটি পাতা, প্রতিটি কার্ড — সেটিংস → সাধারণ থেকে।';
+
+  @override
+  String get wnWheelFixed =>
+      'চাকার অর্ধেক পতাকা চলে গেছে: নির্বাচিত পতাকার নিচের তাকটি আলোর পুকুর, দ্বিতীয় পতাকা নয়, আর স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না।';
+
+  @override
+  String get wnMapReal =>
+      'বিশ্ব মানচিত্র দেশের সরকারি সীমানা থেকে নতুন করে আঁকা — প্রতিটি উপকূল, দ্বীপ ও এনক্লেভ, সত্যিকারের অনুপাতে।';
+
+  @override
+  String get wnGlobeAdded =>
+      'পৃথিবী এখন গোলক: রুপালি গোলকটি নির্বাচিত দেশের দিকে ঘোরে, উজ্জ্বল পিন ও ভাসমান কার্ড তা চিহ্নিত করে, সংযোগের পথ হাবগুলির দিকে যায়।';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'নির্বাচিত পতাকা নিজের নীল আভাসহ কাচের ফ্রেমে বড় হয়ে দাঁড়ায়, পাশেরগুলি স্পষ্টভাবে ছোট, আর চাকার নিচের নির্দেশকগুলি আপনার অবস্থান দেখায়।';
+
+  @override
+  String get wnDesignsRemoved =>
+      'অ্যাপ ডিজাইন নির্বাচক সরানো হয়েছে: অ্যাপ আবার নিজের একরঙা চেহারা পরে — আপনার অ্যাকসেন্ট ও থিম আগের মতোই আছে।';
+
+  @override
+  String get wnDnsAdded =>
+      'ম্যানুয়াল DNS: সাধারণ IP, DNS over HTTPS, ও DNS over TLS — লেখার সময়ই প্রতিটি লাইনের ধরন দেখানো ও যাচাই হয়।';
+
+  @override
+  String get wnSmartImproved =>
+      'স্মার্ট সংযোগ এখন দেখায় নেটওয়ার্ক কী উত্তর দিয়েছে: এটি কোন ট্রান্সপোর্ট বেছে নিয়েছে ও কোন IP সংস্করণ ধরে রেখেছে, সরাসরি।';
+
+  @override
+  String get wnProtectionImproved =>
+      'কিল সুইচ তার প্রহরা দাঁড়ালে জানায়, আর অ্যাপ পাতায় দেখা যায় কতটি অ্যাপ বেছেছেন।';
+
+  @override
+  String get wnWelcomeImproved =>
+      'স্বাগত পাতা ভাসমান অরোরার ওপর নিঃশ্বাস নেওয়া ঢাল নিয়ে খোলে, আর অ্যাকাউন্ট পাতা মাসটি এক নজরে সারসংক্ষেপ করে।';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'নির্বাচিত: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'স্বয়ংক্রিয় — নেটওয়ার্ক $mtu বহন করে';
   }
-  String get wnSmartAdded => 'স্মার্ট সংযোগ: MTU, প্রোটোকল ও IP সংস্করণ নেটওয়ার্ক অনুযায়ী, সত্যিকারের প্রতিক্রিয়া দেখে গতির জন্য বেছে নেওয়া হয়।';
-  String get wnToastAdded => 'নিশ্চিতকরণ এখন নরম iOS-স্টাইল বার্তায় আসে, যেখানে নিজেকে আঁকা একটি চিহ্ন থাকে।';
-  String get wnFlagsImproved => 'পতাকার চাকা পরিষ্কার বসে: স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না, পতাকা সম্পূর্ণ দেখা যায়, আর নির্বাচন নরমভাবে বসে।';
-  String get wnMapImproved => 'বিশ্ব মানচিত্র এখন বড় ও স্পষ্ট: চাপা মহাদেশ নেই, মসৃণ উপকূলরেখা, আর অ্যাঙ্করে উজ্জ্বল হ্যালো।';
 
   @override
-  String get smartWaiting => 'পরিমাপ চলছে…';
-  String get smartFamilyRace => 'প্রথম সংযোগে দুটোই প্রতিযোগিতা করে';
-  String get dnsManual => 'ম্যানুয়াল DNS';
-  String get dnsManualHint => 'প্রতি লাইনে একটি ঠিকানা: সাধারণ IP, https:// (DNS over HTTPS), বা tls://host (DNS over TLS)। প্রথম উত্তরই জেতে।';
-  String get dnsManualInvalid => 'একটি লাইন কোর ব্যবহার করতে পারে এমন ঠিকানা নয়: সাধারণ IP, https://…, বা tls://host।';
-  String get killSwitchGuarded => 'সুরক্ষিত: টানেল বন্ধ থাকলাকালীন ফোন থেকে কিছুই বেরোয় না।';
-  String get accountsUsageTitle => 'এই মাস';
-  String get accountsCountLabel => 'অ্যাকাউন্ট';
-  String get accountsUsageAverage => 'অ্যাকাউন্টগুলোর ব্যবহৃত অংশের গড়';
-  String get wnDesignsAdded => 'অ্যাপ ডিজাইন: পুরো অ্যাপ এখন সফট নিউমরফিজম বা অরোরা গ্লাস পরতে পারে — প্রতিটি পাতা, প্রতিটি কার্ড — সেটিংস → সাধারণ থেকে।';
-  String get wnWheelFixed => 'চাকার অর্ধেক পতাকা চলে গেছে: নির্বাচিত পতাকার নিচের তাকটি আলোর পুকুর, দ্বিতীয় পতাকা নয়, আর স্ক্রিনের ধারে কোনো পতাকা কাটা যায় না।';
-  String get wnMapReal => 'বিশ্ব মানচিত্র দেশের সরকারি সীমানা থেকে নতুন করে আঁকা — প্রতিটি উপকূল, দ্বীপ ও এনক্লেভ, সত্যিকারের অনুপাতে।';
-  String get wnGlobeAdded => 'পৃথিবী এখন গোলক: রুপালি গোলকটি নির্বাচিত দেশের দিকে ঘোরে, উজ্জ্বল পিন ও ভাসমান কার্ড তা চিহ্নিত করে, সংযোগের পথ হাবগুলির দিকে যায়।';
-  String get wnWheelGlowImproved => 'নির্বাচিত পতাকা নিজের নীল আভাসহ কাচের ফ্রেমে বড় হয়ে দাঁড়ায়, পাশেরগুলি স্পষ্টভাবে ছোট, আর চাকার নিচের নির্দেশকগুলি আপনার অবস্থান দেখায়।';
   String get sectionAppearance => 'চেহারা';
+
+  @override
   String get mapStyle => 'মানচিত্রের ধরন';
-  String get mapStyleHint => 'হোম পেজের গ্লোব আপনার পছন্দ অনুযায়ী রঙিন হয়। সংযোগের আলো অপরিবর্তিত থাকে।';
+
+  @override
+  String get mapStyleHint =>
+      'হোম পেজের গ্লোব আপনার পছন্দ অনুযায়ী রঙিন হয়। সংযোগের আলো অপরিবর্তিত থাকে।';
+
+  @override
   String get mapSilver => 'রুপোলি';
+
+  @override
   String get mapMidnight => 'মধ্যরাত';
+
+  @override
   String get mapOcean => 'মহাসাগর';
+
+  @override
   String get mapMono => 'এক রঙ';
+
+  @override
   String get mapAurora => 'আরোরা';
+
+  @override
   String get batterySaver => 'ব্যাটারি সাশ্রয়';
-  String get batterySaverHint => 'সংযুক্ত থাকাকালীন মানচিত্রের গতি স্থির করে — গ্লোবের নিঃশ্বাস, চাকার ঝলক। সংযোগ নিজে ঠিক আগের মতোই থাকে।';
+
+  @override
+  String get batterySaverHint =>
+      'সংযুক্ত থাকাকালীন মানচিত্রের গতি স্থির করে — গ্লোবের নিঃশ্বাস, চাকার ঝলক। সংযোগ নিজে ঠিক আগের মতোই থাকে।';
+
+  @override
   String get connectOnOpen => 'অ্যাপ খুললেই সংযোগ';
-  String get connectOnOpenHint => 'অ্যাপ খোলার সাথে সাথে VPN চালু করে, আপনার শেষ বেছে নেওয়া লোকেশনে।';
+
+  @override
+  String get connectOnOpenHint =>
+      'অ্যাপ খোলার সাথে সাথে VPN চালু করে, আপনার শেষ বেছে নেওয়া লোকেশনে।';
+
+  @override
   String get speedTitle => 'গতি';
+
+  @override
   String get parallelTunnels => 'সমান্তরাল টানেল';
-  String get parallelTunnelsHint => 'একসাথে Mozilla-তে কয়েকটি টানেল খোলে এবং ট্রাফিক তাদের মধ্যে ভাগ করে, ফলে একটি ধীর টানেল আর গতি সীমিত করে না। আটটি ব্যাটারির জন্য সবচেয়ে ভারী।';
+
+  @override
+  String get parallelTunnelsHint =>
+      'একসাথে Mozilla-তে কয়েকটি টানেল খোলে এবং ট্রাফিক তাদের মধ্যে ভাগ করে, ফলে একটি ধীর টানেল আর গতি সীমিত করে না। আটটি ব্যাটারির জন্য সবচেয়ে ভারী।';
+
+  @override
   String get tunnels1 => 'একটি — সবচেয়ে স্থিতিশীল';
+
+  @override
   String get tunnels2 => 'দুটি';
+
+  @override
   String get tunnels4 => 'চারটি — ধীর নেটওয়ার্কে দ্রুততর';
+
+  @override
   String get tunnels8 => 'আটটি — দ্রুততম';
+
+  @override
   String get connectionCap => 'সংযোগের সীমা';
-  String get connectionCapHint => 'একসাথে কতগুলি অ্যাপ VPN দিয়ে কথা বলতে পারে; ছোট সীমা ব্যস্ত ফোনে ব্যাটারি ও ডেটা বাঁচায়। সীমাহীনই ডিফল্ট।';
+
+  @override
+  String get connectionCapHint =>
+      'একসাথে কতগুলি অ্যাপ VPN দিয়ে কথা বলতে পারে; ছোট সীমা ব্যস্ত ফোনে ব্যাটারি ও ডেটা বাঁচায়। সীমাহীনই ডিফল্ট।';
+
+  @override
   String get capNone => 'সীমা নেই';
+
+  @override
   String get verboseLogging => 'বিস্তারিত নির্ণয়';
-  String get verboseLoggingHint => 'প্রতিটি ধাপ লগে লেখে — সমস্যা জানাতে সহায়ক, ব্যাটারিতে সামান্য বেশি ভারী।';
-  String get wn38MapStylesAdded => 'মানচিত্রের পাঁচটি রূপ: রুপোলি, মধ্যরাত, মহাসাগর, এক রঙ এবং আরোরা — সেটিংসের নতুন চেহারা পেজ বেছে নেয়, প্রতিটির প্রিভিউ সহ।';
-  String get wn38ZoomAdded => 'মানচিত্রে জুম হয়: দুই আঙুলে চেপে টানুন, বা ডাবল ট্যাপে কাছে ও দূরে যান।';
-  String get wn38OptionsAdded => 'কাজের অপশন: বেশি গতির জন্য সমান্তরাল টানেল, সংযোগের সীমা, ব্যাটারি সাশ্রয়, অ্যাপ খুললেই সংযোগ এবং বিস্তারিত নির্ণয়।';
-  String get wn38SocialAdded => 'ইনস্টাগ্রাম ও টেলিগ্রাম এখন এই পেজের নিচেও রয়েছে।';
-  String get wn38FlightImproved => 'দেশ বাছাই একটি ছোট ফ্লাইট: ক্যামেরা একটু পিছিয়ে যায়, গ্লোব ঘোরে, পিন লাফিয়ে নামে এবং রাস্তাগুলি নিজে নিজেই হাব পর্যন্ত আঁকা হয়।';
-  String get wn38EffectsImproved => 'মানচিত্র এখন সমৃদ্ধ দেখায়: গ্লোবের পেছনে তারা, স্থানাঙ্ক জাল, হাবের নিজস্ব আলো, প্রান্তে হ্যালো এবং ভূমির ছায়া।';
-  String get wn38SpeedImproved => 'গতির অপশন এখন সত্যিই কাজ করে: সমান্তরাল টানেল একসাথে কয়েকটি সংযোগ খোলে, আর কোর ট্রাফিক তাদের মধ্যে ভাগ করে।';
-  String get wn38NameFixed => 'নির্বাচিত দেশের নাম একবারই দেখায় — মানচিত্রের ভাসমান কার্ডে; পতাকার নিচের অনুলিপি সরানো হয়েছে।';
+
+  @override
+  String get verboseLoggingHint =>
+      'প্রতিটি ধাপ লগে লেখে — সমস্যা জানাতে সহায়ক, ব্যাটারিতে সামান্য বেশি ভারী।';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'মানচিত্রের পাঁচটি রূপ: রুপোলি, মধ্যরাত, মহাসাগর, এক রঙ এবং আরোরা — সেটিংসের নতুন চেহারা পেজ বেছে নেয়, প্রতিটির প্রিভিউ সহ।';
+
+  @override
+  String get wn38ZoomAdded =>
+      'মানচিত্রে জুম হয়: দুই আঙুলে চেপে টানুন, বা ডাবল ট্যাপে কাছে ও দূরে যান।';
+
+  @override
+  String get wn38OptionsAdded =>
+      'কাজের অপশন: বেশি গতির জন্য সমান্তরাল টানেল, সংযোগের সীমা, ব্যাটারি সাশ্রয়, অ্যাপ খুললেই সংযোগ এবং বিস্তারিত নির্ণয়।';
+
+  @override
+  String get wn38SocialAdded =>
+      'ইনস্টাগ্রাম ও টেলিগ্রাম এখন এই পেজের নিচেও রয়েছে।';
+
+  @override
+  String get wn38FlightImproved =>
+      'দেশ বাছাই একটি ছোট ফ্লাইট: ক্যামেরা একটু পিছিয়ে যায়, গ্লোব ঘোরে, পিন লাফিয়ে নামে এবং রাস্তাগুলি নিজে নিজেই হাব পর্যন্ত আঁকা হয়।';
+
+  @override
+  String get wn38EffectsImproved =>
+      'মানচিত্র এখন সমৃদ্ধ দেখায়: গ্লোবের পেছনে তারা, স্থানাঙ্ক জাল, হাবের নিজস্ব আলো, প্রান্তে হ্যালো এবং ভূমির ছায়া।';
+
+  @override
+  String get wn38SpeedImproved =>
+      'গতির অপশন এখন সত্যিই কাজ করে: সমান্তরাল টানেল একসাথে কয়েকটি সংযোগ খোলে, আর কোর ট্রাফিক তাদের মধ্যে ভাগ করে।';
+
+  @override
+  String get wn38NameFixed =>
+      'নির্বাচিত দেশের নাম একবারই দেখায় — মানচিত্রের ভাসমান কার্ডে; পতাকার নিচের অনুলিপি সরানো হয়েছে।';
+
+  @override
   String get mapKind => 'মানচিত্রের ধরন';
+
+  @override
+  String get mapKindHint =>
+      'হোম পেজের পৃথিবী কেমন দেখাবে: আগের মতো সমতল মানচিত্র (ডিফল্ট), তার আধুনিক রূপ, রাতের পৃথিবী, ভূখণ্ডের পৃথিবী, ধাতব গোলক, বা স্যাটেলাইট পৃথিবী। প্রতিটি ধরনেই সীমানাগুলি সত্যিকারের অফিসিয়াল সীমানা।';
+
+  @override
   String get mapKindClassic => 'ক্লাসিক';
+
+  @override
   String get mapKindGlobe => 'থ্রিডি গোলক';
+
+  @override
   String get mapKindSatellite => 'স্যাটেলাইট';
+
+  @override
   String get mapKindFlat => 'ফ্ল্যাট 2D';
-  String get mapKindNight => 'রাত';
-  String get aboutChannels => 'যোগাযোগের পৃষ্ঠা';
-  String get soundFeedback => 'সাউন্ড ইফেক্ট';
-  String get soundFeedbackHint => 'ট্যাপ, সুইচ ও সংযোগ চালু-বন্ধের জন্য নরম শব্দ';
-  String get rateUnit => 'গতির একক';
-  String get lockInBackground => 'ছেড়ে গেলে লক';
-  String get lockBgNever => 'কখনও নয়';
-  String get lockBgNow => 'সাথে সাথে';
-  String get lockBgMin5 => '৫ মিনিট পরে';
-  String get lockBgMin15 => '১৫ মিনিট পরে';
-  String get mb25600 => '২৫ জিবি';
-  String get mb51200 => '৫০ জিবি';
-  String get mb102400 => '১০০ জিবি';
-  String get wn41Sound => 'কম্পনের পাশে সংযোগের শব্দ: VPN চালু বা বন্ধ হলে একটি ছোট সুর বাজে (সেটিংস → সাধারণ)।';
-  String get copyIp => 'IP কপি করুন';
-  String get wn42Fonts => 'প্রতিটি ভাষা অ্যাপের নিজের ফন্টে পড়ে: দুই চীনা ও বাংলার জন্য Noto Sans, লাতিন ও সিরিলিকের জন্য Inter — আর কোনো ভাষা ফোনের ফন্টের ওপর ভরসা করে না।';
-  String get wn42Sounds => 'অ্যাপের শব্দ এখন সত্যি: প্রতিটি অংশে একটি নরম ট্যাপ, সুইচের জন্য দুটি সুর, সংযোগ চালু-বন্ধে ওঠা-নামা একটি সুর, লকের জন্য একটি পিং — সাউন্ড সুইচ সব নিয়ন্ত্রণ করে।';
-  String get wn42AboutFixed => 'সম্পর্কে পৃষ্ঠা তার লোগো, নাম ও নোট মাঝখানে বসায়, এবং যোগাযোগের আইডিগুলো ফোনের প্রস্থ যা-ই হোক, অক্ষত ও এক লাইনে থাকে।';
-  String get wn42Gaming => 'গেমিং প্রোফাইল এখন সত্যি: সার্ভার পৃষ্ঠা প্রতি আধা মিনিটে দেরি নতুন করে মাপে এবং মাপা দ্রুততমটিকে অ্যাকসেন্ট দিয়ে তুলে ধরে।';
-  String get wn41RateUnit => 'গতি আপনার পছন্দের এককে দেখাবে: পরিচিত KB/s বা সংযোগের নিজের Mbps.';
-  String get wn41BackgroundLock => 'অ্যাপ আপনার অনুপস্থিতিতে নিজেকে লক করতে পারে: পাসওয়ার্ড আবার সাথে সাথে, ৫ বা ১৫ মিনিট পরে চাওয়া হয়।';
-  String get wn41BiggerLimits => 'সেশনের ডেটা সীমা এখন ২৫, ৫০ বা ১০০ জিবি পর্যন্ত।';
-  String get wn41Motion => 'নতুন গতি: সংযুক্ত গোলক শ্বাস নেয়, টিক নিজে আঁকা হয়, অবস্থার শব্দ মানের মধ্যে গড়িয়ে যায়, ভুল পাসওয়ার্ড ঘরটি কাঁপায়।';
-  String get wn41AboutFixed => 'সম্পর্কে পৃষ্ঠা সোজা হয়েছে: দুই পৃষ্ঠা পাশাপাশি, প্রতিটি ব্যাখ্যা নিজের লাইনে, কোনো চাপ নেই।';
-  String get wn41HapticFixed => 'ভাইব্রেশন সেটিং আবার কাজ করে: প্রতিটি সংযোগের চালু-বন্ধ এটি মানে, শুধু স্লাইডারের নয়।';
-  String get mapKindTerrain => 'ভূখণ্ড';
-  String get mapKindHint => 'হোম পেজের পৃথিবী কেমন দেখাবে: আগের মতো সমতল মানচিত্র (ডিফল্ট), তার আধুনিক রূপ, রাতের পৃথিবী, ভূখণ্ডের পৃথিবী, ধাতব গোলক, বা স্যাটেলাইট পৃথিবী। প্রতিটি ধরনেই সীমানাগুলি সত্যিকারের অফিসিয়াল সীমানা।';
-  String get wn40MapKindsNew => 'মানচিত্রের দুটি নতুন রূপ: রাতের পৃথিবী ও ভূখণ্ডের পৃথিবী।';
-  String get wn40Flight => 'থ্রিডি গোলক একটি মসৃণ ঘূর্ণনে নতুন দেশে উড়ে যায় — কখনও লাফ দেয় না।';
-  String get wn40Mercator => 'সমতল মানচিত্র আঁকা হয় স্ট্যান্ডার্ড মার্কেটর অভিক্ষেপে: সঠিক অনুপাত, স্ট্যান্ডার্ড সীমানা, কোনো চাপা নেই।';
-  String get wn40NameBack => 'সমতল মানচিত্রে নির্বাচিত দেশের নাম পতাকার নিচে ফিরে এসেছে।';
-  String get wn40Speed => 'টানেল এখন ডিফল্টভাবে দুটি সমান্তরাল সেশন খোলে — আরও শক্তিশালী, স্থির লাইন।';
-  String get wn40LockFixed => 'সংযোগ বোতামের তালা আর অবস্থা বদলাতে গিয়ে মিলিয়ে যায় না।';
-  String get wn40IpRemoved => 'লোকেশন কার্ডের IP পপআপ সরানো হয়েছে।';
-  String get mapStyleGlobeHint => 'থ্রিডি গোলকের রং। স্যাটেলাইটের নিজের পৃথিবী আছে, আর সমতল মানচিত্রের নিজের কালি।';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'থ্রিডি গোলকের রং। স্যাটেলাইটের নিজের পৃথিবী আছে, আর সমতল মানচিত্রের নিজের কালি।';
+
+  @override
   String get aboutVersions => 'সংস্করণ';
-  String get checkUpdatesHint => 'নতুন সংস্করণ খুঁজুন; পাওয়া গেলে ডাউনলোড হবে এবং ইনস্টলার জিজ্ঞেস করবে।';
+
+  @override
+  String get aboutChannels => 'যোগাযোগের পৃষ্ঠা';
+
+  @override
+  String get checkUpdatesHint =>
+      'নতুন সংস্করণ খুঁজুন; পাওয়া গেলে ডাউনলোড হবে এবং ইনস্টলার জিজ্ঞেস করবে।';
+
+  @override
   String get smartLocation => 'সবচেয়ে দ্রুত লোকেশন';
-  String get smartLocationHint => 'প্রতি সংযোগে সেই সার্ভারে যায়, যাকে কোরের নিজস্ব লেটেন্সি পরীক্ষা দ্রুততম বলে।';
+
+  @override
+  String get smartLocationHint =>
+      'প্রতি সংযোগে সেই সার্ভারে যায়, যাকে কোরের নিজস্ব লেটেন্সি পরীক্ষা দ্রুততম বলে।';
+
+  @override
   String get quicPass => 'QUIC পাস-থ্রু';
-  String get quicPassHint => 'অ্যাপের QUIC (UDP 443) টানেল দিয়ে যায়: কল ও গেম TCP-তে ফিরে না গিয়ে গতি ধরে রাখে।';
+
+  @override
+  String get quicPassHint =>
+      'অ্যাপের QUIC (UDP 443) টানেল দিয়ে যায়: কল ও গেম TCP-তে ফিরে না গিয়ে গতি ধরে রাখে।';
+
+  @override
   String get accountRename => 'অ্যাকাউন্টের নাম বদলান';
+
+  @override
   String get accountRenameLabel => 'অ্যাকাউন্টের নাম';
+
+  @override
   String get accountProfile => 'প্রোফাইল ছবি';
+
+  @override
   String get avatarReset => 'সাধারণ চিহ্নে ফিরে যান';
+
+  @override
   String get accountSecurity => 'অ্যাপ পাসওয়ার্ড';
+
+  @override
   String get appPasswordOn => 'অ্যাপ পাসওয়ার্ডের আড়ালে খোলে।';
+
+  @override
   String get appPasswordOff => 'পাসওয়ার্ড নেই: যে অ্যাপ খুলবে সে ঢুকবে।';
+
+  @override
   String get appPasswordSet => 'পাসওয়ার্ড সেট করুন';
+
+  @override
   String get appPasswordChange => 'পাসওয়ার্ড বদলান';
+
+  @override
   String get appPasswordRemove => 'পাসওয়ার্ড সরান';
+
+  @override
   String get appPasswordCurrent => 'বর্তমান পাসওয়ার্ড';
+
+  @override
   String get appPasswordNew => 'নতুন পাসওয়ার্ড (৪+ অক্ষর)';
+
+  @override
   String get appPasswordConfirm => 'নতুন পাসওয়ার্ড আবার লিখুন';
+
+  @override
   String get appPasswordShort => 'কমপক্ষে ৪ অক্ষর।';
+
+  @override
   String get appPasswordMismatch => 'দুটি পাসওয়ার্ড এক নয়।';
+
+  @override
   String get appPasswordWrong => 'ভুল পাসওয়ার্ড';
-  String get appPasswordSetDone => 'পাসওয়ার্ড সেট হয়েছে — পরের বার অ্যাপ খুললে জিজ্ঞেস করবে।';
-  String get appPasswordRemoved => 'পাসওয়ার্ড সরানো হয়েছে; অ্যাপ এখন মুক্তভাবে খোলে।';
+
+  @override
+  String get appPasswordSetDone =>
+      'পাসওয়ার্ড সেট হয়েছে — পরের বার অ্যাপ খুললে জিজ্ঞেস করবে।';
+
+  @override
+  String get appPasswordRemoved =>
+      'পাসওয়ার্ড সরানো হয়েছে; অ্যাপ এখন মুক্তভাবে খোলে।';
+
+  @override
   String get appPasswordUnlock => 'অ্যাপ লক করা আছে';
+
+  @override
   String get appPasswordUnlockHint => 'চালিয়ে যেতে অ্যাপ পাসওয়ার্ড লিখুন।';
-  String get wn39MapKinds => 'মানচিত্রে আবার ধরন বাছার সুযোগ: আগের মতো সমতল মানচিত্র (ডিফল্ট), থ্রিডি গোলক, স্যাটেলাইট পৃথিবী, এবং আধুনিক ফ্ল্যাট 2D।';
-  String get wn39EyeIp => 'লোকেশন কার্ডে একটি চোখ আছে: ট্যাপ করে ট্রাফিকের বের হওয়ার ঠিকানা দেখুন ও কপি করুন।';
-  String get wn39Profile => 'প্রতিটি অ্যাকাউন্টের নিজের নাম ও প্রোফাইল ছবি আছে, এবং অ্যাপ পাসওয়ার্ডের আড়ালে খুলতে পারে।';
-  String get wn39Smart => 'স্মার্ট সংযোগ আরও সম্পূর্ণ: প্রকৃত লেটেন্সিতে দ্রুততম লোকেশন, এবং কল ও গেমের জন্য QUIC পাস-থ্রু।';
-  String get wn39Flight => 'দেশ বদলালে আরও মসৃণভাবে উড়ে যায় — ক্যামেরা মহাবৃত্ত ধরে চলে — এবং পতাকা চাকার চিহ্নগুলো পতাকার কাছে।';
-  String get wn39ToastEverywhere => 'ডাইনামিক নোটিফিকেশন এখন সব জায়গায়: প্রতিটি সেভ, কপি ও ব্যর্থতার বার্তা একই অ্যানিমেটেড গ্লাস পিলে আসে।';
-  String get wn39Updates => 'আপডেট স্টোরেজ পরিষ্কার রাখে: ইনস্টলার পুরনো সংস্করণ বদলে দেয় এবং কোনো প্যাকেজ থেকে যায় না।';
-  String get wnDesignsRemoved => 'অ্যাপ ডিজাইন নির্বাচক সরানো হয়েছে: অ্যাপ আবার নিজের একরঙা চেহারা পরে — আপনার অ্যাকসেন্ট ও থিম আগের মতোই আছে।';
-  String get wnDnsAdded => 'ম্যানুয়াল DNS: সাধারণ IP, DNS over HTTPS, ও DNS over TLS — লেখার সময়ই প্রতিটি লাইনের ধরন দেখানো ও যাচাই হয়।';
-  String get wnSmartImproved => 'স্মার্ট সংযোগ এখন দেখায় নেটওয়ার্ক কী উত্তর দিয়েছে: এটি কোন ট্রান্সপোর্ট বেছে নিয়েছে ও কোন IP সংস্করণ ধরে রেখেছে, সরাসরি।';
-  String get wnProtectionImproved => 'কিল সুইচ তার প্রহরা দাঁড়ালে জানায়, আর অ্যাপ পাতায় দেখা যায় কতটি অ্যাপ বেছেছেন।';
-  String get wnWelcomeImproved => 'স্বাগত পাতা ভাসমান অরোরার ওপর নিঃশ্বাস নেওয়া ঢাল নিয়ে খোলে, আর অ্যাকাউন্ট পাতা মাসটি এক নজরে সারসংক্ষেপ করে।';
-  String bypassAppsCount(String n) => 'নির্বাচিত: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'মানচিত্রে আবার ধরন বাছার সুযোগ: আগের মতো সমতল মানচিত্র (ডিফল্ট), থ্রিডি গোলক, স্যাটেলাইট পৃথিবী, এবং আধুনিক ফ্ল্যাট 2D।';
+
+  @override
+  String get wn39EyeIp =>
+      'লোকেশন কার্ডে একটি চোখ আছে: ট্যাপ করে ট্রাফিকের বের হওয়ার ঠিকানা দেখুন ও কপি করুন।';
+
+  @override
+  String get wn39Profile =>
+      'প্রতিটি অ্যাকাউন্টের নিজের নাম ও প্রোফাইল ছবি আছে, এবং অ্যাপ পাসওয়ার্ডের আড়ালে খুলতে পারে।';
+
+  @override
+  String get wn39Smart =>
+      'স্মার্ট সংযোগ আরও সম্পূর্ণ: প্রকৃত লেটেন্সিতে দ্রুততম লোকেশন, এবং কল ও গেমের জন্য QUIC পাস-থ্রু।';
+
+  @override
+  String get wn39Flight =>
+      'দেশ বদলালে আরও মসৃণভাবে উড়ে যায় — ক্যামেরা মহাবৃত্ত ধরে চলে — এবং পতাকা চাকার চিহ্নগুলো পতাকার কাছে।';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'ডাইনামিক নোটিফিকেশন এখন সব জায়গায়: প্রতিটি সেভ, কপি ও ব্যর্থতার বার্তা একই অ্যানিমেটেড গ্লাস পিলে আসে।';
+
+  @override
+  String get wn39Updates =>
+      'আপডেট স্টোরেজ পরিষ্কার রাখে: ইনস্টলার পুরনো সংস্করণ বদলে দেয় এবং কোনো প্যাকেজ থেকে যায় না।';
+
+  @override
+  String get mapKindNight => 'রাত';
+
+  @override
+  String get mapKindTerrain => 'ভূখণ্ড';
+
+  @override
+  String get wn40MapKindsNew =>
+      'মানচিত্রের দুটি নতুন রূপ: রাতের পৃথিবী ও ভূখণ্ডের পৃথিবী।';
+
+  @override
+  String get wn40Flight =>
+      'থ্রিডি গোলক একটি মসৃণ ঘূর্ণনে নতুন দেশে উড়ে যায় — কখনও লাফ দেয় না।';
+
+  @override
+  String get wn40Mercator =>
+      'সমতল মানচিত্র আঁকা হয় স্ট্যান্ডার্ড মার্কেটর অভিক্ষেপে: সঠিক অনুপাত, স্ট্যান্ডার্ড সীমানা, কোনো চাপা নেই।';
+
+  @override
+  String get wn40NameBack =>
+      'সমতল মানচিত্রে নির্বাচিত দেশের নাম পতাকার নিচে ফিরে এসেছে।';
+
+  @override
+  String get wn40Speed =>
+      'টানেল এখন ডিফল্টভাবে দুটি সমান্তরাল সেশন খোলে — আরও শক্তিশালী, স্থির লাইন।';
+
+  @override
+  String get wn40LockFixed =>
+      'সংযোগ বোতামের তালা আর অবস্থা বদলাতে গিয়ে মিলিয়ে যায় না।';
+
+  @override
+  String get wn40IpRemoved => 'লোকেশন কার্ডের IP পপআপ সরানো হয়েছে।';
+
+  @override
+  String get soundFeedback => 'সাউন্ড ইফেক্ট';
+
+  @override
+  String get soundFeedbackHint =>
+      'ট্যাপ, সুইচ ও সংযোগ চালু-বন্ধের জন্য নরম শব্দ';
+
+  @override
+  String get rateUnit => 'গতির একক';
+
+  @override
+  String get lockInBackground => 'ছেড়ে গেলে লক';
+
+  @override
+  String get lockBgNever => 'কখনও নয়';
+
+  @override
+  String get lockBgNow => 'সাথে সাথে';
+
+  @override
+  String get lockBgMin5 => '৫ মিনিট পরে';
+
+  @override
+  String get lockBgMin15 => '১৫ মিনিট পরে';
+
+  @override
+  String get mb25600 => '২৫ জিবি';
+
+  @override
+  String get mb51200 => '৫০ জিবি';
+
+  @override
+  String get mb102400 => '১০০ জিবি';
+
+  @override
+  String get wn41Sound =>
+      'কম্পনের পাশে সংযোগের শব্দ: VPN চালু বা বন্ধ হলে একটি ছোট সুর বাজে (সেটিংস → সাধারণ)।';
+
+  @override
+  String get wn41RateUnit =>
+      'গতি আপনার পছন্দের এককে দেখাবে: পরিচিত KB/s বা সংযোগের নিজের Mbps.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'অ্যাপ আপনার অনুপস্থিতিতে নিজেকে লক করতে পারে: পাসওয়ার্ড আবার সাথে সাথে, ৫ বা ১৫ মিনিট পরে চাওয়া হয়।';
+
+  @override
+  String get wn41BiggerLimits =>
+      'সেশনের ডেটা সীমা এখন ২৫, ৫০ বা ১০০ জিবি পর্যন্ত।';
+
+  @override
+  String get wn41Motion =>
+      'নতুন গতি: সংযুক্ত গোলক শ্বাস নেয়, টিক নিজে আঁকা হয়, অবস্থার শব্দ মানের মধ্যে গড়িয়ে যায়, ভুল পাসওয়ার্ড ঘরটি কাঁপায়।';
+
+  @override
+  String get wn41AboutFixed =>
+      'সম্পর্কে পৃষ্ঠা সোজা হয়েছে: দুই পৃষ্ঠা পাশাপাশি, প্রতিটি ব্যাখ্যা নিজের লাইনে, কোনো চাপ নেই।';
+
+  @override
+  String get wn41HapticFixed =>
+      'ভাইব্রেশন সেটিং আবার কাজ করে: প্রতিটি সংযোগের চালু-বন্ধ এটি মানে, শুধু স্লাইডারের নয়।';
+
+  @override
+  String get copyIp => 'IP কপি করুন';
+
+  @override
+  String get wn42Fonts =>
+      'প্রতিটি ভাষা অ্যাপের নিজের ফন্টে পড়ে: দুই চীনা ও বাংলার জন্য Noto Sans, লাতিন ও সিরিলিকের জন্য Inter — আর কোনো ভাষা ফোনের ফন্টের ওপর ভরসা করে না।';
+
+  @override
+  String get wn42Sounds =>
+      'অ্যাপের শব্দ এখন সত্যি: প্রতিটি অংশে একটি নরম ট্যাপ, সুইচের জন্য দুটি সুর, সংযোগ চালু-বন্ধে ওঠা-নামা একটি সুর, লকের জন্য একটি পিং — সাউন্ড সুইচ সব নিয়ন্ত্রণ করে।';
+
+  @override
+  String get wn42AboutFixed =>
+      'সম্পর্কে পৃষ্ঠা তার লোগো, নাম ও নোট মাঝখানে বসায়, এবং যোগাযোগের আইডিগুলো ফোনের প্রস্থ যা-ই হোক, অক্ষত ও এক লাইনে থাকে।';
+
+  @override
+  String get wn42Gaming =>
+      'গেমিং প্রোফাইল এখন সত্যি: সার্ভার পৃষ্ঠা প্রতি আধা মিনিটে দেরি নতুন করে মাপে এবং মাপা দ্রুততমটিকে অ্যাকসেন্ট দিয়ে তুলে ধরে।';
+
+  @override
+  String get avatarPhoto => 'নিজের ছবি';
+
+  @override
+  String get avatarPhotoFailed => 'এই ছবিটি ব্যবহার করা যায়নি';
 }

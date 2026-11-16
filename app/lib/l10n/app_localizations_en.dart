@@ -2055,149 +2055,491 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statSession => 'Session';
+
+  @override
   String get copiedToClipboard => 'Copied to clipboard';
-  String get wnTotalsAdded => 'The home shows what the session moved in total, and a tap copies the public IP.';
-  String get wnPolishImproved => 'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.';
+
+  @override
+  String get wnTotalsAdded =>
+      'The home shows what the session moved in total, and a tap copies the public IP.';
+
+  @override
+  String get wnPolishImproved =>
+      'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.';
 
   @override
   String get smartNetwork => 'Smart connection';
-  String get smartNetworkHint => 'MTU, protocol, and IP version follow this network, picked for speed.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, protocol, and IP version follow this network, picked for speed.';
+
+  @override
   String get valueSmart => 'Smart';
+
+  @override
   String get mtuAutoValue => 'Auto — follows the network';
+
+  @override
+  String get wnSmartAdded =>
+      'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.';
+
+  @override
+  String get wnToastAdded =>
+      'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.';
+
+  @override
+  String get wnFlagsImproved =>
+      'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.';
+
+  @override
+  String get wnMapImproved =>
+      'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
+
+  @override
+  String get smartWaiting => 'Measuring…';
+
+  @override
+  String get smartFamilyRace => 'Both race on the first connect';
+
+  @override
+  String get dnsManual => 'Manual DNS';
+
+  @override
+  String get dnsManualHint =>
+      'One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.';
+
+  @override
+  String get dnsManualInvalid =>
+      'One line is not an address the core can use: a plain IP, https://…, or tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Guarded: nothing leaves the phone while the tunnel is down.';
+
+  @override
+  String get accountsUsageTitle => 'This month';
+
+  @override
+  String get accountsCountLabel => 'accounts';
+
+  @override
+  String get accountsUsageAverage => 'average of the accounts\' spent share';
+
+  @override
+  String get wnDesignsAdded =>
+      'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.';
+
+  @override
+  String get wnWheelFixed =>
+      'The wheel\'s half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen\'s edge.';
+
+  @override
+  String get wnMapReal =>
+      'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.';
+
+  @override
+  String get wnGlobeAdded =>
+      'The world is a globe now: the silver ball turns to face the chosen country, a glowing pin and a floating card mark it, and the connection\'s roads reach for the hubs.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'The App Design picker has left: the app wears its own monochrome look again — your accent and your theme stay as they were.';
+
+  @override
+  String get wnDnsAdded =>
+      'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line\'s kind shown and checked as you type.';
+
+  @override
+  String get wnSmartImproved =>
+      'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.';
+
+  @override
+  String get wnProtectionImproved =>
+      'The kill switch says when its guard stands, and the apps page shows how many apps you chose.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'The welcome opens with a breathing shield over a drifting aurora, and the accounts page sums the month at a glance.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Chosen: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Auto — the network carries $mtu';
   }
-  String get wnSmartAdded => 'Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.';
-  String get wnToastAdded => 'Confirmations arrive as a soft iOS-style note, with a mark that draws itself.';
-  String get wnFlagsImproved => 'The flag wheel sits clean: no flag is cut at the screen\'s edge, flags show whole, and the choice lands with a soft spring.';
-  String get wnMapImproved => 'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
 
   @override
-  String get smartWaiting => 'Measuring…';
-  String get smartFamilyRace => 'Both race on the first connect';
-  String get dnsManual => 'Manual DNS';
-  String get dnsManualHint => 'One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.';
-  String get dnsManualInvalid => 'One line is not an address the core can use: a plain IP, https://…, or tls://host.';
-  String get killSwitchGuarded => 'Guarded: nothing leaves the phone while the tunnel is down.';
-  String get accountsUsageTitle => 'This month';
-  String get accountsCountLabel => 'accounts';
-  String get accountsUsageAverage => 'average of the accounts\' spent share';
-  String get wnDesignsAdded => 'App designs: the whole app can wear Soft Neumorphism or Aurora Glass — every page, every card — picked in Settings → General.';
-  String get wnWheelFixed => 'The wheel\'s half-flag is gone: the shelf under the chosen flag is a pool of light, not a second flag, and no flag is cut at the screen\'s edge.';
-  String get wnMapReal => 'The world map is redrawn from official country borders — every coast, island, and enclave at true fidelity, in true proportion.';
-  String get wnGlobeAdded => 'The world is a globe now: the silver ball turns to face the chosen country, a glowing pin and a floating card mark it, and the connection\'s roads reach for the hubs.';
-  String get wnWheelGlowImproved => 'The chosen flag stands bigger in a glass frame with its own blue halo, the neighbors sit clearly smaller, and the markers under the wheel show where you are.';
   String get sectionAppearance => 'Appearance';
+
+  @override
   String get mapStyle => 'Map style';
-  String get mapStyleHint => 'The home page\'s globe, painted the way you pick. The connection\'s light stays the same.';
+
+  @override
+  String get mapStyleHint =>
+      'The home page\'s globe, painted the way you pick. The connection\'s light stays the same.';
+
+  @override
   String get mapSilver => 'Silver';
+
+  @override
   String get mapMidnight => 'Midnight';
+
+  @override
   String get mapOcean => 'Ocean';
+
+  @override
   String get mapMono => 'Mono';
+
+  @override
   String get mapAurora => 'Aurora';
+
+  @override
   String get batterySaver => 'Battery saver';
-  String get batterySaverHint => 'Puts the map\'s motion to rest while connected — the globe\'s breath, the wheel\'s glow. The connection itself stays exactly as it is.';
+
+  @override
+  String get batterySaverHint =>
+      'Puts the map\'s motion to rest while connected — the globe\'s breath, the wheel\'s glow. The connection itself stays exactly as it is.';
+
+  @override
   String get connectOnOpen => 'Connect when the app opens';
-  String get connectOnOpenHint => 'Brings the VPN up as the app opens, with the location you last chose.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Brings the VPN up as the app opens, with the location you last chose.';
+
+  @override
   String get speedTitle => 'Speed';
+
+  @override
   String get parallelTunnels => 'Parallel tunnels';
-  String get parallelTunnelsHint => 'Opens several tunnels to Mozilla at once and splits the traffic between them, so one slow tunnel no longer caps the speed. Eight is the heaviest on the battery.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Opens several tunnels to Mozilla at once and splits the traffic between them, so one slow tunnel no longer caps the speed. Eight is the heaviest on the battery.';
+
+  @override
   String get tunnels1 => 'One — the most stable';
+
+  @override
   String get tunnels2 => 'Two';
+
+  @override
   String get tunnels4 => 'Four — faster on slow networks';
+
+  @override
   String get tunnels8 => 'Eight — the fastest';
+
+  @override
   String get connectionCap => 'Connection limit';
-  String get connectionCapHint => 'How many apps may talk through the VPN at once; a smaller cap saves battery and data on a busy phone. No limit is the default.';
+
+  @override
+  String get connectionCapHint =>
+      'How many apps may talk through the VPN at once; a smaller cap saves battery and data on a busy phone. No limit is the default.';
+
+  @override
   String get capNone => 'No limit';
+
+  @override
   String get verboseLogging => 'Detailed diagnostics';
-  String get verboseLoggingHint => 'Writes every step to the log — helpful when reporting a problem, a little heavier on the battery.';
-  String get wn38MapStylesAdded => 'Five looks for the map: silver, midnight, ocean, mono, and aurora — the settings\' new Appearance page picks, with a preview of each.';
-  String get wn38ZoomAdded => 'The map zooms: pinch it, or double-tap to step in and back out.';
-  String get wn38OptionsAdded => 'Practical options: parallel tunnels for more speed, a connection limit, battery saver, connect when the app opens, and detailed diagnostics.';
-  String get wn38SocialAdded => 'Instagram and Telegram now live at the bottom of this page too.';
-  String get wn38FlightImproved => 'Choosing a country is a small flight: the camera pulls back, the ball turns, the pin drops with a bounce, and the roads draw themselves out to the hubs.';
-  String get wn38EffectsImproved => 'The map reads richer: stars behind the ball, a coordinate grid, the hubs\' own lights, a halo around the limb, and the land\'s shadow.';
-  String get wn38SpeedImproved => 'The speed option is real: parallel tunnels open several connections at once, and the core splits the traffic between them.';
-  String get wn38NameFixed => 'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Writes every step to the log — helpful when reporting a problem, a little heavier on the battery.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Five looks for the map: silver, midnight, ocean, mono, and aurora — the settings\' new Appearance page picks, with a preview of each.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'The map zooms: pinch it, or double-tap to step in and back out.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Practical options: parallel tunnels for more speed, a connection limit, battery saver, connect when the app opens, and detailed diagnostics.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Instagram and Telegram now live at the bottom of this page too.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Choosing a country is a small flight: the camera pulls back, the ball turns, the pin drops with a bounce, and the roads draw themselves out to the hubs.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'The map reads richer: stars behind the ball, a coordinate grid, the hubs\' own lights, a halo around the limb, and the land\'s shadow.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'The speed option is real: parallel tunnels open several connections at once, and the core splits the traffic between them.';
+
+  @override
+  String get wn38NameFixed =>
+      'The chosen country\'s name shows once — on the map\'s floating card; the copy under the flags is gone.';
+
+  @override
   String get mapKind => 'Map type';
+
+  @override
+  String get mapKindHint =>
+      'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the night earth, the terrain earth, the metal ball, or the satellite\'s earth. The borders are the real, official ones in every kind.';
+
+  @override
   String get mapKindClassic => 'Classic';
+
+  @override
   String get mapKindGlobe => '3D globe';
+
+  @override
   String get mapKindSatellite => 'Satellite';
+
+  @override
   String get mapKindFlat => 'Flat 2D';
-  String get mapKindNight => 'Night';
-  String get soundFeedback => 'Sound effects';
-  String get soundFeedbackHint => 'Soft sounds for taps, switches, and the connection\'s turns';
-  String get rateUnit => 'Speed unit';
-  String get lockInBackground => 'Lock when leaving';
-  String get lockBgNever => 'Never';
-  String get lockBgNow => 'Right away';
-  String get lockBgMin5 => 'After 5 minutes';
-  String get lockBgMin15 => 'After 15 minutes';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get aboutChannels => 'Contact pages';
-  String get wn41Sound => 'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).';
-  String get copyIp => 'Copy IP';
-  String get wn42Fonts => 'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.';
-  String get wn42Sounds => 'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.';
-  String get wn42AboutFixed => 'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.';
-  String get wn42Gaming => 'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.';
-  String get wn41RateUnit => 'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.';
-  String get wn41BackgroundLock => 'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.';
-  String get wn41BiggerLimits => 'The session\'s data limit climbs to 25, 50, or 100 GB.';
-  String get wn41Motion => 'New motion: the connected orb breathes, the check draws itself in, the state\'s word glides between its values, and a wrong password shakes the field.';
-  String get wn41AboutFixed => 'The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.';
-  String get wn41HapticFixed => 'The vibration setting answers again: every connection\'s on and off follows it, not just the slider\'s.';
-  String get mapKindTerrain => 'Terrain';
-  String get mapKindHint => 'How the home\'s world is carried: the flat map as it always was (the default), its modern finish, the night earth, the terrain earth, the metal ball, or the satellite\'s earth. The borders are the real, official ones in every kind.';
-  String get wn40MapKindsNew => 'Two new map finishes: the night earth and the terrain earth.';
-  String get wn40Flight => 'The 3D globe flies to the new country in one smooth turn — never a jump.';
-  String get wn40Mercator => 'The flat maps draw in the standard Mercator projection: true proportions, standard borders, nothing squeezed.';
-  String get wn40NameBack => 'The chosen country\'s name is back under the flags on the flat maps.';
-  String get wn40Speed => 'The tunnel now opens two parallel sessions by default — a stronger, steadier line.';
-  String get wn40LockFixed => 'The connect button\'s lock no longer blinks out between its states.';
-  String get wn40IpRemoved => 'The IP popup on the location card is gone.';
-  String get mapStyleGlobeHint => 'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.';
+
+  @override
   String get aboutVersions => 'Version';
-  String get checkUpdatesHint => 'Look for a newer version; a found one downloads and the installer asks.';
+
+  @override
+  String get aboutChannels => 'Contact pages';
+
+  @override
+  String get checkUpdatesHint =>
+      'Look for a newer version; a found one downloads and the installer asks.';
+
+  @override
   String get smartLocation => 'Fastest location';
-  String get smartLocationHint => 'Every start rides the server the core\'s own latency test says is fastest.';
+
+  @override
+  String get smartLocationHint =>
+      'Every start rides the server the core\'s own latency test says is fastest.';
+
+  @override
   String get quicPass => 'QUIC pass-through';
-  String get quicPassHint => 'Apps\' QUIC (UDP 443) rides the tunnel: calls and games keep their speed instead of falling back to TCP.';
+
+  @override
+  String get quicPassHint =>
+      'Apps\' QUIC (UDP 443) rides the tunnel: calls and games keep their speed instead of falling back to TCP.';
+
+  @override
   String get accountRename => 'Rename account';
+
+  @override
   String get accountRenameLabel => 'Account name';
+
+  @override
   String get accountProfile => 'Profile picture';
+
+  @override
   String get avatarReset => 'Back to the plain mark';
+
+  @override
   String get accountSecurity => 'App password';
+
+  @override
   String get appPasswordOn => 'The app opens behind a password.';
+
+  @override
   String get appPasswordOff => 'No password: anyone who opens the app gets in.';
+
+  @override
   String get appPasswordSet => 'Set password';
+
+  @override
   String get appPasswordChange => 'Change password';
+
+  @override
   String get appPasswordRemove => 'Remove password';
+
+  @override
   String get appPasswordCurrent => 'Current password';
+
+  @override
   String get appPasswordNew => 'New password (4+ characters)';
+
+  @override
   String get appPasswordConfirm => 'Repeat the new password';
+
+  @override
   String get appPasswordShort => 'At least 4 characters.';
+
+  @override
   String get appPasswordMismatch => 'The two words are not the same.';
+
+  @override
   String get appPasswordWrong => 'Wrong password';
-  String get appPasswordSetDone => 'The password stands — the app asks for it from the next start.';
-  String get appPasswordRemoved => 'The password is gone; the app opens freely.';
+
+  @override
+  String get appPasswordSetDone =>
+      'The password stands — the app asks for it from the next start.';
+
+  @override
+  String get appPasswordRemoved =>
+      'The password is gone; the app opens freely.';
+
+  @override
   String get appPasswordUnlock => 'The app is locked';
+
+  @override
   String get appPasswordUnlockHint => 'Enter the app password to continue.';
-  String get wn39MapKinds => 'The map is a choice of kinds again: the flat map as it always was (the default), the 3D globe, the satellite\'s earth, and a modern flat 2D.';
-  String get wn39EyeIp => 'The location card carries an eye: tap it to see the address the traffic leaves from, and copy it.';
-  String get wn39Profile => 'Accounts carry their own name and profile picture, and the app can open behind a password.';
-  String get wn39Smart => 'The smart connection grew: the fastest location by real latency, and QUIC pass-through for calls and games.';
-  String get wn39Flight => 'A change of country flies smoother — the camera rides the great circle — and the flag wheel\'s markers sit closer to the flags.';
-  String get wn39ToastEverywhere => 'The dynamic note is everywhere now: every saved, copied, and failed notice wears the same animated glass pill.';
-  String get wn39Updates => 'Updates keep the storage clean: the installer replaces the old version, and no package is left behind.';
-  String get wnDesignsRemoved => 'The App Design picker has left: the app wears its own monochrome look again — your accent and your theme stay as they were.';
-  String get wnDnsAdded => 'Manual DNS: plain IPs, DNS over HTTPS, and DNS over TLS — each line\'s kind shown and checked as you type.';
-  String get wnSmartImproved => 'The smart connection now shows what the network answered: the transport it picked and the IP family it kept, live.';
-  String get wnProtectionImproved => 'The kill switch says when its guard stands, and the apps page shows how many apps you chose.';
-  String get wnWelcomeImproved => 'The welcome opens with a breathing shield over a drifting aurora, and the accounts page sums the month at a glance.';
-  String bypassAppsCount(String n) => 'Chosen: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'The map is a choice of kinds again: the flat map as it always was (the default), the 3D globe, the satellite\'s earth, and a modern flat 2D.';
+
+  @override
+  String get wn39EyeIp =>
+      'The location card carries an eye: tap it to see the address the traffic leaves from, and copy it.';
+
+  @override
+  String get wn39Profile =>
+      'Accounts carry their own name and profile picture, and the app can open behind a password.';
+
+  @override
+  String get wn39Smart =>
+      'The smart connection grew: the fastest location by real latency, and QUIC pass-through for calls and games.';
+
+  @override
+  String get wn39Flight =>
+      'A change of country flies smoother — the camera rides the great circle — and the flag wheel\'s markers sit closer to the flags.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'The dynamic note is everywhere now: every saved, copied, and failed notice wears the same animated glass pill.';
+
+  @override
+  String get wn39Updates =>
+      'Updates keep the storage clean: the installer replaces the old version, and no package is left behind.';
+
+  @override
+  String get mapKindNight => 'Night';
+
+  @override
+  String get mapKindTerrain => 'Terrain';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Two new map finishes: the night earth and the terrain earth.';
+
+  @override
+  String get wn40Flight =>
+      'The 3D globe flies to the new country in one smooth turn — never a jump.';
+
+  @override
+  String get wn40Mercator =>
+      'The flat maps draw in the standard Mercator projection: true proportions, standard borders, nothing squeezed.';
+
+  @override
+  String get wn40NameBack =>
+      'The chosen country\'s name is back under the flags on the flat maps.';
+
+  @override
+  String get wn40Speed =>
+      'The tunnel now opens two parallel sessions by default — a stronger, steadier line.';
+
+  @override
+  String get wn40LockFixed =>
+      'The connect button\'s lock no longer blinks out between its states.';
+
+  @override
+  String get wn40IpRemoved => 'The IP popup on the location card is gone.';
+
+  @override
+  String get soundFeedback => 'Sound effects';
+
+  @override
+  String get soundFeedbackHint =>
+      'Soft sounds for taps, switches, and the connection\'s turns';
+
+  @override
+  String get rateUnit => 'Speed unit';
+
+  @override
+  String get lockInBackground => 'Lock when leaving';
+
+  @override
+  String get lockBgNever => 'Never';
+
+  @override
+  String get lockBgNow => 'Right away';
+
+  @override
+  String get lockBgMin5 => 'After 5 minutes';
+
+  @override
+  String get lockBgMin15 => 'After 15 minutes';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound =>
+      'A connection sound joins the vibration: the VPN hums a short note as it comes up or goes down (Settings → General).';
+
+  @override
+  String get wn41RateUnit =>
+      'The speed reads in the unit you pick: the familiar KB/s or the connection\'s own Mbps.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'The app can lock itself while away: the password asks again right away, after 5, or after 15 minutes.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'The session\'s data limit climbs to 25, 50, or 100 GB.';
+
+  @override
+  String get wn41Motion =>
+      'New motion: the connected orb breathes, the check draws itself in, the state\'s word glides between its values, and a wrong password shakes the field.';
+
+  @override
+  String get wn41AboutFixed =>
+      'The About page sits straight: the two pages side by side, every hint on its own line, nothing squeezed.';
+
+  @override
+  String get wn41HapticFixed =>
+      'The vibration setting answers again: every connection\'s on and off follows it, not just the slider\'s.';
+
+  @override
+  String get copyIp => 'Copy IP';
+
+  @override
+  String get wn42Fonts =>
+      'Every language reads in the app\'s own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone\'s fonts anymore.';
+
+  @override
+  String get wn42Sounds =>
+      'The app\'s sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.';
+
+  @override
+  String get wn42AboutFixed =>
+      'The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone\'s width.';
+
+  @override
+  String get wn42Gaming =>
+      'The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.';
+
+  @override
+  String get avatarPhoto => 'Your photo';
+
+  @override
+  String get avatarPhotoFailed => 'That picture could not be used';
 }

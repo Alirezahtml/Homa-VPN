@@ -2047,149 +2047,493 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get statSession => 'Sesi';
+
+  @override
   String get copiedToClipboard => 'Disalin ke papan klip';
-  String get wnTotalsAdded => 'Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.';
-  String get wnPolishImproved => 'Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.';
+
+  @override
+  String get wnTotalsAdded =>
+      'Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.';
+
+  @override
+  String get wnPolishImproved =>
+      'Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.';
 
   @override
   String get smartNetwork => 'Koneksi pintar';
-  String get smartNetworkHint => 'MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.';
+
+  @override
   String get valueSmart => 'Pintar';
+
+  @override
   String get mtuAutoValue => 'Otomatis — mengikuti jaringan';
+
+  @override
+  String get wnSmartAdded =>
+      'Koneksi pintar: MTU, protokol, dan versi IP mengikuti jaringan, dipilih dari jawaban nyata demi kecepatan.';
+
+  @override
+  String get wnToastAdded =>
+      'Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.';
+
+  @override
+  String get wnFlagsImproved =>
+      'Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.';
+
+  @override
+  String get wnMapImproved =>
+      'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
+
+  @override
+  String get smartWaiting => 'Mengukur…';
+
+  @override
+  String get smartFamilyRace => 'Keduanya balapan pada koneksi pertama';
+
+  @override
+  String get dnsManual => 'DNS manual';
+
+  @override
+  String get dnsManualHint =>
+      'Satu alamat per baris: IP biasa, https:// (DNS over HTTPS), atau tls://host (DNS over TLS). Jawaban pertama menang.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Satu baris bukan alamat yang bisa dipakai core: IP biasa, https://…, atau tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Terjaga: tidak ada yang keluar dari ponsel selama terowongan mati.';
+
+  @override
+  String get accountsUsageTitle => 'Bulan ini';
+
+  @override
+  String get accountsCountLabel => 'akun';
+
+  @override
+  String get accountsUsageAverage => 'rata-rata porsi terpakai dari tiap akun';
+
+  @override
+  String get wnDesignsAdded =>
+      'Desain aplikasi: seluruh aplikasi bisa memakai Neumorfisme Lembut atau Kaca Aurora — setiap halaman, setiap kartu — di Setelan → Umum.';
+
+  @override
+  String get wnWheelFixed =>
+      'Setengah bendera di roda hilang: rak di bawah bendera terpilih adalah genangan cahaya, bukan bendera kedua, dan tak ada bendera terpotong di tepi layar.';
+
+  @override
+  String get wnMapReal =>
+      'Peta dunia digambar ulang dari perbatasan resmi negara — setiap pesisir, pulau, dan enklaf, setia dan berproporsi benar.';
+
+  @override
+  String get wnGlobeAdded =>
+      'Dunia kini berbentuk globe: bola perak berputar menghadap negara yang dipilih, pin bercahaya dan kart mengapung menandainya, serta jalur koneksi merambah hub.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'Bendera terpilih tampil lebih besar dalam bingkai kaca dengan halo biru khasnya, tetangganya terlihat jelas lebih kecil, dan penanda di bawah roda menunjukkan posisi Anda.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'Pemilih Desain Aplikasi dihapus: aplikasi kembali memakai tampilan satu warnanya — warna aksen dan tema Anda tetap seperti semula.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS manual: IP biasa, DNS over HTTPS, dan DNS over TLS — jenis tiap baris ditunjukkan dan diperiksa saat mengetik.';
+
+  @override
+  String get wnSmartImproved =>
+      'Koneksi pintar kini menunjukkan jawaban jaringan: transport yang dipilih dan versi IP yang dipertahankan, langsung.';
+
+  @override
+  String get wnProtectionImproved =>
+      'Kill switch memberi tahu saat penjaganya berdiri, dan halaman aplikasi menunjukkan berapa aplikasi yang kamu pilih.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'Halaman sambutan terbuka dengan perisai bernapas di atas aurora yang mengalir, dan halaman akun meringkas sebulan sekali lirik.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Dipilih: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Otomatis — jaringan membawa $mtu';
   }
-  String get wnSmartAdded => 'Koneksi pintar: MTU, protokol, dan versi IP mengikuti jaringan, dipilih dari jawaban nyata demi kecepatan.';
-  String get wnToastAdded => 'Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.';
-  String get wnFlagsImproved => 'Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.';
-  String get wnMapImproved => 'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
 
   @override
-  String get smartWaiting => 'Mengukur…';
-  String get smartFamilyRace => 'Keduanya balapan pada koneksi pertama';
-  String get dnsManual => 'DNS manual';
-  String get dnsManualHint => 'Satu alamat per baris: IP biasa, https:// (DNS over HTTPS), atau tls://host (DNS over TLS). Jawaban pertama menang.';
-  String get dnsManualInvalid => 'Satu baris bukan alamat yang bisa dipakai core: IP biasa, https://…, atau tls://host.';
-  String get killSwitchGuarded => 'Terjaga: tidak ada yang keluar dari ponsel selama terowongan mati.';
-  String get accountsUsageTitle => 'Bulan ini';
-  String get accountsCountLabel => 'akun';
-  String get accountsUsageAverage => 'rata-rata porsi terpakai dari tiap akun';
-  String get wnDesignsAdded => 'Desain aplikasi: seluruh aplikasi bisa memakai Neumorfisme Lembut atau Kaca Aurora — setiap halaman, setiap kartu — di Setelan → Umum.';
-  String get wnWheelFixed => 'Setengah bendera di roda hilang: rak di bawah bendera terpilih adalah genangan cahaya, bukan bendera kedua, dan tak ada bendera terpotong di tepi layar.';
-  String get wnMapReal => 'Peta dunia digambar ulang dari perbatasan resmi negara — setiap pesisir, pulau, dan enklaf, setia dan berproporsi benar.';
-  String get wnGlobeAdded => 'Dunia kini berbentuk globe: bola perak berputar menghadap negara yang dipilih, pin bercahaya dan kart mengapung menandainya, serta jalur koneksi merambah hub.';
-  String get wnWheelGlowImproved => 'Bendera terpilih tampil lebih besar dalam bingkai kaca dengan halo biru khasnya, tetangganya terlihat jelas lebih kecil, dan penanda di bawah roda menunjukkan posisi Anda.';
   String get sectionAppearance => 'Tampilan';
+
+  @override
   String get mapStyle => 'Gaya peta';
-  String get mapStyleHint => 'Globe halaman beranda dicat sesuai pilihan Anda. Cahaya koneksi tetap sama.';
+
+  @override
+  String get mapStyleHint =>
+      'Globe halaman beranda dicat sesuai pilihan Anda. Cahaya koneksi tetap sama.';
+
+  @override
   String get mapSilver => 'Perak';
+
+  @override
   String get mapMidnight => 'Tengah malam';
+
+  @override
   String get mapOcean => 'Samudra';
+
+  @override
   String get mapMono => 'Mono';
+
+  @override
   String get mapAurora => 'Aurora';
+
+  @override
   String get batterySaver => 'Penghemat baterai';
-  String get batterySaverHint => 'Menenangkan gerak peta saat terhubung — napas globe, cahaya roda. Koneksi itu sendiri tetap persis sama.';
+
+  @override
+  String get batterySaverHint =>
+      'Menenangkan gerak peta saat terhubung — napas globe, cahaya roda. Koneksi itu sendiri tetap persis sama.';
+
+  @override
   String get connectOnOpen => 'Sambungkan saat aplikasi dibuka';
-  String get connectOnOpenHint => 'Menyalakan VPN begitu aplikasi dibuka, dengan lokasi terakhir yang Anda pilih.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Menyalakan VPN begitu aplikasi dibuka, dengan lokasi terakhir yang Anda pilih.';
+
+  @override
   String get speedTitle => 'Kecepatan';
+
+  @override
   String get parallelTunnels => 'Terowongan paralel';
-  String get parallelTunnelsHint => 'Membuka beberapa terowongan ke Mozilla sekaligus dan membagi lalu lintas di antara mereka, agar satu terowongan lambat tak lagi membatasi kecepatan. Delapan paling berat untuk baterai.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Membuka beberapa terowongan ke Mozilla sekaligus dan membagi lalu lintas di antara mereka, agar satu terowongan lambat tak lagi membatasi kecepatan. Delapan paling berat untuk baterai.';
+
+  @override
   String get tunnels1 => 'Satu — paling stabil';
+
+  @override
   String get tunnels2 => 'Dua';
+
+  @override
   String get tunnels4 => 'Empat — lebih cepat di jaringan lambat';
+
+  @override
   String get tunnels8 => 'Delapan — paling cepat';
+
+  @override
   String get connectionCap => 'Batas koneksi';
-  String get connectionCapHint => 'Berapa banyak aplikasi yang boleh bicara lewat VPN sekaligus; batas lebih kecil menghemat baterai dan data di ponsel yang sibuk. Tanpa batas adalah bawaan.';
+
+  @override
+  String get connectionCapHint =>
+      'Berapa banyak aplikasi yang boleh bicara lewat VPN sekaligus; batas lebih kecil menghemat baterai dan data di ponsel yang sibuk. Tanpa batas adalah bawaan.';
+
+  @override
   String get capNone => 'Tanpa batas';
+
+  @override
   String get verboseLogging => 'Diagnostik terperinci';
-  String get verboseLoggingHint => 'Menulis setiap langkah ke log — berguna saat melaporkan masalah, sedikit lebih berat untuk baterai.';
-  String get wn38MapStylesAdded => 'Lima gaya untuk peta: perak, tengah malam, samudra, mono, dan aurora — halaman Tampilan baru di pengaturan yang memilih, dengan pratinjau masing-masing.';
-  String get wn38ZoomAdded => 'Peta bisa di-zoom: cubit dengan dua jari, atau ketuk dua kali untuk mendekat dan kembali.';
-  String get wn38OptionsAdded => 'Opsi praktis: terowongan paralel untuk kecepatan lebih, batas koneksi, penghemat baterai, sambungkan saat aplikasi dibuka, dan diagnostik terperinci.';
-  String get wn38SocialAdded => 'Instagram dan Telegram kini juga berada di dasar halaman ini.';
-  String get wn38FlightImproved => 'Memilih negara adalah penerbangan kecil: kamera mundur, globe berputar, pin mendarat dengan pantulan, dan jalan-jalan menggambar diri ke hub.';
-  String get wn38EffectsImproved => 'Peta terasa lebih kaya: bintang di belakang globe, kisi koordinat, cahaya hub, halo di tepi, dan bayangan daratan.';
-  String get wn38SpeedImproved => 'Opsi kecepatan kini nyata: terowongan paralel membuka beberapa koneksi sekaligus, dan inti membagi lalu lintas di antara mereka.';
-  String get wn38NameFixed => 'Nama negara yang dipilih tampil sekali — pada kartu melayang peta; salinannya di bawah bendera sudah tiada.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Menulis setiap langkah ke log — berguna saat melaporkan masalah, sedikit lebih berat untuk baterai.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Lima gaya untuk peta: perak, tengah malam, samudra, mono, dan aurora — halaman Tampilan baru di pengaturan yang memilih, dengan pratinjau masing-masing.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'Peta bisa di-zoom: cubit dengan dua jari, atau ketuk dua kali untuk mendekat dan kembali.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Opsi praktis: terowongan paralel untuk kecepatan lebih, batas koneksi, penghemat baterai, sambungkan saat aplikasi dibuka, dan diagnostik terperinci.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Instagram dan Telegram kini juga berada di dasar halaman ini.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Memilih negara adalah penerbangan kecil: kamera mundur, globe berputar, pin mendarat dengan pantulan, dan jalan-jalan menggambar diri ke hub.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'Peta terasa lebih kaya: bintang di belakang globe, kisi koordinat, cahaya hub, halo di tepi, dan bayangan daratan.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'Opsi kecepatan kini nyata: terowongan paralel membuka beberapa koneksi sekaligus, dan inti membagi lalu lintas di antara mereka.';
+
+  @override
+  String get wn38NameFixed =>
+      'Nama negara yang dipilih tampil sekali — pada kartu melayang peta; salinannya di bawah bendera sudah tiada.';
+
+  @override
   String get mapKind => 'Jenis peta';
+
+  @override
+  String get mapKindHint =>
+      'Bagaimana dunia halaman utama ditampilkan: peta datar seperti biasa (bawaan), sentuhan modernnya, bumi malam, bumi daratan, bola metal, atau bumi satelit. Batasnya adalah batas resmi yang sebenarnya di setiap jenis.';
+
+  @override
   String get mapKindClassic => 'Klasik';
+
+  @override
   String get mapKindGlobe => 'Globe 3D';
+
+  @override
   String get mapKindSatellite => 'Satelit';
+
+  @override
   String get mapKindFlat => 'Datar 2D';
-  String get mapKindNight => 'Malam';
-  String get aboutChannels => 'Halaman kontak';
-  String get soundFeedback => 'Efek suara';
-  String get soundFeedbackHint => 'Suara lembut untuk ketukan, sakelar, dan saat koneksi menyala atau mati';
-  String get rateUnit => 'Satuan kecepatan';
-  String get lockInBackground => 'Kunci saat pergi';
-  String get lockBgNever => 'Tidak pernah';
-  String get lockBgNow => 'Langsung';
-  String get lockBgMin5 => 'Setelah 5 menit';
-  String get lockBgMin15 => 'Setelah 15 menit';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => 'Suara koneksi bergabung dengan getaran: VPN memainkan nada pendek saat menyala atau mati (Pengaturan → Umum).';
-  String get copyIp => 'Salin IP';
-  String get wn42Fonts => 'Setiap bahasa membaca dengan huruf milik aplikasi sendiri: Noto Sans untuk dua bahasa Tionghoa dan Bengali, Inter untuk bahasa Latin dan Kiril — tidak ada lagi yang bergantung pada huruf ponsel.';
-  String get wn42Sounds => 'Suara aplikasi kini nyata: ketukan lembut di setiap bagian, dua nada untuk sakelar, nada naik-turun saat koneksi menyala dan mati, ping untuk kunci — sakelar suara mengatur semuanya.';
-  String get wn42AboutFixed => 'Halaman Tentang memusat logo, nama, dan catatannya, dan ident kontak tetap utuh satu baris apa pun lebar ponselnya.';
-  String get wn42Gaming => 'Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen.';
-  String get wn41RateUnit => 'Kecepatan dibaca dalam satuan pilihan Anda: KB/s yang biasa atau Mbps milik koneksi.';
-  String get wn41BackgroundLock => 'Aplikasi bisa mengunci dirinya saat Anda pergi: kata sandi ditanya lagi langsung, setelah 5, atau setelah 15 menit.';
-  String get wn41BiggerLimits => 'Batas data sesi naik hingga 25, 50, atau 100 GB.';
-  String get wn41Motion => 'Gerakan baru: orb yang terhubung bernapas, tanda centang menggambar dirinya sendiri, kata status meluncur di antara nilainya, dan kata sandi yang salah mengguncang kolomnya.';
-  String get wn41AboutFixed => 'Halaman Tentang kini tertata: dua halaman berdampingan, tiap keterangan di barisnya sendiri, tanpa penekanan.';
-  String get wn41HapticFixed => 'Pengaturan getaran kini berfungsi lagi: nyala-mati setiap koneksi mengikutinya, bukan hanya slider.';
-  String get mapKindTerrain => 'Daratan';
-  String get mapKindHint => 'Bagaimana dunia halaman utama ditampilkan: peta datar seperti biasa (bawaan), sentuhan modernnya, bumi malam, bumi daratan, bola metal, atau bumi satelit. Batasnya adalah batas resmi yang sebenarnya di setiap jenis.';
-  String get wn40MapKindsNew => 'Dua tampilan baru peta: bumi malam dan bumi daratan.';
-  String get wn40Flight => 'Globe 3D terbang ke negara baru dalam satu putaran halus — tanpa lompatan.';
-  String get wn40Mercator => 'Peta datar digambar dengan proyeksi Mercator standar: proporsi sejati, batas standar, tanpa penekanan.';
-  String get wn40NameBack => 'Nama negara yang dipilih kembali di bawah bendera pada peta datar.';
-  String get wn40Speed => 'Tunnel kini membuka dua sesi paralel secara bawaan — jalur yang lebih kuat dan stabil.';
-  String get wn40LockFixed => 'Gembok tombol sambungan tidak lagi menghilang di antara keadaannya.';
-  String get wn40IpRemoved => 'Jendela IP pada kartu lokasi dihapus.';
-  String get mapStyleGlobeHint => 'Warna yang dikenakan globe 3D. Satelit membawa buminya sendiri, dan peta datar membawa tintanya sendiri.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'Warna yang dikenakan globe 3D. Satelit membawa buminya sendiri, dan peta datar membawa tintanya sendiri.';
+
+  @override
   String get aboutVersions => 'Versi';
-  String get checkUpdatesHint => 'Cari versi yang lebih baru; versi yang ditemukan diunduh dan penginstal bertanya.';
+
+  @override
+  String get aboutChannels => 'Halaman kontak';
+
+  @override
+  String get checkUpdatesHint =>
+      'Cari versi yang lebih baru; versi yang ditemukan diunduh dan penginstal bertanya.';
+
+  @override
   String get smartLocation => 'Lokasi tercepat';
-  String get smartLocationHint => 'Setiap mulai memakai server yang diuji latensinya paling cepat oleh inti.';
+
+  @override
+  String get smartLocationHint =>
+      'Setiap mulai memakai server yang diuji latensinya paling cepat oleh inti.';
+
+  @override
   String get quicPass => 'Lolos QUIC';
-  String get quicPassHint => 'QUIC aplikasi (UDP 443) melewati terowongan: panggilan dan gim tetap cepat, tidak jatuh ke TCP.';
+
+  @override
+  String get quicPassHint =>
+      'QUIC aplikasi (UDP 443) melewati terowongan: panggilan dan gim tetap cepat, tidak jatuh ke TCP.';
+
+  @override
   String get accountRename => 'Ganti nama akun';
+
+  @override
   String get accountRenameLabel => 'Nama akun';
+
+  @override
   String get accountProfile => 'Foto profil';
+
+  @override
   String get avatarReset => 'Kembali ke tanda sederhana';
+
+  @override
   String get accountSecurity => 'Kata sandi aplikasi';
+
+  @override
   String get appPasswordOn => 'Aplikasi terbuka di balik kata sandi.';
-  String get appPasswordOff => 'Tanpa kata sandi: siapa pun yang membuka aplikasi masuk.';
+
+  @override
+  String get appPasswordOff =>
+      'Tanpa kata sandi: siapa pun yang membuka aplikasi masuk.';
+
+  @override
   String get appPasswordSet => 'Atur kata sandi';
+
+  @override
   String get appPasswordChange => 'Ganti kata sandi';
+
+  @override
   String get appPasswordRemove => 'Hapus kata sandi';
+
+  @override
   String get appPasswordCurrent => 'Kata sandi sekarang';
+
+  @override
   String get appPasswordNew => 'Kata sandi baru (4+ karakter)';
+
+  @override
   String get appPasswordConfirm => 'Ulangi kata sandi baru';
+
+  @override
   String get appPasswordShort => 'Minimal 4 karakter.';
+
+  @override
   String get appPasswordMismatch => 'Kedua kata sandi tidak sama.';
+
+  @override
   String get appPasswordWrong => 'Kata sandi salah';
-  String get appPasswordSetDone => 'Kata sandi terpasang — aplikasi akan menanyakannya sejak mulai berikutnya.';
-  String get appPasswordRemoved => 'Kata sandi sudah tiada; aplikasi terbuka bebas.';
+
+  @override
+  String get appPasswordSetDone =>
+      'Kata sandi terpasang — aplikasi akan menanyakannya sejak mulai berikutnya.';
+
+  @override
+  String get appPasswordRemoved =>
+      'Kata sandi sudah tiada; aplikasi terbuka bebas.';
+
+  @override
   String get appPasswordUnlock => 'Aplikasi terkunci';
-  String get appPasswordUnlockHint => 'Masukkan kata sandi aplikasi untuk lanjut.';
-  String get wn39MapKinds => 'Peta kembali punya jenis: datar seperti biasa (bawaan), globe 3D, bumi satelit, dan datar 2D modern.';
-  String get wn39EyeIp => 'Kartu lokasi membawa mata: ketuk untuk melihat alamat keluar trafik dan menyalinnya.';
-  String get wn39Profile => 'Akun membawa nama dan foto profilnya sendiri, dan aplikasi bisa terbuka di balik kata sandi.';
-  String get wn39Smart => 'Koneksi pintar makin lengkap: lokasi tercepat berdasar latensi nyata dan lolos QUIC untuk panggilan dan gim.';
-  String get wn39Flight => 'Pergantian negara terbang lebih halus — kamera mengikuti lingkaran besar — dan penanda roda bendera dekat ke bendera.';
-  String get wn39ToastEverywhere => 'Catatan dinamis kini di mana-mana: setiap tersimpan, tersalin, dan gagal memakai pil kaca animasi yang sama.';
-  String get wn39Updates => 'Pembaruan menjaga penyimpanan bersih: penginstal mengganti versi lama dan tak ada paket yang tertinggal.';
-  String get wnDesignsRemoved => 'Pemilih Desain Aplikasi dihapus: aplikasi kembali memakai tampilan satu warnanya — warna aksen dan tema Anda tetap seperti semula.';
-  String get wnDnsAdded => 'DNS manual: IP biasa, DNS over HTTPS, dan DNS over TLS — jenis tiap baris ditunjukkan dan diperiksa saat mengetik.';
-  String get wnSmartImproved => 'Koneksi pintar kini menunjukkan jawaban jaringan: transport yang dipilih dan versi IP yang dipertahankan, langsung.';
-  String get wnProtectionImproved => 'Kill switch memberi tahu saat penjaganya berdiri, dan halaman aplikasi menunjukkan berapa aplikasi yang kamu pilih.';
-  String get wnWelcomeImproved => 'Halaman sambutan terbuka dengan perisai bernapas di atas aurora yang mengalir, dan halaman akun meringkas sebulan sekali lirik.';
-  String bypassAppsCount(String n) => 'Dipilih: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get appPasswordUnlockHint =>
+      'Masukkan kata sandi aplikasi untuk lanjut.';
+
+  @override
+  String get wn39MapKinds =>
+      'Peta kembali punya jenis: datar seperti biasa (bawaan), globe 3D, bumi satelit, dan datar 2D modern.';
+
+  @override
+  String get wn39EyeIp =>
+      'Kartu lokasi membawa mata: ketuk untuk melihat alamat keluar trafik dan menyalinnya.';
+
+  @override
+  String get wn39Profile =>
+      'Akun membawa nama dan foto profilnya sendiri, dan aplikasi bisa terbuka di balik kata sandi.';
+
+  @override
+  String get wn39Smart =>
+      'Koneksi pintar makin lengkap: lokasi tercepat berdasar latensi nyata dan lolos QUIC untuk panggilan dan gim.';
+
+  @override
+  String get wn39Flight =>
+      'Pergantian negara terbang lebih halus — kamera mengikuti lingkaran besar — dan penanda roda bendera dekat ke bendera.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'Catatan dinamis kini di mana-mana: setiap tersimpan, tersalin, dan gagal memakai pil kaca animasi yang sama.';
+
+  @override
+  String get wn39Updates =>
+      'Pembaruan menjaga penyimpanan bersih: penginstal mengganti versi lama dan tak ada paket yang tertinggal.';
+
+  @override
+  String get mapKindNight => 'Malam';
+
+  @override
+  String get mapKindTerrain => 'Daratan';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Dua tampilan baru peta: bumi malam dan bumi daratan.';
+
+  @override
+  String get wn40Flight =>
+      'Globe 3D terbang ke negara baru dalam satu putaran halus — tanpa lompatan.';
+
+  @override
+  String get wn40Mercator =>
+      'Peta datar digambar dengan proyeksi Mercator standar: proporsi sejati, batas standar, tanpa penekanan.';
+
+  @override
+  String get wn40NameBack =>
+      'Nama negara yang dipilih kembali di bawah bendera pada peta datar.';
+
+  @override
+  String get wn40Speed =>
+      'Tunnel kini membuka dua sesi paralel secara bawaan — jalur yang lebih kuat dan stabil.';
+
+  @override
+  String get wn40LockFixed =>
+      'Gembok tombol sambungan tidak lagi menghilang di antara keadaannya.';
+
+  @override
+  String get wn40IpRemoved => 'Jendela IP pada kartu lokasi dihapus.';
+
+  @override
+  String get soundFeedback => 'Efek suara';
+
+  @override
+  String get soundFeedbackHint =>
+      'Suara lembut untuk ketukan, sakelar, dan saat koneksi menyala atau mati';
+
+  @override
+  String get rateUnit => 'Satuan kecepatan';
+
+  @override
+  String get lockInBackground => 'Kunci saat pergi';
+
+  @override
+  String get lockBgNever => 'Tidak pernah';
+
+  @override
+  String get lockBgNow => 'Langsung';
+
+  @override
+  String get lockBgMin5 => 'Setelah 5 menit';
+
+  @override
+  String get lockBgMin15 => 'Setelah 15 menit';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound =>
+      'Suara koneksi bergabung dengan getaran: VPN memainkan nada pendek saat menyala atau mati (Pengaturan → Umum).';
+
+  @override
+  String get wn41RateUnit =>
+      'Kecepatan dibaca dalam satuan pilihan Anda: KB/s yang biasa atau Mbps milik koneksi.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'Aplikasi bisa mengunci dirinya saat Anda pergi: kata sandi ditanya lagi langsung, setelah 5, atau setelah 15 menit.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'Batas data sesi naik hingga 25, 50, atau 100 GB.';
+
+  @override
+  String get wn41Motion =>
+      'Gerakan baru: orb yang terhubung bernapas, tanda centang menggambar dirinya sendiri, kata status meluncur di antara nilainya, dan kata sandi yang salah mengguncang kolomnya.';
+
+  @override
+  String get wn41AboutFixed =>
+      'Halaman Tentang kini tertata: dua halaman berdampingan, tiap keterangan di barisnya sendiri, tanpa penekanan.';
+
+  @override
+  String get wn41HapticFixed =>
+      'Pengaturan getaran kini berfungsi lagi: nyala-mati setiap koneksi mengikutinya, bukan hanya slider.';
+
+  @override
+  String get copyIp => 'Salin IP';
+
+  @override
+  String get wn42Fonts =>
+      'Setiap bahasa membaca dengan huruf milik aplikasi sendiri: Noto Sans untuk dua bahasa Tionghoa dan Bengali, Inter untuk bahasa Latin dan Kiril — tidak ada lagi yang bergantung pada huruf ponsel.';
+
+  @override
+  String get wn42Sounds =>
+      'Suara aplikasi kini nyata: ketukan lembut di setiap bagian, dua nada untuk sakelar, nada naik-turun saat koneksi menyala dan mati, ping untuk kunci — sakelar suara mengatur semuanya.';
+
+  @override
+  String get wn42AboutFixed =>
+      'Halaman Tentang memusat logo, nama, dan catatannya, dan ident kontak tetap utuh satu baris apa pun lebar ponselnya.';
+
+  @override
+  String get wn42Gaming =>
+      'Profil gim kini nyata: halaman server mengukur ulang keterlambatan tiap setengah menit dan mengangkat yang tercepat terukur dengan aksen.';
+
+  @override
+  String get avatarPhoto => 'Fotomu';
+
+  @override
+  String get avatarPhotoFailed => 'Gambar itu tidak dapat dipakai';
 }

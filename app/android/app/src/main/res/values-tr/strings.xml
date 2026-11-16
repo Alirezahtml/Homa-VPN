@@ -12,4 +12,5 @@
     <string name="widget_description">Tek dokunuşla bağlanın veya bağlantıyı kesin</string>
     <string name="widget_connect">Bağlanmak için dokunun</string>
     <string name="widget_disconnect">Bağlantıyı kesmek için dokunun</string>
+    <string name="updates_channel">Yeni sürümler</string>
 </resources>

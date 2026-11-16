@@ -12,4 +12,5 @@
     <string name="widget_description">الاتصال أو قطع الاتصال بضغطة واحدة</string>
     <string name="widget_connect">اضغط للاتصال</string>
     <string name="widget_disconnect">اضغط لقطع الاتصال</string>
+    <string name="updates_channel">الإصدارات الجديدة</string>
 </resources>

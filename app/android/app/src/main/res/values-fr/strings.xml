@@ -12,4 +12,5 @@
     <string name="widget_description">Connexion ou déconnexion en une touche</string>
     <string name="widget_connect">Touchez pour vous connecter</string>
     <string name="widget_disconnect">Touchez pour vous déconnecter</string>
+    <string name="updates_channel">Nouvelles versions</string>
 </resources>

@@ -12,4 +12,5 @@
     <string name="widget_description">اتصال یا قطع اتصال با یک ضربه</string>
     <string name="widget_connect">برای اتصال ضربه بزنید</string>
     <string name="widget_disconnect">برای قطع اتصال ضربه بزنید</string>
+    <string name="updates_channel">نسخه‌های جدید</string>
 </resources>

@@ -2048,149 +2048,491 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get statSession => 'Sessiya';
+
+  @override
   String get copiedToClipboard => 'Buferə köçürüldü';
-  String get wnTotalsAdded => 'Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.';
-  String get wnPolishImproved => 'Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.';
+
+  @override
+  String get wnTotalsAdded =>
+      'Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.';
+
+  @override
+  String get wnPolishImproved =>
+      'Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.';
 
   @override
   String get smartNetwork => 'Ağıllı bağlantı';
-  String get smartNetworkHint => 'MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.';
+
+  @override
   String get valueSmart => 'Ağıllı';
+
+  @override
   String get mtuAutoValue => 'Avtomatik — şəbəkəyə görə';
+
+  @override
+  String get wnSmartAdded =>
+      'Ağıllı bağlantı: MTU, protokol və IP versiyası şəbəkəyə görə, real cavablara əsaslanaraq sürət üçün seçilir.';
+
+  @override
+  String get wnToastAdded =>
+      'Təsdiqlər indi yumşaq iOS üslubunda bildiriş kimi gəlir, özünü çəkən nişanla.';
+
+  @override
+  String get wnFlagsImproved =>
+      'Bayraq çarxı təmiz oturur: kənarədə bayraq yarılmır, bayraqlar tam görünür və seçim yumşaq yayla enir.';
+
+  @override
+  String get wnMapImproved =>
+      'Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə.';
+
+  @override
+  String get smartWaiting => 'Ölçülür…';
+
+  @override
+  String get smartFamilyRace => 'İlk bağlantıda hər ikisi yarışır';
+
+  @override
+  String get dnsManual => 'Əl ilə DNS';
+
+  @override
+  String get dnsManualHint =>
+      'Hər ünvan bir sətirdə: sadə IP, https:// (DNS-over-HTTPS) və ya tls://host (DNS-over-TLS). İlk cavab udur.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Bir sətir nüvənin işlədə biləcəyi ünvan deyil: sadə IP, https://… və ya tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Mühafizə olunur: tunel kəsik olanda telefondan heç nə çıxmır.';
+
+  @override
+  String get accountsUsageTitle => 'Bu ay';
+
+  @override
+  String get accountsCountLabel => 'hesab';
+
+  @override
+  String get accountsUsageAverage => 'hesabların xərclənmiş payının ortalaması';
+
+  @override
+  String get wnDesignsAdded =>
+      'Tətbiq dizaynları: tətbiqin hamısı Yumşaq Neomorfizm və ya Şimal pəncərəsini geyə bilər — hər səhifə, hər kart — Parametrlər → Ümumi bölməsində.';
+
+  @override
+  String get wnWheelFixed =>
+      'Çarxın yarım bayrağı aradan qalxıb: seçilmiş bayrağın altındakı rəf işık gölməçəsidir, ikinci bayraq deyil, və heç bir bayraq kənarədə kəsilmir.';
+
+  @override
+  String get wnMapReal =>
+      'Dünya xəritəsi ölkələrin rəsmi sərhədlərindən yenidən çəkilib — hər sahil, ada və anklav, tam sədaqətlə və real nisbətdə.';
+
+  @override
+  String get wnGlobeAdded =>
+      'Dünya artıq kürədir: gümüş top seçilmiş ölkəyə dönür, parlaq bir pim və üzən kart onu işarələyir, bağlantı yolları mərkəzlərə uzanır.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'Seçilmiş bayraq öz mavi halosu ilə şüşə çərçivədə daha böyük dayanır, qonşuları açıq şəkildə kiçikdir və çarxın altındakı işarələr harada olduğunuzu göstərir.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'Tətbiq dizaynı seçicisi çıxarıldı: tətbiq yenə öz tək rəng görünüşünü geyir — vurğu rənginiz və mövzunuz olduğu kimi qalıb.';
+
+  @override
+  String get wnDnsAdded =>
+      'Əl ilə DNS: sadə IP-lər, DNS-over-HTTPS və DNS-over-TLS — hər sətirin növü yazarkən göstərilir və yoxlanılır.';
+
+  @override
+  String get wnSmartImproved =>
+      'Ağıllı bağlantı indi şəbəkənin cavabını göstərir: seçdiyi nəqliyyatı və saxladığı IP versiyasını, canlı.';
+
+  @override
+  String get wnProtectionImproved =>
+      'Kəsirmə düyməsi mühafizəsi qurulanda xəbər verir, tətbiqlər səhifəsi isə neçə tətbiq seçdiyini göstərir.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'Qarşılayıcı səhifə axan şimal pəncərəsi üzərində nəfəs alan qalxanla açılır, hesablar səhifəsi ayı bir baxışda yekunlaşdırır.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Seçilmiş: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Avtomatik — şəbəkə $mtu daşıyır';
   }
-  String get wnSmartAdded => 'Ağıllı bağlantı: MTU, protokol və IP versiyası şəbəkəyə görə, real cavablara əsaslanaraq sürət üçün seçilir.';
-  String get wnToastAdded => 'Təsdiqlər indi yumşaq iOS üslubunda bildiriş kimi gəlir, özünü çəkən nişanla.';
-  String get wnFlagsImproved => 'Bayraq çarxı təmiz oturur: kənarədə bayraq yarılmır, bayraqlar tam görünür və seçim yumşaq yayla enir.';
-  String get wnMapImproved => 'Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə.';
 
   @override
-  String get smartWaiting => 'Ölçülür…';
-  String get smartFamilyRace => 'İlk bağlantıda hər ikisi yarışır';
-  String get dnsManual => 'Əl ilə DNS';
-  String get dnsManualHint => 'Hər ünvan bir sətirdə: sadə IP, https:// (DNS-over-HTTPS) və ya tls://host (DNS-over-TLS). İlk cavab udur.';
-  String get dnsManualInvalid => 'Bir sətir nüvənin işlədə biləcəyi ünvan deyil: sadə IP, https://… və ya tls://host.';
-  String get killSwitchGuarded => 'Mühafizə olunur: tunel kəsik olanda telefondan heç nə çıxmır.';
-  String get accountsUsageTitle => 'Bu ay';
-  String get accountsCountLabel => 'hesab';
-  String get accountsUsageAverage => 'hesabların xərclənmiş payının ortalaması';
-  String get wnDesignsAdded => 'Tətbiq dizaynları: tətbiqin hamısı Yumşaq Neomorfizm və ya Şimal pəncərəsini geyə bilər — hər səhifə, hər kart — Parametrlər → Ümumi bölməsində.';
-  String get wnWheelFixed => 'Çarxın yarım bayrağı aradan qalxıb: seçilmiş bayrağın altındakı rəf işık gölməçəsidir, ikinci bayraq deyil, və heç bir bayraq kənarədə kəsilmir.';
-  String get wnMapReal => 'Dünya xəritəsi ölkələrin rəsmi sərhədlərindən yenidən çəkilib — hər sahil, ada və anklav, tam sədaqətlə və real nisbətdə.';
-  String get wnGlobeAdded => 'Dünya artıq kürədir: gümüş top seçilmiş ölkəyə dönür, parlaq bir pim və üzən kart onu işarələyir, bağlantı yolları mərkəzlərə uzanır.';
-  String get wnWheelGlowImproved => 'Seçilmiş bayraq öz mavi halosu ilə şüşə çərçivədə daha böyük dayanır, qonşuları açıq şəkildə kiçikdir və çarxın altındakı işarələr harada olduğunuzu göstərir.';
   String get sectionAppearance => 'Görünüş';
+
+  @override
   String get mapStyle => 'Xəritə stili';
-  String get mapStyleHint => 'Ana səhifənin kürəsi seçdiyiniz kimi boyanır. Bağlantının işığı eyni qalır.';
+
+  @override
+  String get mapStyleHint =>
+      'Ana səhifənin kürəsi seçdiyiniz kimi boyanır. Bağlantının işığı eyni qalır.';
+
+  @override
   String get mapSilver => 'Gümüşü';
+
+  @override
   String get mapMidnight => 'Gecə yarı';
+
+  @override
   String get mapOcean => 'Okean';
+
+  @override
   String get mapMono => 'Tək rəng';
+
+  @override
   String get mapAurora => 'Aurora';
+
+  @override
   String get batterySaver => 'Batareya qnağı';
-  String get batterySaverHint => 'Bağlantı zamanı xəritənin hərəkətini sakitləşdirir — kürənin nəfəsi, çarxın parıltısı. Bağlantının özü olduğu kimi qalır.';
+
+  @override
+  String get batterySaverHint =>
+      'Bağlantı zamanı xəritənin hərəkətini sakitləşdirir — kürənin nəfəsi, çarxın parıltısı. Bağlantının özü olduğu kimi qalır.';
+
+  @override
   String get connectOnOpen => 'Tətbiq açılanda bağlan';
-  String get connectOnOpenHint => 'Tətbiq açılanda VPN-i qaldırır, son seçdiyiniz yerdə.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Tətbiq açılanda VPN-i qaldırır, son seçdiyiniz yerdə.';
+
+  @override
   String get speedTitle => 'Sürət';
+
+  @override
   String get parallelTunnels => 'Paralel tunellər';
-  String get parallelTunnelsHint => 'Bir anda Mozillaya bir neçə tunel açır və trafiki onların arasında bölür — bir yavaş tunel artıq sürəti məhdudlaşdırmır. Səkkiz ən çox batareya aparır.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Bir anda Mozillaya bir neçə tunel açır və trafiki onların arasında bölür — bir yavaş tunel artıq sürəti məhdudlaşdırmır. Səkkiz ən çox batareya aparır.';
+
+  @override
   String get tunnels1 => 'Bir — ən sabit';
+
+  @override
   String get tunnels2 => 'İki';
+
+  @override
   String get tunnels4 => 'Dörd — yavaş şəbəkələrdə daha sürətli';
+
+  @override
   String get tunnels8 => 'Səkkiz — ən sürətli';
+
+  @override
   String get connectionCap => 'Bağlantı limiti';
-  String get connectionCapHint => 'Necə tətbiqin bir anda VPN üzərindən danışmasına icazə var; kiçik limit məşğul telefonda batareya və trafikə qənaət edir. Susmaya görə limitsizdir.';
+
+  @override
+  String get connectionCapHint =>
+      'Necə tətbiqin bir anda VPN üzərindən danışmasına icazə var; kiçik limit məşğul telefonda batareya və trafikə qənaət edir. Susmaya görə limitsizdir.';
+
+  @override
   String get capNone => 'Limitsiz';
+
+  @override
   String get verboseLogging => 'Ətraflı diaqnostika';
-  String get verboseLoggingHint => 'Hər addımı jurnal yazır — problem bildirəndə faydalıdır, batareyaya bir az ağır gəlir.';
-  String get wn38MapStylesAdded => 'Xəritənin beş görünüşü: gümüşü, gecə yarı, okean, tək rəng və Aurora — parametrlərin yeni Görünüş səhifəsi seçir, hər birinin önbaxışı var.';
-  String get wn38ZoomAdded => 'Xəritə yaxınlaşdırılır: iki barmaqla çəkin, ya iki dəfə toxunun — yaxınlaşır, bir daha uzaqlaşır.';
-  String get wn38OptionsAdded => 'Faydalı seçimlər: daha çox sürət üçün paralel tunellər, bağlantı limiti, batareya qnağı, tətbiq açılanda bağlanma və ətraflı diaqnostika.';
-  String get wn38SocialAdded => 'İnstagram və Telegram indi bu səhifənin altında da var.';
-  String get wn38FlightImproved => 'Ölkə seçmək kiçik uçuşdur: kamera bir az geri çəkilir, kürə dönür, pin tullanaraq enir və yollar öz-özünə mərkəzlərə uzanır.';
-  String get wn38EffectsImproved => 'Xəritə zəngin oxunur: kürənin ardında ulduzlar, koordinat şəbəkəsi, mərkəzlərin öz işıqları, kənar ətrafında halə və qurunun kölgəsi.';
-  String get wn38SpeedImproved => 'Sürət seçimi real oldu: paralel tunellər bir neçə bağlantını bir anda açır və nüvə trafiki aralarında bölür.';
-  String get wn38NameFixed => 'Seçilmiş ölkənin adı bir dəfə göstərilir — xəritənin üzən kartında; bayraqların altındakı nüsxə gedib.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Hər addımı jurnal yazır — problem bildirəndə faydalıdır, batareyaya bir az ağır gəlir.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Xəritənin beş görünüşü: gümüşü, gecə yarı, okean, tək rəng və Aurora — parametrlərin yeni Görünüş səhifəsi seçir, hər birinin önbaxışı var.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'Xəritə yaxınlaşdırılır: iki barmaqla çəkin, ya iki dəfə toxunun — yaxınlaşır, bir daha uzaqlaşır.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Faydalı seçimlər: daha çox sürət üçün paralel tunellər, bağlantı limiti, batareya qnağı, tətbiq açılanda bağlanma və ətraflı diaqnostika.';
+
+  @override
+  String get wn38SocialAdded =>
+      'İnstagram və Telegram indi bu səhifənin altında da var.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Ölkə seçmək kiçik uçuşdur: kamera bir az geri çəkilir, kürə dönür, pin tullanaraq enir və yollar öz-özünə mərkəzlərə uzanır.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'Xəritə zəngin oxunur: kürənin ardında ulduzlar, koordinat şəbəkəsi, mərkəzlərin öz işıqları, kənar ətrafında halə və qurunun kölgəsi.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'Sürət seçimi real oldu: paralel tunellər bir neçə bağlantını bir anda açır və nüvə trafiki aralarında bölür.';
+
+  @override
+  String get wn38NameFixed =>
+      'Seçilmiş ölkənin adı bir dəfə göstərilir — xəritənin üzən kartında; bayraqların altındakı nüsxə gedib.';
+
+  @override
   String get mapKind => 'Xəritə növü';
+
+  @override
+  String get mapKindHint =>
+      'Ana səhifənin dünyası necə göstərilir: köhnə düz xəritə (standart), müasir forması, gecə yumrusu, ərazi yumrusu, metal kürə və ya peyk yumru. Hər növda sərhədlər real rəsmi sərhədlərdir.';
+
+  @override
   String get mapKindClassic => 'Klassik';
+
+  @override
   String get mapKindGlobe => '3D kürə';
+
+  @override
   String get mapKindSatellite => 'Peyk';
+
+  @override
   String get mapKindFlat => 'Düz 2D';
-  String get mapKindNight => 'Gecə';
-  String get aboutChannels => 'Əlaqə səhifələri';
-  String get soundFeedback => 'Səs effektləri';
-  String get soundFeedbackHint => 'Toxunuşlar, açarlar və qoşmanın yandırılıb-söndürülməsi üçün yumşaq səslər';
-  String get rateUnit => 'Sürət vahidi';
-  String get lockInBackground => 'Tərk edəndən sonra kilid';
-  String get lockBgNever => 'Heç vaxt';
-  String get lockBgNow => 'Dərhal';
-  String get lockBgMin5 => '5 dəqiqədən sonra';
-  String get lockBgMin15 => '15 dəqiqədən sonra';
-  String get mb25600 => '25 QB';
-  String get mb51200 => '50 QB';
-  String get mb102400 => '100 QB';
-  String get wn41Sound => 'Qoşma səsi titrişə qoşuldu: VPN yandırılan və ya söndürüləndə qısa bir not çalır (Ayarlar ← Ümumi).';
-  String get copyIp => 'IP-ni kopyala';
-  String get wn42Fonts => 'Hər dil tətbiqin öz şriftlərini oxuyur: iki çincə və bengal üçün Noto Sans, latın və kiril dilləri üçün Inter — artıq heç bir dil telefonun şriftlərinə söykənmir.';
-  String get wn42Sounds => 'Tətbiqin səsləri artıq realdır: hər bölmədə yumşaq toxunuş, açarlar üçün iki nota, qoşmanın yaranıb-sönməsində qalxan və enən nota, kilid üçün zəng — Səs açarı hamısını idarə edir.';
-  String get wn42AboutFixed => 'Haqqında səhifəsi loqosunu, adını və qeydini mərkəzə qoyur, əlaqə identləri telefonun enindən asılı olmayaraq tam və bir sətirdə qalır.';
-  String get wn42Gaming => 'Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır.';
-  String get wn41RateUnit => 'Sürət seçdiyiniz vahidlə oxunur: tanış KB/s və ya bağlantının öz Mbps-i.';
-  String get wn41BackgroundLock => 'Tətbiq siz uzaqda olanda özünü kilidləyə bilər: şifrə dərhal, 5 və ya 15 dəqiqədən sonra yenidən soruşulur.';
-  String get wn41BiggerLimits => 'Sessiyanın data həddi 25, 50 və ya 100 QB-yə qalxır.';
-  String get wn41Motion => 'Yeni hərəkətlər: qoşulmuş kürə nəfəs alır, çek işarəsi özünü çəkir, halatın sözü qiymətləri arasında sürüşür, səhv şifrə sahəni silkələyir.';
-  String get wn41AboutFixed => 'Haqqında səhifəsi qaydasına düşdü: iki səhifə yan-yanı, hər izah öz sətrində, sıxılmamış.';
-  String get wn41HapticFixed => 'Titriş ayarı yeniden cavab verir: hər qoşmanın yandırılıb-söndürülməsi onu izləyir, yalnız sürülənin deyil.';
-  String get mapKindTerrain => 'Ərazi';
-  String get mapKindHint => 'Ana səhifənin dünyası necə göstərilir: köhnə düz xəritə (standart), müasir forması, gecə yumrusu, ərazi yumrusu, metal kürə və ya peyk yumru. Hər növda sərhədlər real rəsmi sərhədlərdir.';
-  String get wn40MapKindsNew => 'Xəritənin iki yeni forması: gecə yumrusu və ərazi yumrusu.';
-  String get wn40Flight => '3D kürə yeni ölkəyə bir hamar dönüşlə uçur — heç vaxt tullanma yoxdur.';
-  String get wn40Mercator => 'Düz xəritələr standart Merkator proyeksiyası ilə çəkilir: real nisbətlər, standart sərhədlər, sıxılmamış.';
-  String get wn40NameBack => 'Seçilmiş ölkənin adı düz xəritələrdə bayraqların altında geri qaytarıldı.';
-  String get wn40Speed => 'Tunel indi standart olaraq iki paralel sessiya açır — daha güclü, daha sabit xətt.';
-  String get wn40LockFixed => 'Qoşma düyməsinin kilidi halları arasında artıq yoxa ölmür.';
-  String get wn40IpRemoved => 'Məkan kartının IP pəncərəsi götürüldü.';
-  String get mapStyleGlobeHint => '3D kürənin geyindiyi rənglər. Peyk öz yumrusunu, düz xəritələr öz mürəkkəbini daşıyır.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      '3D kürənin geyindiyi rənglər. Peyk öz yumrusunu, düz xəritələr öz mürəkkəbini daşıyır.';
+
+  @override
   String get aboutVersions => 'Versiya';
-  String get checkUpdatesHint => 'Daha yeni versiyaya bax; tapılan versiya yüklənir və quraşdırıcı soruşur.';
+
+  @override
+  String get aboutChannels => 'Əlaqə səhifələri';
+
+  @override
+  String get checkUpdatesHint =>
+      'Daha yeni versiyaya bax; tapılan versiya yüklənir və quraşdırıcı soruşur.';
+
+  @override
   String get smartLocation => 'Ən sürətli yer';
-  String get smartLocationHint => 'Hər qoşulma, nüvənin öz gecikmə testinin ən sürətli dediyi serverə düşür.';
+
+  @override
+  String get smartLocationHint =>
+      'Hər qoşulma, nüvənin öz gecikmə testinin ən sürətli dediyi serverə düşür.';
+
+  @override
   String get quicPass => 'QUIC ötürmə';
-  String get quicPassHint => 'Tətbiqlərin QUIC-i (UDP 443) tuneldən keçir: zənglər və oyunlar sürətini saxlayır, TCP-yə qayıtmır.';
+
+  @override
+  String get quicPassHint =>
+      'Tətbiqlərin QUIC-i (UDP 443) tuneldən keçir: zənglər və oyunlar sürətini saxlayır, TCP-yə qayıtmır.';
+
+  @override
   String get accountRename => 'Hesabın adını dəyiş';
+
+  @override
   String get accountRenameLabel => 'Hesabın adı';
+
+  @override
   String get accountProfile => 'Profil şəkli';
+
+  @override
   String get avatarReset => 'Sadə işarəyə qayıt';
+
+  @override
   String get accountSecurity => 'Tətbiq şifrəsi';
+
+  @override
   String get appPasswordOn => 'Tətbiq şifrənin arxasında açılır.';
+
+  @override
   String get appPasswordOff => 'Şifrə yoxdur: tətbiqi açan içəri girir.';
+
+  @override
   String get appPasswordSet => 'Şifrə qoy';
+
+  @override
   String get appPasswordChange => 'Şifrəni dəyiş';
+
+  @override
   String get appPasswordRemove => 'Şifrəni sil';
+
+  @override
   String get appPasswordCurrent => 'Hazırkı şifrə';
+
+  @override
   String get appPasswordNew => 'Yeni şifrə (4+ simvol)';
+
+  @override
   String get appPasswordConfirm => 'Yeni şifrəni təkrarla';
+
+  @override
   String get appPasswordShort => 'Ən azı 4 simvol.';
+
+  @override
   String get appPasswordMismatch => 'İki şifrə eyni deyil.';
+
+  @override
   String get appPasswordWrong => 'Şifrə yanlışdır';
-  String get appPasswordSetDone => 'Şifrə quruldu — tətbiq növbəti açılışdan soruşacaq.';
+
+  @override
+  String get appPasswordSetDone =>
+      'Şifrə quruldu — tətbiq növbəti açılışdan soruşacaq.';
+
+  @override
   String get appPasswordRemoved => 'Şifrə silindi; tətbiq sərbəst açılır.';
+
+  @override
   String get appPasswordUnlock => 'Tətbiq kilidlidir';
-  String get appPasswordUnlockHint => 'Davam etmək üçün tətbiq şifrəsini yazın.';
-  String get wn39MapKinds => 'Xəritə yenə növlərini seçir: köhnə düz xəritə (standart), 3D kürə, peyk yumru və müasir düz 2D.';
-  String get wn39EyeIp => 'Yer kartında göz var: toxunun, trafiğin çıxdığı ünvanı görün və köçürün.';
-  String get wn39Profile => 'Hesabların öz adı və profil şəkli var, tətbiq şifrənin arxasında açıla bilər.';
-  String get wn39Smart => 'Ağıllı qoşulma tamlandı: real gecikmə ilə ən sürətli yer və zənglər/oyunlar üçün QUIC ötürmə.';
-  String get wn39Flight => 'Ölkə dəyişməsi daha hamar uçur — kamera böyük dairə üzrə gedir — və bayraq çarxının işarələri bayraqlara yaxındır.';
-  String get wn39ToastEverywhere => 'Dinamik bildiriş artıq hər yerdədir: hər «saxlanıldı», «köçürüldü» və «xəta» eyni animasiyalı şüşə kapsuldadır.';
-  String get wn39Updates => 'Yenilənmələr yaddaşı təmiz saxlayır: quraşdırıcı köhnə versiyanı əvəz edir və heç bir paket qalmır.';
-  String get wnDesignsRemoved => 'Tətbiq dizaynı seçicisi çıxarıldı: tətbiq yenə öz tək rəng görünüşünü geyir — vurğu rənginiz və mövzunuz olduğu kimi qalıb.';
-  String get wnDnsAdded => 'Əl ilə DNS: sadə IP-lər, DNS-over-HTTPS və DNS-over-TLS — hər sətirin növü yazarkən göstərilir və yoxlanılır.';
-  String get wnSmartImproved => 'Ağıllı bağlantı indi şəbəkənin cavabını göstərir: seçdiyi nəqliyyatı və saxladığı IP versiyasını, canlı.';
-  String get wnProtectionImproved => 'Kəsirmə düyməsi mühafizəsi qurulanda xəbər verir, tətbiqlər səhifəsi isə neçə tətbiq seçdiyini göstərir.';
-  String get wnWelcomeImproved => 'Qarşılayıcı səhifə axan şimal pəncərəsi üzərində nəfəs alan qalxanla açılır, hesablar səhifəsi ayı bir baxışda yekunlaşdırır.';
-  String bypassAppsCount(String n) => 'Seçilmiş: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get appPasswordUnlockHint =>
+      'Davam etmək üçün tətbiq şifrəsini yazın.';
+
+  @override
+  String get wn39MapKinds =>
+      'Xəritə yenə növlərini seçir: köhnə düz xəritə (standart), 3D kürə, peyk yumru və müasir düz 2D.';
+
+  @override
+  String get wn39EyeIp =>
+      'Yer kartında göz var: toxunun, trafiğin çıxdığı ünvanı görün və köçürün.';
+
+  @override
+  String get wn39Profile =>
+      'Hesabların öz adı və profil şəkli var, tətbiq şifrənin arxasında açıla bilər.';
+
+  @override
+  String get wn39Smart =>
+      'Ağıllı qoşulma tamlandı: real gecikmə ilə ən sürətli yer və zənglər/oyunlar üçün QUIC ötürmə.';
+
+  @override
+  String get wn39Flight =>
+      'Ölkə dəyişməsi daha hamar uçur — kamera böyük dairə üzrə gedir — və bayraq çarxının işarələri bayraqlara yaxındır.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'Dinamik bildiriş artıq hər yerdədir: hər «saxlanıldı», «köçürüldü» və «xəta» eyni animasiyalı şüşə kapsuldadır.';
+
+  @override
+  String get wn39Updates =>
+      'Yenilənmələr yaddaşı təmiz saxlayır: quraşdırıcı köhnə versiyanı əvəz edir və heç bir paket qalmır.';
+
+  @override
+  String get mapKindNight => 'Gecə';
+
+  @override
+  String get mapKindTerrain => 'Ərazi';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Xəritənin iki yeni forması: gecə yumrusu və ərazi yumrusu.';
+
+  @override
+  String get wn40Flight =>
+      '3D kürə yeni ölkəyə bir hamar dönüşlə uçur — heç vaxt tullanma yoxdur.';
+
+  @override
+  String get wn40Mercator =>
+      'Düz xəritələr standart Merkator proyeksiyası ilə çəkilir: real nisbətlər, standart sərhədlər, sıxılmamış.';
+
+  @override
+  String get wn40NameBack =>
+      'Seçilmiş ölkənin adı düz xəritələrdə bayraqların altında geri qaytarıldı.';
+
+  @override
+  String get wn40Speed =>
+      'Tunel indi standart olaraq iki paralel sessiya açır — daha güclü, daha sabit xətt.';
+
+  @override
+  String get wn40LockFixed =>
+      'Qoşma düyməsinin kilidi halları arasında artıq yoxa ölmür.';
+
+  @override
+  String get wn40IpRemoved => 'Məkan kartının IP pəncərəsi götürüldü.';
+
+  @override
+  String get soundFeedback => 'Səs effektləri';
+
+  @override
+  String get soundFeedbackHint =>
+      'Toxunuşlar, açarlar və qoşmanın yandırılıb-söndürülməsi üçün yumşaq səslər';
+
+  @override
+  String get rateUnit => 'Sürət vahidi';
+
+  @override
+  String get lockInBackground => 'Tərk edəndən sonra kilid';
+
+  @override
+  String get lockBgNever => 'Heç vaxt';
+
+  @override
+  String get lockBgNow => 'Dərhal';
+
+  @override
+  String get lockBgMin5 => '5 dəqiqədən sonra';
+
+  @override
+  String get lockBgMin15 => '15 dəqiqədən sonra';
+
+  @override
+  String get mb25600 => '25 QB';
+
+  @override
+  String get mb51200 => '50 QB';
+
+  @override
+  String get mb102400 => '100 QB';
+
+  @override
+  String get wn41Sound =>
+      'Qoşma səsi titrişə qoşuldu: VPN yandırılan və ya söndürüləndə qısa bir not çalır (Ayarlar ← Ümumi).';
+
+  @override
+  String get wn41RateUnit =>
+      'Sürət seçdiyiniz vahidlə oxunur: tanış KB/s və ya bağlantının öz Mbps-i.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'Tətbiq siz uzaqda olanda özünü kilidləyə bilər: şifrə dərhal, 5 və ya 15 dəqiqədən sonra yenidən soruşulur.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'Sessiyanın data həddi 25, 50 və ya 100 QB-yə qalxır.';
+
+  @override
+  String get wn41Motion =>
+      'Yeni hərəkətlər: qoşulmuş kürə nəfəs alır, çek işarəsi özünü çəkir, halatın sözü qiymətləri arasında sürüşür, səhv şifrə sahəni silkələyir.';
+
+  @override
+  String get wn41AboutFixed =>
+      'Haqqında səhifəsi qaydasına düşdü: iki səhifə yan-yanı, hər izah öz sətrində, sıxılmamış.';
+
+  @override
+  String get wn41HapticFixed =>
+      'Titriş ayarı yeniden cavab verir: hər qoşmanın yandırılıb-söndürülməsi onu izləyir, yalnız sürülənin deyil.';
+
+  @override
+  String get copyIp => 'IP-ni kopyala';
+
+  @override
+  String get wn42Fonts =>
+      'Hər dil tətbiqin öz şriftlərini oxuyur: iki çincə və bengal üçün Noto Sans, latın və kiril dilləri üçün Inter — artıq heç bir dil telefonun şriftlərinə söykənmir.';
+
+  @override
+  String get wn42Sounds =>
+      'Tətbiqin səsləri artıq realdır: hər bölmədə yumşaq toxunuş, açarlar üçün iki nota, qoşmanın yaranıb-sönməsində qalxan və enən nota, kilid üçün zəng — Səs açarı hamısını idarə edir.';
+
+  @override
+  String get wn42AboutFixed =>
+      'Haqqında səhifəsi loqosunu, adını və qeydini mərkəzə qoyur, əlaqə identləri telefonun enindən asılı olmayaraq tam və bir sətirdə qalır.';
+
+  @override
+  String get wn42Gaming =>
+      'Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır.';
+
+  @override
+  String get avatarPhoto => 'Öz şəklin';
+
+  @override
+  String get avatarPhotoFailed => 'Bu şəkil işlədilə bilmədi';
 }

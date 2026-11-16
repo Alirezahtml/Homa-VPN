@@ -733,5 +733,7 @@
   "wn42Fonts": "Hər dil tətbiqin öz şriftlərini oxuyur: iki çincə və bengal üçün Noto Sans, latın və kiril dilləri üçün Inter — artıq heç bir dil telefonun şriftlərinə söykənmir.",
   "wn42Sounds": "Tətbiqin səsləri artıq realdır: hər bölmədə yumşaq toxunuş, açarlar üçün iki nota, qoşmanın yaranıb-sönməsində qalxan və enən nota, kilid üçün zəng — Səs açarı hamısını idarə edir.",
   "wn42AboutFixed": "Haqqında səhifəsi loqosunu, adını və qeydini mərkəzə qoyur, əlaqə identləri telefonun enindən asılı olmayaraq tam və bir sətirdə qalır.",
-  "wn42Gaming": "Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır."
+  "wn42Gaming": "Oyun profili artıq realdır: serverlər səhifəsi gecikmələri hər yarım dəqiqədən bir təzə ölçür və ölçülmüş ən sürünü vurğulayır.",
+  "avatarPhoto": "Öz şəklin",
+  "avatarPhotoFailed": "Bu şəkil işlədilə bilmədi"
 }

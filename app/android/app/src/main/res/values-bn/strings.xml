@@ -12,4 +12,5 @@
     <string name="widget_description">এক ট্যাপে সংযোগ বা সংযোগ বিচ্ছিন্ন করুন</string>
     <string name="widget_connect">সংযোগ করতে ট্যাপ করুন</string>
     <string name="widget_disconnect">সংযোগ বিচ্ছিন্ন করতে ট্যাপ করুন</string>
+    <string name="updates_channel">নতুন সংস্করণ</string>
 </resources>

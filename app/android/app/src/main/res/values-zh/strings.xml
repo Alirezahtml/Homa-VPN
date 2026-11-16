@@ -12,4 +12,5 @@
     <string name="widget_description">一键连接或断开</string>
     <string name="widget_connect">点击连接</string>
     <string name="widget_disconnect">点击断开</string>
+    <string name="updates_channel">新版本</string>
 </resources>

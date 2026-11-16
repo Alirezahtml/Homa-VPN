@@ -2046,149 +2046,492 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get statSession => 'Phiên';
+
+  @override
   String get copiedToClipboard => 'Đã sao chép vào bộ nhớ tạm';
-  String get wnTotalsAdded => 'Trang chủ cho thấy tổng dữ liệu phiên đã truyền, và một chạm sao chép IP công khai.';
-  String get wnPolishImproved => 'Bánh xe cờ và trang máy chủ gọn gàng hơn; chữ ngắn gọn, và đường hầm Android truyền lưu lượng nhanh hơn.';
+
+  @override
+  String get wnTotalsAdded =>
+      'Trang chủ cho thấy tổng dữ liệu phiên đã truyền, và một chạm sao chép IP công khai.';
+
+  @override
+  String get wnPolishImproved =>
+      'Bánh xe cờ và trang máy chủ gọn gàng hơn; chữ ngắn gọn, và đường hầm Android truyền lưu lượng nhanh hơn.';
 
   @override
   String get smartNetwork => 'Kết nối thông minh';
-  String get smartNetworkHint => 'MTU, giao thức và phiên bản IP theo mạng này, hướng tới tốc độ.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, giao thức và phiên bản IP theo mạng này, hướng tới tốc độ.';
+
+  @override
   String get valueSmart => 'Thông minh';
+
+  @override
   String get mtuAutoValue => 'Tự động — theo mạng';
+
+  @override
+  String get wnSmartAdded =>
+      'Kết nối thông minh: MTU, giao thức và phiên bản IP theo mạng, được chọn từ phản hồi thật để có tốc độ.';
+
+  @override
+  String get wnToastAdded =>
+      'Xác nhận giờ đến như một ghi chú mềm mại kiểu iOS, với dấu vẽ chính mình.';
+
+  @override
+  String get wnFlagsImproved =>
+      'Bánh xe cờ gọn gàng: không còn cờ bị cắt ở mép màn hình, cờ hiển thị trọn vẹn, và lựa chọn đáp xuống nhẹ nhàng.';
+
+  @override
+  String get wnMapImproved =>
+      'Bản đồ thế giới được vẽ lớn và rõ hơn: không còn lục địa bị nén, bờ biển mượt, và quầng sáng tại điểm neo.';
+
+  @override
+  String get smartWaiting => 'Đang đo…';
+
+  @override
+  String get smartFamilyRace => 'Cả hai đua ở lần kết nối đầu';
+
+  @override
+  String get dnsManual => 'DNS thủ công';
+
+  @override
+  String get dnsManualHint =>
+      'Mỗi dòng một địa chỉ: IP thường, https:// (DNS over HTTPS), hoặc tls://host (DNS over TLS). Ai trả lời trước thắng.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Một dòng không phải địa chỉ phần lõi dùng được: IP thường, https://…, hoặc tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Được canh giữ: không gì rời điện thoại trong khi đường hầm ngắt.';
+
+  @override
+  String get accountsUsageTitle => 'Tháng này';
+
+  @override
+  String get accountsCountLabel => 'tài khoản';
+
+  @override
+  String get accountsUsageAverage =>
+      'phần trăm dùng trung bình của các tài khoản';
+
+  @override
+  String get wnDesignsAdded =>
+      'Thiết kế ứng dụng: cả ứng dụng có thể khoác Neumorphism mềm hoặc Kính quang cực — mọi trang, mọi thẻ — trong Cài đặt → Chung.';
+
+  @override
+  String get wnWheelFixed =>
+      'Nửa lá cờ ở bánh xe đã mất: giá dưới lá cờ được chọn là vũng sáng, không phải lá cờ thứ hai, và không cờ nào bị cắt ở mép màn hình.';
+
+  @override
+  String get wnMapReal =>
+      'Bản đồ thế giới được vẽ lại từ biên giới chính thức của các nước — mọi bờ biển, hòn đảo và vùng bao vây, đúng xác và đúng tỉ lệ.';
+
+  @override
+  String get wnGlobeAdded =>
+      'Thế giới giờ là quả cầu: khối cầu bạc xoay về phía quốc gia đã chọn, ghim phát sáng và thẻ nổi đánh dấu nó, đường kết nối vươn tới các trung tâm.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'Cờ được chọn đứng to hơn trong khung kính với quầng sáng xanh riêng, các lá cờ bên cạnh nhỏ hơn rõ rệt, và các điểm chỉ dưới vòng xoay cho biết bạn đang ở đâu.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'Bộ chọn Thiết kế ứng dụng đã được gỡ bỏ: ứng dụng trở lại diện mạo đơn sắc vốn có — màu nhấn và chủ đề của bạn giữ nguyên.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS thủ công: IP thường, DNS over HTTPS và DNS over TLS — loại của từng dòng hiển thị và được kiểm tra khi gõ.';
+
+  @override
+  String get wnSmartImproved =>
+      'Kết nối thông minh giờ cho thấy mạng đã trả lời gì: phương tiện vận chuyển đã chọn và phiên bản IP đã giữ, trực tiếp.';
+
+  @override
+  String get wnProtectionImproved =>
+      'Công tắc ngắt báo khi lính gác đứng gác, và trang ứng dụng cho biết bạn đã chọn bao nhiêu ứng dụng.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'Trang chào mừng mở ra với chiếc khiên đang thở trên vầng quang cực trôi, và trang tài khoản gói cả tháng trong một cái nhìn.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Đã chọn: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Tự động — mạng mang $mtu';
   }
-  String get wnSmartAdded => 'Kết nối thông minh: MTU, giao thức và phiên bản IP theo mạng, được chọn từ phản hồi thật để có tốc độ.';
-  String get wnToastAdded => 'Xác nhận giờ đến như một ghi chú mềm mại kiểu iOS, với dấu vẽ chính mình.';
-  String get wnFlagsImproved => 'Bánh xe cờ gọn gàng: không còn cờ bị cắt ở mép màn hình, cờ hiển thị trọn vẹn, và lựa chọn đáp xuống nhẹ nhàng.';
-  String get wnMapImproved => 'Bản đồ thế giới được vẽ lớn và rõ hơn: không còn lục địa bị nén, bờ biển mượt, và quầng sáng tại điểm neo.';
 
   @override
-  String get smartWaiting => 'Đang đo…';
-  String get smartFamilyRace => 'Cả hai đua ở lần kết nối đầu';
-  String get dnsManual => 'DNS thủ công';
-  String get dnsManualHint => 'Mỗi dòng một địa chỉ: IP thường, https:// (DNS over HTTPS), hoặc tls://host (DNS over TLS). Ai trả lời trước thắng.';
-  String get dnsManualInvalid => 'Một dòng không phải địa chỉ phần lõi dùng được: IP thường, https://…, hoặc tls://host.';
-  String get killSwitchGuarded => 'Được canh giữ: không gì rời điện thoại trong khi đường hầm ngắt.';
-  String get accountsUsageTitle => 'Tháng này';
-  String get accountsCountLabel => 'tài khoản';
-  String get accountsUsageAverage => 'phần trăm dùng trung bình của các tài khoản';
-  String get wnDesignsAdded => 'Thiết kế ứng dụng: cả ứng dụng có thể khoác Neumorphism mềm hoặc Kính quang cực — mọi trang, mọi thẻ — trong Cài đặt → Chung.';
-  String get wnWheelFixed => 'Nửa lá cờ ở bánh xe đã mất: giá dưới lá cờ được chọn là vũng sáng, không phải lá cờ thứ hai, và không cờ nào bị cắt ở mép màn hình.';
-  String get wnMapReal => 'Bản đồ thế giới được vẽ lại từ biên giới chính thức của các nước — mọi bờ biển, hòn đảo và vùng bao vây, đúng xác và đúng tỉ lệ.';
-  String get wnGlobeAdded => 'Thế giới giờ là quả cầu: khối cầu bạc xoay về phía quốc gia đã chọn, ghim phát sáng và thẻ nổi đánh dấu nó, đường kết nối vươn tới các trung tâm.';
-  String get wnWheelGlowImproved => 'Cờ được chọn đứng to hơn trong khung kính với quầng sáng xanh riêng, các lá cờ bên cạnh nhỏ hơn rõ rệt, và các điểm chỉ dưới vòng xoay cho biết bạn đang ở đâu.';
   String get sectionAppearance => 'Diện mạo';
+
+  @override
   String get mapStyle => 'Kiểu bản đồ';
-  String get mapStyleHint => 'Quả cầu ở trang chủ được tô theo cách bạn chọn. Ánh sáng kết nối vẫn như cũ.';
+
+  @override
+  String get mapStyleHint =>
+      'Quả cầu ở trang chủ được tô theo cách bạn chọn. Ánh sáng kết nối vẫn như cũ.';
+
+  @override
   String get mapSilver => 'Bạc';
+
+  @override
   String get mapMidnight => 'Nửa đêm';
+
+  @override
   String get mapOcean => 'Đại dương';
+
+  @override
   String get mapMono => 'Đơn sắc';
+
+  @override
   String get mapAurora => 'Cực quang';
+
+  @override
   String get batterySaver => 'Tiết kiệm pin';
-  String get batterySaverHint => 'Đưa chuyển động của bản đồ vào nghỉ khi đang kết nối — nhịp thở của quả cầu, ánh sáng của bánh xe. Kết nối vẫn nguyên như cũ.';
+
+  @override
+  String get batterySaverHint =>
+      'Đưa chuyển động của bản đồ vào nghỉ khi đang kết nối — nhịp thở của quả cầu, ánh sáng của bánh xe. Kết nối vẫn nguyên như cũ.';
+
+  @override
   String get connectOnOpen => 'Kết nối khi mở ứng dụng';
-  String get connectOnOpenHint => 'Bật VPN ngay khi mở ứng dụng, với vị trí bạn chọn lần cuối.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Bật VPN ngay khi mở ứng dụng, với vị trí bạn chọn lần cuối.';
+
+  @override
   String get speedTitle => 'Tốc độ';
+
+  @override
   String get parallelTunnels => 'Đường hầm song song';
-  String get parallelTunnelsHint => 'Mở cùng lúc nhiều đường hầm tới Mozilla và chia lưu lượng giữa chúng, để một đường hầm chậm không còn chặn tốc độ. Tám là mức nặng nhất cho pin.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Mở cùng lúc nhiều đường hầm tới Mozilla và chia lưu lượng giữa chúng, để một đường hầm chậm không còn chặn tốc độ. Tám là mức nặng nhất cho pin.';
+
+  @override
   String get tunnels1 => 'Một — ổn định nhất';
+
+  @override
   String get tunnels2 => 'Hai';
+
+  @override
   String get tunnels4 => 'Bốn — nhanh hơn trên mạng chậm';
+
+  @override
   String get tunnels8 => 'Tám — nhanh nhất';
+
+  @override
   String get connectionCap => 'Giới hạn kết nối';
-  String get connectionCapHint => 'Bao nhiêu ứng dụng có thể nói qua VPN cùng lúc; giới hạn nhỏ hơn tiết kiệm pin và dữ liệu trên điện thoại bận rộn. Mặc định là không giới hạn.';
+
+  @override
+  String get connectionCapHint =>
+      'Bao nhiêu ứng dụng có thể nói qua VPN cùng lúc; giới hạn nhỏ hơn tiết kiệm pin và dữ liệu trên điện thoại bận rộn. Mặc định là không giới hạn.';
+
+  @override
   String get capNone => 'Không giới hạn';
+
+  @override
   String get verboseLogging => 'Chẩn đoán chi tiết';
-  String get verboseLoggingHint => 'Ghi từng bước vào nhật ký — hữu ích khi báo lỗi, hơi tốn pin hơn.';
-  String get wn38MapStylesAdded => 'Năm kiểu cho bản đồ: bạc, nửa đêm, đại dương, đơn sắc và cực quang — trang Diện mạo mới trong cài đặt chọn, có xem trước từng kiểu.';
-  String get wn38ZoomAdded => 'Bản đồ có thể phóng to: kẹp hai ngón tay, hoặc chạm đôi để lại gần rồi quay lại.';
-  String get wn38OptionsAdded => 'Tùy chọn thực dụng: đường hầm song song cho tốc độ cao hơn, giới hạn kết nối, tiết kiệm pin, kết nối khi mở ứng dụng và chẩn đoán chi tiết.';
-  String get wn38SocialAdded => 'Instagram và Telegram giờ cũng ở ngay cuối trang này.';
-  String get wn38FlightImproved => 'Chọn một quốc gia là một chuyến bay nhỏ: camera lùi lại, quả cầu xoay, ghim rơi xuống nảy nhẹ và các đường nối tự vẽ tới các trung tâm.';
-  String get wn38EffectsImproved => 'Bản đồ nhìn giàu hơn: những ngôi sao sau quả cầu, lưới tọa độ, ánh sáng của các trung tâm, quầng sáng quanh viền và bóng của đất liền.';
-  String get wn38SpeedImproved => 'Tùy chọn tốc độ là thật: đường hầm song song mở nhiều kết nối cùng lúc, và lõi chia lưu lượng giữa chúng.';
-  String get wn38NameFixed => 'Tên quốc gia đã chọn chỉ hiện một lần — trên thẻ nổi của bản đồ; bản sao dưới các lá cờ đã được bỏ.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Ghi từng bước vào nhật ký — hữu ích khi báo lỗi, hơi tốn pin hơn.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Năm kiểu cho bản đồ: bạc, nửa đêm, đại dương, đơn sắc và cực quang — trang Diện mạo mới trong cài đặt chọn, có xem trước từng kiểu.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'Bản đồ có thể phóng to: kẹp hai ngón tay, hoặc chạm đôi để lại gần rồi quay lại.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Tùy chọn thực dụng: đường hầm song song cho tốc độ cao hơn, giới hạn kết nối, tiết kiệm pin, kết nối khi mở ứng dụng và chẩn đoán chi tiết.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Instagram và Telegram giờ cũng ở ngay cuối trang này.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Chọn một quốc gia là một chuyến bay nhỏ: camera lùi lại, quả cầu xoay, ghim rơi xuống nảy nhẹ và các đường nối tự vẽ tới các trung tâm.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'Bản đồ nhìn giàu hơn: những ngôi sao sau quả cầu, lưới tọa độ, ánh sáng của các trung tâm, quầng sáng quanh viền và bóng của đất liền.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'Tùy chọn tốc độ là thật: đường hầm song song mở nhiều kết nối cùng lúc, và lõi chia lưu lượng giữa chúng.';
+
+  @override
+  String get wn38NameFixed =>
+      'Tên quốc gia đã chọn chỉ hiện một lần — trên thẻ nổi của bản đồ; bản sao dưới các lá cờ đã được bỏ.';
+
+  @override
   String get mapKind => 'Kiểu bản đồ';
+
+  @override
+  String get mapKindHint =>
+      'Thế giới của trang chủ hiển thị thế nào: bản đồ phẳng như trước (mặc định), bản đồ hiện đại, Trái Đất ban đêm, Trái Đất địa hình, quả cầu kim loại, hay Trái Đất vệ tinh. Ở mỗi kiểu, biên giới đều là biên giới thật, chính thức.';
+
+  @override
   String get mapKindClassic => 'Cổ điển';
+
+  @override
   String get mapKindGlobe => 'Globe 3D';
+
+  @override
   String get mapKindSatellite => 'Vệ tinh';
+
+  @override
   String get mapKindFlat => 'Phẳng 2D';
-  String get mapKindNight => 'Đêm';
-  String get aboutChannels => 'Trang liên hệ';
-  String get soundFeedback => 'Hiệu ứng âm thanh';
-  String get soundFeedbackHint => 'Âm thanh nhẹ nhàng khi chạm, khi gạt công tắc và khi kết nối bật hoặc tắt';
-  String get rateUnit => 'Đơn vị tốc độ';
-  String get lockInBackground => 'Khoá khi rời đi';
-  String get lockBgNever => 'Không bao giờ';
-  String get lockBgNow => 'Ngay lập tức';
-  String get lockBgMin5 => 'Sau 5 phút';
-  String get lockBgMin15 => 'Sau 15 phút';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => 'Âm thanh kết nối tham gia cùng rung: VPN kêu một nốt ngắn khi bật hoặc tắt (Cài đặt → Chung).';
-  String get copyIp => 'Sao chép IP';
-  String get wn42Fonts => 'Mọi ngôn ngữ đều đọc bằng phông chữ riêng của ứng dụng: Noto Sans cho hai tiếng Trung và tiếng Bengal, Inter cho các ngôn ngữ Latinh và Kiryl — không còn ngôn ngữ nào dựa vào phông chữ của điện thoại.';
-  String get wn42Sounds => 'Âm thanh của ứng dụng giờ đây có thật: một cú chạm nhẹ ở mỗi phần, hai nốt cho công tắc, một nốt lên xuống khi kết nối bật và tắt, một tiếng ping cho khoá — công tắc âm thanh kiểm soát tất cả.';
-  String get wn42AboutFixed => 'Trang Giới thiệu đặt logo, tên và ghi chú vào giữa, và các định danh liên lạc luôn nguyên vẹn trên một dòng bất kể bề rộng điện thoại.';
-  String get wn42Gaming => 'Hồ sơ chơi game giờ có thật: trang máy chủ đo lại độ trễ mỗi nửa phút và nêu bật máy nhanh nhất đã đo bằng màu nhấn.';
-  String get wn41RateUnit => 'Tốc độ hiển thị theo đơn vị bạn chọn: KB/s thân thuộc hay Mbps của kết nối.';
-  String get wn41BackgroundLock => 'Ứng dụng có thể tự khoá khi bạn vắng mặt: mật khẩu được hỏi lại ngay, sau 5 hoặc sau 15 phút.';
-  String get wn41BiggerLimits => 'Giới hạn dữ liệu của phiên nâng lên 25, 50 hoặc 100 GB.';
-  String get wn41Motion => 'Chuyển động mới: quả cầu đang kết nối thở, dấu tích tự vẽ chính nó, từ trạng thái trượt giữa các giá trị, và mật khẩu sai làm rung ô nhập.';
-  String get wn41AboutFixed => 'Trang Giới thiệu gọn gàng: hai trang nằm cạnh nhau, mỗi chú thích trên dòng riêng, không bị nén.';
-  String get wn41HapticFixed => 'Cài đặt rung lại hoạt động: mỗi lần kết nối bật hay tắt đều theo nó, không chỉ con trượt.';
-  String get mapKindTerrain => 'Địa hình';
-  String get mapKindHint => 'Thế giới của trang chủ hiển thị thế nào: bản đồ phẳng như trước (mặc định), bản đồ hiện đại, Trái Đất ban đêm, Trái Đất địa hình, quả cầu kim loại, hay Trái Đất vệ tinh. Ở mỗi kiểu, biên giới đều là biên giới thật, chính thức.';
-  String get wn40MapKindsNew => 'Hai diện mạo mới của bản đồ: Trái Đất ban đêm và Trái Đất địa hình.';
-  String get wn40Flight => 'Globe 3D bay sang quốc gia mới bằng một vòng quay mượt mà — không bao giờ giật cục.';
-  String get wn40Mercator => 'Bản đồ phẳng vẽ theo phép chiếu Mercator chuẩn: tỷ lệ thật, biên giới chuẩn, không bị nén ép.';
-  String get wn40NameBack => 'Tên quốc gia đã chọn trở lại bên dưới các lá cờ trên bản đồ phẳng.';
-  String get wn40Speed => 'Đường hầm giờ mở mặc định hai phiên song song — kết nối mạnh hơn, ổn định hơn.';
-  String get wn40LockFixed => 'Ổ khóa trên nút kết nối không còn nhấp nháy giữa các trạng thái.';
-  String get wn40IpRemoved => 'Cửa sổ IP trên thẻ vị trí đã được bỏ.';
-  String get mapStyleGlobeHint => 'Màu sắc của globe 3D. Vệ tinh mang Trái Đất riêng của nó, còn bản đồ phẳng mang mực riêng của nó.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'Màu sắc của globe 3D. Vệ tinh mang Trái Đất riêng của nó, còn bản đồ phẳng mang mực riêng của nó.';
+
+  @override
   String get aboutVersions => 'Phiên bản';
-  String get checkUpdatesHint => 'Tìm phiên bản mới hơn; phiên bản tìm thấy sẽ được tải xuống và trình cài đặt sẽ hỏi.';
+
+  @override
+  String get aboutChannels => 'Trang liên hệ';
+
+  @override
+  String get checkUpdatesHint =>
+      'Tìm phiên bản mới hơn; phiên bản tìm thấy sẽ được tải xuống và trình cài đặt sẽ hỏi.';
+
+  @override
   String get smartLocation => 'Vị trí nhanh nhất';
-  String get smartLocationHint => 'Mỗi lần kết nối chọn máy chủ mà phép đo trễ của lõi cho là nhanh nhất.';
+
+  @override
+  String get smartLocationHint =>
+      'Mỗi lần kết nối chọn máy chủ mà phép đo trễ của lõi cho là nhanh nhất.';
+
+  @override
   String get quicPass => 'Đi qua QUIC';
-  String get quicPassHint => 'QUIC của ứng dụng (UDP 443) đi qua đường hầm: cuộc gọi và trò chơi giữ tốc độ thay vì rơi về TCP.';
+
+  @override
+  String get quicPassHint =>
+      'QUIC của ứng dụng (UDP 443) đi qua đường hầm: cuộc gọi và trò chơi giữ tốc độ thay vì rơi về TCP.';
+
+  @override
   String get accountRename => 'Đổi tên tài khoản';
+
+  @override
   String get accountRenameLabel => 'Tên tài khoản';
+
+  @override
   String get accountProfile => 'Ảnh đại diện';
+
+  @override
   String get avatarReset => 'Quay lại dấu đơn giản';
+
+  @override
   String get accountSecurity => 'Mật khẩu ứng dụng';
+
+  @override
   String get appPasswordOn => 'Ứng dụng mở sau một mật khẩu.';
-  String get appPasswordOff => 'Không có mật khẩu: ai mở ứng dụng cũng vào được.';
+
+  @override
+  String get appPasswordOff =>
+      'Không có mật khẩu: ai mở ứng dụng cũng vào được.';
+
+  @override
   String get appPasswordSet => 'Đặt mật khẩu';
+
+  @override
   String get appPasswordChange => 'Đổi mật khẩu';
+
+  @override
   String get appPasswordRemove => 'Xoá mật khẩu';
+
+  @override
   String get appPasswordCurrent => 'Mật khẩu hiện tại';
+
+  @override
   String get appPasswordNew => 'Mật khẩu mới (4+ ký tự)';
+
+  @override
   String get appPasswordConfirm => 'Nhập lại mật khẩu mới';
+
+  @override
   String get appPasswordShort => 'Ít nhất 4 ký tự.';
+
+  @override
   String get appPasswordMismatch => 'Hai mật khẩu không giống nhau.';
+
+  @override
   String get appPasswordWrong => 'Sai mật khẩu';
-  String get appPasswordSetDone => 'Mật khẩu đã đặt — ứng dụng sẽ hỏi từ lần mở sau.';
+
+  @override
+  String get appPasswordSetDone =>
+      'Mật khẩu đã đặt — ứng dụng sẽ hỏi từ lần mở sau.';
+
+  @override
   String get appPasswordRemoved => 'Mật khẩu đã bỏ; ứng dụng mở tự do.';
+
+  @override
   String get appPasswordUnlock => 'Ứng dụng đang khóa';
+
+  @override
   String get appPasswordUnlockHint => 'Nhập mật khẩu ứng dụng để tiếp tục.';
-  String get wn39MapKinds => 'Bản đồ lại có các kiểu: bản đồ phẳng như trước (mặc định), globe 3D, Trái Đất vệ tinh và bản đồ 2D hiện đại.';
-  String get wn39EyeIp => 'Thẻ vị trí có một con mắt: chạm để xem địa chỉ ra của lưu lượng và sao chép.';
-  String get wn39Profile => 'Tài khoản có tên và ảnh đại diện riêng, và ứng dụng có thể mở sau mật khẩu.';
-  String get wn39Smart => 'Kết nối thông minh hoàn thiện hơn: vị trí nhanh nhất theo độ trễ thực và đường QUIC cho gọi điện, chơi game.';
-  String get wn39Flight => 'Đổi quốc gia bay mượt hơn — camera đi theo vòng lớn — và các điểm trên vòng cờ sát vào lá cờ hơn.';
-  String get wn39ToastEverywhere => 'Thông báo động giờ ở khắp nơi: mỗi lần lưu, sao chép hay lỗi đều mang viên thuốc kính động ấy.';
-  String get wn39Updates => 'Bản cập nhật giữ bộ nhớ sạch: trình cài đặt thay phiên cũ và không để lại gói nào.';
-  String get wnDesignsRemoved => 'Bộ chọn Thiết kế ứng dụng đã được gỡ bỏ: ứng dụng trở lại diện mạo đơn sắc vốn có — màu nhấn và chủ đề của bạn giữ nguyên.';
-  String get wnDnsAdded => 'DNS thủ công: IP thường, DNS over HTTPS và DNS over TLS — loại của từng dòng hiển thị và được kiểm tra khi gõ.';
-  String get wnSmartImproved => 'Kết nối thông minh giờ cho thấy mạng đã trả lời gì: phương tiện vận chuyển đã chọn và phiên bản IP đã giữ, trực tiếp.';
-  String get wnProtectionImproved => 'Công tắc ngắt báo khi lính gác đứng gác, và trang ứng dụng cho biết bạn đã chọn bao nhiêu ứng dụng.';
-  String get wnWelcomeImproved => 'Trang chào mừng mở ra với chiếc khiên đang thở trên vầng quang cực trôi, và trang tài khoản gói cả tháng trong một cái nhìn.';
-  String bypassAppsCount(String n) => 'Đã chọn: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'Bản đồ lại có các kiểu: bản đồ phẳng như trước (mặc định), globe 3D, Trái Đất vệ tinh và bản đồ 2D hiện đại.';
+
+  @override
+  String get wn39EyeIp =>
+      'Thẻ vị trí có một con mắt: chạm để xem địa chỉ ra của lưu lượng và sao chép.';
+
+  @override
+  String get wn39Profile =>
+      'Tài khoản có tên và ảnh đại diện riêng, và ứng dụng có thể mở sau mật khẩu.';
+
+  @override
+  String get wn39Smart =>
+      'Kết nối thông minh hoàn thiện hơn: vị trí nhanh nhất theo độ trễ thực và đường QUIC cho gọi điện, chơi game.';
+
+  @override
+  String get wn39Flight =>
+      'Đổi quốc gia bay mượt hơn — camera đi theo vòng lớn — và các điểm trên vòng cờ sát vào lá cờ hơn.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'Thông báo động giờ ở khắp nơi: mỗi lần lưu, sao chép hay lỗi đều mang viên thuốc kính động ấy.';
+
+  @override
+  String get wn39Updates =>
+      'Bản cập nhật giữ bộ nhớ sạch: trình cài đặt thay phiên cũ và không để lại gói nào.';
+
+  @override
+  String get mapKindNight => 'Đêm';
+
+  @override
+  String get mapKindTerrain => 'Địa hình';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Hai diện mạo mới của bản đồ: Trái Đất ban đêm và Trái Đất địa hình.';
+
+  @override
+  String get wn40Flight =>
+      'Globe 3D bay sang quốc gia mới bằng một vòng quay mượt mà — không bao giờ giật cục.';
+
+  @override
+  String get wn40Mercator =>
+      'Bản đồ phẳng vẽ theo phép chiếu Mercator chuẩn: tỷ lệ thật, biên giới chuẩn, không bị nén ép.';
+
+  @override
+  String get wn40NameBack =>
+      'Tên quốc gia đã chọn trở lại bên dưới các lá cờ trên bản đồ phẳng.';
+
+  @override
+  String get wn40Speed =>
+      'Đường hầm giờ mở mặc định hai phiên song song — kết nối mạnh hơn, ổn định hơn.';
+
+  @override
+  String get wn40LockFixed =>
+      'Ổ khóa trên nút kết nối không còn nhấp nháy giữa các trạng thái.';
+
+  @override
+  String get wn40IpRemoved => 'Cửa sổ IP trên thẻ vị trí đã được bỏ.';
+
+  @override
+  String get soundFeedback => 'Hiệu ứng âm thanh';
+
+  @override
+  String get soundFeedbackHint =>
+      'Âm thanh nhẹ nhàng khi chạm, khi gạt công tắc và khi kết nối bật hoặc tắt';
+
+  @override
+  String get rateUnit => 'Đơn vị tốc độ';
+
+  @override
+  String get lockInBackground => 'Khoá khi rời đi';
+
+  @override
+  String get lockBgNever => 'Không bao giờ';
+
+  @override
+  String get lockBgNow => 'Ngay lập tức';
+
+  @override
+  String get lockBgMin5 => 'Sau 5 phút';
+
+  @override
+  String get lockBgMin15 => 'Sau 15 phút';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound =>
+      'Âm thanh kết nối tham gia cùng rung: VPN kêu một nốt ngắn khi bật hoặc tắt (Cài đặt → Chung).';
+
+  @override
+  String get wn41RateUnit =>
+      'Tốc độ hiển thị theo đơn vị bạn chọn: KB/s thân thuộc hay Mbps của kết nối.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'Ứng dụng có thể tự khoá khi bạn vắng mặt: mật khẩu được hỏi lại ngay, sau 5 hoặc sau 15 phút.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'Giới hạn dữ liệu của phiên nâng lên 25, 50 hoặc 100 GB.';
+
+  @override
+  String get wn41Motion =>
+      'Chuyển động mới: quả cầu đang kết nối thở, dấu tích tự vẽ chính nó, từ trạng thái trượt giữa các giá trị, và mật khẩu sai làm rung ô nhập.';
+
+  @override
+  String get wn41AboutFixed =>
+      'Trang Giới thiệu gọn gàng: hai trang nằm cạnh nhau, mỗi chú thích trên dòng riêng, không bị nén.';
+
+  @override
+  String get wn41HapticFixed =>
+      'Cài đặt rung lại hoạt động: mỗi lần kết nối bật hay tắt đều theo nó, không chỉ con trượt.';
+
+  @override
+  String get copyIp => 'Sao chép IP';
+
+  @override
+  String get wn42Fonts =>
+      'Mọi ngôn ngữ đều đọc bằng phông chữ riêng của ứng dụng: Noto Sans cho hai tiếng Trung và tiếng Bengal, Inter cho các ngôn ngữ Latinh và Kiryl — không còn ngôn ngữ nào dựa vào phông chữ của điện thoại.';
+
+  @override
+  String get wn42Sounds =>
+      'Âm thanh của ứng dụng giờ đây có thật: một cú chạm nhẹ ở mỗi phần, hai nốt cho công tắc, một nốt lên xuống khi kết nối bật và tắt, một tiếng ping cho khoá — công tắc âm thanh kiểm soát tất cả.';
+
+  @override
+  String get wn42AboutFixed =>
+      'Trang Giới thiệu đặt logo, tên và ghi chú vào giữa, và các định danh liên lạc luôn nguyên vẹn trên một dòng bất kể bề rộng điện thoại.';
+
+  @override
+  String get wn42Gaming =>
+      'Hồ sơ chơi game giờ có thật: trang máy chủ đo lại độ trễ mỗi nửa phút và nêu bật máy nhanh nhất đã đo bằng màu nhấn.';
+
+  @override
+  String get avatarPhoto => 'Ảnh của bạn';
+
+  @override
+  String get avatarPhotoFailed => 'Không thể dùng ảnh đó';
 }

@@ -2033,149 +2033,490 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get statSession => 'نشست';
+
+  @override
   String get copiedToClipboard => 'در حافظه کپی شد';
-  String get wnTotalsAdded => 'خانه مجموع آنچه در این نشست رد و بدل شد را نشان می‌دهد، و یک لمس، IP عمومی را کپی می‌کند.';
-  String get wnPolishImproved => 'چرخ پرچم‌ها و صفحهٔ سرورها مرتب‌تر نشسته‌اند؛ متن‌ها فشرده‌ترند و تونل اندروید با سرعت بیشتری ترافیک را می‌برد.';
+
+  @override
+  String get wnTotalsAdded =>
+      'خانه مجموع آنچه در این نشست رد و بدل شد را نشان می‌دهد، و یک لمس، IP عمومی را کپی می‌کند.';
+
+  @override
+  String get wnPolishImproved =>
+      'چرخ پرچم‌ها و صفحهٔ سرورها مرتب‌تر نشسته‌اند؛ متن‌ها فشرده‌ترند و تونل اندروید با سرعت بیشتری ترافیک را می‌برد.';
 
   @override
   String get smartNetwork => 'اتصال هوشمند';
-  String get smartNetworkHint => 'اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس همین شبکه و برای سرعت انتخاب می‌شوند.';
+
+  @override
+  String get smartNetworkHint =>
+      'اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس همین شبکه و برای سرعت انتخاب می‌شوند.';
+
+  @override
   String get valueSmart => 'هوشمند';
+
+  @override
   String get mtuAutoValue => 'خودکار — بر اساس شبکه';
+
+  @override
+  String get wnSmartAdded =>
+      'اتصال هوشمند: اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس شبکه و با پاسخ‌های واقعی برای سرعت انتخاب می‌شوند.';
+
+  @override
+  String get wnToastAdded =>
+      'پیام‌های تأیید حالا نرم و به سبک iOS می‌آیند، با نشانه‌ای که خودش را می‌کشد.';
+
+  @override
+  String get wnFlagsImproved =>
+      'چرخ پرچم‌ها تمیز نشسته: هیچ پرچمی لبهٔ صفحه نصف نمی‌شود، پرچم‌ها کامل دیده می‌شوند و انتخاب با فنری نرم می‌نشیند.';
+
+  @override
+  String get wnMapImproved =>
+      'نقشهٔ جهان بزرگ‌تر و واضح‌تر کشیده می‌شود: بدون قاره‌های فشرده، با ساحل‌های صاف و هالهٔ درخشان روی مقصد.';
+
+  @override
+  String get smartWaiting => 'در حال سنجش…';
+
+  @override
+  String get smartFamilyRace => 'در نخستین اتصال هر دو با هم می‌تازند';
+
+  @override
+  String get dnsManual => 'DNS دستی';
+
+  @override
+  String get dnsManualHint =>
+      'هر نشانی در یک خط: یک IP ساده، https:// (DNS روی HTTPS) یا tls://host (DNS روی TLS). نخستین پاسخ برنده است.';
+
+  @override
+  String get dnsManualInvalid =>
+      'یکی از خط‌ها نشانی‌ای نیست که هسته بتواند استفاده کند: یک IP ساده، https://… یا tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'پاسداری می‌شود: تا وقتی تونل قطع است، هیچ چیزی از گوشی بیرون نمی‌رود.';
+
+  @override
+  String get accountsUsageTitle => 'این ماه';
+
+  @override
+  String get accountsCountLabel => 'حساب';
+
+  @override
+  String get accountsUsageAverage => 'میانگین سهم مصرف‌شدهٔ حساب‌ها';
+
+  @override
+  String get wnDesignsAdded =>
+      'طرح‌های برنامه: حالا کل برنامه می‌تواند نئومورفیسم نرم یا شیشهٔ شفق را بپوشد — همهٔ صفحه‌ها، همهٔ کارت‌ها — از تنظیمات ← همگانی.';
+
+  @override
+  String get wnWheelFixed =>
+      'نیمه‌پرچمِ چرخ از بین رفت: قفسهٔ زیر پرچم انتخاب‌شده یک حوضچهٔ نور است، نه پرچمی دوم، و هیچ پرچمی لبهٔ صفحه نصف نمی‌شود.';
+
+  @override
+  String get wnMapReal =>
+      'نقشهٔ جهان با مرزهای رسمی کشورها بازکشیده شد — هر ساحل، جزیره و هم‌محوری با وفاداری کامل و در تناسب واقعی.';
+
+  @override
+  String get wnGlobeAdded =>
+      'جهان حالا کره است: کرهٔ نقره‌ای به سمت کشور انتخاب‌شده می‌چرخد، یک پین نورانی و یک کارت شناور آن را نشان می‌دهند و راه‌های اتصال به سمت مراکز اصلی می‌روند.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'پرچم انتخاب‌شده بزرگ‌تر در قابی شیشه‌ای با هالهٔ آبی خودش می‌ایستد، همسایه‌ها آشکارا کوچک‌ترند و نشانگرهای زیر چرخ جایتان را نشان می‌دهند.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'انتخاب‌گر «طرح برنامه» حذف شد: برنامه دوباره ظاهر تک‌رنگ خودش را می‌پوشد — رنگ تأکید و پوستهٔ شما سر جایشان‌اند.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS دستی: IP ساده، DNS روی HTTPS و DNS روی TLS — نوع هر خط هنگام نوشتن نشان داده و بررسی می‌شود.';
+
+  @override
+  String get wnSmartImproved =>
+      'اتصال هوشمند حالا نشان می‌دهد شبکه چه پاسخی داد: تراکنشی که برگزیده و نسخهٔ IP که نگه داشته، زنده.';
+
+  @override
+  String get wnProtectionImproved =>
+      'کلید قطع، وقتی پاسداری برقرار است می‌گوید و صفحهٔ برنامه‌ها نشان می‌دهد چند برنامه انتخاب کرده‌اید.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'صفحهٔ خوش‌آمد با سپری نفس‌کش بر شفقی روان باز می‌شود و صفحهٔ حساب‌ها ماه را در یک نگاه جمع می‌کند.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'انتخاب‌شده: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'خودکار — شبکه $mtu می‌رساند';
   }
-  String get wnSmartAdded => 'اتصال هوشمند: اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس شبکه و با پاسخ‌های واقعی برای سرعت انتخاب می‌شوند.';
-  String get wnToastAdded => 'پیام‌های تأیید حالا نرم و به سبک iOS می‌آیند، با نشانه‌ای که خودش را می‌کشد.';
-  String get wnFlagsImproved => 'چرخ پرچم‌ها تمیز نشسته: هیچ پرچمی لبهٔ صفحه نصف نمی‌شود، پرچم‌ها کامل دیده می‌شوند و انتخاب با فنری نرم می‌نشیند.';
-  String get wnMapImproved => 'نقشهٔ جهان بزرگ‌تر و واضح‌تر کشیده می‌شود: بدون قاره‌های فشرده، با ساحل‌های صاف و هالهٔ درخشان روی مقصد.';
 
   @override
-  String get smartWaiting => 'در حال سنجش…';
-  String get smartFamilyRace => 'در نخستین اتصال هر دو با هم می‌تازند';
-  String get dnsManual => 'DNS دستی';
-  String get dnsManualHint => 'هر نشانی در یک خط: یک IP ساده، https:// (DNS روی HTTPS) یا tls://host (DNS روی TLS). نخستین پاسخ برنده است.';
-  String get dnsManualInvalid => 'یکی از خط‌ها نشانی‌ای نیست که هسته بتواند استفاده کند: یک IP ساده، https://… یا tls://host.';
-  String get killSwitchGuarded => 'پاسداری می‌شود: تا وقتی تونل قطع است، هیچ چیزی از گوشی بیرون نمی‌رود.';
-  String get accountsUsageTitle => 'این ماه';
-  String get accountsCountLabel => 'حساب';
-  String get accountsUsageAverage => 'میانگین سهم مصرف‌شدهٔ حساب‌ها';
-  String get wnDesignsAdded => 'طرح‌های برنامه: حالا کل برنامه می‌تواند نئومورفیسم نرم یا شیشهٔ شفق را بپوشد — همهٔ صفحه‌ها، همهٔ کارت‌ها — از تنظیمات ← همگانی.';
-  String get wnWheelFixed => 'نیمه‌پرچمِ چرخ از بین رفت: قفسهٔ زیر پرچم انتخاب‌شده یک حوضچهٔ نور است، نه پرچمی دوم، و هیچ پرچمی لبهٔ صفحه نصف نمی‌شود.';
-  String get wnMapReal => 'نقشهٔ جهان با مرزهای رسمی کشورها بازکشیده شد — هر ساحل، جزیره و هم‌محوری با وفاداری کامل و در تناسب واقعی.';
-  String get wnGlobeAdded => 'جهان حالا کره است: کرهٔ نقره‌ای به سمت کشور انتخاب‌شده می‌چرخد، یک پین نورانی و یک کارت شناور آن را نشان می‌دهند و راه‌های اتصال به سمت مراکز اصلی می‌روند.';
-  String get wnWheelGlowImproved => 'پرچم انتخاب‌شده بزرگ‌تر در قابی شیشه‌ای با هالهٔ آبی خودش می‌ایستد، همسایه‌ها آشکارا کوچک‌ترند و نشانگرهای زیر چرخ جایتان را نشان می‌دهند.';
   String get sectionAppearance => 'ظاهر';
+
+  @override
   String get mapStyle => 'طرح نقشه';
-  String get mapStyleHint => 'کرهٔ صفحهٔ اصلی، همان‌طور که انتخاب می‌کنید رنگ می‌شود. نور اتصال همان می‌ماند.';
+
+  @override
+  String get mapStyleHint =>
+      'کرهٔ صفحهٔ اصلی، همان‌طور که انتخاب می‌کنید رنگ می‌شود. نور اتصال همان می‌ماند.';
+
+  @override
   String get mapSilver => 'نقره‌ای';
+
+  @override
   String get mapMidnight => 'نیمه‌شب';
+
+  @override
   String get mapOcean => 'اقیانوس';
+
+  @override
   String get mapMono => 'تک‌رنگ';
+
+  @override
   String get mapAurora => 'شفق';
+
+  @override
   String get batterySaver => 'ذخیرهٔ باتری';
-  String get batterySaverHint => 'حرکت نقشه را در حال اتصال به سکون می‌برد — نفس کره و درخشش چرخ. خود اتصال دقیقاً همان می‌ماند.';
+
+  @override
+  String get batterySaverHint =>
+      'حرکت نقشه را در حال اتصال به سکون می‌برد — نفس کره و درخشش چرخ. خود اتصال دقیقاً همان می‌ماند.';
+
+  @override
   String get connectOnOpen => 'اتصال هنگام باز شدن برنامه';
-  String get connectOnOpenHint => 'همان‌طور که برنامه باز می‌شود VPN را بالا می‌آورد، با آخرین مکانی که انتخاب کرده بودید.';
+
+  @override
+  String get connectOnOpenHint =>
+      'همان‌طور که برنامه باز می‌شود VPN را بالا می‌آورد، با آخرین مکانی که انتخاب کرده بودید.';
+
+  @override
   String get speedTitle => 'سرعت';
+
+  @override
   String get parallelTunnels => 'تونل‌های موازی';
-  String get parallelTunnelsHint => 'چند تونل را هم‌زمان به سمت Mozilla باز می‌کند و ترافیک را میان‌شان می‌بخشد، تا یک تونل کند دیگر سرعت را سقف‌دار نکند. هشت تونل سنگین‌ترین حالت برای باتری است.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'چند تونل را هم‌زمان به سمت Mozilla باز می‌کند و ترافیک را میان‌شان می‌بخشد، تا یک تونل کند دیگر سرعت را سقف‌دار نکند. هشت تونل سنگین‌ترین حالت برای باتری است.';
+
+  @override
   String get tunnels1 => 'یکی — باثبات‌ترین';
+
+  @override
   String get tunnels2 => 'دو';
+
+  @override
   String get tunnels4 => 'چهار — روی شبکه‌های کند تندتر';
+
+  @override
   String get tunnels8 => 'هشت — تندترین';
+
+  @override
   String get connectionCap => 'سقف اتصال‌ها';
-  String get connectionCapHint => 'چند برنامه می‌توانند هم‌زمان از VPN حرف بزنند؛ سقف کوچک‌تر روی گوشی پرکار باتری و دیتا ذخیره می‌کند. بی‌سقف حالت پیش‌فرض است.';
+
+  @override
+  String get connectionCapHint =>
+      'چند برنامه می‌توانند هم‌زمان از VPN حرف بزنند؛ سقف کوچک‌تر روی گوشی پرکار باتری و دیتا ذخیره می‌کند. بی‌سقف حالت پیش‌فرض است.';
+
+  @override
   String get capNone => 'بی‌سقف';
+
+  @override
   String get verboseLogging => 'تشخیص کامل';
-  String get verboseLoggingHint => 'هر گام را در گزارش می‌نویسد — برای گزارش یک مشکل سودمند است و کمی باتری بیش می‌خورد.';
-  String get wn38MapStylesAdded => 'پنج طرح برای نقشه: نقره‌ای، نیمه‌شب، اقیانوس، تک‌رنگ و شفق — صفحهٔ تازهٔ «ظاهر» در تنظیمات انتخابشان می‌کند، با پیش‌نمای هر یک.';
-  String get wn38ZoomAdded => 'نقشه زوم می‌شود: با دو انگشت کشش دهید، یا دو ضربه برای نزدیک شدن و برگشتن.';
-  String get wn38OptionsAdded => 'گزینه‌های کاربردی: تونل‌های موازی برای سرعت بیشتر، سقف اتصال‌ها، ذخیرهٔ باتری، اتصال هنگام باز شدن برنامه و تشخیص کامل.';
-  String get wn38SocialAdded => 'اینستاگرام و تلگرام حالا پایین همین صفحه هم هستند.';
-  String get wn38FlightImproved => 'انتخاب یک کشور یک پرواز کوچک است: دوربین کمی عقب می‌کشد، کره می‌چرخد، پین با یک جهش فرود می‌آید و راه‌ها خودشان تا مراکز اصلی کشیده می‌شوند.';
-  String get wn38EffectsImproved => 'نقشه پرجزئیات‌تر خوانده می‌شود: ستاره‌ها پشت کره، شبکهٔ مختصات، نورهای خود مراکز، هاله دور لبه و سایهٔ خشکی.';
-  String get wn38SpeedImproved => 'گزینهٔ سرعت واقعی شد: تونل‌های موازی چند اتصال را هم‌زمان باز می‌کنند و هسته ترافیک را میان‌شان می‌بخشد.';
-  String get wn38NameFixed => 'نام کشور انتخاب‌شده یک بار نشان داده می‌شود — روی کارت شناور نقشه؛ نسخهٔ زیر پرچم‌ها حذف شده است.';
+
+  @override
+  String get verboseLoggingHint =>
+      'هر گام را در گزارش می‌نویسد — برای گزارش یک مشکل سودمند است و کمی باتری بیش می‌خورد.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'پنج طرح برای نقشه: نقره‌ای، نیمه‌شب، اقیانوس، تک‌رنگ و شفق — صفحهٔ تازهٔ «ظاهر» در تنظیمات انتخابشان می‌کند، با پیش‌نمای هر یک.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'نقشه زوم می‌شود: با دو انگشت کشش دهید، یا دو ضربه برای نزدیک شدن و برگشتن.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'گزینه‌های کاربردی: تونل‌های موازی برای سرعت بیشتر، سقف اتصال‌ها، ذخیرهٔ باتری، اتصال هنگام باز شدن برنامه و تشخیص کامل.';
+
+  @override
+  String get wn38SocialAdded =>
+      'اینستاگرام و تلگرام حالا پایین همین صفحه هم هستند.';
+
+  @override
+  String get wn38FlightImproved =>
+      'انتخاب یک کشور یک پرواز کوچک است: دوربین کمی عقب می‌کشد، کره می‌چرخد، پین با یک جهش فرود می‌آید و راه‌ها خودشان تا مراکز اصلی کشیده می‌شوند.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'نقشه پرجزئیات‌تر خوانده می‌شود: ستاره‌ها پشت کره، شبکهٔ مختصات، نورهای خود مراکز، هاله دور لبه و سایهٔ خشکی.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'گزینهٔ سرعت واقعی شد: تونل‌های موازی چند اتصال را هم‌زمان باز می‌کنند و هسته ترافیک را میان‌شان می‌بخشد.';
+
+  @override
+  String get wn38NameFixed =>
+      'نام کشور انتخاب‌شده یک بار نشان داده می‌شود — روی کارت شناور نقشه؛ نسخهٔ زیر پرچم‌ها حذف شده است.';
+
+  @override
   String get mapKind => 'نوع نقشه';
+
+  @override
+  String get mapKindHint =>
+      'جهان صفحهٔ اصلی چگونه نشان داده شود: نقشهٔ تخت مثل همیشه (پیش‌فرض)، حالت مدرن آن، زمین شب، زمین زمین‌شناسی، کرهٔ فلزی، یا زمین ماهواره‌ای. مرزها در هر حالتی همان مرزهای واقعی و رسمی‌اند.';
+
+  @override
   String get mapKindClassic => 'اصلی';
+
+  @override
   String get mapKindGlobe => 'سه‌بعدی';
+
+  @override
   String get mapKindSatellite => 'ماهواره‌ای';
+
+  @override
   String get mapKindFlat => 'دو‌بعدی';
-  String get mapKindNight => 'شب';
-  String get soundFeedback => 'جلوه‌های صوتی';
-  String get soundFeedbackHint => 'صداهای نرم برای لمس‌ها، کلیدها و روشن و خاموش شدن اتصال';
-  String get rateUnit => 'واحد سرعت';
-  String get lockInBackground => 'قفل پس از ترک برنامه';
-  String get lockBgNever => 'هرگز';
-  String get lockBgNow => 'بلافاصله';
-  String get lockBgMin5 => 'پس از ۵ دقیقه';
-  String get lockBgMin15 => 'پس از ۱۵ دقیقه';
-  String get mb25600 => '۲۵ گیگابایت';
-  String get mb51200 => '۵۰ گیگابایت';
-  String get mb102400 => '۱۰۰ گیگابایت';
-  String get aboutChannels => 'صفحه‌های ارتباطی';
-  String get wn41Sound => 'صدای اتصال کنار لرزش نشست: VPN هنگام روشن یا خاموش شدن یک نت کوتاه پخش می‌کند (تنظیمات ← همگانی).';
-  String get copyIp => 'کپی آی‌پی';
-  String get wn42Fonts => 'هر زبان با قلم خود برنامه می‌خوانَد: نوتو سانس برای دو چینی و بنگالی، اینتر برای لاتین و سیریلیک — دیگر هیچ زبانی به فونت‌های گوشی تکیه نمی‌کند.';
-  String get wn42Sounds => 'صداهای برنامه حالا واقعی‌اند: لمسی نرم در هر بخش، دو نُت برای کلیدها، نُتی بالا رونده و پایین رونده هنگام برقراری و قطع اتصال، و یک بوق برای قفل — کلید صدا همه را کنترل می‌کند.';
-  String get wn42AboutFixed => 'صفحهٔ درباره لوگو، نام و توضیحش را در وسط می‌نشاند و نشانی‌های تماس در هر عرضی سالم و در یک سطر می‌مانند.';
-  String get wn42Gaming => 'نیم‌رخ گیمینگ حالا واقعی است: صفحهٔ سرورها تأخیرها را هر نیم دقیقه تازه می‌سنجد و سریع‌ترین را با رنگ تأکید نشان می‌دهد.';
-  String get wn41RateUnit => 'سرعت با واحدی که انتخاب می‌کنید خوانده می‌شود: همان کیلوبایت بر ثانیهٔ آشنا یا مگابیت بر ثانیهٔ خود اتصال.';
-  String get wn41BackgroundLock => 'برنامه می‌تواند در نبود شما خودش را قفل کند: رمز دوباره بلافاصله، پس از ۵ یا پس از ۱۵ دقیقه پرسیده می‌شود.';
-  String get wn41BiggerLimits => 'سقف دادهٔ نشست تا ۲۵، ۵۰ یا ۱۰۰ گیگابایت بالا می‌رود.';
-  String get wn41Motion => 'حرکت‌های تازه: گرهٔ متصل نفس می‌کشد، تیک خودش را می‌کشد، واژهٔ حالت میان حالت‌هایش سُر می‌خورد، و رمز اشتباه کادر را می‌لرزاند.';
-  String get wn41AboutFixed => 'صفحهٔ درباره مرتب نشست: دو صفحه کنار هم، هر توضیح در سطر خودش، بدون هیچ فشردگی.';
-  String get wn41HapticFixed => 'تنظیم لرزش دوباره کار می‌کند: روشن و خاموش شدن هر اتصال از آن پیروی می‌کند، نه فقط کشویی.';
-  String get mapKindTerrain => 'زمین';
-  String get mapKindHint => 'جهان صفحهٔ اصلی چگونه نشان داده شود: نقشهٔ تخت مثل همیشه (پیش‌فرض)، حالت مدرن آن، زمین شب، زمین زمین‌شناسی، کرهٔ فلزی، یا زمین ماهواره‌ای. مرزها در هر حالتی همان مرزهای واقعی و رسمی‌اند.';
-  String get wn40MapKindsNew => 'دو حالت تازهٔ نقشه: زمین شب و زمین زمین‌شناسی.';
-  String get wn40Flight => 'کرهٔ سه‌بعدی با یک چرخش نرم و روان به کشور تازه می‌رود — دیگر هیچ پرشی نیست.';
-  String get wn40Mercator => 'نقشه‌های تخت با تصویر استاندارد مرکاتور رسم می‌شوند: نسبت‌های واقعی، مرزهای استاندارد، بدون هیچ فشردگی.';
-  String get wn40NameBack => 'نام کشور انتخاب‌شده روی نقشه‌های تخت زیر پرچم‌ها برگشت.';
-  String get wn40Speed => 'تونل به‌طور پیش‌فرض دو نشست موازی باز می‌کند — خطی قوی‌تر و پایدارتر.';
-  String get wn40LockFixed => 'قفل دکمهٔ اتصال دیگر بین حالت‌ها چشمک نمی‌زند و ناپدید نمی‌شود.';
-  String get wn40IpRemoved => 'پنجرهٔ آی‌پی روی کارت مکان حذف شد.';
-  String get mapStyleGlobeHint => 'رنگ‌هایی که کرهٔ سه‌بعدی می‌پوشد. ماهواره زمین خودش را دارد و نقشه‌های تخت مرکب خودشان را.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'رنگ‌هایی که کرهٔ سه‌بعدی می‌پوشد. ماهواره زمین خودش را دارد و نقشه‌های تخت مرکب خودشان را.';
+
+  @override
   String get aboutVersions => 'نسخه';
-  String get checkUpdatesHint => 'جست‌وجوی نسخهٔ تازه‌تر؛ نسخهٔ پیدا‌شده دانلود می‌شود و نصب‌کننده می‌پرسد.';
+
+  @override
+  String get aboutChannels => 'صفحه‌های ارتباطی';
+
+  @override
+  String get checkUpdatesHint =>
+      'جست‌وجوی نسخهٔ تازه‌تر؛ نسخهٔ پیدا‌شده دانلود می‌شود و نصب‌کننده می‌پرسد.';
+
+  @override
   String get smartLocation => 'سریع‌ترین لوکیشن';
-  String get smartLocationHint => 'هر بار اتصال، روی سروری می‌نشیند که آزمون تأخیر خود هسته سریع‌ترین می‌خواند.';
+
+  @override
+  String get smartLocationHint =>
+      'هر بار اتصال، روی سروری می‌نشیند که آزمون تأخیر خود هسته سریع‌ترین می‌خواند.';
+
+  @override
   String get quicPass => 'گذر QUIC';
-  String get quicPassHint => 'QUIC برنامه‌ها (UDP ۴۴۳) از تونل می‌گذرد: تماس‌ها و بازی‌ها سرعت‌شان می‌ماند و به TCP پس نمی‌افتند.';
+
+  @override
+  String get quicPassHint =>
+      'QUIC برنامه‌ها (UDP ۴۴۳) از تونل می‌گذرد: تماس‌ها و بازی‌ها سرعت‌شان می‌ماند و به TCP پس نمی‌افتند.';
+
+  @override
   String get accountRename => 'تغییر نام اکانت';
+
+  @override
   String get accountRenameLabel => 'نام اکانت';
+
+  @override
   String get accountProfile => 'تصویر پروفایل';
+
+  @override
   String get avatarReset => 'بازگشت به نشان ساده';
+
+  @override
   String get accountSecurity => 'رمز برنامه';
+
+  @override
   String get appPasswordOn => 'برنامه پشت رمز باز می‌شود.';
+
+  @override
   String get appPasswordOff => 'بدون رمز: هر کس برنامه را باز کند داخل می‌شود.';
+
+  @override
   String get appPasswordSet => 'تنظیم رمز';
+
+  @override
   String get appPasswordChange => 'تغییر رمز';
+
+  @override
   String get appPasswordRemove => 'حذف رمز';
+
+  @override
   String get appPasswordCurrent => 'رمز فعلی';
+
+  @override
   String get appPasswordNew => 'رمز تازه (۴ نویسه یا بیشتر)';
+
+  @override
   String get appPasswordConfirm => 'تکرار رمز تازه';
+
+  @override
   String get appPasswordShort => 'دست‌کم ۴ نویسه.';
+
+  @override
   String get appPasswordMismatch => 'دو رمز یکی نیستند.';
+
+  @override
   String get appPasswordWrong => 'رمز نادرست';
-  String get appPasswordSetDone => 'رمز برقرار شد — از آغاز بعدی برنامه آن را می‌پرسد.';
+
+  @override
+  String get appPasswordSetDone =>
+      'رمز برقرار شد — از آغاز بعدی برنامه آن را می‌پرسد.';
+
+  @override
   String get appPasswordRemoved => 'رمز حذف شد؛ برنامه آزادانه باز می‌شود.';
+
+  @override
   String get appPasswordUnlock => 'برنامه قفل است';
+
+  @override
   String get appPasswordUnlockHint => 'برای ادامه رمز برنامه را وارد کنید.';
-  String get wn39MapKinds => 'نقشه دوباره نوع‌های خودش را دارد: نقشهٔ تخت مثل همیشه (پیش‌فرض)، کرهٔ سه‌بعدی، زمین ماهواره‌ای، و دوبعدی مدرن.';
-  String get wn39EyeIp => 'کارت لوکیشن یک چشم دارد: با لمسش نشانی خروج ترافیک را ببینید و کپی کنید.';
-  String get wn39Profile => 'هر اکانت نام و تصویر پروفایل خودش را دارد، و برنامه می‌تواند پشت رمز باز شود.';
-  String get wn39Smart => 'اتصال هوشمند کامل‌تر شد: سریع‌ترین لوکیشن با تأخیر واقعی، و گذر QUIC برای تماس‌ها و بازی‌ها.';
-  String get wn39Flight => 'تغییر کشور نرم‌تر پرواز می‌کند — دوربین روی دایرهٔ بزرگ می‌نشیند — و نشانگرهای چرخ پرچم به پرچم‌ها نزدیک‌ترند.';
-  String get wn39ToastEverywhere => 'اعلان پویا حالا همه‌جاست: هر «ذخیره شد»، «کپی شد» و «خطا» همان کپسول شیشه‌ای متحرک را می‌پوشد.';
-  String get wn39Updates => 'به‌روزرسانی‌ها حافظه را تمیز نگه می‌دارند: نصب‌کننده نسخهٔ قبلی را جایگزین می‌کند و هیچ بسته‌ای جا نمی‌ماند.';
-  String get wnDesignsRemoved => 'انتخاب‌گر «طرح برنامه» حذف شد: برنامه دوباره ظاهر تک‌رنگ خودش را می‌پوشد — رنگ تأکید و پوستهٔ شما سر جایشان‌اند.';
-  String get wnDnsAdded => 'DNS دستی: IP ساده، DNS روی HTTPS و DNS روی TLS — نوع هر خط هنگام نوشتن نشان داده و بررسی می‌شود.';
-  String get wnSmartImproved => 'اتصال هوشمند حالا نشان می‌دهد شبکه چه پاسخی داد: تراکنشی که برگزیده و نسخهٔ IP که نگه داشته، زنده.';
-  String get wnProtectionImproved => 'کلید قطع، وقتی پاسداری برقرار است می‌گوید و صفحهٔ برنامه‌ها نشان می‌دهد چند برنامه انتخاب کرده‌اید.';
-  String get wnWelcomeImproved => 'صفحهٔ خوش‌آمد با سپری نفس‌کش بر شفقی روان باز می‌شود و صفحهٔ حساب‌ها ماه را در یک نگاه جمع می‌کند.';
-  String bypassAppsCount(String n) => 'انتخاب‌شده: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'نقشه دوباره نوع‌های خودش را دارد: نقشهٔ تخت مثل همیشه (پیش‌فرض)، کرهٔ سه‌بعدی، زمین ماهواره‌ای، و دوبعدی مدرن.';
+
+  @override
+  String get wn39EyeIp =>
+      'کارت لوکیشن یک چشم دارد: با لمسش نشانی خروج ترافیک را ببینید و کپی کنید.';
+
+  @override
+  String get wn39Profile =>
+      'هر اکانت نام و تصویر پروفایل خودش را دارد، و برنامه می‌تواند پشت رمز باز شود.';
+
+  @override
+  String get wn39Smart =>
+      'اتصال هوشمند کامل‌تر شد: سریع‌ترین لوکیشن با تأخیر واقعی، و گذر QUIC برای تماس‌ها و بازی‌ها.';
+
+  @override
+  String get wn39Flight =>
+      'تغییر کشور نرم‌تر پرواز می‌کند — دوربین روی دایرهٔ بزرگ می‌نشیند — و نشانگرهای چرخ پرچم به پرچم‌ها نزدیک‌ترند.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'اعلان پویا حالا همه‌جاست: هر «ذخیره شد»، «کپی شد» و «خطا» همان کپسول شیشه‌ای متحرک را می‌پوشد.';
+
+  @override
+  String get wn39Updates =>
+      'به‌روزرسانی‌ها حافظه را تمیز نگه می‌دارند: نصب‌کننده نسخهٔ قبلی را جایگزین می‌کند و هیچ بسته‌ای جا نمی‌ماند.';
+
+  @override
+  String get mapKindNight => 'شب';
+
+  @override
+  String get mapKindTerrain => 'زمین';
+
+  @override
+  String get wn40MapKindsNew =>
+      'دو حالت تازهٔ نقشه: زمین شب و زمین زمین‌شناسی.';
+
+  @override
+  String get wn40Flight =>
+      'کرهٔ سه‌بعدی با یک چرخش نرم و روان به کشور تازه می‌رود — دیگر هیچ پرشی نیست.';
+
+  @override
+  String get wn40Mercator =>
+      'نقشه‌های تخت با تصویر استاندارد مرکاتور رسم می‌شوند: نسبت‌های واقعی، مرزهای استاندارد، بدون هیچ فشردگی.';
+
+  @override
+  String get wn40NameBack =>
+      'نام کشور انتخاب‌شده روی نقشه‌های تخت زیر پرچم‌ها برگشت.';
+
+  @override
+  String get wn40Speed =>
+      'تونل به‌طور پیش‌فرض دو نشست موازی باز می‌کند — خطی قوی‌تر و پایدارتر.';
+
+  @override
+  String get wn40LockFixed =>
+      'قفل دکمهٔ اتصال دیگر بین حالت‌ها چشمک نمی‌زند و ناپدید نمی‌شود.';
+
+  @override
+  String get wn40IpRemoved => 'پنجرهٔ آی‌پی روی کارت مکان حذف شد.';
+
+  @override
+  String get soundFeedback => 'جلوه‌های صوتی';
+
+  @override
+  String get soundFeedbackHint =>
+      'صداهای نرم برای لمس‌ها، کلیدها و روشن و خاموش شدن اتصال';
+
+  @override
+  String get rateUnit => 'واحد سرعت';
+
+  @override
+  String get lockInBackground => 'قفل پس از ترک برنامه';
+
+  @override
+  String get lockBgNever => 'هرگز';
+
+  @override
+  String get lockBgNow => 'بلافاصله';
+
+  @override
+  String get lockBgMin5 => 'پس از ۵ دقیقه';
+
+  @override
+  String get lockBgMin15 => 'پس از ۱۵ دقیقه';
+
+  @override
+  String get mb25600 => '۲۵ گیگابایت';
+
+  @override
+  String get mb51200 => '۵۰ گیگابایت';
+
+  @override
+  String get mb102400 => '۱۰۰ گیگابایت';
+
+  @override
+  String get wn41Sound =>
+      'صدای اتصال کنار لرزش نشست: VPN هنگام روشن یا خاموش شدن یک نت کوتاه پخش می‌کند (تنظیمات ← همگانی).';
+
+  @override
+  String get wn41RateUnit =>
+      'سرعت با واحدی که انتخاب می‌کنید خوانده می‌شود: همان کیلوبایت بر ثانیهٔ آشنا یا مگابیت بر ثانیهٔ خود اتصال.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'برنامه می‌تواند در نبود شما خودش را قفل کند: رمز دوباره بلافاصله، پس از ۵ یا پس از ۱۵ دقیقه پرسیده می‌شود.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'سقف دادهٔ نشست تا ۲۵، ۵۰ یا ۱۰۰ گیگابایت بالا می‌رود.';
+
+  @override
+  String get wn41Motion =>
+      'حرکت‌های تازه: گرهٔ متصل نفس می‌کشد، تیک خودش را می‌کشد، واژهٔ حالت میان حالت‌هایش سُر می‌خورد، و رمز اشتباه کادر را می‌لرزاند.';
+
+  @override
+  String get wn41AboutFixed =>
+      'صفحهٔ درباره مرتب نشست: دو صفحه کنار هم، هر توضیح در سطر خودش، بدون هیچ فشردگی.';
+
+  @override
+  String get wn41HapticFixed =>
+      'تنظیم لرزش دوباره کار می‌کند: روشن و خاموش شدن هر اتصال از آن پیروی می‌کند، نه فقط کشویی.';
+
+  @override
+  String get copyIp => 'کپی آی‌پی';
+
+  @override
+  String get wn42Fonts =>
+      'هر زبان با قلم خود برنامه می‌خوانَد: نوتو سانس برای دو چینی و بنگالی، اینتر برای لاتین و سیریلیک — دیگر هیچ زبانی به فونت‌های گوشی تکیه نمی‌کند.';
+
+  @override
+  String get wn42Sounds =>
+      'صداهای برنامه حالا واقعی‌اند: لمسی نرم در هر بخش، دو نُت برای کلیدها، نُتی بالا رونده و پایین رونده هنگام برقراری و قطع اتصال، و یک بوق برای قفل — کلید صدا همه را کنترل می‌کند.';
+
+  @override
+  String get wn42AboutFixed =>
+      'صفحهٔ درباره لوگو، نام و توضیحش را در وسط می‌نشاند و نشانی‌های تماس در هر عرضی سالم و در یک سطر می‌مانند.';
+
+  @override
+  String get wn42Gaming =>
+      'نیم‌رخ گیمینگ حالا واقعی است: صفحهٔ سرورها تأخیرها را هر نیم دقیقه تازه می‌سنجد و سریع‌ترین را با رنگ تأکید نشان می‌دهد.';
+
+  @override
+  String get avatarPhoto => 'عکس دلخواه';
+
+  @override
+  String get avatarPhotoFailed => 'این عکس قابل استفاده نبود';
 }

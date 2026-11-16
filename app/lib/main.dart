@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_settings.dart';
+import 'app_info.dart';
 import 'core/android_core.dart';
 import 'core/core_api.dart';
 import 'core/core_controller.dart';
@@ -12,6 +14,7 @@ import 'core/core_process.dart';
 import 'core/ports.dart';
 import 'core/tun_service.dart';
 import 'desktop/desktop_integration.dart';
+import 'l10n/app_localizations.dart';
 import 'ui/app.dart';
 import 'ui/whats_new.dart';
 
@@ -112,6 +115,34 @@ Future<void> runAndroid() async {
     onHide: () => core.onScreen = false,
   );
   Updates.start(core, settings);
+  // A newer version announces itself on the phone's own bell: one
+  // notification per release (the settings keep the count), in the
+  // language the app wears. The home page carries the notice too, but a
+  // release that lands while the app is in the hand should say so at
+  // once, not wait for the next look at the page.
+  Updates.available.addListener(() {
+    final release = Updates.available.value;
+    if (release == null || !newerVersion(release.version, appVersion)) {
+      return;
+    }
+    if (release.version == settings.updateNotifiedVersion) return;
+    settings.update(updateNotifiedVersion: release.version);
+    final l = lookupAppLocalizations(
+      AppSettings.localeOf(
+        AppSettings.languageFor(
+          WidgetsBinding.instance.platformDispatcher.locale,
+        ),
+      ),
+    );
+    unawaited(
+      AndroidCore.notifyUpdate(
+        l.appTitle,
+        release.mandatory
+            ? l.updateRequired(release.version)
+            : l.updateAvailable(release.version),
+      ),
+    );
+  });
   // A version just installed shows its What's New once, after the first
   // frame, so it lands on a drawn home page instead of a blank one.
   if (whatsNewPending(settings)) {

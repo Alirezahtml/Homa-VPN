@@ -2058,149 +2058,490 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get statSession => 'Sessão';
+
+  @override
   String get copiedToClipboard => 'Copiado para a área de transferência';
-  String get wnTotalsAdded => 'A página inicial mostra o total que a sessão moveu, e um toque copia o IP público.';
-  String get wnPolishImproved => 'A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.';
+
+  @override
+  String get wnTotalsAdded =>
+      'A página inicial mostra o total que a sessão moveu, e um toque copia o IP público.';
+
+  @override
+  String get wnPolishImproved =>
+      'A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.';
 
   @override
   String get smartNetwork => 'Conexão inteligente';
-  String get smartNetworkHint => 'MTU, protocolo e versão de IP seguem esta rede, em busca de velocidade.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, protocolo e versão de IP seguem esta rede, em busca de velocidade.';
+
+  @override
   String get valueSmart => 'Inteligente';
+
+  @override
   String get mtuAutoValue => 'Automático — conforme a rede';
+
+  @override
+  String get wnSmartAdded =>
+      'Conexão inteligente: MTU, protocolo e versão de IP seguem a rede, escolhidos por respostas reais e para a velocidade.';
+
+  @override
+  String get wnToastAdded =>
+      'As confirmações chegam como uma nota suave ao estilo iOS, com uma marca que se desenha sozinha.';
+
+  @override
+  String get wnFlagsImproved =>
+      'A roda de bandeiras fica limpa: nenhuma bandeira é cortada na borda da tela, elas aparecem inteiras e a escolha pousa com uma mola suave.';
+
+  @override
+  String get wnMapImproved =>
+      'O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.';
+
+  @override
+  String get smartWaiting => 'Medindo…';
+
+  @override
+  String get smartFamilyRace => 'Ambos correm na primeira conexão';
+
+  @override
+  String get dnsManual => 'DNS manual';
+
+  @override
+  String get dnsManualHint =>
+      'Um endereço por linha: IP simples, https:// (DNS sobre HTTPS) ou tls://host (DNS sobre TLS). A primeira resposta vence.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Uma linha não é um endereço que o núcleo possa usar: IP simples, https://… ou tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Sob guarda: nada sai do telefone enquanto o túnel estiver fora.';
+
+  @override
+  String get accountsUsageTitle => 'Este mês';
+
+  @override
+  String get accountsCountLabel => 'contas';
+
+  @override
+  String get accountsUsageAverage => 'média da parte gasta das contas';
+
+  @override
+  String get wnDesignsAdded =>
+      'Designs do app: o app inteiro pode vestir Neomorfismo suave ou Vidro aurora — cada página, cada cartão — em Ajustes → Geral.';
+
+  @override
+  String get wnWheelFixed =>
+      'A meia-bandeira da roda sumiu: a prateleira sob a bandeira escolhida é uma poça de luz, não uma segunda bandeira, e nada é cortado na borda da tela.';
+
+  @override
+  String get wnMapReal =>
+      'O mapa-múndi foi redesenhado com as fronteiras oficiais dos países — cada costa, ilha e enclave, fiel e na proporção real.';
+
+  @override
+  String get wnGlobeAdded =>
+      'O mundo virou um globo: a bola de prata gira para mostrar o país escolhido, um pino brilhante e um cartão flutuante o marcam, e as rotas da conexão vão até os hubs.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'A bandeira escolhida fica maior em uma moldura de vidro com seu halo azul, as vizinhas ficam claramente menores e os marcadores sob a roda mostram onde você está.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'O seletor de design do app saiu: o app volta a vestir seu monocromático original — seu destaque e seu tema ficam como estavam.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS manual: IPs simples, DNS sobre HTTPS e DNS sobre TLS — o tipo de cada linha é mostrado e conferido ao digitar.';
+
+  @override
+  String get wnSmartImproved =>
+      'A conexão inteligente agora mostra o que a rede respondeu: o transporte escolhido e a versão de IP mantida, em tempo real.';
+
+  @override
+  String get wnProtectionImproved =>
+      'O kill switch avisa quando a sua guarda está de pé, e a página de apps mostra quantos você escolheu.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'A boas-vindas abre com um escudo que respira sobre uma aurora à deriva, e a página de contas resume o mês num relance.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Escolhidos: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Automático — a rede leva $mtu';
   }
-  String get wnSmartAdded => 'Conexão inteligente: MTU, protocolo e versão de IP seguem a rede, escolhidos por respostas reais e para a velocidade.';
-  String get wnToastAdded => 'As confirmações chegam como uma nota suave ao estilo iOS, com uma marca que se desenha sozinha.';
-  String get wnFlagsImproved => 'A roda de bandeiras fica limpa: nenhuma bandeira é cortada na borda da tela, elas aparecem inteiras e a escolha pousa com uma mola suave.';
-  String get wnMapImproved => 'O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.';
 
   @override
-  String get smartWaiting => 'Medindo…';
-  String get smartFamilyRace => 'Ambos correm na primeira conexão';
-  String get dnsManual => 'DNS manual';
-  String get dnsManualHint => 'Um endereço por linha: IP simples, https:// (DNS sobre HTTPS) ou tls://host (DNS sobre TLS). A primeira resposta vence.';
-  String get dnsManualInvalid => 'Uma linha não é um endereço que o núcleo possa usar: IP simples, https://… ou tls://host.';
-  String get killSwitchGuarded => 'Sob guarda: nada sai do telefone enquanto o túnel estiver fora.';
-  String get accountsUsageTitle => 'Este mês';
-  String get accountsCountLabel => 'contas';
-  String get accountsUsageAverage => 'média da parte gasta das contas';
-  String get wnDesignsAdded => 'Designs do app: o app inteiro pode vestir Neomorfismo suave ou Vidro aurora — cada página, cada cartão — em Ajustes → Geral.';
-  String get wnWheelFixed => 'A meia-bandeira da roda sumiu: a prateleira sob a bandeira escolhida é uma poça de luz, não uma segunda bandeira, e nada é cortado na borda da tela.';
-  String get wnMapReal => 'O mapa-múndi foi redesenhado com as fronteiras oficiais dos países — cada costa, ilha e enclave, fiel e na proporção real.';
-  String get wnGlobeAdded => 'O mundo virou um globo: a bola de prata gira para mostrar o país escolhido, um pino brilhante e um cartão flutuante o marcam, e as rotas da conexão vão até os hubs.';
-  String get wnWheelGlowImproved => 'A bandeira escolhida fica maior em uma moldura de vidro com seu halo azul, as vizinhas ficam claramente menores e os marcadores sob a roda mostram onde você está.';
   String get sectionAppearance => 'Aparência';
+
+  @override
   String get mapStyle => 'Estilo do mapa';
-  String get mapStyleHint => 'O globo da página inicial é pintado como você escolher. A luz da conexão continua igual.';
+
+  @override
+  String get mapStyleHint =>
+      'O globo da página inicial é pintado como você escolher. A luz da conexão continua igual.';
+
+  @override
   String get mapSilver => 'Prata';
+
+  @override
   String get mapMidnight => 'Meia-noite';
+
+  @override
   String get mapOcean => 'Oceano';
+
+  @override
   String get mapMono => 'Mono';
+
+  @override
   String get mapAurora => 'Aurora';
+
+  @override
   String get batterySaver => 'Economia de bateria';
-  String get batterySaverHint => 'Coloca o movimento do mapa em repouso enquanto conectado — a respiração do globo, o brilho da roda. A conexão em si continua exatamente igual.';
+
+  @override
+  String get batterySaverHint =>
+      'Coloca o movimento do mapa em repouso enquanto conectado — a respiração do globo, o brilho da roda. A conexão em si continua exatamente igual.';
+
+  @override
   String get connectOnOpen => 'Conectar ao abrir o app';
-  String get connectOnOpenHint => 'Ativa a VPN ao abrir o app, com o último local que você escolheu.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Ativa a VPN ao abrir o app, com o último local que você escolheu.';
+
+  @override
   String get speedTitle => 'Velocidade';
+
+  @override
   String get parallelTunnels => 'Túneis paralelos';
-  String get parallelTunnelsHint => 'Abre vários túneis para a Mozilla de uma vez e divide o tráfego entre eles, para que um túnel lento não limite mais a velocidade. Oito é o mais pesado para a bateria.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Abre vários túneis para a Mozilla de uma vez e divide o tráfego entre eles, para que um túnel lento não limite mais a velocidade. Oito é o mais pesado para a bateria.';
+
+  @override
   String get tunnels1 => 'Um — o mais estável';
+
+  @override
   String get tunnels2 => 'Dois';
+
+  @override
   String get tunnels4 => 'Quatro — mais rápido em redes lentas';
+
+  @override
   String get tunnels8 => 'Oito — o mais rápido';
+
+  @override
   String get connectionCap => 'Limite de conexões';
-  String get connectionCapHint => 'Quantos apps podem falar pela VPN ao mesmo tempo; um limite menor economiza bateria e dados num telefone bem usado. Sem limite é o padrão.';
+
+  @override
+  String get connectionCapHint =>
+      'Quantos apps podem falar pela VPN ao mesmo tempo; um limite menor economiza bateria e dados num telefone bem usado. Sem limite é o padrão.';
+
+  @override
   String get capNone => 'Sem limite';
+
+  @override
   String get verboseLogging => 'Diagnóstico detalhado';
-  String get verboseLoggingHint => 'Escreve cada passo no registro — útil ao relatar um problema, um pouco mais pesado para a bateria.';
-  String get wn38MapStylesAdded => 'Cinco estilos para o mapa: prata, meia-noite, oceano, mono e aurora — a nova página de Aparência nos ajustes escolhe, com prévia de cada um.';
-  String get wn38ZoomAdded => 'O mapa dá zoom: pince com dois dedos, ou toque duas vezes para aproximar e voltar.';
-  String get wn38OptionsAdded => 'Opções práticas: túneis paralelos para mais velocidade, limite de conexões, economia de bateria, conectar ao abrir o app e diagnóstico detalhado.';
-  String get wn38SocialAdded => 'Instagram e Telegram agora também moram no fim desta página.';
-  String get wn38FlightImproved => 'Escolher um país é um voo curto: a câmera recua, o globo gira, o pino cai com um pulo e as estradas se desenham sozinhas até os centros.';
-  String get wn38EffectsImproved => 'O mapa fica mais rico: estrelas atrás do globo, uma grade de coordenadas, as luzes dos centros, um halo na borda e a sombra da terra.';
-  String get wn38SpeedImproved => 'A opção de velocidade é real: os túneis paralelos abrem várias conexões de uma vez, e o núcleo divide o tráfego entre elas.';
-  String get wn38NameFixed => 'O nome do país escolhido aparece uma vez — no cartão flutuante do mapa; a cópia sob as bandeiras se foi.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Escreve cada passo no registro — útil ao relatar um problema, um pouco mais pesado para a bateria.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Cinco estilos para o mapa: prata, meia-noite, oceano, mono e aurora — a nova página de Aparência nos ajustes escolhe, com prévia de cada um.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'O mapa dá zoom: pince com dois dedos, ou toque duas vezes para aproximar e voltar.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Opções práticas: túneis paralelos para mais velocidade, limite de conexões, economia de bateria, conectar ao abrir o app e diagnóstico detalhado.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Instagram e Telegram agora também moram no fim desta página.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Escolher um país é um voo curto: a câmera recua, o globo gira, o pino cai com um pulo e as estradas se desenham sozinhas até os centros.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'O mapa fica mais rico: estrelas atrás do globo, uma grade de coordenadas, as luzes dos centros, um halo na borda e a sombra da terra.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'A opção de velocidade é real: os túneis paralelos abrem várias conexões de uma vez, e o núcleo divide o tráfego entre elas.';
+
+  @override
+  String get wn38NameFixed =>
+      'O nome do país escolhido aparece uma vez — no cartão flutuante do mapa; a cópia sob as bandeiras se foi.';
+
+  @override
   String get mapKind => 'Tipo de mapa';
+
+  @override
+  String get mapKindHint =>
+      'Como o mundo da página inicial é mostrado: o mapa plano de sempre (padrão), seu acabamento moderno, a Terra noturna, a Terra de relevo, o globo de metal ou a Terra de satélite. As fronteiras são as oficiais reais em cada tipo.';
+
+  @override
   String get mapKindClassic => 'Clássico';
+
+  @override
   String get mapKindGlobe => 'Globo 3D';
+
+  @override
   String get mapKindSatellite => 'Satélite';
+
+  @override
   String get mapKindFlat => 'Plano 2D';
-  String get mapKindNight => 'Noite';
-  String get aboutChannels => 'Páginas de contato';
-  String get soundFeedback => 'Efeitos sonoros';
-  String get soundFeedbackHint => 'Sons suaves ao tocar, nos interruptores e ao conectar ou desconectar';
-  String get rateUnit => 'Unidade de velocidade';
-  String get lockInBackground => 'Bloquear ao sair';
-  String get lockBgNever => 'Nunca';
-  String get lockBgNow => 'Logo em seguida';
-  String get lockBgMin5 => 'Após 5 minutos';
-  String get lockBgMin15 => 'Após 15 minutos';
-  String get mb25600 => '25 GB';
-  String get mb51200 => '50 GB';
-  String get mb102400 => '100 GB';
-  String get wn41Sound => 'O som de conexão acompanha a vibração: a VPN toca uma nota curta ao conectar ou desconectar (Ajustes → Geral).';
-  String get copyIp => 'Copiar o IP';
-  String get wn42Fonts => 'Cada idioma lê com a fonte própria do app: Noto Sans para os dois chineses e o bengali, Inter para os latinos e cirílicos — nenhum idioma depende mais das fontes do telefone.';
-  String get wn42Sounds => 'Os sons do app agora são reais: um toque suave em cada seção, duas notas para os interruptores, uma nota que sobe e desce ao conectar e desconectar, um ping para o bloqueio — o interruptor de som governa todos.';
-  String get wn42AboutFixed => 'A página Sobre centra o logotipo, o nome e a nota, e os identificadores de contato ficam inteiros numa linha, seja qual for a largura do telefone.';
-  String get wn42Gaming => 'O perfil de jogo agora é real: a página de servidores remede os atrasos a cada meio minuto e destaca o mais rápido medido com o acento.';
-  String get wn41RateUnit => 'A velocidade é lida na unidade que você escolhe: o conhecido KB/s ou o Mbps da conexão.';
-  String get wn41BackgroundLock => 'O app pode se bloquear na sua ausência: a senha é pedida de novo logo, após 5 ou após 15 minutos.';
-  String get wn41BiggerLimits => 'O limite de dados da sessão sobe para 25, 50 ou 100 GB.';
-  String get wn41Motion => 'Movimento novo: o orbe conectado respira, o visto se desenha sozinho, a palavra de estado desliza entre seus valores e uma senha errada sacode o campo.';
-  String get wn41AboutFixed => 'A página Sobre fica arrumada: as duas páginas lado a lado, cada aviso na sua linha, nada comprimido.';
-  String get wn41HapticFixed => 'O ajuste de vibração responde de novo: toda conexão e desconexão o segue, não só o deslizador.';
-  String get mapKindTerrain => 'Relevo';
-  String get mapKindHint => 'Como o mundo da página inicial é mostrado: o mapa plano de sempre (padrão), seu acabamento moderno, a Terra noturna, a Terra de relevo, o globo de metal ou a Terra de satélite. As fronteiras são as oficiais reais em cada tipo.';
-  String get wn40MapKindsNew => 'Dois novos acabamentos do mapa: a Terra noturna e a Terra de relevo.';
-  String get wn40Flight => 'O globo 3D voa para o novo país num giro suave — nunca um salto.';
-  String get wn40Mercator => 'Os mapas planos se desenham na projeção Mercator padrão: proporções verdadeiras, fronteiras padrão, nada comprimido.';
-  String get wn40NameBack => 'O nome do país escolhido volta sob as bandeiras nos mapas planos.';
-  String get wn40Speed => 'O túnel agora abre duas sessões paralelas por padrão — uma linha mais forte e estável.';
-  String get wn40LockFixed => 'O cadeado do botão de conexão não pisca mais entre seus estados.';
-  String get wn40IpRemoved => 'A janela de IP do cartão de local foi removida.';
-  String get mapStyleGlobeHint => 'As cores que o globo 3D veste. O satélite carrega a sua própria Terra e os mapas planos a sua própria tinta.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'As cores que o globo 3D veste. O satélite carrega a sua própria Terra e os mapas planos a sua própria tinta.';
+
+  @override
   String get aboutVersions => 'Versão';
-  String get checkUpdatesHint => 'Procurar uma versão mais nova; a encontrada é baixada e o instalador pergunta.';
+
+  @override
+  String get aboutChannels => 'Páginas de contato';
+
+  @override
+  String get checkUpdatesHint =>
+      'Procurar uma versão mais nova; a encontrada é baixada e o instalador pergunta.';
+
+  @override
   String get smartLocation => 'Localização mais rápida';
-  String get smartLocationHint => 'Cada início usa o servidor que o teste de latência do núcleo diz ser o mais rápido.';
+
+  @override
+  String get smartLocationHint =>
+      'Cada início usa o servidor que o teste de latência do núcleo diz ser o mais rápido.';
+
+  @override
   String get quicPass => 'Passagem QUIC';
-  String get quicPassHint => 'O QUIC dos apps (UDP 443) passa pelo túnel: chamadas e jogos mantêm a velocidade em vez de cair para TCP.';
+
+  @override
+  String get quicPassHint =>
+      'O QUIC dos apps (UDP 443) passa pelo túnel: chamadas e jogos mantêm a velocidade em vez de cair para TCP.';
+
+  @override
   String get accountRename => 'Renomear conta';
+
+  @override
   String get accountRenameLabel => 'Nome da conta';
+
+  @override
   String get accountProfile => 'Foto de perfil';
+
+  @override
   String get avatarReset => 'Voltar à marca simples';
+
+  @override
   String get accountSecurity => 'Senha do app';
+
+  @override
   String get appPasswordOn => 'O app abre atrás de uma senha.';
+
+  @override
   String get appPasswordOff => 'Sem senha: quem abrir o app entra.';
+
+  @override
   String get appPasswordSet => 'Definir senha';
+
+  @override
   String get appPasswordChange => 'Mudar senha';
+
+  @override
   String get appPasswordRemove => 'Remover senha';
+
+  @override
   String get appPasswordCurrent => 'Senha atual';
+
+  @override
   String get appPasswordNew => 'Nova senha (4+ caracteres)';
+
+  @override
   String get appPasswordConfirm => 'Repita a nova senha';
+
+  @override
   String get appPasswordShort => 'Pelo menos 4 caracteres.';
+
+  @override
   String get appPasswordMismatch => 'As duas senhas não são iguais.';
+
+  @override
   String get appPasswordWrong => 'Senha incorreta';
-  String get appPasswordSetDone => 'A senha está posta — o app a pedirá a partir do próximo início.';
+
+  @override
+  String get appPasswordSetDone =>
+      'A senha está posta — o app a pedirá a partir do próximo início.';
+
+  @override
   String get appPasswordRemoved => 'A senha se foi; o app abre livremente.';
+
+  @override
   String get appPasswordUnlock => 'O app está bloqueado';
+
+  @override
   String get appPasswordUnlockHint => 'Escreva a senha do app para continuar.';
-  String get wn39MapKinds => 'O mapa volta a ter tipos: o plano de sempre (padrão), o globo 3D, a Terra de satélite e um plano 2D moderno.';
-  String get wn39EyeIp => 'O cartão de localização traz um olho: toque para ver o endereço de saída do tráfego e copiá-lo.';
-  String get wn39Profile => 'As contas carregam o próprio nome e foto de perfil, e o app pode abrir atrás de uma senha.';
-  String get wn39Smart => 'A conexão inteligente cresceu: a localização mais rápida por latência real e a passagem QUIC para chamadas e jogos.';
-  String get wn39Flight => 'A mudança de país voa mais suave — a câmera segue o círculo máximo — e os marcadores da roda de bandeiras ficam junto às bandeiras.';
-  String get wn39ToastEverywhere => 'A nota dinâmica está em todo lugar: cada salvamento, cópia e falha veste a mesma pílula de vidro animada.';
-  String get wn39Updates => 'As atualizações mantêm o armazenamento limpo: o instalador substitui a versão velha e nenhum pacote fica.';
-  String get wnDesignsRemoved => 'O seletor de design do app saiu: o app volta a vestir seu monocromático original — seu destaque e seu tema ficam como estavam.';
-  String get wnDnsAdded => 'DNS manual: IPs simples, DNS sobre HTTPS e DNS sobre TLS — o tipo de cada linha é mostrado e conferido ao digitar.';
-  String get wnSmartImproved => 'A conexão inteligente agora mostra o que a rede respondeu: o transporte escolhido e a versão de IP mantida, em tempo real.';
-  String get wnProtectionImproved => 'O kill switch avisa quando a sua guarda está de pé, e a página de apps mostra quantos você escolheu.';
-  String get wnWelcomeImproved => 'A boas-vindas abre com um escudo que respira sobre uma aurora à deriva, e a página de contas resume o mês num relance.';
-  String bypassAppsCount(String n) => 'Escolhidos: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'O mapa volta a ter tipos: o plano de sempre (padrão), o globo 3D, a Terra de satélite e um plano 2D moderno.';
+
+  @override
+  String get wn39EyeIp =>
+      'O cartão de localização traz um olho: toque para ver o endereço de saída do tráfego e copiá-lo.';
+
+  @override
+  String get wn39Profile =>
+      'As contas carregam o próprio nome e foto de perfil, e o app pode abrir atrás de uma senha.';
+
+  @override
+  String get wn39Smart =>
+      'A conexão inteligente cresceu: a localização mais rápida por latência real e a passagem QUIC para chamadas e jogos.';
+
+  @override
+  String get wn39Flight =>
+      'A mudança de país voa mais suave — a câmera segue o círculo máximo — e os marcadores da roda de bandeiras ficam junto às bandeiras.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'A nota dinâmica está em todo lugar: cada salvamento, cópia e falha veste a mesma pílula de vidro animada.';
+
+  @override
+  String get wn39Updates =>
+      'As atualizações mantêm o armazenamento limpo: o instalador substitui a versão velha e nenhum pacote fica.';
+
+  @override
+  String get mapKindNight => 'Noite';
+
+  @override
+  String get mapKindTerrain => 'Relevo';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Dois novos acabamentos do mapa: a Terra noturna e a Terra de relevo.';
+
+  @override
+  String get wn40Flight =>
+      'O globo 3D voa para o novo país num giro suave — nunca um salto.';
+
+  @override
+  String get wn40Mercator =>
+      'Os mapas planos se desenham na projeção Mercator padrão: proporções verdadeiras, fronteiras padrão, nada comprimido.';
+
+  @override
+  String get wn40NameBack =>
+      'O nome do país escolhido volta sob as bandeiras nos mapas planos.';
+
+  @override
+  String get wn40Speed =>
+      'O túnel agora abre duas sessões paralelas por padrão — uma linha mais forte e estável.';
+
+  @override
+  String get wn40LockFixed =>
+      'O cadeado do botão de conexão não pisca mais entre seus estados.';
+
+  @override
+  String get wn40IpRemoved => 'A janela de IP do cartão de local foi removida.';
+
+  @override
+  String get soundFeedback => 'Efeitos sonoros';
+
+  @override
+  String get soundFeedbackHint =>
+      'Sons suaves ao tocar, nos interruptores e ao conectar ou desconectar';
+
+  @override
+  String get rateUnit => 'Unidade de velocidade';
+
+  @override
+  String get lockInBackground => 'Bloquear ao sair';
+
+  @override
+  String get lockBgNever => 'Nunca';
+
+  @override
+  String get lockBgNow => 'Logo em seguida';
+
+  @override
+  String get lockBgMin5 => 'Após 5 minutos';
+
+  @override
+  String get lockBgMin15 => 'Após 15 minutos';
+
+  @override
+  String get mb25600 => '25 GB';
+
+  @override
+  String get mb51200 => '50 GB';
+
+  @override
+  String get mb102400 => '100 GB';
+
+  @override
+  String get wn41Sound =>
+      'O som de conexão acompanha a vibração: a VPN toca uma nota curta ao conectar ou desconectar (Ajustes → Geral).';
+
+  @override
+  String get wn41RateUnit =>
+      'A velocidade é lida na unidade que você escolhe: o conhecido KB/s ou o Mbps da conexão.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'O app pode se bloquear na sua ausência: a senha é pedida de novo logo, após 5 ou após 15 minutos.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'O limite de dados da sessão sobe para 25, 50 ou 100 GB.';
+
+  @override
+  String get wn41Motion =>
+      'Movimento novo: o orbe conectado respira, o visto se desenha sozinho, a palavra de estado desliza entre seus valores e uma senha errada sacode o campo.';
+
+  @override
+  String get wn41AboutFixed =>
+      'A página Sobre fica arrumada: as duas páginas lado a lado, cada aviso na sua linha, nada comprimido.';
+
+  @override
+  String get wn41HapticFixed =>
+      'O ajuste de vibração responde de novo: toda conexão e desconexão o segue, não só o deslizador.';
+
+  @override
+  String get copyIp => 'Copiar o IP';
+
+  @override
+  String get wn42Fonts =>
+      'Cada idioma lê com a fonte própria do app: Noto Sans para os dois chineses e o bengali, Inter para os latinos e cirílicos — nenhum idioma depende mais das fontes do telefone.';
+
+  @override
+  String get wn42Sounds =>
+      'Os sons do app agora são reais: um toque suave em cada seção, duas notas para os interruptores, uma nota que sobe e desce ao conectar e desconectar, um ping para o bloqueio — o interruptor de som governa todos.';
+
+  @override
+  String get wn42AboutFixed =>
+      'A página Sobre centra o logotipo, o nome e a nota, e os identificadores de contato ficam inteiros numa linha, seja qual for a largura do telefone.';
+
+  @override
+  String get wn42Gaming =>
+      'O perfil de jogo agora é real: a página de servidores remede os atrasos a cada meio minuto e destaca o mais rápido medido com o acento.';
+
+  @override
+  String get avatarPhoto => 'Sua foto';
+
+  @override
+  String get avatarPhotoFailed => 'Não foi possível usar essa imagem';
 }

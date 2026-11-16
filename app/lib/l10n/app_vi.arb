@@ -733,5 +733,7 @@
   "wn42Fonts": "Mọi ngôn ngữ đều đọc bằng phông chữ riêng của ứng dụng: Noto Sans cho hai tiếng Trung và tiếng Bengal, Inter cho các ngôn ngữ Latinh và Kiryl — không còn ngôn ngữ nào dựa vào phông chữ của điện thoại.",
   "wn42Sounds": "Âm thanh của ứng dụng giờ đây có thật: một cú chạm nhẹ ở mỗi phần, hai nốt cho công tắc, một nốt lên xuống khi kết nối bật và tắt, một tiếng ping cho khoá — công tắc âm thanh kiểm soát tất cả.",
   "wn42AboutFixed": "Trang Giới thiệu đặt logo, tên và ghi chú vào giữa, và các định danh liên lạc luôn nguyên vẹn trên một dòng bất kể bề rộng điện thoại.",
-  "wn42Gaming": "Hồ sơ chơi game giờ có thật: trang máy chủ đo lại độ trễ mỗi nửa phút và nêu bật máy nhanh nhất đã đo bằng màu nhấn."
+  "wn42Gaming": "Hồ sơ chơi game giờ có thật: trang máy chủ đo lại độ trễ mỗi nửa phút và nêu bật máy nhanh nhất đã đo bằng màu nhấn.",
+  "avatarPhoto": "Ảnh của bạn",
+  "avatarPhotoFailed": "Không thể dùng ảnh đó"
 }

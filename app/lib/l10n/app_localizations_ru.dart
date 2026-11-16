@@ -2059,149 +2059,493 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get statSession => 'Сессия';
+
+  @override
   String get copiedToClipboard => 'Скопировано в буфер обмена';
-  String get wnTotalsAdded => 'Главная показывает суммарный объём данных за сессию, а касание копирует публичный IP.';
-  String get wnPolishImproved => 'Колесо флагов и страница серверов стали аккуратнее; тексты компактнее, а туннель Android несёт трафик быстрее.';
+
+  @override
+  String get wnTotalsAdded =>
+      'Главная показывает суммарный объём данных за сессию, а касание копирует публичный IP.';
+
+  @override
+  String get wnPolishImproved =>
+      'Колесо флагов и страница серверов стали аккуратнее; тексты компактнее, а туннель Android несёт трафик быстрее.';
 
   @override
   String get smartNetwork => 'Умное подключение';
-  String get smartNetworkHint => 'MTU, протокол и версия IP подстраиваются под эту сеть — ради скорости.';
+
+  @override
+  String get smartNetworkHint =>
+      'MTU, протокол и версия IP подстраиваются под эту сеть — ради скорости.';
+
+  @override
   String get valueSmart => 'Умный';
+
+  @override
   String get mtuAutoValue => 'Авто — по сети';
+
+  @override
+  String get wnSmartAdded =>
+      'Умное подключение: MTU, протокол и версия IP следуют за сетью — по реальным ответам и ради скорости.';
+
+  @override
+  String get wnToastAdded =>
+      'Подтверждения приходят мягкой заметкой в стиле iOS, с значком, который рисует себя сам.';
+
+  @override
+  String get wnFlagsImproved =>
+      'Колесо флагов смотрится чисто: ни один флаг не обрезается краем экрана, флаги видны целиком, а выбор приземляется мягко.';
+
+  @override
+  String get wnMapImproved =>
+      'Карта мира рисуется крупнее и чётче: без сжатых континентов, с гладкими берегами и светящимся ореолом у точки.';
+
+  @override
+  String get smartWaiting => 'Измеряется…';
+
+  @override
+  String get smartFamilyRace => 'При первом соединении стартуют оба';
+
+  @override
+  String get dnsManual => 'DNS вручную';
+
+  @override
+  String get dnsManualHint =>
+      'Один адрес на строку: обычный IP, https:// (DNS over HTTPS) или tls://host (DNS over TLS). Побеждает первый ответ.';
+
+  @override
+  String get dnsManualInvalid =>
+      'Одна из строк — не адрес, который ядро сможет использовать: обычный IP, https://… или tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'Под стражей: пока туннель лежит, из телефона не уходит ничего.';
+
+  @override
+  String get accountsUsageTitle => 'В этом месяце';
+
+  @override
+  String get accountsCountLabel => 'аккаунтов';
+
+  @override
+  String get accountsUsageAverage => 'средняя израсходованная доля аккаунтов';
+
+  @override
+  String get wnDesignsAdded =>
+      'Дизайны приложения: всё приложение может носить Мягкий неоморфизм или Стекло северного сияния — каждая страница, каждая карточка — в Настройках → Общие.';
+
+  @override
+  String get wnWheelFixed =>
+      'Половина флага у колеса исчезла: полка под выбранным флагом — лужица света, а не второй флаг, и у края экрана ничего не обрезается.';
+
+  @override
+  String get wnMapReal =>
+      'Карта мира перерисована по официальным границам стран — каждый берег, остров и анклав, точно и в настоящих пропорциях.';
+
+  @override
+  String get wnGlobeAdded =>
+      'Мир стал глобусом: серебряный шар поворачивается к выбранной стране, светящийся пин и плавающая карточка отмечают её, а дороги соединения тянутся к хабам.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'Выбранный флаг стоит крупнее — в стеклянной раме со своим синим ореолом, соседи заметно меньше, а метки под колесом показывают, где вы.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'Выбор дизайна приложения ушёл: приложение снова носит собственный монохромный облик — ваш акцент и тема остались прежними.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS вручную: обычные IP, DNS over HTTPS и DNS over TLS — тип каждой строки виден и проверяется по мере ввода.';
+
+  @override
+  String get wnSmartImproved =>
+      'Умное подключение теперь показывает ответ сети: выбранный транспорт и удержанную версию IP — вживую.';
+
+  @override
+  String get wnProtectionImproved =>
+      'Аварийный выключатель говорит, когда стража на посту, а страница приложений — сколько приложений выбрано.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'Приветствие открывается щитом, что дышит над плывущим сиянием, а страница аккаунтов сводит месяц в один взгляд.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'Выбрано: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'Авто — сеть несёт $mtu';
   }
-  String get wnSmartAdded => 'Умное подключение: MTU, протокол и версия IP следуют за сетью — по реальным ответам и ради скорости.';
-  String get wnToastAdded => 'Подтверждения приходят мягкой заметкой в стиле iOS, с значком, который рисует себя сам.';
-  String get wnFlagsImproved => 'Колесо флагов смотрится чисто: ни один флаг не обрезается краем экрана, флаги видны целиком, а выбор приземляется мягко.';
-  String get wnMapImproved => 'Карта мира рисуется крупнее и чётче: без сжатых континентов, с гладкими берегами и светящимся ореолом у точки.';
 
   @override
-  String get smartWaiting => 'Измеряется…';
-  String get smartFamilyRace => 'При первом соединении стартуют оба';
-  String get dnsManual => 'DNS вручную';
-  String get dnsManualHint => 'Один адрес на строку: обычный IP, https:// (DNS over HTTPS) или tls://host (DNS over TLS). Побеждает первый ответ.';
-  String get dnsManualInvalid => 'Одна из строк — не адрес, который ядро сможет использовать: обычный IP, https://… или tls://host.';
-  String get killSwitchGuarded => 'Под стражей: пока туннель лежит, из телефона не уходит ничего.';
-  String get accountsUsageTitle => 'В этом месяце';
-  String get accountsCountLabel => 'аккаунтов';
-  String get accountsUsageAverage => 'средняя израсходованная доля аккаунтов';
-  String get wnDesignsAdded => 'Дизайны приложения: всё приложение может носить Мягкий неоморфизм или Стекло северного сияния — каждая страница, каждая карточка — в Настройках → Общие.';
-  String get wnWheelFixed => 'Половина флага у колеса исчезла: полка под выбранным флагом — лужица света, а не второй флаг, и у края экрана ничего не обрезается.';
-  String get wnMapReal => 'Карта мира перерисована по официальным границам стран — каждый берег, остров и анклав, точно и в настоящих пропорциях.';
-  String get wnGlobeAdded => 'Мир стал глобусом: серебряный шар поворачивается к выбранной стране, светящийся пин и плавающая карточка отмечают её, а дороги соединения тянутся к хабам.';
-  String get wnWheelGlowImproved => 'Выбранный флаг стоит крупнее — в стеклянной раме со своим синим ореолом, соседи заметно меньше, а метки под колесом показывают, где вы.';
   String get sectionAppearance => 'Внешний вид';
+
+  @override
   String get mapStyle => 'Стиль карты';
-  String get mapStyleHint => 'Глобус домашней страницы красится, как вы выберете. Свет подключения остаётся тем же.';
+
+  @override
+  String get mapStyleHint =>
+      'Глобус домашней страницы красится, как вы выберете. Свет подключения остаётся тем же.';
+
+  @override
   String get mapSilver => 'Серебро';
+
+  @override
   String get mapMidnight => 'Полночь';
+
+  @override
   String get mapOcean => 'Океан';
+
+  @override
   String get mapMono => 'Моно';
+
+  @override
   String get mapAurora => 'Аврора';
+
+  @override
   String get batterySaver => 'Экономия батареи';
-  String get batterySaverHint => 'Оставляет движение карты в покое, пока идёт подключение — дыхание глобуса, свечение колеса. Само подключение остаётся ровно тем же.';
+
+  @override
+  String get batterySaverHint =>
+      'Оставляет движение карты в покое, пока идёт подключение — дыхание глобуса, свечение колеса. Само подключение остаётся ровно тем же.';
+
+  @override
   String get connectOnOpen => 'Подключать при открытии приложения';
-  String get connectOnOpenHint => 'Поднимает VPN, как только приложение открылось, с последним выбранным местом.';
+
+  @override
+  String get connectOnOpenHint =>
+      'Поднимает VPN, как только приложение открылось, с последним выбранным местом.';
+
+  @override
   String get speedTitle => 'Скорость';
+
+  @override
   String get parallelTunnels => 'Параллельные туннели';
-  String get parallelTunnelsHint => 'Открывает сразу несколько туннелей к Mozilla и делит трафик между ними, чтобы один медленный туннель больше не ставил потолок скорости. Восемь — самый тяжёлый для батареи.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'Открывает сразу несколько туннелей к Mozilla и делит трафик между ними, чтобы один медленный туннель больше не ставил потолок скорости. Восемь — самый тяжёлый для батареи.';
+
+  @override
   String get tunnels1 => 'Один — самый стабильный';
+
+  @override
   String get tunnels2 => 'Два';
+
+  @override
   String get tunnels4 => 'Четыре — быстрее на медленных сетях';
+
+  @override
   String get tunnels8 => 'Восемь — самый быстрый';
+
+  @override
   String get connectionCap => 'Лимит подключений';
-  String get connectionCapHint => 'Сколько приложений могут говорить через VPN одновременно; меньший предел экономит батарею и трафик на занятом телефоне. По умолчанию — без лимита.';
+
+  @override
+  String get connectionCapHint =>
+      'Сколько приложений могут говорить через VPN одновременно; меньший предел экономит батарею и трафик на занятом телефоне. По умолчанию — без лимита.';
+
+  @override
   String get capNone => 'Без лимита';
+
+  @override
   String get verboseLogging => 'Подробная диагностика';
-  String get verboseLoggingHint => 'Записывает каждый шаг в журнал — помогает при сообщении о проблеме, чуть тяжелее для батареи.';
-  String get wn38MapStylesAdded => 'Пять образов карты: серебро, полночь, океан, моно и аврора — выбирает новая страница «Внешний вид» в настройках, с превью каждого.';
-  String get wn38ZoomAdded => 'Карту можно приблизить: сведите пальцы или коснитесь дважды, чтобы подойти ближе и вернуться.';
-  String get wn38OptionsAdded => 'Практичные опции: параллельные туннели для большей скорости, лимит подключений, экономия батареи, подключение при открытии приложения и подробная диагностика.';
-  String get wn38SocialAdded => 'Instagram и Telegram теперь живут и внизу этой страницы.';
-  String get wn38FlightImproved => 'Выбор страны — это маленький полёт: камера отъезжает, шар поворачивается, булавка падает с отскоком, а дороги сами прочерчиваются к узлам.';
-  String get wn38EffectsImproved => 'Карта читается богаче: звёзды за шаром, координатная сетка, собственные огни узлов, ореол по краю и тень суши.';
-  String get wn38SpeedImproved => 'Опция скорости настоящая: параллельные туннели открывают сразу несколько соединений, и ядро делит трафик между ними.';
-  String get wn38NameFixed => 'Имя выбранной страны показывается один раз — на парящей карточке карты; копия под флагами ушла.';
+
+  @override
+  String get verboseLoggingHint =>
+      'Записывает каждый шаг в журнал — помогает при сообщении о проблеме, чуть тяжелее для батареи.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'Пять образов карты: серебро, полночь, океан, моно и аврора — выбирает новая страница «Внешний вид» в настройках, с превью каждого.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'Карту можно приблизить: сведите пальцы или коснитесь дважды, чтобы подойти ближе и вернуться.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'Практичные опции: параллельные туннели для большей скорости, лимит подключений, экономия батареи, подключение при открытии приложения и подробная диагностика.';
+
+  @override
+  String get wn38SocialAdded =>
+      'Instagram и Telegram теперь живут и внизу этой страницы.';
+
+  @override
+  String get wn38FlightImproved =>
+      'Выбор страны — это маленький полёт: камера отъезжает, шар поворачивается, булавка падает с отскоком, а дороги сами прочерчиваются к узлам.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'Карта читается богаче: звёзды за шаром, координатная сетка, собственные огни узлов, ореол по краю и тень суши.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'Опция скорости настоящая: параллельные туннели открывают сразу несколько соединений, и ядро делит трафик между ними.';
+
+  @override
+  String get wn38NameFixed =>
+      'Имя выбранной страны показывается один раз — на парящей карточке карты; копия под флагами ушла.';
+
+  @override
   String get mapKind => 'Тип карты';
+
+  @override
+  String get mapKindHint =>
+      'Как показывается мир главной страницы: плоская карта, как всегда (по умолчанию), её современный вид, ночная Земля, Земля рельефа, металлический шар или спутниковая Земля. Границы в каждом виде — настоящие, официальные.';
+
+  @override
   String get mapKindClassic => 'Классическая';
+
+  @override
   String get mapKindGlobe => '3D-шар';
+
+  @override
   String get mapKindSatellite => 'Спутник';
+
+  @override
   String get mapKindFlat => 'Плоская 2D';
-  String get mapKindNight => 'Ночь';
-  String get aboutChannels => 'Страницы связи';
-  String get soundFeedback => 'Звуковые эффекты';
-  String get soundFeedbackHint => 'Мягкие звуки касаний, переключателей, включения и выключения подключения';
-  String get rateUnit => 'Единица скорости';
-  String get lockInBackground => 'Блокировка после ухода';
-  String get lockBgNever => 'Никогда';
-  String get lockBgNow => 'Сразу же';
-  String get lockBgMin5 => 'Через 5 минут';
-  String get lockBgMin15 => 'Через 15 минут';
-  String get mb25600 => '25 ГБ';
-  String get mb51200 => '50 ГБ';
-  String get mb102400 => '100 ГБ';
-  String get wn41Sound => 'К вибрации добавился звук подключения: VPN коротко звучит при включении и выключении (Настройки → Общие).';
-  String get copyIp => 'Копировать IP';
-  String get wn42Fonts => 'Каждый язык читается шрифтами самого приложения: Noto Sans для двух китайских и бенгальского, Inter для латиницы и кириллицы — ни один язык больше не зависит от шрифтов телефона.';
-  String get wn42Sounds => 'Звуки приложения теперь настоящие: мягкое касание в каждом разделе, две ноты для переключателей, восходящая и нисходящая нота при включении и выключении подключения, звонок для блокировки — звуковой переключатель управляет всеми.';
-  String get wn42AboutFixed => 'Страница «О приложении» центрирует логотип, имя и примечание, а контактные адреса остаются целыми на одной строке при любой ширине телефона.';
-  String get wn42Gaming => 'Игровой профиль теперь настоящий: страница серверов заново измеряет задержки каждые полминуты и выделяет самый быстрый акцентом.';
-  String get wn41RateUnit => 'Скорость читается в выбранной единице: привычные КБ/с или родные Мбит/с.';
-  String get wn41BackgroundLock => 'Приложение может запереть себя в ваше отсутствие: пароль спрашивают снова сразу, через 5 или через 15 минут.';
-  String get wn41BiggerLimits => 'Лимит данных сессии поднимается до 25, 50 или 100 ГБ.';
-  String get wn41Motion => 'Новые движения: подключённый шар дышит, галочка рисует себя сама, слово состояния скользит между своими значениями, а неверный пароль встряхивает поле.';
-  String get wn41AboutFixed => 'Страница «О приложении» выровнялась: две страницы рядом, каждая подсказка на своей строке, без сжатия.';
-  String get wn41HapticFixed => 'Настройка вибрации снова слушается: включение и выключение каждого подключения следует ей, а не только ползунку.';
-  String get mapKindTerrain => 'Рельеф';
-  String get mapKindHint => 'Как показывается мир главной страницы: плоская карта, как всегда (по умолчанию), её современный вид, ночная Земля, Земля рельефа, металлический шар или спутниковая Земля. Границы в каждом виде — настоящие, официальные.';
-  String get wn40MapKindsNew => 'Два новых вида карты: ночная Земля и Земля рельефа.';
-  String get wn40Flight => '3D-шар плавно поворачивается к новой стране — никаких резких скачков.';
-  String get wn40Mercator => 'Плоские карты рисуются в стандартной проекции Меркатора: настоящие пропорции, стандартные границы, без искажений.';
-  String get wn40NameBack => 'Имя выбранной страны вернулось под флагами на плоских картах.';
-  String get wn40Speed => 'Туннель теперь по умолчанию открывает две параллельные сессии — линия сильнее и стабильнее.';
-  String get wn40LockFixed => 'Замок кнопки подключения больше не мигает между состояниями.';
-  String get wn40IpRemoved => 'Окно IP на карточке места убрано.';
-  String get mapStyleGlobeHint => 'Цвета, в которые одет 3D-шар. Спутник несёт свою Землю, а плоские карты — свой цвет.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'Цвета, в которые одет 3D-шар. Спутник несёт свою Землю, а плоские карты — свой цвет.';
+
+  @override
   String get aboutVersions => 'Версия';
-  String get checkUpdatesHint => 'Искать версию новее; найденная скачается, и установщик спросит.';
+
+  @override
+  String get aboutChannels => 'Страницы связи';
+
+  @override
+  String get checkUpdatesHint =>
+      'Искать версию новее; найденная скачается, и установщик спросит.';
+
+  @override
   String get smartLocation => 'Быстрейшая локация';
-  String get smartLocationHint => 'Каждый запуск садится на сервер, который собственный тест задержки ядра зовёт быстрым.';
+
+  @override
+  String get smartLocationHint =>
+      'Каждый запуск садится на сервер, который собственный тест задержки ядра зовёт быстрым.';
+
+  @override
   String get quicPass => 'Пропуск QUIC';
-  String get quicPassHint => 'QUIC приложений (UDP 443) идёт через туннель: звонки и игры сохраняют скорость вместо отката к TCP.';
+
+  @override
+  String get quicPassHint =>
+      'QUIC приложений (UDP 443) идёт через туннель: звонки и игры сохраняют скорость вместо отката к TCP.';
+
+  @override
   String get accountRename => 'Переименовать аккаунт';
+
+  @override
   String get accountRenameLabel => 'Имя аккаунта';
+
+  @override
   String get accountProfile => 'Аватар профиля';
+
+  @override
   String get avatarReset => 'Вернуть простую метку';
+
+  @override
   String get accountSecurity => 'Пароль приложения';
+
+  @override
   String get appPasswordOn => 'Приложение открывается за паролем.';
-  String get appPasswordOff => 'Без пароля: кто откроет приложение, тот войдёт.';
+
+  @override
+  String get appPasswordOff =>
+      'Без пароля: кто откроет приложение, тот войдёт.';
+
+  @override
   String get appPasswordSet => 'Задать пароль';
+
+  @override
   String get appPasswordChange => 'Сменить пароль';
+
+  @override
   String get appPasswordRemove => 'Убрать пароль';
+
+  @override
   String get appPasswordCurrent => 'Текущий пароль';
+
+  @override
   String get appPasswordNew => 'Новый пароль (4+ символов)';
+
+  @override
   String get appPasswordConfirm => 'Повторите новый пароль';
+
+  @override
   String get appPasswordShort => 'Не меньше 4 символов.';
+
+  @override
   String get appPasswordMismatch => 'Пароли не совпадают.';
+
+  @override
   String get appPasswordWrong => 'Неверный пароль';
-  String get appPasswordSetDone => 'Пароль стоит — приложение спросит его со следующего запуска.';
-  String get appPasswordRemoved => 'Пароля больше нет; приложение открывается свободно.';
+
+  @override
+  String get appPasswordSetDone =>
+      'Пароль стоит — приложение спросит его со следующего запуска.';
+
+  @override
+  String get appPasswordRemoved =>
+      'Пароля больше нет; приложение открывается свободно.';
+
+  @override
   String get appPasswordUnlock => 'Приложение заперто';
-  String get appPasswordUnlockHint => 'Введите пароль приложения, чтобы продолжить.';
-  String get wn39MapKinds => 'У карты снова есть типы: плоская, как всегда (по умолчанию), 3D-шар, спутниковая Земля и современная плоская 2D.';
-  String get wn39EyeIp => 'У карточки локации есть глаз: коснитесь, увидите адрес выхода трафика и скопируете его.';
-  String get wn39Profile => 'У аккаунтов свои имя и аватар, а приложение может открываться за паролем.';
-  String get wn39Smart => 'Умное подключение выросло: быстрейшая локация по реальной задержке и пропуск QUIC для звонков и игр.';
-  String get wn39Flight => 'Смена страны летит плавнее — камера идёт по большой окружности — и метки колеса флагов ближе к флагам.';
-  String get wn39ToastEverywhere => 'Динамическая заметка теперь везде: каждое сохранение, копия и ошибка носят ту же анимированную стеклянную капсулу.';
-  String get wn39Updates => 'Обновления держат хранилище чистым: установщик заменяет старую версию, и пакетов не остаётся.';
-  String get wnDesignsRemoved => 'Выбор дизайна приложения ушёл: приложение снова носит собственный монохромный облик — ваш акцент и тема остались прежними.';
-  String get wnDnsAdded => 'DNS вручную: обычные IP, DNS over HTTPS и DNS over TLS — тип каждой строки виден и проверяется по мере ввода.';
-  String get wnSmartImproved => 'Умное подключение теперь показывает ответ сети: выбранный транспорт и удержанную версию IP — вживую.';
-  String get wnProtectionImproved => 'Аварийный выключатель говорит, когда стража на посту, а страница приложений — сколько приложений выбрано.';
-  String get wnWelcomeImproved => 'Приветствие открывается щитом, что дышит над плывущим сиянием, а страница аккаунтов сводит месяц в один взгляд.';
-  String bypassAppsCount(String n) => 'Выбрано: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get appPasswordUnlockHint =>
+      'Введите пароль приложения, чтобы продолжить.';
+
+  @override
+  String get wn39MapKinds =>
+      'У карты снова есть типы: плоская, как всегда (по умолчанию), 3D-шар, спутниковая Земля и современная плоская 2D.';
+
+  @override
+  String get wn39EyeIp =>
+      'У карточки локации есть глаз: коснитесь, увидите адрес выхода трафика и скопируете его.';
+
+  @override
+  String get wn39Profile =>
+      'У аккаунтов свои имя и аватар, а приложение может открываться за паролем.';
+
+  @override
+  String get wn39Smart =>
+      'Умное подключение выросло: быстрейшая локация по реальной задержке и пропуск QUIC для звонков и игр.';
+
+  @override
+  String get wn39Flight =>
+      'Смена страны летит плавнее — камера идёт по большой окружности — и метки колеса флагов ближе к флагам.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'Динамическая заметка теперь везде: каждое сохранение, копия и ошибка носят ту же анимированную стеклянную капсулу.';
+
+  @override
+  String get wn39Updates =>
+      'Обновления держат хранилище чистым: установщик заменяет старую версию, и пакетов не остаётся.';
+
+  @override
+  String get mapKindNight => 'Ночь';
+
+  @override
+  String get mapKindTerrain => 'Рельеф';
+
+  @override
+  String get wn40MapKindsNew =>
+      'Два новых вида карты: ночная Земля и Земля рельефа.';
+
+  @override
+  String get wn40Flight =>
+      '3D-шар плавно поворачивается к новой стране — никаких резких скачков.';
+
+  @override
+  String get wn40Mercator =>
+      'Плоские карты рисуются в стандартной проекции Меркатора: настоящие пропорции, стандартные границы, без искажений.';
+
+  @override
+  String get wn40NameBack =>
+      'Имя выбранной страны вернулось под флагами на плоских картах.';
+
+  @override
+  String get wn40Speed =>
+      'Туннель теперь по умолчанию открывает две параллельные сессии — линия сильнее и стабильнее.';
+
+  @override
+  String get wn40LockFixed =>
+      'Замок кнопки подключения больше не мигает между состояниями.';
+
+  @override
+  String get wn40IpRemoved => 'Окно IP на карточке места убрано.';
+
+  @override
+  String get soundFeedback => 'Звуковые эффекты';
+
+  @override
+  String get soundFeedbackHint =>
+      'Мягкие звуки касаний, переключателей, включения и выключения подключения';
+
+  @override
+  String get rateUnit => 'Единица скорости';
+
+  @override
+  String get lockInBackground => 'Блокировка после ухода';
+
+  @override
+  String get lockBgNever => 'Никогда';
+
+  @override
+  String get lockBgNow => 'Сразу же';
+
+  @override
+  String get lockBgMin5 => 'Через 5 минут';
+
+  @override
+  String get lockBgMin15 => 'Через 15 минут';
+
+  @override
+  String get mb25600 => '25 ГБ';
+
+  @override
+  String get mb51200 => '50 ГБ';
+
+  @override
+  String get mb102400 => '100 ГБ';
+
+  @override
+  String get wn41Sound =>
+      'К вибрации добавился звук подключения: VPN коротко звучит при включении и выключении (Настройки → Общие).';
+
+  @override
+  String get wn41RateUnit =>
+      'Скорость читается в выбранной единице: привычные КБ/с или родные Мбит/с.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'Приложение может запереть себя в ваше отсутствие: пароль спрашивают снова сразу, через 5 или через 15 минут.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'Лимит данных сессии поднимается до 25, 50 или 100 ГБ.';
+
+  @override
+  String get wn41Motion =>
+      'Новые движения: подключённый шар дышит, галочка рисует себя сама, слово состояния скользит между своими значениями, а неверный пароль встряхивает поле.';
+
+  @override
+  String get wn41AboutFixed =>
+      'Страница «О приложении» выровнялась: две страницы рядом, каждая подсказка на своей строке, без сжатия.';
+
+  @override
+  String get wn41HapticFixed =>
+      'Настройка вибрации снова слушается: включение и выключение каждого подключения следует ей, а не только ползунку.';
+
+  @override
+  String get copyIp => 'Копировать IP';
+
+  @override
+  String get wn42Fonts =>
+      'Каждый язык читается шрифтами самого приложения: Noto Sans для двух китайских и бенгальского, Inter для латиницы и кириллицы — ни один язык больше не зависит от шрифтов телефона.';
+
+  @override
+  String get wn42Sounds =>
+      'Звуки приложения теперь настоящие: мягкое касание в каждом разделе, две ноты для переключателей, восходящая и нисходящая нота при включении и выключении подключения, звонок для блокировки — звуковой переключатель управляет всеми.';
+
+  @override
+  String get wn42AboutFixed =>
+      'Страница «О приложении» центрирует логотип, имя и примечание, а контактные адреса остаются целыми на одной строке при любой ширине телефона.';
+
+  @override
+  String get wn42Gaming =>
+      'Игровой профиль теперь настоящий: страница серверов заново измеряет задержки каждые полминуты и выделяет самый быстрый акцентом.';
+
+  @override
+  String get avatarPhoto => 'Своя фотография';
+
+  @override
+  String get avatarPhotoFailed => 'Это изображение не удалось использовать';
 }

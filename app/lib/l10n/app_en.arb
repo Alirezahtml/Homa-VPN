@@ -1332,5 +1332,7 @@
   "wn42Fonts": "Every language reads in the app's own faces: Noto Sans for the two Chinese and for Bengali, Inter for the Latin and Cyrillic ones — no language leans on the phone's fonts anymore.",
   "wn42Sounds": "The app's sounds are real now: a soft tap in every section, two notes for the switches, a rising and a falling note as the connection comes up and goes down, a ping for the lock — the sound switch gates them all.",
   "wn42AboutFixed": "The About page centers its logo, its name and its note, and the contact handles stay whole on one line whatever the phone's width.",
-  "wn42Gaming": "The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent."
+  "wn42Gaming": "The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.",
+  "avatarPhoto": "Your photo",
+  "avatarPhotoFailed": "That picture could not be used"
 }

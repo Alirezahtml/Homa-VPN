@@ -12,4 +12,5 @@
     <string name="widget_description">Csatlakozás vagy a kapcsolat bontása egy koppintással</string>
     <string name="widget_connect">Koppintson a csatlakozáshoz</string>
     <string name="widget_disconnect">Koppintson a kapcsolat bontásához</string>
+    <string name="updates_channel">Új verziók</string>
 </resources>

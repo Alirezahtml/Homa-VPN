@@ -12,4 +12,5 @@
     <string name="widget_description">Bir toxunuşla qoşulun və ya bağlantını kəsin</string>
     <string name="widget_connect">Qoşulmaq üçün toxunun</string>
     <string name="widget_disconnect">Bağlantını kəsmək üçün toxunun</string>
+    <string name="updates_channel">Yeni versiyalar</string>
 </resources>

@@ -2056,149 +2056,488 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get statSession => 'الجلسة';
+
+  @override
   String get copiedToClipboard => 'تم النسخ إلى الحافظة';
-  String get wnTotalsAdded => 'تعرض الصفحة الرئيسية مجموع ما نقلته الجلسة، وتنسخ اللمسة الواحدة عنوان IP العمومي.';
-  String get wnPolishImproved => 'عجلة الأعلام وصفحة الخوادم أكثر ترتيبًا؛ النصوص مضغوطة، وينقل نفق أندرويد البيانات بسرعة أعلى.';
+
+  @override
+  String get wnTotalsAdded =>
+      'تعرض الصفحة الرئيسية مجموع ما نقلته الجلسة، وتنسخ اللمسة الواحدة عنوان IP العمومي.';
+
+  @override
+  String get wnPolishImproved =>
+      'عجلة الأعلام وصفحة الخوادم أكثر ترتيبًا؛ النصوص مضغوطة، وينقل نفق أندرويد البيانات بسرعة أعلى.';
 
   @override
   String get smartNetwork => 'اتصال ذكي';
-  String get smartNetworkHint => 'يُضبط MTU والبروتوكول ونسخة IP وفق هذه الشبكة، بحثًا عن السرعة.';
+
+  @override
+  String get smartNetworkHint =>
+      'يُضبط MTU والبروتوكول ونسخة IP وفق هذه الشبكة، بحثًا عن السرعة.';
+
+  @override
   String get valueSmart => 'ذكي';
+
+  @override
   String get mtuAutoValue => 'تلقائي — حسب الشبكة';
+
+  @override
+  String get wnSmartAdded =>
+      'اتصال ذكي: يُختار MTU والبروتوكول ونسخة IP وفق الشبكة، اعتمادًا على إجابات حقيقية وبحثًا عن السرعة.';
+
+  @override
+  String get wnToastAdded =>
+      'تصل تأكيدات كإشعار ناعم بأسلوب iOS، مع علامة ترسم نفسها.';
+
+  @override
+  String get wnFlagsImproved =>
+      'عجلة الأعلام تجلس نظيفة: لا يُقطع علم عند حافة الشاشة، وتظهر الأعلام كاملة، ويهبط الاختيار بنعومة.';
+
+  @override
+  String get wnMapImproved =>
+      'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
+
+  @override
+  String get smartWaiting => 'جارٍ القياس…';
+
+  @override
+  String get smartFamilyRace => 'كلاهما يتسابق عند أول اتصال';
+
+  @override
+  String get dnsManual => 'DNS يدوي';
+
+  @override
+  String get dnsManualHint =>
+      'عنوان واحد في كل سطر: IP بسيط، أو https://‏ (DNS عبر HTTPS)، أو tls://host‏ (DNS عبر TLS). أول إجابة هي الرابحة.';
+
+  @override
+  String get dnsManualInvalid =>
+      'أحد الأسطر ليس عنوانًا يمكن للنواة استخدامه: IP بسيط، أو https://…، أو tls://host.';
+
+  @override
+  String get killSwitchGuarded =>
+      'تحت الحماية: لا شيء يغادر الهاتف ما دام النفق مقطوعًا.';
+
+  @override
+  String get accountsUsageTitle => 'هذا الشهر';
+
+  @override
+  String get accountsCountLabel => 'حساب';
+
+  @override
+  String get accountsUsageAverage => 'متوسط الحصص المستهلكة للحسابات';
+
+  @override
+  String get wnDesignsAdded =>
+      'تصاميم التطبيق: يستطيع التطبيق كله الآن ارتداء النيومورفيزم الناعم أو زجاج الشفق — كل صفحة وكل بطاقة — من الإعدادات ← عام.';
+
+  @override
+  String get wnWheelFixed =>
+      'نصف العلم في العجلة اختفى: الرف تحت العلم المختار بركة من الضوء لا علم ثانٍ، ولا يُقطع علم عند حافة الشاشة.';
+
+  @override
+  String get wnMapReal =>
+      'أُعيد رسم خريطة العالم من الحدود الرسمية للدول — كل ساحل وجزيرة وجيب، بأمانة كاملة وبنسب حقيقية.';
+
+  @override
+  String get wnGlobeAdded =>
+      'العالم صار كرة الآن: الكرة الفضية تدور نحو البلد المختار، دبّوس متوهّج وبطاقة عائمة تحدّدان موقعه، وطرق الاتصال تمتد نحو المحاور.';
+
+  @override
+  String get wnWheelGlowImproved =>
+      'العلَم المختار أكبر داخل إطار زجاجي بهالة زرقاء، والأعلام المجاورة أصغر بوضوح، والمؤشرات أسفل العجلة تبين موقعك.';
+
+  @override
+  String get wnDesignsRemoved =>
+      'تمت إزالة منتقي تصميم التطبيق: يعود التطبيق إلى مظهره الأحادي اللون — لون التمييز وسمة التطبيق لديك كما هما.';
+
+  @override
+  String get wnDnsAdded =>
+      'DNS يدوي: عناوين IP بسيطة، وDNS عبر HTTPS، وDNS عبر TLS — يُعرض نوع كل سطر ويُتحقق منه أثناء الكتابة.';
+
+  @override
+  String get wnSmartImproved =>
+      'الاتصال الذكي يُظهر الآن ما أجابت به الشبكة: الناقل الذي اختاره ونسخة IP التي أبقاها، مباشرةً.';
+
+  @override
+  String get wnProtectionImproved =>
+      'مفتاح القطع يخبرك حين تقف حمايته، وصفحة التطبيقات تعرض عدد التطبيقات التي اخترتها.';
+
+  @override
+  String get wnWelcomeImproved =>
+      'صفحة الترحيب تُفتَح بدرع يتنفس فوق شفق ينساب، وصفحة الحسابات تجمع الشهر في نظرة.';
+
+  @override
+  String bypassAppsCount(String n) {
+    return 'المختارة: $n';
+  }
 
   @override
   String mtuAutoMeasured(int mtu) {
     return 'تلقائي — الشبكة تحمل $mtu';
   }
-  String get wnSmartAdded => 'اتصال ذكي: يُختار MTU والبروتوكول ونسخة IP وفق الشبكة، اعتمادًا على إجابات حقيقية وبحثًا عن السرعة.';
-  String get wnToastAdded => 'تصل تأكيدات كإشعار ناعم بأسلوب iOS، مع علامة ترسم نفسها.';
-  String get wnFlagsImproved => 'عجلة الأعلام تجلس نظيفة: لا يُقطع علم عند حافة الشاشة، وتظهر الأعلام كاملة، ويهبط الاختيار بنعومة.';
-  String get wnMapImproved => 'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
 
   @override
-  String get smartWaiting => 'جارٍ القياس…';
-  String get smartFamilyRace => 'كلاهما يتسابق عند أول اتصال';
-  String get dnsManual => 'DNS يدوي';
-  String get dnsManualHint => 'عنوان واحد في كل سطر: IP بسيط، أو https://‏ (DNS عبر HTTPS)، أو tls://host‏ (DNS عبر TLS). أول إجابة هي الرابحة.';
-  String get dnsManualInvalid => 'أحد الأسطر ليس عنوانًا يمكن للنواة استخدامه: IP بسيط، أو https://…، أو tls://host.';
-  String get killSwitchGuarded => 'تحت الحماية: لا شيء يغادر الهاتف ما دام النفق مقطوعًا.';
-  String get accountsUsageTitle => 'هذا الشهر';
-  String get accountsCountLabel => 'حساب';
-  String get accountsUsageAverage => 'متوسط الحصص المستهلكة للحسابات';
-  String get wnDesignsAdded => 'تصاميم التطبيق: يستطيع التطبيق كله الآن ارتداء النيومورفيزم الناعم أو زجاج الشفق — كل صفحة وكل بطاقة — من الإعدادات ← عام.';
-  String get wnWheelFixed => 'نصف العلم في العجلة اختفى: الرف تحت العلم المختار بركة من الضوء لا علم ثانٍ، ولا يُقطع علم عند حافة الشاشة.';
-  String get wnMapReal => 'أُعيد رسم خريطة العالم من الحدود الرسمية للدول — كل ساحل وجزيرة وجيب، بأمانة كاملة وبنسب حقيقية.';
-  String get wnGlobeAdded => 'العالم صار كرة الآن: الكرة الفضية تدور نحو البلد المختار، دبّوس متوهّج وبطاقة عائمة تحدّدان موقعه، وطرق الاتصال تمتد نحو المحاور.';
-  String get wnWheelGlowImproved => 'العلَم المختار أكبر داخل إطار زجاجي بهالة زرقاء، والأعلام المجاورة أصغر بوضوح، والمؤشرات أسفل العجلة تبين موقعك.';
   String get sectionAppearance => 'المظهر';
+
+  @override
   String get mapStyle => 'نمط الخريطة';
-  String get mapStyleHint => 'كرة الصفحة الرئيسية تُلوَّن بالطريقة التي تختارها. ويبقى ضوء الاتصال كما هو.';
+
+  @override
+  String get mapStyleHint =>
+      'كرة الصفحة الرئيسية تُلوَّن بالطريقة التي تختارها. ويبقى ضوء الاتصال كما هو.';
+
+  @override
   String get mapSilver => 'فضي';
+
+  @override
   String get mapMidnight => 'منتصف الليل';
+
+  @override
   String get mapOcean => 'المحيط';
+
+  @override
   String get mapMono => 'أحادي';
+
+  @override
   String get mapAurora => 'الشفق';
+
+  @override
   String get batterySaver => 'موفر البطارية';
-  String get batterySaverHint => 'يُسكِن حركة الخريطة أثناء الاتصال — نفَس الكرة وبريق العجلة. الاتصال نفسه يبقى كما هو تمامًا.';
+
+  @override
+  String get batterySaverHint =>
+      'يُسكِن حركة الخريطة أثناء الاتصال — نفَس الكرة وبريق العجلة. الاتصال نفسه يبقى كما هو تمامًا.';
+
+  @override
   String get connectOnOpen => 'الاتصال عند فتح التطبيق';
+
+  @override
   String get connectOnOpenHint => 'يشغّل VPN مع فتح التطبيق، بآخر موقع اخترته.';
+
+  @override
   String get speedTitle => 'السرعة';
+
+  @override
   String get parallelTunnels => 'الأنفاق المتوازية';
-  String get parallelTunnelsHint => 'يفتح عدة أنفاق إلى Mozilla دفعة واحدة ويقسم الترافيك بينها، فلم يعد نفَق بطيء واحد يحدّ السرعة. الثمانية هي الأثقل على البطارية.';
+
+  @override
+  String get parallelTunnelsHint =>
+      'يفتح عدة أنفاق إلى Mozilla دفعة واحدة ويقسم الترافيك بينها، فلم يعد نفَق بطيء واحد يحدّ السرعة. الثمانية هي الأثقل على البطارية.';
+
+  @override
   String get tunnels1 => 'واحد — الأثبت';
+
+  @override
   String get tunnels2 => 'اثنان';
+
+  @override
   String get tunnels4 => 'أربعة — أسرع على الشبكات البطيئة';
+
+  @override
   String get tunnels8 => 'ثمانية — الأسرع';
+
+  @override
   String get connectionCap => 'حد الاتصالات';
-  String get connectionCapHint => 'كم عدد التطبيقات التي يجوز لها التحدث عبر VPN في آن واحد؛ الحد الأصغر يوفر البطارية والبيانات على هاتف مزدحم. بلا حد هو الإعداد الافتراضي.';
+
+  @override
+  String get connectionCapHint =>
+      'كم عدد التطبيقات التي يجوز لها التحدث عبر VPN في آن واحد؛ الحد الأصغر يوفر البطارية والبيانات على هاتف مزدحم. بلا حد هو الإعداد الافتراضي.';
+
+  @override
   String get capNone => 'بلا حد';
+
+  @override
   String get verboseLogging => 'تشخيص مفصّل';
-  String get verboseLoggingHint => 'يكتب كل خطوة في السجل — مفيد عند الإبلاغ عن مشكلة، وأثقل قليلًا على البطارية.';
-  String get wn38MapStylesAdded => 'خمسة أنماط للخريطة: الفضي، ومنتصف الليل، والمحيط، والأحادي، والشفق — صفحة «المظهر» الجديدة في الإعدادات تختار بينها، ومعاينة لكل نمط.';
-  String get wn38ZoomAdded => 'الخريطة تتكبَّر: اقرصها بإصبعين، أو انقر نقرًا مزدوجًا للدخول والخروج.';
-  String get wn38OptionsAdded => 'خيارات عملية: الأنفاق المتوازية لسرعة أكبر، وحد الاتصالات، وموفر البطارية، والاتصال عند فتح التطبيق، والتشخيص المفصّل.';
-  String get wn38SocialAdded => 'إنستغرام وتلغرام يسكان الآن أسفل هذه الصفحة أيضًا.';
-  String get wn38FlightImproved => 'اختيار بلد هو رحلة صغيرة: تتراجع الكاميرا، وتدور الكرة، ويهبط الدبوس بنطة، وترسم الطرق نفسها نحو المراكز.';
-  String get wn38EffectsImproved => 'الخريطة تُقرأ أغنى: نجوم خلف الكرة، وشبكة إحداثيات، وأضواء المراكز نفسها، وهالة حول الحافة، وظل اليابسة.';
-  String get wn38SpeedImproved => 'خيار السرعة أصبح حقيقيًا: الأنفاق المتوازية تفتح عدة اتصالات دفعة واحدة، والنواة تقسم الترافيك بينها.';
-  String get wn38NameFixed => 'اسم البلد المختار يظهر مرة واحدة — على بطاقة الخريطة العائمة؛ النسخة تحت الأعلام ذهبت.';
+
+  @override
+  String get verboseLoggingHint =>
+      'يكتب كل خطوة في السجل — مفيد عند الإبلاغ عن مشكلة، وأثقل قليلًا على البطارية.';
+
+  @override
+  String get wn38MapStylesAdded =>
+      'خمسة أنماط للخريطة: الفضي، ومنتصف الليل، والمحيط، والأحادي، والشفق — صفحة «المظهر» الجديدة في الإعدادات تختار بينها، ومعاينة لكل نمط.';
+
+  @override
+  String get wn38ZoomAdded =>
+      'الخريطة تتكبَّر: اقرصها بإصبعين، أو انقر نقرًا مزدوجًا للدخول والخروج.';
+
+  @override
+  String get wn38OptionsAdded =>
+      'خيارات عملية: الأنفاق المتوازية لسرعة أكبر، وحد الاتصالات، وموفر البطارية، والاتصال عند فتح التطبيق، والتشخيص المفصّل.';
+
+  @override
+  String get wn38SocialAdded =>
+      'إنستغرام وتلغرام يسكان الآن أسفل هذه الصفحة أيضًا.';
+
+  @override
+  String get wn38FlightImproved =>
+      'اختيار بلد هو رحلة صغيرة: تتراجع الكاميرا، وتدور الكرة، ويهبط الدبوس بنطة، وترسم الطرق نفسها نحو المراكز.';
+
+  @override
+  String get wn38EffectsImproved =>
+      'الخريطة تُقرأ أغنى: نجوم خلف الكرة، وشبكة إحداثيات، وأضواء المراكز نفسها، وهالة حول الحافة، وظل اليابسة.';
+
+  @override
+  String get wn38SpeedImproved =>
+      'خيار السرعة أصبح حقيقيًا: الأنفاق المتوازية تفتح عدة اتصالات دفعة واحدة، والنواة تقسم الترافيك بينها.';
+
+  @override
+  String get wn38NameFixed =>
+      'اسم البلد المختار يظهر مرة واحدة — على بطاقة الخريطة العائمة؛ النسخة تحت الأعلام ذهبت.';
+
+  @override
   String get mapKind => 'نوع الخريطة';
+
+  @override
+  String get mapKindHint =>
+      'كيف يُعرض عالم الصفحة الرئيسية: الخريطة المسطحة كما كانت دائمًا (الافتراضية)، شكلها الحديث، أرض الليل، أرض التضاريس، الكرة المعدنية، أو أرض القمر الصناعي. الحدود في كل نوع هي الحدود الحقيقية الرسمية.';
+
+  @override
   String get mapKindClassic => 'الكلاسيكية';
+
+  @override
   String get mapKindGlobe => 'كرة ثلاثية الأبعاد';
+
+  @override
   String get mapKindSatellite => 'القمر الصناعي';
+
+  @override
   String get mapKindFlat => 'مسطحة ثنائية الأبعاد';
-  String get mapKindNight => 'الليل';
-  String get aboutChannels => 'صفحات التواصل';
-  String get soundFeedback => 'المؤثرات الصوتية';
-  String get soundFeedbackHint => 'أصوات ناعمة للمس، للمفاتيح، وتشغيل الاتصال وإيقافه';
-  String get rateUnit => 'وحدة السرعة';
-  String get lockInBackground => 'القفل بعد المغادرة';
-  String get lockBgNever => 'أبدًا';
-  String get lockBgNow => 'فورًا';
-  String get lockBgMin5 => 'بعد ٥ دقائق';
-  String get lockBgMin15 => 'بعد ١٥ دقيقة';
-  String get mb25600 => '25 جيجابايت';
-  String get mb51200 => '50 جيجابايت';
-  String get mb102400 => '100 جيجابايت';
-  String get wn41Sound => 'صوت الاتصال يرافق الاهتزاز: تُصدر الشبكة الخاصة نغمة قصيرة عند تشغيلها أو إيقافها (الإعدادات ← عام).';
-  String get copyIp => 'نسخ عنوان IP';
-  String get wn42Fonts => 'كل لغة تقرأ بخطوط التطبيق نفسه: نوتو سانس للغتين الصينيتين والبنغالية، وإنتر للاتينية والسيريلية — لم تعد أي لغة تعتمد على خطوط الهاتف.';
-  String get wn42Sounds => 'أصوات التطبيق حقيقية الآن: لمسة ناعمة في كل قسم، نغمتان للمفاتيح، نغمة صاعدة ونازلة عند تشغيل الاتصال وإيقافه، ونبضة للقفل — ومفتاح الصوت يتحكم بها جميعًا.';
-  String get wn42AboutFixed => 'صفحة حول تضع شعارها واسمها وملاحظتها في الوسط، وتُبقي معرفات التواصل سليمة على سطر واحد مهما كان عرض الهاتف.';
-  String get wn42Gaming => 'الملف اللعبي حقيقي الآن: صفحة الخوادم تقيس التأخيرات من جديد كل نصف دقيقة وتُبرز الأسرع قياسًا بلون التمييز.';
-  String get wn41RateUnit => 'تُقرأ السرعة بالوحدة التي تختارها: الكيلوبايت في الثانية المألوف أو الميجابت في الثانية.';
-  String get wn41BackgroundLock => 'يمكن للتطبيق أن يقفل نفسه في غيابك: يُسأل كلمة السر فورًا، أو بعد ٥ أو ١٥ دقيقة.';
-  String get wn41BiggerLimits => 'سقف بيانات الجلسة يصل إلى ٢٥ أو ٥٠ أو ١٠٠ جيجابايت.';
-  String get wn41Motion => 'حركة جديدة: الكرة المتصلة تتنفس، علامة الصح ترسم نفسها، كلمة الحالة تنزلق بين قيمها، وكلمة السر الخطأ تهز الحقل.';
-  String get wn41AboutFixed => 'صفحة حول تنتظم: الصفحتان جنبًا إلى جنب، كل شرح في سطره، دون أي ضغط.';
-  String get wn41HapticFixed => 'إعداد الاهتزاز يستجيب ثانية: تشغيل وإيقاف كل اتصال يتبعه، لا زر التمرير فقط.';
-  String get mapKindTerrain => 'التضاريس';
-  String get mapKindHint => 'كيف يُعرض عالم الصفحة الرئيسية: الخريطة المسطحة كما كانت دائمًا (الافتراضية)، شكلها الحديث، أرض الليل، أرض التضاريس، الكرة المعدنية، أو أرض القمر الصناعي. الحدود في كل نوع هي الحدود الحقيقية الرسمية.';
-  String get wn40MapKindsNew => 'شكلان جديدان للخريطة: أرض الليل وأرض التضاريس.';
-  String get wn40Flight => 'الكرة ثلاثية الأبعاد تطير إلى البلد الجديد في دوران واحد سلس — بلا قفزة أبدًا.';
-  String get wn40Mercator => 'الخرائط المسطحة تُرسم بإسقاط ميركاتور القياسي: نسب حقيقية وحدود قياسية دون أي ضغط.';
-  String get wn40NameBack => 'اسم البلد المختار عاد تحت الأعلام على الخرائط المسطحة.';
-  String get wn40Speed => 'النفق يفتح جلستين متوازيتين افتراضيًا الآن — خط أقوى وأكثر ثباتًا.';
-  String get wn40LockFixed => 'قفل زر الاتصال لم يعد يختفي بين حالاته.';
-  String get wn40IpRemoved => 'نافذة IP على بطاقة الموقع أُزيلت.';
-  String get mapStyleGlobeHint => 'الألوان التي ترتديها الكرة ثلاثية الأبعاد. القمر الصناعي يحمل أرضه الخاصة، والخرائط المسطحة حبرها الخاص.';
+
+  @override
+  String get mapStyleGlobeHint =>
+      'الألوان التي ترتديها الكرة ثلاثية الأبعاد. القمر الصناعي يحمل أرضه الخاصة، والخرائط المسطحة حبرها الخاص.';
+
+  @override
   String get aboutVersions => 'الإصدار';
-  String get checkUpdatesHint => 'البحث عن إصدار أحدث؛ الإصدار الذي يُوجد يُنزَّل ثم يسأل المثبِّت.';
+
+  @override
+  String get aboutChannels => 'صفحات التواصل';
+
+  @override
+  String get checkUpdatesHint =>
+      'البحث عن إصدار أحدث؛ الإصدار الذي يُوجد يُنزَّل ثم يسأل المثبِّت.';
+
+  @override
   String get smartLocation => 'أسرع موقع';
-  String get smartLocationHint => 'كل اتصال يقف على الخادم الذي يقيسه اختبار التأخير للنواة بأنه الأسرع.';
+
+  @override
+  String get smartLocationHint =>
+      'كل اتصال يقف على الخادم الذي يقيسه اختبار التأخير للنواة بأنه الأسرع.';
+
+  @override
   String get quicPass => 'تمرير QUIC';
-  String get quicPassHint => 'QUIC التطبيقات (UDP 443) يمر عبر النفق: المكالمات والألعاب تحافظ على سرعتها بدل العودة إلى TCP.';
+
+  @override
+  String get quicPassHint =>
+      'QUIC التطبيقات (UDP 443) يمر عبر النفق: المكالمات والألعاب تحافظ على سرعتها بدل العودة إلى TCP.';
+
+  @override
   String get accountRename => 'تغيير اسم الحساب';
+
+  @override
   String get accountRenameLabel => 'اسم الحساب';
+
+  @override
   String get accountProfile => 'الصورة الشخصية';
+
+  @override
   String get avatarReset => 'العودة إلى العلامة البسيطة';
+
+  @override
   String get accountSecurity => 'كلمة سر التطبيق';
+
+  @override
   String get appPasswordOn => 'التطبيق يُفتح خلف كلمة سر.';
+
+  @override
   String get appPasswordOff => 'لا كلمة سر: من يفتح التطبيق يدخل.';
+
+  @override
   String get appPasswordSet => 'تعيين كلمة سر';
+
+  @override
   String get appPasswordChange => 'تغيير كلمة السر';
+
+  @override
   String get appPasswordRemove => 'إزالة كلمة السر';
+
+  @override
   String get appPasswordCurrent => 'كلمة السر الحالية';
+
+  @override
   String get appPasswordNew => 'كلمة سر جديدة (٤ أحرف أو أكثر)';
+
+  @override
   String get appPasswordConfirm => 'أعد كتابة كلمة السر الجديدة';
+
+  @override
   String get appPasswordShort => '٤ أحرف على الأقل.';
+
+  @override
   String get appPasswordMismatch => 'الكلمتان ليستا نفسهما.';
+
+  @override
   String get appPasswordWrong => 'كلمة السر خاطئة';
-  String get appPasswordSetDone => 'كلمة السر قائمة — التطبيق يطلبها من البداية القادمة.';
+
+  @override
+  String get appPasswordSetDone =>
+      'كلمة السر قائمة — التطبيق يطلبها من البداية القادمة.';
+
+  @override
   String get appPasswordRemoved => 'كلمة السر ذهبت؛ التطبيق يُفتح بحرية.';
+
+  @override
   String get appPasswordUnlock => 'التطبيق مقفل';
+
+  @override
   String get appPasswordUnlockHint => 'أدخل كلمة سر التطبيق للمتابعة.';
-  String get wn39MapKinds => 'الخريطة تعود بأنواعها: المسطحة كما كانت دائمًا (الافتراضية)، الكرة ثلاثية الأبعاد، أرض القمر الصناعي، ومسطحة ثنائية حديثة.';
-  String get wn39EyeIp => 'بطاقة الموقع تحمل عينًا: المسها لترى عنوان خروج الترافيك وتنسخه.';
-  String get wn39Profile => 'لكل حساب اسمه وصورته الشخصية، والتطبيق يمكن أن يُفتح خلف كلمة سر.';
-  String get wn39Smart => 'الاتصال الذكي اكتمل: أسرع موقع بزمن استجابة حقيقي، وتمرير QUIC للمكالمات والألعاب.';
-  String get wn39Flight => 'تغيير البلد يطير بنعومة أكبر — الكاميرا تسير على الدائرة الكبيرة — وعلامات عجلة الأعلام أقرب إلى الأعلام.';
-  String get wn39ToastEverywhere => 'الإشعار الديناميكي في كل مكان الآن: كل «تم الحفظ» و«تم النسخ» و«فشل» يلبس نفس الكبسولة الزجاجية المتحركة.';
-  String get wn39Updates => 'التحديثات تحفظ المساحة نظيفة: المثبِّت يستبدل الإصدار القديم ولا تُترك أي حزمة.';
-  String get wnDesignsRemoved => 'تمت إزالة منتقي تصميم التطبيق: يعود التطبيق إلى مظهره الأحادي اللون — لون التمييز وسمة التطبيق لديك كما هما.';
-  String get wnDnsAdded => 'DNS يدوي: عناوين IP بسيطة، وDNS عبر HTTPS، وDNS عبر TLS — يُعرض نوع كل سطر ويُتحقق منه أثناء الكتابة.';
-  String get wnSmartImproved => 'الاتصال الذكي يُظهر الآن ما أجابت به الشبكة: الناقل الذي اختاره ونسخة IP التي أبقاها، مباشرةً.';
-  String get wnProtectionImproved => 'مفتاح القطع يخبرك حين تقف حمايته، وصفحة التطبيقات تعرض عدد التطبيقات التي اخترتها.';
-  String get wnWelcomeImproved => 'صفحة الترحيب تُفتَح بدرع يتنفس فوق شفق ينساب، وصفحة الحسابات تجمع الشهر في نظرة.';
-  String bypassAppsCount(String n) => 'المختارة: {n}'.replaceFirst('{n}', n);
+
+  @override
+  String get wn39MapKinds =>
+      'الخريطة تعود بأنواعها: المسطحة كما كانت دائمًا (الافتراضية)، الكرة ثلاثية الأبعاد، أرض القمر الصناعي، ومسطحة ثنائية حديثة.';
+
+  @override
+  String get wn39EyeIp =>
+      'بطاقة الموقع تحمل عينًا: المسها لترى عنوان خروج الترافيك وتنسخه.';
+
+  @override
+  String get wn39Profile =>
+      'لكل حساب اسمه وصورته الشخصية، والتطبيق يمكن أن يُفتح خلف كلمة سر.';
+
+  @override
+  String get wn39Smart =>
+      'الاتصال الذكي اكتمل: أسرع موقع بزمن استجابة حقيقي، وتمرير QUIC للمكالمات والألعاب.';
+
+  @override
+  String get wn39Flight =>
+      'تغيير البلد يطير بنعومة أكبر — الكاميرا تسير على الدائرة الكبيرة — وعلامات عجلة الأعلام أقرب إلى الأعلام.';
+
+  @override
+  String get wn39ToastEverywhere =>
+      'الإشعار الديناميكي في كل مكان الآن: كل «تم الحفظ» و«تم النسخ» و«فشل» يلبس نفس الكبسولة الزجاجية المتحركة.';
+
+  @override
+  String get wn39Updates =>
+      'التحديثات تحفظ المساحة نظيفة: المثبِّت يستبدل الإصدار القديم ولا تُترك أي حزمة.';
+
+  @override
+  String get mapKindNight => 'الليل';
+
+  @override
+  String get mapKindTerrain => 'التضاريس';
+
+  @override
+  String get wn40MapKindsNew =>
+      'شكلان جديدان للخريطة: أرض الليل وأرض التضاريس.';
+
+  @override
+  String get wn40Flight =>
+      'الكرة ثلاثية الأبعاد تطير إلى البلد الجديد في دوران واحد سلس — بلا قفزة أبدًا.';
+
+  @override
+  String get wn40Mercator =>
+      'الخرائط المسطحة تُرسم بإسقاط ميركاتور القياسي: نسب حقيقية وحدود قياسية دون أي ضغط.';
+
+  @override
+  String get wn40NameBack =>
+      'اسم البلد المختار عاد تحت الأعلام على الخرائط المسطحة.';
+
+  @override
+  String get wn40Speed =>
+      'النفق يفتح جلستين متوازيتين افتراضيًا الآن — خط أقوى وأكثر ثباتًا.';
+
+  @override
+  String get wn40LockFixed => 'قفل زر الاتصال لم يعد يختفي بين حالاته.';
+
+  @override
+  String get wn40IpRemoved => 'نافذة IP على بطاقة الموقع أُزيلت.';
+
+  @override
+  String get soundFeedback => 'المؤثرات الصوتية';
+
+  @override
+  String get soundFeedbackHint =>
+      'أصوات ناعمة للمس، للمفاتيح، وتشغيل الاتصال وإيقافه';
+
+  @override
+  String get rateUnit => 'وحدة السرعة';
+
+  @override
+  String get lockInBackground => 'القفل بعد المغادرة';
+
+  @override
+  String get lockBgNever => 'أبدًا';
+
+  @override
+  String get lockBgNow => 'فورًا';
+
+  @override
+  String get lockBgMin5 => 'بعد ٥ دقائق';
+
+  @override
+  String get lockBgMin15 => 'بعد ١٥ دقيقة';
+
+  @override
+  String get mb25600 => '25 جيجابايت';
+
+  @override
+  String get mb51200 => '50 جيجابايت';
+
+  @override
+  String get mb102400 => '100 جيجابايت';
+
+  @override
+  String get wn41Sound =>
+      'صوت الاتصال يرافق الاهتزاز: تُصدر الشبكة الخاصة نغمة قصيرة عند تشغيلها أو إيقافها (الإعدادات ← عام).';
+
+  @override
+  String get wn41RateUnit =>
+      'تُقرأ السرعة بالوحدة التي تختارها: الكيلوبايت في الثانية المألوف أو الميجابت في الثانية.';
+
+  @override
+  String get wn41BackgroundLock =>
+      'يمكن للتطبيق أن يقفل نفسه في غيابك: يُسأل كلمة السر فورًا، أو بعد ٥ أو ١٥ دقيقة.';
+
+  @override
+  String get wn41BiggerLimits =>
+      'سقف بيانات الجلسة يصل إلى ٢٥ أو ٥٠ أو ١٠٠ جيجابايت.';
+
+  @override
+  String get wn41Motion =>
+      'حركة جديدة: الكرة المتصلة تتنفس، علامة الصح ترسم نفسها، كلمة الحالة تنزلق بين قيمها، وكلمة السر الخطأ تهز الحقل.';
+
+  @override
+  String get wn41AboutFixed =>
+      'صفحة حول تنتظم: الصفحتان جنبًا إلى جنب، كل شرح في سطره، دون أي ضغط.';
+
+  @override
+  String get wn41HapticFixed =>
+      'إعداد الاهتزاز يستجيب ثانية: تشغيل وإيقاف كل اتصال يتبعه، لا زر التمرير فقط.';
+
+  @override
+  String get copyIp => 'نسخ عنوان IP';
+
+  @override
+  String get wn42Fonts =>
+      'كل لغة تقرأ بخطوط التطبيق نفسه: نوتو سانس للغتين الصينيتين والبنغالية، وإنتر للاتينية والسيريلية — لم تعد أي لغة تعتمد على خطوط الهاتف.';
+
+  @override
+  String get wn42Sounds =>
+      'أصوات التطبيق حقيقية الآن: لمسة ناعمة في كل قسم، نغمتان للمفاتيح، نغمة صاعدة ونازلة عند تشغيل الاتصال وإيقافه، ونبضة للقفل — ومفتاح الصوت يتحكم بها جميعًا.';
+
+  @override
+  String get wn42AboutFixed =>
+      'صفحة حول تضع شعارها واسمها وملاحظتها في الوسط، وتُبقي معرفات التواصل سليمة على سطر واحد مهما كان عرض الهاتف.';
+
+  @override
+  String get wn42Gaming =>
+      'الملف اللعبي حقيقي الآن: صفحة الخوادم تقيس التأخيرات من جديد كل نصف دقيقة وتُبرز الأسرع قياسًا بلون التمييز.';
+
+  @override
+  String get avatarPhoto => 'صورتك';
+
+  @override
+  String get avatarPhotoFailed => 'تعذّر استخدام هذه الصورة';
 }

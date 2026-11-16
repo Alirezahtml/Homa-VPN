@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:crypto/crypto.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 
 import '../app_settings.dart';
+import '../core/android_core.dart';
 import '../l10n/app_localizations.dart';
 import 'motion.dart';
 import 'sound.dart' show AppSounds, SoundCue;
@@ -46,9 +51,118 @@ class AccountAvatarPresets {
   }
 }
 
-/// An account's avatar: the gradient the user picked with the account's
-/// first letter over it, or the quiet monogram when they have not picked
-/// one. The same face everywhere an account's name stands.
+/// The account's own picture, chosen by hand: picked from the gallery,
+/// made small enough to carry (512 px wide, PNG), and kept in the app's
+/// data folder beside the settings file. The avatar's key then says
+/// 'img:' and the file's path, so the presets' keys ('g0'…) stay what
+/// they always were, and nothing leaves the device either way.
+class AccountPhoto {
+  AccountPhoto._();
+
+  /// The key's mark that it names a file, and its path after it.
+  static const prefix = 'img:';
+
+  /// The picture is kept small: an avatar at the biggest size the app
+  /// draws it (64 px) needs a fraction of this, and the file stays
+  /// light on the storage too.
+  static const maxWidth = 512;
+
+  static bool isPhoto(String? key) => key != null && key.startsWith(prefix);
+
+  static String pathOf(String key) => key.substring(prefix.length);
+
+  /// Picks a picture, shrinks it, saves it, and names it the account's
+  /// avatar. True when it landed; false when the user backed out or the
+  /// pick could not be used (the note says so).
+  static Future<bool> choose(
+    BuildContext context,
+    AppSettings settings,
+    String accountId,
+  ) async {
+    final l = AppLocalizations.of(context);
+    Uint8List? bytes;
+    try {
+      if (Platform.isAndroid) {
+        // The phone's own dialog (the backup's read shows why): a
+        // provider can be slow, and file_selector's copy would read
+        // only what it says.
+        bytes = await AndroidCore.openFile(
+          mimes: const ['image/jpeg', 'image/png', 'image/webp'],
+        );
+      } else {
+        final picked = await openFile(
+          acceptedTypeGroups: const [
+            XTypeGroup(label: 'images', mimeTypes: [
+              'image/jpeg',
+              'image/png',
+              'image/webp',
+            ]),
+          ],
+        );
+        bytes = picked == null ? null : await picked.readAsBytes();
+      }
+      if (bytes == null || bytes.isEmpty) return false;
+      // A picture this big is no avatar, and decoding it would take the
+      // phone's breath for nothing.
+      if (bytes.lengthInBytes > 32 * 1024 * 1024) {
+        if (context.mounted) {
+          showToast(context, l.avatarPhotoFailed, mark: ToastMark.alert);
+        }
+        return false;
+      }
+      final settingsFile = settings.file;
+      if (settingsFile == null) return false;
+
+      // Down to one width, the aspect kept: the decoder does the
+      // resize itself, so no whole-size decode ever sits in memory.
+      final codec = await ui.instantiateImageCodec(
+        bytes,
+        targetWidth: maxWidth,
+      );
+      final frame = await codec.getNextFrame();
+      final data = await frame.image.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
+      frame.image.dispose();
+      final encoded = data?.buffer.asUint8List();
+      if (encoded == null || encoded.isEmpty) return false;
+
+      final dir = Directory(
+        '${settingsFile.parent.path}${Platform.pathSeparator}avatars',
+      );
+      await dir.create(recursive: true);
+      final file = File(
+        '${dir.path}${Platform.pathSeparator}$accountId.png',
+      );
+      // The picture it replaces goes: nothing keeps a file the avatar
+      // no longer names.
+      final previous = settings.accountAvatars[accountId];
+      if (isPhoto(previous)) {
+        try {
+          final old = File(pathOf(previous!));
+          if (await old.exists()) await old.delete();
+        } on IOException {
+          // An old picture that will not leave is no reason to stop.
+        }
+      }
+      await file.writeAsBytes(encoded, flush: true);
+      settings.update(accountAvatars: {
+        ...settings.accountAvatars,
+        accountId: '$prefix${file.path}',
+      });
+      return true;
+    } on Exception {
+      return false;
+    } on Error {
+      return false;
+    }
+  }
+}
+
+/// An account's avatar: the picture the user picked by hand, or the
+/// gradient they chose with the account's first letter over it, or the
+/// quiet monogram when they have not picked anything. The same face
+/// everywhere an account's name stands.
 class AccountAvatar extends StatelessWidget {
   const AccountAvatar({
     super.key,
@@ -66,11 +180,23 @@ class AccountAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = AccountAvatarPresets.of(avatarKey);
+    final photo = AccountPhoto.isPhoto(avatarKey)
+        ? File(AccountPhoto.pathOf(avatarKey))
+        : null;
+    final colors = photo == null ? AccountAvatarPresets.of(avatarKey) : null;
     final trimmed = name.trim();
     final initial = trimmed.isEmpty
         ? '?'
         : trimmed.characters.first.toUpperCase();
+    final monogram = Text(
+      initial,
+      style: theme.textTheme.titleMedium?.copyWith(
+        fontWeight: FontWeight.w800,
+        color: colors == null
+            ? theme.colorScheme.onSurface
+            : Colors.white,
+      ),
+    );
     return Container(
       width: size,
       height: size,
@@ -102,21 +228,27 @@ class AccountAvatar extends StatelessWidget {
               ],
       ),
       alignment: Alignment.center,
-      child: Text(
-        initial,
-        style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w800,
-          color: colors == null
-              ? theme.colorScheme.onSurface
-              : Colors.white,
-        ),
-      ),
+      clipBehavior: photo == null ? Clip.none : Clip.antiAlias,
+      child: photo == null
+          ? monogram
+          // The picture the user chose, filling the circle; a file that
+          // went missing under it falls back to the monogram, the face
+          // stays an account's face either way.
+          : Image.file(
+              photo,
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.medium,
+              errorBuilder: (_, _, _) => monogram,
+            ),
     );
   }
 }
 
-/// The account avatar's own picker: the ten gradients, the live preview
-/// over them, and the reset to the plain monogram.
+/// The account avatar's own picker: the user's own picture, the ten
+/// gradients, the live preview over them, and the reset to the plain
+/// monogram.
 Future<void> showAvatarPicker(
   BuildContext context,
   AppSettings settings,
@@ -155,6 +287,30 @@ Future<void> showAvatarPicker(
               runSpacing: 12,
               alignment: WrapAlignment.center,
               children: [
+                // The account's own picture first: a pick from the
+                // gallery, kept in the app's data folder. The presets
+                // stand after it, and the reset is still the way back
+                // to the plain monogram.
+                _AvatarPhotoChoice(
+                  selected: AccountPhoto.isPhoto(currentKey),
+                  onTap: () async {
+                    final ok = await AccountPhoto.choose(
+                      context,
+                      settings,
+                      accountId,
+                    );
+                    if (!context.mounted) return;
+                    if (ok) {
+                      Navigator.pop(context);
+                    } else {
+                      showToast(
+                        context,
+                        l.avatarPhotoFailed,
+                        mark: ToastMark.alert,
+                      );
+                    }
+                  },
+                ),
                 for (var i = 0; i < AccountAvatarPresets.gradients.length; i++)
                   _AvatarChoice(
                     colors: AccountAvatarPresets.gradients[i],
@@ -189,6 +345,45 @@ Future<void> showAvatarPicker(
       ),
     ),
   );
+}
+
+/// The picker's own first choice: the account's picture from the
+/// gallery — a photo chip in the row's own language, lit when the
+/// account wears a picture now.
+class _AvatarPhotoChoice extends StatelessWidget {
+  const _AvatarPhotoChoice({required this.selected, required this.onTap});
+
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: onTap,
+      child: Tooltip(
+        message: l.avatarPhoto,
+        child: Container(
+          width: 46,
+          height: 46,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: theme.colorScheme.surfaceContainerHighest,
+            border: selected
+                ? Border.all(color: theme.colorScheme.primary, width: 2.4)
+                : null,
+          ),
+          alignment: Alignment.center,
+          child: Icon(
+            Icons.photo_outlined,
+            size: 22,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _AvatarChoice extends StatelessWidget {

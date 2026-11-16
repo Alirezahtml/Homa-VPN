@@ -733,5 +733,7 @@
   "wn42Fonts": "Cada idioma lee con la propia tipografía de la app: Noto Sans para los dos chinos y el bengalí, Inter para los latinos y los cirílicos; ningún idioma depende ya de las fuentes del teléfono.",
   "wn42Sounds": "Los sonidos de la app son reales ahora: un toque suave en cada sección, dos notas para los interruptores, una nota que sube y baja al conectar y desconectar, un pitido para el bloqueo; el interruptor de sonido los gobierna todos.",
   "wn42AboutFixed": "La página Acerca de centra su logo, su nombre y su nota, y las direcciones de contacto quedan enteras en una línea, sea cual sea el ancho del teléfono.",
-  "wn42Gaming": "El perfil de juego es real ahora: la página de servidores mide los retrasos de nuevo cada medio minuto y realza el más rápido medido con el acento."
+  "wn42Gaming": "El perfil de juego es real ahora: la página de servidores mide los retrasos de nuevo cada medio minuto y realza el más rápido medido con el acento.",
+  "avatarPhoto": "Tu foto",
+  "avatarPhotoFailed": "No se pudo usar esa imagen"
 }

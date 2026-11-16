@@ -2,6 +2,10 @@ package com.arman.firefoxvpn
 
 import android.Manifest
 import android.app.ActivityManager
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -150,6 +154,17 @@ class MainActivity : FlutterActivity() {
                 // This process's Java crashes (CrashLog): the logs page
                 // shows them, so a crash report can name its line.
                 "crashLog" -> result.success(CrashLog.read(this))
+                // A newer version, announced on the phone's own bell: the
+                // app's side says when (once per release) and what (the
+                // title and body in the app's language). The system posts
+                // what it may — a permission kept closed stays closed.
+                "notifyUpdate" -> {
+                    notifyUpdate(
+                        call.argument<String>("title") ?: "",
+                        call.argument<String>("body") ?: "",
+                    )
+                    result.success(null)
+                }
                 "connectionMode" -> result.success(CoreService.connectionMode(this))
                 "showSpeed" -> result.success(CoreService.showSpeed(this))
                 "setShowSpeed" -> {
@@ -568,13 +583,6 @@ class MainActivity : FlutterActivity() {
         super.onDestroy()
     }
 
-    companion object {
-        private const val VPN_REQUEST = 7
-        private const val SAVE_REQUEST = 8
-        private const val OPEN_REQUEST = 9
-        private const val MAX_OPEN_BYTES = 16 * 1024 * 1024
-    }
-
     /** The service's notification needs this on Android 13 and later. */
     private fun askForNotifications() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -583,4 +591,54 @@ class MainActivity : FlutterActivity() {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
         }
     }
-}
+
+    /**
+     * The update's own notification: a newer version is out, from the app's
+     * side (the check runs there). Its own channel, at an importance that
+     * actually shows — the service's state card stays quiet, a release
+     * should not. One id for all releases: the next one takes the card
+     * over instead of stacking.
+     */
+    private fun notifyUpdate(title: String, body: String) {
+        try {
+            val manager = getSystemService(NotificationManager::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                manager.createNotificationChannel(
+                    NotificationChannel(
+                        UPDATES_CHANNEL,
+                        getString(R.string.updates_channel),
+                        NotificationManager.IMPORTANCE_DEFAULT,
+                    ),
+                )
+            }
+            val launch = packageManager.getLaunchIntentForPackage(packageName)
+            val open = if (launch != null) PendingIntent.getActivity(
+                this, 0, launch,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            ) else null
+            val notification = Notification.Builder(this, UPDATES_CHANNEL)
+                .setSmallIcon(R.drawable.ic_stat_logo)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setStyle(Notification.BigTextStyle().bigText(body))
+                .setAutoCancel(true)
+                .also { if (open != null) it.setContentIntent(open) }
+                .build()
+            manager.notify(UPDATES_NOTIFICATION_ID, notification)
+        } catch (e: Exception) {
+            // No permission, no channel, no bell: the home page's notice
+            // carries the release either way.
+            android.util.Log.w("MainActivity", "the update notification did not post", e)
+        }
+    }
+
+    companion object {
+        private const val VPN_REQUEST = 7
+        private const val SAVE_REQUEST = 8
+        private const val OPEN_REQUEST = 9
+        private const val MAX_OPEN_BYTES = 16 * 1024 * 1024
+
+        /** The update notices' own channel and the one id they share. */
+        private const val UPDATES_CHANNEL = "updates"
+        private const val UPDATES_NOTIFICATION_ID = 41
+    }
