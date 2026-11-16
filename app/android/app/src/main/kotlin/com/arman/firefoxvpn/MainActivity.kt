@@ -2,15 +2,20 @@ package com.arman.firefoxvpn
 
 import android.Manifest
 import android.app.ActivityManager
+import android.app.AppOpsManager
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.usage.NetworkStats
+import android.app.usage.NetworkStatsManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -22,8 +27,12 @@ import java.io.ByteArrayOutputStream
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import android.net.Uri
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.VpnService
 import android.os.Build
+import android.os.PowerManager
+import android.os.Process
 import android.provider.OpenableColumns
 import android.provider.Settings
 import android.service.quicksettings.TileService
@@ -52,11 +61,14 @@ class MainActivity : FlutterActivity() {
     private var pendingSave: Pair<ByteArray, Result>? = null
     // A backup being picked to open.
     private var pendingOpen: Result? = null
+    // A launcher shortcut tapped before the app could hear.
+    private var pendingShortcut: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         holdPhoneUpright(resources.configuration)
         super.onCreate(savedInstanceState)
         removeOtherCards()
+        takeShortcut(intent)
     }
 
 
@@ -67,6 +79,19 @@ class MainActivity : FlutterActivity() {
         setIntent(intent)
         if (intent.action == TileService.ACTION_QS_TILE_PREFERENCES) {
             androidChannel?.invokeMethod("openHome", null)
+        }
+        takeShortcut(intent)
+    }
+
+    /** A launcher shortcut's country: handed to the app once it can hear. */
+    private fun takeShortcut(intent: Intent?) {
+        val country = intent?.getStringExtra("shortcut_country") ?: return
+        if (country.isEmpty()) return
+        val channel = androidChannel
+        if (channel != null) {
+            channel.invokeMethod("openShortcut", mapOf("country" to country))
+        } else {
+            pendingShortcut = country
         }
     }
 
@@ -411,8 +436,70 @@ class MainActivity : FlutterActivity() {
                         result.success(false)
                     }
                 }
+                // The home screen's long-press shortcuts: the countries the
+                // user pinned, so "connect to Germany" starts without
+                // opening the app.
+                "setShortcuts" -> {
+                    @Suppress("UNCHECKED_CAST")
+                    val entries =
+                        call.argument<List<Map<String, Any>>>("shortcuts") ?: emptyList()
+                    setShortcuts(entries)
+                    result.success(null)
+                }
+                // The diagnostics report leaves through the phone's own
+                // share sheet; where there is none (a desktop) the app
+                // keeps the clipboard.
+                "shareText" -> {
+                    val text = call.argument<String>("text") ?: ""
+                    val title = call.argument<String>("title") ?: ""
+                    val send = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, text)
+                        putExtra(Intent.EXTRA_TITLE, title)
+                    }
+                    try {
+                        startActivity(Intent.createChooser(send, title))
+                        result.success(true)
+                    } catch (e: ActivityNotFoundException) {
+                        result.success(false)
+                    }
+                }
+                // Battery optimization: whether this app already stands
+                // outside it, the direct ask, and the system's own page
+                // for the OEMs' killers the direct ask cannot reach.
+                "batteryIgnored" -> {
+                    val power = getSystemService(PowerManager::class.java)
+                    result.success(power?.isIgnoringBatteryOptimizations(packageName) == true)
+                }
+                "requestIgnoreBattery" -> {
+                    askForNotifications()
+                    @Suppress("BatteryLife")
+                    val intent = Intent(
+                        Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        Uri.parse("package:$packageName"),
+                    )
+                    result.success(runCatching { startActivity(intent) }.isSuccess)
+                }
+                "openBatterySettings" -> {
+                    val intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
+                    result.success(runCatching { startActivity(intent) }.isSuccess)
+                }
+                // Per-app data usage: the system's own accounting, which
+                // already knows which app's traffic the VPN carried. The
+                // Usage access permission is the user's to grant; without
+                // it, "granted" is false and the app explains.
+                "usageApps" -> inBackground(result) { usageApps(call.argument<Int>("days") ?: 1) }
+                "openUsageAccess" -> {
+                    val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+                    result.success(runCatching { startActivity(intent) }.isSuccess)
+                }
                 else -> result.notImplemented()
             }
+        }
+        // A shortcut tapped before the engine answered: speak it now.
+        pendingShortcut?.let { code ->
+            pendingShortcut = null
+            channel.invokeMethod("openShortcut", mapOf("country" to code))
         }
     }
 
@@ -483,6 +570,83 @@ class MainActivity : FlutterActivity() {
                     "launcher" to (it.packageName in withIcon),
                 )
             }
+    }
+
+    /** The pinned countries as the launcher's long-press shortcuts. */
+    private fun setShortcuts(entries: List<Map<String, Any>>) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) return
+        val manager = getSystemService(ShortcutManager::class.java) ?: return
+        val shortcuts = entries.take(4).mapIndexedNotNull { index, entry ->
+            val code = entry["code"] as? String ?: return@mapIndexedNotNull null
+            val name = entry["name"] as? String ?: code
+            val intent = Intent(this, MainActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+                putExtra("shortcut_country", code)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+            ShortcutInfo.Builder(this, "country_$code")
+                .setShortLabel(name)
+                .setLongLabel(name)
+                .setRank(index)
+                .setIntent(intent)
+                .build()
+        }
+        runCatching { manager.setDynamicShortcuts(shortcuts) }
+    }
+
+    /**
+     * Per-app data usage for the last [days] days, the system's own
+     * accounting (Wi-Fi and mobile together, the VPN's carried traffic
+     * already attributed to the app that made it). Needs Usage access.
+     */
+    private fun usageApps(days: Int): Map<String, Any> {
+        val ops = getSystemService(AppOpsManager::class.java)
+        val mode = ops?.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            Process.myUid(), packageName,
+        )
+        if (mode != AppOpsManager.MODE_ALLOWED) {
+            return mapOf("granted" to false, "apps" to emptyList<Map<String, Any>>())
+        }
+        val manager = getSystemService(NetworkStatsManager::class.java)
+            ?: return mapOf("granted" to true, "apps" to emptyList<Map<String, Any>>())
+        val end = System.currentTimeMillis()
+        val start = end - days.coerceAtLeast(1) * 24L * 60 * 60 * 1000
+        val totals = HashMap<Int, Long>()
+        for (type in intArrayOf(
+            ConnectivityManager.TYPE_WIFI,
+            ConnectivityManager.TYPE_MOBILE,
+        )) {
+            try {
+                @Suppress("DEPRECATION") // the per-uid buckets have no modern call
+                val stats = manager.querySummary(type, null, start, end)
+                val bucket = NetworkStats.Bucket()
+                while (stats.hasNextBucket()) {
+                    stats.getNextBucket(bucket)
+                    val uid = bucket.uid
+                    if (uid < Process.APPLICATION_UID_START) continue
+                    totals[uid] = (totals[uid] ?: 0L) + bucket.rxBytes + bucket.txBytes
+                }
+                stats.close()
+            } catch (e: Exception) {
+                // One carrier's subscriberId rule keeps its own type away;
+                // the other type still answers.
+            }
+        }
+        val pm = packageManager
+        val apps = totals.entries.mapNotNull { (uid, bytes) ->
+            val pkg = pm.getPackagesForUid(uid)?.firstOrNull() ?: return@mapNotNull null
+            if (pkg == packageName) return@mapNotNull null
+            val info = runCatching { pm.getApplicationInfo(pkg, 0) }.getOrNull()
+                ?: return@mapNotNull null
+            mapOf(
+                "package" to pkg,
+                "label" to pm.getApplicationLabel(info).toString(),
+                "bytes" to bytes,
+            )
+        }.sortedByDescending { (it["bytes"] as Long) }
+            .take(50)
+        return mapOf("granted" to true, "apps" to apps)
     }
 
     /** An app's icon as a small PNG. */

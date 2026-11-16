@@ -7,6 +7,8 @@
     <!-- The app's own updates: a newer version downloads by itself, then
          Android's installer asks to install it. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- The battery wizard's direct ask (the system's own dialog). -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <!-- Android 16's Live Updates: the connected VPN's notification may be
          promoted above the shade, where its duration and speeds keep
          running. The system decides; the app only asks. -->
