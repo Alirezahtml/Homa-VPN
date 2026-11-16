@@ -1921,36 +1921,36 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'A telefon bekapcsolásakor magától csatlakozik, ha a VPN-engedély már megvan.';
 
   @override
   String get gamingProfile => 'Játék profil';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'A kapcsolat élő késleltetését és minőségét mutatja; a mérleg gyorsabb szerverrel párosítva.';
 
   @override
   String get diagnosticsRun => 'Diagnosztika futtatása';
 
   @override
   String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+      'Kapcsolat, DNS és alagút, egy koppintással ellenőrizve';
 
   @override
-  String get diagnosticsTunnel => 'Tunnel';
+  String get diagnosticsTunnel => 'Alagút';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'Működik és forgalmat visz';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'Leállt';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'Kilépő ország';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'A kilépés eltér a választástól';
 
   @override
   String get diagnosticsConnection => 'Kapcsolat teszt';
@@ -1962,17 +1962,17 @@ class AppLocalizationsHu extends AppLocalizations {
   String get diagnosticsFailed => 'Sikertelen';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'Letiltott vagy szűrt válasz';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'Válaszolt';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'Itt semmi nem tárolódik; az eredmények ebben az ablakban és a mag saját naplójában maradnak.';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'Futtatás újra';
 
   @override
   String get whatsNewAdded => 'Új';
@@ -2638,4 +2638,62 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'A fotó nem használható';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Üveg kártya: a hely és a bekapcsológűj sarki fény ragyogásában';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'Gyűrű, amely az állapotot mutatja: kikapcsolva halvány, csatlakozás közben körző, kapcsolva teljes fénycirkulus';
+
+  @override
+  String get designDusk => 'Alkonyat';
+
+  @override
+  String get designDuskDesc =>
+      'Meleg banner a lenyugvó nap színátmenetében; rajta az állapot és a bekapcsológomb';
+
+  @override
+  String get designSage => 'Zsálya';
+
+  @override
+  String get designSageDesc =>
+      'Csendes lajstrom: a hely sora, fölötte pedig magas gomb, ami kapcsolódáskor zölddel telik meg';
+
+  @override
+  String get tlsFragmentAuto => 'Auto';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Előbb a teljes hello; a TLS-t folyton metsző hálózat fél órára magától elvágja a nevet';
+
+  @override
+  String get accentDesign => 'A maga tervezés fénye';
+
+  @override
+  String get wn45Designs =>
+      'Négy új főoldali kinézet — Aurora, Neon, Alkonyat és Zsálya — mindegyik a maga palettájába öltözteti az összes oldalt';
+
+  @override
+  String get wn45HelloAuto =>
+      'A TLS-hasogató megtanult: a kézfogást folyton ölő hálózat a nevét magától vágja ketté, és az alagút átjár';
+
+  @override
+  String get wn45RelayRace =>
+      'A relé helyreállítása most három célt egyszerre próbál, a szűrt hálózat hamarabb talál utat';
+
+  @override
+  String get wn45AccentFixed =>
+      'A színválasztó újra fényt ad az appnak — a színe nem ért el az oldalakig';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'Az újdonságok oldala újra mutatja a szavait — üresen nyílt meg';
 }

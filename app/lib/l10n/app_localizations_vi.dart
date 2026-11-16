@@ -1905,36 +1905,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'Tự kết nối khi mở máy, nếu quyền VPN đã được cấp.';
 
   @override
   String get gamingProfile => 'Hồ sơ gaming';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'Hiện độ trễ và chất lượng kết nối trực tiếp; ghép với máy chủ đo được nhanh nhất.';
 
   @override
   String get diagnosticsRun => 'Chạy chẩn đoán';
 
   @override
   String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+      'Kết nối, DNS và đường hầm, kiểm tra trong một chạm';
 
   @override
-  String get diagnosticsTunnel => 'Tunnel';
+  String get diagnosticsTunnel => 'Đường hầm';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'Đang chạy và mang lưu lượng';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'Đã dừng';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'Quốc gia xuất phát';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'Nơi ra khác với lựa chọn';
 
   @override
   String get diagnosticsConnection => 'Kiểm tra kết nối';
@@ -1946,17 +1946,17 @@ class AppLocalizationsVi extends AppLocalizations {
   String get diagnosticsFailed => 'Thất bại';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'Câu trả lời bị chặn hoặc lọc';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'Đã trả lời';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'Không có gì được lưu ở đây; kết quả chỉ ở trong cửa sổ này và nhật ký riêng của nhân.';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'Chạy lại';
 
   @override
   String get whatsNewAdded => 'Mới';
@@ -2623,4 +2623,62 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'Không thể dùng ảnh đó';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Thẻ thủy tinh: vị trí và nút nguồn trên vầng sáng cực quang';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'Vòng tròn hiển thị trạng thái: mờ khi tắt, xoay khi đang kết nối, vòng tròn sáng khi đã kết nối';
+
+  @override
+  String get designDusk => 'Hoàng hôn';
+
+  @override
+  String get designDuskDesc =>
+      'Dải băng ấm với màu chuyển của hoàng hôn; trạng thái và nút nguồn trên đó';
+
+  @override
+  String get designSage => 'Xô thơm';
+
+  @override
+  String get designSageDesc =>
+      'Sổ ghi chép tĩnh lặng: hàng vị trí, phía trên là nút cao tô đầy màu xanh khi kết nối';
+
+  @override
+  String get tlsFragmentAuto => 'Tự động';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Gửi trọn lời chào trước; mạng cứ cắt TLS sẽ tự cắt tên trong nửa giờ';
+
+  @override
+  String get accentDesign => 'Ánh sáng riêng của thiết kế';
+
+  @override
+  String get wn45Designs =>
+      'Bốn diện mạo mới cho trang chủ — Aurora, Neon, Hoàng hôn và Xô thơm — mỗi cái khoác cho mọi trang một bảng màu riêng';
+
+  @override
+  String get wn45HelloAuto =>
+      'Bộ phân mảnh TLS đã học: mạng cứ giết bắt tay sẽ tự cắt tên, và đường hầm đi qua được';
+
+  @override
+  String get wn45RelayRace =>
+      'Phục hồi trung chuyển giờ thử ba biên cùng lúc, mạng bị lọc sớm tìm lại đường của nó';
+
+  @override
+  String get wn45AccentFixed =>
+      'Bộ chọn màu lại thắp sáng ứng dụng — màu của nó đã không còn tới được các trang';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'Trang «Có gì mới» lại hiển thị lời của nó — trước đây mở ra trống trơn';
 }

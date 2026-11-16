@@ -775,5 +775,21 @@
   "wn42AboutFixed": "Hakkında sayfası logosunu, adını ve notunu ortalar; iletişim kimlikleri telefonun genişliğinden bağımsız olarak bozulmadan tek satırda kalır.",
   "wn42Gaming": "Oyun profili artık gerçek: sunucular sayfası gecikmeleri yarım dakikada bir yeniden ölçüyor ve ölçülmüş en hızlısını vurgu rengiyle öne çıkarıyor.",
   "avatarPhoto": "Kendi fotoğrafın",
-  "avatarPhotoFailed": "Bu fotoğraf kullanılamadı"
+  "avatarPhotoFailed": "Bu fotoğraf kullanılamadı",
+  "designAurora": "Aurora",
+  "designAuroraDesc": "Cam bir kart: konum ve güç düğmesi, kutup ışığı parıltısıyla",
+  "designNeon": "Neon",
+  "designNeonDesc": "Durumu gösteren bir halka: kapalıyken sönük, bağlanırken dönen, bağlandığında tam bir ışık çemberi",
+  "designDusk": "Gün batımı",
+  "designDuskDesc": "Gün batımının son ışığının renk geçişli sıcak bir pankart; üstünde durum ve güç düğmesi",
+  "designSage": "Adaçayı",
+  "designSageDesc": "Sakin bir defter: konum için bir satır, üstünde bağlanınca yeşile dönen uzun bir düğme",
+  "tlsFragmentAuto": "Otomatik",
+  "tlsFragmentAutoHint": "Önce bütün merhaba; TLS'i sürekley kesen ağ, adı yarım saatliğine kendiliğinden keser",
+  "accentDesign": "Tasarımın kendi ışığı",
+  "wn45Designs": "Dört yeni ana ekran tasarımı — Aurora, Neon, Gün batımı ve Adaçayı — her biri tüm sayfaları kendi paletiyle giydirir",
+  "wn45HelloAuto": "TLS parçalayıcı öğrendi: el sıkışmayı sürekley öldüren ağın adı kendiliğinden kesilir, tünel geçer",
+  "wn45RelayRace": "Röle kurtarma artık üç ucu birden dener, filtrelenmiş ağ yolunu daha çabuk bulur",
+  "wn45AccentFixed": "Renk seçici uygulamayı yeniden aydınlatıyor — rengi sayfalara ulaşmıyordu",
+  "wn45WhatsNewFixed": "«Yenilikler» sayfası sözlerini yeniden gösteriyor — boş açılıyordu"
 }

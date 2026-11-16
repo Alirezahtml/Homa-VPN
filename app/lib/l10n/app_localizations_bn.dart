@@ -1902,36 +1902,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'ফোন চালু হলে নিজেই সংযোগ করে, VPN-এর অনুমতি আগেই দেওয়া থাকলে।';
 
   @override
   String get gamingProfile => 'গেমিং প্রোফাইল';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'সংযোগের সরাসরি বিলম্ব আর মান দেখায়; মাপা সবচেয়ে দ্রুত সার্ভারের সাথে চলে।';
 
   @override
   String get diagnosticsRun => 'ডায়াগনস্টিক চালান';
 
   @override
-  String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+  String get diagnosticsHint => 'সংযোগ, DNS আর টানেল, এক টোকায় পরীক্ষা';
 
   @override
-  String get diagnosticsTunnel => 'Tunnel';
+  String get diagnosticsTunnel => 'টানেল';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'চালু এবং ট্রাফিক বহন করছে';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'বন্ধ';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'প্রস্থান দেশ';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'প্রস্থান নির্বাচন থেকে আলাদা';
 
   @override
   String get diagnosticsConnection => 'সংযোগ পরীক্ষা';
@@ -1943,17 +1942,17 @@ class AppLocalizationsBn extends AppLocalizations {
   String get diagnosticsFailed => 'ব্যর্থ';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'অবরুদ্ধ বা ফিল্টার করা উত্তর';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'উত্তর দিয়েছে';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'এখানে কিছুই জমা হয় না; ফলাফল এই জানালায় আর কোরের নিজের লগে থাকে।';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'আবার চালাও';
 
   @override
   String get whatsNewAdded => 'নতুন';
@@ -2618,4 +2617,62 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'এই ছবিটি ব্যবহার করা যায়নি';
+
+  @override
+  String get designAurora => 'অরোরা';
+
+  @override
+  String get designAuroraDesc =>
+      'কাচের কার্ড: জায়গা আর পাওয়ার বোতাম আরোরার আলোর ওপর';
+
+  @override
+  String get designNeon => 'নিয়ন';
+
+  @override
+  String get designNeonDesc =>
+      'একটি বলয় যা অবস্থা দেখায়: বন্ধে অস্পষ্ট, সংযোগে ঘূর্ণায়মান, যুক্ত হলে পূর্ণ আলোর বৃত্ত';
+
+  @override
+  String get designDusk => 'গোধূলি';
+
+  @override
+  String get designDuskDesc =>
+      'সূর্যাস্তের গ্র্যাডিয়েন্টে একটি উষ্ণ ব্যানার; তার ওপর অবস্থা আর পাওয়ার বোতাম';
+
+  @override
+  String get designSage => 'সেজ';
+
+  @override
+  String get designSageDesc =>
+      'শান্ত খাতা: জায়গার সারি, তার ওপর লম্বা বোতাম যা যুক্ত হলে সবুজে ভরে যায়';
+
+  @override
+  String get tlsFragmentAuto => 'স্বয়ংক্রিয়';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'প্রথমে সম্পূর্ণ হ্যালো; TLS বারবার কাটা নেটওয়ার্ক নিজেই আধ ঘণ্টার জন্য নাম কাটে';
+
+  @override
+  String get accentDesign => 'ডিজাইনের নিজের আলো';
+
+  @override
+  String get wn45Designs =>
+      'চারটি নতুন হোম ডিজাইন — অরোরা, নিয়ন, গোধূলি আর সেজ — প্রতিটি পুরো অ্যাপকে নিজের রঙে সাজায়';
+
+  @override
+  String get wn45HelloAuto =>
+      'TLS খণ্ডক শিখেছে: যে নেটওয়ার্ক বারবার হ্যান্ডশেক মারে, নিজেই নাম কেটে টানেল পার হয়';
+
+  @override
+  String get wn45RelayRace =>
+      'রিলে পুনরুদ্ধার এখন একসাথে তিনটি প্রান্ত পরীক্ষা করে, ফিল্টার নেটওয়ার্ক তাড়াতাড়ি পথ পায়';
+
+  @override
+  String get wn45AccentFixed =>
+      'রঙ নির্বাচক আবার অ্যাপ জ্বালায় — তার রঙ পাতায় পৌঁছাত না';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      '«নতুন কী» পাতা আবার তার কথা দেখায় — খালি খুলত';
 }

@@ -185,4 +185,54 @@ void main() {
   testWidgets('design pixel, Persian, connected', (tester) async {
     await phone(tester, name: 'pixel_fa', design: 'pixel', language: 'fa');
   });
+
+  testWidgets('design aurora, dark, connected', (tester) async {
+    await phone(tester, name: 'aurora_dark', design: 'aurora');
+  });
+
+  testWidgets('design aurora, light, disconnected', (tester) async {
+    await phone(
+      tester,
+      name: 'aurora_light_off',
+      design: 'aurora',
+      theme: ThemeMode.light,
+      connected: false,
+    );
+  });
+
+  testWidgets('design neon, dark, connected', (tester) async {
+    await phone(tester, name: 'neon_dark', design: 'neon');
+  });
+
+  testWidgets('design neon, Persian, disconnected', (tester) async {
+    await phone(
+      tester,
+      name: 'neon_fa_off',
+      design: 'neon',
+      language: 'fa',
+      connected: false,
+    );
+  });
+
+  testWidgets('design dusk, dark, connected', (tester) async {
+    await phone(tester, name: 'dusk_dark', design: 'dusk');
+  });
+
+  testWidgets('design dusk, light, connected', (tester) async {
+    await phone(tester, name: 'dusk_light', design: 'dusk', theme: ThemeMode.light);
+  });
+
+  testWidgets('design sage, dark, connected', (tester) async {
+    await phone(tester, name: 'sage_dark', design: 'sage');
+  });
+
+  testWidgets('design sage, Persian, disconnected', (tester) async {
+    await phone(
+      tester,
+      name: 'sage_fa_off',
+      design: 'sage',
+      language: 'fa',
+      connected: false,
+    );
+  });
 }

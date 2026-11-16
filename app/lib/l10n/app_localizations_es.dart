@@ -1921,36 +1921,36 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'Se conecta solo al encender el teléfono, si el permiso de VPN ya está concedido.';
 
   @override
   String get gamingProfile => 'Perfil de juegos';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'Muestra la demora y calidad en vivo de la conexión; combina con el servidor más rápido medido.';
 
   @override
   String get diagnosticsRun => 'Ejecutar diagnóstico';
 
   @override
   String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+      'Conexión, DNS y túnel, comprobados de un toque';
 
   @override
-  String get diagnosticsTunnel => 'Tunnel';
+  String get diagnosticsTunnel => 'Túnel';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'Levantado y llevando tráfico';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'Caído';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'País de salida';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'La salida difiere de lo elegido';
 
   @override
   String get diagnosticsConnection => 'Prueba de conexión';
@@ -1962,17 +1962,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get diagnosticsFailed => 'Fallida';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'Respuesta bloqueada o filtrada';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'Respondió';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'Aquí no se guarda nada; los resultados quedan en esta ventana y en el registro propio del núcleo.';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'Ejecutar de nuevo';
 
   @override
   String get whatsNewAdded => 'Nuevo';
@@ -2645,4 +2645,62 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'No se pudo usar esa imagen';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Una tarjeta de cristal: el lugar y el botón sobre un fulgor de aurora';
+
+  @override
+  String get designNeon => 'Neón';
+
+  @override
+  String get designNeonDesc =>
+      'Un anillo que muestra el estado: tenue apagado, girando al conectar, círculo completo al conectar';
+
+  @override
+  String get designDusk => 'Crepúsculo';
+
+  @override
+  String get designDuskDesc =>
+      'Un banner cálido con el degradado del atardecer; el estado y el botón encima';
+
+  @override
+  String get designSage => 'Salvia';
+
+  @override
+  String get designSageDesc =>
+      'Un libro sereno: la fila del lugar y, encima, un botón alto que se llena de verde al conectar';
+
+  @override
+  String get tlsFragmentAuto => 'Automático';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Primero el saludo completo; una red que corta TLS seguido recorta el nombre por sí misma, media hora';
+
+  @override
+  String get accentDesign => 'La luz del propio diseño';
+
+  @override
+  String get wn45Designs =>
+      'Cuatro nuevos diseños de inicio — Aurora, Neón, Crepúsculo y Salvia — cada uno viste todas las páginas con su propia paleta';
+
+  @override
+  String get wn45HelloAuto =>
+      'El fragmentador TLS aprendió: una red que mata el saludo una y otra vez recibe el nombre recortado por sí misma, y el túnel pasa';
+
+  @override
+  String get wn45RelayRace =>
+      'La recuperación del relé ahora prueba tres bordes a la vez, y la red filtrada encuentra su camino antes';
+
+  @override
+  String get wn45AccentFixed =>
+      'El selector de color vuelve a iluminar la app — su color había dejado de llegar a las páginas';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'La página de novedades vuelve a mostrar sus palabras — se abría vacía';
 }

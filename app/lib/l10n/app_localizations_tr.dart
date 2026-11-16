@@ -2623,4 +2623,62 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'Bu fotoğraf kullanılamadı';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Cam bir kart: konum ve güç düğmesi, kutup ışığı parıltısıyla';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'Durumu gösteren bir halka: kapalıyken sönük, bağlanırken dönen, bağlandığında tam bir ışık çemberi';
+
+  @override
+  String get designDusk => 'Gün batımı';
+
+  @override
+  String get designDuskDesc =>
+      'Gün batımının son ışığının renk geçişli sıcak bir pankart; üstünde durum ve güç düğmesi';
+
+  @override
+  String get designSage => 'Adaçayı';
+
+  @override
+  String get designSageDesc =>
+      'Sakin bir defter: konum için bir satır, üstünde bağlanınca yeşile dönen uzun bir düğme';
+
+  @override
+  String get tlsFragmentAuto => 'Otomatik';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Önce bütün merhaba; TLS\'i sürekley kesen ağ, adı yarım saatliğine kendiliğinden keser';
+
+  @override
+  String get accentDesign => 'Tasarımın kendi ışığı';
+
+  @override
+  String get wn45Designs =>
+      'Dört yeni ana ekran tasarımı — Aurora, Neon, Gün batımı ve Adaçayı — her biri tüm sayfaları kendi paletiyle giydirir';
+
+  @override
+  String get wn45HelloAuto =>
+      'TLS parçalayıcı öğrendi: el sıkışmayı sürekley öldüren ağın adı kendiliğinden kesilir, tünel geçer';
+
+  @override
+  String get wn45RelayRace =>
+      'Röle kurtarma artık üç ucu birden dener, filtrelenmiş ağ yolunu daha çabuk bulur';
+
+  @override
+  String get wn45AccentFixed =>
+      'Renk seçici uygulamayı yeniden aydınlatıyor — rengi sayfalara ulaşmıyordu';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      '«Yenilikler» sayfası sözlerini yeniden gösteriyor — boş açılıyordu';
 }

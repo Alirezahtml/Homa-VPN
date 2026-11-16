@@ -2631,4 +2631,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'That picture could not be used';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'A glass hero card: the place and the orb on a teal wash';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'A ring that shows the state: dim while off, a sweep while connecting, a full circle when up';
+
+  @override
+  String get designDusk => 'Dusk';
+
+  @override
+  String get designDuskDesc =>
+      'A warm banner in the sunset\'s own gradient, the state\'s word and the power on it';
+
+  @override
+  String get designSage => 'Sage';
+
+  @override
+  String get designSageDesc =>
+      'A quiet ledger: the place\'s row above a tall pill that fills with green';
+
+  @override
+  String get tlsFragmentAuto => 'Auto';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'The whole hello first; a network that keeps cutting TLS gets the name cut on its own, for half an hour';
+
+  @override
+  String get accentDesign => 'The design\'s own light';
+
+  @override
+  String get wn45Designs =>
+      'Four new home looks — Aurora, Neon, Dusk and Sage — each dressing every page in its own palette';
+
+  @override
+  String get wn45HelloAuto =>
+      'The TLS fragment learned: a network that keeps killing the handshake gets the name cut on its own, and the tunnel gets through';
+
+  @override
+  String get wn45RelayRace =>
+      'Relay recovery now races three edges at once, so a filtered network finds its way back sooner';
+
+  @override
+  String get wn45AccentFixed =>
+      'The accent picker lights the app again — its color had stopped reaching the pages';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'The What\'s new page shows its words again — it had opened empty';
 }

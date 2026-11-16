@@ -1849,13 +1849,14 @@ void main() {
     await tester.tap(find.text('TLS fragmentation'));
     await settle(tester);
 
-    // Off by default.
+    // Auto by default: the hello goes out whole until TLS itself keeps
+    // dying, then the name is cut on its own.
     bool selected(String label) =>
         tester
             .widget<RadioGroup<String>>(find.byType(RadioGroup<String>).last)
             .groupValue ==
         label;
-    expect(selected('off'), isTrue);
+    expect(selected('auto'), isTrue);
     expect(find.text('Normal TLS connection'), findsOneWidget);
     expect(
       find.text('Splits the TLS header at the first byte (0x16)'),
@@ -1875,6 +1876,18 @@ void main() {
       'sni',
     );
     expect(selected('sni'), isTrue);
+
+    // Back to auto: the choice the core takes on its own.
+    final auto = find.text('Auto');
+    await tester.ensureVisible(auto);
+    await settle(tester);
+    await tester.tap(auto);
+    await settle(tester);
+    expect(
+      (api.config['network'] as Map<String, Object?>)['hello_split'],
+      'auto',
+    );
+    expect(selected('auto'), isTrue);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

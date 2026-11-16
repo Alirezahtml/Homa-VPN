@@ -289,8 +289,10 @@ type Network struct {
         GuardianEndpoint  string `json:"guardian_endpoint"`
         // HelloSplit is how the TLS ClientHello of the connections to Mozilla
         // and to the relay goes out, for a network that filters by server name:
-        // "off" (or empty: whole), "first-byte", "sni" (cut inside the name), or
-        // "record" (two TLS records, cut inside the name).
+        // "auto" (or empty: whole until TLS itself dies twice with two whole
+        // hellos, then the name is cut for half an hour), "off" (always whole),
+        // "first-byte", "sni" (cut inside the name), or "record" (two TLS
+        // records, cut inside the name).
         HelloSplit string `json:"hello_split"`
         // UpstreamProxy, when set, is the host:port of the user's own SOCKS5 proxy,
         // such as a v2ray client on this device: every connection to Mozilla and to
@@ -360,7 +362,7 @@ func Default() Config {
                         SharedRelayEnabled: true,
                         APIRelayECH:        RelayECHOn,
                         GuardianEndpoint:   guardian.DefaultEndpoint,
-                        HelloSplit:         hellosplit.Off,
+                        HelloSplit:         hellosplit.Auto,
                 },
                 DNS: DNS{
                         Servers:          append([]string(nil), DefaultDNSServers...),
@@ -721,7 +723,7 @@ func (c Config) Validate() error {
                 return fmt.Errorf("network.api_relay_ech_config: %w", err)
         }
         if !hellosplit.Valid(c.Network.HelloSplit) {
-                return fmt.Errorf("network.hello_split: %q is not off, sni, first-byte, or record", c.Network.HelloSplit)
+                return fmt.Errorf("network.hello_split: %q is not auto, off, sni, first-byte, or record", c.Network.HelloSplit)
         }
         if err := ValidateUpstreamProxy(c.Network, c.Proxy.Listen); err != nil {
                 return fmt.Errorf("network.upstream_proxy: %w", err)

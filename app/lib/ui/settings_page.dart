@@ -1501,7 +1501,9 @@ class _SettingsPageState extends State<SettingsPage> {
       title: l.tlsFragment,
       icon: Icons.content_cut_rounded,
       child: RadioGroup<String>(
-        groupValue: mode.isEmpty ? 'off' : mode,
+        // The core's own default is auto now: a fresh install, or a line
+        // left empty, reads as auto.
+        groupValue: mode.isEmpty || mode == 'auto' ? 'auto' : mode,
         onChanged: (v) {
           if (v == null || _saving) return;
           _save({
@@ -1511,6 +1513,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             for (final (value, label, hint) in [
+              ('auto', l.tlsFragmentAuto, l.tlsFragmentAutoHint),
               ('off', l.tlsFragmentOff, l.tlsFragmentOffHint),
               (
                 'first-byte',
@@ -3801,7 +3804,9 @@ class _AccentSwatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppAccent.resolve(settings);
+    // The light the app actually wears — the picked accent, or the home
+    // design's own light — not only what the settings carry.
+    final accent = AppAccent.current;
     final color = accent ?? (dark ? Colors.white : Colors.black);
     return Container(
       width: 22,
@@ -3853,9 +3858,15 @@ Future<void> showAccentPicker(BuildContext context, AppSettings s) async {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16),
+              // The unpicked choice: the design's own light when the home
+              // design carries one (the four looks do), the monochrome's
+              // full contrast when it does not.
               _AccentTile(
-                label: l.accentMono,
-                color: dark ? Colors.white : Colors.black,
+                label: AppDesign.current.accentFor(dark) != null
+                    ? l.accentDesign
+                    : l.accentMono,
+                color: AppDesign.current.accentFor(dark) ??
+                    (dark ? Colors.white : Colors.black),
                 selected: s.accentKey.isEmpty,
                 onTap: () => s.update(accentKey: ''),
               ),
@@ -4023,14 +4034,21 @@ int? _hexArgb(String text) {
 String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'bento' => l.designBento,
   'pixel' => l.designPixel,
+  'aurora' => l.designAurora,
+  'neon' => l.designNeon,
+  'dusk' => l.designDusk,
+  'sage' => l.designSage,
   _ => l.designWheel,
 };
 
-/// The home design picker: the three real layouts the home page has —
-/// the wheel, the tiles, the compact card — each as a card with a small
+/// The home design picker: the seven real layouts the home page has —
+/// the wheel, the tiles, the compact card, and the four looks that carry
+/// a whole palette of their own (the aurora's glass, the neon's ring,
+/// the dusk's banner, the sage's ledger) — each as a card with a small
 /// mock-up of itself drawn in the theme's own ink, its name, and a word
 /// about what it is. A tap chooses; the home page follows at once (the
-/// app's root rebuilds on the settings).
+/// app's root rebuilds on the settings), and with the four, the whole
+/// app's palette follows with it.
 Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
   await showDialog<void>(
     context: context,
@@ -4040,27 +4058,30 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
         width: 460,
         child: ListenableBuilder(
           listenable: s,
-          builder: (context, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _DesignCard(
-                kind: 'wheel',
-                selected: s.homeDesign == 'wheel',
-                onTap: () => s.update(homeDesign: 'wheel'),
-              ),
-              const SizedBox(height: 10),
-              _DesignCard(
-                kind: 'bento',
-                selected: s.homeDesign == 'bento',
-                onTap: () => s.update(homeDesign: 'bento'),
-              ),
-              const SizedBox(height: 10),
-              _DesignCard(
-                kind: 'pixel',
-                selected: s.homeDesign == 'pixel',
-                onTap: () => s.update(homeDesign: 'pixel'),
-              ),
-            ],
+          // Seven designs now: seven cards do not always fit a phone's
+          // dialog, so the column scrolls.
+          builder: (context, _) => SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final kind in [
+                  'wheel',
+                  'bento',
+                  'pixel',
+                  'aurora',
+                  'neon',
+                  'dusk',
+                  'sage',
+                ]) ...[
+                  _DesignCard(
+                    kind: kind,
+                    selected: s.homeDesign == kind,
+                    onTap: () => s.update(homeDesign: kind),
+                  ),
+                  if (kind != 'sage') const SizedBox(height: 10),
+                ],
+              ],
+            ),
           ),
         ),
       ),
@@ -4096,6 +4117,10 @@ class _DesignCard extends StatelessWidget {
     final (name, desc) = switch (kind) {
       'bento' => (l.designBento, l.designBentoDesc),
       'pixel' => (l.designPixel, l.designPixelDesc),
+      'aurora' => (l.designAurora, l.designAuroraDesc),
+      'neon' => (l.designNeon, l.designNeonDesc),
+      'dusk' => (l.designDusk, l.designDuskDesc),
+      'sage' => (l.designSage, l.designSageDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4237,6 +4262,130 @@ class _DesignMockup extends StatelessWidget {
                     color: lit,
                   ),
                 ),
+              ),
+            ),
+          ],
+        );
+      case 'aurora':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 76,
+              height: 62,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    scheme.outlineVariant.withValues(alpha: 0.4),
+                    lit.withValues(alpha: 0.4),
+                  ],
+                ),
+                border: Border.all(color: lit.withValues(alpha: 0.7)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  tile(w: 34, h: 7),
+                  const SizedBox(height: 6),
+                  Container(
+                    width: 26,
+                    height: 26,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lit,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      case 'neon':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: lit, width: 2),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.power_settings_new_rounded,
+                  size: 20,
+                  color: lit,
+                ),
+              ),
+            ),
+            const SizedBox(height: 7),
+            tile(w: 40, h: 7),
+          ],
+        );
+      case 'dusk':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 76,
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(
+                  colors: [
+                    lit.withValues(alpha: 0.5),
+                    lit,
+                  ],
+                ),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 6),
+                  Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: scheme.surface,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  tile(w: 26, h: 6, color: scheme.surface.withValues(alpha: 0.9), r: 3),
+                ],
+              ),
+            ),
+            const SizedBox(height: 6),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                tile(w: 16, h: 12),
+                const SizedBox(width: 4),
+                tile(w: 16, h: 12, color: lit.withValues(alpha: 0.5)),
+                const SizedBox(width: 4),
+                tile(w: 16, h: 12),
+              ],
+            ),
+          ],
+        );
+      case 'sage':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            tile(w: 76, h: 16),
+            const SizedBox(height: 6),
+            Container(
+              width: 76,
+              height: 34,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: lit,
+              ),
+              child: Center(
+                child: tile(w: 34, h: 7, color: scheme.surface.withValues(alpha: 0.9), r: 3),
               ),
             ),
           ],

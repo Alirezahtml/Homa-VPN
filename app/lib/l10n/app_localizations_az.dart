@@ -1907,36 +1907,36 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'Telefon açılanda özü qoşulur, VPN icazəsi artıq verilibsə.';
 
   @override
   String get gamingProfile => 'Oyun profili';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'Bağlantının canlı gecikmə və keyfiyyətini göstərir; ölçülmüş ən sürətli server ilə birlikdə işləyir.';
 
   @override
   String get diagnosticsRun => 'Diaqnostikanı işə sal';
 
   @override
   String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+      'Bağlantı, DNS və tunnel, bir toxunuşla yoxlanır';
 
   @override
   String get diagnosticsTunnel => 'Tunnel';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'İşləyir və trafik daşıyır';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'Söndü';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'Çıxış ölkəsi';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'Çıxış seçiləndən fərqlidir';
 
   @override
   String get diagnosticsConnection => 'Bağlantı testi';
@@ -1948,17 +1948,17 @@ class AppLocalizationsAz extends AppLocalizations {
   String get diagnosticsFailed => 'Uğursuz';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'Bloklanmış və ya filtrlənmiş cavab';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'Cavab verdi';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'Burada heç nə saxlanmır; nəticələr bu pəncərədə və çekirdeyin öz gündeliyində qalır.';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'Yenidən işə sal';
 
   @override
   String get whatsNewAdded => 'Yeni';
@@ -2625,4 +2625,62 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'Bu şəkil işlədilə bilmədi';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Şüşə kart: məkan və işə salma düyməsi qütb işığı əks-sədası ilə';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'Vəziyyəti göstərən halqa: sönük ikən zəif, qoşularkən fırlanan, qoşulduqda tam işıq dairəsi';
+
+  @override
+  String get designDusk => 'Gün batımı';
+
+  @override
+  String get designDuskDesc =>
+      'Gün batımının son işığı ilə isti banner; üstündə vəziyyət və işə salma düyməsi';
+
+  @override
+  String get designSage => 'Adaçayı';
+
+  @override
+  String get designSageDesc =>
+      'Sakit dəftər: məkan üçün sətir, üstündə qoşulduqda yaşılı dolduran hündür düymə';
+
+  @override
+  String get tlsFragmentAuto => 'Avtomatik';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Əvvəlcə tam salamlaşma; TLS-i daim kəsən şəbəkə adı özü yarım saat kəsir';
+
+  @override
+  String get accentDesign => 'Dizaynın öz işığı';
+
+  @override
+  String get wn45Designs =>
+      'Dörd yeni ana səhifə dizaynı — Aurora, Neon, Gün batımı və Adaçayı — hər biri bütün səhifələri öz palitrası ilə geyindirir';
+
+  @override
+  String get wn45HelloAuto =>
+      'TLS bölücü öyrəndi: əl sıxışığını daim öldürən şəbəkə adı özü kəsir, tunnel keçir';
+
+  @override
+  String get wn45RelayRace =>
+      'Rele bərpası indi üç kənarı birlikdə sınayır, filtrlənmiş şəbəkə yolu daha tez tapır';
+
+  @override
+  String get wn45AccentFixed =>
+      'Rəng seçicisi tətbiqi yenidən işıqlandırır — rəngi səhifələrə çatmırdı';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      '«Yeniliklər» səhifəsi sözlərini yenidən göstərir — boş açılırdı';
 }

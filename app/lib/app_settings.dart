@@ -115,8 +115,9 @@ class AppSettings extends ChangeNotifier {
   int customAccent = 0xFF60A5FA;
 
   /// The home page's design: 'wheel' (the flags in their wheel), 'bento'
-  /// (the tiles), or 'pixel' (the compact card). Whatever else lands in the
-  /// file reads as the wheel.
+  /// (the tiles), 'pixel' (the compact card), or one of the four looks
+  /// that carry a palette of their own — 'aurora', 'neon', 'dusk',
+  /// 'sage'. Whatever else lands in the file reads as the wheel.
   String homeDesign = 'wheel';
 
   /// The countries the user pinned in the flag wheel: they lead the wheel
@@ -478,6 +479,10 @@ class AppSettings extends ChangeNotifier {
       this.homeDesign = switch (homeDesign) {
         'bento' => 'bento',
         'pixel' => 'pixel',
+        'aurora' => 'aurora',
+        'neon' => 'neon',
+        'dusk' => 'dusk',
+        'sage' => 'sage',
         _ => 'wheel',
       };
     }

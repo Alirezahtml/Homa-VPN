@@ -2629,4 +2629,62 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'تعذّر استخدام هذه الصورة';
+
+  @override
+  String get designAurora => 'أورورا';
+
+  @override
+  String get designAuroraDesc =>
+      'بطاقة زجاجية: المكان ومفتاح التشغيل على وهج الشفق القطبي';
+
+  @override
+  String get designNeon => 'نيون';
+
+  @override
+  String get designNeonDesc =>
+      'حلقة تُظهر الحالة: خافتة وهي مطفأة، دوّارة أثناء الاتصال، ودائرة كاملة من الضوء عند الاتصال';
+
+  @override
+  String get designDusk => 'الشفق';
+
+  @override
+  String get designDuskDesc =>
+      'لافتة دافئة بتدرّج آخر ضوء الغروب؛ الحالة ومفتاح التشغيل عليها';
+
+  @override
+  String get designSage => 'المريمية';
+
+  @override
+  String get designSageDesc =>
+      'سجل هادئ: صف للمكان، وفوقه مفتاح طويل يمتلئ بالأخضر عند الاتصال';
+
+  @override
+  String get tlsFragmentAuto => 'تلقائي';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'الترحيب الكامل أولاً؛ الشبكة التي تقطع TLS باستمرار يُقطع اسمها تلقائياً نصف ساعة';
+
+  @override
+  String get accentDesign => 'ضوء التصميم ذاته';
+
+  @override
+  String get wn45Designs =>
+      'أربعة تصاميم جديدة للرئيسية — أورورا، نيون، الشفق والمريمية — كلٌّ يلبس كل الصفحات بلوحة ألوانه';
+
+  @override
+  String get wn45HelloAuto =>
+      'مُجزِّئ TLS تعلّم: الشبكة التي تقتل المصافحة باستمرار يُقطع اسمها تلقائياً، فيمر النفق';
+
+  @override
+  String get wn45RelayRace =>
+      'استرداد المُرحِّل يختبر الآن ثلاثة أطراف دفعة واحدة، فتجد الشبكة المُصفّاة طريقها أسرع';
+
+  @override
+  String get wn45AccentFixed =>
+      'منتقي اللون يضيء التطبيق من جديد — كان لونه قد توقف عن بلوغ الصفحات';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'صفحة «ما الجديد» تعرض كلماتها من جديد — كانت تفتح فارغة';
 }

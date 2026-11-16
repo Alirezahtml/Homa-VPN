@@ -1906,36 +1906,36 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get connectAtBootHint =>
-      'Connects by itself at boot, when the VPN permission is already granted.';
+      'Menyambung sendiri saat telepon dinyalakan, jika izin VPN sudah diberikan.';
 
   @override
   String get gamingProfile => 'Profil gaming';
 
   @override
   String get gamingProfileHint =>
-      'Shows the connection\'s live delay and quality; pairs with the fastest measured server.';
+      'Menampilkan jeda dan kualitas koneksi secara langsung; berpasangan dengan server terukur tercepat.';
 
   @override
   String get diagnosticsRun => 'Jalankan diagnostik';
 
   @override
   String get diagnosticsHint =>
-      'Connection, DNS, and tunnel, checked in one tap';
+      'Koneksi, DNS, dan terowongan, diperiksa satu ketukan';
 
   @override
-  String get diagnosticsTunnel => 'Tunnel';
+  String get diagnosticsTunnel => 'Terowongan';
 
   @override
-  String get diagnosticsTunnelUp => 'Up and carrying traffic';
+  String get diagnosticsTunnelUp => 'Aktif dan membawa lalu lintas';
 
   @override
-  String get diagnosticsTunnelDown => 'Down';
+  String get diagnosticsTunnelDown => 'Mati';
 
   @override
-  String get diagnosticsExit => 'Exit country';
+  String get diagnosticsExit => 'Negara keluar';
 
   @override
-  String get diagnosticsMismatch => 'Exit differs from the choice';
+  String get diagnosticsMismatch => 'Keluaran berbeda dari pilihan';
 
   @override
   String get diagnosticsConnection => 'Uji koneksi';
@@ -1947,17 +1947,17 @@ class AppLocalizationsId extends AppLocalizations {
   String get diagnosticsFailed => 'Gagal';
 
   @override
-  String get diagnosticsDnsFiltered => 'Blocked or filtered answer';
+  String get diagnosticsDnsFiltered => 'Jawaban diblokir atau disaring';
 
   @override
-  String get diagnosticsDnsOk => 'Answered';
+  String get diagnosticsDnsOk => 'Menjawab';
 
   @override
   String get diagnosticsPrivacy =>
-      'Nothing here is stored; the results stay in this window and the core\'s own log.';
+      'Tidak ada yang disimpan di sini; hasil tinggal di jendela ini dan di log milik inti.';
 
   @override
-  String get diagnosticsAgain => 'Run again';
+  String get diagnosticsAgain => 'Jalankan lagi';
 
   @override
   String get whatsNewAdded => 'Baru';
@@ -2627,4 +2627,62 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'Gambar itu tidak dapat dipakai';
+
+  @override
+  String get designAurora => 'Aurora';
+
+  @override
+  String get designAuroraDesc =>
+      'Kartu kaca: lokasi dan tombol daya di atas cahaya aurora';
+
+  @override
+  String get designNeon => 'Neon';
+
+  @override
+  String get designNeonDesc =>
+      'Cincin yang menunjukkan status: redup saat mati, menyapu saat menyambung, lingkaran penuh saat tersambung';
+
+  @override
+  String get designDusk => 'Senja';
+
+  @override
+  String get designDuskDesc =>
+      'Banner hangat dengan gradien matahari terbenam; status dan tombol daya di atasnya';
+
+  @override
+  String get designSage => 'Sage';
+
+  @override
+  String get designSageDesc =>
+      'Buku tenang: baris lokasi, dan di atasnya tombol tinggi yang terisi hijau saat tersambung';
+
+  @override
+  String get tlsFragmentAuto => 'Otomatis';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Hello utuh dulu; jaringan yang terus memotong TLS memotong nama sendiri, selama setengah jam';
+
+  @override
+  String get accentDesign => 'Cahaya desain itu sendiri';
+
+  @override
+  String get wn45Designs =>
+      'Empat tampilan rumah baru — Aurora, Neon, Senja, dan Sage — masing-masing memakaikan setiap halaman dengan paletnya sendiri';
+
+  @override
+  String get wn45HelloAuto =>
+      'Pemecah TLS belajar: jaringan yang terus membunuh jabat tangan memotong nama sendiri, dan terowongan lewat';
+
+  @override
+  String get wn45RelayRace =>
+      'Pemulihan relai kini menguji tiga tepi sekaligus, jaringan tersaring lebih cepat menemukan jalannya';
+
+  @override
+  String get wn45AccentFixed =>
+      'Pemilih warna kembali menerangi aplikasi — warnanya tak lagi sampai ke halaman';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'Halaman «Yang baru» kembali menampilkan kata-katanya — dulu terbuka kosong';
 }

@@ -2478,6 +2478,54 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => '无法使用该图片';
+
+  @override
+  String get designAurora => '极光';
+
+  @override
+  String get designAuroraDesc => '玻璃主卡：位置与电源键，落在极光的微光上';
+
+  @override
+  String get designNeon => '霓虹';
+
+  @override
+  String get designNeonDesc => '以圆环显示状态：关时暗淡，连接时回旋，接通后是完整的一圈亮环';
+
+  @override
+  String get designDusk => '暮色';
+
+  @override
+  String get designDuskDesc => '以落日渐变晕染的暖色横幅；上面是状态与电源键';
+
+  @override
+  String get designSage => '鼠尾草';
+
+  @override
+  String get designSageDesc => '安静的簿册：位置占一行，上方是一枚高键，接通后整键染绿';
+
+  @override
+  String get tlsFragmentAuto => '自动';
+
+  @override
+  String get tlsFragmentAutoHint => '先发完整的 hello；若网络不断切断 TLS，会自动切分名称半小时';
+
+  @override
+  String get accentDesign => '设计自带的配色';
+
+  @override
+  String get wn45Designs => '四种全新的主页外观——极光、霓虹、暮色、鼠尾草——每一种都以自己的配色装点所有页面';
+
+  @override
+  String get wn45HelloAuto => 'TLS 切分学会了：若网络反复扼杀握手，就自动切分名称，让隧道穿行过去';
+
+  @override
+  String get wn45RelayRace => '中继恢复现在同时测试三个边缘，被过滤的网络能更快找回通路';
+
+  @override
+  String get wn45AccentFixed => '颜色选择器重新点亮整个应用——此前所选颜色无法作用到各页面';
+
+  @override
+  String get wn45WhatsNewFixed => '「新变化」页面重新显示出文字——此前打开时是空白的';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -4955,4 +5003,52 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get avatarPhotoFailed => '無法使用該圖片';
+
+  @override
+  String get designAurora => '極光';
+
+  @override
+  String get designAuroraDesc => '玻璃主卡：位置與電源鍵，落在極光的微光上';
+
+  @override
+  String get designNeon => '霓虹';
+
+  @override
+  String get designNeonDesc => '以圓環顯示狀態：關時暗淡，連接時迴旋，接通後是完整的一圈亮環';
+
+  @override
+  String get designDusk => '暮色';
+
+  @override
+  String get designDuskDesc => '以落日漸變暈染的暖色橫幅；上面是狀態與電源鍵';
+
+  @override
+  String get designSage => '鼠尾草';
+
+  @override
+  String get designSageDesc => '安靜的簿冊：位置佔一行，上方是一枚高鍵，接通後整鍵染綠';
+
+  @override
+  String get tlsFragmentAuto => '自動';
+
+  @override
+  String get tlsFragmentAutoHint => '先送完整的 hello；若網路不斷切斷 TLS，會自動切分名稱半小時';
+
+  @override
+  String get accentDesign => '設計自帶的配色';
+
+  @override
+  String get wn45Designs => '四種全新的主頁外觀——極光、霓虹、暮色、鼠尾草——每一種都以自己的配色裝點所有頁面';
+
+  @override
+  String get wn45HelloAuto => 'TLS 切分學會了：若網路反覆扼殺交握，就自動切分名稱，讓隧道穿行過去';
+
+  @override
+  String get wn45RelayRace => '中繼恢復現在同時測試三個邊緣，被過濾的網路能更快找回通路';
+
+  @override
+  String get wn45AccentFixed => '顏色選擇器重新點亮整個應用——此前所選顏色無法作用到各頁面';
+
+  @override
+  String get wn45WhatsNewFixed => '「新變化」頁面重新顯示出文字——此前打開時是空白的';
 }

@@ -775,5 +775,21 @@
   "wn42AboutFixed": "「关于」页面的标志、名称与说明居中显示，联系账号无论屏幕多窄都完整保持在一行。",
   "wn42Gaming": "游戏模式现在是真的：服务器页面每半分钟重新测量延迟，并用强调色突出实测最快的服务器。",
   "avatarPhoto": "自定义头像",
-  "avatarPhotoFailed": "无法使用该图片"
+  "avatarPhotoFailed": "无法使用该图片",
+  "designAurora": "极光",
+  "designAuroraDesc": "玻璃主卡：位置与电源键，落在极光的微光上",
+  "designNeon": "霓虹",
+  "designNeonDesc": "以圆环显示状态：关时暗淡，连接时回旋，接通后是完整的一圈亮环",
+  "designDusk": "暮色",
+  "designDuskDesc": "以落日渐变晕染的暖色横幅；上面是状态与电源键",
+  "designSage": "鼠尾草",
+  "designSageDesc": "安静的簿册：位置占一行，上方是一枚高键，接通后整键染绿",
+  "tlsFragmentAuto": "自动",
+  "tlsFragmentAutoHint": "先发完整的 hello；若网络不断切断 TLS，会自动切分名称半小时",
+  "accentDesign": "设计自带的配色",
+  "wn45Designs": "四种全新的主页外观——极光、霓虹、暮色、鼠尾草——每一种都以自己的配色装点所有页面",
+  "wn45HelloAuto": "TLS 切分学会了：若网络反复扼杀握手，就自动切分名称，让隧道穿行过去",
+  "wn45RelayRace": "中继恢复现在同时测试三个边缘，被过滤的网络能更快找回通路",
+  "wn45AccentFixed": "颜色选择器重新点亮整个应用——此前所选颜色无法作用到各页面",
+  "wn45WhatsNewFixed": "「新变化」页面重新显示出文字——此前打开时是空白的"
 }

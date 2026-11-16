@@ -4652,6 +4652,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'That picture could not be used'**
   String get avatarPhotoFailed;
+
+  /// No description provided for @designAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get designAurora;
+
+  /// No description provided for @designAuroraDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A glass hero card: the place and the orb on a teal wash'**
+  String get designAuroraDesc;
+
+  /// No description provided for @designNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon'**
+  String get designNeon;
+
+  /// No description provided for @designNeonDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A ring that shows the state: dim while off, a sweep while connecting, a full circle when up'**
+  String get designNeonDesc;
+
+  /// No description provided for @designDusk.
+  ///
+  /// In en, this message translates to:
+  /// **'Dusk'**
+  String get designDusk;
+
+  /// No description provided for @designDuskDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A warm banner in the sunset\'s own gradient, the state\'s word and the power on it'**
+  String get designDuskDesc;
+
+  /// No description provided for @designSage.
+  ///
+  /// In en, this message translates to:
+  /// **'Sage'**
+  String get designSage;
+
+  /// No description provided for @designSageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A quiet ledger: the place\'s row above a tall pill that fills with green'**
+  String get designSageDesc;
+
+  /// No description provided for @tlsFragmentAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get tlsFragmentAuto;
+
+  /// No description provided for @tlsFragmentAutoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The whole hello first; a network that keeps cutting TLS gets the name cut on its own, for half an hour'**
+  String get tlsFragmentAutoHint;
+
+  /// No description provided for @accentDesign.
+  ///
+  /// In en, this message translates to:
+  /// **'The design\'s own light'**
+  String get accentDesign;
+
+  /// No description provided for @wn45Designs.
+  ///
+  /// In en, this message translates to:
+  /// **'Four new home looks — Aurora, Neon, Dusk and Sage — each dressing every page in its own palette'**
+  String get wn45Designs;
+
+  /// No description provided for @wn45HelloAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'The TLS fragment learned: a network that keeps killing the handshake gets the name cut on its own, and the tunnel gets through'**
+  String get wn45HelloAuto;
+
+  /// No description provided for @wn45RelayRace.
+  ///
+  /// In en, this message translates to:
+  /// **'Relay recovery now races three edges at once, so a filtered network finds its way back sooner'**
+  String get wn45RelayRace;
+
+  /// No description provided for @wn45AccentFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The accent picker lights the app again — its color had stopped reaching the pages'**
+  String get wn45AccentFixed;
+
+  /// No description provided for @wn45WhatsNewFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'The What\'s new page shows its words again — it had opened empty'**
+  String get wn45WhatsNewFixed;
 }
 
 class _AppLocalizationsDelegate

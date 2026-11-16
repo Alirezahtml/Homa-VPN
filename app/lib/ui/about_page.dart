@@ -157,23 +157,27 @@ class _AboutPageState extends State<AboutPage> {
                 const SizedBox(height: 14),
                 _Line(label: l.coreVersionLabel, value: status?.version ?? '—'),
                 // What this version brought: opens once per version on its
-                // own, and again whenever wanted.
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(l.whatsNewMenu, style: theme.textTheme.titleSmall),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () => showWhatsNew(
-                        context,
-                        widget.settings ?? AppSettings(),
+                // own, and again whenever wanted. The button shows only
+                // when this version has a page to show — a version whose
+                // words were never written gets no empty dialog.
+                if (whatsNewSections(l, appVersion).isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(l.whatsNewMenu, style: theme.textTheme.titleSmall),
                       ),
-                      icon: const Icon(Icons.new_releases_outlined, size: 18),
-                      label: Text(l.whatsNewView),
-                    ),
-                  ],
-                ),
+                      OutlinedButton.icon(
+                        onPressed: () => showWhatsNew(
+                          context,
+                          widget.settings ?? AppSettings(),
+                        ),
+                        icon: const Icon(Icons.new_releases_outlined, size: 18),
+                        label: Text(l.whatsNewView),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),

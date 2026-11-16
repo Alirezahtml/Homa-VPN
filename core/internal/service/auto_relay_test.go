@@ -204,8 +204,15 @@ func TestAutomaticRelayChecksHealthBeforeAuthenticationAndSkipsDeadWorker(t *tes
 	if err != nil || !strings.Contains(string(body), "fixture-response") {
 		t.Fatalf("body unreadable: %v", err)
 	}
-	want := []string{"/manifest?health=", "/dead?health=1", "/good?health=1", "/good?health="}
-	if strings.Join(f.requests, ",") != strings.Join(want, ",") {
+	// The manifest leads; the two edges' health answers race (either
+	// order); the authenticated request goes only to the healthy worker.
+	probe := map[string]bool{}
+	for _, r := range f.requests[1:3] {
+		probe[r] = true
+	}
+	if f.requests[0] != "/manifest?health=" || len(f.requests) != 4 ||
+		!probe["/dead?health=1"] || !probe["/good?health=1"] ||
+		f.requests[3] != "/good?health=" {
 		t.Fatalf("requests: %v", f.requests)
 	}
 	resp = f.recover()
@@ -223,7 +230,14 @@ func TestAutomaticRelayShufflesAndRotatesAfterGuardian451(t *testing.T) {
 	f.pool.shuffle = func(n int, swap func(int, int)) { shuffled = true; swap(0, n-1) }
 	resp := f.recover()
 	resp.Body.Close()
-	if !shuffled || f.requests[1] != "/blocked?health=1" || f.pool.active != f.relay("/good") {
+	// The two edges' health answers race; either may land first.
+	probe := map[string]bool{}
+	for _, r := range f.requests[1:3] {
+		probe[r] = true
+	}
+	if !shuffled || f.requests[0] != "/manifest?health=" ||
+		!probe["/blocked?health=1"] || !probe["/good?health=1"] ||
+		f.pool.active != f.relay("/good") {
 		t.Fatalf("selection: %v", f.requests)
 	}
 }
@@ -360,6 +374,26 @@ func TestAutomaticRelayQuotaFailureAfterSuccessfulHealthTriesNextWorker(t *testi
 	resp.Body.Close()
 	if f.pool.active != f.relay("/good") {
 		t.Fatal("worker quota failure was mistaken for account quota")
+	}
+}
+
+func TestAutomaticRelayProbesTheWaveTogether(t *testing.T) {
+	f := newRelayPoolFixture(t)
+	// Two dead edges ride the same wave as the healthy one: recovery
+	// meets all three inside one budget instead of one by one.
+	f.urls = []string{f.relay("/dead-a"), f.relay("/dead-b"), f.relay("/good")}
+	f.health["/dead-a"] = 503
+	f.health["/dead-b"] = 503
+	resp := f.recover()
+	resp.Body.Close()
+	probe := map[string]int{}
+	for _, r := range f.requests[1:4] {
+		probe[r]++
+	}
+	if f.requests[0] != "/manifest?health=" || len(f.requests) != 5 ||
+		probe["/dead-a?health=1"] != 1 || probe["/dead-b?health=1"] != 1 ||
+		probe["/good?health=1"] != 1 || f.requests[4] != "/good?health=" {
+		t.Fatalf("requests: %v", f.requests)
 	}
 }
 

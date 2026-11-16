@@ -2639,4 +2639,62 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'Это изображение не удалось использовать';
+
+  @override
+  String get designAurora => 'Огни';
+
+  @override
+  String get designAuroraDesc =>
+      'Стеклянная карта: место и кнопка питания в свете северного сияния';
+
+  @override
+  String get designNeon => 'Неон';
+
+  @override
+  String get designNeonDesc =>
+      'Кольцо, показывающее состояние: приглушено вне сети, кружит при подключении, полный круг света когда сеть поднята';
+
+  @override
+  String get designDusk => 'Закат';
+
+  @override
+  String get designDuskDesc =>
+      'Тёплый баннер в градиенте заката; на нём состояние и кнопка питания';
+
+  @override
+  String get designSage => 'Шалфей';
+
+  @override
+  String get designSageDesc =>
+      'Тихая книга учёта: строка места, а над ней высокая кнопка, заполняющаяся зелёным при подключении';
+
+  @override
+  String get tlsFragmentAuto => 'Авто';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'Сначала целое hello; сеть, что режет TLS без конца, сама режет имя на полчаса';
+
+  @override
+  String get accentDesign => 'Собственный свет оформления';
+
+  @override
+  String get wn45Designs =>
+      'Четыре новых облика главной — Огни, Неон, Закат и Шалфей — каждый одевает все страницы в свою палитру';
+
+  @override
+  String get wn45HelloAuto =>
+      'Разделитель TLS научился: сеть, что убивает рукопожатие без конца, сама режет имя — и туннель проходит';
+
+  @override
+  String get wn45RelayRace =>
+      'Восстановление реле теперь проверяет три края разом, и фильтрованная сеть быстрее находит дорогу';
+
+  @override
+  String get wn45AccentFixed =>
+      'Выбор цвета снова освещает приложение — его цвет переставал доходить до страниц';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'Страница «Что нового» вновь показывает свои слова — она открывалась пустой';
 }

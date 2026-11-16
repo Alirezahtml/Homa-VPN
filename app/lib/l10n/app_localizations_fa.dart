@@ -2609,4 +2609,62 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get avatarPhotoFailed => 'این عکس قابل استفاده نبود';
+
+  @override
+  String get designAurora => 'اورورا';
+
+  @override
+  String get designAuroraDesc =>
+      'کارت شیشه‌ای برای پیوند: مکان و کلید قدرت روی نور فیروزه‌ای';
+
+  @override
+  String get designNeon => 'نئون';
+
+  @override
+  String get designNeonDesc =>
+      'حلقه‌ای که وضعیت را نشان می‌دهد: خاموش کم‌نور، در حال وصل چرخان، و یک دایرهٔ کامل نور وقتی وصل شد';
+
+  @override
+  String get designDusk => 'غروب';
+
+  @override
+  String get designDuskDesc =>
+      'بنری گرم با گرادیان واپسین نور غروب؛ وضعیت اتصال و کلید قدرت روی آن';
+
+  @override
+  String get designSage => 'مریم‌گلی';
+
+  @override
+  String get designSageDesc =>
+      'دفترچه‌ای آرام: ردیفی برای مکان، و بالای آن کلید بلندی که سبز می‌شود وقتی وصل شد';
+
+  @override
+  String get tlsFragmentAuto => 'خودکار';
+
+  @override
+  String get tlsFragmentAutoHint =>
+      'اول هِلوی کامل؛ شبکه‌ای که پیوسته TLS را می‌بُرد، نام را خودکار برای نیم ساعت می‌بُرد';
+
+  @override
+  String get accentDesign => 'نور خودِ طرح';
+
+  @override
+  String get wn45Designs =>
+      'چهار طرح تازهٔ خانه — اورورا، نئون، غروب و مریم‌گلی — هر یک همهٔ صفحه‌ها را با پالت خودش می‌پوشاند';
+
+  @override
+  String get wn45HelloAuto =>
+      'شکافندهٔ TLS یاد گرفت: شبکه‌ای که پیوسته دست‌دادن را می‌کشد، نام را خودکار می‌بُرد و تونل می‌گذرد';
+
+  @override
+  String get wn45RelayRace =>
+      'بازیابی رله حالا سه لبه را هم‌زمان می‌آزماید، تا شبکهٔ فیلترشده زودتر راهش را پیدا کند';
+
+  @override
+  String get wn45AccentFixed =>
+      'انتخابگر رنگ دوباره اپ را روشن می‌کند — رنگش دیگر به صفحه‌ها نمی‌رسید';
+
+  @override
+  String get wn45WhatsNewFixed =>
+      'صفحهٔ «چه چیزی تازه» باز هم متنش را نشان می‌دهد — پیش‌تر خالی باز می‌شد';
 }

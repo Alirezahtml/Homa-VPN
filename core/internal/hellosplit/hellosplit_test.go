@@ -178,13 +178,67 @@ func TestOffSendsTheHelloWhole(t *testing.T) {
 }
 
 func TestValid(t *testing.T) {
-	for _, mode := range []string{"", Off, SNI, FirstByte, Record} {
+	for _, mode := range []string{"", Auto, Off, SNI, FirstByte, Record} {
 		if !Valid(mode) {
 			t.Errorf("%q is refused", mode)
 		}
 	}
-	if Valid("auto") {
-		t.Error("auto is accepted")
+	if Valid("whole") {
+		t.Error("whole is accepted")
+	}
+}
+
+// Auto sends the hello whole until a network's answers say otherwise; the
+// note of a filter flips the next connections to the name's cut, for half
+// an hour, and a hand-picked way is never overridden.
+func TestAutoEscalatesOnTheFiltersAnswer(t *testing.T) {
+	t.Cleanup(func() {
+		Set(Off)
+		escalatedUntil.Store(0)
+		nowFunc = time.Now
+	})
+	nowFunc = func() time.Time { return time.Unix(1_000_000, 0) }
+	Set(Auto)
+	escalatedUntil.Store(0)
+	hello := clientHello(t, "example.com")
+	rec := &recordingConn{}
+	if _, err := Wrap(rec).Write(hello); err != nil {
+		t.Fatal(err)
+	}
+	if len(rec.writes) != 1 {
+		t.Fatalf("a quiet network cut the hello: %d writes", len(rec.writes))
+	}
+	NoteSuspectedFilter()
+	rec = &recordingConn{}
+	if _, err := Wrap(rec).Write(hello); err != nil {
+		t.Fatal(err)
+	}
+	if len(rec.writes) != 3 {
+		t.Fatalf("an escalated network sent the hello in %d writes", len(rec.writes))
+	}
+	if !bytes.Equal(bytes.Join(rec.writes, nil), hello) {
+		t.Fatal("the bytes changed")
+	}
+	// Half an hour later the network is asked with the hello whole again.
+	nowFunc = func() time.Time { return time.Unix(1_000_000, 0).Add(autoHold + time.Minute) }
+	rec = &recordingConn{}
+	if _, err := Wrap(rec).Write(hello); err != nil {
+		t.Fatal(err)
+	}
+	if len(rec.writes) != 1 {
+		t.Fatalf("an expired escalation still cuts: %d writes", len(rec.writes))
+	}
+	// A hand-picked off is never overridden by the note.
+	Set(Off)
+	escalatedUntil.Store(0)
+	nowFunc = func() time.Time { return time.Unix(1_000_000, 0) }
+	NoteSuspectedFilter()
+	rec = &recordingConn{}
+	if _, err := Wrap(rec).Write(hello); err != nil {
+		t.Fatal(err)
+	}
+	if len(rec.writes) != 1 {
+		t.Fatalf("off was overridden: %d writes", len(rec.writes))
 	}
 }
 

@@ -25,12 +25,16 @@ import (
 const (
         relayManifestURL    = "https://raw.githubusercontent.com/arman-org/update-manifests/main/arman-vpn-client/updates.json"
         relayManifestMirror = "https://cdn.jsdelivr.net/gh/arman-org/update-manifests@main/arman-vpn-client/updates.json"
-        autoRelayBudget     = 20 * time.Second
-        relayProbeTimeout   = 4 * time.Second
+        autoRelayBudget   = 20 * time.Second
+        relayProbeTimeout = 4 * time.Second
         // relayHealthTimeout bounds one edge's health answer: a dead edge
         // costs this, not the whole budget, so recovery reaches more edges.
         relayHealthTimeout = 6 * time.Second
-        maxRelayManifest   = 512 * 1024
+        // relayProbeWave is how many edges' health answers race at once: a
+        // filtered network meets several edges inside the budget instead of
+        // waiting for each one, and the fastest healthy edge wins.
+        relayProbeWave    = 3
+        maxRelayManifest  = 512 * 1024
 )
 
 // automaticRelays is lazy: no metadata, worker probe or account request is
@@ -189,10 +193,10 @@ func (a *automaticRelays) healthy(ctx context.Context, relay *url.URL, base http
         req.Header.Set("Accept", "application/json")
         req.Header.Set("Cache-Control", "no-cache")
         client := &http.Client{
-                // One dead edge may not eat the whole recovery budget: the
-                // probes run in the list's order, and each gets half the
-                // budget's patience, so a filtered network can try several
-                // edges inside autoRelayBudget instead of two.
+                // One dead edge may not eat the whole recovery budget: each
+                // probe is bounded on its own, and relayProbeWave of them
+                // answer together, so a filtered network can try several
+                // edges inside autoRelayBudget.
                 Transport: base, Timeout: relayHealthTimeout,
                 CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
         }
@@ -254,56 +258,107 @@ func (a *automaticRelays) recover(req *http.Request) (*http.Response, error) {
                 order = append([]string{a.active}, order...)
         }
         seen := map[string]bool{}
-        for _, raw := range order {
-                if ctx.Err() != nil {
-                        break
+        for start := 0; start < len(order) && ctx.Err() == nil; {
+                // The wave: the next unseen, not-bad candidates' health
+                // answers race, and the healthy ones take the real request
+                // in the list's order.
+                type edge struct {
+                        raw     string
+                        u       *url.URL
+                        base    http.RoundTripper
+                        healthy bool
                 }
-                if seen[raw] || time.Now().Before(a.badUntil[raw]) {
-                        continue
-                }
-                seen[raw] = true
-                u, _ := url.Parse(raw)
-                base, err := a.transport(u)
-                if err != nil {
-                        continue
-                }
-                closeIdle, _ := base.(interface{ CloseIdleConnections() })
-                if closeIdle != nil {
-                        defer closeIdle.CloseIdleConnections()
-                }
-                if !a.healthy(ctx, u, base) {
-                        a.badUntil[raw] = time.Now().Add(time.Minute)
-                        continue
-                }
-                out := req.Clone(ctx)
-                if req.Body != nil {
-                        out.Body, err = req.GetBody()
+                var wave []edge
+                for start < len(order) && len(wave) < relayProbeWave && ctx.Err() == nil {
+                        raw := order[start]
+                        start++
+                        if seen[raw] || time.Now().Before(a.badUntil[raw]) {
+                                continue
+                        }
+                        seen[raw] = true
+                        u, err := url.Parse(raw)
                         if err != nil {
-                                return nil, err
+                                continue
+                        }
+                        base, err := a.transport(u)
+                        if err != nil {
+                                continue
+                        }
+                        wave = append(wave, edge{raw: raw, u: u, base: base})
+                }
+                if len(wave) == 0 {
+                        continue
+                }
+                var wg sync.WaitGroup
+                for i := range wave {
+                        wg.Add(1)
+                        go func(i int) {
+                                defer wg.Done()
+                                wave[i].healthy = a.healthy(ctx, wave[i].u, wave[i].base)
+                        }(i)
+                }
+                wg.Wait()
+                // A failed health answer parks the edge for a minute; its
+                // transport is done. A healthy edge's transport carries the
+                // real request below, and the one that answers keeps its
+                // pool until recover returns.
+                for i := range wave {
+                        if wave[i].healthy {
+                                continue
+                        }
+                        a.badUntil[wave[i].raw] = time.Now().Add(time.Minute)
+                        if closeIdle, ok := wave[i].base.(interface{ CloseIdleConnections() }); ok {
+                                closeIdle.CloseIdleConnections()
+                        }
+                        wave[i].base = nil
+                }
+                done := false
+                for i := range wave {
+                        if !wave[i].healthy || ctx.Err() != nil {
+                                continue
+                        }
+                        raw, u, base := wave[i].raw, wave[i].u, wave[i].base
+                        out := req.Clone(ctx)
+                        if req.Body != nil {
+                                var err error
+                                out.Body, err = req.GetBody()
+                                if err != nil {
+                                        return nil, err
+                                }
+                        }
+                        resp, err := (&relayTransport{relay: u, base: base}).RoundTrip(out)
+                        if resp != nil {
+                                logx.Info("automatic relay Guardian response host=%s http=%d forwarded=%t", u.Hostname(), resp.StatusCode, resp.Header.Get("X-Arman-Relay") == "1")
+                        } else if err != nil {
+                                logx.Info("automatic relay Guardian request failed host=%s", u.Hostname())
+                        }
+                        if err == nil && usableGuardianRelayResponse(req, resp) {
+                                // RoundTrip's body still uses ctx. Keep its deadline alive until
+                                // the caller closes it rather than cancelling on this return.
+                                resp.Body = &automaticRelayBody{ReadCloser: resp.Body, cancel: cancel}
+                                handedOff = true
+                                a.active, a.activeUntil = raw, time.Now().Add(relayFirstFor)
+                                resp.Request = req
+                                if closeIdle, ok := base.(interface{ CloseIdleConnections() }); ok {
+                                        defer closeIdle.CloseIdleConnections()
+                                }
+                                logx.Info("Guardian HTTP 451 recovered through a healthy automatic relay")
+                                return resp, nil
+                        }
+                        if resp != nil {
+                                resp.Body.Close()
+                        }
+                        a.badUntil[raw] = time.Now().Add(time.Minute)
+                        if closeIdle, ok := base.(interface{ CloseIdleConnections() }); ok {
+                                closeIdle.CloseIdleConnections()
+                        }
+                        if req.Method != http.MethodGet && req.Method != http.MethodHead &&
+                                (err != nil || resp == nil || resp.StatusCode != http.StatusUnavailableForLegalReasons) {
+                                done = true
+                                break
                         }
                 }
-                resp, err := (&relayTransport{relay: u, base: base}).RoundTrip(out)
-                if resp != nil {
-                        logx.Info("automatic relay Guardian response host=%s http=%d forwarded=%t", u.Hostname(), resp.StatusCode, resp.Header.Get("X-Arman-Relay") == "1")
-                } else if err != nil {
-                        logx.Info("automatic relay Guardian request failed host=%s", u.Hostname())
-                }
-                if err == nil && usableGuardianRelayResponse(req, resp) {
-                        // RoundTrip's body still uses ctx. Keep its deadline alive until
-                        // the caller closes it rather than cancelling on this return.
-                        resp.Body = &automaticRelayBody{ReadCloser: resp.Body, cancel: cancel}
-                        handedOff = true
-                        a.active, a.activeUntil = raw, time.Now().Add(relayFirstFor)
-                        resp.Request = req
-                        logx.Info("Guardian HTTP 451 recovered through a healthy automatic relay")
-                        return resp, nil
-                }
-                if resp != nil {
-                        resp.Body.Close()
-                }
-                a.badUntil[raw] = time.Now().Add(time.Minute)
-                if req.Method != http.MethodGet && req.Method != http.MethodHead &&
-                        (err != nil || resp == nil || resp.StatusCode != http.StatusUnavailableForLegalReasons) {
+                if done {
                         break
                 }
         }

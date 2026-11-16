@@ -277,7 +277,7 @@ class VpnApp extends StatelessWidget {
         // own light stands in when the user has not picked an accent.
         // The rate's unit is decided beside them: one place, so the home
         // page, the tiles, and the details sheet never disagree.
-        AppAccent.current = AppDesign.resolveFor(settings);
+        AppAccent.current = AppDesign.resolveFor(settings, dark);
         Rates.bits = settings.rateBits;
         // The ear follows the settings' switch, whatever page is open.
         AppSounds.enabled = settings.soundFeedback;
