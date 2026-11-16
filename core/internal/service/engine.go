@@ -250,20 +250,21 @@ func (d *Daemon) connectEngine(ctx context.Context, e *proxyEngine) (*proxy.Cont
         }
         withPass := upstream
         withPass.Auth, withPass.Pass = auth, pass
-        controller, err := proxy.NewController(withPass)
-        if err != nil && ctx.Err() == nil && upstream.UseH3 {
-                // Networks that filter QUIC (UDP), as in Iran, often let the same
-                // server through over TCP: HTTP/2 for this engine instead. The
-                // smart choice remembers the answer, so the next session opens
-                // on HTTP/2 at once.
-                logx.Warn("HTTP/3 did not connect; using HTTP/2 instead proxy=%s err=%s", selected.Addr, logx.Err(err))
-                proxy.NoteTransport("h3", err)
-                upstream.UseH3, withPass.UseH3 = false, false
-                controller, err = proxy.NewController(withPass)
-                if err == nil {
-                        proxy.NoteTransport("h2", nil)
+        controller, winner, err := openUpstreamRacing(ctx, withPass)
+        if winner != nil {
+                // The race ran (the engine starts on HTTP/3): the winner's own
+                // transport is the engine's from here — a later wake dials it
+                // directly, without racing again.
+                withPass = *winner
+                upstream.UseH3 = winner.UseH3
+                if !winner.UseH3 {
                         e.fellBackToH2.Store(true)
                 }
+        } else if upstream.UseH3 && err != nil {
+                // Both transports raced and both failed: like the sequential
+                // fallback before, the engine is left on the TCP transport, so
+                // a stand-in server may still take over below.
+                upstream.UseH3, withPass.UseH3 = false, false
         }
         if err != nil && ctx.Err() == nil && fallback != nil && !standIn && !e.upstream.UseH3 && selected.IsRecommended() {
                 if next, ok := upstream.Failover.StandInAfterTimeout(fallback(), selected, err); ok {
@@ -314,6 +315,60 @@ func (d *Daemon) connectEngine(ctx context.Context, e *proxyEngine) (*proxy.Cont
         logx.Info("upstream selected configured_country=%q configured_country_code=%s proxy=%s selection_source=%s upstream_session_establish_latency=%s",
                 selected.CountryNameOrUnknown(), selected.CountryCodeOrUnknown(), selected.Addr, selectionSource, time.Since(sessionStart).Round(time.Millisecond))
         return controller, nil
+}
+
+// openUpstreamRacing opens the engine's first upstream session on both
+// transports at once when it would start on HTTP/3. A network that filters
+// QUIC, as Iran's do, let the old sequential fallback hold the whole first
+// connect for ConnectTimeout before HTTP/2's dial even began; raced, the
+// session is up as soon as the network carries TCP, and HTTP/3's pending
+// dial is folded away when its result arrives. The transport whose session
+// opened wins, and both answers reach the smart choice's memory, so the
+// next connect opens straight on the winner without racing again.
+func openUpstreamRacing(ctx context.Context, cfg proxy.ControllerConfig) (*proxy.Controller, *proxy.ControllerConfig, error) {
+        if !cfg.UseH3 || ctx.Err() != nil {
+                controller, err := proxy.NewController(cfg)
+                return controller, nil, err
+        }
+        h3cfg, h2cfg := cfg, cfg
+        h3cfg.UseH3, h2cfg.UseH3 = true, false
+
+        type raced struct {
+                controller *proxy.Controller
+                cfg        proxy.ControllerConfig
+                err        error
+        }
+        results := make(chan raced, 2)
+        open := func(c proxy.ControllerConfig) {
+                controller, err := proxy.NewController(c)
+                results <- raced{controller, c, err}
+        }
+        go open(h3cfg)
+        go open(h2cfg)
+
+        first, second := <-results, <-results
+        if first.err != nil && second.err == nil {
+                first, second = second, first
+        }
+        if first.err == nil {
+                // The loser is either still dialing (its result arrives within
+                // ConnectTimeout) or a session nobody will use: either way it is
+                // folded away here, and its answer reaches the smart choice's
+                // memory.
+                go func() {
+                        if second.err != nil {
+                                proxy.NoteTransport(transportName(second.cfg), second.err)
+                                return
+                        }
+                        _ = second.controller.Close()
+                }()
+                return first.controller, &first.cfg, nil
+        }
+        // Both failed: the wake retries later, and the stand-in logic in
+        // connectEngine still sees an error it can act on.
+        proxy.NoteTransport(transportName(first.cfg), first.err)
+        proxy.NoteTransport(transportName(second.cfg), second.err)
+        return nil, nil, second.err
 }
 
 // reconnectEngine wakes an engine that was connected before: a new pass
