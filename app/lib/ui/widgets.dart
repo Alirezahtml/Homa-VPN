@@ -149,6 +149,166 @@ class PhaseLook {
   }
 }
 
+/// A word that stands on the home's map — the state's word
+/// ("Connecting…", "Connected"), the chosen country's name — in a
+/// capsule of its own: a translucent surface, a hairline edge and a
+/// soft drop shadow give it the layer the bare words never had, so it
+/// reads over the world's outlines in both themes. No blur sits behind
+/// it (a saveLayer's cost, and the slow GPUs pay it every frame): the
+/// fill and the shadow alone carry the depth.
+class StatusCapsule extends StatelessWidget {
+  const StatusCapsule({
+    super.key,
+    required this.child,
+    this.dark,
+    this.dot = false,
+    this.dotColor,
+    this.dotBreathes = false,
+  });
+
+  final Widget child;
+
+  /// Which mode's glass to wear; read from the theme when left out.
+  final bool? dark;
+
+  /// The state's own dot before the word: a point of the state's color,
+  /// so the state reads at a glance before the word does.
+  final bool dot;
+
+  /// The dot's color (the state's own); the word's edge gray without it.
+  final Color? dotColor;
+
+  /// While the connection is still being made the dot breathes — one
+  /// ring swelling out of it, slow and light; still otherwise, and
+  /// nothing repaints.
+  final bool dotBreathes;
+
+  @override
+  Widget build(BuildContext context) {
+    final d = dark ?? Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: dot
+          ? const EdgeInsets.fromLTRB(15, 7, 20, 7)
+          : const EdgeInsets.symmetric(horizontal: 19, vertical: 7),
+      decoration: BoxDecoration(
+        color: d
+            ? Colors.black.withValues(alpha: 0.42)
+            : Colors.white.withValues(alpha: 0.62),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: d
+              ? Colors.white.withValues(alpha: 0.16)
+              : Colors.black.withValues(alpha: 0.10),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: d
+                ? Colors.black.withValues(alpha: 0.45)
+                : Colors.black.withValues(alpha: 0.14),
+            blurRadius: 18,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (dot) ...[
+            _CapsuleDot(
+              color: dotColor ??
+                  (d ? Colors.white : const Color(0xFF0A0A0A)),
+              breathe: dotBreathes,
+            ),
+            const SizedBox(width: 9),
+          ],
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+/// The capsule's own dot: the state's point of light, and while it
+/// breathes one ring swelling out of it and dying — the connecting
+/// state's quiet pulse. No ring and no clock while it rests.
+class _CapsuleDot extends StatefulWidget {
+  const _CapsuleDot({required this.color, required this.breathe});
+
+  final Color color;
+  final bool breathe;
+
+  @override
+  State<_CapsuleDot> createState() => _CapsuleDotState();
+}
+
+class _CapsuleDotState extends State<_CapsuleDot>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1800),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _setPulse();
+  }
+
+  @override
+  void didUpdateWidget(_CapsuleDot old) {
+    super.didUpdateWidget(old);
+    if (old.breathe != widget.breathe) _setPulse();
+  }
+
+  void _setPulse() {
+    if (widget.breathe) {
+      if (!_c.isAnimating) _c.repeat();
+    } else {
+      _c.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dot = Container(
+      width: 7,
+      height: 7,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: widget.color),
+    );
+    if (!widget.breathe) return dot;
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = _c.value;
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: 7 + 9 * t,
+              height: 7 + 9 * t,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: widget.color.withValues(alpha: (1 - t) * 0.45),
+                  width: 1.3,
+                ),
+              ),
+            ),
+            child!,
+          ],
+        );
+      },
+      child: dot,
+    );
+  }
+}
+
 /// The engine state in the user's words, by its code; the core's own
 /// English for a state without one, or with a code this app does not know.
 String stateText(AppLocalizations l, EngineState s) => switch (s.code) {

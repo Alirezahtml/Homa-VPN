@@ -46,6 +46,11 @@ class AppSettings extends ChangeNotifier {
   /// The newer version whose notice the user closed; a later one shows.
   String dismissedUpdate = '';
 
+  /// The newer version the phone's own notification already announced, so
+  /// one release says itself once: the hourly look that finds the same
+  /// release again says nothing.
+  String updateNotifiedVersion = '';
+
   /// The last successful look for a newer version, and the newer version it
   /// found ("" for none) with its page, so the notice outlasts a restart.
   DateTime? updateCheckedAt;
@@ -120,9 +125,11 @@ class AppSettings extends ChangeNotifier {
   String mapStyle = 'silver';
 
   /// The home map's kind: 'classic' (the flat map as it always was),
-  /// 'globe' (the metal ball), 'satellite' (the earth from orbit), or
-  /// 'flat' (the flat map's modern finish). The classic carries the
-  /// default: the map the home has always stood on.
+  /// 'globe' (the metal ball), or 'flat' (the flat map's modern finish).
+  /// The classic carries the default: the map the home has always stood
+  /// on. The night, the terrain and the satellite kinds the picker once
+  /// offered land here on their nearest survivor when a settings file
+  /// still names them.
   String mapKind = 'classic';
 
   /// The accounts' own display names (account id → name): the rename a
@@ -306,6 +313,9 @@ class AppSettings extends ChangeNotifier {
             SignInMethod.values.asNameMap()[j['signin_method']] ??
             s.signInMethod;
         if (j['dismissed_update'] case final String v) s.dismissedUpdate = v;
+        if (j['update_notified'] case final String v) {
+          s.updateNotifiedVersion = v;
+        }
         if (j['update_version'] case final String v) s.updateVersion = v;
         if (j['update_url'] case final String v) s.updateUrl = v;
         if (j['update_details'] case final Map<String, Object?> v) {
@@ -397,6 +407,7 @@ class AppSettings extends ChangeNotifier {
     DateTime? lowQuotaDismissedAt,
     String? dismissedUpdate,
     DateTime? updateCheckedAt,
+    String? updateNotifiedVersion,
     String? updateVersion,
     String? updateUrl,
     Map<String, Object?>? updateDetails,
@@ -469,8 +480,13 @@ class AppSettings extends ChangeNotifier {
     if (mapKind != null) {
       this.mapKind = switch (mapKind) {
         'globe' => 'globe',
-        'satellite' => 'satellite',
+        // The satellite's earth was a kind once; the ball carries its
+        // look closest now.
+        'satellite' => 'globe',
         'flat' => 'flat',
+        // The night's deep water and the terrain's atlas tint read
+        // closest to the modern flat's finish.
+        'night' || 'terrain' => 'flat',
         _ => 'classic',
       };
     }
@@ -488,6 +504,8 @@ class AppSettings extends ChangeNotifier {
     this.showPublicIp = showPublicIp ?? this.showPublicIp;
     this.lowQuotaDismissedAt = lowQuotaDismissedAt ?? this.lowQuotaDismissedAt;
     this.dismissedUpdate = dismissedUpdate ?? this.dismissedUpdate;
+    this.updateNotifiedVersion =
+        updateNotifiedVersion ?? this.updateNotifiedVersion;
     this.updateCheckedAt = updateCheckedAt ?? this.updateCheckedAt;
     this.updateVersion = updateVersion ?? this.updateVersion;
     this.updateUrl = updateUrl ?? this.updateUrl;
@@ -521,6 +539,7 @@ class AppSettings extends ChangeNotifier {
           'low_quota_dismissed_at': lowQuotaDismissedAt?.toIso8601String(),
           'dismissed_update': dismissedUpdate,
           'update_checked_at': updateCheckedAt?.toIso8601String(),
+          'update_notified': updateNotifiedVersion,
           'update_version': updateVersion,
           'update_url': updateUrl,
           'update_details': updateDetails,

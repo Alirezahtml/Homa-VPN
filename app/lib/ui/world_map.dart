@@ -348,16 +348,15 @@ List<(double, double, double)> greatCirclePath(
 /// - [MapKind.flat]: the same flat projection, a modern finish — the
 ///   land tinted in the connection's light, a deeper shadow, a stronger
 ///   lit country.
-/// - [MapKind.night]: the flat map as it reads after dark — a deep
-///   ocean under the land, the coasts lit faintly, the chosen country
-///   a lamp on the dark water.
-/// - [MapKind.terrain]: the flat map as the ground reads from above —
-///   green land on soft blue water, the way a physical atlas tints it.
 /// - [MapKind.globe]: the metal ball, turned so the chosen country
 ///   faces the viewer.
-/// - [MapKind.satellite]: the ball as the earth reads from orbit — deep
-///   oceans, green land, drifting clouds.
-enum MapKind { classic, flat, night, terrain, globe, satellite }
+///
+/// The night, the terrain and the satellite's earth were here before,
+/// and left: three ways to paint one world was the picker's whole
+/// point, and the three that read best are the three that stayed. A
+/// settings file that still names one of them lands on its nearest
+/// survivor (app_settings.dart reads the saved kind back).
+enum MapKind { classic, flat, globe }
 
 /// The flat map's finishes: how its land and its water take their
 /// color, whatever theme carries them.
@@ -1173,53 +1172,52 @@ class _FloatingCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // The pane: glass over the globe, the country's flag and name.
-        ClipRRect(
-          borderRadius: BorderRadius.circular(14),
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(
-              width: 168,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: dark
-                    ? Colors.white.withValues(alpha: 0.10)
-                    : Colors.white.withValues(alpha: 0.82),
-                border: Border.all(
-                  color: dark
-                      ? Colors.white.withValues(alpha: 0.22)
-                      : Colors.white.withValues(alpha: 0.9),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: accent.withValues(alpha: dark ? 0.30 : 0.22),
-                    blurRadius: 22,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  CountryFlag(code: selected, width: 24),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: dark ? Colors.white : scheme.onSurface,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12.5,
-                        letterSpacing: 0.2,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+        // The pane: the country's flag and name on its own glass. The
+        // glass used to be a real blur (a BackdropFilter) — a saveLayer
+        // the slow GPUs, Mali and MediaTek, pay for on every frame the
+        // map breathes, and the battery with it. The fill alone carries
+        // the pane now, a shade firmer so it still reads as glass over
+        // the ball.
+        Container(
+          width: 168,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            color: dark
+                ? Colors.white.withValues(alpha: 0.14)
+                : Colors.white.withValues(alpha: 0.88),
+            border: Border.all(
+              color: dark
+                  ? Colors.white.withValues(alpha: 0.22)
+                  : Colors.white.withValues(alpha: 0.9),
+              width: 1,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: accent.withValues(alpha: dark ? 0.30 : 0.22),
+                blurRadius: 22,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              CountryFlag(code: selected, width: 24),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: dark ? Colors.white : scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.5,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         // The stem: the card points down at its pin, a hair of light.
@@ -2323,9 +2321,9 @@ class _WorldPainter extends CustomPainter {
 }
 
 /// The home's world, in the kind the settings picked: the flat map (the
-/// classic and the modern finish) or the globe (the metal ball and the
-/// satellite's earth). A change of kind is a soft crossfade, so the map
-/// melts into its next self instead of popping.
+/// classic and the modern finish) or the globe (the metal ball). A change
+/// of kind is a soft crossfade, so the map melts into its next self
+/// instead of popping.
 class WorldBackdrop extends StatelessWidget {
   const WorldBackdrop({
     super.key,
@@ -2353,7 +2351,7 @@ class WorldBackdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget world;
-    if (kind == MapKind.globe || kind == MapKind.satellite) {
+    if (kind == MapKind.globe) {
       world = WorldGlobe(
         countries: countries,
         accent: accent,
@@ -2361,9 +2359,7 @@ class WorldBackdrop extends StatelessWidget {
         animated: animated,
         dark: dark,
         label: label,
-        // The satellite carries its own earth; the ball wears the style
-        // the settings picked.
-        style: kind == MapKind.satellite ? GlobeStyle.satellite : style,
+        style: style,
         still: still,
       );
     } else {
@@ -2373,12 +2369,9 @@ class WorldBackdrop extends StatelessWidget {
         accent: accent,
         selected: selected,
         animated: animated,
-        finish: switch (kind) {
-          MapKind.flat => FlatFinish.modern,
-          MapKind.night => FlatFinish.night,
-          MapKind.terrain => FlatFinish.terrain,
-          _ => FlatFinish.classic,
-        },
+        finish: kind == MapKind.flat
+            ? FlatFinish.modern
+            : FlatFinish.classic,
         scale: kind == MapKind.classic ? 1.45 : 1.32,
       );
     }

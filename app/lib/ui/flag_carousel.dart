@@ -34,6 +34,7 @@ class FlagCarousel extends StatefulWidget {
     required this.card,
     required this.border,
     this.onOpenServers,
+    this.animated = false,
     this.still = false,
     this.showName = false,
   });
@@ -44,6 +45,12 @@ class FlagCarousel extends StatefulWidget {
   final Color card;
   final Color border;
   final VoidCallback? onOpenServers;
+
+  /// The connection's own wish: the wheel's glow breathes while the VPN
+  /// carries the traffic (or is making its way up), and holds one pose
+  /// when it is off — an endless animation redraws every frame, and the
+  /// phone's battery pays for a light nobody is watching.
+  final bool animated;
 
   /// The battery saver's word: the wheel's glow rests — the halo and the
   /// shelf hold one pose — while the flags themselves still answer the
@@ -122,9 +129,10 @@ class _FlagCarouselState extends State<FlagCarousel>
     });
   }
 
-  /// Whether the wheel's own glow should breathe: not while the battery
-  /// saver holds it still.
-  bool get _breathWanted => !widget.still;
+  /// Whether the wheel's own glow should breathe: the connection's wish
+  /// first — nothing breathes while the VPN is off — then the battery
+  /// saver's veto.
+  bool get _breathWanted => widget.animated && !widget.still;
 
   void _setBreathing() {
     if (_breathWanted) {
@@ -137,7 +145,9 @@ class _FlagCarouselState extends State<FlagCarousel>
   @override
   void didUpdateWidget(FlagCarousel old) {
     super.didUpdateWidget(old);
-    if (old.still != widget.still) _setBreathing();
+    if (old.still != widget.still || old.animated != widget.animated) {
+      _setBreathing();
+    }
   }
 
   @override
@@ -525,7 +535,9 @@ class _FlagCarouselState extends State<FlagCarousel>
   /// change reads as one name turning into another.
   Widget _name(AppLocalizations l, Location? centered, bool dark) =>
       SizedBox(
-        height: 34,
+        // The name's seat now carries the capsule's own padding too: a
+        // breath taller than the bare word ever needed.
+        height: 42,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 340),
           switchInCurve: Curves.easeOutCubic,
@@ -550,19 +562,22 @@ class _FlagCarouselState extends State<FlagCarousel>
               ?current,
             ],
           ),
-          child: Text(
-            centered == null
-                ? (_selection == 'fastest' ? l.modeFastest : '')
-                : locationName(l, centered.code, centered.name),
-            key: ValueKey(centered?.code ?? _selection),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: dark ? Colors.white : widget.text,
-              fontWeight: FontWeight.w800,
-              fontSize: 17,
-              letterSpacing: 0.3,
+          child: StatusCapsule(
+            dark: dark,
+            child: Text(
+              centered == null
+                  ? (_selection == 'fastest' ? l.modeFastest : '')
+                  : locationName(l, centered.code, centered.name),
+              key: ValueKey(centered?.code ?? _selection),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: dark ? Colors.white : widget.text,
+                fontWeight: FontWeight.w800,
+                fontSize: 17,
+                letterSpacing: 0.3,
+              ),
             ),
           ),
         ),

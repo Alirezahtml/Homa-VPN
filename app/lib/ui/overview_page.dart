@@ -1308,9 +1308,12 @@ class _PhoneHome extends StatelessWidget {
                   card: p.card,
                   border: p.cardBorder,
                   onOpenServers: onOpenServers,
+                  // The wheel's glow breathes only while the connection
+                  // carries (or is on its way): off, it holds one pose and
+                  // the phone's battery keeps the frames.
+                  animated: connected || confirming,
                   still: settings.batterySaver,
-                  showName: mapKind != MapKind.globe &&
-                      mapKind != MapKind.satellite,
+                  showName: mapKind != MapKind.globe,
                 ),
               ),
             ),
@@ -1340,16 +1343,33 @@ class _PhoneHome extends StatelessWidget {
             const SizedBox(height: 24),
           ],
           // The state, in words, where the island used to live. The tiles'
-          // home carries it inside its connect bar instead.
+          // home carries it inside its connect bar instead. Here it wears
+          // its own capsule over the map: the word gets the layer it
+          // never had, and the state's dot before it says the state at a
+          // glance — a quiet pulse while the connection is still being
+          // made.
           if (design != 'bento')
             Reveal(
               index: 1,
-              child: CrossfadeText(
-                label,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: on ? accent : p.text,
+              child: Center(
+                child: StatusCapsule(
+                  dark: p.dark,
+                  dot: true,
+                  dotColor: accent,
+                  dotBreathes: confirming,
+                  child: CrossfadeText(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0.3,
+                      height: 1.15,
+                      // The dot carries the state's color; the word itself
+                      // stays at full contrast while nothing is confirmed
+                      // yet, so "Connecting…" reads clearly in both themes.
+                      color: confirming ? p.text : (on ? accent : p.text),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1993,19 +2013,38 @@ class _ElapsedText extends StatefulWidget {
   State<_ElapsedText> createState() => _ElapsedTextState();
 }
 
-class _ElapsedTextState extends State<_ElapsedText> {
+class _ElapsedTextState extends State<_ElapsedText>
+    with WidgetsBindingObserver {
   Timer? _tick;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _tick = Timer.periodic(const Duration(seconds: 1), (_) {
       if (mounted) setState(() {});
     });
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // A hidden window needs no mm:ss: the tick that redraws it every
+    // second wakes the engine for nothing, and the battery pays for it.
+    // It picks up where it stopped when the window comes back.
+    if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      _tick?.cancel();
+      _tick = null;
+    } else if (state == AppLifecycleState.resumed && _tick == null) {
+      _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+        if (mounted) setState(() {});
+      });
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _tick?.cancel();
     super.dispose();
   }

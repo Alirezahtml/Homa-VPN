@@ -835,9 +835,9 @@ class _SettingsPageState extends State<SettingsPage> {
   );
 
   /// The home's look: the map's own kinds (the flat map as it always
-  /// was, its modern finish, the metal ball, the satellite's earth), the
-  /// ball's styles, and the battery saver that puts the map's motion to
-  /// rest while the connection stays as it is.
+  /// was, its modern finish, the metal ball), the ball's styles, and
+  /// the battery saver that puts the map's motion to rest while the
+  /// connection stays as it is.
   Widget _appearance(AppLocalizations l, AppSettings s) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
@@ -4428,16 +4428,13 @@ class _GlobePreviewPainter extends CustomPainter {
 /// The name of one map kind, in the app's own language.
 String mapKindName(AppLocalizations l, MapKind kind) => switch (kind) {
   MapKind.globe => l.mapKindGlobe,
-  MapKind.satellite => l.mapKindSatellite,
   MapKind.flat => l.mapKindFlat,
-  MapKind.night => l.mapKindNight,
-  MapKind.terrain => l.mapKindTerrain,
   _ => l.mapKindClassic,
 };
 
 /// One map kind's tile: a small preview of the way the home's world is
 /// carried — the flat map's quiet ink, its modern finish, the metal
-/// ball, the satellite's earth — and the kind's name under it; the
+/// ball — and the kind's name under it; the
 /// chosen one carries the accent's own frame.
 class _MapKindTile extends StatelessWidget {
   const _MapKindTile({
@@ -4509,26 +4506,21 @@ class _MapKindPreviewPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final ink = dark ? Colors.white : const Color(0xFF0A0A0A);
-    final sphere = kind == MapKind.globe || kind == MapKind.satellite;
+    final sphere = kind == MapKind.globe;
 
     // The land's small shapes: a hint of continents, drawn as blobs so a
     // preview reads as a world at 62 px without the real borders.
     final landPaint = Paint()
       ..color = sphere
-          ? (kind == MapKind.satellite
-                ? const Color(0x9E57975E)
-                : ink.withValues(alpha: dark ? 0.30 : 0.18))
+          ? ink.withValues(alpha: dark ? 0.30 : 0.18)
           : ink.withValues(alpha: dark ? 0.24 : 0.16)
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 
     if (!sphere) {
       // The flat kinds: a rounded map card, its graticule, the land, the
-      // lit country's halo — the card and the land take the kind's own
-      // finish: the classic's quiet ink, the modern's shadow, the
-      // night's deep water, the terrain's green over soft blue.
-      final night = kind == MapKind.night;
-      final terrain = kind == MapKind.terrain;
+      // lit country's halo — the classic's quiet ink, or the modern
+      // finish's shadow and stronger lit country.
       final modern = kind == MapKind.flat;
       final rect = Rect.fromCenter(
         center: c,
@@ -4536,42 +4528,26 @@ class _MapKindPreviewPainter extends CustomPainter {
         height: size.height * 0.5,
       );
       final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(7));
-      // The water, where the finish carries it.
-      if (night || terrain) {
+      if (modern) {
         canvas.drawRRect(
           rrect,
           Paint()
-            ..color = night
-                ? (dark ? const Color(0xFF10203A) : const Color(0xFF17264A))
-                : (dark ? const Color(0xFF14304A) : const Color(0xFFC3D8E8)),
-        );
-      }
-      if (modern || night || terrain) {
-        canvas.drawRRect(
-          rrect,
-          Paint()
-            ..color = night || terrain
-                ? Colors.black.withValues(alpha: dark ? 0.30 : 0.14)
-                : (dark ? Colors.black : ink).withValues(
-                    alpha: dark ? 0.30 : 0.09,
-                  )
+            ..color = (dark ? Colors.black : ink).withValues(
+              alpha: dark ? 0.30 : 0.09,
+            )
             ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.2),
         );
       }
       canvas.drawRRect(
         rrect,
         Paint()
-          ..color = night || terrain
-              ? (dark ? Colors.white : Colors.black).withValues(alpha: 0.14)
-              : ink.withValues(alpha: dark ? 0.05 : 0.04)
+          ..color = ink.withValues(alpha: dark ? 0.05 : 0.04)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 0.8,
       );
       // The graticule: three meridians, one parallel.
       final grid = Paint()
-        ..color = night || terrain
-            ? (dark ? Colors.white : Colors.black).withValues(alpha: 0.10)
-            : ink.withValues(alpha: dark ? 0.09 : 0.08)
+        ..color = ink.withValues(alpha: dark ? 0.09 : 0.08)
         ..strokeWidth = 0.6;
       for (var i = 1; i <= 2; i++) {
         final x = rect.left + rect.width * i / 3;
@@ -4582,27 +4558,31 @@ class _MapKindPreviewPainter extends CustomPainter {
         Offset(rect.right, c.dy),
         grid,
       );
-      // A hint of continents: three blobs wide of the middle, in the
-      // finish's own land.
-      final land = Paint()
-        ..color = night
-            ? (dark ? const Color(0xFF2A3C63) : const Color(0xFF31446F))
-            : terrain
-                ? (dark ? const Color(0xFF3E6151) : const Color(0xFF8FAF85))
-                : landPaint.color
-        ..style = PaintingStyle.fill
-        ..isAntiAlias = true;
-      _ellipse(canvas, rect.left + rect.width * 0.18, c.dy, 6.5, 4.0, land);
-      _ellipse(canvas, rect.left + rect.width * 0.46, c.dy - 2, 4.0, 3.0, land);
-      _ellipse(canvas, rect.left + rect.width * 0.74, c.dy + 1, 5.5, 3.5, land);
+      // A hint of continents: three blobs wide of the middle.
+      _ellipse(canvas, rect.left + rect.width * 0.18, c.dy, 6.5, 4.0, landPaint);
+      _ellipse(
+        canvas,
+        rect.left + rect.width * 0.46,
+        c.dy - 2,
+        4.0,
+        3.0,
+        landPaint,
+      );
+      _ellipse(
+        canvas,
+        rect.left + rect.width * 0.74,
+        c.dy + 1,
+        5.5,
+        3.5,
+        landPaint,
+      );
       // The lit country: a small halo on the first blob, brighter where
-      // a finish paints its own water.
+      // the modern finish carries its own shadow.
       canvas.drawCircle(
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         7.5,
         Paint()
-          ..color = (night || terrain ? Colors.white : ink)
-              .withValues(alpha: modern || night || terrain ? 0.34 : 0.20)
+          ..color = ink.withValues(alpha: modern ? 0.34 : 0.20)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5)
           ..isAntiAlias = true,
       );
@@ -4610,39 +4590,31 @@ class _MapKindPreviewPainter extends CustomPainter {
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         1.8,
         Paint()
-          ..color = (night || terrain ? Colors.white : ink)
-              .withValues(alpha: dark ? 0.9 : (night || terrain ? 0.9 : 0.7))
+          ..color = ink.withValues(alpha: dark ? 0.9 : 0.7)
           ..isAntiAlias = true,
       );
       return;
     }
 
-    // The ball kinds: the ball's own gradient, the land, the limb.
+    // The ball: its own gradient, the land, the limb.
     final radius = size.width * 0.42;
     final ball = Paint()
       ..shader = ui.Gradient.radial(
         c + Offset(-radius * 0.36, -radius * 0.4),
         radius * 1.7,
-        kind == MapKind.satellite
+        dark
             ? const [
-                Color(0xFF3B7FC0),
-                Color(0xFF27609E),
-                Color(0xFF16406E),
-                Color(0xFF0B2440),
+                Color(0xFF9AA3B2),
+                Color(0xFF4A5160),
+                Color(0xFF20242E),
+                Color(0xFF0B0D12),
               ]
-            : (dark
-                ? const [
-                    Color(0xFF9AA3B2),
-                    Color(0xFF4A5160),
-                    Color(0xFF20242E),
-                    Color(0xFF0B0D12),
-                  ]
-                : const [
-                    Color(0xFFF4F6FA),
-                    Color(0xFFC3C9D6),
-                    Color(0xFF8C93A3),
-                    Color(0xFF5D6371),
-                  ]),
+            : const [
+                Color(0xFFF4F6FA),
+                Color(0xFFC3C9D6),
+                Color(0xFF8C93A3),
+                Color(0xFF5D6371),
+              ],
         const [0.0, 0.35, 0.72, 1.0],
       );
     canvas.drawCircle(c, radius, ball);
@@ -4672,17 +4644,6 @@ class _MapKindPreviewPainter extends CustomPainter {
       radius * 0.12,
       landPaint,
     );
-    if (kind == MapKind.satellite) {
-      // A breath of cloud over the satellite's earth.
-      canvas.drawCircle(
-        c + Offset(radius * 0.28, -radius * 0.18),
-        radius * 0.16,
-        Paint()
-          ..color = Colors.white.withValues(alpha: 0.16)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4)
-          ..isAntiAlias = true,
-      );
-    }
     canvas.restore();
     // The limb's light.
     canvas.drawCircle(
@@ -4695,13 +4656,9 @@ class _MapKindPreviewPainter extends CustomPainter {
           c,
           radius,
           [
-            (kind == MapKind.satellite
-                    ? const Color(0xFF5B8CC9)
-                    : (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC)))
+            (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC))
                 .withValues(alpha: 0.0),
-            (kind == MapKind.satellite
-                    ? const Color(0xFF5B8CC9)
-                    : (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC)))
+            (dark ? const Color(0xFF8FA0BC) : const Color(0xFF9FB0CC))
                 .withValues(alpha: dark ? 0.6 : 0.4),
           ],
           const [0.7, 1.0],
