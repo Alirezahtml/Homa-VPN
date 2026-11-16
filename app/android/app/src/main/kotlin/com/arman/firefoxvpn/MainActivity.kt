@@ -624,7 +624,7 @@ class MainActivity : FlutterActivity() {
                 while (stats.hasNextBucket()) {
                     stats.getNextBucket(bucket)
                     val uid = bucket.uid
-                    if (uid < Process.APPLICATION_UID_START) continue
+                    if (uid < Process.FIRST_APPLICATION_UID) continue
                     totals[uid] = (totals[uid] ?: 0L) + bucket.rxBytes + bucket.txBytes
                 }
                 stats.close()
