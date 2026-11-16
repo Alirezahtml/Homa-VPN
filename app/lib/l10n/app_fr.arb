@@ -671,6 +671,8 @@
   "aboutVersions": "Version",
   "aboutChannels": "Pages de contact",
   "checkUpdatesHint": "Chercher une version plus récente ; celle trouvée se télécharge et l'installateur demande.",
+  "playProtectTitle": "Google Play Protect",
+  "playProtectBody": "L'application s'installe hors de Google Play ; Play Protect peut donc demander une analyse au premier install. Touchez une fois « Scanner l'application » — une analyse saine est retenue et les mises à jour suivantes s'installent sans ce message.",
   "smartLocation": "Emplacement le plus rapide",
   "smartLocationHint": "Chaque démarrage utilise le serveur que le test de latence du noyau juge le plus rapide.",
   "quicPass": "Passage QUIC",

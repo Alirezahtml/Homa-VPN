@@ -98,6 +98,19 @@ flutter:
           weight: 600
         - asset: assets/fonts/NotoSansBengali-Bold.ttf
           weight: 700
+    # Space Grotesk (SIL OFL 1.1, assets/fonts/SpaceGrotesk/OFL.txt) for
+    # the display: the app's titles, the home's state word and the stat
+    # values read in its own geometric voice, so the Latin face no longer
+    # hides behind the phone's default look.
+    - family: SpaceGrotesk
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Regular.ttf
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Bold.ttf
+          weight: 700
     # Noto Sans SC for Simplified Chinese, Noto Sans TC for Traditional
     # (SIL OFL 1.1, assets/fonts/NotoOFL.txt): the glyphs the app's own
     # words and the commonest few thousand characters need, subset from

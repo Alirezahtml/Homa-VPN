@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -770,6 +771,94 @@ TextStyle? languageStyle(String code) => switch (languageFont(code)) {
   null => null,
 };
 
+/// The display's own face: the app's titles, the home's state word and
+/// the stat values read in it — Space Grotesk's geometric voice for the
+/// Latin languages (a face the phone's default could never be confused
+/// with), and the language's own face for the rest: Vazirmatn for the
+/// Persian and the Arabic, Noto Sans SC/TC for the Chinese, Noto Sans
+/// Bengali for Bengali.
+String displayFont(String code) => switch (code) {
+  'fa' || 'ar' => 'Vazirmatn',
+  'zh' => 'NotoSansSC',
+  'zh_Hant' => 'NotoSansTC',
+  'bn' => 'NotoSansBengali',
+  _ => 'SpaceGrotesk',
+};
+
+/// The faces a display text falls back through — a Persian word inside
+/// an English title, a Latin letter inside a Chinese one — the app's
+/// other bundled faces before the phone's fonts.
+List<String> displayFallbacks(String font) => switch (font) {
+  'Vazirmatn' => [
+    'SpaceGrotesk',
+    'Inter',
+    'NotoSansSC',
+    'NotoSansTC',
+    'NotoSansBengali',
+  ],
+  'NotoSansSC' => [
+    'NotoSansTC',
+    'SpaceGrotesk',
+    'Inter',
+    'Vazirmatn',
+    'NotoSansBengali',
+  ],
+  'NotoSansTC' => [
+    'NotoSansSC',
+    'SpaceGrotesk',
+    'Inter',
+    'Vazirmatn',
+    'NotoSansBengali',
+  ],
+  'NotoSansBengali' => [
+    'SpaceGrotesk',
+    'Inter',
+    'NotoSansSC',
+    'NotoSansTC',
+    'Vazirmatn',
+  ],
+  _ => ['Inter', 'Vazirmatn', 'NotoSansSC', 'NotoSansTC', 'NotoSansBengali'],
+};
+
+/// The theme's display voice: the face the titles, the state word and
+/// the stat values wear — set once by the app's theme (buildTheme), read
+/// wherever a page needs its own display text.
+class HomaTypefaces extends ThemeExtension<HomaTypefaces> {
+  const HomaTypefaces({required this.display, required this.displayFallback});
+
+  final String display;
+  final List<String> displayFallback;
+
+  @override
+  HomaTypefaces copyWith({String? display, List<String>? displayFallback}) =>
+      HomaTypefaces(
+        display: display ?? this.display,
+        displayFallback: displayFallback ?? this.displayFallback,
+      );
+
+  @override
+  HomaTypefaces lerp(HomaTypefaces? other, double t) =>
+      other == null || t < 0.5 ? this : other;
+
+  @override
+  bool operator ==(Object other) =>
+      other is HomaTypefaces &&
+      other.display == display &&
+      listEquals(other.displayFallback, displayFallback);
+
+  @override
+  int get hashCode => Object.hash(display, Object.hashAll(displayFallback));
+}
+
+/// The display face of the current theme, with the body's face behind it
+/// when a page has no theme of its own to read (a dialog on a test).
+HomaTypefaces typefacesOf(BuildContext context) =>
+    Theme.of(context).extension<HomaTypefaces>() ??
+    const HomaTypefaces(
+      display: 'Inter',
+      displayFallback: ['Vazirmatn', 'NotoSansSC', 'NotoSansTC', 'NotoSansBengali'],
+    );
+
 /// The rounded box every settings row's icon sits in: one quiet surface,
 /// one radius, everywhere — the tiles read as a single system, as Pixel's
 /// settings do.
@@ -823,8 +912,12 @@ class PageTitle extends StatelessWidget {
       : Reveal(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.headlineSmall
-                ?.copyWith(fontWeight: FontWeight.w800),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+              // The page's title reads in the display's own voice.
+              fontFamily: typefacesOf(context).display,
+              fontFamilyFallback: typefacesOf(context).displayFallback,
+            ),
           ),
         );
 }

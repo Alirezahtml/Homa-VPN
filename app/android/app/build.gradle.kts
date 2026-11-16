@@ -76,6 +76,17 @@ android {
                 keyAlias = releaseKey.getProperty("keyAlias")
                 keyPassword = releaseKey.getProperty("keyPassword")
             }
+            // Every signing scheme Android can verify, on by name rather
+            // than by the plugin's defaults: v1 (JAR, the oldest
+            // installers), v2 (the whole-APK hash Android 7+ checks) and
+            // v3 (the key-rotation proof Android 9+ checks). A fully
+            // verified APK is also what Google Play Protect verifies
+            // against — an app the verifier can trust, installed outside
+            // the Play Store, gathers its scan reputation on the same
+            // stable key release after release.
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
         }
     }
 

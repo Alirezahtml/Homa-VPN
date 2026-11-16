@@ -2320,6 +2320,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'البحث عن إصدار أحدث؛ الإصدار الذي يُوجد يُنزَّل ثم يسأل المثبِّت.';
 
   @override
+  String get playProtectTitle => 'حماية Google Play';
+
+  @override
+  String get playProtectBody =>
+      'يُثبَّت التطبيق من خارج متجر Google، لذا قد يطلب Play Protect فحصه عند أول تثبيت. اضغط «فحص التطبيق» مرة واحدة — الفحص السليم يُحفَظ، وتُثبَّت التحديثات بعده دون هذا الطلب.';
+
+  @override
   String get smartLocation => 'أسرع موقع';
 
   @override

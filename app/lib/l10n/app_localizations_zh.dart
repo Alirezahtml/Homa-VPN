@@ -2195,6 +2195,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get checkUpdatesHint => '查找更新的版本；找到后会下载，并由安装器进行确认。';
 
   @override
+  String get playProtectTitle => 'Google Play 保护';
+
+  @override
+  String get playProtectBody =>
+      '本应用从 Google Play 以外安装，首次安装时 Play Protect 可能要求扫描。点一次「扫描应用」即可——干净的扫描会被记住，之后更新不再出现此提示。';
+
+  @override
   String get smartLocation => '最快位置';
 
   @override
@@ -4582,6 +4589,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get checkUpdatesHint => '查找更新的版本；找到後會下載，並由安裝器進行確認。';
+
+  @override
+  String get playProtectTitle => 'Google Play 保護';
+
+  @override
+  String get playProtectBody =>
+      '本應用程式從 Google Play 以外安裝，首次安裝時 Play Protect 可能要求掃描。點一次「掃描應用程式」即可——乾淨的掃描會被記住，之後更新不會再出現此提示。';
 
   @override
   String get smartLocation => '最快位置';

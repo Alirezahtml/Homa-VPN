@@ -2312,6 +2312,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Tìm phiên bản mới hơn; phiên bản tìm thấy sẽ được tải xuống và trình cài đặt sẽ hỏi.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Ứng dụng được cài đặt bên ngoài Google Play, nên Play Protect có thể yêu cầu quét khi cài lần đầu. Nhấn \"Quét ứng dụng\" một lần — lần quét sạch sẽ được ghi nhớ, và các bản cập nhật sau đó cài đặt không cần câu hỏi này.';
+
+  @override
   String get smartLocation => 'Vị trí nhanh nhất';
 
   @override

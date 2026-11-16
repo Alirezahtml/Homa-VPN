@@ -671,6 +671,8 @@
   "aboutVersions": "Verzió",
   "aboutChannels": "Elérhetőségi oldalak",
   "checkUpdatesHint": "Újabb verzió keresése; a megtalált letöltődik, és a telepítő megkérdezi.",
+  "playProtectTitle": "Google Play Protect",
+  "playProtectBody": "Az alkalmazás a Google Playen kívülről települ, ezért az első telepítéskor a Play Protect ellenőrzést kérhet. Érintse meg egyszer az „Alkalmazás beolvasása\" gombot — a tiszta ellenőrzés megmarad, és a későbbi frissítések kérdés nélkül települnek.",
   "smartLocation": "Leggyorsabb helyszín",
   "smartLocationHint": "Minden indítás a mag saját késleltetés-mérése szerint leggyorsabb szerverre ül.",
   "quicPass": "QUIC átengedés",

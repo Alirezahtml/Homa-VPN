@@ -2327,6 +2327,13 @@ class AppLocalizationsHu extends AppLocalizations {
       'Újabb verzió keresése; a megtalált letöltődik, és a telepítő megkérdezi.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Az alkalmazás a Google Playen kívülről települ, ezért az első telepítéskor a Play Protect ellenőrzést kérhet. Érintse meg egyszer az „Alkalmazás beolvasása\" gombot — a tiszta ellenőrzés megmarad, és a későbbi frissítések kérdés nélkül települnek.';
+
+  @override
   String get smartLocation => 'Leggyorsabb helyszín';
 
   @override

@@ -683,6 +683,8 @@
   "aboutVersions": "版本",
   "aboutChannels": "聯絡頁面",
   "checkUpdatesHint": "查找更新的版本；找到後會下載，並由安裝器進行確認。",
+  "playProtectTitle": "Google Play 保護",
+  "playProtectBody": "本應用程式從 Google Play 以外安裝，首次安裝時 Play Protect 可能要求掃描。點一次「掃描應用程式」即可——乾淨的掃描會被記住，之後更新不會再出現此提示。",
   "smartLocation": "最快位置",
   "smartLocationHint": "每次啟動都落在核心延遲實測最快的伺服器上。",
   "quicPass": "QUIC 直通",

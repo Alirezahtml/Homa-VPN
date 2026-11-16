@@ -2312,6 +2312,13 @@ class AppLocalizationsId extends AppLocalizations {
       'Cari versi yang lebih baru; versi yang ditemukan diunduh dan penginstal bertanya.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Aplikasi dipasang di luar Google Play, jadi Play Protect mungkin meminta pemindaian saat pemasangan pertama. Ketuk \"Pindai aplikasi\" sekali — pemindaian yang bersih diingat, dan pembaruan berikutnya terpasang tanpa pertanyaan ini.';
+
+  @override
   String get smartLocation => 'Lokasi tercepat';
 
   @override

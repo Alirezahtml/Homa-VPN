@@ -101,6 +101,11 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   // before the phone's.
   final font = languageFont(AppSettings.languageFor(locale));
   final fallbacks = fontFallbacks(font);
+  // The display's own voice: the titles, the state word and the stat
+  // values wear the face that says "this app" — Space Grotesk for the
+  // Latin languages, the language's own face for the rest.
+  final display = displayFont(AppSettings.languageFor(locale));
+  final displayFallback = displayFallbacks(display);
   final lit = accent == null ? null : accentForTheme(accent, dark);
   final effective = lit == null
       ? scheme
@@ -117,6 +122,9 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
     colorScheme: effective,
     fontFamily: font,
     fontFamilyFallback: fallbacks,
+    extensions: [
+      HomaTypefaces(display: display, displayFallback: displayFallback),
+    ],
     scaffoldBackgroundColor: look.scaffold,
     // Pixel-grade surfaces: one generous radius for every card, list and
     // dialog, so the whole app reads as one system.
@@ -145,8 +153,8 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
         fontSize: 22,
         fontWeight: FontWeight.w700,
         color: effective.onSurface,
-        fontFamily: font,
-        fontFamilyFallback: fallbacks,
+        fontFamily: display,
+        fontFamilyFallback: displayFallback,
       ),
     ),
     listTileTheme: ListTileThemeData(iconColor: effective.onSurfaceVariant),

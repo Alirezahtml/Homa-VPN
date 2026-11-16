@@ -2331,6 +2331,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'Buscar una versión más nueva; la que se encuentre se descarga y el instalador pregunta.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'La app se instala fuera de Google Play, así que Play Protect puede pedir analizarla en la primera instalación. Toca una vez \"Escanear app\": un análisis limpio se recuerda y las actualizaciones siguientes se instalan sin este aviso.';
+
+  @override
   String get smartLocation => 'Ubicación más rápida';
 
   @override

@@ -2324,6 +2324,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Искать версию новее; найденная скачается, и установщик спросит.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Приложение устанавливается не из Google Play, поэтому Play Protect может предложить проверку при первой установке. Нажмите «Проверить приложение» один раз — проверка запомнится, и обновления после неё устанавливаются без этого запроса.';
+
+  @override
   String get smartLocation => 'Быстрейшая локация';
 
   @override

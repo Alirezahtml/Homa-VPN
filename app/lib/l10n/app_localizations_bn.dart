@@ -2307,6 +2307,13 @@ class AppLocalizationsBn extends AppLocalizations {
       'নতুন সংস্করণ খুঁজুন; পাওয়া গেলে ডাউনলোড হবে এবং ইনস্টলার জিজ্ঞেস করবে।';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'অ্যাপটি Google Play-এর বাইরে থেকে ইনস্টল হয়, তাই প্রথম ইনস্টলে Play Protect স্ক্যান চাইতে পারে। একবার \"অ্যাপ স্ক্যান করুন\" চাপুন — পরিষ্কার স্ক্যান মনে রাখা হয়, এবং পরের আপডেটগুলো এই প্রশ্ন ছাড়াই ইনস্টল হয়।';
+
+  @override
   String get smartLocation => 'সবচেয়ে দ্রুত লোকেশন';
 
   @override

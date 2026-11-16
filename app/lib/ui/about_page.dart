@@ -179,6 +179,19 @@ class _AboutPageState extends State<AboutPage> {
           ),
         ),
         const SizedBox(height: 12),
+        // Google Play Protect: the one dialog a first install may meet.
+        // The app lives outside Google Play, so Play Protect hasn't seen
+        // its signature before — one clean scan and the updates that
+        // follow install quietly. Said here, the dialog reads as routine
+        // instead of danger.
+        arrived(
+          Panel(
+            title: l.playProtectTitle,
+            icon: Icons.verified_user_rounded,
+            child: Text(l.playProtectBody, style: muted),
+          ),
+        ),
+        const SizedBox(height: 12),
         // The contact pages: Instagram and Telegram, side by side, each
         // half the row, in a card of their own. No code repository here.
         arrived(

@@ -2312,6 +2312,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Daha yeni bir sürüme bak; bulunan indirilir ve yükleyici sorar.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Uygulama Google Play dışından kurulur; ilk kurulumda Play Protect tarama isteyebilir. Bir kez \"Uygulamayı tara\" deyin — temiz tarama hatırlanır ve sonraki güncellemeler bu soru olmadan kurulur.';
+
+  @override
   String get smartLocation => 'En hızlı konum';
 
   @override

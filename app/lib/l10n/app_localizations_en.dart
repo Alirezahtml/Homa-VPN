@@ -2320,6 +2320,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Look for a newer version; a found one downloads and the installer asks.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'The app installs outside Google Play, so Play Protect may ask to scan it on the first install. Tap \"Scan app\" once — a clean scan is remembered, and the updates after it install quietly.';
+
+  @override
   String get smartLocation => 'Fastest location';
 
   @override

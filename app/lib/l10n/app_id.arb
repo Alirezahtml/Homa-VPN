@@ -671,6 +671,8 @@
   "aboutVersions": "Versi",
   "aboutChannels": "Halaman kontak",
   "checkUpdatesHint": "Cari versi yang lebih baru; versi yang ditemukan diunduh dan penginstal bertanya.",
+  "playProtectTitle": "Google Play Protect",
+  "playProtectBody": "Aplikasi dipasang di luar Google Play, jadi Play Protect mungkin meminta pemindaian saat pemasangan pertama. Ketuk \"Pindai aplikasi\" sekali — pemindaian yang bersih diingat, dan pembaruan berikutnya terpasang tanpa pertanyaan ini.",
   "smartLocation": "Lokasi tercepat",
   "smartLocationHint": "Setiap mulai memakai server yang diuji latensinya paling cepat oleh inti.",
   "quicPass": "Lolos QUIC",

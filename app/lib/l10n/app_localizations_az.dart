@@ -2313,6 +2313,13 @@ class AppLocalizationsAz extends AppLocalizations {
       'Daha yeni versiyaya bax; tapılan versiya yüklənir və quraşdırıcı soruşur.';
 
   @override
+  String get playProtectTitle => 'Google Play Protect';
+
+  @override
+  String get playProtectBody =>
+      'Tətbiq Google Play-dən kənar quraşdırılır; ilk quraşdırmada Play Protect yoxlama istəyə bilər. Bir dəfə \"Tətbiqi skan et\" düyməsinə basın — təmiz yoxlama yadda qalır və sonrakı yenilənmələr bu sorğu olmadan quraşdırılır.';
+
+  @override
   String get smartLocation => 'Ən sürətli yer';
 
   @override

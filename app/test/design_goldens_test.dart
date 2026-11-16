@@ -70,6 +70,12 @@ void main() {
       'Vazirmatn-SemiBold.ttf',
       'Vazirmatn-Bold.ttf',
     ]);
+    await load('SpaceGrotesk', [
+      'SpaceGrotesk/SpaceGrotesk-Regular.ttf',
+      'SpaceGrotesk/SpaceGrotesk-Medium.ttf',
+      'SpaceGrotesk/SpaceGrotesk-SemiBold.ttf',
+      'SpaceGrotesk/SpaceGrotesk-Bold.ttf',
+    ]);
   });
 
   Future<void> phone(

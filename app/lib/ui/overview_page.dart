@@ -1364,6 +1364,10 @@ class _PhoneHome extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                       letterSpacing: 0.3,
                       height: 1.15,
+                      // The state's word wears the display's own voice —
+                      // the face nobody would mistake for the phone's.
+                      fontFamily: typefacesOf(context).display,
+                      fontFamilyFallback: typefacesOf(context).displayFallback,
                       // The dot carries the state's color; the word itself
                       // stays at full contrast while nothing is confirmed
                       // yet, so "Connecting…" reads clearly in both themes.
@@ -1982,6 +1986,9 @@ class _StatCard extends StatelessWidget {
                 theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                   fontFeatures: const [FontFeature.tabularFigures()],
+                  // The numbers wear the display's own voice too.
+                  fontFamily: typefacesOf(context).display,
+                  fontFamilyFallback: typefacesOf(context).displayFallback,
                   color: valueColor ?? p.text,
                 ) ??
                 const TextStyle(fontSize: 16),

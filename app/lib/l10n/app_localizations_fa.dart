@@ -2298,6 +2298,13 @@ class AppLocalizationsFa extends AppLocalizations {
       'جست‌وجوی نسخهٔ تازه‌تر؛ نسخهٔ پیدا‌شده دانلود می‌شود و نصب‌کننده می‌پرسد.';
 
   @override
+  String get playProtectTitle => 'گوگل پلی پروتکت';
+
+  @override
+  String get playProtectBody =>
+      'این برنامه از بیرون از گوگل‌پلی نصب می‌شود؛ ممکن است بار نخست گوگل پلی پروتکت پیشنهاد اسکن بدهد. یک بار روی «اسکن برنامه» بزنید — اسکنِ سالم به یادگار می‌ماند و نصب نسخه‌های بعدی بدون این پیام انجام می‌شود.';
+
+  @override
   String get smartLocation => 'سریع‌ترین لوکیشن';
 
   @override

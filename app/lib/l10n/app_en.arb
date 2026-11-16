@@ -1270,6 +1270,8 @@
   "aboutVersions": "Version",
   "aboutChannels": "Contact pages",
   "checkUpdatesHint": "Look for a newer version; a found one downloads and the installer asks.",
+  "playProtectTitle": "Google Play Protect",
+  "playProtectBody": "The app installs outside Google Play, so Play Protect may ask to scan it on the first install. Tap \"Scan app\" once — a clean scan is remembered, and the updates after it install quietly.",
   "smartLocation": "Fastest location",
   "smartLocationHint": "Every start rides the server the core's own latency test says is fastest.",
   "quicPass": "QUIC pass-through",

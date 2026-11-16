@@ -671,6 +671,8 @@
   "aboutVersions": "Versiya",
   "aboutChannels": "Əlaqə səhifələri",
   "checkUpdatesHint": "Daha yeni versiyaya bax; tapılan versiya yüklənir və quraşdırıcı soruşur.",
+  "playProtectTitle": "Google Play Protect",
+  "playProtectBody": "Tətbiq Google Play-dən kənar quraşdırılır; ilk quraşdırmada Play Protect yoxlama istəyə bilər. Bir dəfə \"Tətbiqi skan et\" düyməsinə basın — təmiz yoxlama yadda qalır və sonrakı yenilənmələr bu sorğu olmadan quraşdırılır.",
   "smartLocation": "Ən sürətli yer",
   "smartLocationHint": "Hər qoşulma, nüvənin öz gecikmə testinin ən sürətli dediyi serverə düşür.",
   "quicPass": "QUIC ötürmə",
