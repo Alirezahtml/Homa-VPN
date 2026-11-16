@@ -300,11 +300,9 @@ class AndroidCore {
 
   /// Publishes [favorites] (country codes) as the launcher's long-press
   /// shortcuts, newest first.
-  static Future<void> setShortcuts(List<String> favorites) async {
+  static Future<void> setShortcuts(List<Map<String, String>> entries) async {
     await _channel.invokeMethod<void>('setShortcuts', {
-      'shortcuts': [
-        for (final code in favorites) {'code': code, 'name': code},
-      ],
+      'shortcuts': entries,
     });
   }
 

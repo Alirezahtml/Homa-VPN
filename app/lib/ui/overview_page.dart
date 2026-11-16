@@ -1110,8 +1110,14 @@ Future<void> _toggleFavorite(
   HapticFeedback.selectionClick();
   AppSounds.play(SoundCue.tap);
   if (defaultTargetPlatform == TargetPlatform.android) {
+    final l = AppLocalizations.of(context);
     unawaited(
-      AndroidCore.setShortcuts(next.take(4).toList()).catchError((_) {}),
+      AndroidCore.setShortcuts(
+        [
+          for (final code in next.take(4))
+            {'code': code, 'name': countryName(l, code)},
+        ],
+      ).catchError((_) {}),
     );
   }
   if (context.mounted) {
