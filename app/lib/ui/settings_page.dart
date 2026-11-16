@@ -16,6 +16,7 @@ import '../desktop/desktop_bridge.dart';
 import '../l10n/app_localizations.dart';
 import '../platform.dart';
 import 'accent.dart';
+import 'app_usage_page.dart';
 import 'bypass_apps_page.dart';
 import 'connection_mode.dart';
 import '../core/diagnostics.dart';
@@ -909,6 +910,32 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
+      if (Platform.isAndroid) ...[
+        const SizedBox(height: 12),
+        // The OEMs' battery killers: the one panel that keeps the tunnel
+        // alive after the screen locks.
+        Panel(
+          title: l.batteryWizardTitle,
+          icon: Icons.battery_alert_rounded,
+          child: const _BatteryWizard(),
+        ),
+        const SizedBox(height: 12),
+        Panel(
+          title: l.usageTitle,
+          icon: Icons.pie_chart_rounded,
+          child: _Row(
+            icon: Icons.apps_rounded,
+            label: l.usageTitle,
+            value: l.usageRowHint,
+            child: const Icon(Icons.chevron_right_rounded),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const AppUsagePage(),
+              ),
+            ),
+          ),
+        ),
+      ],
     ],
   );
 
@@ -4685,4 +4712,100 @@ class _MapKindPreviewPainter extends CustomPainter {
   @override
   bool shouldRepaint(_MapKindPreviewPainter old) =>
       old.kind != kind || old.dark != dark;
+}
+
+/// Android's battery-optimization state for this app, with the one-tap
+/// ask and the system page for the OEMs' own killers. The tunnel dies
+/// after the screen locks on Xiaomi, Samsung, and Huawei unless the user
+/// stands the app outside optimization; this is where they do it.
+class _BatteryWizard extends StatefulWidget {
+  const _BatteryWizard();
+
+  @override
+  State<_BatteryWizard> createState() => _BatteryWizardState();
+}
+
+class _BatteryWizardState extends State<_BatteryWizard> {
+  bool? _ignored;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    final ignored = await AndroidCore.batteryIgnored();
+    if (!mounted) return;
+    setState(() => _ignored = ignored);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final ignored = _ignored;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(l.batteryWizardBody, style: theme.textTheme.bodyMedium),
+        const SizedBox(height: 8),
+        Text(l.batteryWizardSteps, style: theme.textTheme.bodySmall),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            if (ignored == true)
+              Icon(
+                Icons.check_circle_rounded,
+                size: 18,
+                color: theme.colorScheme.primary,
+              )
+            else if (ignored == false)
+              Icon(
+                Icons.warning_amber_rounded,
+                size: 18,
+                color: theme.colorScheme.error,
+              )
+            else
+              const SizedBox.square(
+                dimension: 18,
+                child: CircularProgressIndicator(strokeWidth: 1.5),
+              ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                ignored == true ? l.batteryWizardOk : l.batteryWizardState,
+                style: theme.textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            if (ignored != true)
+              FilledButton.icon(
+                onPressed: () async {
+                  await AndroidCore.requestIgnoreBattery();
+                  if (!mounted) return;
+                  await Future<void>.delayed(
+                    const Duration(milliseconds: 600),
+                  );
+                  _refresh();
+                },
+                icon: const Icon(Icons.battery_saver_rounded),
+                label: Text(l.batteryWizardPermit),
+              ),
+            OutlinedButton.icon(
+              onPressed: AndroidCore.openBatterySettings,
+              icon: const Icon(Icons.tune_rounded),
+              label: Text(l.batteryWizardOpen),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }

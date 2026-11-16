@@ -2334,6 +2334,90 @@ class AppLocalizationsFr extends AppLocalizations {
       'Chercher une version plus récente ; celle trouvée se télécharge et l\'installateur demande.';
 
   @override
+  String get speedTestTitle => 'Test de vitesse';
+
+  @override
+  String get speedTestRun => 'Mesurer';
+
+  @override
+  String get speedTestFailed => 'La mesure n’a pas fini.';
+
+  @override
+  String get speedTestThrough => 'Mesuré à travers le tunnel.';
+
+  @override
+  String get speedTestDirect => 'Mesuré en direct (le proxy est éteint).';
+
+  @override
+  String get speedTestHint =>
+      'Un téléchargement et un envoi à travers le tunnel disent ce qu’il porte vraiment. Le graphe de l’accueil ouvre aussi cet écran.';
+
+  @override
+  String get speedGraphHint =>
+      'La dernière minute du tunnel · toucher pour mesurer';
+
+  @override
+  String get favoritePinned => 'Épinglé. Appui long à nouveau pour retirer.';
+
+  @override
+  String get favoriteUnpinned => 'Retiré.';
+
+  @override
+  String get shareReport => 'Partager le rapport';
+
+  @override
+  String get shareReportCopied => 'Le rapport est dans le presse-papiers.';
+
+  @override
+  String get batteryWizardTitle => 'Rester vivant sur la batterie';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei et leurs pareils tuent les apps VPN après le verrouillage de l’écran. Sors cette app de l’optimisation de batterie pour que le tunnel reste allumé.';
+
+  @override
+  String get batteryWizardSteps =>
+      'Dans les réglages du fabricant, permets aussi le démarrage auto et mets l’app en Aucune restriction (Xiaomi), hors apps en veille (Samsung) ou Lancement manuel (Huawei).';
+
+  @override
+  String get batteryWizardState =>
+      'L’optimisation de batterie peut arrêter le tunnel.';
+
+  @override
+  String get batteryWizardPermit => 'Autoriser';
+
+  @override
+  String get batteryWizardOk => 'Le tunnel est protégé de la batterie.';
+
+  @override
+  String get batteryWizardOpen => 'Réglages de batterie';
+
+  @override
+  String get usageTitle => 'Usage par app';
+
+  @override
+  String get usageRowHint => 'Ce que chaque app a consommé';
+
+  @override
+  String get usageGrant => 'Ouvrir l’accès aux usages';
+
+  @override
+  String get usageGrantHint =>
+      'Android garde l’usage de données par app derrière l’autorisation d’accès aux usages. La page qu’ouvre le bouton est celle du système ; l’app ne lit que les chiffres.';
+
+  @override
+  String get usageEmpty => 'Aucun usage enregistré sur la période.';
+
+  @override
+  String get usageToday => 'Aujourd’hui';
+
+  @override
+  String get usageWeek => '7 derniers jours';
+
+  @override
+  String get usageMonth => '30 derniers jours';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

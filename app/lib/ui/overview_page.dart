@@ -22,6 +22,7 @@ import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
 import 'sound.dart' show AppSounds, SoundCue;
+import 'speed_test_dialog.dart' show showSpeedTest;
 import 'widgets.dart';
 import 'world_map.dart';
 
@@ -1087,6 +1088,43 @@ _HomePalette _homePalette(Brightness brightness) {
 /// contour lines in the state's color, the state under it, then where the
 /// traffic goes and the data used. Light or dark with the app's theme; the
 /// email is on the accounts page.
+/// Pins or unpins a country in the flag wheel: the wheel leads with the
+/// pinned ones, and the launcher's long-press menu carries the first four
+/// as "connect here" shortcuts.
+Future<void> _toggleFavorite(
+  BuildContext context,
+  CoreController core,
+  AppSettings settings,
+  String code,
+) async {
+  final was = List<String>.of(settings.favoriteCountries);
+  final lower = was.map((c) => c.toLowerCase()).toList();
+  final pinned = lower.contains(code.toLowerCase());
+  final next = pinned
+      ? [
+          for (final c in was)
+            if (c.toLowerCase() != code.toLowerCase()) c,
+        ]
+      : [...was, code];
+  settings.update(favoriteCountries: next);
+  HapticFeedback.selectionClick();
+  AppSounds.play(SoundCue.tap);
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    unawaited(
+      AndroidCore.setShortcuts(next.take(4).toList()).catchError((_) {}),
+    );
+  }
+  if (context.mounted) {
+    final l = AppLocalizations.of(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(pinned ? l.favoriteUnpinned : l.favoritePinned),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+}
+
 class _PhoneHome extends StatelessWidget {
   const _PhoneHome({
     required this.core,
@@ -1314,6 +1352,9 @@ class _PhoneHome extends StatelessWidget {
                   animated: connected || confirming,
                   still: settings.batterySaver,
                   showName: mapKind != MapKind.globe,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
                 ),
               ),
             ),
@@ -1912,6 +1953,10 @@ class _HomeStats extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
+          // The last minute of both rates, drawn: the tunnel's own pulse.
+          // Tapping it measures the tunnel for real (the speed test).
+          _SpeedGraph(core: core, palette: p),
+          const SizedBox(height: 12),
           // What the whole session moved, through the tunnel and routed
           // directly: the rates say how fast, this says how much.
           _HomeRow(
@@ -1927,6 +1972,203 @@ class _HomeStats extends StatelessWidget {
       ],
     );
   }
+}
+
+/// The tunnel's last minute, drawn: one sample per status poll, the down
+/// rate as the filled line and the up rate over it. A quiet shape until
+/// traffic moves; tapped, it measures the tunnel for real (the speed
+/// test), so the graph and the numbers answer each other.
+class _SpeedGraph extends StatefulWidget {
+  const _SpeedGraph({required this.core, required this.palette});
+
+  final CoreController core;
+  final _HomePalette palette;
+
+  @override
+  State<_SpeedGraph> createState() => _SpeedGraphState();
+}
+
+class _SpeedGraphState extends State<_SpeedGraph> {
+  static const _samples = 60;
+  final List<double> _down = [];
+  final List<double> _up = [];
+  Timer? _tick;
+
+  @override
+  void initState() {
+    super.initState();
+    _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) _sample();
+    });
+    _sample();
+  }
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
+  }
+
+  /// One sample a second, read from the controller's own status: the
+  /// graph watches the clock, not the core's notifications, so it can
+  /// never answer a change while the tree is being taken apart.
+  void _sample() {
+    final traffic = widget.core.status?.traffic;
+    _down.add((traffic?.downRate ?? 0).toDouble());
+    _up.add((traffic?.upRate ?? 0).toDouble());
+    if (_down.length > _samples) _down.removeAt(0);
+    if (_up.length > _samples) _up.removeAt(0);
+    setState(() {});
+  }
+
+  void _openTest() {
+    showSpeedTest(context, widget.core);
+    AppSounds.play(SoundCue.tap);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final p = widget.palette;
+    final theme = Theme.of(context);
+    final peak = [
+      ..._down,
+      ..._up,
+    ].fold(1.0, (m, v) => v > m ? v : m);
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: _openTest,
+        child: Container(
+          height: 76,
+          padding: const EdgeInsetsDirectional.fromSTEB(14, 10, 14, 8),
+          decoration: BoxDecoration(
+            color: p.card,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: p.cardBorder),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.insights_rounded, size: 13, color: p.muted),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      AppLocalizations.of(context).speedGraphHint,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: p.muted,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Expanded(
+                child: CustomPaint(
+                  size: Size.infinite,
+                  painter: _SpeedGraphPainter(
+                    down: _down,
+                    up: _up,
+                    peak: peak,
+                    line: theme.colorScheme.primary,
+                    upLine: p.muted,
+                    grid: p.cardBorder,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The two rate lines: the down rate filled from the floor, the up rate a
+/// thin line above it, three hairlines for the scale. Nothing moves while
+/// the tunnel is quiet, and no saveLayer anywhere.
+class _SpeedGraphPainter extends CustomPainter {
+  const _SpeedGraphPainter({
+    required this.down,
+    required this.up,
+    required this.peak,
+    required this.line,
+    required this.upLine,
+    required this.grid,
+  });
+
+  final List<double> down;
+  final List<double> up;
+  final double peak;
+  final Color line;
+  final Color upLine;
+  final Color grid;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final hair = Paint()
+      ..color = grid
+      ..strokeWidth = 1;
+    for (final t in const [0.25, 0.5, 0.75]) {
+      final y = size.height * t;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), hair);
+    }
+    if (down.length < 2) return;
+    final width = size.width / (_samplesCount - 1);
+    Path downPath(double Function(double) at) {
+      final path = Path()..moveTo(0, at(size.height));
+      for (var i = 0; i < down.length; i++) {
+        final x = i * width;
+        final v = down[i] / peak;
+        path.lineTo(x, size.height - (size.height - 2) * v.clamp(0.0, 1.0) - 1);
+      }
+      return path;
+    }
+
+    final filled = downPath((h) => h)
+      ..lineTo((down.length - 1) * width, size.height)
+      ..close();
+    canvas.drawPath(
+      filled,
+      Paint()..color = line.withValues(alpha: 0.18),
+    );
+    canvas.drawPath(
+      downPath((h) => h),
+      Paint()
+        ..color = line
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6,
+    );
+    final upPath = Path();
+    for (var i = 0; i < up.length; i++) {
+      final x = i * width;
+      final v = up[i] / peak;
+      final y = size.height - (size.height - 2) * v.clamp(0.0, 1.0) - 1;
+      if (i == 0) {
+        upPath.moveTo(x, y);
+      } else {
+        upPath.lineTo(x, y);
+      }
+    }
+    canvas.drawPath(
+      upPath,
+      Paint()
+        ..color = upLine
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2,
+    );
+  }
+
+  static const _samplesCount = 60;
+
+  @override
+  bool shouldRepaint(_SpeedGraphPainter old) =>
+      old.peak != peak ||
+      !identical(old.down, down) ||
+      !identical(old.up, up);
 }
 
 /// One small card of the stats grid: an icon and a muted label above the

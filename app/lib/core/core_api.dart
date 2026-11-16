@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'models.dart';
 import 'relay_test.dart';
+import 'speed_test.dart';
 
 /// Where the core's API listens and the local token that authorizes the
 /// app (`X-Local-Token`, read from `local-api.token` in the data folder).
@@ -527,6 +528,66 @@ class CoreApi {
       },
     );
     return events.stream;
+  }
+
+  /// Measures what the tunnel carries right now: a download and an upload
+  /// from speed.cloudflare.com through the tunnel's own path (the proxy
+  /// off, the raw network itself). [onProgress], when given, gets a live
+  /// tick every quarter second and the transfers stream.
+  Future<SpeedTestResult> testSpeed({
+    void Function(SpeedTestProgress progress)? onProgress,
+    int downBytes = 0,
+    int upBytes = 0,
+  }) async {
+    final client = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 3)
+      ..findProxy = (_) => 'DIRECT';
+    try {
+      final req = await client
+          .postUrl(endpoint.baseUri.replace(path: '/api/speedtest'))
+          .timeout(_normal);
+      req.headers.set('X-Local-Token', endpoint.token);
+      req.headers.contentType = ContentType.json;
+      req.write(jsonEncode(<String, Object?>{
+        'down_bytes': downBytes,
+        'up_bytes': upBytes,
+        'stream': onProgress != null,
+      }));
+      final res = await req.close().timeout(_slow);
+      if (res.statusCode != 200) {
+        throw CoreApiException(
+          res.statusCode,
+          'Speed test API returned HTTP ${res.statusCode}.',
+        );
+      }
+      SpeedTestResult? result;
+      if (onProgress == null) {
+        final body = await res.transform(utf8.decoder).join().timeout(_slow);
+        final decoded = jsonDecode(body);
+        if (decoded is Map<String, Object?>) {
+          result = SpeedTestResult.fromJson(decoded);
+        }
+      } else {
+        await for (final line
+            in res
+                .transform(utf8.decoder)
+                .transform(const LineSplitter())
+                .timeout(const Duration(seconds: 45))) {
+          final event = jsonDecode(line);
+          if (event is! Map<String, Object?>) continue;
+          if (event['progress'] is Map<String, Object?>) {
+            onProgress(
+              SpeedTestProgress.fromJson(event['progress'] as Map<String, Object?>),
+            );
+          } else if (event['result'] is Map<String, Object?>) {
+            result = SpeedTestResult.fromJson(event['result'] as Map<String, Object?>);
+          }
+        }
+      }
+      return result ?? const SpeedTestResult.empty();
+    } finally {
+      client.close(force: true);
+    }
   }
 
   /// The backup file: the data folder (accounts and settings) as a zip,

@@ -2313,6 +2313,89 @@ class AppLocalizationsAz extends AppLocalizations {
       'Daha yeni versiyaya bax; tapılan versiya yüklənir və quraşdırıcı soruşur.';
 
   @override
+  String get speedTestTitle => 'Sürət testi';
+
+  @override
+  String get speedTestRun => 'Ölç';
+
+  @override
+  String get speedTestFailed => 'Ölçmə başa çatmadı.';
+
+  @override
+  String get speedTestThrough => 'Tunel üzərindən ölçüldü.';
+
+  @override
+  String get speedTestDirect => 'Birbaşa ölçüldü (proksi sönüdür).';
+
+  @override
+  String get speedTestHint =>
+      'Tunel üzərindən bir yükləmə və bir yükləmə onun nə daşıdığını deyir. Əsas səhifənin qrafiki də buranı açır.';
+
+  @override
+  String get speedGraphHint => 'Tunelin keçən dəqiqəsi · ölçmək üçün toxun';
+
+  @override
+  String get favoritePinned => 'Sancılı. Çıxarmaq üçün yenidən uzun basın.';
+
+  @override
+  String get favoriteUnpinned => 'Çıxarıldı.';
+
+  @override
+  String get shareReport => 'Hesabatı paylaş';
+
+  @override
+  String get shareReportCopied => 'Hesabat mübadilə buferinə qoyuldu.';
+
+  @override
+  String get batteryWizardTitle => 'Batareyada yaşamaq';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei və bənzərləri ekran kilidlənəndə VPN tətbiqlərini öldürür. Tunel yanansın deyə bu tətbiqi batareya optimallaşdırmasından çıxarın.';
+
+  @override
+  String get batteryWizardSteps =>
+      'İstehsalçının öz tənzimləməsində avtomatik başlatmaya icazə verin və tətbiqi “Məhdudiyyətsiz” (Xiaomi), “Yatan tətbiqlərdən çıxar” (Samsung) və ya “Əl ilə başlat” (Huawei) qoyun.';
+
+  @override
+  String get batteryWizardState =>
+      'Batareya optimallaşdırması tuneli dayandıra bilər.';
+
+  @override
+  String get batteryWizardPermit => 'İcazə verirəm';
+
+  @override
+  String get batteryWizardOk => 'Tunel batareyadan qorunur.';
+
+  @override
+  String get batteryWizardOpen => 'Batareya tənzimləmələri';
+
+  @override
+  String get usageTitle => 'Tətbiq istifadəsi';
+
+  @override
+  String get usageRowHint => 'Hər tətbiq nə qədər işlətdi';
+
+  @override
+  String get usageGrant => 'İstifadə icazəsini aç';
+
+  @override
+  String get usageGrantHint =>
+      'Android hər tətbiqin istifadəsini “İstifadəyə giriş” icazəsi arxasında saxlayır. Düymənin açdığı səhifə sistemin özüdür; bu tətbiq yalnız ədədləri oxuyur.';
+
+  @override
+  String get usageEmpty => 'Bu dövrdə istifadə qeydə alınmadı.';
+
+  @override
+  String get usageToday => 'Bu gün';
+
+  @override
+  String get usageWeek => 'Keçən 7 gün';
+
+  @override
+  String get usageMonth => 'Keçən 30 gün';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

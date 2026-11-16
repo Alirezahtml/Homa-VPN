@@ -2331,6 +2331,89 @@ class AppLocalizationsEs extends AppLocalizations {
       'Buscar una versión más nueva; la que se encuentre se descarga y el instalador pregunta.';
 
   @override
+  String get speedTestTitle => 'Prueba de velocidad';
+
+  @override
+  String get speedTestRun => 'Medir';
+
+  @override
+  String get speedTestFailed => 'La medición no terminó.';
+
+  @override
+  String get speedTestThrough => 'Medido a través del túnel.';
+
+  @override
+  String get speedTestDirect => 'Medido directamente (el proxy está apagado).';
+
+  @override
+  String get speedTestHint =>
+      'Una descarga y una subida a través del túnel dicen lo que realmente lleva. El gráfico de la página principal también abre esto.';
+
+  @override
+  String get speedGraphHint => 'El último minuto del túnel · toca para medir';
+
+  @override
+  String get favoritePinned => 'Fijado. Mantén pulsado otra vez para quitar.';
+
+  @override
+  String get favoriteUnpinned => 'Quitado.';
+
+  @override
+  String get shareReport => 'Compartir informe';
+
+  @override
+  String get shareReportCopied => 'El informe quedó en el portapapeles.';
+
+  @override
+  String get batteryWizardTitle => 'Seguir vivo con la batería';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei y similares matan las apps de VPN tras bloquear la pantalla. Saca esta app de la optimización de batería para que el túnel siga arriba.';
+
+  @override
+  String get batteryWizardSteps =>
+      'En los ajustes del fabricante permite además el arranque automático y deja la app en Sin restricciones (Xiaomi), fuera de las apps en suspensión (Samsung) o Inicio manual (Huawei).';
+
+  @override
+  String get batteryWizardState =>
+      'La optimización de batería puede detener el túnel.';
+
+  @override
+  String get batteryWizardPermit => 'Permitir';
+
+  @override
+  String get batteryWizardOk => 'El túnel está protegido de la batería.';
+
+  @override
+  String get batteryWizardOpen => 'Ajustes de batería';
+
+  @override
+  String get usageTitle => 'Uso por app';
+
+  @override
+  String get usageRowHint => 'Cuánto usó cada app';
+
+  @override
+  String get usageGrant => 'Abrir acceso de uso';
+
+  @override
+  String get usageGrantHint =>
+      'Android guarda el uso de datos por app tras el permiso de acceso de uso. La página que abre el botón es del sistema; la app solo lee los números.';
+
+  @override
+  String get usageEmpty => 'Sin uso registrado en este periodo.';
+
+  @override
+  String get usageToday => 'Hoy';
+
+  @override
+  String get usageWeek => 'Últimos 7 días';
+
+  @override
+  String get usageMonth => 'Últimos 30 días';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

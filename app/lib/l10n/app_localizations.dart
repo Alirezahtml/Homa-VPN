@@ -4095,6 +4095,162 @@ abstract class AppLocalizations {
   /// **'Look for a newer version; a found one downloads and the installer asks.'**
   String get checkUpdatesHint;
 
+  /// No description provided for @speedTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed test'**
+  String get speedTestTitle;
+
+  /// No description provided for @speedTestRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure'**
+  String get speedTestRun;
+
+  /// No description provided for @speedTestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The measurement did not finish.'**
+  String get speedTestFailed;
+
+  /// No description provided for @speedTestThrough.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured through the tunnel.'**
+  String get speedTestThrough;
+
+  /// No description provided for @speedTestDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured directly (the proxy is off).'**
+  String get speedTestDirect;
+
+  /// No description provided for @speedTestHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A download and an upload through the tunnel tell you what it really carries. The graph on the home page opens this too.'**
+  String get speedTestHint;
+
+  /// No description provided for @speedGraphHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The tunnel’s last minute · tap to measure'**
+  String get speedGraphHint;
+
+  /// No description provided for @favoritePinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned. Long-press again to unpin.'**
+  String get favoritePinned;
+
+  /// No description provided for @favoriteUnpinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpinned.'**
+  String get favoriteUnpinned;
+
+  /// No description provided for @shareReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Share report'**
+  String get shareReport;
+
+  /// No description provided for @shareReportCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'The report is on the clipboard.'**
+  String get shareReportCopied;
+
+  /// No description provided for @batteryWizardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay alive on the battery'**
+  String get batteryWizardTitle;
+
+  /// No description provided for @batteryWizardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Xiaomi, Samsung, Huawei and the like kill VPN apps after the screen locks. Take this app out of battery optimization so the tunnel stays on.'**
+  String get batteryWizardBody;
+
+  /// No description provided for @batteryWizardSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'In the maker’s own settings also allow autostart, and set the app to No restrictions (Xiaomi), Remove from Sleeping apps (Samsung), or Launch — Manual (Huawei).'**
+  String get batteryWizardSteps;
+
+  /// No description provided for @batteryWizardState.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization can stop the tunnel.'**
+  String get batteryWizardState;
+
+  /// No description provided for @batteryWizardPermit.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get batteryWizardPermit;
+
+  /// No description provided for @batteryWizardOk.
+  ///
+  /// In en, this message translates to:
+  /// **'The tunnel is protected from the battery.'**
+  String get batteryWizardOk;
+
+  /// No description provided for @batteryWizardOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery settings'**
+  String get batteryWizardOpen;
+
+  /// No description provided for @usageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App usage'**
+  String get usageTitle;
+
+  /// No description provided for @usageRowHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What each app’s traffic was'**
+  String get usageRowHint;
+
+  /// No description provided for @usageGrant.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Usage access'**
+  String get usageGrant;
+
+  /// No description provided for @usageGrantHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Android keeps per-app data usage behind the Usage access permission. The page the button opens is the system’s own; the app reads only the numbers.'**
+  String get usageGrantHint;
+
+  /// No description provided for @usageEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No usage recorded in this period.'**
+  String get usageEmpty;
+
+  /// No description provided for @usageToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get usageToday;
+
+  /// No description provided for @usageWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get usageWeek;
+
+  /// No description provided for @usageMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 days'**
+  String get usageMonth;
+
   /// No description provided for @playProtectTitle.
   ///
   /// In en, this message translates to:

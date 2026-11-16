@@ -2298,6 +2298,89 @@ class AppLocalizationsFa extends AppLocalizations {
       'جست‌وجوی نسخهٔ تازه‌تر؛ نسخهٔ پیدا‌شده دانلود می‌شود و نصب‌کننده می‌پرسد.';
 
   @override
+  String get speedTestTitle => 'تست سرعت';
+
+  @override
+  String get speedTestRun => 'اندازه بگیر';
+
+  @override
+  String get speedTestFailed => 'اندازه‌گیری تمام نشد.';
+
+  @override
+  String get speedTestThrough => 'اندازه از درون تونل.';
+
+  @override
+  String get speedTestDirect => 'اندازه مستقیم (پروکسی خاموش است).';
+
+  @override
+  String get speedTestHint =>
+      'یک دانلود و یک آپلود از درون تونل می‌گویند واقعاً چه چیزی حمل می‌کند. نمودار صفحهٔ خانه هم اینجا را باز می‌کند.';
+
+  @override
+  String get speedGraphHint => 'دقیقهٔ گذشتهٔ تونل · برای اندازه بزنید';
+
+  @override
+  String get favoritePinned => 'سنجاق شد. برای برداشتن دوباره ممول کنید.';
+
+  @override
+  String get favoriteUnpinned => 'برداشته شد.';
+
+  @override
+  String get shareReport => 'هم‌اهزوی گزارش';
+
+  @override
+  String get shareReportCopied => 'گزارش روی کلیپ‌بورد قرار گرفت.';
+
+  @override
+  String get batteryWizardTitle => 'زنده ماندن روی باتری';
+
+  @override
+  String get batteryWizardBody =>
+      'شیائومی، سامسونگ، هوآوی و مانند آن‌ها اپ‌های VPN را پس از قفل شدن صفحه می‌کشند. این برنامه را از بهینه‌سازی باتری خارج کنید تا تونل روشن بماند.';
+
+  @override
+  String get batteryWizardSteps =>
+      'در تنظیمات خود سازنده هم اجازهٔ اجرای خودکار بدهید و اپ را بر «بدون محدودیت» (شیائومی)، «حذف از برنامه‌های خواب» (سامسونگ) یا «اجرا دستی» (هوآوی) بگذارید.';
+
+  @override
+  String get batteryWizardState =>
+      'بهینه‌سازی باتری می‌تواند تونل را متوقف کند.';
+
+  @override
+  String get batteryWizardPermit => 'اجازه می‌دهم';
+
+  @override
+  String get batteryWizardOk => 'تونل از باتری محافظت می‌شود.';
+
+  @override
+  String get batteryWizardOpen => 'تنظیمات باتری';
+
+  @override
+  String get usageTitle => 'مصرف اپ‌ها';
+
+  @override
+  String get usageRowHint => 'مصرف هر اپ چقدر بود';
+
+  @override
+  String get usageGrant => 'بازکردن اجازهٔ مصرف';
+
+  @override
+  String get usageGrantHint =>
+      'اندروید مصرف هر اپ را پشت اجازهٔ «دسترسی به مصرف» نگه می‌دارد. صفحه‌ای که دکمه باز می‌کند مال خود سیستم است؛ این اپ تنها عددها را می‌خواند.';
+
+  @override
+  String get usageEmpty => 'در این بازه مصرفی ثبت نشده.';
+
+  @override
+  String get usageToday => 'امروز';
+
+  @override
+  String get usageWeek => '۷ روز گذشته';
+
+  @override
+  String get usageMonth => '۳۰ روز گذشته';
+
+  @override
   String get playProtectTitle => 'گوگل پلی پروتکت';
 
   @override

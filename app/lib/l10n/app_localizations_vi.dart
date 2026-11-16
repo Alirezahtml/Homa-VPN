@@ -2312,6 +2312,88 @@ class AppLocalizationsVi extends AppLocalizations {
       'Tìm phiên bản mới hơn; phiên bản tìm thấy sẽ được tải xuống và trình cài đặt sẽ hỏi.';
 
   @override
+  String get speedTestTitle => 'Kiểm tra tốc độ';
+
+  @override
+  String get speedTestRun => 'Đo';
+
+  @override
+  String get speedTestFailed => 'Việc đo chưa xong.';
+
+  @override
+  String get speedTestThrough => 'Đo qua đường hầm.';
+
+  @override
+  String get speedTestDirect => 'Đo trực tiếp (proxy đang tắt).';
+
+  @override
+  String get speedTestHint =>
+      'Một lượt tải và một lượt tải lên qua hầm cho biết nó thực sự mang được gì. Biểu đồ ở trang chủ cũng mở màn này.';
+
+  @override
+  String get speedGraphHint => 'Phút vừa qua của hầm · chạm để đo';
+
+  @override
+  String get favoritePinned => 'Đã ghim. Chạm giữ lâu lần nữa để bỏ ghim.';
+
+  @override
+  String get favoriteUnpinned => 'Đã bỏ ghim.';
+
+  @override
+  String get shareReport => 'Chia sẻ báo cáo';
+
+  @override
+  String get shareReportCopied => 'Báo cáo đã nằm trên bảng nhớ tạm.';
+
+  @override
+  String get batteryWizardTitle => 'Sống sót với pin';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei và tương tự giết ứng dụng VPN sau khi màn hình khóa. Đưa ứng dụng này ra khỏi tối ưu pin để hầm vẫn sáng.';
+
+  @override
+  String get batteryWizardSteps =>
+      'Trong cài đặt của hãng, cũng cho tự khởi động và để ứng dụng ở Không giới hạn (Xiaomi), bỏ khỏi Ứng dụng đang ngủ (Samsung) hoặc Khởi động thủ công (Huawei).';
+
+  @override
+  String get batteryWizardState => 'Tối ưu pin có thể dừng đường hầm.';
+
+  @override
+  String get batteryWizardPermit => 'Cho phép';
+
+  @override
+  String get batteryWizardOk => 'Hầm được bảo vệ khỏi pin.';
+
+  @override
+  String get batteryWizardOpen => 'Cài đặt pin';
+
+  @override
+  String get usageTitle => 'Sử dụng theo ứng dụng';
+
+  @override
+  String get usageRowHint => 'Mỗi ứng dụng đã dùng bao nhiêu';
+
+  @override
+  String get usageGrant => 'Mở quyền truy cập sử dụng';
+
+  @override
+  String get usageGrantHint =>
+      'Android giữ mức dùng dữ liệu từng ứng dụng sau quyền truy cập sử dụng. Trang mà nút mở là của hệ thống; ứng dụng chỉ đọc số.';
+
+  @override
+  String get usageEmpty => 'Không có mức dùng nào trong khoảng này.';
+
+  @override
+  String get usageToday => 'Hôm nay';
+
+  @override
+  String get usageWeek => '7 ngày vừa qua';
+
+  @override
+  String get usageMonth => '30 ngày vừa qua';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

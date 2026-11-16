@@ -2312,6 +2312,90 @@ class AppLocalizationsId extends AppLocalizations {
       'Cari versi yang lebih baru; versi yang ditemukan diunduh dan penginstal bertanya.';
 
   @override
+  String get speedTestTitle => 'Uji kecepatan';
+
+  @override
+  String get speedTestRun => 'Ukur';
+
+  @override
+  String get speedTestFailed => 'Pengukuran tidak selesai.';
+
+  @override
+  String get speedTestThrough => 'Diukur melalui terowongan.';
+
+  @override
+  String get speedTestDirect => 'Diukur langsung (proksi mati).';
+
+  @override
+  String get speedTestHint =>
+      'Satu unduhan dan satu unggahan melalui terowongan memberitahu apa yang benar-benar dibawanya. Graf di halaman rumah juga membuka ini.';
+
+  @override
+  String get speedGraphHint =>
+      'Menit terakhir terowongan · ketuk untuk mengukur';
+
+  @override
+  String get favoritePinned => 'Dipasang. Tekan lama lagi untuk melepas.';
+
+  @override
+  String get favoriteUnpinned => 'Dilepas.';
+
+  @override
+  String get shareReport => 'Bagikan laporan';
+
+  @override
+  String get shareReportCopied => 'Laporan diletakkan di papan klip.';
+
+  @override
+  String get batteryWizardTitle => 'Tetap hidup dengan baterai';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei dan sejenisnya mematikan aplikasi VPN setelah layar terkunci. Keluarkan aplikasi ini dari optimasi baterai agar terowongan tetap menyala.';
+
+  @override
+  String get batteryWizardSteps =>
+      'Di pengaturan pabrikan, izinkan juga autostart dan atur aplikasi ke Tanpa batasan (Xiaomi), keluarkan dari Aplikasi tidur (Samsung), atau Luncur — Manual (Huawei).';
+
+  @override
+  String get batteryWizardState =>
+      'Optimasi baterai bisa menghentikan terowongan.';
+
+  @override
+  String get batteryWizardPermit => 'Izinkan';
+
+  @override
+  String get batteryWizardOk => 'Terowongan terlindungi dari baterai.';
+
+  @override
+  String get batteryWizardOpen => 'Pengaturan baterai';
+
+  @override
+  String get usageTitle => 'Pemakaian per app';
+
+  @override
+  String get usageRowHint => 'Berapa tiap app memakai';
+
+  @override
+  String get usageGrant => 'Buka akses pemakaian';
+
+  @override
+  String get usageGrantHint =>
+      'Android menyimpan pemakaian data per app di balik izin akses pemakaian. Halaman yang dibuka tombol milik sistem; aplikasi hanya membaca angkanya.';
+
+  @override
+  String get usageEmpty => 'Tidak ada pemakaian tercatat pada periode ini.';
+
+  @override
+  String get usageToday => 'Hari ini';
+
+  @override
+  String get usageWeek => '7 hari terakhir';
+
+  @override
+  String get usageMonth => '30 hari terakhir';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

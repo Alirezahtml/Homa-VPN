@@ -37,6 +37,8 @@ class FlagCarousel extends StatefulWidget {
     this.animated = false,
     this.still = false,
     this.showName = false,
+    this.favorites = const [],
+    this.onToggleFavorite,
   });
 
   final CoreController core;
@@ -62,6 +64,13 @@ class FlagCarousel extends StatefulWidget {
   /// the ball kinds name it on their own card, so the wheel carries no
   /// second copy of it for them.
   final bool showName;
+
+  /// The countries the user pinned: they lead the wheel and wear a star.
+  final List<String> favorites;
+
+  /// Long-pressing a country's card pins or unpins it. Null (a place
+  /// without the settings at hand) keeps the press quiet.
+  final void Function(String code)? onToggleFavorite;
 
   @override
   State<FlagCarousel> createState() => _FlagCarouselState();
@@ -225,7 +234,19 @@ class _FlagCarouselState extends State<FlagCarousel>
                 nameSortKey(l.localeName, locationName(l, b.code, b.name)),
               ),
         );
-    return [...recommended, ...countries];
+    final favorites = [
+      for (final code in widget.favorites)
+        for (final loc in countries)
+          if (loc.code.toLowerCase() == code.toLowerCase()) loc,
+    ];
+    final rest = [
+      for (final loc in countries)
+        if (!favorites.any(
+          (f) => f.code.toLowerCase() == loc.code.toLowerCase(),
+        ))
+          loc,
+    ];
+    return [...recommended, ...favorites, ...rest];
   }
 
   int _indexOf(List<Location> entries, String selection) {
@@ -436,6 +457,12 @@ class _FlagCarouselState extends State<FlagCarousel>
                           ? controller.position.viewportDimension * 0.26 - 6
                           : 100.0,
                       onTap: () => unawaited(_choose(loc)),
+                      onLongPress: widget.onToggleFavorite == null
+                          ? null
+                          : () => widget.onToggleFavorite!(loc.code),
+                      favorite: widget.favorites.any(
+                        (code) => code.toLowerCase() == loc.code.toLowerCase(),
+                      ),
                     ),
                   );
                 },
@@ -606,6 +633,8 @@ class _FlagCard extends StatelessWidget {
     required this.border,
     required this.slot,
     required this.onTap,
+    this.onLongPress,
+    this.favorite = false,
   });
 
   final Location location;
@@ -630,6 +659,12 @@ class _FlagCard extends StatelessWidget {
   final double slot;
 
   final VoidCallback onTap;
+
+  /// A long-press pins or unpins this country (null keeps it quiet).
+  final VoidCallback? onLongPress;
+
+  /// Whether the user pinned this country: a small star rides the card.
+  final bool favorite;
 
   /// The wheel's glow: the one blue the halo, the frame and the markers
   /// share — the aurora light the chosen flag stands in.
@@ -675,6 +710,7 @@ class _FlagCard extends StatelessWidget {
 
     final card = InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
       borderRadius: BorderRadius.circular(radius),
       child: Container(
         width: width,
@@ -711,7 +747,34 @@ class _FlagCard extends StatelessWidget {
           // The chosen one is fully there; the others step back, and the
           // outermost dissolve before the screen's edge cuts them.
           opacity: alpha.clamp(0.0, 1.0),
-          child: _content(scheme, width),
+          child: favorite
+              ? Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    _content(scheme, width),
+                    PositionedDirectional(
+                      top: -5,
+                      end: -5,
+                      child: Container(
+                        padding: const EdgeInsets.all(2.5),
+                        decoration: BoxDecoration(
+                          color: glowBlue(dark),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: dark ? Colors.black : Colors.white,
+                            width: 1.2,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.star_rounded,
+                          size: 9,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : _content(scheme, width),
         ),
       ),
     );

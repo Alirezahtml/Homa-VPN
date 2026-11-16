@@ -2195,6 +2195,87 @@ class AppLocalizationsZh extends AppLocalizations {
   String get checkUpdatesHint => '查找更新的版本；找到后会下载，并由安装器进行确认。';
 
   @override
+  String get speedTestTitle => '速度测试';
+
+  @override
+  String get speedTestRun => '测量';
+
+  @override
+  String get speedTestFailed => '测量未完成。';
+
+  @override
+  String get speedTestThrough => '经由隧道测得。';
+
+  @override
+  String get speedTestDirect => '直接测得（代理已关）。';
+
+  @override
+  String get speedTestHint => '经由隧道的一次下载与一次上传，才说明它真正能承载多少。主页的图表也会打开这里。';
+
+  @override
+  String get speedGraphHint => '隧道最近一分钟 · 点按测量';
+
+  @override
+  String get favoritePinned => '已固定。再次长按可取消。';
+
+  @override
+  String get favoriteUnpinned => '已取消固定。';
+
+  @override
+  String get shareReport => '分享报告';
+
+  @override
+  String get shareReportCopied => '报告已放入剪贴板。';
+
+  @override
+  String get batteryWizardTitle => '在电池下存活';
+
+  @override
+  String get batteryWizardBody =>
+      '小米、三星、华为等厂商会在锁屏后杀死 VPN 应用。把这个应用移出电池优化，隧道才会一直在线。';
+
+  @override
+  String get batteryWizardSteps =>
+      '在厂商自己的设置里也允许自启动，并把应用设为「无限制」（小米）、「移出睡眠应用」（三星）或「手动启动」（华为）。';
+
+  @override
+  String get batteryWizardState => '电池优化可能中断隧道。';
+
+  @override
+  String get batteryWizardPermit => '允许';
+
+  @override
+  String get batteryWizardOk => '隧道已受电池保护。';
+
+  @override
+  String get batteryWizardOpen => '电池设置';
+
+  @override
+  String get usageTitle => '应用用量';
+
+  @override
+  String get usageRowHint => '每个应用用了多少';
+
+  @override
+  String get usageGrant => '打开使用情况权限';
+
+  @override
+  String get usageGrantHint =>
+      'Android 把每个应用的流量用量放在「使用情况访问权」后面。按钮打开的页面属于系统；本应用只读取数字。';
+
+  @override
+  String get usageEmpty => '此时间段没有记录用量。';
+
+  @override
+  String get usageToday => '今天';
+
+  @override
+  String get usageWeek => '最近 7 天';
+
+  @override
+  String get usageMonth => '最近 30 天';
+
+  @override
   String get playProtectTitle => 'Google Play 保护';
 
   @override
@@ -4589,6 +4670,87 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get checkUpdatesHint => '查找更新的版本；找到後會下載，並由安裝器進行確認。';
+
+  @override
+  String get speedTestTitle => '速度測試';
+
+  @override
+  String get speedTestRun => '測量';
+
+  @override
+  String get speedTestFailed => '測量未完成。';
+
+  @override
+  String get speedTestThrough => '經由隧道測得。';
+
+  @override
+  String get speedTestDirect => '直接測得（代理已關）。';
+
+  @override
+  String get speedTestHint => '經由隧道的一次下載與一次上傳，才說明它真正能承載多少。主頁的圖表也會開啟這裡。';
+
+  @override
+  String get speedGraphHint => '隧道最近一分鐘 · 點按測量';
+
+  @override
+  String get favoritePinned => '已固定。再次長按可取消。';
+
+  @override
+  String get favoriteUnpinned => '已取消固定。';
+
+  @override
+  String get shareReport => '分享報告';
+
+  @override
+  String get shareReportCopied => '報告已放入剪貼簿。';
+
+  @override
+  String get batteryWizardTitle => '在電池下存活';
+
+  @override
+  String get batteryWizardBody =>
+      '小米、三星、華為等廠商會在鎖屏後殺死 VPN 應用。把這個應用移出電池最佳化，隧道才會一直在線。';
+
+  @override
+  String get batteryWizardSteps =>
+      '在廠商自己的設定裡也允許自動啟動，並把應用設為「無限制」（小米）、「移出睡眠應用」（三星）或「手動啟動」（華為）。';
+
+  @override
+  String get batteryWizardState => '電池最佳化可能中斷隧道。';
+
+  @override
+  String get batteryWizardPermit => '允許';
+
+  @override
+  String get batteryWizardOk => '隧道已受電池保護。';
+
+  @override
+  String get batteryWizardOpen => '電池設定';
+
+  @override
+  String get usageTitle => '應用用量';
+
+  @override
+  String get usageRowHint => '每個應用用了多少';
+
+  @override
+  String get usageGrant => '開啟使用情況權限';
+
+  @override
+  String get usageGrantHint =>
+      'Android 把每個應用的流量用量放在「使用情況存取權」後面。按鈕開啟的頁面屬於系統；本應用只讀取數字。';
+
+  @override
+  String get usageEmpty => '此時間段沒有記錄用量。';
+
+  @override
+  String get usageToday => '今天';
+
+  @override
+  String get usageWeek => '最近 7 天';
+
+  @override
+  String get usageMonth => '最近 30 天';
 
   @override
   String get playProtectTitle => 'Google Play 保護';

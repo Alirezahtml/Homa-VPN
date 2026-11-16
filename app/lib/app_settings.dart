@@ -119,6 +119,11 @@ class AppSettings extends ChangeNotifier {
   /// file reads as the wheel.
   String homeDesign = 'wheel';
 
+  /// The countries the user pinned in the flag wheel: they lead the wheel
+  /// (after the recommended places), and the launcher's long-press menu
+  /// carries the first four as "connect here" shortcuts. Saved order.
+  List<String> favoriteCountries = const [];
+
   /// The home map's look: one of [GlobeStyle]'s names ('silver',
   /// 'midnight', 'ocean', 'mono', 'aurora'). Whatever else lands in the
   /// file reads as the silver.
@@ -355,6 +360,11 @@ class AppSettings extends ChangeNotifier {
         if (j['accent'] case final String a) s.accentKey = a;
         if (j['custom_accent'] case final int v) s.customAccent = v;
         if (j['home_design'] case final String d) s.homeDesign = d;
+        if (j['favorite_countries'] case final List<Object?> codes) {
+          s.favoriteCountries = [
+            for (final code in codes) if (code is String) code,
+          ];
+        }
         if (j['map_style'] case final String m) s.mapStyle = m;
         if (j['map_kind'] case final String m) s.mapKind = m;
         if (j['account_names'] case final Map<String, Object?> v) {
@@ -426,6 +436,7 @@ class AppSettings extends ChangeNotifier {
     bool? autoInstallApk,
     String? accentKey,
     int? customAccent,
+    List<String>? favoriteCountries,
     String? homeDesign,
     String? mapStyle,
     String? mapKind,
@@ -444,6 +455,9 @@ class AppSettings extends ChangeNotifier {
     String? whatsNewSeen,
     bool? gamingProfile,
   }) {
+    if (favoriteCountries != null) {
+      this.favoriteCountries = List.of(favoriteCountries);
+    }
     this.hiddenConnectionColumns =
         hiddenConnectionColumns ?? this.hiddenConnectionColumns;
     this.whatsNewSeen = whatsNewSeen ?? this.whatsNewSeen;
@@ -559,6 +573,7 @@ class AppSettings extends ChangeNotifier {
           'accent': accentKey,
           'custom_accent': customAccent,
           'home_design': homeDesign,
+          'favorite_countries': favoriteCountries,
           'map_style': mapStyle,
           'map_kind': mapKind,
           'account_names': accountNames,

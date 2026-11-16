@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 
+import '../app_info.dart' show appVersion;
+import 'android_core.dart';
 import 'core_controller.dart';
 import 'models.dart';
 import '../l10n/app_localizations.dart';
@@ -150,6 +154,11 @@ class _DiagnosticsDialogState extends State<_DiagnosticsDialog> {
               ),
       ),
       actions: [
+        if (!_running && status != null)
+          TextButton(
+            onPressed: () => _share(context, l),
+            child: Text(l.shareReport),
+          ),
         TextButton(
           onPressed: _running ? null : _run,
           child: Text(l.diagnosticsAgain),
@@ -160,6 +169,46 @@ class _DiagnosticsDialogState extends State<_DiagnosticsDialog> {
         ),
       ],
     );
+  }
+
+  /// The results as one plain-text report the user can send: the state,
+  /// the exit, the connection test, and the DNS answers. Nothing personal:
+  /// no account, no email, no addresses — the same lines the dialog shows.
+  Future<void> _share(BuildContext context, AppLocalizations l) async {
+    final status = _status;
+    final test = _test;
+    final dns = _dns;
+    final lines = <String>[
+      'Homa VPN $appVersion',
+      if (status != null)
+        '${l.diagnosticsTunnel}: '
+            '${status.proxyOn && status.state.phase == Phase.running ? l.diagnosticsTunnelUp : l.diagnosticsTunnelDown}',
+      if (status?.exit?.countryName case final exit?) '${l.diagnosticsExit}: $exit',
+      if (test != null)
+        '${l.diagnosticsConnection}: '
+            '${test.ok ? l.diagnosticsPassed : l.diagnosticsFailed}'
+            '${test.ok ? ' · ${l.milliseconds(test.responseMs)}' : ''}',
+      if (dns != null)
+        for (final host in dns)
+          '${host.host}: '
+              '${host.filtered ? l.diagnosticsDnsFiltered : host.addrs.isNotEmpty ? l.diagnosticsDnsOk : l.noAnswer}',
+    ];
+    final report = lines.join('\n');
+    var sent = false;
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      sent = await AndroidCore.shareText(
+        report,
+        AppLocalizations.of(context).shareReport,
+      );
+    }
+    if (!sent) {
+      await Clipboard.setData(ClipboardData(text: report));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context).shareReportCopied)),
+        );
+      }
+    }
   }
 
   Widget _line(String label, String value, Color color) => Padding(

@@ -2327,6 +2327,89 @@ class AppLocalizationsHu extends AppLocalizations {
       'Újabb verzió keresése; a megtalált letöltődik, és a telepítő megkérdezi.';
 
   @override
+  String get speedTestTitle => 'Sebességteszt';
+
+  @override
+  String get speedTestRun => 'Mérés';
+
+  @override
+  String get speedTestFailed => 'A mérés nem fejeződött be.';
+
+  @override
+  String get speedTestThrough => 'Az alagúton át mérve.';
+
+  @override
+  String get speedTestDirect => 'Közvetlenül mérve (a proxy ki van kapcsolva).';
+
+  @override
+  String get speedTestHint =>
+      'Egy letöltés és egy feltöltés az alagúton át megmondja, mit bír valójában. A főoldal grafikonja is ezt nyitja.';
+
+  @override
+  String get speedGraphHint => 'Az alagút elmúlt perce · koppints a méréshez';
+
+  @override
+  String get favoritePinned => 'Kitűzve. Az eltávolításhoz tartsd nyomva újra.';
+
+  @override
+  String get favoriteUnpinned => 'Eltávolítva.';
+
+  @override
+  String get shareReport => 'Jelentés megosztása';
+
+  @override
+  String get shareReportCopied => 'A jelentés a vágólapon van.';
+
+  @override
+  String get batteryWizardTitle => 'Életben maradás az akkumulátorral';
+
+  @override
+  String get batteryWizardBody =>
+      'A Xiaomi, Samsung, Huawei és fajtársai a képernyőzár után megölik a VPN-alkalmazásokat. Vedd ki ezt az appot az akkumulátoroptimalizálásból, hogy az alagút égve maradjon.';
+
+  @override
+  String get batteryWizardSteps =>
+      'A gyártó saját beállításaiban engedélyezd az automatikus indítást, és tedd az appot Korlátozás nélkül (Xiaomi), az Alvó alkalmazásokból kivezetve (Samsung) vagy Kézi indítás (Huawei) állapotba.';
+
+  @override
+  String get batteryWizardState =>
+      'Az akkumulátoroptimalizálás leállíthatja az alagutat.';
+
+  @override
+  String get batteryWizardPermit => 'Engedélyezés';
+
+  @override
+  String get batteryWizardOk => 'Az alagút védve van az akkumulátortól.';
+
+  @override
+  String get batteryWizardOpen => 'Akkumulátorbeállítások';
+
+  @override
+  String get usageTitle => 'App-használat';
+
+  @override
+  String get usageRowHint => 'Mennyit használt egy-egy app';
+
+  @override
+  String get usageGrant => 'Használati hozzáférés nyitása';
+
+  @override
+  String get usageGrantHint =>
+      'Az Android az apponkénti adathasználatot a használati hozzáférés engedélye mögött tartja. A gomb által nyitott oldal a rendszeré; az app csak a számokat olvassa.';
+
+  @override
+  String get usageEmpty => 'Ebben az időszakban nincs rögzített használat.';
+
+  @override
+  String get usageToday => 'Ma';
+
+  @override
+  String get usageWeek => ' Elmúlt 7 nap';
+
+  @override
+  String get usageMonth => 'Elmúlt 30 nap';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

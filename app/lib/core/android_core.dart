@@ -9,6 +9,7 @@ import 'dart:ui' as ui;
 import '../app_settings.dart';
 import 'core_api.dart';
 import 'ports.dart';
+import 'speed_test.dart';
 import 'remote_flags.dart' show bundledFlags, RemoteFlags;
 
 /// An app installed on the phone.
@@ -100,8 +101,15 @@ class AndroidCore {
   static void listenForHomeRequests() {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'openHome') homeRequests.value++;
+      if (call.method == 'openShortcut') {
+        shortcutRequests.value = (call.arguments as Map<Object?, Object?>?)?['country'] as String? ?? '';
+      }
     });
   }
+
+  /// A launcher shortcut's country, as the phone's home screen long-press
+  /// menu sent it (MainActivity). The home page listens and connects.
+  static final shortcutRequests = ValueNotifier<String>('');
 
   /// The core's data folder inside the app's private storage.
   static Future<String> dataDir() async =>
@@ -248,6 +256,56 @@ class AndroidCore {
   static Future<void> setNotifFlag(bool on) async {
     await _channel.invokeMethod<void>('setNotifFlag', {'on': on});
     notifFlag.value = on;
+  }
+
+  /// Opens the phone's share sheet with a plain-text report (the
+  /// diagnostics dialog's answer to "send this to the developer").
+  static Future<bool> shareText(String text, String title) async =>
+      await _channel.invokeMethod<bool>('shareText', {
+        'text': text,
+        'title': title,
+      }) ??
+      false;
+
+  /// Whether Android already stands this app outside battery optimization.
+  static Future<bool> batteryIgnored() async =>
+      await _channel.invokeMethod<bool>('batteryIgnored') ?? false;
+
+  /// Android's own dialog asking to leave the app out of battery
+  /// optimization (its REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission).
+  static Future<bool> requestIgnoreBattery() async =>
+      await _channel.invokeMethod<bool>('requestIgnoreBattery') ?? false;
+
+  /// The system's battery-optimization list, where the OEMs' own killers
+  /// (Xiaomi, Samsung, Huawei) keep their rules.
+  static Future<bool> openBatterySettings() async =>
+      await _channel.invokeMethod<bool>('openBatterySettings') ?? false;
+
+  /// Per-app data usage of the last [days] days, the system's own
+  /// accounting. The answer's [UsageApps.granted] is false until the user
+  /// grants Usage access.
+  static Future<UsageApps> usageApps(int days) async {
+    final j = await _channel.invokeMethod<Object?>('usageApps', {
+      'days': days,
+    });
+    if (j is Map<Object?, Object?>) {
+      return UsageApps.fromJson(Map<String, Object?>.from(j));
+    }
+    return UsageApps.fromJson(const {});
+  }
+
+  /// The system's Usage access page, where the user grants per-app usage.
+  static Future<bool> openUsageAccess() async =>
+      await _channel.invokeMethod<bool>('openUsageAccess') ?? false;
+
+  /// Publishes [favorites] (country codes) as the launcher's long-press
+  /// shortcuts, newest first.
+  static Future<void> setShortcuts(List<String> favorites) async {
+    await _channel.invokeMethod<void>('setShortcuts', {
+      'shortcuts': [
+        for (final code in favorites) {'code': code, 'name': code},
+      ],
+    });
   }
 
   /// The country whose flag art the service holds; '' for none yet. The

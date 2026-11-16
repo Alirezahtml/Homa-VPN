@@ -2312,6 +2312,88 @@ class AppLocalizationsTr extends AppLocalizations {
       'Daha yeni bir sürüme bak; bulunan indirilir ve yükleyici sorar.';
 
   @override
+  String get speedTestTitle => 'Hız testi';
+
+  @override
+  String get speedTestRun => 'Ölç';
+
+  @override
+  String get speedTestFailed => 'Ölçüm bitmedi.';
+
+  @override
+  String get speedTestThrough => 'Tünel üzerinden ölçüldü.';
+
+  @override
+  String get speedTestDirect => 'Doğrudan ölçüldü (proxy kapalı).';
+
+  @override
+  String get speedTestHint =>
+      'Tünel üzerinden bir indirme ve bir yükleme, gerçekte ne taşıdığını söyler. Ana sayfanın grafiği de burayı açar.';
+
+  @override
+  String get speedGraphHint => 'Tünelin geçen dakikası · ölçmek için dokun';
+
+  @override
+  String get favoritePinned => 'Sabitlendi. Kaldırmak için tekrar uzun bas.';
+
+  @override
+  String get favoriteUnpinned => 'Kaldırıldı.';
+
+  @override
+  String get shareReport => 'Raporu paylaş';
+
+  @override
+  String get shareReportCopied => 'Rapor panoya kopyalandı.';
+
+  @override
+  String get batteryWizardTitle => 'Pilde hayatta kalmak';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei ve benzerleri ekran kilitlenince VPN uygulamalarını öldürür. Tünel yanık kalsın diye bu uygulamayı pil optimizasyonundan çıkar.';
+
+  @override
+  String get batteryWizardSteps =>
+      'Üreticinin kendi ayarlarında otomatik başlatmaya da izin ver ve uygulamayı Kısıtlama yok (Xiaomi), Uyuyan uygulamalardan çıkar (Samsung) ya da Elle başlat (Huawei) yap.';
+
+  @override
+  String get batteryWizardState => 'Pil optimizasyonu tüneli durdurabilir.';
+
+  @override
+  String get batteryWizardPermit => 'İzin ver';
+
+  @override
+  String get batteryWizardOk => 'Tünel pilden korunuyor.';
+
+  @override
+  String get batteryWizardOpen => 'Pil ayarları';
+
+  @override
+  String get usageTitle => 'Uygulama kullanımı';
+
+  @override
+  String get usageRowHint => 'Her uygulama ne kadar kullandı';
+
+  @override
+  String get usageGrant => 'Kullanım erişimini aç';
+
+  @override
+  String get usageGrantHint =>
+      'Android, uygulama başına veri kullanımını Kullanım erişimi izninin arkasında tutar. Düğmenin açtığı sayfa sistemin kendisidir; uygulama yalnızca sayıları okur.';
+
+  @override
+  String get usageEmpty => 'Bu dönemde kayıtlı kullanım yok.';
+
+  @override
+  String get usageToday => 'Bugün';
+
+  @override
+  String get usageWeek => 'Geçen 7 gün';
+
+  @override
+  String get usageMonth => 'Geçen 30 gün';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

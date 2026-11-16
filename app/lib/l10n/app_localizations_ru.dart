@@ -2324,6 +2324,90 @@ class AppLocalizationsRu extends AppLocalizations {
       'Искать версию новее; найденная скачается, и установщик спросит.';
 
   @override
+  String get speedTestTitle => 'Тест скорости';
+
+  @override
+  String get speedTestRun => 'Измерить';
+
+  @override
+  String get speedTestFailed => 'Измерение не завершилось.';
+
+  @override
+  String get speedTestThrough => 'Измерено через туннель.';
+
+  @override
+  String get speedTestDirect => 'Измерено напрямую (прокси выключен).';
+
+  @override
+  String get speedTestHint =>
+      'Одна загрузка и одна выгрузка через туннель говорят, что он на самом деле несёт. График на главном экране тоже открывает это.';
+
+  @override
+  String get speedGraphHint =>
+      'Последняя минута туннеля · коснитесь для замера';
+
+  @override
+  String get favoritePinned => 'Закреплено. Долгое нажатие снова — убрать.';
+
+  @override
+  String get favoriteUnpinned => 'Убрано.';
+
+  @override
+  String get shareReport => 'Поделиться отчётом';
+
+  @override
+  String get shareReportCopied => 'Отчёт в буфере обмена.';
+
+  @override
+  String get batteryWizardTitle => 'Остаться живым на батарее';
+
+  @override
+  String get batteryWizardBody =>
+      'Xiaomi, Samsung, Huawei и подобные убивают VPN-приложения после блокировки экрана. Выведите приложение из оптимизации батареи, чтобы туннель горел.';
+
+  @override
+  String get batteryWizardSteps =>
+      'В собственных настройках производителя разрешите автозапуск и поставьте приложение в «Без ограничений» (Xiaomi), «Удалить из спящих» (Samsung) или «Запуск — вручную» (Huawei).';
+
+  @override
+  String get batteryWizardState =>
+      'Оптимизация батареи может остановить туннель.';
+
+  @override
+  String get batteryWizardPermit => 'Разрешить';
+
+  @override
+  String get batteryWizardOk => 'Туннель защищён от батареи.';
+
+  @override
+  String get batteryWizardOpen => 'Настройки батареи';
+
+  @override
+  String get usageTitle => 'Использование по приложениям';
+
+  @override
+  String get usageRowHint => 'Сколько потратило каждое приложение';
+
+  @override
+  String get usageGrant => 'Открыть доступ к использованию';
+
+  @override
+  String get usageGrantHint =>
+      'Android держит расход данных каждого приложения за разрешением «Доступ к данным об использовании». Страница, которую открывает кнопка, принадлежит системе; приложение читает только числа.';
+
+  @override
+  String get usageEmpty => 'За этот период использование не записано.';
+
+  @override
+  String get usageToday => 'Сегодня';
+
+  @override
+  String get usageWeek => 'Последние 7 дней';
+
+  @override
+  String get usageMonth => 'Последние 30 дней';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

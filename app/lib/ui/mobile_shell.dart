@@ -50,13 +50,35 @@ class _MobileShellState extends State<MobileShell> {
   void initState() {
     super.initState();
     AndroidCore.homeRequests.addListener(_openHome);
+    AndroidCore.shortcutRequests.addListener(_runShortcut);
   }
 
   void _openHome() => setState(() => _tab = 0);
 
+  /// A launcher shortcut ("connect to Germany"): chooses the country and
+  /// turns the VPN on when it is not already. One per shortcut tap: the
+  /// same code arriving twice does the work once.
+  Future<void> _runShortcut() async {
+    final code = AndroidCore.shortcutRequests.value;
+    if (code.isEmpty) return;
+    AndroidCore.shortcutRequests.value = '';
+    try {
+      await widget.core.setLocation(code);
+      if (!mounted) return;
+      final status = widget.core.status;
+      if (status != null && !status.proxyOn) {
+        await AndroidCore.setOn(true);
+      }
+    } on Exception {
+      // The shell's own error surfacing covers the core's answers; a
+      // shortcut that cannot run keeps the app where it was.
+    }
+  }
+
   @override
   void dispose() {
     AndroidCore.homeRequests.removeListener(_openHome);
+    AndroidCore.shortcutRequests.removeListener(_runShortcut);
     super.dispose();
   }
 

@@ -2307,6 +2307,88 @@ class AppLocalizationsBn extends AppLocalizations {
       'নতুন সংস্করণ খুঁজুন; পাওয়া গেলে ডাউনলোড হবে এবং ইনস্টলার জিজ্ঞেস করবে।';
 
   @override
+  String get speedTestTitle => 'স্পিড টেস্ট';
+
+  @override
+  String get speedTestRun => 'মাপুন';
+
+  @override
+  String get speedTestFailed => 'মাপা শেষ হয়নি।';
+
+  @override
+  String get speedTestThrough => 'টানেলের ভেতর দিয়ে মাপা হয়েছে।';
+
+  @override
+  String get speedTestDirect => 'সরাসরি মাপা হয়েছে (প্রক্সি বন্ধ)।';
+
+  @override
+  String get speedTestHint =>
+      'টানেলের ভেতর দিয়ে একটি ডাউনলোড ও একটি আপলোড বলে দেয় এটি আসলে কী বহন করে। হোম পাতার গ্রাফও এখানে খোলে।';
+
+  @override
+  String get speedGraphHint => 'টানেলের গত এক মিনিট · মাপতে চাপুন';
+
+  @override
+  String get favoritePinned => 'পিন হয়েছে। সরাতে আবার চেপে ধরুন।';
+
+  @override
+  String get favoriteUnpinned => 'সরানো হয়েছে।';
+
+  @override
+  String get shareReport => 'রিপোর্ট শেয়ার';
+
+  @override
+  String get shareReportCopied => 'রিপোর্ট ক্লিপবোর্ডে রাখা হয়েছে।';
+
+  @override
+  String get batteryWizardTitle => 'ব্যাটারিতে বেঁচে থাকা';
+
+  @override
+  String get batteryWizardBody =>
+      'শাওমি, স্যামসাং, হুয়াওয়ে জাতীয় ফোন স্ক্রিন লক হলে VPN অ্যাপকে মেরে ফেলে। টানেল জ্বলে থাকুক, তাই অ্যাপটিকে ব্যাটারি অপ্টিমাইজেশন থেকে বাদ দিন।';
+
+  @override
+  String get batteryWizardSteps =>
+      'প্রস্তুতকারকের নিজের সেটিংসে অটোস্টার্টের অনুমতি দিন এবং অ্যাপকে “No restrictions” (শাওমি), “Sleeping apps থেকে বাদ” (স্যামসাং) বা “Launch — Manual” (হুয়াওয়ে) রাখুন।';
+
+  @override
+  String get batteryWizardState => 'ব্যাটারি অপ্টিমাইজেশন টানেল থামাতে পারে।';
+
+  @override
+  String get batteryWizardPermit => 'অনুমতি';
+
+  @override
+  String get batteryWizardOk => 'টানেল ব্যাটারি থেকে সুরক্ষিত।';
+
+  @override
+  String get batteryWizardOpen => 'ব্যাটারি সেটিংস';
+
+  @override
+  String get usageTitle => 'অ্যাপ ব্যবহার';
+
+  @override
+  String get usageRowHint => 'প্রতিটি অ্যাপ কত ব্যবহার করেছে';
+
+  @override
+  String get usageGrant => 'Usage access খুলুন';
+
+  @override
+  String get usageGrantHint =>
+      'অ্যান্ড্রয়েড প্রতি-অ্যাপ ডেটা ব্যবহার Usage access অনুমতির পিছনে রাখে। বোতাম যে পাতা খোলে সেটি সিস্টেমের নিজের; অ্যাপ শুধু সংখ্যাগুলো পড়ে।';
+
+  @override
+  String get usageEmpty => 'এই সময়ে কোনো ব্যবহার নেই।';
+
+  @override
+  String get usageToday => 'আজ';
+
+  @override
+  String get usageWeek => 'গত ৭ দিন';
+
+  @override
+  String get usageMonth => 'গত ৩০ দিন';
+
+  @override
   String get playProtectTitle => 'Google Play Protect';
 
   @override

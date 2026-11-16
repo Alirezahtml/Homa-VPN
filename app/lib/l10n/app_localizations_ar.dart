@@ -2320,6 +2320,88 @@ class AppLocalizationsAr extends AppLocalizations {
       'البحث عن إصدار أحدث؛ الإصدار الذي يُوجد يُنزَّل ثم يسأل المثبِّت.';
 
   @override
+  String get speedTestTitle => 'اختبار السرعة';
+
+  @override
+  String get speedTestRun => 'قِس';
+
+  @override
+  String get speedTestFailed => 'لم يكتمل القياس.';
+
+  @override
+  String get speedTestThrough => 'قيس عبر النفق.';
+
+  @override
+  String get speedTestDirect => 'قيس مباشرة (الوسيط مطفأ).';
+
+  @override
+  String get speedTestHint =>
+      'تحميل ورفع عبر النفق يقولان ما يحمله فعلاً. منحنى الصفحة الرئيسية يفتح هذه الشاشة أيضاً.';
+
+  @override
+  String get speedGraphHint => 'الدقيقة الماضية من النفق · المس للقياس';
+
+  @override
+  String get favoritePinned => 'ثُبّت. المس طويلاً مجدداً للإزالة.';
+
+  @override
+  String get favoriteUnpinned => 'أُزيلت.';
+
+  @override
+  String get shareReport => 'مشاركة التقرير';
+
+  @override
+  String get shareReportCopied => 'وُضع التقرير على الحافظة.';
+
+  @override
+  String get batteryWizardTitle => 'الإبقاء على قيد الحياة مع البطارية';
+
+  @override
+  String get batteryWizardBody =>
+      'تقتل شاومي وسامسونغ وهواوي وعليها تطبيقات النفق بعد قفل الشاشة. أخرج هذا التطبيق من تحسين البطارية ليبقى النفق عالياً.';
+
+  @override
+  String get batteryWizardSteps =>
+      'في إعدادات الشركة الصانعة افتح التشغيل التلقائي وضع التطبيق على بلا قيود (شاومي) أو إزالته من تطبيقات النوم (سامسونغ) أو الإقلاع اليدوي (هواوي).';
+
+  @override
+  String get batteryWizardState => 'تحسين البطارية قادر على إيقاف النفق.';
+
+  @override
+  String get batteryWizardPermit => 'اسمح';
+
+  @override
+  String get batteryWizardOk => 'النفق محمي من البطارية.';
+
+  @override
+  String get batteryWizardOpen => 'إعدادات البطارية';
+
+  @override
+  String get usageTitle => 'استهلاك التطبيقات';
+
+  @override
+  String get usageRowHint => 'كم استهلك كل تطبيق';
+
+  @override
+  String get usageGrant => 'فتح إذن الاستخدام';
+
+  @override
+  String get usageGrantHint =>
+      'أندرويد يحفظ استهلاك كل تطبيق خلف إذن الوصول إلى استخدام البيانات. الصفحة التي يفتحها الزر تعود للنظام؛ هذا التطبيق يقرأ الأرقام فقط.';
+
+  @override
+  String get usageEmpty => 'لا استهلاك مسجل في هذه الفترة.';
+
+  @override
+  String get usageToday => 'اليوم';
+
+  @override
+  String get usageWeek => 'آخر 7 أيام';
+
+  @override
+  String get usageMonth => 'آخر 30 يوماً';
+
+  @override
   String get playProtectTitle => 'حماية Google Play';
 
   @override
