@@ -24,7 +24,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:arman_vpn/core/models.dart' show LocationList;
 
-import 'settle.dart';
+import 'settle.dart' show quietAudio, settle;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 /// The core's own list: Mozilla's recommended location as a place of its
@@ -81,6 +81,7 @@ void main() {
     String design = 'wheel',
   }) async {
     stillMotion(tester);
+    quietAudio(tester);
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
     tester.view.platformDispatcher.platformBrightnessTestValue = theme ==

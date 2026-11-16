@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The pumpAndSettle of the Homa design: the pages now carry endless
@@ -11,4 +12,27 @@ Future<void> settle(WidgetTester tester, {int max = 40}) async {
     if (!tester.binding.hasScheduledFrame) break;
   }
   await tester.pump(const Duration(milliseconds: 100));
+}
+
+/// The sounds' warmup talks to the audio plugin, which tests have none
+/// of: the global channel's own event stream throws a
+/// MissingPluginException outside any try, and the test's zone fails.
+/// The two channels answer quietly instead, so the pools' build settles
+/// and the goldens render without the platform's noise.
+void quietAudio(WidgetTester tester) {
+  const global = MethodChannel('xyz.luan/audioplayers.global');
+  const events = MethodChannel('xyz.luan/audioplayers.global/events');
+  tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+    global,
+    (call) async => call.method == 'create' ? 1 : null,
+  );
+  tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+    events,
+    (call) async => null,
+  );
+  addTearDown(
+    () => tester.binding.defaultBinaryMessenger
+      ..setMockMethodCallHandler(global, null)
+      ..setMockMethodCallHandler(events, null),
+  );
 }

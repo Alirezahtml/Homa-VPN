@@ -20,8 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'settle.dart' show quietAudio, settle;
 import 'widget_test.dart' show FakeApi, stillMotion;
-import 'settle.dart';
 
 void main() {
   setUpAll(() async {
@@ -57,6 +57,7 @@ void main() {
     String language = 'en',
   }) async {
     stillMotion(tester);
+    quietAudio(tester);
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
     tester.view.platformDispatcher.platformBrightnessTestValue = theme ==
@@ -96,12 +97,8 @@ void main() {
       );
       await precacheImage(const AssetImage('assets/logo.png'), context);
       await precacheImage(const AssetImage('assets/logo_dark.png'), context);
-      // The world behind the switch decodes like any image.
-      await precacheImage(
-        const AssetImage('assets/map_dots_light.png'),
-        context,
-      );
-      await precacheImage(const AssetImage('assets/map_dots_dark.png'), context);
+      // The home's world is drawn, not an image: the globe's countries
+      // come from assets/map/world.bin, which the map's own loader reads.
     });
     await settle(tester);
 
@@ -140,6 +137,7 @@ void main() {
 
   testWidgets('golden phone settings, Persian', (tester) async {
     stillMotion(tester);
+    quietAudio(tester);
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
     tester.view.platformDispatcher.platformBrightnessTestValue =
@@ -170,6 +168,7 @@ void main() {
 
   testWidgets('golden phone servers, dark', (tester) async {
     stillMotion(tester);
+    quietAudio(tester);
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
     tester.view.platformDispatcher.platformBrightnessTestValue =
