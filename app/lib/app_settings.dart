@@ -277,6 +277,19 @@ class AppSettings extends ChangeNotifier {
     return '';
   }
 
+  /// The home design a stored key asks for. The five keys the app
+  /// carries stand (the wheel, the bento, the pixel, and the two
+  /// reference looks); anything else — the looks that left, or a value
+  /// a newer or older build wrote — lands on the wheel: the app's own
+  /// home, until the user picks one of the looks that stand.
+  static String homeDesignFor(String? key) => switch (key) {
+    'bento' => 'bento',
+    'pixel' => 'pixel',
+    'aether' => 'aether',
+    'zed' => 'zed',
+    _ => 'wheel',
+  };
+
   Locale? get locale => language.isEmpty ? null : localeOf(language);
 
   /// The routing region most users of [language] want: Persian is Iran,
@@ -362,7 +375,9 @@ class AppSettings extends ChangeNotifier {
         s.autoInstallApk = j['auto_install_apk'] != false;
         if (j['accent'] case final String a) s.accentKey = a;
         if (j['custom_accent'] case final int v) s.customAccent = v;
-        if (j['home_design'] case final String d) s.homeDesign = d;
+        if (j['home_design'] case final String d) {
+          s.homeDesign = homeDesignFor(d);
+        }
         if (j['favorite_countries'] case final List<Object?> codes) {
           s.favoriteCountries = [
             for (final code in codes) if (code is String) code,
@@ -478,16 +493,7 @@ class AppSettings extends ChangeNotifier {
     this.accentKey = accentKey ?? this.accentKey;
     this.customAccent = customAccent ?? this.customAccent;
     if (homeDesign != null) {
-      this.homeDesign = switch (homeDesign) {
-        'bento' => 'bento',
-        'pixel' => 'pixel',
-        'aether' => 'aether',
-        'zed' => 'zed',
-        // The four looks that left (the aurora, the neon, the dusk, the
-        // sage) land on the wheel: the app's own home, until the user
-        // picks one of the looks that stand.
-        _ => 'wheel',
-      };
+      this.homeDesign = homeDesignFor(homeDesign);
     }
     if (mapStyle != null) {
       this.mapStyle = switch (mapStyle) {

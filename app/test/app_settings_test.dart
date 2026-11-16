@@ -106,6 +106,46 @@ void main() {
     expect(s.signInMethod, SignInMethod.api);
   });
 
+  test('the sounds switch survives a restart', () async {
+    // The switch ships on; the user turns it off; the next load keeps
+    // it off; turning it back on keeps everything else standing. The
+    // save rides a queued tail, so each step waits for the file.
+    Future<AppSettings> loadWith(bool value) async {
+      final deadline = DateTime.now().add(const Duration(seconds: 3));
+      var s = await AppSettings.load(dir.path);
+      while (s.soundFeedback != value && DateTime.now().isBefore(deadline)) {
+        await Future<void>.delayed(const Duration(milliseconds: 30));
+        s = await AppSettings.load(dir.path);
+      }
+      return s;
+    }
+
+    final s = await AppSettings.load(dir.path);
+    expect(s.soundFeedback, true);
+    s.update(soundFeedback: false);
+    final off = await loadWith(false);
+    expect(off.soundFeedback, false);
+    off.update(soundFeedback: true);
+    final on = await loadWith(true);
+    expect(on.soundFeedback, true);
+  });
+
+  test('the designs that left land their holders on the wheel', () async {
+    File('${dir.path}/app-settings.json')
+        .writeAsStringSync('{"home_design": "aurora"}');
+    var s = await AppSettings.load(dir.path);
+    expect(s.homeDesign, 'wheel');
+    File('${dir.path}/app-settings.json')
+        .writeAsStringSync('{"home_design": "sage"}');
+    s = await AppSettings.load(dir.path);
+    expect(s.homeDesign, 'wheel');
+    File('${dir.path}/app-settings.json')
+        .writeAsStringSync('{"home_design": "zed"}');
+    s = await AppSettings.load(dir.path);
+    expect(s.homeDesign, 'zed');
+  });
+
+
   test('takes the core executable from --core', () {
     expect(
       CoreProcess.executableFrom(['--core=C:/bin/core.exe']),
