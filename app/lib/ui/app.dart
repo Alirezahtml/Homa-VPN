@@ -311,6 +311,10 @@ class Shell extends StatefulWidget {
 
 enum _Page { overview, servers, accounts, settings, logs, about }
 
+/// The tunnel's phase as the ear reads it: resting, being made, or
+/// carrying — the three states the connection's own cues speak.
+enum _CuePhase { rest, connecting, up }
+
 class _ShellState extends State<Shell> with WidgetsBindingObserver {
   _Page _page = _Page.overview;
 
@@ -383,28 +387,70 @@ class _ShellState extends State<Shell> with WidgetsBindingObserver {
     });
   }
 
-  /// The connected state the cue last saw: null until the core's first
-  /// status lands, so the app's very first answers never ring.
-  bool? _cueConnected;
+  /// The connection's phase the cue last saw: null until the core's
+  /// first status lands, so the app's very first answers never ring.
+  _CuePhase? _cuePhase;
 
-  /// The connection's own cue: on a real up↔down turn, a short sound (the
-  /// setting asks for it) and a light haptic. The user's own connect
-  /// already hums through the slider's commit, so the haptic here stays
-  /// light — a click on top of the commit's knock, and the only feedback
-  /// an automatic reconnect ever gives. "Up" reads the way the caretaker
-  /// reads it (`proxyOn || connectPending`), so a handover's brief dip
-  /// never rings twice.
+  /// Whether the tunnel was up before the connecting that is running
+  /// now: a handover's brief dip (up → connecting → up) must never ring
+  /// twice, so its re-arrival stays quiet.
+  bool _cueDip = false;
+
+  /// The connection's own cue: each turn of the tunnel carries its own
+  /// note (the setting asks for it) and a light haptic. The user's own
+  /// connect already hums through the slider's commit, so the haptic
+  /// here stays light — a click on top of the commit's knock, and the
+  /// only feedback an automatic reconnect ever gives. The phases:
+  ///
+  /// - rest → connecting: the soft swell, the work has begun;
+  /// - connecting → up: the rising chord, the tunnel carries;
+  /// - up → rest: the falling chord, the tunnel rests;
+  /// - connecting → rest: the start gave up — the blocked way's note,
+  ///   unless the dip was a handover's, which only falls quietly;
+  /// - up → connecting: nothing yet (a handover mid-flight).
   void _connectionCue() {
     final status = widget.core.status;
     if (status == null) return;
-    final connected = status.proxyOn || status.connectPending;
-    final before = _cueConnected;
-    _cueConnected = connected;
-    if (before == null || before == connected) return;
+    final phase = status.proxyOn
+        ? _CuePhase.up
+        : status.connectPending
+        ? _CuePhase.connecting
+        : _CuePhase.rest;
+    final before = _cuePhase;
+    _cuePhase = phase;
+    if (before == null || before == phase) return;
+    SoundCue? cue;
+    switch ((before, phase)) {
+      case (_CuePhase.rest, _CuePhase.connecting):
+        // The work has begun: the soft swell.
+        cue = SoundCue.connecting;
+      case (_CuePhase.connecting, _CuePhase.up):
+        // The tunnel carries: the rising chord — quiet when it is only
+        // a handover's dip coming back.
+        if (_cueDip) {
+          _cueDip = false;
+        } else {
+          cue = SoundCue.connect;
+        }
+      case (_CuePhase.up, _CuePhase.rest):
+        // The tunnel rests: the falling chord.
+        cue = SoundCue.disconnect;
+      case (_CuePhase.connecting, _CuePhase.rest):
+        // The start gave up: the blocked way's note — a handover that
+        // failed only falls, the way any tunnel coming down does.
+        _cueDip = false;
+        cue = SoundCue.error;
+      case (_CuePhase.up, _CuePhase.connecting):
+        // A handover mid-flight: nothing yet; its arrival stays quiet.
+        _cueDip = true;
+      default:
+        // The same phase twice, or rest → rest: nothing to say.
+        break;
+    }
+    if (cue == null) return;
     // The app's own note instead of the system's alert, which a phone
-    // keeps to itself: rising when the VPN comes up, falling when it
-    // goes down. The sound switch gates it in AppSounds itself.
-    AppSounds.play(connected ? SoundCue.connect : SoundCue.disconnect);
+    // keeps to itself. The sound switch gates it in AppSounds itself.
+    AppSounds.play(cue);
     if (widget.settings.hapticFeedback) {
       HapticFeedback.lightImpact();
     }

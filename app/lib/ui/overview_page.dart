@@ -1406,9 +1406,9 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 26),
-          ] else if (design == 'dusk') ...[
-            // The dusk's home: the flags in their strip too, above the
-            // banner that carries the switch.
+          ] else if (design == 'aether') ...[
+            // The aether's home: the flags in their strip too, above the
+            // status card that carries the switch.
             const SizedBox(height: 24),
             Reveal(
               index: 1,
@@ -1420,24 +1420,20 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-          ] else if (design == 'sage') ...[
-            // The sage's ledger: the place's row is the ledger's first
-            // line, a full-width card of its own.
+          ] else if (design == 'zed') ...[
+            // The zed's home: the flags in their strip too, above the
+            // blob that carries the switch.
             const SizedBox(height: 24),
             Reveal(
               index: 1,
-              child: _PlaceCard(
-                palette: p,
-                place: place,
+              child: FlagStrip(
+                core: core,
+                text: p.text,
+                border: p.cardBorder,
                 accent: accent,
-                onTap: onOpenServers,
               ),
             ),
-            const SizedBox(height: 18),
-          ] else if (design == 'aurora' || design == 'neon') ...[
-            // The aurora's hero and the neon's ring both carry the place
-            // themselves; here only the space above them breathes.
-            const SizedBox(height: 22),
+            const SizedBox(height: 24),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1449,9 +1445,9 @@ class _PhoneHome extends StatelessWidget {
           // never had, and the state's dot before it says the state at a
           // glance — a quiet pulse while the connection is still being
           // made.
-          // The dusk's banner says the state's own word inside itself;
-          // the other homes wear it in its capsule here.
-          if (design != 'bento' && design != 'dusk')
+          // The dusk's banner said the state's word inside itself; now the
+          // aether's status card does, so both skip the capsule here.
+          if (design != 'bento' && design != 'aether')
             Reveal(
               index: 1,
               child: Center(
@@ -1534,20 +1530,56 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 12 : 18),
-          ] else if (design == 'aurora') ...[
-            // The aurora's hero: the glass card the place's chip and the
-            // orb live on, with the design's own wash behind them.
+          ] else if (design == 'aether') ...[
+            // The aether's hero: the iOS status card AetherST wears — the
+            // raised card with the state's own light washing down from
+            // its top, the state's dot and word on the first line, the
+            // session's time big when the tunnel carries, and the
+            // morphing power button (circle when off, rounded square
+            // when on) under them.
             Flexible(
               child: Center(
                 child: Reveal(
                   index: 2,
-                  child: _AuroraHeroCard(
+                  child: _AetherHeroCard(
+                    palette: p,
+                    place: place,
+                    on: on,
+                    busy: core.switchingProxy || status.connectPending,
+                    error: status.state.phase == Phase.error,
+                    tooltip: press,
+                    label: label,
+                    hint: press,
+                    startedAt: proxy?.startedAt,
+                    pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                    onOpenServers: onOpenServers,
+                    onPressed: () => status.totalAccounts == 0
+                        ? _openAccounts(context, core, settings, onOpenAccounts)
+                        : runShowingErrors(context, () => _toggle(on)),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 18),
+          ] else if (design == 'zed') ...[
+            // The zed's hero: the gradient blob ZedSecure wears — one
+            // breathing orb painted with the brand's own light (violet,
+            // pink, lime) when the tunnel carries, the cooler cyan swell
+            // while it is being made, the dim violet when it rests. The
+            // session's time stands in the middle when it carries, the
+            // power's mark when it rests; the place's chip sits under it.
+            Flexible(
+              child: Center(
+                child: Reveal(
+                  index: 2,
+                  child: _ZedBlobCard(
                     palette: p,
                     place: place,
                     on: on,
                     busy: core.switchingProxy || status.connectPending,
                     accent: accent,
                     tooltip: press,
+                    startedAt: proxy?.startedAt,
                     batterySaver: settings.batterySaver,
                     onOpenServers: onOpenServers,
                     onPressed: () => status.totalAccounts == 0
@@ -1558,65 +1590,6 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 8 : 18),
-          ] else if (design == 'neon') ...[
-            // The neon's ring: the switch as a gauge — dim while off,
-            // sweeping while connecting, a full circle of light when the
-            // tunnel carries. The place's chip sits under it.
-            Flexible(
-              child: Center(
-                child: Reveal(
-                  index: 2,
-                  child: _NeonRingCard(
-                    palette: p,
-                    place: place,
-                    on: on,
-                    busy: core.switchingProxy || status.connectPending,
-                    accent: accent,
-                    tooltip: press,
-                    onOpenServers: onOpenServers,
-                    onPressed: () => status.totalAccounts == 0
-                        ? _openAccounts(context, core, settings, onOpenAccounts)
-                        : runShowingErrors(context, () => _toggle(on)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: short ? 8 : 18),
-          ] else if (design == 'dusk') ...[
-            // The dusk's banner: one wide gradient bar, the state's word
-            // and the power's circle on it — a tap anywhere flips.
-            Reveal(
-              index: 2,
-              child: _DuskBanner(
-                palette: p,
-                on: on,
-                busy: core.switchingProxy || status.connectPending,
-                accent: accent,
-                label: label,
-                hint: press,
-                onPressed: () => status.totalAccounts == 0
-                    ? _openAccounts(context, core, settings, onOpenAccounts)
-                    : runShowingErrors(context, () => _toggle(on)),
-              ),
-            ),
-            SizedBox(height: short ? 12 : 18),
-          ] else if (design == 'sage') ...[
-            // The sage's power line: the ledger's second row, a full-width
-            // pill that fills with the leaf's light when the tunnel is up.
-            Reveal(
-              index: 2,
-              child: _SagePowerPill(
-                palette: p,
-                on: on,
-                busy: core.switchingProxy || status.connectPending,
-                accent: accent,
-                label: label,
-                onPressed: () => status.totalAccounts == 0
-                    ? _openAccounts(context, core, settings, onOpenAccounts)
-                    : runShowingErrors(context, () => _toggle(on)),
-              ),
-            ),
-            SizedBox(height: short ? 10 : 18),
           ] else ...[
             // The compact switch: the orb, on the place's own card.
             const SizedBox(height: 14),
@@ -1645,7 +1618,9 @@ class _PhoneHome extends StatelessWidget {
             // it has been up, the real delay, the live rates. The wheel
             // and the tiles lay them out as cards; the compact home as
             // rows inside one card of its own.
-            if (design == 'pixel' || design == 'aurora' || design == 'sage')
+            if (design == 'pixel' ||
+                design == 'aether' ||
+                design == 'zed')
               _FlatStats(
                 core: core,
                 status: status,
@@ -1653,6 +1628,9 @@ class _PhoneHome extends StatelessWidget {
                 startedAt: proxy?.startedAt,
                 pingMs: (test?.ok ?? false) ? test!.responseMs : null,
                 showTraffic: settings.showTraffic,
+                // The aether's card and the zed's blob carry the time and
+                // the ping themselves; their card keeps only the rates.
+                showConnection: design == 'pixel',
               )
             else
               _HomeStats(
@@ -1723,10 +1701,11 @@ class _PhoneHome extends StatelessWidget {
                 icon: Icons.data_usage_rounded,
               ),
             )
-          else if (design == 'bento' || design == 'dusk')
-            // The tiles' bar and the dusk's banner already say the tap's
-            // own hint; the plain hint line below would only say it twice.
-            // The state's own guidance still has the problem boxes above.
+          else if (design == 'bento' || design == 'aether')
+            // The tiles' bar and the aether's status card already say the
+            // tap's own hint; the plain hint line below would only say it
+            // twice. The state's own guidance still has the problem boxes
+            // above.
             const SizedBox.shrink()
           else
             // A start failure's hint is general; the core's reason is
@@ -3856,6 +3835,7 @@ class _FlatStats extends StatelessWidget {
     required this.startedAt,
     required this.pingMs,
     required this.showTraffic,
+    this.showConnection = true,
   });
 
   final CoreController core;
@@ -3864,6 +3844,11 @@ class _FlatStats extends StatelessWidget {
   final DateTime? startedAt;
   final int? pingMs;
   final bool showTraffic;
+
+  /// The time and the delay rows: the aether's card and the zed's blob
+  /// already carry the session's time and the ping themselves, so their
+  /// stats card keeps only the rates.
+  final bool showConnection;
 
   @override
   Widget build(BuildContext context) {
@@ -3879,31 +3864,33 @@ class _FlatStats extends StatelessWidget {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 16, 14),
           child: Column(
             children: [
-              _FlatRow(
-                palette: p,
-                icon: Icons.schedule_rounded,
-                label: l.statElapsed,
-                value: startedAt == null
-                    ? const Text('—')
-                    : _ElapsedText(startedAt: startedAt!),
-              ),
-              const SizedBox(height: 10),
-              _FlatRow(
-                palette: p,
-                icon: Icons.bolt_rounded,
-                label: l.realDelay,
-                value: Text(
-                  core.testing
-                      ? ''
-                      : ping == null
-                      ? l.testConnection
-                      : l.milliseconds(ping),
+              if (showConnection) ...[
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.schedule_rounded,
+                  label: l.statElapsed,
+                  value: startedAt == null
+                      ? const Text('—')
+                      : _ElapsedText(startedAt: startedAt!),
                 ),
-                valueColor: ping == null ? p.muted : delayColor(ping),
-                onTap: core.testing
-                    ? null
-                    : () => runShowingErrors(context, core.runTest),
-              ),
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.bolt_rounded,
+                  label: l.realDelay,
+                  value: Text(
+                    core.testing
+                        ? ''
+                        : ping == null
+                        ? l.testConnection
+                        : l.milliseconds(ping),
+                  ),
+                  valueColor: ping == null ? p.muted : delayColor(ping),
+                  onTap: core.testing
+                      ? null
+                      : () => runShowingErrors(context, core.runTest),
+                ),
+              ],
               if (showTraffic) ...[
                 const SizedBox(height: 10),
                 _FlatRow(
@@ -3991,113 +3978,396 @@ class _FlatRow extends StatelessWidget {
   }
 }
 
-/// The aurora home's hero: one glass card over the map — the place's chip
-/// on top, the orb under it, and the design's own light as a wash across
-/// the glass. When the connection carries, the card's ring of light stands
-/// still around it; nothing here redraws while the states do not change,
-/// so the phone's battery keeps its frames.
-class _AuroraHeroCard extends StatelessWidget {
-  const _AuroraHeroCard({
+/// The aether home's hero: the iOS status card and the morphing power
+/// button the AetherST design wears — a raised card whose top washes
+/// with the state's own system color, the state's dot and word on the
+/// first line with the place's flag beside it, the session's time big
+/// under them with the ping chip at its side, and the button below the
+/// card: a blue circle while off that rounds itself into a green
+/// squircle when the tunnel carries.
+class _AetherHeroCard extends StatelessWidget {
+  const _AetherHeroCard({
     required this.palette,
     required this.place,
     required this.on,
     required this.busy,
-    required this.accent,
+    required this.error,
     required this.tooltip,
+    required this.label,
+    required this.hint,
+    required this.startedAt,
+    required this.pingMs,
     required this.onOpenServers,
     required this.onPressed,
-    this.batterySaver = false,
   });
 
   final _HomePalette palette;
   final HomePlace place;
   final bool on;
   final bool busy;
-  final Color accent;
+
+  /// The start gave up on its own: the card's light reads red.
+  final bool error;
   final String tooltip;
+  final String label;
+  final String hint;
+  final DateTime? startedAt;
+  final int? pingMs;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
 
-  /// The battery saver's word, for the orb's own breath.
-  final bool batterySaver;
+  /// AetherST's own state lights — the system colors the iOS look
+  /// speaks: the vivid set on the dark page, the deeper set on the
+  /// light one. The card's wash, the dot and the button read these; the
+  /// accent stays out of the state's voice.
+  Color get _state {
+    if (error) {
+      return palette.dark ? const Color(0xFFFF3B30) : const Color(0xFFC0392B);
+    }
+    if (busy) {
+      return palette.dark ? const Color(0xFFFF9500) : const Color(0xFFC77D1E);
+    }
+    if (on) {
+      return palette.dark ? const Color(0xFF34C759) : const Color(0xFF1E9E6B);
+    }
+    return const Color(0xFF8E8E93);
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final p = palette;
-    final deep = Color.lerp(accent, p.dark ? Colors.black : Colors.white, 0.35)!;
+    final state = _state;
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 400),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(26),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [p.card, accent.withValues(alpha: p.dark ? 0.16 : 0.10), deep.withValues(alpha: p.dark ? 0.10 : 0.06)],
-            stops: const [0.0, 0.55, 1.0],
-          ),
-          border: Border.all(color: accent.withValues(alpha: p.dark ? 0.45 : 0.30)),
-          boxShadow: on
-              ? [
-                  BoxShadow(
-                    color: accent.withValues(alpha: p.dark ? 0.30 : 0.22),
-                    blurRadius: 34,
-                    spreadRadius: 1,
-                  ),
-                ]
-              : null,
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(18, 12, 18, 18),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // The place's chip: the flag, the name, and the way to the
-              // servers page to change it.
-              InkWell(
-                onTap: onOpenServers,
-                borderRadius: BorderRadius.circular(14),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 4),
-                  child: Row(
-                    children: [
-                      CountryFlag(code: place.flag, width: 26),
-                      const SizedBox(width: 12),
-                      if (place.auto) ...[
-                        Icon(Icons.auto_awesome_rounded, size: 14, color: accent),
-                        const SizedBox(width: 4),
-                      ],
-                      Flexible(
-                        child: Text(
-                          place.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: p.text,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // The status card itself: the raised surface with the state's
+          // light washing down from its top edge.
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: p.card,
+              border: Border.all(color: p.cardBorder),
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [state.withValues(alpha: 0.14), Colors.transparent],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 13, 16, 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // The state's line: the dot, the word, and the place's
+                    // flag chip that opens the servers page.
+                    Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: state,
                           ),
                         ),
-                      ),
-                      if (onOpenServers != null)
-                        Icon(Icons.chevron_right_rounded, color: p.muted),
+                        const SizedBox(width: 7),
+                        Flexible(
+                          child: Text(
+                            label,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.5,
+                              color: state,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: onOpenServers,
+                          borderRadius: BorderRadius.circular(9),
+                          child: Container(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              8,
+                              5,
+                              8,
+                              5,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(9),
+                              color: p.dark
+                                  ? const Color(0xFF2C2C2E)
+                                  : const Color(0xFFECECF1),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CountryFlag(code: place.flag, width: 18),
+                                const SizedBox(width: 7),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 120,
+                                  ),
+                                  child: Text(
+                                    place.name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.labelSmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: p.text,
+                                        ),
+                                  ),
+                                ),
+                                if (place.auto) ...[
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    Icons.auto_awesome_rounded,
+                                    size: 12,
+                                    color: p.muted,
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // The session's line: the time big when the tunnel
+                    // carries, the tap's word when it rests.
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: on && startedAt != null
+                              ? DefaultTextStyle(
+                                  style:
+                                      (theme.textTheme.headlineMedium ??
+                                      const TextStyle(fontSize: 26))
+                                      .copyWith(
+                                        fontWeight: FontWeight.w800,
+                                        fontFeatures: const [
+                                          FontFeature.tabularFigures(),
+                                        ],
+                                        color: p.text,
+                                        height: 1.1,
+                                      ),
+                                  child: _ElapsedText(startedAt: startedAt!),
+                                )
+                              : Text(
+                                  hint,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: p.muted,
+                                  ),
+                                ),
+                        ),
+                        // The ping chip at the time's side: the last
+                        // test's own number, the way the iOS card reads.
+                        if (on && pingMs != null) ...[
+                          const SizedBox(width: 10),
+                          Container(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              8,
+                              4,
+                              8,
+                              4,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: p.dark
+                                  ? const Color(0xFF2C2C2E)
+                                  : const Color(0xFFECECF1),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.speed_rounded,
+                                  size: 13,
+                                  color: p.muted,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '$pingMs ms',
+                                  style: theme.textTheme.labelSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                    color: p.muted,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          // The morphing power button: a circle while off, a squircle
+          // when the tunnel carries — the color and the radius both ride
+          // the state, with the glow breathing only while connecting.
+          _AetherPowerButton(
+            on: on,
+            busy: busy,
+            error: error,
+            dark: p.dark,
+            tooltip: tooltip,
+            onPressed: onPressed,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The aether look's power button: the rounded square that becomes a
+/// circle when the VPN rests, in the state's own system color, with a
+/// soft glow that breathes only while the connection is being made —
+/// the rest of the time nothing here redraws, and the battery keeps
+/// its frames.
+class _AetherPowerButton extends StatefulWidget {
+  const _AetherPowerButton({
+    required this.on,
+    required this.busy,
+    required this.error,
+    required this.dark,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final bool on;
+  final bool busy;
+  final bool error;
+
+  /// The page's own darkness: the state's colors read it.
+  final bool dark;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  State<_AetherPowerButton> createState() => _AetherPowerButtonState();
+}
+
+class _AetherPowerButtonState extends State<_AetherPowerButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _breath = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  );
+
+  @override
+  void didUpdateWidget(_AetherPowerButton old) {
+    super.didUpdateWidget(old);
+    // The breath runs only while the connection is being made; every
+    // other state holds one pose and the battery keeps the frames.
+    if (widget.busy && !_breath.isAnimating) {
+      _breath.repeat(reverse: true);
+    } else if (!widget.busy && _breath.isAnimating) {
+      _breath.stop();
+      _breath.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
+  Color get _color {
+    if (widget.error) {
+      return widget.dark ? const Color(0xFFFF3B30) : const Color(0xFFC0392B);
+    }
+    if (widget.busy) {
+      return widget.dark ? const Color(0xFFFF9500) : const Color(0xFFC77D1E);
+    }
+    if (widget.on) {
+      return widget.dark ? const Color(0xFF34C759) : const Color(0xFF1E9E6B);
+    }
+    // Ready to connect: the aether's own blue.
+    return widget.dark ? const Color(0xFF0A84FF) : const Color(0xFF0A6CFF);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = _color;
+    const size = 108.0;
+    return Tooltip(
+      message: widget.tooltip,
+      child: AnimatedBuilder(
+        animation: _breath,
+        builder: (context, child) {
+          // The breath lifts the glow only; the button itself holds.
+          final lift = 1.0 + 0.08 * Curves.easeOut.transform(_breath.value);
+          return Transform.scale(scale: lift, child: child);
+        },
+        child: Container(
+          width: size + 16,
+          height: size + 16,
+          alignment: Alignment.center,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: widget.busy ? null : widget.onPressed,
+              customBorder: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(size / 2),
+              ),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 450),
+                curve: Curves.easeOutCubic,
+                width: size,
+                height: size,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(widget.on ? 34 : size / 2),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.white.withValues(alpha: 0.32),
+                      Colors.white.withValues(alpha: 0.04),
+                      Colors.transparent,
                     ],
                   ),
+                  color: color,
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withValues(
+                        alpha: widget.on || widget.busy ? 0.35 : 0.22,
+                      ),
+                      blurRadius: 24,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.power_settings_new_rounded,
+                  size: 44,
+                  color: Colors.white,
+                  shadows: widget.dark
+                      ? null
+                      : const [
+                          Shadow(color: Color(0x33000000), blurRadius: 6),
+                        ],
                 ),
               ),
-              Transform.scale(
-                scale: 0.76,
-                child: _PowerOrb(
-                  palette: p,
-                  on: on,
-                  accent: accent,
-                  busy: busy,
-                  batterySaver: batterySaver,
-                  tooltip: tooltip,
-                  onPressed: onPressed,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -4105,18 +4375,21 @@ class _AuroraHeroCard extends StatelessWidget {
   }
 }
 
-/// The neon home's ring: the switch as a gauge the state lives in — a dim
-/// dashed circle while off, an arc sweeping while the connection is being
-/// made (the only animated face, and only then), a full circle of the
-/// light when the tunnel carries. The place's chip sits under the ring.
-class _NeonRingCard extends StatefulWidget {
-  const _NeonRingCard({
+/// The zed home's hero: the gradient blob the ZedSecure design wears —
+/// one breathing orb painted with the brand's own light: violet, pink
+/// and lime while the tunnel carries, the cooler cyan swell while the
+/// connection is being made, the dim violet when it rests. The session's
+/// time stands in its middle, and the place's chip sits under it.
+class _ZedBlobCard extends StatefulWidget {
+  const _ZedBlobCard({
     required this.palette,
     required this.place,
     required this.on,
     required this.busy,
     required this.accent,
     required this.tooltip,
+    required this.startedAt,
+    required this.batterySaver,
     required this.onOpenServers,
     required this.onPressed,
   });
@@ -4127,76 +4400,146 @@ class _NeonRingCard extends StatefulWidget {
   final bool busy;
   final Color accent;
   final String tooltip;
+  final DateTime? startedAt;
+
+  /// The battery saver's word: the blob holds its breath when it stands.
+  final bool batterySaver;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
 
   @override
-  State<_NeonRingCard> createState() => _NeonRingCardState();
+  State<_ZedBlobCard> createState() => _ZedBlobCardState();
 }
 
-class _NeonRingCardState extends State<_NeonRingCard>
+class _ZedBlobCardState extends State<_ZedBlobCard>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _sweep = AnimationController(
+  late final AnimationController _breathe = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1600),
+    duration: const Duration(milliseconds: 2800),
   );
 
   @override
-  void didUpdateWidget(_NeonRingCard old) {
+  void didUpdateWidget(_ZedBlobCard old) {
     super.didUpdateWidget(old);
-    // The sweep runs only while the connection is being made; every other
+    // The blob breathes only while the connection is alive; every other
     // state holds one pose and the battery keeps the frames.
-    if (widget.busy && !_sweep.isAnimating) {
-      _sweep.repeat();
-    } else if (!widget.busy && _sweep.isAnimating) {
-      _sweep.stop();
+    final alive = (widget.on || widget.busy) && !widget.batterySaver;
+    if (alive && !_breathe.isAnimating) {
+      _breathe.repeat(reverse: true);
+    } else if (!alive && _breathe.isAnimating) {
+      _breathe.stop();
+      _breathe.value = 0;
     }
   }
 
   @override
   void dispose() {
-    _sweep.dispose();
+    _breathe.dispose();
     super.dispose();
+  }
+
+  /// The blob's own light, ZedSecure's gradients on both modes: the
+  /// brand's violet-pink-lime when the tunnel carries, the violet-cyan
+  /// while it is being made, the dim violet when it rests — the same
+  /// diagonal sweep the reference paints its blob with.
+  Gradient get _blobFill {
+    final dark = widget.palette.dark;
+    final colors = widget.busy
+        ? const [Color(0xFF7A5CFF), Color(0xFF37E0D8), Color(0xFFC7F24E)]
+        : widget.on
+        ? const [Color(0xFF7A5CFF), Color(0xFFFF5FA2), Color(0xFFC7F24E)]
+        : dark
+        ? const [Color(0xFF43359B), Color(0xFF2A1361)]
+        : const [Color(0xFF7A5CFF), Color(0xFF5646D6)];
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: colors,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final p = widget.palette;
-    const ring = 236.0;
+    const blob = 212.0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Tooltip(
           message: widget.tooltip,
-          child: InkWell(
-            onTap: widget.busy ? null : widget.onPressed,
-            borderRadius: BorderRadius.circular(ring / 2),
-            child: SizedBox.square(
-              dimension: ring,
-              child: CustomPaint(
-                painter: _NeonRingPainter(
-                  on: widget.on,
-                  busy: widget.busy,
-                  accent: widget.accent,
-                  card: p.card,
-                  border: p.cardBorder,
-                  muted: p.muted,
-                  dark: p.dark,
-                  sweep: _sweep,
-                ),
-                child: Center(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: Icon(
-                      widget.on
-                          ? Icons.lock_rounded
-                          : Icons.power_settings_new_rounded,
-                      key: ValueKey(widget.on),
-                      size: 44,
-                      color: widget.on
-                          ? widget.accent
-                          : (widget.busy ? widget.accent : p.muted),
+          child: AnimatedBuilder(
+            animation: _breathe,
+            builder: (context, child) {
+              final s = 1.0 + 0.06 * Curves.easeOut.transform(_breathe.value);
+              return Transform.scale(scale: s, child: child);
+            },
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: widget.busy ? null : widget.onPressed,
+                customBorder: const CircleBorder(),
+                child: Container(
+                  width: blob + 24,
+                  height: blob + 24,
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: blob,
+                    height: blob,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: _blobFill,
+                      boxShadow: widget.on || widget.busy
+                          ? [
+                              BoxShadow(
+                                color: const Color(
+                                  0xFF7A5CFF,
+                                ).withValues(alpha: p.dark ? 0.40 : 0.30),
+                                blurRadius: 38,
+                                spreadRadius: 2,
+                              ),
+                              BoxShadow(
+                                color: const Color(
+                                  0xFFFF5FA2,
+                                ).withValues(alpha: p.dark ? 0.25 : 0.16),
+                                blurRadius: 52,
+                                spreadRadius: 6,
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Center(
+                      child: widget.busy
+                          ? const SizedBox.square(
+                              dimension: 40,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                valueColor: AlwaysStoppedAnimation(
+                                  Colors.white,
+                                ),
+                              ),
+                            )
+                          : widget.on && widget.startedAt != null
+                          ? DefaultTextStyle(
+                              style:
+                                  (theme.textTheme.headlineLarge ??
+                                  const TextStyle(fontSize: 34))
+                                  .copyWith(
+                                    fontWeight: FontWeight.w800,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                    color: Colors.white,
+                                  ),
+                              child: _ElapsedText(
+                                startedAt: widget.startedAt!,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.power_settings_new_rounded,
+                              size: 46,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                 ),
@@ -4205,7 +4548,7 @@ class _NeonRingCardState extends State<_NeonRingCard>
           ),
         ),
         const SizedBox(height: 14),
-        // The place's chip under the ring: a tap opens the servers page.
+        // The place's chip under the blob: a tap opens the servers page.
         InkWell(
           onTap: widget.onOpenServers,
           borderRadius: BorderRadius.circular(14),
@@ -4217,7 +4560,11 @@ class _NeonRingCardState extends State<_NeonRingCard>
                 CountryFlag(code: widget.place.flag, width: 24),
                 const SizedBox(width: 10),
                 if (widget.place.auto) ...[
-                  Icon(Icons.auto_awesome_rounded, size: 14, color: widget.accent),
+                  Icon(
+                    Icons.auto_awesome_rounded,
+                    size: 14,
+                    color: widget.accent,
+                  ),
                   const SizedBox(width: 4),
                 ],
                 Flexible(
@@ -4238,357 +4585,6 @@ class _NeonRingCardState extends State<_NeonRingCard>
           ),
         ),
       ],
-    );
-  }
-}
-
-/// The ring's own painter: the dashed track of the off state, the sweeping
-/// arc of the connecting state, the double stroke of the connected one.
-class _NeonRingPainter extends CustomPainter {
-  _NeonRingPainter({
-    required this.on,
-    required this.busy,
-    required this.accent,
-    required this.card,
-    required this.border,
-    required this.muted,
-    required this.dark,
-    required Animation<double> sweep,
-  }) : _sweep = sweep,
-       super(repaint: sweep);
-
-  final bool on;
-  final bool busy;
-  final Color accent;
-  final Color card;
-  final Color border;
-
-  /// The page's muted ink: the dashed track reads between the border and
-  /// it, so the gauge never disappears into the page.
-  final Color muted;
-  final bool dark;
-
-  Color get trackInk => muted;
-
-  /// The connecting arc's own phase; its ticks are the painter's repaints.
-  final Animation<double> _sweep;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final box = Offset.zero & size;
-    final stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-    final center = box.center;
-    final radius = box.width / 2 - 8;
-    // The disc the ring stands on: the home card's own color, so the
-    // gauge reads as a piece of the page, not a sticker on the map.
-    canvas.drawCircle(
-      center,
-      radius + 4,
-      Paint()..color = card.withValues(alpha: dark ? 0.82 : 0.92),
-    );
-    if (on) {
-      // The connected face: a wide quiet stroke under the light's own.
-      canvas.drawCircle(
-        center,
-        radius,
-        stroke
-          ..strokeWidth = 10
-          ..color = accent.withValues(alpha: dark ? 0.22 : 0.16),
-      );
-      canvas.drawCircle(
-        center,
-        radius,
-        stroke
-          ..strokeWidth = 3.5
-          ..color = accent,
-      );
-      return;
-    }
-    // The off track, dashed; the connecting arc rides over it. The muted
-    // ink, not the border, so the gauge still reads on the dark page.
-    final dash = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.5
-      ..color = Color.lerp(border, trackInk, 0.45)!;
-    const segments = 36;
-    const gap = 0.12;
-    const step = 2 * math.pi / segments;
-    for (var i = 0; i < segments; i++) {
-      final start = i * step;
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        start,
-        step - gap,
-        false,
-        dash,
-      );
-    }
-    if (busy) {
-      final start = -math.pi / 2 + _sweep.value * 2 * math.pi;
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        start,
-        2 * math.pi / 3,
-        false,
-        stroke
-          ..strokeWidth = 3.5
-          ..color = accent,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(_NeonRingPainter old) =>
-      on != old.on || busy != old.busy || accent != old.accent || dark != old.dark;
-}
-
-/// The dusk home's banner: one wide bar, the state's word and the power's
-/// circle on it, and — only when the connection carries — the horizon's
-/// own gradient under them. Off, the bar keeps the cards' colors.
-class _DuskBanner extends StatelessWidget {
-  const _DuskBanner({
-    required this.palette,
-    required this.on,
-    required this.busy,
-    required this.accent,
-    required this.label,
-    required this.hint,
-    required this.onPressed,
-  });
-
-  final _HomePalette palette;
-  final bool on;
-  final bool busy;
-  final Color accent;
-  final String label;
-  final String hint;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final p = palette;
-    final deep = Color.lerp(accent, Colors.black, 0.28)!;
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 440),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeOutCubic,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-          gradient: on
-              ? LinearGradient(
-                  begin: AlignmentDirectional.centerStart,
-                  end: AlignmentDirectional.centerEnd,
-                  colors: [deep, accent],
-                )
-              : null,
-          color: on ? null : p.card,
-          border: Border.all(
-            color: on ? accent : p.cardBorder,
-            width: on ? 1.4 : 1,
-          ),
-          boxShadow: on
-              ? [
-                  BoxShadow(
-                    color: accent.withValues(alpha: p.dark ? 0.30 : 0.20),
-                    blurRadius: 26,
-                    offset: const Offset(0, 6),
-                  ),
-                ]
-              : null,
-        ),
-        child: Material(
-          color: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: busy ? null : onPressed,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(22, 16, 22, 16),
-              child: Row(
-                children: [
-                  SizedBox.square(
-                    dimension: 54,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: on
-                            ? Colors.white.withValues(alpha: 0.22)
-                            : p.card,
-                        border: Border.all(
-                          color: on
-                              ? Colors.white.withValues(alpha: 0.5)
-                              : p.cardBorder,
-                        ),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          if (busy)
-                            SizedBox.square(
-                              dimension: 54,
-                              child: Padding(
-                                padding: const EdgeInsets.all(6),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: on ? Colors.white : p.muted,
-                                ),
-                              ),
-                            ),
-                          Icon(
-                            Icons.power_settings_new_rounded,
-                            size: 26,
-                            color: on ? Colors.white : p.muted,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 18),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          label,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            fontFamily: typefacesOf(context).display,
-                            fontFamilyFallback: typefacesOf(context).displayFallback,
-                            color: on ? Colors.white : p.text,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          hint,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: on
-                                ? Colors.white.withValues(alpha: 0.85)
-                                : p.muted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The sage home's power line: the ledger's own row, full width, tall —
-/// the label in its middle, the leaf's light filling it when the tunnel
-/// carries. No gradient races here; the fill is one state, not an effect.
-class _SagePowerPill extends StatelessWidget {
-  const _SagePowerPill({
-    required this.palette,
-    required this.on,
-    required this.busy,
-    required this.accent,
-    required this.label,
-    required this.onPressed,
-  });
-
-  final _HomePalette palette;
-  final bool on;
-  final bool busy;
-  final Color accent;
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final p = palette;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeOutCubic,
-      height: 84,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        color: on ? accent : p.card,
-        border: Border.all(
-          color: on ? accent.withValues(alpha: 0.8) : p.cardBorder,
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: busy ? null : onPressed,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Row(
-              children: [
-                if (busy)
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 14),
-                    child: SizedBox.square(
-                      dimension: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: on ? Colors.white : p.muted,
-                      ),
-                    ),
-                  )
-                else
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 14),
-                    child: Icon(
-                      on
-                          ? Icons.shield_rounded
-                          : Icons.power_settings_new_rounded,
-                      size: 26,
-                      color: on
-                          ? (accent.computeLuminance() > 0.5
-                                ? Colors.black
-                                : Colors.white)
-                          : p.muted,
-                    ),
-                  ),
-                Expanded(
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontFamily: typefacesOf(context).display,
-                      fontFamilyFallback: typefacesOf(context).displayFallback,
-                      color: on
-                          ? (accent.computeLuminance() > 0.5
-                                ? Colors.black
-                                : Colors.white)
-                          : p.text,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.chevron_right_rounded,
-                  size: 22,
-                  color: on
-                      ? (accent.computeLuminance() > 0.5
-                            ? Colors.black54
-                            : Colors.white70)
-                      : p.muted,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

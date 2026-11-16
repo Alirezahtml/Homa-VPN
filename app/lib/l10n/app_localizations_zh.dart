@@ -2480,28 +2480,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get avatarPhotoFailed => '无法使用该图片';
 
   @override
-  String get designAurora => '极光';
+  String get designAether => '以太';
 
   @override
-  String get designAuroraDesc => '玻璃主卡：位置与电源键，落在极光的微光上';
+  String get designAetherDesc => 'iOS 状态卡：状态词与会话时长在浮起卡片上，电源键自发光';
 
   @override
-  String get designNeon => '霓虹';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc => '以圆环显示状态：关时暗淡，连接时回旋，接通后是完整的一圈亮环';
-
-  @override
-  String get designDusk => '暮色';
-
-  @override
-  String get designDuskDesc => '以落日渐变晕染的暖色横幅；上面是状态与电源键';
-
-  @override
-  String get designSage => '鼠尾草';
-
-  @override
-  String get designSageDesc => '安静的簿册：位置占一行，上方是一枚高键，接通后整键染绿';
+  String get designZedDesc => '渐变圆球：紫、粉与柠檬绿中呼吸的圆球，承载会话时长';
 
   @override
   String get tlsFragmentAuto => '自动';
@@ -2526,6 +2514,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn45WhatsNewFixed => '「新变化」页面重新显示出文字——此前打开时是空白的';
+
+  @override
+  String get wn46Designs =>
+      '两个来自参考设计的新外观：以太的 iOS 状态卡与 Zed 的渐变圆球 — 各自装扮整个应用的每个页面，此前的四个外观已离场。';
+
+  @override
+  String get wn46Sounds =>
+      '音效换上专业套组：连接开始时的涌动，接通时的和弦，断开时的下行旋律，以及通路被堵时的一声闷响 — 同一时刻只有一个声音。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5005,28 +5001,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get avatarPhotoFailed => '無法使用該圖片';
 
   @override
-  String get designAurora => '極光';
+  String get designAether => '以太';
 
   @override
-  String get designAuroraDesc => '玻璃主卡：位置與電源鍵，落在極光的微光上';
+  String get designAetherDesc => 'iOS 狀態卡：狀態詞與工作階段時長在浮起卡片上，電源鍵自發光';
 
   @override
-  String get designNeon => '霓虹';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc => '以圓環顯示狀態：關時暗淡，連接時迴旋，接通後是完整的一圈亮環';
-
-  @override
-  String get designDusk => '暮色';
-
-  @override
-  String get designDuskDesc => '以落日漸變暈染的暖色橫幅；上面是狀態與電源鍵';
-
-  @override
-  String get designSage => '鼠尾草';
-
-  @override
-  String get designSageDesc => '安靜的簿冊：位置佔一行，上方是一枚高鍵，接通後整鍵染綠';
+  String get designZedDesc => '漸層圓球：紫、粉與檸檬綠中呼吸的圓球，承載工作階段時長';
 
   @override
   String get tlsFragmentAuto => '自動';
@@ -5051,4 +5035,12 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn45WhatsNewFixed => '「新變化」頁面重新顯示出文字——此前打開時是空白的';
+
+  @override
+  String get wn46Designs =>
+      '兩個來自參考設計的新外觀：以太的 iOS 狀態卡與 Zed 的漸層圓球 — 各自妝點整個應用的每個頁面，此前的四個外觀已離場。';
+
+  @override
+  String get wn46Sounds =>
+      '音效換上專業套組：連線開始時的湧動，接通時的和弦，斷線時的下行旋律，以及通路受阻時的一聲悶響 — 同一時刻只有一個聲音。';
 }

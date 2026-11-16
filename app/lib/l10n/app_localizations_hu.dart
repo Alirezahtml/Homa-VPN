@@ -2640,32 +2640,18 @@ class AppLocalizationsHu extends AppLocalizations {
   String get avatarPhotoFailed => 'A fotó nem használható';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Éter';
 
   @override
-  String get designAuroraDesc =>
-      'Üveg kártya: a hely és a bekapcsológűj sarki fény ragyogásában';
+  String get designAetherDesc =>
+      'iOS állapotkártya: az állapot szava és a munkamenet ideje emelt kártyán, ragyogó bekapcsológombbal';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Gyűrű, amely az állapotot mutatja: kikapcsolva halvány, csatlakozás közben körző, kapcsolva teljes fénycirkulus';
-
-  @override
-  String get designDusk => 'Alkonyat';
-
-  @override
-  String get designDuskDesc =>
-      'Meleg banner a lenyugvó nap színátmenetében; rajta az állapot és a bekapcsológomb';
-
-  @override
-  String get designSage => 'Zsálya';
-
-  @override
-  String get designSageDesc =>
-      'Csendes lajstrom: a hely sora, fölötte pedig magas gomb, ami kapcsolódáskor zölddel telik meg';
+  String get designZedDesc =>
+      'Színátmenetes gömb: lila, rózsaszín és mész színben lélegző gömb, amely a munkamenet idejét mutatja';
 
   @override
   String get tlsFragmentAuto => 'Auto';
@@ -2696,4 +2682,12 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'Az újdonságok oldala újra mutatja a szavait — üresen nyílt meg';
+
+  @override
+  String get wn46Designs =>
+      'Két új megjelenés a referenciatervekből: az éter iOS állapotkártyája és a zed színátmenetes gömbje — mindegyik az egész alkalmazást öltözteti, a korábbi négy elment.';
+
+  @override
+  String get wn46Sounds =>
+      'A hangok profi szettet kaptak: hullám a kezdődő kapcsolathoz, akkord amikor feláll, ereszkedő dallam amikor megszakad, és tompa hang a zárt úthoz — egyszerre egy hang.';
 }

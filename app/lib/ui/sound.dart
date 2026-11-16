@@ -4,12 +4,35 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart'
     show NavigatorObserver, Route;
 
-/// The app's own sounds: six short cues the ear adds to what the hand
+/// The app's own sounds: eight short cues the ear adds to what the hand
 /// already feels. A tap for pills, pages and presses; two notes rising
-/// and falling for the switches; a small arpeggio for the connection's
-/// coming up and going down; a double ping for the lock. The settings'
-/// sound switch decides whether any of them are heard.
-enum SoundCue { tap, toggleOn, toggleOff, connect, disconnect, lock }
+/// and falling for the switches; a soft swell for the connect that has
+/// begun, a rising arpeggio for the one that carried, a falling one for
+/// the tunnel that rests, two muted pulses for the way that is blocked;
+/// a double ping for the lock. The settings' sound switch decides
+/// whether any of them are heard.
+enum SoundCue {
+  tap,
+  toggleOn,
+  toggleOff,
+  connecting,
+  connect,
+  disconnect,
+  error,
+  lock,
+}
+
+/// The connection's voice: the cues that say what the tunnel itself is
+/// doing. A new one of these hushes every voice before it speaks — the
+/// state changed, and the old state's note has nothing to add. The
+/// little voices (the taps, the switches) only hush each other, so a
+/// touch never cuts the connection's sentence short.
+const _eventCues = {
+  SoundCue.connecting,
+  SoundCue.connect,
+  SoundCue.disconnect,
+  SoundCue.error,
+};
 
 /// The player: every cue's sound sits preloaded in its own pool, so the
 /// first tap answers as fast as the haptic does. A platform without the
@@ -20,13 +43,20 @@ abstract final class AppSounds {
     SoundCue.tap: 'sounds/tap.wav',
     SoundCue.toggleOn: 'sounds/toggleOn.wav',
     SoundCue.toggleOff: 'sounds/toggleOff.wav',
+    SoundCue.connecting: 'sounds/connecting.wav',
     SoundCue.connect: 'sounds/connect.wav',
     SoundCue.disconnect: 'sounds/disconnect.wav',
+    SoundCue.error: 'sounds/error.wav',
     SoundCue.lock: 'sounds/lock.wav',
   };
 
   static final Map<SoundCue, AudioPool> _pools = {};
   static final Set<SoundCue> _warming = {};
+
+  /// The voices still sounding, by cue: a new voice stops the old ones
+  /// instead of stacking on them — one voice at a time. Each entry is
+  /// the stop function the pool's start handed back.
+  static final Map<SoundCue, StopFunction> _playing = {};
 
   /// Mirrors the settings' sound switch; the app sets it on every build.
   static bool enabled = false;
@@ -69,16 +99,39 @@ abstract final class AppSounds {
     _ensure(cue);
     final pool = _pools[cue];
     if (pool == null) return;
-    unawaited(_start(pool));
+    unawaited(_start(pool, cue));
   }
 
-  /// One note, failures swallowed: a sound that cannot play is never an
-  /// error the app should carry.
-  static Future<void> _start(AudioPool pool) async {
+  /// One voice: the event cues hush everything before they speak, the
+  /// little ones only hush each other. Failures swallowed — a sound
+  /// that cannot play is never an error the app should carry.
+  static Future<void> _start(AudioPool pool, SoundCue cue) async {
     try {
-      await pool.start();
+      await _hush(cue);
+      final stop = await pool.start();
+      _playing[cue] = stop;
     } catch (_) {
       // The next note plays; nothing to report.
+    }
+  }
+
+  /// Stops every voice this one may not speak over.
+  static Future<void> _hush(SoundCue cue) async {
+    final event = _eventCues.contains(cue);
+    for (final other in _playing.keys.toList()) {
+      if (other == cue) continue;
+      if (!event && !_eventCues.contains(other)) {
+        // A little voice over an event's voice is allowed to share the
+        // air: the tap rides under the connect's chord, never over it.
+        continue;
+      }
+      final stop = _playing.remove(other);
+      if (stop == null) continue;
+      try {
+        await stop();
+      } catch (_) {
+        // An already-silent voice has nothing left to stop.
+      }
     }
   }
 }

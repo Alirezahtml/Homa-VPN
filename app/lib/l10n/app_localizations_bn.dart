@@ -2619,32 +2619,18 @@ class AppLocalizationsBn extends AppLocalizations {
   String get avatarPhotoFailed => 'এই ছবিটি ব্যবহার করা যায়নি';
 
   @override
-  String get designAurora => 'অরোরা';
+  String get designAether => 'ইথার';
 
   @override
-  String get designAuroraDesc =>
-      'কাচের কার্ড: জায়গা আর পাওয়ার বোতাম আরোরার আলোর ওপর';
+  String get designAetherDesc =>
+      'iOS স্ট্যাটাস কার্ড: অবস্থার শব্দ ও সেশনের সময় উঁচু কার্ডে, উজ্জ্বল পাওয়ার বোতামসহ';
 
   @override
-  String get designNeon => 'নিয়ন';
+  String get designZed => 'জেড';
 
   @override
-  String get designNeonDesc =>
-      'একটি বলয় যা অবস্থা দেখায়: বন্ধে অস্পষ্ট, সংযোগে ঘূর্ণায়মান, যুক্ত হলে পূর্ণ আলোর বৃত্ত';
-
-  @override
-  String get designDusk => 'গোধূলি';
-
-  @override
-  String get designDuskDesc =>
-      'সূর্যাস্তের গ্র্যাডিয়েন্টে একটি উষ্ণ ব্যানার; তার ওপর অবস্থা আর পাওয়ার বোতাম';
-
-  @override
-  String get designSage => 'সেজ';
-
-  @override
-  String get designSageDesc =>
-      'শান্ত খাতা: জায়গার সারি, তার ওপর লম্বা বোতাম যা যুক্ত হলে সবুজে ভরে যায়';
+  String get designZedDesc =>
+      'গ্রেডিয়েন্ট বল: বেগুনি, গোলাপি ও লাইম রঙে নিঃশ্বাস নেওয়া বৃত্ত যা সেশনের সময় বহন করে';
 
   @override
   String get tlsFragmentAuto => 'স্বয়ংক্রিয়';
@@ -2675,4 +2661,12 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       '«নতুন কী» পাতা আবার তার কথা দেখায় — খালি খুলত';
+
+  @override
+  String get wn46Designs =>
+      'রেফারেন্স ডিজাইন থেকে দুটি নতুন লুক: ইথারের iOS স্ট্যাটাস কার্ড ও জেডের গ্রেডিয়েন্ট বল — প্রতিটি পুরো অ্যাপকে মুড়ে দেয়, আগের চারটি লুক চলে গেছে।';
+
+  @override
+  String get wn46Sounds =>
+      'শব্দগুলি একটি পেশাদার সেট পেল: সংযোগ শুরুর ঢেউ, চালু হলে সুর, বিচ্ছিন্ন হলে অবরোহী সুর এবং বন্ধ পথের মৃদু সুর — একবারে এক কণ্ঠ।';
 }

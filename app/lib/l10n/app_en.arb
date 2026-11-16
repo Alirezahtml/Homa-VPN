@@ -1363,14 +1363,10 @@
   "wn42Gaming": "The gaming profile is real now: the servers page measures the delays fresh every half minute and lifts the measured fastest with the accent.",
   "avatarPhoto": "Your photo",
   "avatarPhotoFailed": "That picture could not be used",
-  "designAurora": "Aurora",
-  "designAuroraDesc": "A glass hero card: the place and the orb on a teal wash",
-  "designNeon": "Neon",
-  "designNeonDesc": "A ring that shows the state: dim while off, a sweep while connecting, a full circle when up",
-  "designDusk": "Dusk",
-  "designDuskDesc": "A warm banner in the sunset's own gradient, the state's word and the power on it",
-  "designSage": "Sage",
-  "designSageDesc": "A quiet ledger: the place's row above a tall pill that fills with green",
+  "designAether": "Aether",
+  "designAetherDesc": "An iOS status card: the state's word and the session's time on a raised card, over a power button that glows",
+  "designZed": "Zed",
+  "designZedDesc": "A gradient blob: a breathing orb in violet, pink and lime that carries the session's time",
   "tlsFragmentAuto": "Auto",
   "tlsFragmentAutoHint": "The whole hello first; a network that keeps cutting TLS gets the name cut on its own, for half an hour",
   "accentDesign": "The design's own light",
@@ -1378,5 +1374,7 @@
   "wn45HelloAuto": "The TLS fragment learned: a network that keeps killing the handshake gets the name cut on its own, and the tunnel gets through",
   "wn45RelayRace": "Relay recovery now races three edges at once, so a filtered network finds its way back sooner",
   "wn45AccentFixed": "The accent picker lights the app again — its color had stopped reaching the pages",
-  "wn45WhatsNewFixed": "The What's new page shows its words again — it had opened empty"
+  "wn45WhatsNewFixed": "The What's new page shows its words again — it had opened empty",
+  "wn46Designs": "Two new looks from the reference designs: the aether's iOS status card and the zed's gradient blob — each dresses the whole app, every page, and the four earlier looks left.",
+  "wn46Sounds": "The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time."
 }

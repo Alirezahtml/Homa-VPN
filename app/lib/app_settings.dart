@@ -115,9 +115,11 @@ class AppSettings extends ChangeNotifier {
   int customAccent = 0xFF60A5FA;
 
   /// The home page's design: 'wheel' (the flags in their wheel), 'bento'
-  /// (the tiles), 'pixel' (the compact card), or one of the four looks
-  /// that carry a palette of their own — 'aurora', 'neon', 'dusk',
-  /// 'sage'. Whatever else lands in the file reads as the wheel.
+  /// (the tiles), 'pixel' (the compact card), or one of the two reference
+  /// looks that carry a palette of their own — 'aether' (the AetherST
+  /// client's iOS look) and 'zed' (the ZedSecure client's gradient
+  /// look). Whatever else lands in the file — the four looks that left
+  /// among them — reads as the wheel.
   String homeDesign = 'wheel';
 
   /// The countries the user pinned in the flag wheel: they lead the wheel
@@ -479,10 +481,11 @@ class AppSettings extends ChangeNotifier {
       this.homeDesign = switch (homeDesign) {
         'bento' => 'bento',
         'pixel' => 'pixel',
-        'aurora' => 'aurora',
-        'neon' => 'neon',
-        'dusk' => 'dusk',
-        'sage' => 'sage',
+        'aether' => 'aether',
+        'zed' => 'zed',
+        // The four looks that left (the aurora, the neon, the dusk, the
+        // sage) land on the wheel: the app's own home, until the user
+        // picks one of the looks that stand.
         _ => 'wheel',
       };
     }

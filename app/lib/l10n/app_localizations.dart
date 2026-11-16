@@ -4653,53 +4653,29 @@ abstract class AppLocalizations {
   /// **'That picture could not be used'**
   String get avatarPhotoFailed;
 
-  /// No description provided for @designAurora.
+  /// No description provided for @designAether.
   ///
   /// In en, this message translates to:
-  /// **'Aurora'**
-  String get designAurora;
+  /// **'Aether'**
+  String get designAether;
 
-  /// No description provided for @designAuroraDesc.
+  /// No description provided for @designAetherDesc.
   ///
   /// In en, this message translates to:
-  /// **'A glass hero card: the place and the orb on a teal wash'**
-  String get designAuroraDesc;
+  /// **'An iOS status card: the state\'s word and the session\'s time on a raised card, over a power button that glows'**
+  String get designAetherDesc;
 
-  /// No description provided for @designNeon.
+  /// No description provided for @designZed.
   ///
   /// In en, this message translates to:
-  /// **'Neon'**
-  String get designNeon;
+  /// **'Zed'**
+  String get designZed;
 
-  /// No description provided for @designNeonDesc.
+  /// No description provided for @designZedDesc.
   ///
   /// In en, this message translates to:
-  /// **'A ring that shows the state: dim while off, a sweep while connecting, a full circle when up'**
-  String get designNeonDesc;
-
-  /// No description provided for @designDusk.
-  ///
-  /// In en, this message translates to:
-  /// **'Dusk'**
-  String get designDusk;
-
-  /// No description provided for @designDuskDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'A warm banner in the sunset\'s own gradient, the state\'s word and the power on it'**
-  String get designDuskDesc;
-
-  /// No description provided for @designSage.
-  ///
-  /// In en, this message translates to:
-  /// **'Sage'**
-  String get designSage;
-
-  /// No description provided for @designSageDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'A quiet ledger: the place\'s row above a tall pill that fills with green'**
-  String get designSageDesc;
+  /// **'A gradient blob: a breathing orb in violet, pink and lime that carries the session\'s time'**
+  String get designZedDesc;
 
   /// No description provided for @tlsFragmentAuto.
   ///
@@ -4748,6 +4724,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The What\'s new page shows its words again — it had opened empty'**
   String get wn45WhatsNewFixed;
+
+  /// No description provided for @wn46Designs.
+  ///
+  /// In en, this message translates to:
+  /// **'Two new looks from the reference designs: the aether\'s iOS status card and the zed\'s gradient blob — each dresses the whole app, every page, and the four earlier looks left.'**
+  String get wn46Designs;
+
+  /// No description provided for @wn46Sounds.
+  ///
+  /// In en, this message translates to:
+  /// **'The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.'**
+  String get wn46Sounds;
 }
 
 class _AppLocalizationsDelegate

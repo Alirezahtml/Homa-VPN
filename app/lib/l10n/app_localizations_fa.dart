@@ -2611,32 +2611,18 @@ class AppLocalizationsFa extends AppLocalizations {
   String get avatarPhotoFailed => 'این عکس قابل استفاده نبود';
 
   @override
-  String get designAurora => 'اورورا';
+  String get designAether => 'اثیر';
 
   @override
-  String get designAuroraDesc =>
-      'کارت شیشه‌ای برای پیوند: مکان و کلید قدرت روی نور فیروزه‌ای';
+  String get designAetherDesc =>
+      'کارت وضعیت iOS: واژه حالت و زمان نشست روی کارت برجسته، با دکمه قدرت درخشان';
 
   @override
-  String get designNeon => 'نئون';
+  String get designZed => 'زد';
 
   @override
-  String get designNeonDesc =>
-      'حلقه‌ای که وضعیت را نشان می‌دهد: خاموش کم‌نور، در حال وصل چرخان، و یک دایرهٔ کامل نور وقتی وصل شد';
-
-  @override
-  String get designDusk => 'غروب';
-
-  @override
-  String get designDuskDesc =>
-      'بنری گرم با گرادیان واپسین نور غروب؛ وضعیت اتصال و کلید قدرت روی آن';
-
-  @override
-  String get designSage => 'مریم‌گلی';
-
-  @override
-  String get designSageDesc =>
-      'دفترچه‌ای آرام: ردیفی برای مکان، و بالای آن کلید بلندی که سبز می‌شود وقتی وصل شد';
+  String get designZedDesc =>
+      'گوی گرادیانی: گویی نفس‌کش در بنفش، صورتی و لیمویی که زمان نشست را نشان می‌دهد';
 
   @override
   String get tlsFragmentAuto => 'خودکار';
@@ -2667,4 +2653,12 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'صفحهٔ «چه چیزی تازه» باز هم متنش را نشان می‌دهد — پیش‌تر خالی باز می‌شد';
+
+  @override
+  String get wn46Designs =>
+      'دو طرح جدید از طرح‌های مرجع: کارت وضعیت iOS اثیر و گوی گرادیانی زد — هر یک کل برنامه را می‌پوشاند و چهار طرح پیشین کنار رفتند.';
+
+  @override
+  String get wn46Sounds =>
+      'صداها یک مجموعه حرفه‌ای گرفتند: موج نرم برای آغاز اتصال، آکورد برای برقراری، آهنگ نزولی برای قطع و نتی خفه برای مسیر بسته — هر بار یک صدا.';
 }

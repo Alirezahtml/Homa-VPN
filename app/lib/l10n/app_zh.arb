@@ -776,14 +776,10 @@
   "wn42Gaming": "游戏模式现在是真的：服务器页面每半分钟重新测量延迟，并用强调色突出实测最快的服务器。",
   "avatarPhoto": "自定义头像",
   "avatarPhotoFailed": "无法使用该图片",
-  "designAurora": "极光",
-  "designAuroraDesc": "玻璃主卡：位置与电源键，落在极光的微光上",
-  "designNeon": "霓虹",
-  "designNeonDesc": "以圆环显示状态：关时暗淡，连接时回旋，接通后是完整的一圈亮环",
-  "designDusk": "暮色",
-  "designDuskDesc": "以落日渐变晕染的暖色横幅；上面是状态与电源键",
-  "designSage": "鼠尾草",
-  "designSageDesc": "安静的簿册：位置占一行，上方是一枚高键，接通后整键染绿",
+  "designAether": "以太",
+  "designAetherDesc": "iOS 状态卡：状态词与会话时长在浮起卡片上，电源键自发光",
+  "designZed": "Zed",
+  "designZedDesc": "渐变圆球：紫、粉与柠檬绿中呼吸的圆球，承载会话时长",
   "tlsFragmentAuto": "自动",
   "tlsFragmentAutoHint": "先发完整的 hello；若网络不断切断 TLS，会自动切分名称半小时",
   "accentDesign": "设计自带的配色",
@@ -791,5 +787,7 @@
   "wn45HelloAuto": "TLS 切分学会了：若网络反复扼杀握手，就自动切分名称，让隧道穿行过去",
   "wn45RelayRace": "中继恢复现在同时测试三个边缘，被过滤的网络能更快找回通路",
   "wn45AccentFixed": "颜色选择器重新点亮整个应用——此前所选颜色无法作用到各页面",
-  "wn45WhatsNewFixed": "「新变化」页面重新显示出文字——此前打开时是空白的"
+  "wn45WhatsNewFixed": "「新变化」页面重新显示出文字——此前打开时是空白的",
+  "wn46Designs": "两个来自参考设计的新外观：以太的 iOS 状态卡与 Zed 的渐变圆球 — 各自装扮整个应用的每个页面，此前的四个外观已离场。",
+  "wn46Sounds": "音效换上专业套组：连接开始时的涌动，接通时的和弦，断开时的下行旋律，以及通路被堵时的一声闷响 — 同一时刻只有一个声音。"
 }

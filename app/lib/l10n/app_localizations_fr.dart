@@ -2652,32 +2652,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get avatarPhotoFailed => 'Impossible d\'utiliser cette image';
 
   @override
-  String get designAurora => 'Aurore';
+  String get designAether => 'Éther';
 
   @override
-  String get designAuroraDesc =>
-      'Une carte de verre : le lieu et le bouton sur une lueur boréale';
+  String get designAetherDesc =>
+      'Carte d\'état iOS : le mot d\'état et la durée de session sur une carte surélevée, avec un bouton d\'alimentation lumineux';
 
   @override
-  String get designNeon => 'Néon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Un anneau qui montre l\'état : tamisé éteint, balayage à la connexion, cercle complet une fois connecté';
-
-  @override
-  String get designDusk => 'Crépuscule';
-
-  @override
-  String get designDuskDesc =>
-      'Une bannière chaleureuse au dégradé du soleil couchant ; l\'état et l\'alimentation dessus';
-
-  @override
-  String get designSage => 'Sauge';
-
-  @override
-  String get designSageDesc =>
-      'Un registre paisible : la rangée du lieu et, dessus, un bouton haut qui se remplit de vert';
+  String get designZedDesc =>
+      'Une bulle dégradée : un orbe respirant en violet, rose et lime qui porte la durée de la session';
 
   @override
   String get tlsFragmentAuto => 'Automatique';
@@ -2708,4 +2694,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'La page des nouveautés montre à nouveau ses mots — elle s\'ouvrait vide';
+
+  @override
+  String get wn46Designs =>
+      'Deux nouveaux looks issus des designs de référence : la carte d\'état iOS de l\'éther et la bulle dégradée du zed — chacun habille toute l\'app, et les quatre looks précédents sont partis.';
+
+  @override
+  String get wn46Sounds =>
+      'Les sons ont gagné un ensemble professionnel : une onde pour la connexion qui commence, un accord quand elle s\'établit, une descente quand elle se coupe et une note sourde pour la voie bloquée — une seule voix à la fois.';
 }

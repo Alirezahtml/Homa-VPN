@@ -2627,32 +2627,18 @@ class AppLocalizationsAz extends AppLocalizations {
   String get avatarPhotoFailed => 'Bu şəkil işlədilə bilmədi';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Efir';
 
   @override
-  String get designAuroraDesc =>
-      'Şüşə kart: məkan və işə salma düyməsi qütb işığı əks-sədası ilə';
+  String get designAetherDesc =>
+      'iOS status kartu: vəziyyət sözü və sessiya vaxtı qabarıq kartda, parlaq güc düyməsi ilə';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Vəziyyəti göstərən halqa: sönük ikən zəif, qoşularkən fırlanan, qoşulduqda tam işıq dairəsi';
-
-  @override
-  String get designDusk => 'Gün batımı';
-
-  @override
-  String get designDuskDesc =>
-      'Gün batımının son işığı ilə isti banner; üstündə vəziyyət və işə salma düyməsi';
-
-  @override
-  String get designSage => 'Adaçayı';
-
-  @override
-  String get designSageDesc =>
-      'Sakit dəftər: məkan üçün sətir, üstündə qoşulduqda yaşılı dolduran hündür düymə';
+  String get designZedDesc =>
+      'Qradient kürə: bənövşəyi, çəhrayı və limon rənglərində nəfəs alan kürə, sessiya vaxtını daşıyır';
 
   @override
   String get tlsFragmentAuto => 'Avtomatik';
@@ -2683,4 +2669,12 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       '«Yeniliklər» səhifəsi sözlərini yenidən göstərir — boş açılırdı';
+
+  @override
+  String get wn46Designs =>
+      'İstinad dizaynlarından iki yeni görünüş: efirin iOS status kartu və zedin qradient kürəsi — hər biri bütün tətbiqi geyindirir, əvvəlki dörd görünüş getdi.';
+
+  @override
+  String get wn46Sounds =>
+      'Səslər peşəkar dəstə aldı: bağlantının başlanğıcı üçün dalğa, qurulanda üçün akkord, kəsildikdə üçün düşən melodiya və bağlı yol üçün boğulmuş not — bir dəfəyə bir səs.';
 }

@@ -1,7 +1,7 @@
-// Renders the phone's home in each of its three designs (the wheel, the
-// tiles, the compact card), in both themes and both states, as golden
-// images — real pixels of the design, for a look that no assertion can
-// give. Refresh with:
+// Renders the phone's home in each of its five designs (the wheel, the
+// tiles, the compact card, the aether's status card, the zed's blob), in
+// both themes and both states, as golden images — real pixels of the
+// design, for a look that no assertion can give. Refresh with:
 //   flutter test --update-goldens test/design_goldens_test.dart
 //
 // Not for CI (its Flutter renders text a shade differently); a golden
@@ -186,51 +186,42 @@ void main() {
     await phone(tester, name: 'pixel_fa', design: 'pixel', language: 'fa');
   });
 
-  testWidgets('design aurora, dark, connected', (tester) async {
-    await phone(tester, name: 'aurora_dark', design: 'aurora');
+  testWidgets('design aether, dark, connected', (tester) async {
+    await phone(tester, name: 'aether_dark', design: 'aether');
   });
 
-  testWidgets('design aurora, light, disconnected', (tester) async {
+  testWidgets('design aether, light, disconnected', (tester) async {
     await phone(
       tester,
-      name: 'aurora_light_off',
-      design: 'aurora',
+      name: 'aether_light_off',
+      design: 'aether',
       theme: ThemeMode.light,
       connected: false,
     );
   });
 
-  testWidgets('design neon, dark, connected', (tester) async {
-    await phone(tester, name: 'neon_dark', design: 'neon');
-  });
-
-  testWidgets('design neon, Persian, disconnected', (tester) async {
+  testWidgets('design aether, light, connected', (tester) async {
     await phone(
       tester,
-      name: 'neon_fa_off',
-      design: 'neon',
-      language: 'fa',
-      connected: false,
+      name: 'aether_light',
+      design: 'aether',
+      theme: ThemeMode.light,
     );
   });
 
-  testWidgets('design dusk, dark, connected', (tester) async {
-    await phone(tester, name: 'dusk_dark', design: 'dusk');
+  testWidgets('design zed, dark, connected', (tester) async {
+    await phone(tester, name: 'zed_dark', design: 'zed');
   });
 
-  testWidgets('design dusk, light, connected', (tester) async {
-    await phone(tester, name: 'dusk_light', design: 'dusk', theme: ThemeMode.light);
+  testWidgets('design zed, light, connected', (tester) async {
+    await phone(tester, name: 'zed_light', design: 'zed', theme: ThemeMode.light);
   });
 
-  testWidgets('design sage, dark, connected', (tester) async {
-    await phone(tester, name: 'sage_dark', design: 'sage');
-  });
-
-  testWidgets('design sage, Persian, disconnected', (tester) async {
+  testWidgets('design zed, Persian, disconnected', (tester) async {
     await phone(
       tester,
-      name: 'sage_fa_off',
-      design: 'sage',
+      name: 'zed_fa_off',
+      design: 'zed',
       language: 'fa',
       connected: false,
     );

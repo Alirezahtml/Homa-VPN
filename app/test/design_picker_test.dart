@@ -12,9 +12,9 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The design picker: seven real designs, and the four new ones each
-  // carry a whole palette the whole app wears.
-  testWidgets('the design picker offers seven designs', (tester) async {
+  // The design picker: five real designs, and the two reference ones
+  // each carry a whole palette the whole app wears.
+  testWidgets('the design picker offers five designs', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 1500);
@@ -42,31 +42,29 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in [
-      'Aurora',
-      'Neon',
-      'Dusk',
-      'Sage',
-    ]) {
+    for (final name in ['Aether', 'Zed']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
       expect(card, findsOneWidget, reason: name);
     }
 
-    // A tap on the neon's card: the home design follows, and the whole
-    // app's look with it — the resolved design is the neon's palette.
-    final neon = find.text('Neon');
-    await tester.ensureVisible(neon);
+    // A tap on the zed's card: the home design follows, and the whole
+    // app's look with it — the resolved design is the zed's palette.
+    final zed = find.text('Zed');
+    await tester.ensureVisible(zed);
     await settle(tester);
-    await tester.tap(neon);
+    await tester.tap(zed);
     await settle(tester);
     // The choice went in, past the settings' own list of known designs.
-    expect(settings.homeDesign, 'neon');
-    expect(AppDesign.resolve(settings.homeDesign).key, 'neon');
-    expect(AppDesign.resolve('aurora').key, 'aurora');
-    expect(AppDesign.resolve('dusk').key, 'dusk');
-    expect(AppDesign.resolve('sage').key, 'sage');
+    expect(settings.homeDesign, 'zed');
+    expect(AppDesign.resolve(settings.homeDesign).key, 'zed');
+    expect(AppDesign.resolve('aether').key, 'aether');
+    // The four looks that left land on the monochrome again.
+    expect(AppDesign.resolve('aurora').key, 'mono');
+    expect(AppDesign.resolve('neon').key, 'mono');
+    expect(AppDesign.resolve('dusk').key, 'mono');
+    expect(AppDesign.resolve('sage').key, 'mono');
     // The three older homes keep the monochrome.
     expect(AppDesign.resolve('wheel').key, 'mono');
     expect(AppDesign.resolve('bento').key, 'mono');
@@ -77,10 +75,10 @@ void main() {
     expect(AppDesign.resolveFor(settings, true), isNotNull);
 
     // The design name the settings row reads back.
-    settings.update(homeDesign: 'sage');
+    settings.update(homeDesign: 'aether');
     await settle(tester);
     final l = AppLocalizations.of(tester.element(find.text('Language')));
-    expect(designName(l, settings), 'Sage');
+    expect(designName(l, settings), 'Aether');
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

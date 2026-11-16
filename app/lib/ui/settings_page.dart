@@ -4034,21 +4034,19 @@ int? _hexArgb(String text) {
 String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'bento' => l.designBento,
   'pixel' => l.designPixel,
-  'aurora' => l.designAurora,
-  'neon' => l.designNeon,
-  'dusk' => l.designDusk,
-  'sage' => l.designSage,
+  'aether' => l.designAether,
+  'zed' => l.designZed,
   _ => l.designWheel,
 };
 
-/// The home design picker: the seven real layouts the home page has —
-/// the wheel, the tiles, the compact card, and the four looks that carry
-/// a whole palette of their own (the aurora's glass, the neon's ring,
-/// the dusk's banner, the sage's ledger) — each as a card with a small
-/// mock-up of itself drawn in the theme's own ink, its name, and a word
-/// about what it is. A tap chooses; the home page follows at once (the
-/// app's root rebuilds on the settings), and with the four, the whole
-/// app's palette follows with it.
+/// The home design picker: the five real layouts the home page has —
+/// the wheel, the tiles, the compact card, and the two looks that carry
+/// a whole palette of their own (the aether's iOS status card, the
+/// zed's gradient blob) — each as a card with a small mock-up of itself
+/// drawn in the theme's own ink, its name, and a word about what it is.
+/// A tap chooses; the home page follows at once (the app's root rebuilds
+/// on the settings), and with the two, the whole app's palette follows
+/// with it.
 Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
   await showDialog<void>(
     context: context,
@@ -4058,7 +4056,7 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
         width: 460,
         child: ListenableBuilder(
           listenable: s,
-          // Seven designs now: seven cards do not always fit a phone's
+          // Five designs now: five cards do not always fit a phone's
           // dialog, so the column scrolls.
           builder: (context, _) => SingleChildScrollView(
             child: Column(
@@ -4068,17 +4066,15 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'wheel',
                   'bento',
                   'pixel',
-                  'aurora',
-                  'neon',
-                  'dusk',
-                  'sage',
+                  'aether',
+                  'zed',
                 ]) ...[
                   _DesignCard(
                     kind: kind,
                     selected: s.homeDesign == kind,
                     onTap: () => s.update(homeDesign: kind),
                   ),
-                  if (kind != 'sage') const SizedBox(height: 10),
+                  if (kind != 'zed') const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -4117,10 +4113,8 @@ class _DesignCard extends StatelessWidget {
     final (name, desc) = switch (kind) {
       'bento' => (l.designBento, l.designBentoDesc),
       'pixel' => (l.designPixel, l.designPixelDesc),
-      'aurora' => (l.designAurora, l.designAuroraDesc),
-      'neon' => (l.designNeon, l.designNeonDesc),
-      'dusk' => (l.designDusk, l.designDuskDesc),
-      'sage' => (l.designSage, l.designSageDesc),
+      'aether' => (l.designAether, l.designAetherDesc),
+      'zed' => (l.designZed, l.designZedDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4266,128 +4260,83 @@ class _DesignMockup extends StatelessWidget {
             ),
           ],
         );
-      case 'aurora':
+      case 'aether':
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: 76,
-              height: 62,
+              height: 44,
+              padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    scheme.outlineVariant.withValues(alpha: 0.4),
-                    lit.withValues(alpha: 0.4),
-                  ],
-                ),
-                border: Border.all(color: lit.withValues(alpha: 0.7)),
+                borderRadius: BorderRadius.circular(10),
+                color: scheme.surface,
+                border: Border.all(color: scheme.outlineVariant, width: 0.5),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  tile(w: 34, h: 7),
-                  const SizedBox(height: 6),
-                  Container(
-                    width: 26,
-                    height: 26,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: lit,
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: lit,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      tile(w: 22, h: 5),
+                    ],
                   ),
+                  const Spacer(),
+                  tile(w: 30, h: 9, color: ink.withValues(alpha: 0.6)),
                 ],
               ),
             ),
+            const SizedBox(height: 6),
+            Container(
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                color: lit,
+              ),
+              child: const Center(child: SizedBox.shrink()),
+            ),
           ],
         );
-      case 'neon':
+      case 'zed':
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 54,
-              height: 54,
+              width: 48,
+              height: 48,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: lit, width: 2),
+                gradient: SweepGradient(
+                  startAngle: 0.6,
+                  endAngle: 0.6 + 2 * math.pi,
+                  colors: [
+                    scheme.primary,
+                    lit.withValues(alpha: 0.75),
+                    lit,
+                  ],
+                  tileMode: TileMode.repeated,
+                ),
               ),
               child: Center(
                 child: Icon(
                   Icons.power_settings_new_rounded,
-                  size: 20,
-                  color: lit,
+                  size: 18,
+                  color: Colors.white,
                 ),
               ),
             ),
             const SizedBox(height: 7),
             tile(w: 40, h: 7),
-          ],
-        );
-      case 'dusk':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 76,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  colors: [
-                    lit.withValues(alpha: 0.5),
-                    lit,
-                  ],
-                ),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 6),
-                  Container(
-                    width: 16,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: scheme.surface,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  tile(w: 26, h: 6, color: scheme.surface.withValues(alpha: 0.9), r: 3),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                tile(w: 16, h: 12),
-                const SizedBox(width: 4),
-                tile(w: 16, h: 12, color: lit.withValues(alpha: 0.5)),
-                const SizedBox(width: 4),
-                tile(w: 16, h: 12),
-              ],
-            ),
-          ],
-        );
-      case 'sage':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            tile(w: 76, h: 16),
-            const SizedBox(height: 6),
-            Container(
-              width: 76,
-              height: 34,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: lit,
-              ),
-              child: Center(
-                child: tile(w: 34, h: 7, color: scheme.surface.withValues(alpha: 0.9), r: 3),
-              ),
-            ),
           ],
         );
       default: // The wheel.

@@ -2625,32 +2625,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get avatarPhotoFailed => 'Không thể dùng ảnh đó';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Aether';
 
   @override
-  String get designAuroraDesc =>
-      'Thẻ thủy tinh: vị trí và nút nguồn trên vầng sáng cực quang';
+  String get designAetherDesc =>
+      'Thẻ trạng thái kiểu iOS: từ trạng thái và thời gian phiên trên thẻ nổi, kèm nút nguồn phát sáng';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Vòng tròn hiển thị trạng thái: mờ khi tắt, xoay khi đang kết nối, vòng tròn sáng khi đã kết nối';
-
-  @override
-  String get designDusk => 'Hoàng hôn';
-
-  @override
-  String get designDuskDesc =>
-      'Dải băng ấm với màu chuyển của hoàng hôn; trạng thái và nút nguồn trên đó';
-
-  @override
-  String get designSage => 'Xô thơm';
-
-  @override
-  String get designSageDesc =>
-      'Sổ ghi chép tĩnh lặng: hàng vị trí, phía trên là nút cao tô đầy màu xanh khi kết nối';
+  String get designZedDesc =>
+      'Quả cầu chuyển sắc: quả cầu thở trong tím, hồng và chanh mang theo thời gian phiên';
 
   @override
   String get tlsFragmentAuto => 'Tự động';
@@ -2681,4 +2667,12 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'Trang «Có gì mới» lại hiển thị lời của nó — trước đây mở ra trống trơn';
+
+  @override
+  String get wn46Designs =>
+      'Hai diện mạo mới từ thiết kế tham chiếu: thẻ trạng thái iOS của aether và quả cầu chuyển sắc của zed — mỗi cái khoác lên toàn bộ ứng dụng, và bốn diện mạo cũ đã ra đi.';
+
+  @override
+  String get wn46Sounds =>
+      'Âm thanh có bộ chuyên nghiệp: sóng mềm cho kết nối bắt đầu, hợp âm khi thông suốt, giai điệu đi xuống khi ngắt và nốt trầm cho lối bị chặn — mỗi lúc một tiếng.';
 }

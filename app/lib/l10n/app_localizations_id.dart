@@ -2629,32 +2629,18 @@ class AppLocalizationsId extends AppLocalizations {
   String get avatarPhotoFailed => 'Gambar itu tidak dapat dipakai';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Aether';
 
   @override
-  String get designAuroraDesc =>
-      'Kartu kaca: lokasi dan tombol daya di atas cahaya aurora';
+  String get designAetherDesc =>
+      'Kartu status iOS: kata status dan waktu sesi pada kartu timbul, dengan tombol daya yang menyala';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Cincin yang menunjukkan status: redup saat mati, menyapu saat menyambung, lingkaran penuh saat tersambung';
-
-  @override
-  String get designDusk => 'Senja';
-
-  @override
-  String get designDuskDesc =>
-      'Banner hangat dengan gradien matahari terbenam; status dan tombol daya di atasnya';
-
-  @override
-  String get designSage => 'Sage';
-
-  @override
-  String get designSageDesc =>
-      'Buku tenang: baris lokasi, dan di atasnya tombol tinggi yang terisi hijau saat tersambung';
+  String get designZedDesc =>
+      'Bola gradien: orb bernapas dalam ungu, merah muda, dan limau yang membawa waktu sesi';
 
   @override
   String get tlsFragmentAuto => 'Otomatis';
@@ -2685,4 +2671,12 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'Halaman «Yang baru» kembali menampilkan kata-katanya — dulu terbuka kosong';
+
+  @override
+  String get wn46Designs =>
+      'Dua tampilan baru dari desain referensi: kartu status iOS milik aether dan bola gradien milik zed — masing-masing mengenakan seluruh aplikasi, dan empat tampilan sebelumnya pergi.';
+
+  @override
+  String get wn46Sounds =>
+      'Suara mendapat set profesional: gelombang untuk koneksi yang mulai, akor saat tersambung, melodi menurun saat terputus, dan nada redup untuk jalan yang terhalang — satu suara pada satu waktu.';
 }

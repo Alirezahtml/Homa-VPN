@@ -2647,32 +2647,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get avatarPhotoFailed => 'No se pudo usar esa imagen';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Éter';
 
   @override
-  String get designAuroraDesc =>
-      'Una tarjeta de cristal: el lugar y el botón sobre un fulgor de aurora';
+  String get designAetherDesc =>
+      'Tarjeta de estado iOS: la palabra de estado y el tiempo de sesión en una tarjeta elevada, con un botón de encendido que brilla';
 
   @override
-  String get designNeon => 'Neón';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Un anillo que muestra el estado: tenue apagado, girando al conectar, círculo completo al conectar';
-
-  @override
-  String get designDusk => 'Crepúsculo';
-
-  @override
-  String get designDuskDesc =>
-      'Un banner cálido con el degradado del atardecer; el estado y el botón encima';
-
-  @override
-  String get designSage => 'Salvia';
-
-  @override
-  String get designSageDesc =>
-      'Un libro sereno: la fila del lugar y, encima, un botón alto que se llena de verde al conectar';
+  String get designZedDesc =>
+      'Una burbuja degradada: un orbe que respira en violeta, rosa y lima y lleva el tiempo de la sesión';
 
   @override
   String get tlsFragmentAuto => 'Automático';
@@ -2703,4 +2689,12 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'La página de novedades vuelve a mostrar sus palabras — se abría vacía';
+
+  @override
+  String get wn46Designs =>
+      'Dos nuevos estilos de los diseños de referencia: la tarjeta de estado iOS del éter y la burbuja degradada del zed — cada uno viste toda la app, y los cuatro estilos anteriores se fueron.';
+
+  @override
+  String get wn46Sounds =>
+      'Los sonidos estrenaron un conjunto profesional: una onda para la conexión que empieza, un acorde cuando se establece, uno descendente al cortarse y una nota sorda para el camino bloqueado — una voz a la vez.';
 }

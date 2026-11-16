@@ -2635,32 +2635,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get avatarPhotoFailed => 'Não foi possível usar essa imagem';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Éter';
 
   @override
-  String get designAuroraDesc =>
-      'Um cartão de vidro: o lugar e o botão sobre um fulgor de aurora';
+  String get designAetherDesc =>
+      'Cartão de status iOS: a palavra de estado e o tempo da sessão num cartão elevado, com um botão de energia brilhante';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Um anel que mostra o estado: apagado desligado, girando ao conectar, círculo completo ao conectar';
-
-  @override
-  String get designDusk => 'Crepúsculo';
-
-  @override
-  String get designDuskDesc =>
-      'Uma faixa calorosa com o degradado do pôr do sol; o estado e o botão nela';
-
-  @override
-  String get designSage => 'Sálvia';
-
-  @override
-  String get designSageDesc =>
-      'Um registro tranquilo: a linha do lugar e, acima, um botão alto que se enche de verde';
+  String get designZedDesc =>
+      'Uma esfera degradada: um orbe que respira em violeta, rosa e lima e carrega o tempo da sessão';
 
   @override
   String get tlsFragmentAuto => 'Automático';
@@ -2691,4 +2677,12 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'A página das novidades volta a mostrar as suas palavras — abria-se vazia';
+
+  @override
+  String get wn46Designs =>
+      'Dois novos estilos dos designs de referência: o cartão de status iOS do éter e a esfera degradada do zed — cada um veste todo o app, e os quatro estilos anteriores partiram.';
+
+  @override
+  String get wn46Sounds =>
+      'Os sons ganharam um conjunto profissional: uma onda para a conexão que começa, um acorde quando se estabelece, uma descida ao cair e uma nota abafada para o caminho bloqueado — uma voz de cada vez.';
 }

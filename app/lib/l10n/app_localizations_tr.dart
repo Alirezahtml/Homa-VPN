@@ -2625,32 +2625,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get avatarPhotoFailed => 'Bu fotoğraf kullanılamadı';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Eter';
 
   @override
-  String get designAuroraDesc =>
-      'Cam bir kart: konum ve güç düğmesi, kutup ışığı parıltısıyla';
+  String get designAetherDesc =>
+      'iOS durum kartı: durum sözcüğü ve oturum süresi yükseltilmiş kartta, parlayan güç düğmesiyle';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'Durumu gösteren bir halka: kapalıyken sönük, bağlanırken dönen, bağlandığında tam bir ışık çemberi';
-
-  @override
-  String get designDusk => 'Gün batımı';
-
-  @override
-  String get designDuskDesc =>
-      'Gün batımının son ışığının renk geçişli sıcak bir pankart; üstünde durum ve güç düğmesi';
-
-  @override
-  String get designSage => 'Adaçayı';
-
-  @override
-  String get designSageDesc =>
-      'Sakin bir defter: konum için bir satır, üstünde bağlanınca yeşile dönen uzun bir düğme';
+  String get designZedDesc =>
+      'Gradyan küre: mor, pembe ve limonda nefes alan bir küre, oturum süresini taşır';
 
   @override
   String get tlsFragmentAuto => 'Otomatik';
@@ -2681,4 +2667,12 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       '«Yenilikler» sayfası sözlerini yeniden gösteriyor — boş açılıyordu';
+
+  @override
+  String get wn46Designs =>
+      'Referans tasarımlardan iki yeni görünüm: etherin iOS durum kartı ve zedin gradyan küresi — her biri uygulamanın tamamını giydirir, önceki dört görünüm gitti.';
+
+  @override
+  String get wn46Sounds =>
+      'Sesler profesyonel bir set kazandı: başlayan bağlantı için dalga, kurulduğunda akor, kesildiğinde iniş melodisi ve kapalı yol için boğuk bir nota — bir seferde tek ses.';
 }

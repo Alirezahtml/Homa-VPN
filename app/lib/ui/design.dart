@@ -6,11 +6,18 @@ import 'accent.dart';
 /// The looks the whole app wears, one behind each home design.
 ///
 /// A design is not only the home page's layout (that is the home design:
-/// the wheel, the tiles, the compact card, and the four that joined them).
-/// Each of the four new designs carries a complete palette of its own: the
-/// surfaces, the inks, the outlines of both modes, and a light of its own —
-/// the same palette every page reads, from the home to the dialogs to the
-/// pill navigation. The three older homes keep the monochrome.
+/// the wheel, the tiles, the compact card, and the two that joined them).
+/// Each of the two reference designs carries a complete palette of its
+/// own: the surfaces, the inks, the outlines of both modes, and a light
+/// of its own — the same palette every page reads, from the home to the
+/// dialogs to the pill navigation. The three older homes keep the
+/// monochrome.
+///
+/// The palettes were drawn from the two reference designs the picker
+/// carries: the aether, tuned on the AetherST client's iOS group tables
+/// (the raised cards, the sunken page, the system blue), and the zed,
+/// tuned on the ZedSecure client's expressive bento (the violet night,
+/// the pink and lime lights, the very round cards).
 ///
 /// The palette reaches the theme in [App]'s builder through [resolveFor],
 /// the one place the design and the accent are decided together, so they
@@ -21,18 +28,19 @@ abstract final class AppDesign {
   static DesignTheme current = DesignTheme.mono;
 
   /// The design a home design key asks for; the three older homes — and
-  /// any key that is not one of the four — keep the monochrome.
+  /// any key that is not one of the two — keep the monochrome. The four
+  /// looks that left (the aurora, the neon, the dusk, the sage) land
+  /// here too: the monochrome, until the user picks one of the looks
+  /// that stand.
   static DesignTheme resolve(String key) => switch (key) {
-    'aurora' => DesignTheme.aurora,
-    'neon' => DesignTheme.neon,
-    'dusk' => DesignTheme.dusk,
-    'sage' => DesignTheme.sage,
+    'aether' => DesignTheme.aether,
+    'zed' => DesignTheme.zed,
     _ => DesignTheme.mono,
   };
 
   /// Sets [current] from the home design the settings carry, and returns
   /// the light the app wears: the user's own accent when they picked one,
-  /// else the design's own light — the four designs each carry one. The
+  /// else the design's own light — the two designs each carry one. The
   /// monochrome keeps the full contrast when no accent is picked.
   static Color? resolveFor(AppSettings settings, bool dark) {
     current = resolve(settings.homeDesign);
@@ -98,158 +106,83 @@ class DesignTheme {
     ),
   );
 
-  /// The aurora glass: the northern lights' palette — the deep blue of
-  /// the polar night, the icy porcelain of the day, and the teal light
-  /// the sky carries. The home's hero wears the light as a wash.
-  static const aurora = DesignTheme._(
-    key: 'aurora',
+  /// The aether: the iOS-tuned look AetherST wears — the grouped tables
+  /// of the system settings, the raised card on the sunken page, and the
+  /// system blue for the light. The day is the grouped porcelain; the
+  /// night is the true black under the raised gray cards.
+  static const aether = DesignTheme._(
+    key: 'aether',
     day: DesignLook(
-      scaffold: Color(0xFFF1F6FA),
-      scaffoldBottom: Color(0xFFE9F0F6),
+      scaffold: Color(0xFFF2F3F7),
+      scaffoldBottom: Color(0xFFEAECF1),
       surface: Colors.white,
-      surfaceHigh: Color(0xFFF5F9FC),
-      containerHighest: Color(0xFFEEF4F9),
-      ink: Color(0xFF10202F),
-      muted: Color(0xFF5C7288),
-      outline: Color(0xFFD8E4EE),
-      accent: Color(0xFF0D9488),
+      surfaceHigh: Color(0xFFF7F8FA),
+      containerHighest: Color(0xFFECECF1),
+      ink: Color(0xFF1A1A1F),
+      muted: Color(0xFF5A5A63),
+      outline: Color(0xFFDCDCE2),
+      accent: Color(0xFF0A6CFF),
       cardShadow: [],
-      homeTop: Color(0xFFF4F8FB),
-      homeBottom: Color(0xFFE9F0F6),
+      homeTop: Color(0xFFF4F5F9),
+      homeBottom: Color(0xFFEAECF1),
       homeCard: Color(0xFFFFFFFF),
-      homeCardBorder: Color(0xFFDCE7F0),
+      homeCardBorder: Color(0xFFDCDCE2),
     ),
     night: DesignLook(
-      scaffold: Color(0xFF070D16),
-      scaffoldBottom: Color(0xFF050A11),
-      surface: Color(0xFF0C1522),
-      surfaceHigh: Color(0xFF101B2C),
-      containerHighest: Color(0xFF0E1826),
-      ink: Color(0xFFE8F0FA),
-      muted: Color(0xFF8FA3BC),
-      outline: Color(0xFF1D2C42),
-      accent: Color(0xFF2DD4BF),
+      scaffold: Color(0xFF0A0A0D),
+      scaffoldBottom: Color(0xFF050507),
+      surface: Color(0xFF1C1C1E),
+      surfaceHigh: Color(0xFF232326),
+      containerHighest: Color(0xFF2C2C2E),
+      ink: Color(0xFFECECF1),
+      muted: Color(0xFF8E8E93),
+      outline: Color(0xFF38383D),
+      accent: Color(0xFF0A84FF),
       cardShadow: [],
-      homeTop: Color(0xFF060C14),
-      homeBottom: Color(0xFF040910),
-      homeCard: Color(0xFF0D1725),
-      homeCardBorder: Color(0xFF1C2B40),
+      homeTop: Color(0xFF0A0A0D),
+      homeBottom: Color(0xFF050507),
+      homeCard: Color(0xFF1C1C1E),
+      homeCardBorder: Color(0xFF2C2C2E),
     ),
   );
 
-  /// The neon night: the near-black with a violet cast, the lilac ink of
-  /// the day, and the fuchsia light — a look that reads like the city
-  /// after dark.
-  static const neon = DesignTheme._(
-    key: 'neon',
+  /// The zed: the expressive bento ZedSecure wears — the violet night
+  /// with the pink and lime lights, the very round cards. The day is the
+  /// pale violet porcelain; the night is the deep violet-black the
+  /// brand's gradient lights up.
+  static const zed = DesignTheme._(
+    key: 'zed',
     day: DesignLook(
-      scaffold: Color(0xFFFBF7FE),
-      scaffoldBottom: Color(0xFFF5EEFB),
+      scaffold: Color(0xFFF5F3FA),
+      scaffoldBottom: Color(0xFFEEEBF6),
       surface: Colors.white,
-      surfaceHigh: Color(0xFFF7F1FC),
-      containerHighest: Color(0xFFF3EBFA),
-      ink: Color(0xFF1D1026),
-      muted: Color(0xFF6E5B85),
-      outline: Color(0xFFE8DDF2),
-      accent: Color(0xFFC026D3),
+      surfaceHigh: Color(0xFFF8F6FC),
+      containerHighest: Color(0xFFF1EDF9),
+      ink: Color(0xFF1D1533),
+      muted: Color(0xFF6E6488),
+      outline: Color(0xFFE2DBF0),
+      accent: Color(0xFF5646D6),
       cardShadow: [],
-      homeTop: Color(0xFFFCF8FE),
-      homeBottom: Color(0xFFF5EEFB),
+      homeTop: Color(0xFFF7F5FB),
+      homeBottom: Color(0xFFEEEBF6),
       homeCard: Color(0xFFFFFFFF),
-      homeCardBorder: Color(0xFFEBDFF4),
+      homeCardBorder: Color(0xFFE2DBF0),
     ),
     night: DesignLook(
-      scaffold: Color(0xFF0B060F),
-      scaffoldBottom: Color(0xFF080410),
-      surface: Color(0xFF140B1E),
-      surfaceHigh: Color(0xFF1B0F28),
-      containerHighest: Color(0xFF170C22),
-      ink: Color(0xFFF4EAFB),
-      muted: Color(0xFFA58FC0),
-      outline: Color(0xFF2A1838),
-      accent: Color(0xFFE879F9),
+      scaffold: Color(0xFF0C0817),
+      scaffoldBottom: Color(0xFF080510),
+      surface: Color(0xFF17102A),
+      surfaceHigh: Color(0xFF1E1535),
+      containerHighest: Color(0xFF191129),
+      ink: Color(0xFFEFE9FB),
+      muted: Color(0xFFA99BC8),
+      outline: Color(0xFF2B2044),
+      accent: Color(0xFF7A5CFF),
       cardShadow: [],
-      homeTop: Color(0xFF0A0510),
-      homeBottom: Color(0xFF070310),
-      homeCard: Color(0xFF130A1C),
-      homeCardBorder: Color(0xFF251434),
-    ),
-  );
-
-  /// The sunset dusk: the warm charcoal of the hour after sunset, the
-  /// cream of the day, and the amber light — the palette of the horizon
-  /// when the sun has just gone.
-  static const dusk = DesignTheme._(
-    key: 'dusk',
-    day: DesignLook(
-      scaffold: Color(0xFFFAF5EF),
-      scaffoldBottom: Color(0xFFF3EBE1),
-      surface: Colors.white,
-      surfaceHigh: Color(0xFFF8F2EA),
-      containerHighest: Color(0xFFF5EDE3),
-      ink: Color(0xFF2A1B0E),
-      muted: Color(0xFF7A6753),
-      outline: Color(0xFFEAE0D2),
-      accent: Color(0xFFD97706),
-      cardShadow: [],
-      homeTop: Color(0xFFFBF7F1),
-      homeBottom: Color(0xFFF3EBE1),
-      homeCard: Color(0xFFFFFDFB),
-      homeCardBorder: Color(0xFFEDE3D6),
-    ),
-    night: DesignLook(
-      scaffold: Color(0xFF0D0A08),
-      scaffoldBottom: Color(0xFF0A0705),
-      surface: Color(0xFF181210),
-      surfaceHigh: Color(0xFF201713),
-      containerHighest: Color(0xFF1B1410),
-      ink: Color(0xFFF6EDE4),
-      muted: Color(0xFFB3A190),
-      outline: Color(0xFF2E221A),
-      accent: Color(0xFFFBBF24),
-      cardShadow: [],
-      homeTop: Color(0xFF0C0907),
-      homeBottom: Color(0xFF090604),
-      homeCard: Color(0xFF171009),
-      homeCardBorder: Color(0xFF2B2015),
-    ),
-  );
-
-  /// The botanic sage: the deep green of a forest at night, the morning
-  /// garden of the day, and the leaf light — the calmest of the four.
-  static const sage = DesignTheme._(
-    key: 'sage',
-    day: DesignLook(
-      scaffold: Color(0xFFF3F9F4),
-      scaffoldBottom: Color(0xFFE9F2EB),
-      surface: Colors.white,
-      surfaceHigh: Color(0xFFF2F8F3),
-      containerHighest: Color(0xFFEDF5EF),
-      ink: Color(0xFF122418),
-      muted: Color(0xFF5E7A66),
-      outline: Color(0xFFD9E8DD),
-      accent: Color(0xFF16A34A),
-      cardShadow: [],
-      homeTop: Color(0xFFF5FAF6),
-      homeBottom: Color(0xFFE9F2EB),
-      homeCard: Color(0xFFFFFFFF),
-      homeCardBorder: Color(0xFFDFECE2),
-    ),
-    night: DesignLook(
-      scaffold: Color(0xFF081009),
-      scaffoldBottom: Color(0xFF060C07),
-      surface: Color(0xFF0E1911),
-      surfaceHigh: Color(0xFF14231A),
-      containerHighest: Color(0xFF101F14),
-      ink: Color(0xFFE6F2E9),
-      muted: Color(0xFF95AFA0),
-      outline: Color(0xFF1D3024),
-      accent: Color(0xFF4ADE80),
-      cardShadow: [],
-      homeTop: Color(0xFF07110B),
-      homeBottom: Color(0xFF050A06),
-      homeCard: Color(0xFF0D1810),
-      homeCardBorder: Color(0xFF1C2E22),
+      homeTop: Color(0xFF0C0817),
+      homeBottom: Color(0xFF070410),
+      homeCard: Color(0xFF150E24),
+      homeCardBorder: Color(0xFF271C3D),
     ),
   );
 

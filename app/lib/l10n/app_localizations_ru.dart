@@ -2641,32 +2641,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get avatarPhotoFailed => 'Это изображение не удалось использовать';
 
   @override
-  String get designAurora => 'Огни';
+  String get designAether => 'Эфир';
 
   @override
-  String get designAuroraDesc =>
-      'Стеклянная карта: место и кнопка питания в свете северного сияния';
+  String get designAetherDesc =>
+      'Карточка статуса в стиле iOS: слово состояния и время сессии на приподнятой карточке, со светящейся кнопкой питания';
 
   @override
-  String get designNeon => 'Неон';
+  String get designZed => 'Зед';
 
   @override
-  String get designNeonDesc =>
-      'Кольцо, показывающее состояние: приглушено вне сети, кружит при подключении, полный круг света когда сеть поднята';
-
-  @override
-  String get designDusk => 'Закат';
-
-  @override
-  String get designDuskDesc =>
-      'Тёплый баннер в градиенте заката; на нём состояние и кнопка питания';
-
-  @override
-  String get designSage => 'Шалфей';
-
-  @override
-  String get designSageDesc =>
-      'Тихая книга учёта: строка места, а над ней высокая кнопка, заполняющаяся зелёным при подключении';
+  String get designZedDesc =>
+      'Градиентная сфера: дышащий шар в фиолетовом, розовом и лаймовом, несёт время сессии';
 
   @override
   String get tlsFragmentAuto => 'Авто';
@@ -2697,4 +2683,12 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'Страница «Что нового» вновь показывает свои слова — она открывалась пустой';
+
+  @override
+  String get wn46Designs =>
+      'Два новых облика из эталонных дизайнов: карточка статуса iOS у эфира и градиентная сфера у зеда — каждый одевает всё приложение целиком, а четыре прежних облика ушли.';
+
+  @override
+  String get wn46Sounds =>
+      'У звуков появился профессиональный набор: волна для начинающегося подключения, аккорд когда туннель встал, нисходящая мелодия когда он лёг и глухая нота для закрытого пути — один голос за раз.';
 }

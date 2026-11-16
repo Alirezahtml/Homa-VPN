@@ -2631,32 +2631,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get avatarPhotoFailed => 'تعذّر استخدام هذه الصورة';
 
   @override
-  String get designAurora => 'أورورا';
+  String get designAether => 'الإيثير';
 
   @override
-  String get designAuroraDesc =>
-      'بطاقة زجاجية: المكان ومفتاح التشغيل على وهج الشفق القطبي';
+  String get designAetherDesc =>
+      'بطاقة حالة بنمط iOS: كلمة الحالة وزمن الجلسة على بطاقة مرتفعة، وزر طاقة متوهج';
 
   @override
-  String get designNeon => 'نيون';
+  String get designZed => 'زد';
 
   @override
-  String get designNeonDesc =>
-      'حلقة تُظهر الحالة: خافتة وهي مطفأة، دوّارة أثناء الاتصال، ودائرة كاملة من الضوء عند الاتصال';
-
-  @override
-  String get designDusk => 'الشفق';
-
-  @override
-  String get designDuskDesc =>
-      'لافتة دافئة بتدرّج آخر ضوء الغروب؛ الحالة ومفتاح التشغيل عليها';
-
-  @override
-  String get designSage => 'المريمية';
-
-  @override
-  String get designSageDesc =>
-      'سجل هادئ: صف للمكان، وفوقه مفتاح طويل يمتلئ بالأخضر عند الاتصال';
+  String get designZedDesc =>
+      'كرة متدرجة اللون: كرة تتنفس بالبنفسجي والوردي والليموني تحمل زمن الجلسة';
 
   @override
   String get tlsFragmentAuto => 'تلقائي';
@@ -2687,4 +2673,12 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'صفحة «ما الجديد» تعرض كلماتها من جديد — كانت تفتح فارغة';
+
+  @override
+  String get wn46Designs =>
+      'مظهران جديدان من التصاميم المرجعية: بطاقة حالة iOS للإيثير وكرة التدرج اللوني لزد — كلٌّ يلبّس التطبيق كله، والمظاهر الأربعة السابقة رحلت.';
+
+  @override
+  String get wn46Sounds =>
+      'نما الأصوات مجموعة احترافية: موجة لبداية الاتصال، ووتر عند برقراره، وأثناء هابط عند انقطاعه، ونغمة خافتة للطريق المسدود — صوت واحد في كل مرة.';
 }

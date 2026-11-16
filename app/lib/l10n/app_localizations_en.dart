@@ -2633,32 +2633,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get avatarPhotoFailed => 'That picture could not be used';
 
   @override
-  String get designAurora => 'Aurora';
+  String get designAether => 'Aether';
 
   @override
-  String get designAuroraDesc =>
-      'A glass hero card: the place and the orb on a teal wash';
+  String get designAetherDesc =>
+      'An iOS status card: the state\'s word and the session\'s time on a raised card, over a power button that glows';
 
   @override
-  String get designNeon => 'Neon';
+  String get designZed => 'Zed';
 
   @override
-  String get designNeonDesc =>
-      'A ring that shows the state: dim while off, a sweep while connecting, a full circle when up';
-
-  @override
-  String get designDusk => 'Dusk';
-
-  @override
-  String get designDuskDesc =>
-      'A warm banner in the sunset\'s own gradient, the state\'s word and the power on it';
-
-  @override
-  String get designSage => 'Sage';
-
-  @override
-  String get designSageDesc =>
-      'A quiet ledger: the place\'s row above a tall pill that fills with green';
+  String get designZedDesc =>
+      'A gradient blob: a breathing orb in violet, pink and lime that carries the session\'s time';
 
   @override
   String get tlsFragmentAuto => 'Auto';
@@ -2689,4 +2675,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn45WhatsNewFixed =>
       'The What\'s new page shows its words again — it had opened empty';
+
+  @override
+  String get wn46Designs =>
+      'Two new looks from the reference designs: the aether\'s iOS status card and the zed\'s gradient blob — each dresses the whole app, every page, and the four earlier looks left.';
+
+  @override
+  String get wn46Sounds =>
+      'The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.';
 }
