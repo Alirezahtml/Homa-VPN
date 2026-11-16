@@ -242,6 +242,7 @@ func (s *dashboardServer) handler() http.Handler {
         mux.HandleFunc("POST /api/location", s.handleSetLocation)
         mux.HandleFunc("POST /api/dns/test", s.handleDNSTest)
         mux.HandleFunc("POST /api/relay/test", s.handleRelayTest)
+        mux.HandleFunc("POST /api/speedtest", s.handleSpeedTest)
         mux.HandleFunc("GET /api/routing", s.handleRouting)
         mux.HandleFunc("POST /api/routing/update", s.handleRoutingUpdate)
         mux.HandleFunc("POST /api/routing/test", s.handleRoutingTest)
