@@ -1376,5 +1376,7 @@
   "wn45AccentFixed": "The accent picker lights the app again — its color had stopped reaching the pages",
   "wn45WhatsNewFixed": "The What's new page shows its words again — it had opened empty",
   "wn46Designs": "Two new looks from the reference designs: the aether's iOS status card and the zed's gradient blob — each dresses the whole app, every page, and the four earlier looks left.",
-  "wn46Sounds": "The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time."
+  "wn46Sounds": "The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.",
+  "wn47Designs": "The two reference looks now dress the whole app — every page, not just the home: the aether wears AetherST's iOS structure (the curved notch bar, the grouped tables, the colored badges, the system's own state colors), and the zed wears ZedSecure's expressive one (the floating dock, the very-round cards, the draggable tool bubbles).",
+  "wn47Fixes": "A settings row that overflowed on narrow screens now reads to its end."
 }

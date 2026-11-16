@@ -2522,6 +2522,13 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get wn46Sounds =>
       '音效换上专业套组：连接开始时的涌动，接通时的和弦，断开时的下行旋律，以及通路被堵时的一声闷响 — 同一时刻只有一个声音。';
+
+  @override
+  String get wn47Designs =>
+      '两套参考设计现在装点整个应用——是每一页，不只是主页：aether 穿上第一款参考的 iOS 结构（弧形缺口栏、分组表格、彩色徽章、系统自带的状态色），zed 穿上第二款参考的灵动结构（悬浮底栏、超圆卡片、可拖动的工具气泡）。';
+
+  @override
+  String get wn47Fixes => '窄屏上曾溢出的设置行现在能读到末尾。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5043,4 +5050,11 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn46Sounds =>
       '音效換上專業套組：連線開始時的湧動，接通時的和弦，斷線時的下行旋律，以及通路受阻時的一聲悶響 — 同一時刻只有一個聲音。';
+
+  @override
+  String get wn47Designs =>
+      '兩套參考設計現在裝點整個應用——是每一頁，不只是主頁：aether 穿上第一款參考的 iOS 結構（弧形缺口欄、分組表格、彩色徽章、系統自帶的狀態色），zed 穿上第二款參考的靈動結構（浮動底欄、超圓卡片、可拖動的工具氣泡）。';
+
+  @override
+  String get wn47Fixes => '窄螢幕上曾溢出的設定列現在能讀到末尾。';
 }

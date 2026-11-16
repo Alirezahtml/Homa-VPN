@@ -7,6 +7,7 @@ import '../core/core_api.dart';
 import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
+import 'design_style.dart';
 import 'format.dart';
 import 'browser_signin.dart';
 import 'motion.dart';
@@ -699,12 +700,15 @@ class _LocationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    // The tile's round is the design's own: the aether's iOS tile, the
+    // zed's very-round bento tile, the monochrome's tile as always.
+    final round = DesignStyle.of(context).listRadius;
     return Material(
       color: selected
           ? scheme.primary.withValues(alpha: 0.08)
           : scheme.surfaceContainerLow,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(round),
         side: BorderSide(
           color: selected
               ? scheme.primary.withValues(alpha: 0.7)
@@ -714,7 +718,7 @@ class _LocationTile extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(round),
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
           child: Column(

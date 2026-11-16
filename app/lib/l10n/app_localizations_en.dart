@@ -2683,4 +2683,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.';
+
+  @override
+  String get wn47Designs =>
+      'The two reference looks now dress the whole app — every page, not just the home: the aether wears AetherST\'s iOS structure (the curved notch bar, the grouped tables, the colored badges, the system\'s own state colors), and the zed wears ZedSecure\'s expressive one (the floating dock, the very-round cards, the draggable tool bubbles).';
+
+  @override
+  String get wn47Fixes =>
+      'A settings row that overflowed on narrow screens now reads to its end.';
 }

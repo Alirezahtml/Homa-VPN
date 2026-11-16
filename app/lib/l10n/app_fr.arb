@@ -778,6 +778,8 @@
   "wn45WhatsNewFixed": "La page des nouveautés montre à nouveau ses mots — elle s'ouvrait vide",
   "wn46Designs": "Deux nouveaux looks issus des designs de référence : la carte d'état iOS de l'éther et la bulle dégradée du zed — chacun habille toute l'app, et les quatre looks précédents sont partis.",
   "wn46Sounds": "Les sons ont gagné un ensemble professionnel : une onde pour la connexion qui commence, un accord quand elle s'établit, une descente quand elle se coupe et une note sourde pour la voie bloquée — une seule voix à la fois.",
+  "wn47Designs": "Les deux looks de référence habillent maintenant toute l'application — chaque page, pas seulement l'accueil : aether porte la structure iOS de la première référence (la barre à encoche courbe, les tableaux groupés, les badges colorés, les couleurs d'état du système) et zed porte celle, expressive, de la seconde (le dock flottant, les cartes très rondes, les bulles d'outils déplaçables).",
+  "wn47Fixes": "Une ligne de réglages qui débordait sur les écrans étroits se lit désormais jusqu'au bout.",
   "connectAtBootHint": "Se connecte tout seul au démarrage du téléphone, si l'autorisation VPN est déjà accordée.",
   "gamingProfileHint": "Affiche le délai et la qualité en direct de la connexion ; se combine au serveur mesuré le plus rapide.",
   "diagnosticsHint": "Connexion, DNS et tunnel, vérifiés d'un geste",

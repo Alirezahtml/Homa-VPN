@@ -778,6 +778,8 @@
   "wn45WhatsNewFixed": "A página das novidades volta a mostrar as suas palavras — abria-se vazia",
   "wn46Designs": "Dois novos estilos dos designs de referência: o cartão de status iOS do éter e a esfera degradada do zed — cada um veste todo o app, e os quatro estilos anteriores partiram.",
   "wn46Sounds": "Os sons ganharam um conjunto profissional: uma onda para a conexão que começa, um acorde quando se estabelece, uma descida ao cair e uma nota abafada para o caminho bloqueado — uma voz de cada vez.",
+  "wn47Designs": "Os dois visuais de referência agora vestem o aplicativo inteiro — cada página, não só a principal: o aether veste a estrutura iOS da primeira referência (a barra de entalhe curvo, as tabelas agrupadas, os crachás coloridos, as cores de estado do sistema) e o zed veste a expressiva da segunda (o dock flutuante, os cartões bem redondos, as bolhas de ferramentas arrastáveis).",
+  "wn47Fixes": "Uma linha de ajustes que transbordava em telas estreitas agora se lê até o fim.",
   "connectAtBootHint": "Liga-se sozinho ao ligar o telefone, se a permissão de VPN já foi concedida.",
   "gamingProfileHint": "Mostra o atraso e a qualidade em vivo da conexão; combina com o servidor medido mais rápido.",
   "diagnosticsHint": "Conexão, DNS e túnel, verificados num toque",

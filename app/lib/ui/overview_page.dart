@@ -18,6 +18,7 @@ import 'accent.dart';
 import 'browser_signin.dart';
 import 'connection_mode.dart';
 import 'design.dart';
+import 'design_style.dart';
 import 'flag_carousel.dart';
 import 'format.dart';
 import 'motion.dart';
@@ -330,9 +331,26 @@ class _DesktopHome extends StatelessWidget {
         ),
       ),
     );
+    final content = switch (DesignStyle.of(context).nav) {
+      // The zed's own signature: the two violet FABs that ride the
+      // screen's edge — the servers' map and the speed test — dragged
+      // by hand, snapping back with the bounce (ZedSecure's cluster).
+      NavVariant.floatingDock => Stack(
+        children: [
+          page,
+          Positioned.fill(
+            child: ZedFabCluster(
+              onOpenServers: () => onOpenServers?.call(),
+              onOpenSpeedTest: () => showSpeedTest(context, core),
+            ),
+          ),
+        ],
+      ),
+      _ => page,
+    };
     return p.dark
-        ? Theme(data: midnightTheme(Theme.of(context)), child: page)
-        : page;
+        ? Theme(data: midnightTheme(Theme.of(context)), child: content)
+        : content;
   }
 
   bool get _running => status.state.phase == Phase.running;
@@ -1263,9 +1281,26 @@ class _PhoneHome extends StatelessWidget {
         ),
       ),
     );
+    final content = switch (DesignStyle.of(context).nav) {
+      // The zed's own signature on the phone: the two violet FABs that
+      // ride the screen's edge — the servers' map and the speed test —
+      // dragged by hand, snapping back with the bounce.
+      NavVariant.floatingDock => Stack(
+        children: [
+          page,
+          Positioned.fill(
+            child: ZedFabCluster(
+              onOpenServers: () => onOpenServers?.call(),
+              onOpenSpeedTest: () => showSpeedTest(context, core),
+            ),
+          ),
+        ],
+      ),
+      _ => page,
+    };
     return p.dark
-        ? Theme(data: midnightTheme(Theme.of(context)), child: page)
-        : page;
+        ? Theme(data: midnightTheme(Theme.of(context)), child: content)
+        : content;
   }
 
   Widget _content(BuildContext context, _HomePalette p, BoxConstraints box) {
@@ -3958,11 +3993,17 @@ class _FlatRow extends StatelessWidget {
           children: [
             Icon(icon, size: 16, color: p.muted),
             const SizedBox(width: 10),
-            Text(
-              label,
-              style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+            // The label yields to the value on a narrow screen: the row
+            // reads to its end instead of painting past it.
+            Expanded(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+              ),
             ),
-            const Spacer(),
+            const SizedBox(width: 8),
             DefaultTextStyle(
               style: (theme.textTheme.labelLarge ?? const TextStyle()).copyWith(
                 fontWeight: FontWeight.w700,

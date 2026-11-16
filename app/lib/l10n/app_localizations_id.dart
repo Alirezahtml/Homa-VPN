@@ -2679,4 +2679,12 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Suara mendapat set profesional: gelombang untuk koneksi yang mulai, akor saat tersambung, melodi menurun saat terputus, dan nada redup untuk jalan yang terhalang — satu suara pada satu waktu.';
+
+  @override
+  String get wn47Designs =>
+      'Kedua tampilan referensi kini menjelma ke seluruh aplikasi — setiap halaman, bukan hanya beranda: aether memakai struktur iOS referensi pertama (bilah takik melengkung, tabel berkelompok, lencana berwarna, warna status sistem) dan zed memakai struktur ekspresif referensi kedua (dok mengapung, kartu sangat bulat, gelembung alat yang bisa digeser).';
+
+  @override
+  String get wn47Fixes =>
+      'Baris pengaturan yang meluap pada layar sempit kini terbaca sampai ujungnya.';
 }

@@ -16,6 +16,7 @@ import 'announcement_panel.dart';
 import 'accounts_page.dart';
 import 'app_lock.dart';
 import 'design.dart';
+import 'design_style.dart';
 import 'focus_ring.dart';
 import 'format.dart';
 import 'logs_page.dart';
@@ -33,6 +34,10 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   // The app's one design (the monochrome): the surfaces, the ink and the
   // outlines come from it — the exact colors this theme always had.
   final look = AppDesign.current.look(dark);
+  // The design's structural side: the rounds the cards and dialogs wear,
+  // the switches' track when they carry — the monochrome keeps its own,
+  // the two reference designs wear theirs.
+  final style = DesignStyle.resolve(AppDesign.current.key, dark);
   // The monochrome scheme: pure black and white with neutral grays
   // between — no hue anywhere, in either mode. A chosen accent takes the
   // scheme's lights (buttons, toggles, progress) only; the surfaces and
@@ -132,7 +137,7 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
       elevation: 0,
       color: look.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(style.cardRadius),
         side: BorderSide(
           color: effective.outlineVariant.withValues(alpha: 0.5),
         ),
@@ -141,8 +146,32 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
     ),
     dialogTheme: DialogThemeData(
       backgroundColor: look.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(style.dialogRadius),
+      ),
     ),
+    // The switches carry in the design's own track color (the aether's
+    // iOS green, the zed's violet); the monochrome keeps the Material's
+    // own pair, as it always has.
+    switchTheme: style.nav == NavVariant.glassPill
+        ? null
+        : SwitchThemeData(
+            thumbColor: WidgetStateProperty.resolveWith(
+              (states) => states.contains(WidgetState.selected)
+                  ? Colors.white
+                  : (dark ? const Color(0xFF9E9E9E) : Colors.white),
+            ),
+            trackColor: WidgetStateProperty.resolveWith(
+              (states) => states.contains(WidgetState.selected)
+                  ? style.switchTrack
+                  : (dark
+                        ? const Color(0xFF3A3A3C)
+                        : const Color(0xFFE4E4E4)),
+            ),
+            trackOutlineColor: const WidgetStatePropertyAll(
+              Colors.transparent,
+            ),
+          ),
     appBarTheme: AppBarTheme(
       backgroundColor: look.scaffold,
       foregroundColor: effective.onSurface,

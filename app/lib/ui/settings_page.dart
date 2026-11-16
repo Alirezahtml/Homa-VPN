@@ -21,6 +21,7 @@ import 'bypass_apps_page.dart';
 import 'connection_mode.dart';
 import '../core/diagnostics.dart';
 import 'design.dart';
+import 'design_style.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
@@ -152,19 +153,25 @@ class SettingsGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // The design's card, as the Panel wears it: flat and bordered.
+    // The design's card, as the Panel wears it: flat and bordered — or
+    // the design's own table: the aether's iOS group (tighter round, the
+    // hairline inset divider), the zed's very-round bento card.
+    final style = DesignStyle.of(context);
     final look = AppDesign.current.look(
       theme.brightness == Brightness.dark,
     );
+    final iosTable = style.group == GroupVariant.iosTable;
     Widget card = Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       color: look.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(style.cardRadius),
         side: look.cardShadow.isEmpty
             ? BorderSide(
-                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                color: theme.colorScheme.outlineVariant.withValues(
+                  alpha: iosTable ? 0.35 : 0.5,
+                ),
               )
             : BorderSide.none,
       ),
@@ -172,8 +179,14 @@ class SettingsGroup extends StatelessWidget {
         children: [
           for (var i = 0; i < tiles.length; i++) ...[
             // The line stops where the row's text starts (the icon
-            // box plus the row's own padding).
-            if (i > 0) const Divider(height: 1, indent: 68),
+            // badge plus the row's own padding) — the iOS table's own
+            // hairline, thinner than the flat card's.
+            if (i > 0)
+              Divider(
+                height: 1,
+                thickness: iosTable ? 0.5 : 1,
+                indent: iosTable ? 58 : 68,
+              ),
             // Each tile arrives a beat after the one above it.
             Reveal(index: i, child: tiles[i]),
           ],
@@ -183,7 +196,7 @@ class SettingsGroup extends StatelessWidget {
     if (look.cardShadow.isNotEmpty) {
       card = DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(style.cardRadius),
           boxShadow: look.cardShadow,
         ),
         child: card,

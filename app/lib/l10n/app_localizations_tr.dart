@@ -2675,4 +2675,12 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Sesler profesyonel bir set kazandı: başlayan bağlantı için dalga, kurulduğunda akor, kesildiğinde iniş melodisi ve kapalı yol için boğuk bir nota — bir seferde tek ses.';
+
+  @override
+  String get wn47Designs =>
+      'İki başvuru görünümü artık uygulamanın bütününü giyiyor — yalnızca ana sayfayı değil, her sayfayı: aether birinci başvurunun iOS yapısını (eğik çentikli çubuk, gruplu tablolar, renkli rozetler, sistemin kendi durum renkleri), zed ise ikinci başvurunun ifadeli yapısını (yüzen dock, çok yuvarlak kartlar, sürüklenebilir araç baloncukları) giyiyor.';
+
+  @override
+  String get wn47Fixes =>
+      'Dar ekranlarda taşan bir ayar satırı artık sonuna kadar okunuyor.';
 }

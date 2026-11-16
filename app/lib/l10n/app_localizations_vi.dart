@@ -2675,4 +2675,12 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Âm thanh có bộ chuyên nghiệp: sóng mềm cho kết nối bắt đầu, hợp âm khi thông suốt, giai điệu đi xuống khi ngắt và nốt trầm cho lối bị chặn — mỗi lúc một tiếng.';
+
+  @override
+  String get wn47Designs =>
+      'Hai giao diện tham chiếu giờ khoác lên toàn bộ ứng dụng — mọi trang, không chỉ trang chủ: aether mang cấu trúc iOS của tham chiếu thứ nhất (thanh khểnh cong, các bảng nhóm, huy hiệu màu, màu trạng thái riêng của hệ thống), còn zed mang cấu trúc biểu cảm của tham chiếu thứ hai (dock nổi, thẻ rất tròn, bong bóng công cụ kéo được).';
+
+  @override
+  String get wn47Fixes =>
+      'Một hàng cài đặt từng tràn màn hình hẹp nay đọc được đến hết.';
 }

@@ -2702,4 +2702,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Les sons ont gagné un ensemble professionnel : une onde pour la connexion qui commence, un accord quand elle s\'établit, une descente quand elle se coupe et une note sourde pour la voie bloquée — une seule voix à la fois.';
+
+  @override
+  String get wn47Designs =>
+      'Les deux looks de référence habillent maintenant toute l\'application — chaque page, pas seulement l\'accueil : aether porte la structure iOS de la première référence (la barre à encoche courbe, les tableaux groupés, les badges colorés, les couleurs d\'état du système) et zed porte celle, expressive, de la seconde (le dock flottant, les cartes très rondes, les bulles d\'outils déplaçables).';
+
+  @override
+  String get wn47Fixes =>
+      'Une ligne de réglages qui débordait sur les écrans étroits se lit désormais jusqu\'au bout.';
 }

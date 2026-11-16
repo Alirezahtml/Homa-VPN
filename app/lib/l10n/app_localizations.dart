@@ -4736,6 +4736,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.'**
   String get wn46Sounds;
+
+  /// No description provided for @wn47Designs.
+  ///
+  /// In en, this message translates to:
+  /// **'The two reference looks now dress the whole app — every page, not just the home: the aether wears AetherST\'s iOS structure (the curved notch bar, the grouped tables, the colored badges, the system\'s own state colors), and the zed wears ZedSecure\'s expressive one (the floating dock, the very-round cards, the draggable tool bubbles).'**
+  String get wn47Designs;
+
+  /// No description provided for @wn47Fixes.
+  ///
+  /// In en, this message translates to:
+  /// **'A settings row that overflowed on narrow screens now reads to its end.'**
+  String get wn47Fixes;
 }
 
 class _AppLocalizationsDelegate

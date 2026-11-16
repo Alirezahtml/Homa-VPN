@@ -18,6 +18,7 @@ import '../platform.dart';
 import 'accent.dart';
 import 'country_names.dart';
 import 'design.dart';
+import 'design_style.dart';
 import 'format.dart';
 import 'local_country_names.dart';
 import 'motion.dart';
@@ -869,17 +870,9 @@ class IconBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Container(
-      width: 36,
-      height: 36,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Icon(icon, size: 20, color: scheme.onSurface),
-    );
+    // The aether's iOS table wears the colored rounded badges; the other
+    // designs keep the neutral tile they always had.
+    return DesignStyle.of(context).badge(context, icon);
   }
 }
 
@@ -942,15 +935,17 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // The design's card: the flat bordered card the monochrome wears.
+    // The design's card: the flat bordered card the monochrome wears,
+    // the tighter iOS group or the very-round bento card for the rest.
     final look = AppDesign.current.look(
       theme.brightness == Brightness.dark,
     );
+    final round = DesignStyle.of(context).cardRadius;
     Widget card = Card(
       margin: EdgeInsets.zero,
       color: look.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(round),
         side: look.cardShadow.isEmpty
             ? BorderSide(
                 color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),

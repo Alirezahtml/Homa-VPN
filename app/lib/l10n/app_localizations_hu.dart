@@ -2690,4 +2690,12 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'A hangok profi szettet kaptak: hullám a kezdődő kapcsolathoz, akkord amikor feláll, ereszkedő dallam amikor megszakad, és tompa hang a zárt úthoz — egyszerre egy hang.';
+
+  @override
+  String get wn47Designs =>
+      'A két referenciakinézet most az egész alkalmazást öltözteti — minden oldalt, nem csak a főoldalt: az aether az első referencia iOS szerkezetét viseli (a hajlított bevágású sáv, a csoportosított táblák, a színes jelvények, a rendszer saját állatszínei), a zed pedig a második kifejező szerkezetét (a lebegő dokkot, a nagyon kerek kártyákat, a húzható eszközbuborékokat).';
+
+  @override
+  String get wn47Fixes =>
+      'A keskeny képernyőkön túlcorduló beállítási sor most a végéig olvasható.';
 }

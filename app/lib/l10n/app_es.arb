@@ -778,6 +778,8 @@
   "wn45WhatsNewFixed": "La página de novedades vuelve a mostrar sus palabras — se abría vacía",
   "wn46Designs": "Dos nuevos estilos de los diseños de referencia: la tarjeta de estado iOS del éter y la burbuja degradada del zed — cada uno viste toda la app, y los cuatro estilos anteriores se fueron.",
   "wn46Sounds": "Los sonidos estrenaron un conjunto profesional: una onda para la conexión que empieza, un acorde cuando se establece, uno descendente al cortarse y una nota sorda para el camino bloqueado — una voz a la vez.",
+  "wn47Designs": "Los dos aspectos de referencia ahora visten toda la aplicación — cada página, no solo la principal: aether lleva la estructura iOS de la primera referencia (la barra de muesca curva, las tablas agrupadas, las insignias de color, los colores de estado del sistema) y zed lleva la expresiva de la segunda (el dock flotante, las tarjetas muy redondeadas, las burbujas de herramientas arrastrables).",
+  "wn47Fixes": "Una fila de ajustes que se desbordaba en pantallas estrechas ahora se lee hasta el final.",
   "connectAtBootHint": "Se conecta solo al encender el teléfono, si el permiso de VPN ya está concedido.",
   "gamingProfileHint": "Muestra la demora y calidad en vivo de la conexión; combina con el servidor más rápido medido.",
   "diagnosticsHint": "Conexión, DNS y túnel, comprobados de un toque",

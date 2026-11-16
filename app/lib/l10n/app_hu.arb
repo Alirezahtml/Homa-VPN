@@ -778,6 +778,8 @@
   "wn45WhatsNewFixed": "Az újdonságok oldala újra mutatja a szavait — üresen nyílt meg",
   "wn46Designs": "Két új megjelenés a referenciatervekből: az éter iOS állapotkártyája és a zed színátmenetes gömbje — mindegyik az egész alkalmazást öltözteti, a korábbi négy elment.",
   "wn46Sounds": "A hangok profi szettet kaptak: hullám a kezdődő kapcsolathoz, akkord amikor feláll, ereszkedő dallam amikor megszakad, és tompa hang a zárt úthoz — egyszerre egy hang.",
+  "wn47Designs": "A két referenciakinézet most az egész alkalmazást öltözteti — minden oldalt, nem csak a főoldalt: az aether az első referencia iOS szerkezetét viseli (a hajlított bevágású sáv, a csoportosított táblák, a színes jelvények, a rendszer saját állatszínei), a zed pedig a második kifejező szerkezetét (a lebegő dokkot, a nagyon kerek kártyákat, a húzható eszközbuborékokat).",
+  "wn47Fixes": "A keskeny képernyőkön túlcorduló beállítási sor most a végéig olvasható.",
   "connectAtBootHint": "A telefon bekapcsolásakor magától csatlakozik, ha a VPN-engedély már megvan.",
   "gamingProfileHint": "A kapcsolat élő késleltetését és minőségét mutatja; a mérleg gyorsabb szerverrel párosítva.",
   "diagnosticsHint": "Kapcsolat, DNS és alagút, egy koppintással ellenőrizve",

@@ -2677,4 +2677,12 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Səslər peşəkar dəstə aldı: bağlantının başlanğıcı üçün dalğa, qurulanda üçün akkord, kəsildikdə üçün düşən melodiya və bağlı yol üçün boğulmuş not — bir dəfəyə bir səs.';
+
+  @override
+  String get wn47Designs =>
+      'İki istinad görünüşü artıq bütün tətbiqi geyinir — təkcə əsas səhifəni deyil, hər səhifəni: «Aether» birinci istinadın iOS quruluşunu (əyli kəsim zolağı, qruplaşdırılmış cədvəllər, rəngli nişanlar, sistemin öz vəziyyət rəngləri), «Zed» isə ikinci istinadın ekspressiv quruluşunu (üzən dok, çox dəyirmi kartlar, sürüklənən alət qabarcıqları) geyinir.';
+
+  @override
+  String get wn47Fixes =>
+      'Dar ekranlarda daşan parametr sətri artıq sonuna qədər oxunur.';
 }

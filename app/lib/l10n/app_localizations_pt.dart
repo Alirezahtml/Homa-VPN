@@ -2685,4 +2685,12 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn46Sounds =>
       'Os sons ganharam um conjunto profissional: uma onda para a conexão que começa, um acorde quando se estabelece, uma descida ao cair e uma nota abafada para o caminho bloqueado — uma voz de cada vez.';
+
+  @override
+  String get wn47Designs =>
+      'Os dois visuais de referência agora vestem o aplicativo inteiro — cada página, não só a principal: o aether veste a estrutura iOS da primeira referência (a barra de entalhe curvo, as tabelas agrupadas, os crachás coloridos, as cores de estado do sistema) e o zed veste a expressiva da segunda (o dock flutuante, os cartões bem redondos, as bolhas de ferramentas arrastáveis).';
+
+  @override
+  String get wn47Fixes =>
+      'Uma linha de ajustes que transbordava em telas estreitas agora se lê até o fim.';
 }

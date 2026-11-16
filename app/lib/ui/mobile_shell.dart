@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import 'about_page.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
+import 'design_style.dart';
 import 'logs_page.dart';
 import 'motion.dart';
 import 'overview_page.dart';
@@ -83,18 +84,51 @@ class _MobileShellState extends State<MobileShell> {
   }
 
   /// Opens [page] under a top bar named [title]; it follows the core.
+  /// The header the page wears is the design's own: the monochrome keeps
+  /// the Material bar, the aether wears the iOS bar's compact bold title
+  /// and chevron, the zed drops the bar and opens with its big display
+  /// header in the page itself.
   void _push(String title, Widget Function() page) {
+    final header = DesignStyle.of(context).header;
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) => ListenableBuilder(
           listenable: widget.core,
-          builder: (context, _) => Scaffold(
-            appBar: AppBar(title: Text(title)),
-            body: SafeArea(
+          builder: (context, _) {
+            final body = SafeArea(
               top: false,
               child: OwnTopBar(child: _readable(page())),
-            ),
-          ),
+            );
+            return switch (header) {
+              HeaderVariant.material => Scaffold(
+                appBar: AppBar(title: Text(title)),
+                body: body,
+              ),
+              HeaderVariant.ios => Scaffold(
+                appBar: AppBar(
+                  title: Text(title),
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  titleTextStyle: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                body: body,
+              ),
+              HeaderVariant.zed => Scaffold(
+                body: Column(
+                  children: [
+                    ZedPageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
+            };
+          },
         ),
       ),
     );
@@ -206,10 +240,20 @@ class _MobileShellState extends State<MobileShell> {
             ),
           ),
         ),
-        bottomNavigationBar: _FloatingPillNav(
-          index: _tab,
-          onSelect: (i) => setState(() => _tab = i),
-        ),
+        bottomNavigationBar: switch (DesignStyle.of(context).nav) {
+          NavVariant.curvedNotch => AetherCurvedNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.floatingDock => ZedDockNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.glassPill => _FloatingPillNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+        },
       ),
     );
   }
