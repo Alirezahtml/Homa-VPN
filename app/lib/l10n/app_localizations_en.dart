@@ -2691,4 +2691,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'A settings row that overflowed on narrow screens now reads to its end.';
+
+  @override
+  String get wn48Bars =>
+      'The two designs\' bottom bars hold their places again: the aether\'s blue circle rests in its own tab\'s notch, and the zed\'s circle no longer covers the name under it.';
+
+  @override
+  String get wn48Fit =>
+      'The homes fit their screens again: the aether\'s card reads Disconnected to its end, the zed\'s orb steps down when the page runs tight, and while the connection is being made no track asks to slide to connect and no hint says disconnect at once.';
+
+  @override
+  String get wn48Wheel =>
+      'The flags\' wheel dissolves a card before the screen\'s edge can cut it, the recommended place wears Mozilla\'s mark at a size that reads, and the flat map\'s south edge melts into the page instead of ending in a line.';
 }

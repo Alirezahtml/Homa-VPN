@@ -4748,6 +4748,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A settings row that overflowed on narrow screens now reads to its end.'**
   String get wn47Fixes;
+
+  /// No description provided for @wn48Bars.
+  ///
+  /// In en, this message translates to:
+  /// **'The two designs\' bottom bars hold their places again: the aether\'s blue circle rests in its own tab\'s notch, and the zed\'s circle no longer covers the name under it.'**
+  String get wn48Bars;
+
+  /// No description provided for @wn48Fit.
+  ///
+  /// In en, this message translates to:
+  /// **'The homes fit their screens again: the aether\'s card reads Disconnected to its end, the zed\'s orb steps down when the page runs tight, and while the connection is being made no track asks to slide to connect and no hint says disconnect at once.'**
+  String get wn48Fit;
+
+  /// No description provided for @wn48Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags\' wheel dissolves a card before the screen\'s edge can cut it, the recommended place wears Mozilla\'s mark at a size that reads, and the flat map\'s south edge melts into the page instead of ending in a line.'**
+  String get wn48Wheel;
 }
 
 class _AppLocalizationsDelegate

@@ -95,14 +95,18 @@ class _FlagCarouselState extends State<FlagCarousel>
   );
   late final Animation<double> _settlePulse = TweenSequence<double>([
     TweenSequenceItem(
-      tween: Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeOut)),
+      tween: Tween(
+        begin: 0.0,
+        end: 1.0,
+      ).chain(CurveTween(curve: Curves.easeOut)),
       weight: 38,
     ),
     TweenSequenceItem(tween: ConstantTween(1.0), weight: 14),
     TweenSequenceItem(
-      tween: Tween(begin: 1.0, end: 0.0).chain(
-        CurveTween(curve: Curves.easeInOutCubic),
-      ),
+      tween: Tween(
+        begin: 1.0,
+        end: 0.0,
+      ).chain(CurveTween(curve: Curves.easeInOutCubic)),
       weight: 48,
     ),
   ]).animate(_settle);
@@ -208,6 +212,15 @@ class _FlagCarouselState extends State<FlagCarousel>
         initialPage: _base(entries) + (index < 0 ? 0 : index),
       );
       setState(() => _locations = list.locations);
+      // One breath later, one more pass: the first frame lays the page
+      // view out, but the cards read their size and fade from the
+      // controller's page, which has no dimensions until the layout is
+      // done — left alone, the wheel would sit on that first answer,
+      // every card equal-sized and the outermost cut by the screen's
+      // edge, until something else repainted.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) setState(() {});
+      });
     } on CoreApiException {
       // The servers page says why; the wheel stays empty until it answers.
     } on Exception {
@@ -355,121 +368,123 @@ class _FlagCarouselState extends State<FlagCarousel>
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-          // The halo: a soft blue light behind the chosen country — the
-          // wheel's own aurora, breathing on its own clock, and following
-          // the wheel as it spins (it fades out over the drag rather than
-          // smearing across it).
-          AnimatedBuilder(
-            animation: Listenable.merge([controller, _breath]),
-            builder: (context, _) {
-              final glow = _haloStrength();
-              final breathe = _breath.value;
-              final blue = _FlagCard.glowBlue(dark);
-              return IgnorePointer(
-                child: Transform.translate(
-                  offset: Offset(0, -8 * (1.0 - glow)),
-                  child: Transform.scale(
-                    scale: 1.0 + 0.07 * breathe * glow,
-                    child: Container(
-                      width: 236 + 30 * glow + 12 * breathe * glow,
-                      height: 142 + 20 * glow + 8 * breathe * glow,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: RadialGradient(
-                          colors: [
-                            blue.withValues(
-                              alpha:
-                                  (dark ? 0.40 : 0.22) *
-                                  glow *
-                                  (0.75 + 0.25 * breathe),
-                            ),
-                            blue.withValues(
-                              alpha:
-                                  (dark ? 0.16 : 0.09) *
-                                  glow *
-                                  (0.75 + 0.25 * breathe),
-                            ),
-                            blue.withValues(alpha: 0.0),
-                          ],
-                          stops: const [0, 0.5, 1],
+            // The halo: a soft blue light behind the chosen country — the
+            // wheel's own aurora, breathing on its own clock, and following
+            // the wheel as it spins (it fades out over the drag rather than
+            // smearing across it).
+            AnimatedBuilder(
+              animation: Listenable.merge([controller, _breath]),
+              builder: (context, _) {
+                final glow = _haloStrength();
+                final breathe = _breath.value;
+                final blue = _FlagCard.glowBlue(dark);
+                return IgnorePointer(
+                  child: Transform.translate(
+                    offset: Offset(0, -8 * (1.0 - glow)),
+                    child: Transform.scale(
+                      scale: 1.0 + 0.07 * breathe * glow,
+                      child: Container(
+                        width: 236 + 30 * glow + 12 * breathe * glow,
+                        height: 142 + 20 * glow + 8 * breathe * glow,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              blue.withValues(
+                                alpha:
+                                    (dark ? 0.40 : 0.22) *
+                                    glow *
+                                    (0.75 + 0.25 * breathe),
+                              ),
+                              blue.withValues(
+                                alpha:
+                                    (dark ? 0.16 : 0.09) *
+                                    glow *
+                                    (0.75 + 0.25 * breathe),
+                              ),
+                              blue.withValues(alpha: 0.0),
+                            ],
+                            stops: const [0, 0.5, 1],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
             // The page view itself never clips: the dissolve above does
             // the edge work, and every flag leaves whole.
             PageView.builder(
-            controller: controller,
-            // The list repeats, so the wheel has no ends to bump into.
-            // padEnds is what centers the resting page: the chosen flag
-            // stands in the middle, its neighbors peeking on both sides.
-            itemCount: entries.length * _repeats,
-            clipBehavior: Clip.none,
-            physics: const BouncingScrollPhysics(),
-            onPageChanged: (page) {
-              final loc = entries[page % entries.length];
-              final chosen = isRecommendedPlace(loc.code)
-                  ? ''
-                  : loc.code.toLowerCase();
-              if (!_moving && chosen != _selection) {
-                unawaited(_choose(loc));
-              }
-              // A new country at the middle lands with its spring.
-              if (page != _lastSpring) {
-                _lastSpring = page;
-                _settle.forward(from: 0);
-              }
-            },
-            itemBuilder: (context, page) {
-              final loc = entries[page % entries.length];
-              return AnimatedBuilder(
-                animation: controller,
-                builder: (context, _) {
-                  // How far this page sits from the middle, in pages, and
-                  // in which direction — the wheel's whole shape (size,
-                  // dip, turn, dim) is a function of the two.
-                  var distance = 1.0;
-                  var side = 0.0;
-                  if (controller.hasClients &&
-                      controller.position.haveDimensions) {
-                    final delta = (controller.page ?? page.toDouble()) - page;
-                    distance = delta.abs().clamp(0.0, 2.5);
-                    side = delta.sign;
-                  }
-                  return Center(
-                    child: _FlagCard(
-                      location: loc,
-                      distance: distance,
-                      side: side,
-                      breath: _breath,
-                      settle: _settlePulse,
-                      dark: dark,
-                      border: widget.border,
-                      // The card never grows past its own page's slot: a
-                      // narrow window shrinks the whole wheel instead of
-                      // letting the chosen flag ride over its neighbors.
-                      slot: controller.hasClients &&
-                              controller.position.haveDimensions
-                          ? controller.position.viewportDimension * 0.26 - 6
-                          : 100.0,
-                      onTap: () => unawaited(_choose(loc)),
-                      onLongPress: widget.onToggleFavorite == null
-                          ? null
-                          : () => widget.onToggleFavorite!(loc.code),
-                      favorite: widget.favorites.any(
-                        (code) => code.toLowerCase() == loc.code.toLowerCase(),
+              controller: controller,
+              // The list repeats, so the wheel has no ends to bump into.
+              // padEnds is what centers the resting page: the chosen flag
+              // stands in the middle, its neighbors peeking on both sides.
+              itemCount: entries.length * _repeats,
+              clipBehavior: Clip.none,
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: (page) {
+                final loc = entries[page % entries.length];
+                final chosen = isRecommendedPlace(loc.code)
+                    ? ''
+                    : loc.code.toLowerCase();
+                if (!_moving && chosen != _selection) {
+                  unawaited(_choose(loc));
+                }
+                // A new country at the middle lands with its spring.
+                if (page != _lastSpring) {
+                  _lastSpring = page;
+                  _settle.forward(from: 0);
+                }
+              },
+              itemBuilder: (context, page) {
+                final loc = entries[page % entries.length];
+                return AnimatedBuilder(
+                  animation: controller,
+                  builder: (context, _) {
+                    // How far this page sits from the middle, in pages, and
+                    // in which direction — the wheel's whole shape (size,
+                    // dip, turn, dim) is a function of the two.
+                    var distance = 1.0;
+                    var side = 0.0;
+                    if (controller.hasClients &&
+                        controller.position.haveDimensions) {
+                      final delta = (controller.page ?? page.toDouble()) - page;
+                      distance = delta.abs().clamp(0.0, 2.5);
+                      side = delta.sign;
+                    }
+                    return Center(
+                      child: _FlagCard(
+                        location: loc,
+                        distance: distance,
+                        side: side,
+                        breath: _breath,
+                        settle: _settlePulse,
+                        dark: dark,
+                        border: widget.border,
+                        // The card never grows past its own page's slot: a
+                        // narrow window shrinks the whole wheel instead of
+                        // letting the chosen flag ride over its neighbors.
+                        slot:
+                            controller.hasClients &&
+                                controller.position.haveDimensions
+                            ? controller.position.viewportDimension * 0.26 - 6
+                            : 100.0,
+                        onTap: () => unawaited(_choose(loc)),
+                        onLongPress: widget.onToggleFavorite == null
+                            ? null
+                            : () => widget.onToggleFavorite!(loc.code),
+                        favorite: widget.favorites.any(
+                          (code) =>
+                              code.toLowerCase() == loc.code.toLowerCase(),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -560,55 +575,49 @@ class _FlagCarouselState extends State<FlagCarousel>
   /// rise and a settled growth — never a pop: the old word fades out
   /// where it stands while the new one rises into its place, so the
   /// change reads as one name turning into another.
-  Widget _name(AppLocalizations l, Location? centered, bool dark) =>
-      SizedBox(
-        // The name's seat now carries the capsule's own padding too: a
-        // breath taller than the bare word ever needed.
-        height: 42,
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 340),
-          switchInCurve: Curves.easeOutCubic,
-          switchOutCurve: Curves.easeInCubic,
-          transitionBuilder: (child, anim) => FadeTransition(
-            opacity: anim,
-            child: SlideTransition(
-              position: Tween(
-                begin: const Offset(0, 0.35),
-                end: Offset.zero,
-              ).animate(anim),
-              child: ScaleTransition(
-                scale: Tween(begin: 0.96, end: 1.0).animate(anim),
-                child: child,
-              ),
-            ),
-          ),
-          layoutBuilder: (current, previous) => Stack(
-            alignment: Alignment.center,
-            children: [
-              ...previous,
-              ?current,
-            ],
-          ),
-          child: StatusCapsule(
-            dark: dark,
-            child: Text(
-              centered == null
-                  ? (_selection == 'fastest' ? l.modeFastest : '')
-                  : locationName(l, centered.code, centered.name),
-              key: ValueKey(centered?.code ?? _selection),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: dark ? Colors.white : widget.text,
-                fontWeight: FontWeight.w800,
-                fontSize: 17,
-                letterSpacing: 0.3,
-              ),
-            ),
+  Widget _name(AppLocalizations l, Location? centered, bool dark) => SizedBox(
+    // The name's seat now carries the capsule's own padding too: a
+    // breath taller than the bare word ever needed.
+    height: 42,
+    child: AnimatedSwitcher(
+      duration: const Duration(milliseconds: 340),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, anim) => FadeTransition(
+        opacity: anim,
+        child: SlideTransition(
+          position: Tween(
+            begin: const Offset(0, 0.35),
+            end: Offset.zero,
+          ).animate(anim),
+          child: ScaleTransition(
+            scale: Tween(begin: 0.96, end: 1.0).animate(anim),
+            child: child,
           ),
         ),
-      );
+      ),
+      layoutBuilder: (current, previous) =>
+          Stack(alignment: Alignment.center, children: [...previous, ?current]),
+      child: StatusCapsule(
+        dark: dark,
+        child: Text(
+          centered == null
+              ? (_selection == 'fastest' ? l.modeFastest : '')
+              : locationName(l, centered.code, centered.name),
+          key: ValueKey(centered?.code ?? _selection),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: dark ? Colors.white : widget.text,
+            fontWeight: FontWeight.w800,
+            fontSize: 17,
+            letterSpacing: 0.3,
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 /// One card of the wheel. The chosen one, in the middle: bigger and the
@@ -671,11 +680,14 @@ class _FlagCard extends StatelessWidget {
   static Color glowBlue(bool dark) =>
       dark ? const Color(0xFF3D6BFF) : const Color(0xFF2F5BE8);
 
-  /// The fade of a card this far from the middle: whole within a page
-  /// and a quarter, gone by under two — before the screen's edge can cut
-  /// it in half. A smooth step, so the leaving is a dissolve, not a pop.
+  /// The fade of a card this far from the middle: whole while it rides
+  /// beside the chosen one, gone before its box can reach the screen's
+  /// edge — the wheel's page is 0.26 of the viewport wide, so the edge
+  /// sits under a page and nine-tenths; a card still visible there is a
+  /// half-cut flag. A smooth step, so the leaving is a dissolve, not a
+  /// pop.
   static double edgeFade(double distance) {
-    const start = 1.22, end = 1.78;
+    const start = 1.0, end = 1.55;
     if (distance <= start) return 1;
     if (distance >= end) return 0;
     final t = (distance - start) / (end - start);
@@ -708,45 +720,48 @@ class _FlagCard extends StatelessWidget {
         (1.0 - 0.30 * math.min(1.25, distance)) * _FlagCard.edgeFade(distance);
     final scheme = Theme.of(context).colorScheme;
 
-    final card = InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      borderRadius: BorderRadius.circular(radius),
-      child: Container(
-        width: width,
-        height: height,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          border: Border.all(
-            color: chosen
-                ? _FlagCard.glowBlue(dark).withValues(alpha: 0.95)
-                : border.withValues(alpha: dark ? 0.6 : 0.5),
-            width: chosen ? 1.5 : 0.7,
+    // The whole card steps back with its distance — frame and all: the
+    // opacity used to take only the flag, and the card's white frame
+    // stayed behind it at full ink, a ghost card floating at the wheel's
+    // edges. The chosen one is fully there; the others step back, and the
+    // outermost dissolve before the screen's edge cuts them.
+    final card = Opacity(
+      opacity: alpha.clamp(0.0, 1.0),
+      child: InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        borderRadius: BorderRadius.circular(radius),
+        child: Container(
+          width: width,
+          height: height,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius),
+            border: Border.all(
+              color: chosen
+                  ? _FlagCard.glowBlue(dark).withValues(alpha: 0.95)
+                  : border.withValues(alpha: dark ? 0.6 : 0.5),
+              width: chosen ? 1.5 : 0.7,
+            ),
           ),
-        ),
-        // The glass: a light sweep on the chosen card, a darker one on the
-        // neighbors, so the row carries depth without leaving the theme.
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomCenter,
-            colors: chosen
-                ? [
-                    Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
-                    Colors.white.withValues(alpha: 0.03),
-                  ]
-                : [
-                    Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-                    Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
-                  ],
+          // The glass: a light sweep on the chosen card, a darker one on the
+          // neighbors, so the row carries depth without leaving the theme.
+          foregroundDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomCenter,
+              colors: chosen
+                  ? [
+                      Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
+                      Colors.white.withValues(alpha: 0.03),
+                    ]
+                  : [
+                      Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
+                      Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
+                    ],
+            ),
           ),
-        ),
-        child: Opacity(
-          // The chosen one is fully there; the others step back, and the
-          // outermost dissolve before the screen's edge cuts them.
-          opacity: alpha.clamp(0.0, 1.0),
           child: favorite
               ? Stack(
                   clipBehavior: Clip.none,
@@ -846,8 +861,7 @@ class _FlagCard extends StatelessWidget {
       builder: (context, _) => Transform.translate(
         offset: Offset(0, -2.5 * breath.value),
         child: Transform.scale(
-          scale:
-              (1.0 + 0.015 * breath.value) * (1.0 + 0.05 * settle.value),
+          scale: (1.0 + 0.015 * breath.value) * (1.0 + 0.05 * settle.value),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -872,8 +886,10 @@ class _FlagCard extends StatelessWidget {
         alignment: Alignment.center,
         child: SvgPicture.asset(
           'assets/brand/mozilla_logo.svg',
-          width: width * 0.30,
-          height: width * 0.34,
+          // The mark reads at half the card's width: smaller, its stem and
+          // its zigzag shrink to a pair of stray strokes nobody can name.
+          width: width * 0.52,
+          height: width * 0.60,
           fit: BoxFit.contain,
           colorFilter: ColorFilter.mode(
             scheme.onPrimaryContainer,

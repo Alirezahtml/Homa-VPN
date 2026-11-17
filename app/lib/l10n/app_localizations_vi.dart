@@ -2683,4 +2683,16 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'Một hàng cài đặt từng tràn màn hình hẹp nay đọc được đến hết.';
+
+  @override
+  String get wn48Bars =>
+      'Thanh dưới của hai thiết kế đã về đúng chỗ: vòng tròn xanh của aether nằm trong khía của thẻ của nó, còn vòng tròn của zed không còn che cái tên phía dưới nữa.';
+
+  @override
+  String get wn48Fit =>
+      'Các trang chủ lại vừa với màn hình của chúng: thẻ của aether đọc Disconnected đến tận cùng, quả cầu của zed lùi một bước khi trang chật, và khi kết nối đang diễn ra không có rãnh nào bảo trượt để kết nối, cũng không có gợi ý nào bảo ngắt kết nối cùng lúc.';
+
+  @override
+  String get wn48Wheel =>
+      'Bánh xe cờ làm mờ một thẻ trước khi mép màn hình cắt đôi nó, địa điểm được đề xuất đeo dấu Mozilla ở cỡ đọc được, và mép nam của bản đồ phẳng tan vào trang thay vì kết thúc bằng một đường thẳng.';
 }

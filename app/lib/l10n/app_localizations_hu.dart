@@ -2698,4 +2698,16 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'A keskeny képernyőkön túlcorduló beállítási sor most a végéig olvasható.';
+
+  @override
+  String get wn48Bars =>
+      'A két dizájn alsó sávjai visszaültek a helyükre: az aether kék köre a saját fülének bevágásában pihen, a zed köre már nem takarja az alatta lévő nevet.';
+
+  @override
+  String get wn48Fit =>
+      'A kezdőlapok újra beleférnek a kijelzőjükbe: az aether kártya a Disconnected szót a végéig olvassa, a zed gömbje egy lépést visszaesik, ha szűk az oldal, és kapcsolás közben sem kér egyetlen sáv sem csúsztatást a kapcsolathoz, és egyetlen tipp sem mondja a bontást egyszerre.';
+
+  @override
+  String get wn48Wheel =>
+      'A zászlókerék feloldja a kártyát, mielőtt a képernyő széle kettévágná, a javasolt hely Mozilla-jelvényét olvasható méretben viseli, a sík térkép déli széle pedig egy vonal helyett az oldalba olvad.';
 }

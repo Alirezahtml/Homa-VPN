@@ -2529,6 +2529,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn47Fixes => '窄屏上曾溢出的设置行现在能读到末尾。';
+
+  @override
+  String get wn48Bars =>
+      '两套设计的底部栏各归其位：aether 的蓝色圆钮落在自己标签的凹口里，zed 的圆钮不再盖住下方的名字。';
+
+  @override
+  String get wn48Fit =>
+      '主页重新装得下屏幕：aether 的卡片把 Disconnected 读完，页面太挤时 zed 的光球会收一步，连接进行中轨道不再要你滑动连接、提示也不再同时说断开。';
+
+  @override
+  String get wn48Wheel =>
+      '旗帜转轮会在屏幕边缘切到卡片之前把它淡出，推荐地点以看得清的尺寸佩戴 Mozilla 徽标，平面地图的南缘融进页面，不再以一条直线收尾。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5057,4 +5069,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn47Fixes => '窄螢幕上曾溢出的設定列現在能讀到末尾。';
+
+  @override
+  String get wn48Bars =>
+      '兩套設計的底部列各歸其位：aether 的藍色圓鈕落在自己分頁的凹槽裡，zed 的圓鈕不再蓋住下方的名稱。';
+
+  @override
+  String get wn48Fit =>
+      '首頁重新裝得下螢幕：aether 的卡片把 Disconnected 讀完，頁面太擠時 zed 的光球會退一步，連接進行中軌道不再要你滑動連接、提示也不再同時說中斷。';
+
+  @override
+  String get wn48Wheel =>
+      '旗幟轉輪會在螢幕邊緣切到卡片之前把它淡出，推薦地點以看得清的尺寸戴上 Mozilla 徽標，平面地圖的南緣融進頁面，不再以一條直線收尾。';
 }

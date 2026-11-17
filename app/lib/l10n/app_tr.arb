@@ -791,5 +791,8 @@
   "wn46Designs": "Referans tasarımlardan iki yeni görünüm: etherin iOS durum kartı ve zedin gradyan küresi — her biri uygulamanın tamamını giydirir, önceki dört görünüm gitti.",
   "wn46Sounds": "Sesler profesyonel bir set kazandı: başlayan bağlantı için dalga, kurulduğunda akor, kesildiğinde iniş melodisi ve kapalı yol için boğuk bir nota — bir seferde tek ses.",
   "wn47Designs": "İki başvuru görünümü artık uygulamanın bütününü giyiyor — yalnızca ana sayfayı değil, her sayfayı: aether birinci başvurunun iOS yapısını (eğik çentikli çubuk, gruplu tablolar, renkli rozetler, sistemin kendi durum renkleri), zed ise ikinci başvurunun ifadeli yapısını (yüzen dock, çok yuvarlak kartlar, sürüklenebilir araç baloncukları) giyiyor.",
-  "wn47Fixes": "Dar ekranlarda taşan bir ayar satırı artık sonuna kadar okunuyor."
+  "wn47Fixes": "Dar ekranlarda taşan bir ayar satırı artık sonuna kadar okunuyor.",
+  "wn48Bars": "İki tasarımın alt barları yerine oturdu: aether'in mavi çemberi kendi sekmesinin yuvasında duruyor, zed'in çemberi artık altındaki adı kapatmıyor.",
+  "wn48Fit": "Ana sayfalar yeniden ekranına sığıyor: aether kartı Disconnected'i sonuna kadar okuyor, sayfa daraldığında zed'in küresi bir adım küçülüyor ve bağlantı kurulurken ne yol bağlanmak için kaydırma diyor ne ipucu aynı anda kes diyor.",
+  "wn48Wheel": "Bayrak çarkı, ekran kenarı bir kartı yarıp kesmeden önce onu eritir, önerilen yer Mozilla'nın nişanını okunur boyda taşır ve düz haritanın güney kenarı bir çizgiye bitmek yerine sayfaya erir."
 }

@@ -2683,4 +2683,16 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'Dar ekranlarda taşan bir ayar satırı artık sonuna kadar okunuyor.';
+
+  @override
+  String get wn48Bars =>
+      'İki tasarımın alt barları yerine oturdu: aether\'in mavi çemberi kendi sekmesinin yuvasında duruyor, zed\'in çemberi artık altındaki adı kapatmıyor.';
+
+  @override
+  String get wn48Fit =>
+      'Ana sayfalar yeniden ekranına sığıyor: aether kartı Disconnected\'i sonuna kadar okuyor, sayfa daraldığında zed\'in küresi bir adım küçülüyor ve bağlantı kurulurken ne yol bağlanmak için kaydırma diyor ne ipucu aynı anda kes diyor.';
+
+  @override
+  String get wn48Wheel =>
+      'Bayrak çarkı, ekran kenarı bir kartı yarıp kesmeden önce onu eritir, önerilen yer Mozilla\'nın nişanını okunur boyda taşır ve düz haritanın güney kenarı bir çizgiye bitmek yerine sayfaya erir.';
 }

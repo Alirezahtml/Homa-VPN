@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'
-    show HapticFeedback;
+import 'package:flutter/services.dart' show HapticFeedback;
 
 import '../l10n/app_localizations.dart';
 import 'design.dart';
@@ -284,34 +283,45 @@ class AetherCurvedNav extends StatelessWidget {
                 return AnimatedAlign(
                   duration: const Duration(milliseconds: 420),
                   curve: Curves.easeOutBack,
+                  // The circle rides inside a box one slot wide (the same
+                  // way the zed's dock rides its slots): alignment -1 puts
+                  // a full-width child's EDGE at the screen's edge, so the
+                  // bare circle would hug the left edge instead of resting
+                  // in its tab's own half — the notch and the name wait at
+                  // the slot's center, and the button must wait there too.
                   alignment: Alignment(
-                    _alignmentX(visual, tabs.length),
+                    navSlotAlignment(visual, tabs.length),
                     -1,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Container(
-                      width: _buttonSize,
-                      height: _buttonSize,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: style.navActive,
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.35),
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: style.navActive.withValues(alpha: 0.45),
-                            blurRadius: 18,
-                            offset: const Offset(0, 6),
+                  child: FractionallySizedBox(
+                    widthFactor: 1 / tabs.length,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Container(
+                          width: _buttonSize,
+                          height: _buttonSize,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: style.navActive,
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.35),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: style.navActive.withValues(alpha: 0.45),
+                                blurRadius: 18,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Icon(
-                        tabs[index].$1,
-                        color: Colors.white,
-                        size: 26,
+                          child: Icon(
+                            tabs[index].$1,
+                            color: Colors.white,
+                            size: 26,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -382,15 +392,6 @@ class AetherCurvedNav extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// The tab's center as an Alignment.x for [AnimatedAlign].
-  static double _alignmentX(double position, int tabs) {
-    // One slot wide, the pill's padding eats the margins: the circle is
-    // positioned by a fraction of the whole width, -1 for the first
-    // tab's center, 1 for the last's.
-    if (tabs < 2) return 0;
-    return -1 + 2 * (position / (tabs - 1));
   }
 }
 
@@ -536,34 +537,40 @@ class ZedDockNav extends StatelessWidget {
                       builder: (context, value, _) {
                         final visual = rtl ? tabs.length - 1 - value : value;
                         return Align(
+                          // Top-aligned, one breath down: the circle must
+                          // sit exactly where the chosen tab's icon band
+                          // sits — centered on the dock's middle it sank
+                          // over the name below and covered it.
                           alignment: Alignment(
                             navSlotAlignment(visual, tabs.length),
-                            0,
+                            -1,
                           ),
-                          child: FractionallySizedBox(
-                            widthFactor: 1 / tabs.length,
-                            heightFactor: 1,
-                            child: Center(
-                              child: Container(
-                                width: 44,
-                                height: 44,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: style.navActive,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: style.navActive.withValues(
-                                        alpha: 0.5,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: FractionallySizedBox(
+                              widthFactor: 1 / tabs.length,
+                              child: Center(
+                                child: Container(
+                                  width: 44,
+                                  height: 44,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: style.navActive,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: style.navActive.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                        blurRadius: 16,
+                                        offset: const Offset(0, 4),
                                       ),
-                                      blurRadius: 16,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: Icon(
-                                  tabs[index].$1,
-                                  color: Colors.white,
-                                  size: 22,
+                                    ],
+                                  ),
+                                  child: Icon(
+                                    tabs[index].$1,
+                                    color: Colors.white,
+                                    size: 22,
+                                  ),
                                 ),
                               ),
                             ),
@@ -601,27 +608,35 @@ class ZedDockNav extends StatelessWidget {
                                       ),
                                     ),
                                   const SizedBox(height: 1),
-                                  Text(
-                                    tabs[i].$3,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 10.5,
-                                      fontWeight: i == index
-                                          ? FontWeight.w700
-                                          : FontWeight.w600,
-                                      color: i == index
-                                          ? style.navActive
-                                          : style.navInactive,
+                                  // The name's seat is pinned: the circle
+                                  // above and the underline below both read
+                                  // their place from the same geometry, so
+                                  // the seat must hold its height whatever
+                                  // the language's face measures.
+                                  SizedBox(
+                                    height: 15,
+                                    child: Center(
+                                      child: Text(
+                                        tabs[i].$3,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 10.5,
+                                          fontWeight: i == index
+                                              ? FontWeight.w700
+                                              : FontWeight.w600,
+                                          color: i == index
+                                              ? style.navActive
+                                              : style.navInactive,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 3),
                                   // The lime's own underline rides under
                                   // the chosen tab (ZedSecure's pill bar).
                                   AnimatedContainer(
-                                    duration: const Duration(
-                                      milliseconds: 300,
-                                    ),
+                                    duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeOutCubic,
                                     height: 3,
                                     width: i == index ? 26 : 0,
@@ -694,13 +709,8 @@ class _ZedFabClusterState extends State<ZedFabCluster> {
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
     final cluster = _fabSize * 2 + _gap;
-    final maxY = math.max(
-      _topLimit,
-      media.height - _bottomLimit - cluster,
-    );
-    final restX = _atEnd
-        ? media.width - _fabSize - _edge
-        : _edge;
+    final maxY = math.max(_topLimit, media.height - _bottomLimit - cluster);
+    final restX = _atEnd ? media.width - _fabSize - _edge : _edge;
     final restY = _topLimit + _yFraction * math.max(0, maxY - _topLimit);
     // The cluster rides the edge it was left on; while the finger holds
     // it, it follows the finger exactly (no animation), and the moment
@@ -814,7 +824,8 @@ class ZedPageHeader extends StatelessWidget {
         children: [
           IconButton(
             onPressed:
-                onBack ?? () => Navigator.of(context, rootNavigator: true).pop(),
+                onBack ??
+                () => Navigator.of(context, rootNavigator: true).pop(),
             icon: const Icon(Icons.arrow_back_rounded),
             color: theme.colorScheme.onSurfaceVariant,
           ),

@@ -2693,4 +2693,16 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'Uma linha de ajustes que transbordava em telas estreitas agora se lê até o fim.';
+
+  @override
+  String get wn48Bars =>
+      'As barras inferiores dos dois designs voltaram ao lugar: o círculo azul do aether pousa no recorte da sua própria aba e o círculo do zed já não tapa o nome por baixo.';
+
+  @override
+  String get wn48Fit =>
+      'As telas iniciais voltam a caber na sua tela: o cartão do aether lê Disconnected até ao fim, o orbe do zed desce um passo quando a página fica estreita e, enquanto a ligação se faz, nem a pista pede deslizar para ligar nem a dica diz desligar ao mesmo tempo.';
+
+  @override
+  String get wn48Wheel =>
+      'A roda de bandeiras dissolve um cartão antes que a borda do ecrã o corte, o local recomendado veste a marca da Mozilla num tamanho legível e a borda sul do mapa plano derrete-se na página em vez de acabar numa linha.';
 }

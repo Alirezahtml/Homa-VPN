@@ -279,8 +279,11 @@ class SlideToConnect extends StatefulWidget {
 
   /// The track's hint while off and while on; [labelOn] is the state's own
   /// word ("Connected"), which stays in the track while connected so the
-  /// state reads there and not only above. An empty [labelOn] (still
-  /// connecting, nothing confirmed yet) falls back to the connect hint.
+  /// state reads there and not only above. An empty [labelOn] while on
+  /// (still connecting, nothing confirmed yet) leaves the track's word
+  /// out: the fill and the knob carry the motion, and the state's own
+  /// word stands in its capsule above — a connect hint here would deny
+  /// the connection already being made.
   final String labelConnect;
   final String labelDisconnect;
   final String labelOn;
@@ -532,8 +535,9 @@ class _SlideToConnectState extends State<SlideToConnect>
                                   top: 0,
                                   bottom: 0,
                                   child: Opacity(
-                                    opacity:
-                                        w.on ? 1 : (1 - p * 2.1).clamp(0, 1),
+                                    opacity: w.on
+                                        ? 1
+                                        : (1 - p * 2.1).clamp(0, 1),
                                     child: Transform.translate(
                                       offset: Offset(-14 * p * dir, 0),
                                       child: Center(
@@ -544,11 +548,11 @@ class _SlideToConnectState extends State<SlideToConnect>
                                               alpha: w.dark ? 0.85 : 0.5,
                                             ),
                                             child: Text(
-                                              w.on
-                                                  ? (w.labelOn.isEmpty
-                                                        ? w.labelConnect
-                                                        : w.labelOn)
-                                                  : w.labelConnect,
+                                              // Connected, still being
+                                              // confirmed: no word — the
+                                              // state's own word stands in
+                                              // its capsule above.
+                                              w.on ? w.labelOn : w.labelConnect,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -573,9 +577,7 @@ class _SlideToConnectState extends State<SlideToConnect>
                       // the margins keep air between the button and the
                       // ring, on both ends and above and below.
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: inset,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: inset),
                         child: Align(
                           alignment: AlignmentDirectional(2 * p - 1, 0),
                           child: Stack(
@@ -769,12 +771,18 @@ class _CheckPainter extends CustomPainter {
     final box = Offset.zero & size;
     final inset = strokeWidth;
     final path = Path()
-      ..moveTo(box.left + inset + size.width * 0.06, box.center.dy + size.height * 0.10)
+      ..moveTo(
+        box.left + inset + size.width * 0.06,
+        box.center.dy + size.height * 0.10,
+      )
       ..lineTo(
         box.left + size.width * 0.40,
         box.bottom - inset - size.height * 0.10,
       )
-      ..lineTo(box.right - inset - size.width * 0.06, box.top + inset + size.height * 0.16);
+      ..lineTo(
+        box.right - inset - size.width * 0.06,
+        box.top + inset + size.height * 0.16,
+      );
     final metric = path.computeMetrics().first;
     final paint = Paint()
       ..color = color
@@ -782,7 +790,10 @@ class _CheckPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    canvas.drawPath(metric.extractPath(0, metric.length * t.clamp(0, 1)), paint);
+    canvas.drawPath(
+      metric.extractPath(0, metric.length * t.clamp(0, 1)),
+      paint,
+    );
   }
 
   @override
@@ -863,10 +874,7 @@ class _PulseHaloState extends State<PulseHalo>
       // The quiet light: one static ring, no loop, no repaint.
       return Stack(
         alignment: Alignment.center,
-        children: [
-          _ring(0.16, 0.25),
-          widget.child,
-        ],
+        children: [_ring(0.16, 0.25), widget.child],
       );
     }
     return AnimatedBuilder(
@@ -892,7 +900,10 @@ class _PulseHaloState extends State<PulseHalo>
     height: widget.baseSize + widget.grow * t,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
-      border: Border.all(color: widget.color.withValues(alpha: alpha), width: 1.4),
+      border: Border.all(
+        color: widget.color.withValues(alpha: alpha),
+        width: 1.4,
+      ),
     ),
   );
 }
@@ -979,8 +990,7 @@ class Shake extends StatefulWidget {
   State<Shake> createState() => _ShakeState();
 }
 
-class _ShakeState extends State<Shake>
-    with SingleTickerProviderStateMixin {
+class _ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 420),
@@ -1026,4 +1036,3 @@ class _ShakeState extends State<Shake>
     );
   }
 }
-

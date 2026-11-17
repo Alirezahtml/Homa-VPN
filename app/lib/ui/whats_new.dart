@@ -15,6 +15,9 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.48' => [
+    (title: l.whatsNewFixed, lines: [l.wn48Bars, l.wn48Fit, l.wn48Wheel]),
+  ],
   '1.0.47' => [
     (title: l.whatsNewAdded, lines: [l.wn47Designs]),
     (title: l.whatsNewImproved, lines: [l.wn47Fixes]),
@@ -26,16 +29,10 @@ List<({String title, List<String> lines})> whatsNewSections(
   '1.0.45' => [
     (title: l.whatsNewAdded, lines: [l.wn45Designs, l.wn45HelloAuto]),
     (title: l.whatsNewImproved, lines: [l.wn45RelayRace]),
-    (
-      title: l.whatsNewFixed,
-      lines: [l.wn45AccentFixed, l.wn45WhatsNewFixed],
-    ),
+    (title: l.whatsNewFixed, lines: [l.wn45AccentFixed, l.wn45WhatsNewFixed]),
   ],
   '1.0.42' => [
-    (
-      title: l.whatsNewAdded,
-      lines: [l.wn42Fonts, l.wn42Sounds, l.wn42Gaming],
-    ),
+    (title: l.whatsNewAdded, lines: [l.wn42Fonts, l.wn42Sounds, l.wn42Gaming]),
     (title: l.whatsNewFixed, lines: [l.wn42AboutFixed]),
   ],
   '1.0.41' => [
@@ -55,12 +52,7 @@ List<({String title, List<String> lines})> whatsNewSections(
     (title: l.whatsNewAdded, lines: [l.wn40MapKindsNew]),
     (
       title: l.whatsNewImproved,
-      lines: [
-        l.wn40Flight,
-        l.wn40Mercator,
-        l.wn40NameBack,
-        l.wn40Speed,
-      ],
+      lines: [l.wn40Flight, l.wn40Mercator, l.wn40NameBack, l.wn40Speed],
     ),
     (title: l.whatsNewFixed, lines: [l.wn40LockFixed]),
     (title: l.whatsNewRemoved, lines: [l.wn40IpRemoved]),
@@ -68,20 +60,11 @@ List<({String title, List<String> lines})> whatsNewSections(
   '1.0.39' => [
     (
       title: l.whatsNewAdded,
-      lines: [
-        l.wn39MapKinds,
-        l.wn39EyeIp,
-        l.wn39Profile,
-        l.wn39Smart,
-      ],
+      lines: [l.wn39MapKinds, l.wn39EyeIp, l.wn39Profile, l.wn39Smart],
     ),
     (
       title: l.whatsNewImproved,
-      lines: [
-        l.wn39Flight,
-        l.wn39ToastEverywhere,
-        l.wn39Updates,
-      ],
+      lines: [l.wn39Flight, l.wn39ToastEverywhere, l.wn39Updates],
     ),
   ],
   '1.0.38' => [
@@ -119,10 +102,7 @@ List<({String title, List<String> lines})> whatsNewSections(
   ],
   '1.0.35' => [
     (title: l.whatsNewAdded, lines: [l.wnSmartAdded, l.wnToastAdded]),
-    (
-      title: l.whatsNewImproved,
-      lines: [l.wnFlagsImproved, l.wnMapImproved],
-    ),
+    (title: l.whatsNewImproved, lines: [l.wnFlagsImproved, l.wnMapImproved]),
   ],
   '1.0.34' => [
     (title: l.whatsNewAdded, lines: [l.wnTotalsAdded]),
@@ -241,27 +221,27 @@ class WhatsNewDialog extends StatelessWidget {
                     ),
                   ),
               ],
-            // The makers' channels, at the page's own bottom: the same
-            // two buttons the About page carries, one breath from the
-            // version's story.
-            const Divider(height: 26),
-            Wrap(
-              spacing: 12,
-              runSpacing: 10,
-              alignment: WrapAlignment.center,
-              children: const [
-                SocialChannelButton(
-                  glyph: instagramGlyph,
-                  handle: '@Aliem061',
-                  url: 'https://instagram.com/Aliem061',
-                ),
-                SocialChannelButton(
-                  glyph: telegramGlyph,
-                  handle: '@Aliem_061',
-                  url: 'https://t.me/Aliem_061',
-                ),
-              ],
-            ),
+              // The makers' channels, at the page's own bottom: the same
+              // two buttons the About page carries, one breath from the
+              // version's story.
+              const Divider(height: 26),
+              Wrap(
+                spacing: 12,
+                runSpacing: 10,
+                alignment: WrapAlignment.center,
+                children: const [
+                  SocialChannelButton(
+                    glyph: instagramGlyph,
+                    handle: '@Aliem061',
+                    url: 'https://instagram.com/Aliem061',
+                  ),
+                  SocialChannelButton(
+                    glyph: telegramGlyph,
+                    handle: '@Aliem_061',
+                    url: 'https://t.me/Aliem_061',
+                  ),
+                ],
+              ),
             ],
           ),
         ),

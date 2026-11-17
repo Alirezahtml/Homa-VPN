@@ -2687,4 +2687,16 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'Baris pengaturan yang meluap pada layar sempit kini terbaca sampai ujungnya.';
+
+  @override
+  String get wn48Bars =>
+      'Bilah bawah kedua desain kembali ke tempatnya: lingkaran biru aether bertengger di alur tabnya sendiri, dan lingkaran zed tak lagi menutupi namanya di bawah.';
+
+  @override
+  String get wn48Fit =>
+      'Laman utama kembali pas di layarnya: kartu aether membaca Disconnected sampai habis, orb zed turun satu langkah saat halaman sesak, dan saat penyambungan berlangsung tak ada lintasan yang minta digeser untuk menyambung dan tak ada petunjuk yang bilang putuskan sekaligus.';
+
+  @override
+  String get wn48Wheel =>
+      'Roda bendera melarutkan kartu sebelum tepi layar memotongnya, lokasi yang disarankan memakai tanda Mozilla dalam ukuran yang terbaca, dan tepi selatan peta datar melebur ke halaman alih-alih berakhir menjadi garis.';
 }

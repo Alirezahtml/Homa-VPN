@@ -1151,12 +1151,10 @@ Future<void> _toggleFavorite(
   if (defaultTargetPlatform == TargetPlatform.android) {
     final l = AppLocalizations.of(context);
     unawaited(
-      AndroidCore.setShortcuts(
-        [
-          for (final code in next.take(4))
-            {'code': code, 'name': countryName(l, code)},
-        ],
-      ).catchError((_) {}),
+      AndroidCore.setShortcuts([
+        for (final code in next.take(4))
+          {'code': code, 'name': countryName(l, code)},
+      ]).catchError((_) {}),
     );
   }
   if (context.mounted) {
@@ -1214,8 +1212,8 @@ class _PhoneHome extends StatelessWidget {
     // The home's map kind, read once: the world carries it, and the
     // wheel's name rides on whether the kind has a floating card of its
     // own (the ball kinds) or not (the flat kinds).
-    final mapKind = MapKind.values.asNameMap()[settings.mapKind] ??
-        MapKind.classic;
+    final mapKind =
+        MapKind.values.asNameMap()[settings.mapKind] ?? MapKind.classic;
     final page = AnnotatedRegion<SystemUiOverlayStyle>(
       value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark)
           .copyWith(statusBarColor: Colors.transparent),
@@ -1239,11 +1237,11 @@ class _PhoneHome extends StatelessWidget {
               child: FutureBuilder<List<WorldCountry>>(
                 future: WorldMap.load(),
                 builder: (context, snapshot) {
-                  final selectedCode = (status.exit?.countryCode.isNotEmpty ==
-                              true
-                          ? status.exit!.countryCode
-                          : status.selection)
-                      .toUpperCase();
+                  final selectedCode =
+                      (status.exit?.countryCode.isNotEmpty == true
+                              ? status.exit!.countryCode
+                              : status.selection)
+                          .toUpperCase();
                   // A boundary of its own: the map redraws every frame it
                   // breathes, and this keeps that redraw inside the map —
                   // the page's own content never repaints for it.
@@ -1260,8 +1258,8 @@ class _PhoneHome extends StatelessWidget {
                       label: selectedCode.length == 2
                           ? countryName(l, selectedCode)
                           : '',
-                      style: GlobeStyle.values
-                          .asNameMap()[settings.mapStyle] ??
+                      style:
+                          GlobeStyle.values.asNameMap()[settings.mapStyle] ??
                           GlobeStyle.silver,
                       still: settings.batterySaver,
                     ),
@@ -1310,8 +1308,8 @@ class _PhoneHome extends StatelessWidget {
     // The home's map kind here too: the wheel's name rides on whether
     // the kind has a floating card of its own (the ball kinds) or not
     // (the flat kinds).
-    final mapKind = MapKind.values.asNameMap()[settings.mapKind] ??
-        MapKind.classic;
+    final mapKind =
+        MapKind.values.asNameMap()[settings.mapKind] ?? MapKind.classic;
     final running = status.state.phase == Phase.running;
     final canSwitch = status.systemProxySupported;
     final width = box.maxWidth;
@@ -1573,24 +1571,36 @@ class _PhoneHome extends StatelessWidget {
             // morphing power button (circle when off, rounded square
             // when on) under them.
             Flexible(
+              // The hero's stage: the card and the button keep their
+              // design size on a tall screen and step down, whole and
+              // together, when the page runs tight — the page never
+              // pushes its own bottom cards under the dock.
               child: Center(
-                child: Reveal(
-                  index: 2,
-                  child: _AetherHeroCard(
-                    palette: p,
-                    place: place,
-                    on: on,
-                    busy: core.switchingProxy || status.connectPending,
-                    error: status.state.phase == Phase.error,
-                    tooltip: press,
-                    label: label,
-                    hint: press,
-                    startedAt: proxy?.startedAt,
-                    pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                    onOpenServers: onOpenServers,
-                    onPressed: () => status.totalAccounts == 0
-                        ? _openAccounts(context, core, settings, onOpenAccounts)
-                        : runShowingErrors(context, () => _toggle(on)),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Reveal(
+                    index: 2,
+                    child: _AetherHeroCard(
+                      palette: p,
+                      place: place,
+                      on: on,
+                      busy: core.switchingProxy || status.connectPending,
+                      error: status.state.phase == Phase.error,
+                      tooltip: press,
+                      label: label,
+                      hint: press,
+                      startedAt: proxy?.startedAt,
+                      pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                      onOpenServers: onOpenServers,
+                      onPressed: () => status.totalAccounts == 0
+                          ? _openAccounts(
+                              context,
+                              core,
+                              settings,
+                              onOpenAccounts,
+                            )
+                          : runShowingErrors(context, () => _toggle(on)),
+                    ),
                   ),
                 ),
               ),
@@ -1604,22 +1614,37 @@ class _PhoneHome extends StatelessWidget {
             // session's time stands in the middle when it carries, the
             // power's mark when it rests; the place's chip sits under it.
             Flexible(
+              // The hero's stage: the reference lets its orb shrink with
+              // the stage's own height (its stage * 0.58 cap) instead of
+              // shoving the page under the dock — the FittedBox does the
+              // same here: the orb and its chip keep their design size on
+              // a tall screen and step down, whole, when the page is
+              // tight, so the data card below keeps its place above the
+              // dock.
               child: Center(
-                child: Reveal(
-                  index: 2,
-                  child: _ZedBlobCard(
-                    palette: p,
-                    place: place,
-                    on: on,
-                    busy: core.switchingProxy || status.connectPending,
-                    accent: accent,
-                    tooltip: press,
-                    startedAt: proxy?.startedAt,
-                    batterySaver: settings.batterySaver,
-                    onOpenServers: onOpenServers,
-                    onPressed: () => status.totalAccounts == 0
-                        ? _openAccounts(context, core, settings, onOpenAccounts)
-                        : runShowingErrors(context, () => _toggle(on)),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Reveal(
+                    index: 2,
+                    child: _ZedBlobCard(
+                      palette: p,
+                      place: place,
+                      on: on,
+                      busy: core.switchingProxy || status.connectPending,
+                      accent: accent,
+                      tooltip: press,
+                      startedAt: proxy?.startedAt,
+                      batterySaver: settings.batterySaver,
+                      onOpenServers: onOpenServers,
+                      onPressed: () => status.totalAccounts == 0
+                          ? _openAccounts(
+                              context,
+                              core,
+                              settings,
+                              onOpenAccounts,
+                            )
+                          : runShowingErrors(context, () => _toggle(on)),
+                    ),
                   ),
                 ),
               ),
@@ -1653,9 +1678,7 @@ class _PhoneHome extends StatelessWidget {
             // it has been up, the real delay, the live rates. The wheel
             // and the tiles lay them out as cards; the compact home as
             // rows inside one card of its own.
-            if (design == 'pixel' ||
-                design == 'aether' ||
-                design == 'zed')
+            if (design == 'pixel' || design == 'aether' || design == 'zed')
               _FlatStats(
                 core: core,
                 status: status,
@@ -1736,11 +1759,13 @@ class _PhoneHome extends StatelessWidget {
                 icon: Icons.data_usage_rounded,
               ),
             )
-          else if (design == 'bento' || design == 'aether')
+          else if (design == 'bento' || design == 'aether' || confirming)
             // The tiles' bar and the aether's status card already say the
             // tap's own hint; the plain hint line below would only say it
-            // twice. The state's own guidance still has the problem boxes
-            // above.
+            // twice. While the connection is still being made, the state's
+            // word stands alone — "tap to disconnect" under a reaching
+            // tunnel reads as noise. The state's own guidance still has
+            // the problem boxes above.
             const SizedBox.shrink()
           else
             // A start failure's hint is general; the core's reason is
@@ -2190,10 +2215,7 @@ class _SpeedGraphState extends State<_SpeedGraph> {
   Widget build(BuildContext context) {
     final p = widget.palette;
     final theme = Theme.of(context);
-    final peak = [
-      ..._down,
-      ..._up,
-    ].fold(1.0, (m, v) => v > m ? v : m);
+    final peak = [..._down, ..._up].fold(1.0, (m, v) => v > m ? v : m);
     return Semantics(
       button: true,
       child: GestureDetector(
@@ -2291,10 +2313,7 @@ class _SpeedGraphPainter extends CustomPainter {
     final filled = downPath((h) => h)
       ..lineTo((down.length - 1) * width, size.height)
       ..close();
-    canvas.drawPath(
-      filled,
-      Paint()..color = line.withValues(alpha: 0.18),
-    );
+    canvas.drawPath(filled, Paint()..color = line.withValues(alpha: 0.18));
     canvas.drawPath(
       downPath((h) => h),
       Paint()
@@ -2326,9 +2345,7 @@ class _SpeedGraphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SpeedGraphPainter old) =>
-      old.peak != peak ||
-      !identical(old.down, down) ||
-      !identical(old.up, up);
+      old.peak != peak || !identical(old.down, down) || !identical(old.up, up);
 }
 
 /// One small card of the stats grid: an icon and a muted label above the
@@ -2521,17 +2538,28 @@ class _HomeRow extends StatelessWidget {
         children: [
           Icon(icon, size: 16, color: p.muted),
           const SizedBox(width: 10),
-          Text(
-            label,
-            style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+          // The label yields, the value keeps its width as far as it can:
+          // both wrap free, so a wide language or a long address bends the
+          // row instead of pushing past its card.
+          Expanded(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall?.copyWith(color: p.muted),
+            ),
           ),
-          const Spacer(),
-          Text(
-            value,
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-              fontFeatures: const [FontFeature.tabularFigures()],
-              color: p.text,
+          const SizedBox(width: 12),
+          Flexible(
+            child: Text(
+              value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontFeatures: const [FontFeature.tabularFigures()],
+                color: p.text,
+              ),
             ),
           ),
           ?trailing,
@@ -2599,9 +2627,7 @@ class _PowerOrb extends StatelessWidget {
               : p.discOff,
         ),
         border: Border.all(
-          color: on
-              ? Colors.white.withValues(alpha: 0.4)
-              : p.discOffEdge,
+          color: on ? Colors.white.withValues(alpha: 0.4) : p.discOffEdge,
           width: 1.5,
         ),
         boxShadow: [
@@ -2681,7 +2707,11 @@ class _PowerOrb extends StatelessWidget {
             // each time the connection lands. Gone while the switch is
             // still turning, so it never blinks between states.
             if (on && !busy)
-              Positioned(left: 162, top: 162, child: _CheckBadge(accent: accent)),
+              Positioned(
+                left: 162,
+                top: 162,
+                child: _CheckBadge(accent: accent),
+              ),
           ],
         ),
       ),
@@ -2714,7 +2744,9 @@ class _CheckBadge extends StatelessWidget {
           ),
         ],
       ),
-      child: Center(child: DrawCheck(color: accent, size: 14, strokeWidth: 2.4)),
+      child: Center(
+        child: DrawCheck(color: accent, size: 14, strokeWidth: 2.4),
+      ),
     );
   }
 }
@@ -2905,11 +2937,7 @@ class _LanChipState extends State<_LanChip> {
       label: Text(l.lanAddress(ltr(address))),
       onPressed: () {
         Clipboard.setData(ClipboardData(text: address));
-        showToast(
-          context,
-          l.copied(address),
-          mark: ToastMark.copy,
-        );
+        showToast(context, l.copied(address), mark: ToastMark.copy);
       },
     );
   }
@@ -4107,7 +4135,11 @@ class _AetherHeroCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // The state's line: the dot, the word, and the place's
-                    // flag chip that opens the servers page.
+                    // flag chip that opens the servers page. The word takes
+                    // the room before the chip — a Spacer here would split
+                    // the free width with the word and leave it halved,
+                    // ellipsizing "Disconnected" on the phones that size
+                    // their text up.
                     Row(
                       children: [
                         Container(
@@ -4119,7 +4151,7 @@ class _AetherHeroCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 7),
-                        Flexible(
+                        Expanded(
                           child: Text(
                             label,
                             maxLines: 1,
@@ -4131,7 +4163,7 @@ class _AetherHeroCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Spacer(),
+                        const SizedBox(width: 8),
                         InkWell(
                           onTap: onOpenServers,
                           borderRadius: BorderRadius.circular(9),
@@ -4161,11 +4193,10 @@ class _AetherHeroCard extends StatelessWidget {
                                     place.name,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: theme.textTheme.labelSmall
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: p.text,
-                                        ),
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: p.text,
+                                    ),
                                   ),
                                 ),
                                 if (place.auto) ...[
@@ -4193,15 +4224,15 @@ class _AetherHeroCard extends StatelessWidget {
                               ? DefaultTextStyle(
                                   style:
                                       (theme.textTheme.headlineMedium ??
-                                      const TextStyle(fontSize: 26))
-                                      .copyWith(
-                                        fontWeight: FontWeight.w800,
-                                        fontFeatures: const [
-                                          FontFeature.tabularFigures(),
-                                        ],
-                                        color: p.text,
-                                        height: 1.1,
-                                      ),
+                                              const TextStyle(fontSize: 26))
+                                          .copyWith(
+                                            fontWeight: FontWeight.w800,
+                                            fontFeatures: const [
+                                              FontFeature.tabularFigures(),
+                                            ],
+                                            color: p.text,
+                                            height: 1.1,
+                                          ),
                                   child: _ElapsedText(startedAt: startedAt!),
                                 )
                               : Text(
@@ -4376,7 +4407,9 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
                 width: size,
                 height: size,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.on ? 34 : size / 2),
+                  borderRadius: BorderRadius.circular(
+                    widget.on ? 34 : size / 2,
+                  ),
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -4403,9 +4436,7 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
                   color: Colors.white,
                   shadows: widget.dark
                       ? null
-                      : const [
-                          Shadow(color: Color(0x33000000), blurRadius: 6),
-                        ],
+                      : const [Shadow(color: Color(0x33000000), blurRadius: 6)],
                 ),
               ),
             ),
@@ -4533,16 +4564,14 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
                       boxShadow: widget.on || widget.busy
                           ? [
                               BoxShadow(
-                                color: const Color(
-                                  0xFF7A5CFF,
-                                ).withValues(alpha: p.dark ? 0.40 : 0.30),
+                                color: const Color(0xFF7A5CFF)
+                                    .withValues(alpha: p.dark ? 0.40 : 0.30),
                                 blurRadius: 38,
                                 spreadRadius: 2,
                               ),
                               BoxShadow(
-                                color: const Color(
-                                  0xFFFF5FA2,
-                                ).withValues(alpha: p.dark ? 0.25 : 0.16),
+                                color: const Color(0xFFFF5FA2)
+                                    .withValues(alpha: p.dark ? 0.25 : 0.16),
                                 blurRadius: 52,
                                 spreadRadius: 6,
                               ),
@@ -4564,17 +4593,15 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
                           ? DefaultTextStyle(
                               style:
                                   (theme.textTheme.headlineLarge ??
-                                  const TextStyle(fontSize: 34))
-                                  .copyWith(
-                                    fontWeight: FontWeight.w800,
-                                    fontFeatures: const [
-                                      FontFeature.tabularFigures(),
-                                    ],
-                                    color: Colors.white,
-                                  ),
-                              child: _ElapsedText(
-                                startedAt: widget.startedAt!,
-                              ),
+                                          const TextStyle(fontSize: 34))
+                                      .copyWith(
+                                        fontWeight: FontWeight.w800,
+                                        fontFeatures: const [
+                                          FontFeature.tabularFigures(),
+                                        ],
+                                        color: Colors.white,
+                                      ),
+                              child: _ElapsedText(startedAt: widget.startedAt!),
                             )
                           : const Icon(
                               Icons.power_settings_new_rounded,

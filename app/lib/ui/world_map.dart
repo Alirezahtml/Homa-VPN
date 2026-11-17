@@ -71,7 +71,8 @@ abstract final class WorldMap {
       o += 2;
       final out = <WorldCountry>[];
       for (var c = 0; c < count; c++) {
-        final code = String.fromCharCode(d.getUint8(o)) +
+        final code =
+            String.fromCharCode(d.getUint8(o)) +
             String.fromCharCode(d.getUint8(o + 1));
         o += 2;
         final ax = d.getUint16(o, Endian.little).toDouble();
@@ -135,9 +136,9 @@ class GlobePlace {
 /// the file's equirectangular units turned back into latitude and
 /// longitude.
 GlobePlace globePlaceOf(WorldCountry c) => GlobePlace(
-      90 - c.anchorY / WorldMap.height * 180,
-      c.anchorX / WorldMap.width * 360 - 180,
-    );
+  90 - c.anchorY / WorldMap.height * 180,
+  c.anchorX / WorldMap.width * 360 - 180,
+);
 
 /// The flat map's projection: the standard Web Mercator every atlas and
 /// every phone's map speaks. North stays north-up, shapes keep the
@@ -197,14 +198,9 @@ abstract final class GlobeGeometry {
     if (identical(_from, countries) && _built != null) return _built!;
     _built = [
       for (final c in countries)
-        GlobeCountry(
-          c.code,
-          globePlaceOf(c).unit,
-          [
-            for (final ring in c.rings)
-              GlobeRing(_unitVectors(ring)),
-          ],
-        ),
+        GlobeCountry(c.code, globePlaceOf(c).unit, [
+          for (final ring in c.rings) GlobeRing(_unitVectors(ring)),
+        ]),
     ];
     _from = countries;
     return _built!;
@@ -264,10 +260,10 @@ class GlobeView {
   /// in sphere radii — and how deep it is (z: 1 dead center, 0 at the
   /// limb, negative behind the ball).
   (double, double, double) project(double x, double y, double z) => (
-        x * u1.$1 + y * u1.$2 + z * u1.$3,
-        x * u2.$1 + y * u2.$2 + z * u2.$3,
-        x * v.$1 + y * v.$2 + z * v.$3,
-      );
+    x * u1.$1 + y * u1.$2 + z * u1.$3,
+    x * u2.$1 + y * u2.$2 + z * u2.$3,
+    x * v.$1 + y * v.$2 + z * v.$3,
+  );
 
   /// Where a point at [r] sphere radii along (x, y, z) sits — the lifted
   /// points the connection paths fly at.
@@ -276,8 +272,7 @@ class GlobeView {
     double y,
     double z,
     double r,
-  ) =>
-      project(x * r, y * r, z * r);
+  ) => project(x * r, y * r, z * r);
 }
 
 /// The world's hubs the connection paths reach for: the great exchange
@@ -303,9 +298,8 @@ const globeHubs = <GlobePlace>[
 /// The [count] hubs nearest [from], nearest first — the connection's
 /// roads leave for the exchanges closest to the country it leaves from.
 List<GlobePlace> nearestHubs(GlobePlace from, int count) {
-  final scored = [
-    for (final hub in globeHubs) (hub.angleTo(from), hub),
-  ]..sort((a, b) => a.$1.compareTo(b.$1));
+  final scored = [for (final hub in globeHubs) (hub.angleTo(from), hub)]
+    ..sort((a, b) => a.$1.compareTo(b.$1));
   return [for (final s in scored.take(count)) s.$2];
 }
 
@@ -410,13 +404,13 @@ class GlobePalette {
 
   /// The palette for [style] over [dark].
   static GlobePalette of(GlobeStyle style, bool dark) => switch (style) {
-        GlobeStyle.midnight => _midnight,
-        GlobeStyle.ocean => dark ? _oceanNight : _oceanDay,
-        GlobeStyle.mono => dark ? _monoNight : _monoDay,
-        GlobeStyle.aurora => _aurora,
-        GlobeStyle.satellite => dark ? _satelliteNight : _satelliteDay,
-        _ => dark ? _silverNight : _silverDay,
-      };
+    GlobeStyle.midnight => _midnight,
+    GlobeStyle.ocean => dark ? _oceanNight : _oceanDay,
+    GlobeStyle.mono => dark ? _monoNight : _monoDay,
+    GlobeStyle.aurora => _aurora,
+    GlobeStyle.satellite => dark ? _satelliteNight : _satelliteDay,
+    _ => dark ? _silverNight : _silverDay,
+  };
 
   // The satellite's earth: the ocean carries the ball (deep blue, lit
   // where the light lands), the land reads green with a sandy coast, and
@@ -715,8 +709,10 @@ class _WorldGlobeState extends State<WorldGlobe>
   // mixin: the single one would raise at the first build, where the
   // AnimatedBuilder reads them all at once.
   /// The breath: the pin's rings, the card's bob, the paths' stream.
-  late final AnimationController _breath =
-      AnimationController(vsync: this, duration: const Duration(seconds: 5));
+  late final AnimationController _breath = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 5),
+  );
 
   /// The globe's turn: from the view it rests on to the chosen country's.
   /// A small flight now — the camera pulls back a breath, the ball turns,
@@ -955,13 +951,8 @@ class _WorldGlobeState extends State<WorldGlobe>
                     _currentLon = lon;
                     final geometry = GlobeGeometry.of(widget.countries);
                     final radius = d / 2 * 0.94;
-                    final center =
-                        Offset(box.maxWidth / 2, box.maxHeight / 2);
-                    final world = _worldFor(
-                      geometry,
-                      radius,
-                      center,
-                    );
+                    final center = Offset(box.maxWidth / 2, box.maxHeight / 2);
+                    final world = _worldFor(geometry, radius, center);
                     // The camera: the user's zoom, and the flight's own
                     // pull-back — a breath of distance while the ball
                     // turns, landing as the arrival begins.
@@ -1122,8 +1113,10 @@ class _FloatingCard extends StatelessWidget {
         final left = (box.maxWidth / 2 + dx - cardW / 2)
             .clamp(12.0, math.max(12.0, box.maxWidth - cardW - 12))
             .toDouble();
-        final top =
-            (box.maxHeight / 2 + dy - lift).clamp(10.0, box.maxHeight - 120);
+        final top = (box.maxHeight / 2 + dy - lift).clamp(
+          10.0,
+          box.maxHeight - 120,
+        );
         return Stack(
           children: [
             AnimatedBuilder(
@@ -1313,7 +1306,8 @@ class _RotatedWorld {
       var any = false;
       for (final ring in c.rings) {
         for (var i = 0; i < ring.points; i++) {
-          final z = ring.xyz[i * 3] * view.v.$1 +
+          final z =
+              ring.xyz[i * 3] * view.v.$1 +
               ring.xyz[i * 3 + 1] * view.v.$2 +
               ring.xyz[i * 3 + 2] * view.v.$3;
           if (z > 0) {
@@ -1388,7 +1382,10 @@ class _RotatedWorld {
         final (ux, uy, uz) = GlobePlace(latDeg, lonDeg).unit;
         final p = view.project(ux, uy, uz);
         if (p.$3 > 0) {
-          final q = Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius);
+          final q = Offset(
+            center.dx + p.$1 * radius,
+            center.dy - p.$2 * radius,
+          );
           if (pen) {
             graticule.lineTo(q.dx, q.dy);
           } else {
@@ -1403,12 +1400,14 @@ class _RotatedWorld {
 
     for (var lon = -150; lon <= 180; lon += 30) {
       line([
-        for (var lat = -84; lat <= 84; lat += 4) (lat.toDouble(), lon.toDouble()),
+        for (var lat = -84; lat <= 84; lat += 4)
+          (lat.toDouble(), lon.toDouble()),
       ]);
     }
     for (var lat = -60; lat <= 60; lat += 30) {
       line([
-        for (var lon = -180; lon <= 180; lon += 4) (lat.toDouble(), lon.toDouble()),
+        for (var lon = -180; lon <= 180; lon += 4)
+          (lat.toDouble(), lon.toDouble()),
       ]);
     }
 
@@ -1478,7 +1477,8 @@ class _RotatedWorld {
     var pen = false;
     for (final ring in rings) {
       for (var i = 0; i < ring.points; i++) {
-        final z = ring.xyz[i * 3] * view.v.$1 +
+        final z =
+            ring.xyz[i * 3] * view.v.$1 +
             ring.xyz[i * 3 + 1] * view.v.$2 +
             ring.xyz[i * 3 + 2] * view.v.$3;
         if (z > 0) {
@@ -1487,7 +1487,10 @@ class _RotatedWorld {
             ring.xyz[i * 3 + 1],
             ring.xyz[i * 3 + 2],
           );
-          final q = Offset(center.dx + p.$1 * radius, center.dy - p.$2 * radius);
+          final q = Offset(
+            center.dx + p.$1 * radius,
+            center.dy - p.$2 * radius,
+          );
           if (pen) {
             path.lineTo(q.dx, q.dy);
           } else {
@@ -1557,8 +1560,9 @@ class _GlobePainter extends CustomPainter {
       for (final (x, y, r, phase) in _stars) {
         final twinkle =
             0.55 + 0.45 * math.sin(2 * math.pi * (breath * 1.4 + phase));
-        star.color = palette.stars
-            .withValues(alpha: palette.starAlpha * twinkle * (0.5 + 0.5 * r));
+        star.color = palette.stars.withValues(
+          alpha: palette.starAlpha * twinkle * (0.5 + 0.5 * r),
+        );
         canvas.drawCircle(
           Offset(x * size.width, y * size.height),
           r * 0.9,
@@ -1723,9 +1727,8 @@ class _GlobePainter extends CustomPainter {
         // from the chosen country out to the hub.
         for (final m in road.computeMetrics()) {
           if (m.length < 8) continue;
-          final head = m.length * Curves.easeOutCubic.transform(
-            arrive.clamp(0.0, 1.0),
-          );
+          final head =
+              m.length * Curves.easeOutCubic.transform(arrive.clamp(0.0, 1.0));
           canvas.drawPath(m.extractPath(0, head), roadCore);
           canvas.drawPath(m.extractPath(0, head), run);
         }
@@ -1737,8 +1740,10 @@ class _GlobePainter extends CustomPainter {
             // One comet per road: a short bright dash gliding the whole
             // length over the breath's period.
             final t = (breath * m.length * 2) % m.length;
-            final head = (t + math.min(24.0, m.length * 0.18))
-                .clamp(0.0, m.length);
+            final head = (t + math.min(24.0, m.length * 0.18)).clamp(
+              0.0,
+              m.length,
+            );
             if (head > t) canvas.drawPath(m.extractPath(t, head), run);
           }
         }
@@ -1784,8 +1789,9 @@ class _GlobePainter extends CustomPainter {
         seat,
         near ? 1.7 : 1.15,
         Paint()
-          ..color = (dark ? Colors.white : Colors.black)
-              .withValues(alpha: near ? 0.75 : 0.42)
+          ..color = (dark ? Colors.white : Colors.black).withValues(
+            alpha: near ? 0.75 : 0.42,
+          )
           ..isAntiAlias = true,
       );
     }
@@ -1823,9 +1829,7 @@ class _GlobePainter extends CustomPainter {
       );
       final drop = Curves.elasticOut.transform(arrive.clamp(0.0, 1.0));
       final seedSeat = seat.translate(0, 10 * (1 - drop));
-      final burst = arrive < 1.0
-          ? 1.0 - arrive
-          : 0.0;
+      final burst = arrive < 1.0 ? 1.0 - arrive : 0.0;
       if (burst > 0) {
         canvas.drawCircle(
           seat,
@@ -1866,7 +1870,9 @@ class _GlobePainter extends CustomPainter {
       canvas.drawCircle(
         seedSeat,
         2.0,
-        Paint()..color = accent..isAntiAlias = true,
+        Paint()
+          ..color = accent
+          ..isAntiAlias = true,
       );
     }
   }
@@ -1958,8 +1964,10 @@ class WorldMapBackdrop extends StatefulWidget {
 
 class _WorldMapBackdropState extends State<WorldMapBackdrop>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _breath =
-      AnimationController(vsync: this, duration: const Duration(seconds: 4));
+  late final AnimationController _breath = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 4),
+  );
 
   /// The countries' paths, built once for the map's size on screen: the
   /// outlines are the expensive part (the official borders carry about a
@@ -1978,10 +1986,7 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
         WorldShape(
           c.code,
           _pathOf(c, sx, mapH),
-          ui.Offset(
-            c.anchorX * sx,
-            mercatorYOfWorldY(c.anchorY, mapH),
-          ),
+          ui.Offset(c.anchorX * sx, mercatorYOfWorldY(c.anchorY, mapH)),
         ),
     ];
     _builtFrom = widget.countries;
@@ -1996,15 +2001,9 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
     final path = ui.Path();
     for (final ring in c.rings) {
       if (ring.isEmpty) continue;
-      path.moveTo(
-        ring.first.dx * sx,
-        mercatorYOfWorldY(ring.first.dy, mapH),
-      );
+      path.moveTo(ring.first.dx * sx, mercatorYOfWorldY(ring.first.dy, mapH));
       for (var i = 1; i < ring.length; i++) {
-        path.lineTo(
-          ring[i].dx * sx,
-          mercatorYOfWorldY(ring[i].dy, mapH),
-        );
+        path.lineTo(ring[i].dx * sx, mercatorYOfWorldY(ring[i].dy, mapH));
       }
       path.close();
     }
@@ -2059,17 +2058,37 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
                 child: SizedBox(
                   width: mapW,
                   height: mapH,
-                  child: AnimatedBuilder(
-                    animation: _breath,
-                    builder: (context, _) => CustomPaint(
-                      size: Size(mapW, mapH),
-                      painter: _WorldPainter(
-                        shapes: _shapes ?? const <WorldShape>[],
-                        ink: widget.ink,
-                        accent: widget.accent,
-                        selected: widget.selected,
-                        finish: widget.finish,
-                        t: widget.animated ? _breath.value : 0.5,
+                  // The world's south edge dissolves instead of stopping:
+                  // the projection cuts at 85°, where Antarctica fills the
+                  // map's last rows, and a straight line of land against
+                  // the page's own gradient reads as a hard border — the
+                  // last rows melt out, the coastlines above them keep
+                  // their place (no settled country's anchor sits in the
+                  // band the fade takes).
+                  child: ShaderMask(
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (bounds) => const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(255, 255, 255, 1),
+                        Color.fromRGBO(255, 255, 255, 1),
+                        Color.fromRGBO(255, 255, 255, 0),
+                      ],
+                      stops: [0, 0.84, 1],
+                    ).createShader(bounds),
+                    child: AnimatedBuilder(
+                      animation: _breath,
+                      builder: (context, _) => CustomPaint(
+                        size: Size(mapW, mapH),
+                        painter: _WorldPainter(
+                          shapes: _shapes ?? const <WorldShape>[],
+                          ink: widget.ink,
+                          accent: widget.accent,
+                          selected: widget.selected,
+                          finish: widget.finish,
+                          t: widget.animated ? _breath.value : 0.5,
+                        ),
                       ),
                     ),
                   ),
@@ -2204,8 +2223,9 @@ class _WorldPainter extends CustomPainter {
       canvas.drawPath(
         _allLand(shapes, chosen),
         Paint()
-          ..color = (dark ? Colors.black : ink)
-              .withValues(alpha: dark ? 0.34 : 0.10)
+          ..color = (dark ? Colors.black : ink).withValues(
+            alpha: dark ? 0.34 : 0.10,
+          )
           ..style = PaintingStyle.fill
           ..isAntiAlias = true
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.4),
@@ -2274,11 +2294,7 @@ class _WorldPainter extends CustomPainter {
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16)
           ..isAntiAlias = true,
       );
-      for (final (r, a) in [
-        (30.0, 0.14),
-        (20.0, 0.24),
-        (12.0, 0.40),
-      ]) {
+      for (final (r, a) in [(30.0, 0.14), (20.0, 0.24), (12.0, 0.40)]) {
         canvas.drawCircle(
           anchor,
           r * (0.85 + 0.3 * breathe),
@@ -2369,9 +2385,7 @@ class WorldBackdrop extends StatelessWidget {
         accent: accent,
         selected: selected,
         animated: animated,
-        finish: kind == MapKind.flat
-            ? FlatFinish.modern
-            : FlatFinish.classic,
+        finish: kind == MapKind.flat ? FlatFinish.modern : FlatFinish.classic,
         scale: kind == MapKind.classic ? 1.45 : 1.32,
       );
     }

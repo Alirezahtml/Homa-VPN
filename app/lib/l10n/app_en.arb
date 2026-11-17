@@ -1378,5 +1378,8 @@
   "wn46Designs": "Two new looks from the reference designs: the aether's iOS status card and the zed's gradient blob — each dresses the whole app, every page, and the four earlier looks left.",
   "wn46Sounds": "The sounds grew a professional set: a swell for the connect that begins, a chord when it carries, a falling one when it rests, and a muted note for the blocked way — one voice at a time.",
   "wn47Designs": "The two reference looks now dress the whole app — every page, not just the home: the aether wears AetherST's iOS structure (the curved notch bar, the grouped tables, the colored badges, the system's own state colors), and the zed wears ZedSecure's expressive one (the floating dock, the very-round cards, the draggable tool bubbles).",
-  "wn47Fixes": "A settings row that overflowed on narrow screens now reads to its end."
+  "wn47Fixes": "A settings row that overflowed on narrow screens now reads to its end.",
+  "wn48Bars": "The two designs' bottom bars hold their places again: the aether's blue circle rests in its own tab's notch, and the zed's circle no longer covers the name under it.",
+  "wn48Fit": "The homes fit their screens again: the aether's card reads Disconnected to its end, the zed's orb steps down when the page runs tight, and while the connection is being made no track asks to slide to connect and no hint says disconnect at once.",
+  "wn48Wheel": "The flags' wheel dissolves a card before the screen's edge can cut it, the recommended place wears Mozilla's mark at a size that reads, and the flat map's south edge melts into the page instead of ending in a line."
 }

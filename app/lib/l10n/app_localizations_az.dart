@@ -2685,4 +2685,16 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn47Fixes =>
       'Dar ekranlarda daşan parametr sətri artıq sonuna qədər oxunur.';
+
+  @override
+  String get wn48Bars =>
+      'Hər iki dizaynın aşağı zolaqları öz yerinə oturdu: aether-in mavi dairəsi öz sekmesinin yuvasında durur, zed-in dairəsi isə artıq altındakı adı örtmür.';
+
+  @override
+  String get wn48Fit =>
+      'Ana səhifələr yenidən ekranına sığır: aether kartı Disconnected sözünü sonuna qədər oxuyur, səhifə dar olanda zed-in kürəsi bir addım geri çəkilir, qoşulma gedərkən nə yol «qoşulmaq üçün sürüşdür» deyir, nə də ipucu eyni anda «kəs» deyir.';
+
+  @override
+  String get wn48Wheel =>
+      'Bayraq çarxı kartı ekran kənarı onu yarıb kəsməzdən əvvəl əridir, tövsiyə olunan yer Mozilla nişanını oxunaqlı ölçüdə geyir, düz xəritənin cənub kənarı xəttə qurtarmaq əvəzinə səhifəyə əriyir.';
 }
