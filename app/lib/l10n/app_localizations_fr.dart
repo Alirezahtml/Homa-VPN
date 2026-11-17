@@ -2716,4 +2716,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn49Mark =>
       'L\'emplacement recommandé porte la vraie marque de Mozilla VPN, et les boutons de mise à jour portent le glyphe propre de la mise à jour.';
+
+  @override
+  String get wn50Notch =>
+      'Le vêtement des deux designs sort du désordre qu\'il gardait : la barre à encoche de l\'aether lit le centre du cercle lui-même, le nom de l\'onglet choisi porte l\'encre de la page sur les deux looks, et la lueur du cercle reste au cercle au lieu de laver le nom.';
+
+  @override
+  String get wn50Cards =>
+      'L\'accueil du zed plie ses débits dans le bento : la carte des débits rejoint les deux cellules du bento et la rangée de la session, les dernières cartes de la page dégagent la place du dock, et rien ne reste à moitié sous le dock quand la page défile jusqu\'à son bout.';
+
+  @override
+  String get wn50Veil =>
+      'La bande d\'état porte son voile : le contenu s\'estompe sous l\'horloge au lieu de la heurter, les pages poussées du zed ne commencent plus sous l\'horloge, et ses outils flottants laissent libre la place du dock.';
+
+  @override
+  String get wn50Ping =>
+      'La pastille de ping de l\'aether mesure de nouveau d\'un toucher, comme répond la pastille de la référence elle-même.';
 }

@@ -2700,4 +2700,20 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn49Mark =>
       'A localização recomendada veste a marca verdadeira da Mozilla VPN, e os botões de atualização vestem o glifo próprio da atualização.';
+
+  @override
+  String get wn50Notch =>
+      'O traje dos dois designs sai da bagunça que guardava: a barra de entalhe do aether lê o centro do próprio círculo, o nome da aba escolhida veste a tinta da página nos dois visuais, e o brilho do círculo fica no círculo em vez de lavar o nome.';
+
+  @override
+  String get wn50Cards =>
+      'A casa do zed dobra suas taxas dentro do bento: o cartão de taxas se une às duas células do bento e à linha da sessão, os últimos cartões da página liberam o assento do dock, e nada fica pela metade sob o dock quando a página rola até o fim.';
+
+  @override
+  String get wn50Veil =>
+      'A faixa de status veste seu véu: o conteúdo desvanece sob o relógio em vez de colidir com ele, as páginas abertas do zed não começam mais sob o relógio, e suas ferramentas flutuantes mantêm livre o assento do dock.';
+
+  @override
+  String get wn50Ping =>
+      'A pílula de ping do aether mede de novo com um toque, do jeito que a pílula da própria referência responde.';
 }

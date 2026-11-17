@@ -2705,4 +2705,20 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn49Mark =>
       'Az ajánlott hely a Mozilla VPN igazi jelét viseli, a frissítés gombjai pedig a frissítés saját jelképét.';
+
+  @override
+  String get wn50Notch =>
+      'A két dizájn ruhája kikerül abból a rendetlenségből, amit őrzött: az aether bevágású sávja a kör saját középpontját olvassa, a kiválasztott fül neve mindkét kinézetben az oldal saját tintáját viseli, a kör fénye pedig a körnél marad, s nem mossa le a nevet.';
+
+  @override
+  String get wn50Cards =>
+      'A zed otthona a bentóba hajtja sebességeit: a sebességkártya a bentó két cellájához és a munkamenet sorához csatlakozik, az oldal utolsó kártyái felszabadítják a dokk ülését, és amikor az oldalt a végéig görgetik, semmi nem marad félig a dokk alatt.';
+
+  @override
+  String get wn50Veil =>
+      'Az állapotsáv felvéti fátylát: a görgetett tartalom az óra alatt halványul el, ahelyett hogy nekiütközne, a zed elé tolt oldalai már nem az óra alatt kezdődnek, és lebegő eszközei távolról tartják a dokk ülését.';
+
+  @override
+  String get wn50Ping =>
+      'Az aether ping-chipje egy koppintásra megint mér, úgy felel, ahogy a referencia saját chipje.';
 }

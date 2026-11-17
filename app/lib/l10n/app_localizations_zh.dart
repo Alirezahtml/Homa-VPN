@@ -2536,6 +2536,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn49Mark => '推荐位置换上了 Mozilla VPN 真正的标志，更新按钮也换上了更新自己的图标。';
+
+  @override
+  String get wn50Notch =>
+      '两套设计的衣着告别了积攒的凌乱：aether 的缺口栏读到圆钮自己的中心，被选中的标签名在两套外观里都穿上页面自己的墨色，圆钮的光晕守在圆钮身上，不再把名字洗掉。';
+
+  @override
+  String get wn50Cards =>
+      'zed 的主页把速率折进便当格：速率卡并入便当格的两格与会话一行，页面最后的卡片让开底栏的座位，页面滑到底时再没有东西半截藏在底栏之下。';
+
+  @override
+  String get wn50Veil =>
+      '状态条戴上自己的薄纱：滚动的内容在时钟下方淡出而不再与它相撞，zed 推开的页面不再从时钟下面开始，它的悬浮工具也远离底栏的座位。';
+
+  @override
+  String get wn50Ping => 'aether 的延迟胶囊再次一触即测，就像参考里它自己的胶囊那样应答。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5071,4 +5086,19 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn49Mark => '建議位置換上了 Mozilla VPN 真正的標誌，更新按鈕也換上了更新自己的圖示。';
+
+  @override
+  String get wn50Notch =>
+      '兩套設計的衣著告別了積存的凌亂：aether 的缺口欄讀到圓鈕自己的中心，被選中的分頁名在兩套外觀裡都穿上頁面自己的墨色，圓鈕的光暈守在圓鈕身上，不再把名字洗掉。';
+
+  @override
+  String get wn50Cards =>
+      'zed 的首頁把速率摺進便當格：速率卡併入便當格的兩格與工作階段一行，頁面最後的卡片讓開底欄的座位，頁面滑到底時再沒有東西半截藏在底欄之下。';
+
+  @override
+  String get wn50Veil =>
+      '狀態列戴上自己的薄紗：捲動的內容在時鐘下方淡出而不再與它相撞，zed 推開的頁面不再從時鐘下面開始，它的浮動工具也遠離底欄的座位。';
+
+  @override
+  String get wn50Ping => 'aether 的延遲膠囊再次一觸即測，就像參考裡它自己的膠囊那樣應答。';
 }

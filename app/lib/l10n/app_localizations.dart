@@ -4754,6 +4754,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The recommended location wears Mozilla VPN\'s real mark, and the update\'s buttons wear the update\'s own glyph.'**
   String get wn49Mark;
+
+  /// No description provided for @wn50Notch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two designs\' dress comes out of the mess it had kept: the aether\'s notch bar reads the circle\'s own center, the chosen tab\'s name wears the page\'s ink on both looks, and the circle\'s glow keeps to the circle instead of washing the name.'**
+  String get wn50Notch;
+
+  /// No description provided for @wn50Cards.
+  ///
+  /// In en, this message translates to:
+  /// **'The zed\'s home folds its rates into the bento: the rate card joins the bento\'s two cells and the session\'s row, the page\'s last cards clear the dock\'s seat, and nothing runs half under the dock when the page scrolls to its end.'**
+  String get wn50Cards;
+
+  /// No description provided for @wn50Veil.
+  ///
+  /// In en, this message translates to:
+  /// **'The status band wears its veil: the scrolled content fades beneath the clock instead of colliding with it, the zed\'s pushed pages no longer start under the clock, and its floating tools keep clear of the dock\'s seat.'**
+  String get wn50Veil;
+
+  /// No description provided for @wn50Ping.
+  ///
+  /// In en, this message translates to:
+  /// **'The aether\'s ping chip measures again on a tap, the way the reference\'s own chip answers.'**
+  String get wn50Ping;
 }
 
 class _AppLocalizationsDelegate

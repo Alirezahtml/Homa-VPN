@@ -2690,4 +2690,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn49Mark =>
       'Vị trí đề xuất khoác dấu thật của Mozilla VPN, và các nút cập nhật mang ký tự cập nhật của riêng chúng.';
+
+  @override
+  String get wn50Notch =>
+      'Trang phục của hai thiết kế thoát khỏi mớ lộn xộn nó từng giữ: thanh khểnh của aether đọc đúng tâm của chính vòng tròn, tên của thẻ được chọn khoác mực của trang ở cả hai giao diện, còn quầng sáng của vòng tròn ở lại với vòng tròn, không rửa trôi cái tên.';
+
+  @override
+  String get wn50Cards =>
+      'Trang chủ của zed gấp tốc độ của nó vào bento: thẻ tốc độ gia nhập hai ô của bento và hàng phiên, những thẻ cuối trang nhường chỗ ngồi của dock, và chẳng gì còn nửa chừng dưới dock khi trang cuộn tới tận cùng.';
+
+  @override
+  String get wn50Veil =>
+      'Dải trạng thái khoác tấm voan của nó: nội dung cuộn mờ dần dưới đồng hồ thay vì va vào nó, các trang zed đẩy ra không còn bắt đầu dưới đồng hồ, và những công cụ nổi giữ xa chỗ ngồi của dock.';
+
+  @override
+  String get wn50Ping =>
+      'Viên chip ping của aether đo lại bằng một lần chạm, đúng cách viên chip của tham chiếu tự phản hồi.';
 }

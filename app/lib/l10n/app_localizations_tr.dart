@@ -2690,4 +2690,20 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn49Mark =>
       'Önerilen konum Mozilla VPN\'in gerçek işaretini taşır, güncelleme düğmeleri de güncellemenin kendi glifini.';
+
+  @override
+  String get wn50Notch =>
+      'İki tasarımın giysisi taşıdığı dağınıklıktan çıkıyor: aether\'in çentikli çubuğu çemberin kendi merkezini okuyor, seçilen sekmenin adı her iki görünümde sayfanın kendi mürekkebini giyiyor, çemberin ışıması çemberde kalıyor ve adı yıkamıyor.';
+
+  @override
+  String get wn50Cards =>
+      'zed\'in evi hızlarını bentoya katlıyor: hız kartı bentonun iki gözüne ve oturum satırına katılıyor, sayfanın son kartları dock\'un koltuğunu boş bırakıyor ve sayfa sonuna kadar kaydığında hiçbir şeyin yarısı dock\'un altında kalmıyor.';
+
+  @override
+  String get wn50Veil =>
+      'Durum şeridi kendi perdesini giyiyor: kayan içerik saatle çarpışmak yerine saatin altında solar, zed\'in açtığı sayfalar artık saatin altında başlamıyor ve yüzen araçları dock\'un koltuğundan uzak duruyor.';
+
+  @override
+  String get wn50Ping =>
+      'aether\'in ping çipi bir dokunuşla yeniden ölçüyor, tıpkı referansın kendi çipinin cevap vermesi gibi.';
 }

@@ -2694,4 +2694,20 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn49Mark =>
       'Lokasi yang disarankan memakai tanda Mozilla VPN yang sebenarnya, dan tombol pembaruan memakai glif pembaruan miliknya.';
+
+  @override
+  String get wn50Notch =>
+      'Pakaian kedua desain keluar dari kekacauan yang tersimpan: bilah takik aether membaca pusat lingkaran itu sendiri, nama tab terpilih memakai tinta halaman di kedua tampilan, dan cahaya lingkaran tinggal pada lingkaran, tak lagi mencuci nama.';
+
+  @override
+  String get wn50Cards =>
+      'Beranda zed melipat lajunya ke dalam bento: kartu laju bergabung ke dua sel bento dan baris sesi, kartu-kartu terakhir halaman membereskan kursi dock, dan tak ada yang tersisa setengah di bawah dock saat halaman menggulir sampai ujungnya.';
+
+  @override
+  String get wn50Veil =>
+      'Bilah status memakai selubungnya: konten memudar di bawah jam alih-alih menabraknya, halaman-halaman yang didorong zed tak lagi mulai di bawah jam, dan alat mengapungnya menjaga jarak dari kursi dock.';
+
+  @override
+  String get wn50Ping =>
+      'Cip ping aether kembali mengukur dengan satu ketukan, seperti cip milik referensi sendiri menjawab.';
 }
