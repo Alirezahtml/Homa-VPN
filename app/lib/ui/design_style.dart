@@ -237,7 +237,11 @@ class AetherCurvedNav extends StatelessWidget {
   // AetherST's own measures (its MainScreen.kt).
   static const double _barHeight = 90;
   static const double _buttonSize = 56;
-  static const double _buttonCenterY = 20;
+  // The circle's real center: the button sits a breath below the bar's
+  // top (top: 6 below), so its center is 6 + its radius — the notch and
+  // the button read the same number, or the curve wanders off the
+  // circle and the name hides under the button's glow.
+  static const double _buttonCenterY = 34;
   static const double _barTop = 20;
   static const double _itemBottomPadding = 12;
 
@@ -308,11 +312,14 @@ class AetherCurvedNav extends StatelessWidget {
                               color: Colors.white.withValues(alpha: 0.35),
                               width: 1.5,
                             ),
+                            // The glow hugs the circle: a wide halo would
+                            // wash the name that sits right under it and
+                            // read the tab as nameless.
                             boxShadow: [
                               BoxShadow(
-                                color: style.navActive.withValues(alpha: 0.45),
-                                blurRadius: 18,
-                                offset: const Offset(0, 6),
+                                color: style.navActive.withValues(alpha: 0.32),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
                               ),
                             ],
                           ),
@@ -352,12 +359,19 @@ class AetherCurvedNav extends StatelessWidget {
                               bottom: _itemBottomPadding,
                             ),
                             child: i == index
+                                // The chosen name sits right under the
+                                // circle, so it reads in the page's own ink
+                                // — the circle already carries the accent,
+                                // and an accent name on the accent's glow
+                                // drowned it.
                                 ? Text(
                                     tabs[i].$2,
                                     style: TextStyle(
                                       fontSize: 10.5,
-                                      fontWeight: FontWeight.w700,
-                                      color: style.navActive,
+                                      fontWeight: FontWeight.w800,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface,
                                     ),
                                   )
                                 : Column(
@@ -556,13 +570,16 @@ class ZedDockNav extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: style.navActive,
+                                    // The glow keeps to the circle: a wide
+                                    // one washed the name beneath it into
+                                    // the violet and read the tab as bare.
                                     boxShadow: [
                                       BoxShadow(
                                         color: style.navActive.withValues(
-                                          alpha: 0.5,
+                                          alpha: 0.35,
                                         ),
-                                        blurRadius: 16,
-                                        offset: const Offset(0, 4),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 3),
                                       ),
                                     ],
                                   ),
@@ -623,10 +640,17 @@ class ZedDockNav extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 10.5,
                                           fontWeight: i == index
-                                              ? FontWeight.w700
+                                              ? FontWeight.w800
                                               : FontWeight.w600,
+                                          // The chosen name sits under the
+                                          // circle, so it reads in the page's
+                                          // own ink, not in the violet it
+                                          // would drown in; the lime's own
+                                          // underline still marks the tab.
                                           color: i == index
-                                              ? style.navActive
+                                              ? Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurface
                                               : style.navInactive,
                                         ),
                                       ),
@@ -686,12 +710,14 @@ class ZedFabCluster extends StatefulWidget {
 }
 
 class _ZedFabClusterState extends State<ZedFabCluster> {
-  // ZedSecure's own measures (its HomeFabCluster.kt).
+  // ZedSecure's own measures (its HomeFabCluster.kt). The bottom limit
+  // clears the dock and its seat, so a cluster left near the screen's
+  // foot never lands on the tabs and their names.
   static const double _fabSize = 54;
   static const double _edge = 14;
   static const double _gap = 10;
   static const double _topLimit = 120;
-  static const double _bottomLimit = 28;
+  static const double _bottomLimit = 120;
 
   bool _atEnd = false;
   double _yFraction = 0.3;
@@ -817,8 +843,12 @@ class ZedPageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // The header leads the pushed page under the clock, so it carries
+    // the status bar's own inset: without it the back button and the
+    // big title start inside the clock's own band.
+    final top = MediaQuery.paddingOf(context).top;
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(14, 6, 22, 2),
+      padding: EdgeInsetsDirectional.fromSTEB(14, top + 6, 22, 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

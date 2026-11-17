@@ -1211,6 +1211,9 @@ class _PhoneHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = _homePalette(Theme.of(context).brightness);
     final l = AppLocalizations.of(context);
+    // The status bar's own height: the clock's veil under the scroll
+    // reads its reach from it.
+    final top = MediaQuery.paddingOf(context).top;
     // The home's map kind, read once: the world carries it, and the
     // wheel's name rides on whether the kind has a floating card of its
     // own (the ball kinds) or not (the flat kinds).
@@ -1274,6 +1277,30 @@ class _PhoneHome extends StatelessWidget {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: box.maxHeight),
                   child: IntrinsicHeight(child: _content(context, p, box)),
+                ),
+              ),
+            ),
+            // The clock's own veil: when the page scrolls, the content
+            // that slides under the status bar fades out beneath it — the
+            // iOS way — instead of colliding with the clock and the
+            // battery. The veil's color is the page's own top, so on a
+            // resting page (whose content starts below it anyway) it is
+            // invisible: nothing changes there, only the scrolled state
+            // gains its readability back.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: top + 10,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [p.top, p.top.withValues(alpha: 0)],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1384,10 +1411,18 @@ class _PhoneHome extends StatelessWidget {
     // things are laid out: the place, the switch, and the numbers.
     final design = settings.homeDesign;
     return Padding(
-      // The bottom clears the floating pill navigation, which the page
-      // runs beneath — with room to breathe, not a dead band: the cards
-      // sit close above it.
-      padding: EdgeInsets.fromLTRB(side, top + 14, side, 72),
+      // The bottom clears the floating navigation, which the page runs
+      // beneath — with room to breathe, not a dead band: the cards sit
+      // close above it. The two newer designs' docks sit taller than the
+      // pill (their own seat plus the dock), so they ask for their own
+      // deeper margin — otherwise the page's last cards end up half
+      // under the dock when the page scrolls to its end.
+      padding: EdgeInsets.fromLTRB(
+        side,
+        top + 14,
+        side,
+        design == 'aether' || design == 'zed' ? 104 : 72,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1602,6 +1637,8 @@ class _PhoneHome extends StatelessWidget {
                       showTraffic: settings.showTraffic,
                       batterySaver: settings.batterySaver,
                       onOpenServers: onOpenServers,
+                      testing: core.testing,
+                      onTest: () => runShowingErrors(context, core.runTest),
                       onPressed: () => status.totalAccounts == 0
                           ? _openAccounts(
                               context,
@@ -1697,8 +1734,9 @@ class _PhoneHome extends StatelessWidget {
                 pingMs: (test?.ok ?? false) ? test!.responseMs : null,
                 showTraffic: settings.showTraffic,
                 // The zed's blob carries the time and the ping itself;
-                // its card keeps only the rates.
+                // its card keeps only the rates, as two compact cells.
                 showConnection: design == 'pixel',
+                rateCells: design == 'zed',
               )
             else if (design != 'aether')
               // The aether's card carries the time, the ping and the two
@@ -3912,6 +3950,7 @@ class _FlatStats extends StatelessWidget {
     required this.pingMs,
     required this.showTraffic,
     this.showConnection = true,
+    this.rateCells = false,
   });
 
   final CoreController core;
@@ -3926,12 +3965,31 @@ class _FlatStats extends StatelessWidget {
   /// stats card keeps only the rates.
   final bool showConnection;
 
+  /// The rates as two compact cells side by side instead of three full
+  /// rows: the zed's card under the blob stays short whatever the user's
+  /// text size, and reads like the bento the design wears — the session's
+  /// sum keeps its own row beneath the pair.
+  final bool rateCells;
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final p = palette;
     final traffic = status.traffic;
     final ping = pingMs;
+    final sessionRow = Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: _FlatRow(
+        palette: p,
+        icon: Icons.swap_vert_rounded,
+        label: l.statSession,
+        value: Text(
+          '↓ ${formatBytes((traffic?.down ?? 0) + (traffic?.directDown ?? 0))}'
+          ' · '
+          '↑ ${formatBytes((traffic?.up ?? 0) + (traffic?.directUp ?? 0))}',
+        ),
+      ),
+    );
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 420),
       child: _HomeCard(
@@ -3968,35 +4026,154 @@ class _FlatStats extends StatelessWidget {
                 ),
               ],
               if (showTraffic) ...[
-                const SizedBox(height: 10),
-                _FlatRow(
-                  palette: p,
-                  icon: Icons.south_rounded,
-                  label: l.statDown,
-                  value: Text(formatRate(traffic?.downRate ?? 0)),
-                ),
-                const SizedBox(height: 10),
-                _FlatRow(
-                  palette: p,
-                  icon: Icons.north_rounded,
-                  label: l.statUp,
-                  value: Text(formatRate(traffic?.upRate ?? 0)),
-                ),
-                const SizedBox(height: 10),
-                _FlatRow(
-                  palette: p,
-                  icon: Icons.swap_vert_rounded,
-                  label: l.statSession,
-                  value: Text(
-                    '↓ ${formatBytes((traffic?.down ?? 0) + (traffic?.directDown ?? 0))}'
-                    ' · '
-                    '↑ ${formatBytes((traffic?.up ?? 0) + (traffic?.directUp ?? 0))}',
+                if (rateCells) ...[
+                  const SizedBox(height: 10),
+                  // The cells' own stage: the IntrinsicHeight gives the
+                  // pair its shared height (the taller one's), so the
+                  // stretch below lays both to the same bottom — without
+                  // it the stretch would hand the pair the column's
+                  // unbounded height.
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: _RateCell(
+                            palette: p,
+                            label: l.statDown,
+                            icon: Icons.south_rounded,
+                            bytes:
+                                (traffic?.down ?? 0) +
+                                (traffic?.directDown ?? 0),
+                            rate: traffic?.downRate ?? 0,
+                            // The download in the carrying green, the
+                            // upload in the design's own light — the same
+                            // pair of voices the aether's card speaks.
+                            color: p.dark
+                                ? const Color(0xFF34C759)
+                                : const Color(0xFF1E9E6B),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: _RateCell(
+                            palette: p,
+                            label: l.statUp,
+                            icon: Icons.north_rounded,
+                            bytes:
+                                (traffic?.up ?? 0) +
+                                (traffic?.directUp ?? 0),
+                            rate: traffic?.upRate ?? 0,
+                            color: DesignStyle.of(context).navActive,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  sessionRow,
+                ] else ...[
+                  const SizedBox(height: 10),
+                  _FlatRow(
+                    palette: p,
+                    icon: Icons.south_rounded,
+                    label: l.statDown,
+                    value: Text(formatRate(traffic?.downRate ?? 0)),
+                  ),
+                  const SizedBox(height: 10),
+                  _FlatRow(
+                    palette: p,
+                    icon: Icons.north_rounded,
+                    label: l.statUp,
+                    value: Text(formatRate(traffic?.upRate ?? 0)),
+                  ),
+                  sessionRow,
+                ],
               ],
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// One of the zed card's two rate cells: the direction's word and the
+/// moment's rate on the first line, the session's bytes muted beneath —
+/// a tile of the bento the design wears, not a row of a ledger.
+class _RateCell extends StatelessWidget {
+  const _RateCell({
+    required this.palette,
+    required this.label,
+    required this.icon,
+    required this.bytes,
+    required this.rate,
+    required this.color,
+  });
+
+  final _HomePalette palette;
+  final String label;
+  final IconData icon;
+  final int bytes;
+  final int rate;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(12, 9, 12, 9),
+      decoration: BoxDecoration(
+        color: p.dark
+            ? Colors.white.withValues(alpha: 0.06)
+            : Colors.black.withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 14, color: color),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.3,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 3),
+          Text(
+            formatRate(rate),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: (theme.textTheme.titleMedium ?? const TextStyle()).copyWith(
+              fontWeight: FontWeight.w800,
+              fontFeatures: const [FontFeature.tabularFigures()],
+              color: p.text,
+            ),
+          ),
+          const SizedBox(height: 1),
+          Text(
+            formatBytes(bytes),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+              fontFeatures: const [FontFeature.tabularFigures()],
+              color: p.muted,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -4084,6 +4261,8 @@ class _AetherHeroCard extends StatelessWidget {
     required this.batterySaver,
     required this.onOpenServers,
     required this.onPressed,
+    this.testing = false,
+    this.onTest,
   });
 
   final _HomePalette palette;
@@ -4108,6 +4287,12 @@ class _AetherHeroCard extends StatelessWidget {
   final bool batterySaver;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
+
+  /// The ping chip is a button too: the reference's card measures the
+  /// delay again when its own chip is tapped — the chip shows the test's
+  /// spinner while the measure runs.
+  final bool testing;
+  final VoidCallback? onTest;
 
   /// AetherST's own state lights — the system colors the iOS look
   /// speaks: the vivid set on the dark page, the deeper set on the
@@ -4270,42 +4455,56 @@ class _AetherHeroCard extends StatelessWidget {
                                 ),
                         ),
                         // The ping chip at the time's side: the last
-                        // test's own number, the way the iOS card reads.
+                        // test's own number, the way the iOS card reads —
+                        // and a tap measures it again, the way the
+                        // reference's chip answers.
                         if (on && pingMs != null) ...[
                           const SizedBox(width: 10),
-                          Container(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              8,
-                              4,
-                              8,
-                              4,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: p.dark
-                                  ? const Color(0xFF2C2C2E)
-                                  : const Color(0xFFECECF1),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.speed_rounded,
-                                  size: 13,
-                                  color: p.muted,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '$pingMs ms',
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontFeatures: const [
-                                      FontFeature.tabularFigures(),
-                                    ],
-                                    color: p.muted,
+                          InkWell(
+                            onTap: testing ? null : onTest,
+                            borderRadius: BorderRadius.circular(8),
+                            child: Container(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                8,
+                                4,
+                                8,
+                                4,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: p.dark
+                                    ? const Color(0xFF2C2C2E)
+                                    : const Color(0xFFECECF1),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  testing
+                                      ? const SizedBox.square(
+                                          dimension: 12,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 1.5,
+                                          ),
+                                        )
+                                      : Icon(
+                                          Icons.speed_rounded,
+                                          size: 13,
+                                          color: p.muted,
+                                        ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    '$pingMs ms',
+                                    style: theme.textTheme.labelSmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontFeatures: const [
+                                            FontFeature.tabularFigures(),
+                                          ],
+                                          color: p.muted,
+                                        ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],
