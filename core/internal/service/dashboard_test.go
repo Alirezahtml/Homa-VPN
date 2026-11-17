@@ -533,7 +533,7 @@ func TestConnectionTestMeasuresTunnelRequest(t *testing.T) {
         }))
         defer server.Close()
 
-        result := proxy.RunConnectionTest(tunnelToServer{addr: server.Listener.Addr().String()}, "http://test.invalid/generate_204", 0, 5*time.Second)
+        result := proxy.RunTunnelTest(tunnelToServer{addr: server.Listener.Addr().String()}, "http://test.invalid/generate_204", 5*time.Second)
         if !result.OK || result.HTTPStatus != http.StatusNoContent || result.TotalMS < 0 {
                 t.Fatalf("expected a passing test, got %+v", result)
         }
@@ -542,7 +542,7 @@ func TestConnectionTestMeasuresTunnelRequest(t *testing.T) {
                 t.Fatalf("stages do not add up: %+v", result)
         }
 
-        failed := proxy.RunConnectionTest(tunnelToServer{addr: "127.0.0.1:1"}, "http://test.invalid/", 0, 2*time.Second)
+        failed := proxy.RunTunnelTest(tunnelToServer{addr: "127.0.0.1:1"}, "http://test.invalid/", 2*time.Second)
         if failed.OK || failed.Error == "" || failed.ErrorCode != proxy.FailureUnreachable {
                 t.Fatalf("expected a failing test (unreachable), got %+v", failed)
         }
@@ -552,7 +552,7 @@ func TestConnectionTestMeasuresTunnelRequest(t *testing.T) {
                 w.WriteHeader(http.StatusServiceUnavailable)
         }))
         defer broken.Close()
-        site := proxy.RunConnectionTest(tunnelToServer{addr: broken.Listener.Addr().String()}, "http://test.invalid/", 0, 5*time.Second)
+        site := proxy.RunTunnelTest(tunnelToServer{addr: broken.Listener.Addr().String()}, "http://test.invalid/", 5*time.Second)
         if site.OK || site.ErrorCode != proxy.FailureTestSite {
                 t.Fatalf("expected the test site's failure, got %+v", site)
         }

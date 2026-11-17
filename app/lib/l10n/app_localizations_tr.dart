@@ -2695,4 +2695,20 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'Bayrak çarkı, ekran kenarı bir kartı yarıp kesmeden önce onu eritir, önerilen yer Mozilla\'nın nişanını okunur boyda taşır ve düz haritanın güney kenarı bir çizgiye bitmek yerine sayfaya erir.';
+
+  @override
+  String get wn49States =>
+      'İki referans tasarım da çizildikleri ayrıntıları giydi: aether kartı oturumun kendi hızlarını AetherST gibi taşır, güç düğmesi referansın ışımasıyla nefes alır ve parmağın altında göçer, zed\'in balonu şekilleri arasında dönüşür, merkezi ise solayarak değişir.';
+
+  @override
+  String get wn49Words =>
+      '“Bağlanıyor” artık her yerde bir söze sahip: tünel kurulurken anahtarın yolu Bağlanıyor… sözünü taşır, topuzun işareti halleri arasında erir ve yol bağlantının kendi ritmiyle nefes alır — parmağın altında hiçbir şey kaybolmaz.';
+
+  @override
+  String get wn49Sooner =>
+      '“Bağlandı” daha erken gelir: tünelin kendi hükmü geçtiği an oturur, çıkışın yeri — ülke ve adres — peşinden yol alır.';
+
+  @override
+  String get wn49Mark =>
+      'Önerilen konum Mozilla VPN\'in gerçek işaretini taşır, güncelleme düğmeleri de güncellemenin kendi glifini.';
 }

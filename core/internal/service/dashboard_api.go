@@ -679,7 +679,7 @@ func (d *Daemon) RefreshDelay() {
                 return
         }
         defer engine.releaseFunc()()
-        result := proxy.RunConnectionTest(controller, proxy.ConnectionTestURL, 0, proxy.ConnectionTestTimeout)
+        result := proxy.RunTunnelTest(controller, proxy.ConnectionTestURL, proxy.ConnectionTestTimeout)
         if !result.OK {
                 d.runConnectionTest(engine, controller, "delay not measured")
                 return
@@ -722,42 +722,56 @@ func (d *Daemon) autoTest(engine *proxyEngine, why string) {
 }
 
 // exitCheckTimeout and connectTimeout are config.ExitCheckTimeout and
-// config.ConnectTimeout; tests change them (0 skips the public IP check).
+// config.ConnectTimeout; tests change them.
 var (
         exitCheckTimeout = config.ExitCheckTimeout
         connectTimeout   = config.ConnectTimeout
 )
 
 // runConnectionTest tests engine and records the result and, from it, the
-// public IP.
+// public IP. The tunnel's own verdict is recorded first: the apps read it
+// from their next poll and say Connected while the exit's place still
+// travels — the exit's lookups each may hold their whole timeout on a
+// network that cannot answer them, and Connected has no reason to wait
+// behind them.
 func (d *Daemon) runConnectionTest(engine *proxyEngine, controller *proxy.Controller, why string) proxy.ConnectionTestResult {
-        result := proxy.RunConnectionTest(controller, proxy.ConnectionTestURL, exitCheckTimeout, proxy.ConnectionTestTimeout)
+        result := proxy.RunTunnelTest(controller, proxy.ConnectionTestURL, proxy.ConnectionTestTimeout)
         // The session under the test was replaced while it ran (a reconnect on
         // a new network, a renewal): that says nothing about the connection, so
         // the test runs again at once on the session in place now.
         if !result.OK && proxy.SessionReplaced(result.Error) {
                 if again := engine.reserve(); again != nil {
-                        result = proxy.RunConnectionTest(again, proxy.ConnectionTestURL, exitCheckTimeout, proxy.ConnectionTestTimeout)
+                        result = proxy.RunTunnelTest(again, proxy.ConnectionTestURL, proxy.ConnectionTestTimeout)
                         engine.releaseFunc()()
                 }
         }
         if !result.OK {
                 result.ErrorCode = checkedFailure(result.ErrorCode)
         }
-        exit := result.Exit()
         d.mu.Lock()
         if d.engine == engine && !d.off {
                 d.lastTest = &result
-                if exit.IP() != "" {
-                        d.exit = &exit
-                }
         }
         d.mu.Unlock()
         if !result.OK {
                 logx.Warn("connection test failed reason=%s err=%s", why, result.Error)
                 return result
         }
-        logx.Info("connection test passed reason=%s total_ms=%d tunnel_ms=%d ipv4=%s ipv6=%s place=%q", why, result.TotalMS, result.TunnelMS, result.ExitIPv4, result.ExitIPv6, exit.Place())
+        exit := proxy.ExitProbeResult{}
+        if exitCheckTimeout > 0 {
+                found, err := proxy.VerifyExit(controller, exitCheckTimeout)
+                if err == nil {
+                        exit = found
+                        d.mu.Lock()
+                        if d.engine == engine && !d.off {
+                                d.exit = &exit
+                        }
+                        d.mu.Unlock()
+                } else {
+                        logx.Warn("the exit's place stayed unknown reason=%s err=%s", why, err.Error())
+                }
+        }
+        logx.Info("connection test passed reason=%s total_ms=%d tunnel_ms=%d ipv4=%s ipv6=%s place=%q", why, result.TotalMS, result.TunnelMS, exit.IPv4, exit.IPv6, exit.Place())
         if selected, _ := engine.selection(); selected.CountryCode != "" && exit.CountryCode != "" && !strings.EqualFold(selected.CountryCode, exit.CountryCode) && !selected.IsRecommended() {
                 code := selected.CountryCode
                 logx.Warn("public IP country differs from the selected location configured_country_code=%s public_ip_country_code=%s", code, exit.CountryCode)

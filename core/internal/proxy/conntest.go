@@ -51,10 +51,13 @@ func (r ConnectionTestResult) Exit() ExitProbeResult {
 	return ExitProbeResult{IPv4: r.ExitIPv4, IPv6: r.ExitIPv6, CountryCode: r.ExitCountry, City: r.ExitCity, Network: r.ExitNetwork}
 }
 
-// RunConnectionTest requests ConnectionTestURL through opener and then
-// finds the public IP and its place, waiting exitTimeout for each service
-// (0 skips that check).
-func RunConnectionTest(opener tunnelOpener, target string, exitTimeout, timeout time.Duration) ConnectionTestResult {
+// RunTunnelTest requests ConnectionTestURL through opener and measures the
+// stages of the request. The public IP's own lookups are VerifyExit, which
+// the caller runs and records on its own: the tunnel's verdict must not wait
+// behind the exit services' answers, each of which may hold its whole
+// timeout on a network that cannot answer it — the apps read the verdict
+// from the next poll and say Connected while the exit's place still travels.
+func RunTunnelTest(opener tunnelOpener, target string, timeout time.Duration) ConnectionTestResult {
 	result := ConnectionTestResult{At: time.Now(), Target: target}
 	var tunnelOpened, tlsStart, tlsDone, firstByte time.Time
 	// tunnelUp is set once Mozilla opened the tunnel to the test site; a
@@ -125,16 +128,6 @@ func RunConnectionTest(opener tunnelOpener, target string, exitTimeout, timeout 
 		result.ErrorCode = FailureTestSite
 	default:
 		result.OK = true
-	}
-
-	if exitTimeout > 0 {
-		exit, err := VerifyExit(opener, exitTimeout)
-		if err != nil {
-			result.ExitError = err.Error()
-		} else {
-			result.ExitIPv4, result.ExitIPv6 = exit.IPv4, exit.IPv6
-			result.ExitCountry, result.ExitCity, result.ExitNetwork = exit.CountryCode, exit.City, exit.Network
-		}
 	}
 	return result
 }

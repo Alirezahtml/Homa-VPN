@@ -2695,4 +2695,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'Bánh xe cờ làm mờ một thẻ trước khi mép màn hình cắt đôi nó, địa điểm được đề xuất đeo dấu Mozilla ở cỡ đọc được, và mép nam của bản đồ phẳng tan vào trang thay vì kết thúc bằng một đường thẳng.';
+
+  @override
+  String get wn49States =>
+      'Hai thiết kế tham chiếu khoác những chi tiết chúng được vẽ: thẻ của aether mang tốc độ của phiên như AetherST, nút nguồn thở theo quầng sáng của tham chiếu và lún xuống dưới ngón tay, còn bong bóng của zed biến hình giữa các dáng của nó, tâm nó chuyển qua lại bằng cross-fade.';
+
+  @override
+  String get wn49Words =>
+      '“Đang kết nối” giờ có chữ ở khắp nơi: trong khi đường hầm đang dựng, rãnh của công tắc mang chữ Đang kết nối…, dấu núm mờ dần giữa các trạng thái, và rãnh thở theo nhịp của chính kết nối — chẳng gì biến mất dưới ngón tay.';
+
+  @override
+  String get wn49Sooner =>
+      '“Đã kết nối” đến sớm hơn: phán quyết của chính đường hầm nằm xuống ngay khi nó qua, còn nơi ra — quốc gia và địa chỉ — đi theo sau.';
+
+  @override
+  String get wn49Mark =>
+      'Vị trí đề xuất khoác dấu thật của Mozilla VPN, và các nút cập nhật mang ký tự cập nhật của riêng chúng.';
 }

@@ -886,10 +886,10 @@ class _FlagCard extends StatelessWidget {
         alignment: Alignment.center,
         child: SvgPicture.asset(
           'assets/brand/mozilla_logo.svg',
-          // The mark reads at half the card's width: smaller, its stem and
-          // its zigzag shrink to a pair of stray strokes nobody can name.
-          width: width * 0.52,
-          height: width * 0.60,
+          // The mark reads at half the card's width: smaller, its knot's
+          // rings shrink to a scatter of dots nobody can name.
+          width: width * 0.50,
+          height: width * 0.50,
           fit: BoxFit.contain,
           colorFilter: ColorFilter.mode(
             scheme.onPrimaryContainer,
@@ -1267,8 +1267,10 @@ class _StripTile extends StatelessWidget {
         alignment: Alignment.center,
         child: SvgPicture.asset(
           'assets/brand/mozilla_logo.svg',
-          width: width * 0.30,
-          height: width * 0.34,
+          // The strip's tiles are smaller than the wheel's cards: the
+          // knot still takes near half the tile, or it reads as noise.
+          width: width * 0.45,
+          height: width * 0.45,
           fit: BoxFit.contain,
           colorFilter: ColorFilter.mode(
             scheme.onPrimaryContainer,

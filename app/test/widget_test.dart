@@ -2778,20 +2778,26 @@ void main() {
         find.byTooltip(desktop ? l.tapToConnect : l.tapToConnectPhone),
       );
       await settle(tester);
-      expect(find.text(l.stateConnecting), findsOneWidget);
+      // The state's word stands twice on the phone while the connection
+      // is being made: in its capsule, and in the switch's own track —
+      // the wheel's slider carries the connecting word now, so nothing
+      // vanishes under the finger. The desktop's home has no slider in
+      // its track, so its word stands once.
+      final words = desktop ? findsOneWidget : findsNWidgets(2);
+      expect(find.text(l.stateConnecting), words);
       expect(api.on, isFalse, reason: 'the engine has not started yet');
 
       api.on = true;
       await core.refresh();
       await settle(tester);
-      expect(find.text(l.stateConnecting), findsOneWidget);
+      expect(find.text(l.stateConnecting), words);
       expect(find.text(l.failUnreachable), findsNothing);
       expect(api.tests, 0, reason: 'the core owns the pending attempt');
 
       api.noNetwork = true;
       await core.refresh();
       await settle(tester);
-      expect(find.text(l.stateConnecting), findsOneWidget);
+      expect(find.text(l.stateConnecting), words);
       expect(find.text(l.noNetwork), findsNothing);
 
       // A different final reason wins even before the engine stops.

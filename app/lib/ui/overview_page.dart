@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'dart:ui' as ui;
+
 import '../app_settings.dart';
 import '../core/android_core.dart';
 import '../core/core_controller.dart';
@@ -1516,7 +1518,10 @@ class _PhoneHome extends StatelessWidget {
               child: Center(
                 child: SlideToConnect(
                   on: on,
-                  busy: core.switchingProxy,
+                  // The whole connection's walk, not only the proxy's
+                  // swap: the knob's spinner and the track's own word
+                  // stand while the tunnel is still being made.
+                  busy: core.switchingProxy || status.connectPending,
                   accent: accent,
                   dark: p.dark,
                   card: p.card,
@@ -1526,9 +1531,11 @@ class _PhoneHome extends StatelessWidget {
                   labelConnect: l.slideToConnect,
                   labelDisconnect: l.slideToDisconnect,
                   // The state's word stays in the track once connected;
-                  // while the connection is still being confirmed the
-                  // track keeps the connect hint (nothing is claimed yet).
+                  // while the connection is being made the track carries
+                  // the connecting word — nothing vanishes under the
+                  // user's finger.
                   labelOn: confirming ? '' : l.stateConnected,
+                  labelBusy: l.stateConnecting,
                   tooltip: press,
                   // The commit's knock answers to the vibration setting.
                   haptic: settings.hapticFeedback,
@@ -1591,6 +1598,9 @@ class _PhoneHome extends StatelessWidget {
                       hint: press,
                       startedAt: proxy?.startedAt,
                       pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                      traffic: status.traffic,
+                      showTraffic: settings.showTraffic,
+                      batterySaver: settings.batterySaver,
                       onOpenServers: onOpenServers,
                       onPressed: () => status.totalAccounts == 0
                           ? _openAccounts(
@@ -1678,7 +1688,7 @@ class _PhoneHome extends StatelessWidget {
             // it has been up, the real delay, the live rates. The wheel
             // and the tiles lay them out as cards; the compact home as
             // rows inside one card of its own.
-            if (design == 'pixel' || design == 'aether' || design == 'zed')
+            if (design == 'pixel' || design == 'zed')
               _FlatStats(
                 core: core,
                 status: status,
@@ -1686,11 +1696,14 @@ class _PhoneHome extends StatelessWidget {
                 startedAt: proxy?.startedAt,
                 pingMs: (test?.ok ?? false) ? test!.responseMs : null,
                 showTraffic: settings.showTraffic,
-                // The aether's card and the zed's blob carry the time and
-                // the ping themselves; their card keeps only the rates.
+                // The zed's blob carries the time and the ping itself;
+                // its card keeps only the rates.
                 showConnection: design == 'pixel',
               )
-            else
+            else if (design != 'aether')
+              // The aether's card carries the time, the ping and the two
+              // rates itself (the reference's own rows); its page keeps
+              // no second numbers card under them.
               _HomeStats(
                 core: core,
                 status: status,
@@ -3106,7 +3119,7 @@ class _UpdateNotice extends StatelessWidget {
             text: l.updateReady(release.version),
             action: (
               label: l.installNow,
-              icon: Icons.system_update_alt_rounded,
+              icon: Icons.upgrade_rounded,
               onPressed: () => Updates.installApkUpdate(),
             ),
             onClose: dismiss,
@@ -3144,7 +3157,7 @@ class _UpdateNotice extends StatelessWidget {
                 : l.updateAvailable(release.version),
             action: (
               label: l.updateNow,
-              icon: Icons.system_update_alt_rounded,
+              icon: Icons.upgrade_rounded,
               onPressed: () => Updates.update(release),
             ),
             onClose: dismiss,
@@ -3210,7 +3223,7 @@ class _UpdateNotice extends StatelessWidget {
             : l.updateAvailable(release.version),
         action: (
           label: l.updateNow,
-          icon: Icons.system_update_alt_rounded,
+          icon: Icons.upgrade_rounded,
           onPressed: () => Updates.update(release),
         ),
         onClose: dismiss,
@@ -4066,6 +4079,9 @@ class _AetherHeroCard extends StatelessWidget {
     required this.hint,
     required this.startedAt,
     required this.pingMs,
+    required this.traffic,
+    required this.showTraffic,
+    required this.batterySaver,
     required this.onOpenServers,
     required this.onPressed,
   });
@@ -4082,6 +4098,14 @@ class _AetherHeroCard extends StatelessWidget {
   final String hint;
   final DateTime? startedAt;
   final int? pingMs;
+
+  /// The session's own numbers, the reference's card wears while the
+  /// tunnel carries: the rates the settings offer to show.
+  final Traffic? traffic;
+  final bool showTraffic;
+
+  /// The battery saver's word: the button's glow holds one pose.
+  final bool batterySaver;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
 
@@ -4105,6 +4129,7 @@ class _AetherHeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final p = palette;
     final state = _state;
     return ConstrainedBox(
@@ -4286,6 +4311,56 @@ class _AetherHeroCard extends StatelessWidget {
                         ],
                       ],
                     ),
+                    // The session's numbers, the reference's card wears
+                    // while the tunnel carries: the two rates side by
+                    // side in the iOS group's own grey, the download in
+                    // green and the upload in the aether's blue. The
+                    // settings' own toggle decides they show at all.
+                    if (on && showTraffic) ...[
+                      const SizedBox(height: 10),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 7,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: p.dark
+                              ? const Color(0xFF2C2C2E)
+                              : const Color(0xFFECECF1),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: _AetherTrafficCell(
+                                palette: p,
+                                label: l.statDown,
+                                bytes:
+                                    (traffic?.down ?? 0) +
+                                    (traffic?.directDown ?? 0),
+                                rate: traffic?.downRate ?? 0,
+                                color: p.dark
+                                    ? const Color(0xFF34C759)
+                                    : const Color(0xFF1E9E6B),
+                              ),
+                            ),
+                            Expanded(
+                              child: _AetherTrafficCell(
+                                palette: p,
+                                label: l.statUp,
+                                bytes:
+                                    (traffic?.up ?? 0) +
+                                    (traffic?.directUp ?? 0),
+                                rate: traffic?.upRate ?? 0,
+                                color: p.dark
+                                    ? const Color(0xFF0A84FF)
+                                    : const Color(0xFF0A6CFF),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -4300,6 +4375,7 @@ class _AetherHeroCard extends StatelessWidget {
             busy: busy,
             error: error,
             dark: p.dark,
+            batterySaver: batterySaver,
             tooltip: tooltip,
             onPressed: onPressed,
           ),
@@ -4309,17 +4385,81 @@ class _AetherHeroCard extends StatelessWidget {
   }
 }
 
+/// One half of the aether card's traffic row: the direction's word, the
+/// session's bytes bold beneath it, and the moment's rate — the
+/// reference's TrafficValue in the app's own type.
+class _AetherTrafficCell extends StatelessWidget {
+  const _AetherTrafficCell({
+    required this.palette,
+    required this.label,
+    required this.bytes,
+    required this.rate,
+    required this.color,
+  });
+
+  final _HomePalette palette;
+  final String label;
+  final int bytes;
+  final int rate;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: theme.textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.4,
+            color: color,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          formatBytes(bytes),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: (theme.textTheme.labelMedium ?? const TextStyle()).copyWith(
+            fontWeight: FontWeight.w800,
+            fontFeatures: const [FontFeature.tabularFigures()],
+            color: p.text,
+          ),
+        ),
+        const SizedBox(height: 1),
+        Text(
+          formatRate(rate),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: theme.textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontFeatures: const [FontFeature.tabularFigures()],
+            color: p.muted,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 /// The aether look's power button: the rounded square that becomes a
-/// circle when the VPN rests, in the state's own system color, with a
-/// soft glow that breathes only while the connection is being made —
-/// the rest of the time nothing here redraws, and the battery keeps
-/// its frames.
+/// circle when the VPN rests, in the state's own system color, with the
+/// reference's two glow layers breathing behind it while the tunnel
+/// carries or is being made — the rest of the time nothing here redraws,
+/// and the battery keeps its frames. A press sinks the button the way
+/// the reference's spring does.
 class _AetherPowerButton extends StatefulWidget {
   const _AetherPowerButton({
     required this.on,
     required this.busy,
     required this.error,
     required this.dark,
+    required this.batterySaver,
     required this.tooltip,
     required this.onPressed,
   });
@@ -4330,6 +4470,9 @@ class _AetherPowerButton extends StatefulWidget {
 
   /// The page's own darkness: the state's colors read it.
   final bool dark;
+
+  /// The battery saver's word: the glow holds one pose when it stands.
+  final bool batterySaver;
   final String tooltip;
   final VoidCallback onPressed;
 
@@ -4341,17 +4484,20 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
     with SingleTickerProviderStateMixin {
   late final AnimationController _breath = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1200),
+    duration: const Duration(milliseconds: 1600),
   );
+
+  bool _pressed = false;
 
   @override
   void didUpdateWidget(_AetherPowerButton old) {
     super.didUpdateWidget(old);
-    // The breath runs only while the connection is being made; every
+    // The glow runs only while the tunnel carries or is being made; every
     // other state holds one pose and the battery keeps the frames.
-    if (widget.busy && !_breath.isAnimating) {
+    final alive = (widget.on || widget.busy) && !widget.batterySaver;
+    if (alive && !_breath.isAnimating) {
       _breath.repeat(reverse: true);
-    } else if (!widget.busy && _breath.isAnimating) {
+    } else if (!alive && _breath.isAnimating) {
       _breath.stop();
       _breath.value = 0;
     }
@@ -4381,26 +4527,80 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
   Widget build(BuildContext context) {
     final color = _color;
     const size = 108.0;
+    // The stage gives the glow room to breathe: the widest glow layer
+    // stays inside it, so nothing clips.
+    const stage = 176.0;
+    final still = MediaQuery.of(context).disableAnimations;
     return Tooltip(
       message: widget.tooltip,
       child: AnimatedBuilder(
         animation: _breath,
         builder: (context, child) {
-          // The breath lifts the glow only; the button itself holds.
-          final lift = 1.0 + 0.08 * Curves.easeOut.transform(_breath.value);
-          return Transform.scale(scale: lift, child: child);
+          final t = Curves.easeInOut.transform(_breath.value);
+          final glowScale = 1.18 + 0.30 * t;
+          final glowAlpha =
+              (widget.on || widget.busy) && !widget.batterySaver && !still
+              ? 0.34 - 0.26 * t
+              : 0.0;
+          final glow = color.withValues(alpha: glowAlpha);
+          final radius = widget.on ? 34.0 : size / 2;
+          return SizedBox(
+            width: stage,
+            height: stage,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // The two glow layers, the reference's own: the wide one
+                // breathing behind, the nearer one riding its back while
+                // the tunnel carries.
+                if (glowAlpha > 0) ...[
+                  Transform.scale(
+                    scale: glowScale,
+                    child: Container(
+                      width: size,
+                      height: size,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(radius),
+                        color: glow,
+                      ),
+                    ),
+                  ),
+                  Transform.scale(
+                    scale: glowScale * 0.74,
+                    child: Container(
+                      width: size,
+                      height: size,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(radius),
+                        color: color.withValues(alpha: glowAlpha * 1.7),
+                      ),
+                    ),
+                  ),
+                ],
+                child!,
+              ],
+            ),
+          );
         },
-        child: Container(
-          width: size + 16,
-          height: size + 16,
-          alignment: Alignment.center,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: widget.busy ? null : widget.onPressed,
-              customBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(size / 2),
-              ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: widget.busy ? null : widget.onPressed,
+            onTapDown: widget.busy
+                ? null
+                : (_) => setState(() => _pressed = true),
+            onTapUp: (_) => setState(() => _pressed = false),
+            onTapCancel: () => setState(() => _pressed = false),
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(size / 2),
+            ),
+            child: AnimatedScale(
+              // The press's own sink, the reference's spring in spirit:
+              // the button yields a shade under the finger and returns
+              // with a soft overshoot.
+              scale: _pressed ? 0.88 : 1.0,
+              duration: const Duration(milliseconds: 150),
+              curve: _pressed ? Curves.easeOut : Curves.easeOutBack,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 450),
                 curve: Curves.easeOutCubic,
@@ -4484,10 +4684,19 @@ class _ZedBlobCard extends StatefulWidget {
 }
 
 class _ZedBlobCardState extends State<_ZedBlobCard>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _breathe = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2800),
+  );
+
+  /// The shape's own walk: the cookie the blob rests as turns itself into
+  /// the soft burst the reference wears while the tunnel carries, and
+  /// back — one run per state change, never a loop of its own.
+  late final AnimationController _morph = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 620),
+    value: widget.on || widget.busy ? 1 : 0,
   );
 
   @override
@@ -4502,11 +4711,20 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
       _breathe.stop();
       _breathe.value = 0;
     }
+    // The shape follows the state; reduce-motion lands it at once.
+    final active = widget.on || widget.busy;
+    if (MediaQuery.maybeDisableAnimationsOf(context) ?? false) {
+      _morph.stop();
+      _morph.value = active ? 1 : 0;
+    } else {
+      _morph.animateTo(active ? 1 : 0, curve: Curves.easeOutCubic);
+    }
   }
 
   @override
   void dispose() {
     _breathe.dispose();
+    _morph.dispose();
     super.dispose();
   }
 
@@ -4514,20 +4732,15 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
   /// brand's violet-pink-lime when the tunnel carries, the violet-cyan
   /// while it is being made, the dim violet when it rests — the same
   /// diagonal sweep the reference paints its blob with.
-  Gradient get _blobFill {
+  List<Color> get _blobColors {
     final dark = widget.palette.dark;
-    final colors = widget.busy
+    return widget.busy
         ? const [Color(0xFF7A5CFF), Color(0xFF37E0D8), Color(0xFFC7F24E)]
         : widget.on
         ? const [Color(0xFF7A5CFF), Color(0xFFFF5FA2), Color(0xFFC7F24E)]
         : dark
         ? const [Color(0xFF43359B), Color(0xFF2A1361)]
         : const [Color(0xFF7A5CFF), Color(0xFF5646D6)];
-    return LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: colors,
-    );
   }
 
   @override
@@ -4541,46 +4754,63 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
         Tooltip(
           message: widget.tooltip,
           child: AnimatedBuilder(
-            animation: _breathe,
+            animation: Listenable.merge([_breathe, _morph]),
             builder: (context, child) {
               final s = 1.0 + 0.06 * Curves.easeOut.transform(_breathe.value);
-              return Transform.scale(scale: s, child: child);
+              final alive = widget.on || widget.busy;
+              final dark = p.dark;
+              return Transform.scale(
+                scale: s,
+                child: CustomPaint(
+                  size: const Size.square(blob + 24),
+                  painter: _ZedBlobPainter(
+                    morph: _morph.value,
+                    colors: _blobColors,
+                    glows: alive
+                        ? [
+                            (
+                              color: const Color(0xFF7A5CFF)
+                                  .withValues(alpha: dark ? 0.40 : 0.30),
+                              blur: 38,
+                            ),
+                            (
+                              color: const Color(0xFFFF5FA2)
+                                  .withValues(alpha: dark ? 0.25 : 0.16),
+                              blur: 52,
+                            ),
+                          ]
+                        : const [],
+                  ),
+                  child: child!,
+                ),
+              );
             },
             child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: widget.busy ? null : widget.onPressed,
                 customBorder: const CircleBorder(),
-                child: Container(
+                child: SizedBox(
                   width: blob + 24,
                   height: blob + 24,
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: blob,
-                    height: blob,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: _blobFill,
-                      boxShadow: widget.on || widget.busy
-                          ? [
-                              BoxShadow(
-                                color: const Color(0xFF7A5CFF)
-                                    .withValues(alpha: p.dark ? 0.40 : 0.30),
-                                blurRadius: 38,
-                                spreadRadius: 2,
-                              ),
-                              BoxShadow(
-                                color: const Color(0xFFFF5FA2)
-                                    .withValues(alpha: p.dark ? 0.25 : 0.16),
-                                blurRadius: 52,
-                                spreadRadius: 6,
-                              ),
-                            ]
-                          : null,
-                    ),
-                    child: Center(
+                  child: Center(
+                    // The center's selves cross-fade the reference's own
+                    // way: the loader, the time and the power's mark never
+                    // hard-swap — one fades out while the next fades in.
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 280),
+                      switchInCurve: Curves.easeOutCubic,
+                      switchOutCurve: Curves.easeInCubic,
+                      transitionBuilder: (child, anim) => FadeTransition(
+                        opacity: anim,
+                        child: ScaleTransition(
+                          scale: Tween(begin: 0.9, end: 1.0).animate(anim),
+                          child: child,
+                        ),
+                      ),
                       child: widget.busy
                           ? const SizedBox.square(
+                              key: ValueKey('busy'),
                               dimension: 40,
                               child: CircularProgressIndicator(
                                 strokeWidth: 3,
@@ -4591,6 +4821,7 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
                             )
                           : widget.on && widget.startedAt != null
                           ? DefaultTextStyle(
+                              key: const ValueKey('elapsed'),
                               style:
                                   (theme.textTheme.headlineLarge ??
                                           const TextStyle(fontSize: 34))
@@ -4604,6 +4835,7 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
                               child: _ElapsedText(startedAt: widget.startedAt!),
                             )
                           : const Icon(
+                              key: ValueKey('power'),
                               Icons.power_settings_new_rounded,
                               size: 46,
                               color: Colors.white,
@@ -4654,5 +4886,94 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
         ),
       ],
     );
+  }
+}
+
+/// One glow layer the blob paints beneath itself: the color and how far
+/// it blurs.
+typedef _ZedGlow = ({Color color, double blur});
+
+/// The blob's own body: a nine-lobed cookie that turns itself into the
+/// reference's soft burst while the tunnel carries. The lobes ride one
+/// polar function, so the morph is one path moving, not two shapes cut
+/// against each other; the gradient and the glow layers follow the path.
+class _ZedBlobPainter extends CustomPainter {
+  _ZedBlobPainter({
+    required this.morph,
+    required this.colors,
+    required this.glows,
+  });
+
+  final double morph;
+  final List<Color> colors;
+  final List<_ZedGlow> glows;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    // The body sits inside the tap target's own halo: the lobes' widest
+    // breath stays within it, so nothing clips.
+    final base = size.shortestSide / 2 - 14;
+    final path = _blobPath(center, base, morph);
+    for (final glow in glows) {
+      final paint = Paint()
+        ..color = glow.color
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, glow.blur / 2.2);
+      canvas.drawPath(path, paint);
+    }
+    final bounds = path.getBounds();
+    // dart:ui's linear gradient wants the stops spelled out when the
+    // brand's gradient carries more than its two ends.
+    final stops = <double>[
+      for (var i = 0; i < colors.length; i++)
+        colors.length == 1 ? 0.0 : i / (colors.length - 1),
+    ];
+    final paint = Paint()
+      ..shader = ui.Gradient.linear(
+        bounds.topLeft,
+        bounds.bottomRight,
+        colors,
+        stops,
+      );
+    canvas.drawPath(path, paint);
+  }
+
+  /// The shape: nine lobes on [r], the peak's sharpness [k] and the
+  /// lobes' height [a] both riding the morph — the cookie's soft bumps
+  /// at rest, the burst's taller, sharper petals while it carries.
+  Path _blobPath(Offset c, double r, double t) {
+    const lobes = 9.0;
+    final a = 0.05 + 0.055 * t;
+    final k = 1.0 + 1.2 * t;
+    final phi = 0.14 * t;
+    final path = Path();
+    const steps = 132;
+    for (var i = 0; i <= steps; i++) {
+      final th = 2 * math.pi * i / steps;
+      final f = math.pow(0.5 + 0.5 * math.cos(lobes * th + phi), k).toDouble();
+      final rr = r * (1 + a * f);
+      final p = c + Offset(rr * math.cos(th), rr * math.sin(th));
+      if (i == 0) {
+        path.moveTo(p.dx, p.dy);
+      } else {
+        path.lineTo(p.dx, p.dy);
+      }
+    }
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldRepaint(_ZedBlobPainter old) {
+    if (old.morph != morph) return true;
+    if (old.colors.length != colors.length) return true;
+    if (old.glows.length != glows.length) return true;
+    for (var i = 0; i < colors.length; i++) {
+      if (old.colors[i] != colors[i]) return true;
+    }
+    for (var i = 0; i < glows.length; i++) {
+      if (old.glows[i] != glows[i]) return true;
+    }
+    return false;
   }
 }

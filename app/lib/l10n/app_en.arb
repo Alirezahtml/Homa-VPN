@@ -1381,5 +1381,9 @@
   "wn47Fixes": "A settings row that overflowed on narrow screens now reads to its end.",
   "wn48Bars": "The two designs' bottom bars hold their places again: the aether's blue circle rests in its own tab's notch, and the zed's circle no longer covers the name under it.",
   "wn48Fit": "The homes fit their screens again: the aether's card reads Disconnected to its end, the zed's orb steps down when the page runs tight, and while the connection is being made no track asks to slide to connect and no hint says disconnect at once.",
-  "wn48Wheel": "The flags' wheel dissolves a card before the screen's edge can cut it, the recommended place wears Mozilla's mark at a size that reads, and the flat map's south edge melts into the page instead of ending in a line."
+  "wn48Wheel": "The flags' wheel dissolves a card before the screen's edge can cut it, the recommended place wears Mozilla's mark at a size that reads, and the flat map's south edge melts into the page instead of ending in a line.",
+  "wn49States": "The two reference designs wear the details they were drawn with: the aether's card carries the session's own rates the way AetherST's does, its power button breathes the reference's glow and sinks under the finger, and the zed's blob turns itself between its shapes while its center's selves cross-fade.",
+  "wn49Words": "Connecting has a word everywhere now: while the tunnel is being made, the switch's track carries Connecting…, the knob's mark fades between its selves, and the track breathes with the connection's own rhythm — nothing vanishes under the finger.",
+  "wn49Sooner": "Connected arrives sooner: the tunnel's own verdict settles the moment it passes, and the exit's place — the country and the address — travels after it.",
+  "wn49Mark": "The recommended location wears Mozilla VPN's real mark, and the update's buttons wear the update's own glyph."
 }

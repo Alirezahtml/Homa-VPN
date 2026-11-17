@@ -217,8 +217,7 @@ class StatusCapsule extends StatelessWidget {
         children: [
           if (dot) ...[
             _CapsuleDot(
-              color: dotColor ??
-                  (d ? Colors.white : const Color(0xFF0A0A0A)),
+              color: dotColor ?? (d ? Colors.white : const Color(0xFF0A0A0A)),
               breathe: dotBreathes,
             ),
             const SizedBox(width: 9),
@@ -669,7 +668,7 @@ class CountryFlag extends StatelessWidget {
               // recommender's pick, and the mark says so.
               child: SvgPicture.asset(
                 'assets/brand/mozilla_logo.svg',
-                width: height * 0.62,
+                width: height * 0.72,
                 height: height * 0.72,
                 fit: BoxFit.contain,
                 colorFilter: ColorFilter.mode(
@@ -857,7 +856,12 @@ HomaTypefaces typefacesOf(BuildContext context) =>
     Theme.of(context).extension<HomaTypefaces>() ??
     const HomaTypefaces(
       display: 'Inter',
-      displayFallback: ['Vazirmatn', 'NotoSansSC', 'NotoSansTC', 'NotoSansBengali'],
+      displayFallback: [
+        'Vazirmatn',
+        'NotoSansSC',
+        'NotoSansTC',
+        'NotoSansBengali',
+      ],
     );
 
 /// The rounded box every settings row's icon sits in: one quiet surface,
@@ -937,9 +941,7 @@ class Panel extends StatelessWidget {
     final theme = Theme.of(context);
     // The design's card: the flat bordered card the monochrome wears,
     // the tighter iOS group or the very-round bento card for the rest.
-    final look = AppDesign.current.look(
-      theme.brightness == Brightness.dark,
-    );
+    final look = AppDesign.current.look(theme.brightness == Brightness.dark);
     final round = DesignStyle.of(context).cardRadius;
     Widget card = Card(
       margin: EdgeInsets.zero,
@@ -1213,7 +1215,8 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     final still = WidgetsBinding
-        .instance.platformDispatcher
+        .instance
+        .platformDispatcher
         .accessibilityFeatures
         .disableAnimations;
     if (still) {
@@ -1262,12 +1265,15 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
               child: FadeTransition(
                 opacity: Tween(begin: 1.0, end: 0.0).animate(_out),
                 child: SlideTransition(
-                  position: Tween(
-                    begin: Offset.zero,
-                    end: const Offset(0, 0.4),
-                  ).animate(CurvedAnimation(parent: _out, curve: Curves.easeIn)),
+                  position: Tween(begin: Offset.zero, end: const Offset(0, 0.4))
+                      .animate(
+                        CurvedAnimation(parent: _out, curve: Curves.easeIn),
+                      ),
                   child: FadeTransition(
-                    opacity: CurvedAnimation(parent: _in, curve: Curves.easeOut),
+                    opacity: CurvedAnimation(
+                      parent: _in,
+                      curve: Curves.easeOut,
+                    ),
                     child: ScaleTransition(
                       scale: Tween(begin: 0.82, end: 1.0).animate(_inSpring),
                       child: GestureDetector(
@@ -1357,9 +1363,7 @@ class _ToastMarkPainter extends CustomPainter {
     final c = size.center(Offset.zero);
     final radius = size.width * 0.40;
     final paint = Paint()
-      ..color = mark == ToastMark.alert
-          ? const Color(0xFFFFB4AB)
-          : Colors.white
+      ..color = mark == ToastMark.alert ? const Color(0xFFFFB4AB) : Colors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.4
       ..strokeCap = StrokeCap.round
@@ -1393,35 +1397,33 @@ class _ToastMarkPainter extends CustomPainter {
         _stroke(
           canvas,
           paint,
-          Path()
-            ..addRRect(
-              RRect.fromRectAndRadius(
-                Rect.fromLTWH(
-                  size.width * 0.42,
-                  size.height * 0.22,
-                  size.width * 0.34,
-                  size.height * 0.42,
-                ),
-                const Radius.circular(3),
+          Path()..addRRect(
+            RRect.fromRectAndRadius(
+              Rect.fromLTWH(
+                size.width * 0.42,
+                size.height * 0.22,
+                size.width * 0.34,
+                size.height * 0.42,
               ),
+              const Radius.circular(3),
             ),
+          ),
           (draw * 2).clamp(0.0, 1.0),
         );
         _stroke(
           canvas,
           paint,
-          Path()
-            ..addRRect(
-              RRect.fromRectAndRadius(
-                Rect.fromLTWH(
-                  size.width * 0.24,
-                  size.height * 0.36,
-                  size.width * 0.42,
-                  size.height * 0.42,
-                ),
-                const Radius.circular(3),
+          Path()..addRRect(
+            RRect.fromRectAndRadius(
+              Rect.fromLTWH(
+                size.width * 0.24,
+                size.height * 0.36,
+                size.width * 0.42,
+                size.height * 0.42,
               ),
+              const Radius.circular(3),
             ),
+          ),
           draw,
         );
       case ToastMark.info:
@@ -1478,12 +1480,7 @@ class _ToastMarkPainter extends CustomPainter {
 /// message keeps more lines than the small notes, so a failure still
 /// says what it failed at.
 void showError(BuildContext context, String message) {
-  showToast(
-    context,
-    message,
-    mark: ToastMark.alert,
-    maxLines: 5,
-  );
+  showToast(context, message, mark: ToastMark.alert, maxLines: 5);
 }
 
 /// An on/off choice in a "⋮" menu, as narrow as its name: a check box
@@ -1515,11 +1512,7 @@ PopupMenuItem<void> checkMenuItem({
 /// settings' sound switch. Every switch of the app is one of these, so
 /// every section answers the same way.
 class AppSwitch extends StatelessWidget {
-  const AppSwitch({
-    super.key,
-    required this.value,
-    required this.onChanged,
-  });
+  const AppSwitch({super.key, required this.value, required this.onChanged});
 
   final bool value;
 

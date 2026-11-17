@@ -253,7 +253,7 @@ class _AnnouncementPanelState extends State<AnnouncementPanel>
                                 ),
                                 icon: Icon(
                                   action.type == 'navigate'
-                                      ? Icons.system_update_alt_rounded
+                                      ? Icons.upgrade_rounded
                                       : Icons.open_in_new_rounded,
                                   size: 19,
                                 ),

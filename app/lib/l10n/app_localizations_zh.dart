@@ -2541,6 +2541,20 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get wn48Wheel =>
       '旗帜转轮会在屏幕边缘切到卡片之前把它淡出，推荐地点以看得清的尺寸佩戴 Mozilla 徽标，平面地图的南缘融进页面，不再以一条直线收尾。';
+
+  @override
+  String get wn49States =>
+      '两个参考设计穿上了它们被画下的细节：aether 的卡片像 AetherST 一样显示本次会话的速率，电源键随参考的光晕呼吸并在指尖下沉，zed 的气泡在自身的形状之间变形，中央的内容交叉淡入淡出地换场。';
+
+  @override
+  String get wn49Words =>
+      '“正在连接”现在处处有词：隧道搭建期间，开关的滑轨带着「正在连接…」字样，旋钮的图标在各个形态间淡入淡出，滑轨随连接自身的节奏呼吸——指尖之下再没有什么会突然消失。';
+
+  @override
+  String get wn49Sooner => '“已连接”来得更早：隧道自己的判定一通过便落定，出口的位置——国家与地址——随后抵达。';
+
+  @override
+  String get wn49Mark => '推荐位置换上了 Mozilla VPN 真正的标志，更新按钮也换上了更新自己的图标。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5081,4 +5095,18 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn48Wheel =>
       '旗幟轉輪會在螢幕邊緣切到卡片之前把它淡出，推薦地點以看得清的尺寸戴上 Mozilla 徽標，平面地圖的南緣融進頁面，不再以一條直線收尾。';
+
+  @override
+  String get wn49States =>
+      '兩個參考設計穿上了它們被畫下的細節：aether 的卡片像 AetherST 一樣顯示本次工作階段的速率，電源鍵隨參考的光暈呼吸並在指尖下沉，zed 的氣泡在自身的形狀之間變形，中央的內容交叉淡入淡出地換場。';
+
+  @override
+  String get wn49Words =>
+      '「正在連線」現在處處有詞：通道搭建期間，開關的滑軌帶著「正在連線…」字樣，旋鈕的圖示在各個形態間淡入淡出，滑軌隨連線自身的節奏呼吸——指尖之下再沒有什麼會突然消失。';
+
+  @override
+  String get wn49Sooner => '「已連線」來得更早：通道自己的判定一通過便落定，出口的位置——國家與位址——隨後抵達。';
+
+  @override
+  String get wn49Mark => '建議位置換上了 Mozilla VPN 真正的標誌，更新按鈕也換上了更新自己的圖示。';
 }

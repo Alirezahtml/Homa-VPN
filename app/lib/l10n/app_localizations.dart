@@ -4766,6 +4766,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The flags\' wheel dissolves a card before the screen\'s edge can cut it, the recommended place wears Mozilla\'s mark at a size that reads, and the flat map\'s south edge melts into the page instead of ending in a line.'**
   String get wn48Wheel;
+
+  /// No description provided for @wn49States.
+  ///
+  /// In en, this message translates to:
+  /// **'The two reference designs wear the details they were drawn with: the aether\'s card carries the session\'s own rates the way AetherST\'s does, its power button breathes the reference\'s glow and sinks under the finger, and the zed\'s blob turns itself between its shapes while its center\'s selves cross-fade.'**
+  String get wn49States;
+
+  /// No description provided for @wn49Words.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting has a word everywhere now: while the tunnel is being made, the switch\'s track carries Connecting…, the knob\'s mark fades between its selves, and the track breathes with the connection\'s own rhythm — nothing vanishes under the finger.'**
+  String get wn49Words;
+
+  /// No description provided for @wn49Sooner.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected arrives sooner: the tunnel\'s own verdict settles the moment it passes, and the exit\'s place — the country and the address — travels after it.'**
+  String get wn49Sooner;
+
+  /// No description provided for @wn49Mark.
+  ///
+  /// In en, this message translates to:
+  /// **'The recommended location wears Mozilla VPN\'s real mark, and the update\'s buttons wear the update\'s own glyph.'**
+  String get wn49Mark;
 }
 
 class _AppLocalizationsDelegate

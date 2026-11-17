@@ -2697,4 +2697,20 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'Bayraq çarxı kartı ekran kənarı onu yarıb kəsməzdən əvvəl əridir, tövsiyə olunan yer Mozilla nişanını oxunaqlı ölçüdə geyir, düz xəritənin cənub kənarı xəttə qurtarmaq əvəzinə səhifəyə əriyir.';
+
+  @override
+  String get wn49States =>
+      'Hər iki referens dizayn çəkildiyi təfərrüatları geyindi: aether kartı sessiyanın öz sürətlərini AetherST kimi daşıyır, güc düyməsi referensin işığı ilə nəfəs alır və barmağın altında çökir, zed\'in qovcuğu formaları arasında döyünür, mərkəzi isə kross-feyd ilə bir-birinə keçir.';
+
+  @override
+  String get wn49Words =>
+      '«Qoşulur» sözünün indi hər yerdə yeri var: tunel qurularkən açarın yolu «Qoşulur…» sözünü daşıyır, tutacağın nişanı halları arasında solur və yol qoşulmanın öz ritmi ilə nəfəs alır — barmağın altında heç nə yoxa çıxmır.';
+
+  @override
+  String get wn49Sooner =>
+      '«Qoşuldu» daha tez gəlir: tunelin öz hökmu keçdiyi anda yerləşir, çıxışın yeri — ölkə və ünvan — ondan sonra yola düşür.';
+
+  @override
+  String get wn49Mark =>
+      'Tövsiyə olunan yer real Mozilla VPN nişanını daşıyır, yeniləmə düymələri də yeniləmənin öz işarəsini.';
 }

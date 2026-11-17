@@ -2705,4 +2705,20 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'A roda de bandeiras dissolve um cartão antes que a borda do ecrã o corte, o local recomendado veste a marca da Mozilla num tamanho legível e a borda sul do mapa plano derrete-se na página em vez de acabar numa linha.';
+
+  @override
+  String get wn49States =>
+      'Os dois designs de referência vestem os detalhes com que foram desenhados: o cartão do aether carrega as taxas da sessão como o de AetherST, o botão de energia respira com o brilho da referência e afunda sob o dedo, e a gota do zed se transforma entre suas formas enquanto o centro troca de si com um fade.';
+
+  @override
+  String get wn49Words =>
+      '«A ligar» tem palavra em todo o lado agora: enquanto o túnel se constrói, o trilho do interruptor carrega «A ligar…», a marca do botão esvaece entre os seus estados, e o trilho respira ao ritmo próprio da ligação — nada desaparece sob o dedo.';
+
+  @override
+  String get wn49Sooner =>
+      '«Ligado» chega mais cedo: o veredicto do próprio túnel assenta no momento em que passa, e o lugar de saída — o país e o endereço — viaja atrás dele.';
+
+  @override
+  String get wn49Mark =>
+      'A localização recomendada veste a marca verdadeira da Mozilla VPN, e os botões de atualização vestem o glifo próprio da atualização.';
 }

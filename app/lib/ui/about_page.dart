@@ -165,7 +165,10 @@ class _AboutPageState extends State<AboutPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(l.whatsNewMenu, style: theme.textTheme.titleSmall),
+                        child: Text(
+                          l.whatsNewMenu,
+                          style: theme.textTheme.titleSmall,
+                        ),
                       ),
                       OutlinedButton.icon(
                         onPressed: () => showWhatsNew(
@@ -231,7 +234,7 @@ class _AboutPageState extends State<AboutPage> {
           arrived(
             Panel(
               title: l.checkUpdates,
-              icon: Icons.system_update_alt_rounded,
+              icon: Icons.update_rounded,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -245,9 +248,7 @@ class _AboutPageState extends State<AboutPage> {
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : const Icon(Icons.update_rounded, size: 18),
-                    label: Text(
-                      _checking ? l.checkingUpdates : l.checkUpdates,
-                    ),
+                    label: Text(_checking ? l.checkingUpdates : l.checkUpdates),
                   ),
                   if (_result != null) ...[
                     const SizedBox(height: 8),
@@ -277,7 +278,8 @@ class _AboutPageState extends State<AboutPage> {
                   OutlinedButton.icon(
                     onPressed: () => runShowingErrors(
                       context,
-                      () async => openUrl('${await widget.core.dashboardLink()}'),
+                      () async =>
+                          openUrl('${await widget.core.dashboardLink()}'),
                     ),
                     icon: const Icon(Icons.open_in_new_rounded, size: 18),
                     label: Text(l.webDashboardOpen),
@@ -389,7 +391,7 @@ class _UpdateAction extends StatelessWidget {
           ),
           ApkState.idle => button(
             l.updateNow,
-            Icons.system_update_alt_rounded,
+            Icons.upgrade_rounded,
             () => Updates.update(release),
           ),
         };
@@ -437,9 +439,7 @@ class _UpdateAction extends StatelessWidget {
           ],
           button(
             failure != null ? l.tryAgain : l.updateNow,
-            failure != null
-                ? Icons.refresh_rounded
-                : Icons.system_update_alt_rounded,
+            failure != null ? Icons.refresh_rounded : Icons.upgrade_rounded,
             () => Updates.update(release),
           ),
         ],

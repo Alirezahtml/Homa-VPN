@@ -2699,4 +2699,20 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'Roda bendera melarutkan kartu sebelum tepi layar memotongnya, lokasi yang disarankan memakai tanda Mozilla dalam ukuran yang terbaca, dan tepi selatan peta datar melebur ke halaman alih-alih berakhir menjadi garis.';
+
+  @override
+  String get wn49States =>
+      'Kedua desain referensi memakai detail yang digambar untuknya: kartu aether membawa laju sesi seperti milik AetherST, tombol dayanya bernapas dengan cahaya referensi dan turun di bawah jari, dan gelembung zed berubah di antara bentuk-bentuknya sementara isinya berganti dengan cross-fade.';
+
+  @override
+  String get wn49Words =>
+      '“Menyambung” kini punya kata di mana-mana: selagi terowongan dibangun, lintas saklar membawa kata Menyambung…, tanda kenop memudar di antara wujudnya, dan lintas bernapas dengan irama sambungan sendiri — tak ada yang lenyap di bawah jari.';
+
+  @override
+  String get wn49Sooner =>
+      '“Tersambung” datang lebih cepat: putusan terowongan sendiri menghampiri begitu lulus, dan tempat keluar — negara dan alamat — menyusul kemudian.';
+
+  @override
+  String get wn49Mark =>
+      'Lokasi yang disarankan memakai tanda Mozilla VPN yang sebenarnya, dan tombol pembaruan memakai glif pembaruan miliknya.';
 }

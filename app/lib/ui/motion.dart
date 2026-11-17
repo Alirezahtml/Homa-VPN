@@ -262,6 +262,7 @@ class SlideToConnect extends StatefulWidget {
     required this.labelConnect,
     required this.labelDisconnect,
     required this.labelOn,
+    required this.labelBusy,
     required this.tooltip,
     required this.onPressed,
     this.autofocus = false,
@@ -279,14 +280,16 @@ class SlideToConnect extends StatefulWidget {
 
   /// The track's hint while off and while on; [labelOn] is the state's own
   /// word ("Connected"), which stays in the track while connected so the
-  /// state reads there and not only above. An empty [labelOn] while on
-  /// (still connecting, nothing confirmed yet) leaves the track's word
-  /// out: the fill and the knob carry the motion, and the state's own
-  /// word stands in its capsule above — a connect hint here would deny
-  /// the connection already being made.
+  /// state reads there and not only above. While [busy] the track carries
+  /// [labelBusy] instead — the connection being made has a word of its
+  /// own here, not a bar that suddenly lost its words.
   final String labelConnect;
   final String labelDisconnect;
   final String labelOn;
+
+  /// The word in the track while the connection is being made
+  /// ("Connecting…"). Empty falls back to [labelConnect].
+  final String labelBusy;
   final String tooltip;
   final VoidCallback onPressed;
   final bool autofocus;
@@ -318,6 +321,15 @@ class _SlideToConnectState extends State<SlideToConnect>
     duration: const Duration(milliseconds: 2600),
   );
 
+  /// The busy light: the track's border and shadow breathe while the
+  /// connection is being made, and hold one pose every other moment —
+  /// the one repeated motion besides the spinner, gone the second the
+  /// state lands.
+  late final AnimationController _busy = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1500),
+  );
+
   static const _threshold = 0.72;
   bool _dragging = false;
 
@@ -325,6 +337,7 @@ class _SlideToConnectState extends State<SlideToConnect>
   void initState() {
     super.initState();
     _snap.addListener(() => setState(() => _p = _snap.value));
+    if (widget.busy) _busy.repeat(reverse: true);
   }
 
   @override
@@ -346,6 +359,13 @@ class _SlideToConnectState extends State<SlideToConnect>
     }
     // Monochrome build: no idle shimmer; the track rests until touched.
     _idle.stop();
+    // The breath follows the busy state, not the widget's identity.
+    if (widget.busy && !_busy.isAnimating) {
+      _busy.repeat(reverse: true);
+    } else if (!widget.busy && _busy.isAnimating) {
+      _busy.stop();
+      _busy.value = 0;
+    }
   }
 
   @override
@@ -353,6 +373,7 @@ class _SlideToConnectState extends State<SlideToConnect>
     _snap.dispose();
     _bloom.dispose();
     _idle.dispose();
+    _busy.dispose();
     super.dispose();
   }
 
@@ -436,17 +457,20 @@ class _SlideToConnectState extends State<SlideToConnect>
               width: double.infinity,
               height: height,
               child: AnimatedBuilder(
-                animation: Listenable.merge([_bloom, _idle]),
+                animation: Listenable.merge([_bloom, _idle, _busy]),
                 builder: (context, child) {
                   final bloom = _bloom.value;
                   final shimmer = _idle.value;
+                  final breath = _busy.value;
                   final p = _p.clamp(0.0, 1.0);
                   return Stack(
                     clipBehavior: Clip.none,
                     children: [
                       // The track: the whole switch, its ends fully round.
                       // The knob rests inside it — a button in a ring, not
-                      // one hanging past the ring's edge.
+                      // one hanging past the ring's edge. While busy its
+                      // border and shadow breathe with the connection's
+                      // own rhythm, and hold one pose every other moment.
                       PositionedDirectional(
                         start: 0,
                         end: 0,
@@ -459,7 +483,9 @@ class _SlideToConnectState extends State<SlideToConnect>
                             border: Border.all(
                               color: Color.lerp(
                                 w.border,
-                                w.accent.withValues(alpha: 0.55),
+                                w.accent.withValues(
+                                  alpha: 0.55 + 0.25 * breath,
+                                ),
                                 p,
                               )!,
                               width: 1.3,
@@ -467,7 +493,10 @@ class _SlideToConnectState extends State<SlideToConnect>
                             boxShadow: [
                               BoxShadow(
                                 color: w.accent.withValues(
-                                  alpha: 0.10 + 0.20 * p,
+                                  alpha:
+                                      0.10 +
+                                      0.20 * p +
+                                      0.08 * breath * (w.busy ? 1 : 0),
                                 ),
                                 blurRadius: 18 + 14 * p,
                                 offset: const Offset(0, 8),
@@ -527,15 +556,20 @@ class _SlideToConnectState extends State<SlideToConnect>
                                 // in every language, reading either way. While
                                 // connected the label stays: the state's own
                                 // word ("Connected") in the track, not an
-                                // empty bar. A long translation shrinks to fit
-                                // rather than ellipsizing.
+                                // empty bar. While busy the connection's own
+                                // word stands in — steady, not fading with
+                                // the drag — so nothing vanishes under the
+                                // user's finger. A long translation shrinks
+                                // to fit rather than ellipsizing.
                                 PositionedDirectional(
                                   start: knob + inset + 4,
                                   end: knob + inset + 4,
                                   top: 0,
                                   bottom: 0,
                                   child: Opacity(
-                                    opacity: w.on
+                                    opacity: w.busy
+                                        ? 1
+                                        : w.on
                                         ? 1
                                         : (1 - p * 2.1).clamp(0, 1),
                                     child: Transform.translate(
@@ -548,11 +582,17 @@ class _SlideToConnectState extends State<SlideToConnect>
                                               alpha: w.dark ? 0.85 : 0.5,
                                             ),
                                             child: Text(
-                                              // Connected, still being
-                                              // confirmed: no word — the
-                                              // state's own word stands in
-                                              // its capsule above.
-                                              w.on ? w.labelOn : w.labelConnect,
+                                              // Busy: the connection's own
+                                              // word ("Connecting…"); on:
+                                              // the state's word; off: the
+                                              // connect hint.
+                                              w.busy
+                                                  ? (w.labelBusy.isEmpty
+                                                        ? w.labelConnect
+                                                        : w.labelBusy)
+                                                  : w.on
+                                                  ? w.labelOn
+                                                  : w.labelConnect,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -649,48 +689,54 @@ class _SlideToConnectState extends State<SlideToConnect>
                                     ],
                                   ),
                                   child: Center(
-                                    child: w.busy
-                                        ? SizedBox.square(
-                                            dimension: 20,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2.2,
-                                              color: w.on
-                                                  ? Colors.white
-                                                  : w.accent,
+                                    // One morph for all of the knob's
+                                    // selves: the spinner grows in as the
+                                    // mark shrinks out, and back — no
+                                    // hard swap anywhere in the state's
+                                    // walk (off → connecting → on).
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 260,
+                                      ),
+                                      switchInCurve: Curves.easeOutCubic,
+                                      switchOutCurve: Curves.easeInCubic,
+                                      // A fade-through: the old mark
+                                      // shrinks a shade as it leaves
+                                      // while the new one grows the
+                                      // last of its way in, both
+                                      // always partly there — the
+                                      // knob's mark never blinks out
+                                      // between its two selves.
+                                      transitionBuilder: (child, anim) =>
+                                          FadeTransition(
+                                            opacity: anim,
+                                            child: ScaleTransition(
+                                              scale: Tween(
+                                                begin: 0.86,
+                                                end: 1.0,
+                                              ).animate(anim),
+                                              child: child,
                                             ),
-                                          )
-                                        : AnimatedSwitcher(
-                                            duration: const Duration(
-                                              milliseconds: 260,
-                                            ),
-                                            switchInCurve: Curves.easeOutCubic,
-                                            switchOutCurve: Curves.easeInCubic,
-                                            // A fade-through: the old mark
-                                            // shrinks a shade as it leaves
-                                            // while the new one grows the
-                                            // last of its way in, both
-                                            // always partly there — the
-                                            // knob's mark never blinks out
-                                            // between its two selves.
-                                            transitionBuilder: (child, anim) =>
-                                                FadeTransition(
-                                                  opacity: anim,
-                                                  child: ScaleTransition(
-                                                    scale: Tween(
-                                                      begin: 0.86,
-                                                      end: 1.0,
-                                                    ).animate(anim),
-                                                    child: child,
-                                                  ),
-                                                ),
-                                            child: Icon(
+                                          ),
+                                      child: w.busy
+                                          ? SizedBox.square(
+                                              key: const ValueKey('busy'),
+                                              dimension: 20,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2.2,
+                                                color: w.on
+                                                    ? Colors.white
+                                                    : w.accent,
+                                              ),
+                                            )
+                                          : Icon(
+                                              key: ValueKey(
+                                                'mark-${_p > _threshold || w.on}',
+                                              ),
                                               _p > _threshold || w.on
                                                   ? Icons.lock_open_rounded
                                                   : Icons
                                                         .power_settings_new_rounded,
-                                              key: ValueKey(
-                                                _p > _threshold || w.on,
-                                              ),
                                               size: 26,
                                               color: w.on
                                                   ? Colors.white
@@ -700,7 +746,7 @@ class _SlideToConnectState extends State<SlideToConnect>
                                                       p * 0.9,
                                                     )!,
                                             ),
-                                          ),
+                                    ),
                                   ),
                                 ),
                               ),

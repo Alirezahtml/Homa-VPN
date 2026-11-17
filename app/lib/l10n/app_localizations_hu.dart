@@ -2710,4 +2710,20 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn48Wheel =>
       'A zászlókerék feloldja a kártyát, mielőtt a képernyő széle kettévágná, a javasolt hely Mozilla-jelvényét olvasható méretben viseli, a sík térkép déli széle pedig egy vonal helyett az oldalba olvad.';
+
+  @override
+  String get wn49States =>
+      'A két hivatkozási dizájn felvette a rajzolt részleteit: az aether kártya a munkamenet saját sebességeit viseli, ahogy az AetherST-é, a bekapcsológombja a referencia fényével lélegzik és elsüllyed az ujj alatt, a zed buborékja pedig alakjai között változik, középe áttűnéssel cserélődik.';
+
+  @override
+  String get wn49Words =>
+      'A „Csatlakozás…” szónak most mindenhol helye van: miközben az alagút épül, a kapcsoló síne viseli a szót, a gomb jele állapotai között oldódik át, és a sín a kapcsolás saját ritmusában lélegzik — semmi nem tűnik el az ujj alatt.';
+
+  @override
+  String get wn49Sooner =>
+      'A „Csatlakozva” hamarabb érkezik: az alagút saját ítélete abban a pillanatban rögzül, amikor átjár, a kilépés helye — az ország és a cím — utána vándorol.';
+
+  @override
+  String get wn49Mark =>
+      'Az ajánlott hely a Mozilla VPN igazi jelét viseli, a frissítés gombjai pedig a frissítés saját jelképét.';
 }
