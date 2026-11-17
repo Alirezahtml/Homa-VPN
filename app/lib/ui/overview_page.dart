@@ -1283,15 +1283,18 @@ class _PhoneHome extends StatelessWidget {
             // The clock's own veil: when the page scrolls, the content
             // that slides under the status bar fades out beneath it — the
             // iOS way — instead of colliding with the clock and the
-            // battery. The veil's color is the page's own top, so on a
-            // resting page (whose content starts below it anyway) it is
-            // invisible: nothing changes there, only the scrolled state
-            // gains its readability back.
+            // battery. The veil is a full breath tall now and holds its
+            // color solid across the clock's own band before it lets go,
+            // so the card and the orb that ride under it fade whole —
+            // their words never meet the clock's. The veil's color is the
+            // page's own top, so on a resting page (whose content starts
+            // below it anyway) it is invisible: nothing changes there,
+            // only the scrolled state gains its readability back.
             Positioned(
               top: 0,
               left: 0,
               right: 0,
-              height: top + 10,
+              height: top + 46,
               child: IgnorePointer(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
@@ -1299,6 +1302,7 @@ class _PhoneHome extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [p.top, p.top.withValues(alpha: 0)],
+                      stops: const [0.42, 1],
                     ),
                   ),
                 ),
@@ -1478,29 +1482,51 @@ class _PhoneHome extends StatelessWidget {
             const SizedBox(height: 26),
           ] else if (design == 'aether') ...[
             // The aether's home: the flags in their strip too, above the
-            // status card that carries the switch.
+            // status card that carries the switch. The card names the
+            // place itself, so the strip's own name line rests — the
+            // page says the place once.
             const SizedBox(height: 24),
             Reveal(
               index: 1,
-              child: FlagStrip(
-                core: core,
-                text: p.text,
-                border: p.cardBorder,
-                accent: accent,
+              child: RepaintBoundary(
+                child: FlagStrip(
+                  core: core,
+                  text: p.text,
+                  border: p.cardBorder,
+                  accent: accent,
+                  showName: false,
+                ),
               ),
             ),
             const SizedBox(height: 24),
           ] else if (design == 'zed') ...[
-            // The zed's home: the flags in their strip too, above the
-            // blob that carries the switch.
+            // The zed's home wears the reference's own opening: the two
+            // rate cards under the brand — alive with the session's
+            // numbers when the tunnel carries, resting at their zeros
+            // when it does not, the way the reference's own pair stands
+            // on the page whatever the connection says — then the flags'
+            // strip, whose name line rests: the server card under the
+            // blob names the place, and one page says it once.
+            if (settings.showTraffic) ...[
+              const SizedBox(height: 18),
+              Reveal(
+                index: 1,
+                child: RepaintBoundary(
+                  child: _ZedRatePair(palette: p, traffic: status.traffic),
+                ),
+              ),
+            ],
             const SizedBox(height: 24),
             Reveal(
               index: 1,
-              child: FlagStrip(
-                core: core,
-                text: p.text,
-                border: p.cardBorder,
-                accent: accent,
+              child: RepaintBoundary(
+                child: FlagStrip(
+                  core: core,
+                  text: p.text,
+                  border: p.cardBorder,
+                  accent: accent,
+                  showName: false,
+                ),
               ),
             ),
             const SizedBox(height: 24),
@@ -1516,8 +1542,10 @@ class _PhoneHome extends StatelessWidget {
           // glance — a quiet pulse while the connection is still being
           // made.
           // The dusk's banner said the state's word inside itself; now the
-          // aether's status card does, so both skip the capsule here.
-          if (design != 'bento' && design != 'aether')
+          // aether's status card does, and the zed wears the reference's
+          // own big word under the blob instead, so all three skip the
+          // capsule here.
+          if (design != 'bento' && design != 'aether' && design != 'zed')
             Reveal(
               index: 1,
               child: Center(
@@ -1659,40 +1687,96 @@ class _PhoneHome extends StatelessWidget {
             // pink, lime) when the tunnel carries, the cooler cyan swell
             // while it is being made, the dim violet when it rests. The
             // session's time stands in the middle when it carries, the
-            // power's mark when it rests; the place's chip sits under it.
+            // power's mark when it rests — nothing under it, the way the
+            // reference's orb stands alone.
             Flexible(
               // The hero's stage: the reference lets its orb shrink with
               // the stage's own height (its stage * 0.58 cap) instead of
               // shoving the page under the dock — the FittedBox does the
-              // same here: the orb and its chip keep their design size on
-              // a tall screen and step down, whole, when the page is
-              // tight, so the data card below keeps its place above the
-              // dock.
+              // same here: the orb keeps its design size on a tall screen
+              // and steps down, whole, when the page is tight, so the
+              // cards below keep their places above the dock.
               child: Center(
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Reveal(
                     index: 2,
-                    child: _ZedBlobCard(
-                      palette: p,
-                      place: place,
-                      on: on,
-                      busy: core.switchingProxy || status.connectPending,
-                      accent: accent,
-                      tooltip: press,
-                      startedAt: proxy?.startedAt,
-                      batterySaver: settings.batterySaver,
-                      onOpenServers: onOpenServers,
-                      onPressed: () => status.totalAccounts == 0
-                          ? _openAccounts(
-                              context,
-                              core,
-                              settings,
-                              onOpenAccounts,
-                            )
-                          : runShowingErrors(context, () => _toggle(on)),
+                    child: RepaintBoundary(
+                      child: _ZedBlobCard(
+                        palette: p,
+                        on: on,
+                        busy: core.switchingProxy || status.connectPending,
+                        tooltip: press,
+                        startedAt: proxy?.startedAt,
+                        batterySaver: settings.batterySaver,
+                        onPressed: () => status.totalAccounts == 0
+                            ? _openAccounts(
+                                context,
+                                core,
+                                settings,
+                                onOpenAccounts,
+                              )
+                            : runShowingErrors(context, () => _toggle(on)),
+                      ),
                     ),
                   ),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 6 : 12),
+            // The state's word, the reference's own voice: the display's
+            // big face under the orb — the word the small capsule could
+            // never carry — with the tap's word quiet beneath it, and
+            // nothing else, so the page's middle reads as one breath.
+            Reveal(
+              index: 3,
+              child: Column(
+                children: [
+                  CrossfadeText(
+                    label,
+                    textAlign: TextAlign.center,
+                    style:
+                        (theme.textTheme.headlineLarge ??
+                                const TextStyle(fontSize: 34))
+                            .copyWith(
+                              fontWeight: FontWeight.w800,
+                              height: 1.1,
+                              letterSpacing: 0.3,
+                              fontFamily: typefacesOf(context).display,
+                              fontFamilyFallback: typefacesOf(context)
+                                  .displayFallback,
+                              color: confirming
+                                  ? p.text
+                                  : (on ? accent : p.text),
+                            ),
+                  ),
+                  if (!on && !confirming) ...[
+                    const SizedBox(height: 5),
+                    Text(
+                      press,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: p.muted,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            SizedBox(height: short ? 12 : 18),
+            // The server card, the reference's bright pill over the dock:
+            // the place's name bold with the change's word muted beneath,
+            // and a white circle with the globe's glyph at its end — a
+            // tap opens the servers page, the way the reference's own
+            // card answers. The place's small chip under the orb retires:
+            // this card says the place, and one page says it once.
+            Reveal(
+              index: 3,
+              child: RepaintBoundary(
+                child: _ZedServerCard(
+                  palette: p,
+                  place: place,
+                  onOpenServers: onOpenServers,
                 ),
               ),
             ),
@@ -1724,31 +1808,33 @@ class _PhoneHome extends StatelessWidget {
             // The connection's numbers, in the page itself: the time
             // it has been up, the real delay, the live rates. The wheel
             // and the tiles lay them out as cards; the compact home as
-            // rows inside one card of its own.
-            if (design == 'pixel' || design == 'zed')
-              _FlatStats(
-                core: core,
-                status: status,
-                palette: p,
-                startedAt: proxy?.startedAt,
-                pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                showTraffic: settings.showTraffic,
-                // The zed's blob carries the time and the ping itself;
-                // its card keeps only the rates, as two compact cells.
-                showConnection: design == 'pixel',
-                rateCells: design == 'zed',
+            // rows inside one card of its own; the zed's pair lives at
+            // the page's top, the reference's own place for it.
+            if (design == 'pixel')
+              RepaintBoundary(
+                child: _FlatStats(
+                  core: core,
+                  status: status,
+                  palette: p,
+                  startedAt: proxy?.startedAt,
+                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                  showTraffic: settings.showTraffic,
+                  showConnection: true,
+                ),
               )
-            else if (design != 'aether')
+            else if (design != 'aether' && design != 'zed')
               // The aether's card carries the time, the ping and the two
               // rates itself (the reference's own rows); its page keeps
               // no second numbers card under them.
-              _HomeStats(
-                core: core,
-                status: status,
-                palette: p,
-                startedAt: proxy?.startedAt,
-                pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                showTraffic: settings.showTraffic,
+              RepaintBoundary(
+                child: _HomeStats(
+                  core: core,
+                  status: status,
+                  palette: p,
+                  startedAt: proxy?.startedAt,
+                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                  showTraffic: settings.showTraffic,
+                ),
               ),
             if (ip.isNotEmpty)
               Padding(
@@ -1810,13 +1896,16 @@ class _PhoneHome extends StatelessWidget {
                 icon: Icons.data_usage_rounded,
               ),
             )
-          else if (design == 'bento' || design == 'aether' || confirming)
-            // The tiles' bar and the aether's status card already say the
-            // tap's own hint; the plain hint line below would only say it
-            // twice. While the connection is still being made, the state's
-            // word stands alone — "tap to disconnect" under a reaching
-            // tunnel reads as noise. The state's own guidance still has
-            // the problem boxes above.
+          else if (design == 'bento' ||
+              design == 'aether' ||
+              design == 'zed' ||
+              confirming)
+            // The tiles' bar, the aether's status card and the zed's own
+            // word already say the tap's own hint; the plain hint line
+            // below would only say it twice. While the connection is
+            // still being made, the state's word stands alone — "tap to
+            // disconnect" under a reaching tunnel reads as noise. The
+            // state's own guidance still has the problem boxes above.
             const SizedBox.shrink()
           else
             // A start failure's hint is general; the core's reason is
@@ -1952,21 +2041,25 @@ class _PhoneHome extends StatelessWidget {
             if (design == 'wheel' || design == 'bento') ...[
               Reveal(
                 index: 4,
-                child: _PlaceCard(
-                  palette: p,
-                  place: place,
-                  accent: accent,
-                  onTap: onOpenServers,
+                child: RepaintBoundary(
+                  child: _PlaceCard(
+                    palette: p,
+                    place: place,
+                    accent: accent,
+                    onTap: onOpenServers,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
             ],
             Reveal(
               index: 5,
-              child: _HomeData(
-                status: status,
-                palette: p,
-                onTap: onOpenAccounts,
+              child: RepaintBoundary(
+                child: _HomeData(
+                  status: status,
+                  palette: p,
+                  onTap: onOpenAccounts,
+                ),
               ),
             ),
           ],
@@ -3950,7 +4043,6 @@ class _FlatStats extends StatelessWidget {
     required this.pingMs,
     required this.showTraffic,
     this.showConnection = true,
-    this.rateCells = false,
   });
 
   final CoreController core;
@@ -3964,12 +4056,6 @@ class _FlatStats extends StatelessWidget {
   /// already carry the session's time and the ping themselves, so their
   /// stats card keeps only the rates.
   final bool showConnection;
-
-  /// The rates as two compact cells side by side instead of three full
-  /// rows: the zed's card under the blob stays short whatever the user's
-  /// text size, and reads like the bento the design wears — the session's
-  /// sum keeps its own row beneath the pair.
-  final bool rateCells;
 
   @override
   Widget build(BuildContext context) {
@@ -4026,68 +4112,21 @@ class _FlatStats extends StatelessWidget {
                 ),
               ],
               if (showTraffic) ...[
-                if (rateCells) ...[
-                  const SizedBox(height: 10),
-                  // The cells' own stage: the IntrinsicHeight gives the
-                  // pair its shared height (the taller one's), so the
-                  // stretch below lays both to the same bottom — without
-                  // it the stretch would hand the pair the column's
-                  // unbounded height.
-                  IntrinsicHeight(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: _RateCell(
-                            palette: p,
-                            label: l.statDown,
-                            icon: Icons.south_rounded,
-                            bytes:
-                                (traffic?.down ?? 0) +
-                                (traffic?.directDown ?? 0),
-                            rate: traffic?.downRate ?? 0,
-                            // The download in the carrying green, the
-                            // upload in the design's own light — the same
-                            // pair of voices the aether's card speaks.
-                            color: p.dark
-                                ? const Color(0xFF34C759)
-                                : const Color(0xFF1E9E6B),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _RateCell(
-                            palette: p,
-                            label: l.statUp,
-                            icon: Icons.north_rounded,
-                            bytes:
-                                (traffic?.up ?? 0) +
-                                (traffic?.directUp ?? 0),
-                            rate: traffic?.upRate ?? 0,
-                            color: DesignStyle.of(context).navActive,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  sessionRow,
-                ] else ...[
-                  const SizedBox(height: 10),
-                  _FlatRow(
-                    palette: p,
-                    icon: Icons.south_rounded,
-                    label: l.statDown,
-                    value: Text(formatRate(traffic?.downRate ?? 0)),
-                  ),
-                  const SizedBox(height: 10),
-                  _FlatRow(
-                    palette: p,
-                    icon: Icons.north_rounded,
-                    label: l.statUp,
-                    value: Text(formatRate(traffic?.upRate ?? 0)),
-                  ),
-                  sessionRow,
-                ],
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.south_rounded,
+                  label: l.statDown,
+                  value: Text(formatRate(traffic?.downRate ?? 0)),
+                ),
+                const SizedBox(height: 10),
+                _FlatRow(
+                  palette: p,
+                  icon: Icons.north_rounded,
+                  label: l.statUp,
+                  value: Text(formatRate(traffic?.upRate ?? 0)),
+                ),
+                sessionRow,
               ],
             ],
           ),
@@ -4494,14 +4533,13 @@ class _AetherHeroCard extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Text(
                                     '$pingMs ms',
-                                    style: theme.textTheme.labelSmall
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          fontFeatures: const [
-                                            FontFeature.tabularFigures(),
-                                          ],
-                                          color: p.muted,
-                                        ),
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontFeatures: const [
+                                        FontFeature.tabularFigures(),
+                                      ],
+                                      color: p.muted,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -4850,32 +4888,26 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
 /// one breathing orb painted with the brand's own light: violet, pink
 /// and lime while the tunnel carries, the cooler cyan swell while the
 /// connection is being made, the dim violet when it rests. The session's
-/// time stands in its middle, and the place's chip sits under it.
+/// time stands in its middle; the page's server card names the place.
 class _ZedBlobCard extends StatefulWidget {
   const _ZedBlobCard({
     required this.palette,
-    required this.place,
     required this.on,
     required this.busy,
-    required this.accent,
     required this.tooltip,
     required this.startedAt,
     required this.batterySaver,
-    required this.onOpenServers,
     required this.onPressed,
   });
 
   final _HomePalette palette;
-  final HomePlace place;
   final bool on;
   final bool busy;
-  final Color accent;
   final String tooltip;
   final DateTime? startedAt;
 
   /// The battery saver's word: the blob holds its breath when it stands.
   final bool batterySaver;
-  final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
 
   @override
@@ -4960,27 +4992,32 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
               final dark = p.dark;
               return Transform.scale(
                 scale: s,
-                child: CustomPaint(
-                  size: const Size.square(blob + 24),
-                  painter: _ZedBlobPainter(
-                    morph: _morph.value,
-                    colors: _blobColors,
-                    glows: alive
-                        ? [
-                            (
-                              color: const Color(0xFF7A5CFF)
-                                  .withValues(alpha: dark ? 0.40 : 0.30),
-                              blur: 38,
-                            ),
-                            (
-                              color: const Color(0xFFFF5FA2)
-                                  .withValues(alpha: dark ? 0.25 : 0.16),
-                              blur: 52,
-                            ),
-                          ]
-                        : const [],
+                child: RepaintBoundary(
+                  // The blob's own boundary: its breath repaints every
+                  // frame it runs, and this keeps that redraw inside the
+                  // orb — the page around it never repaints for it.
+                  child: CustomPaint(
+                    size: const Size.square(blob + 24),
+                    painter: _ZedBlobPainter(
+                      morph: _morph.value,
+                      colors: _blobColors,
+                      glows: alive
+                          ? [
+                              (
+                                color: const Color(0xFF7A5CFF)
+                                    .withValues(alpha: dark ? 0.40 : 0.30),
+                                blur: 38,
+                              ),
+                              (
+                                color: const Color(0xFFFF5FA2)
+                                    .withValues(alpha: dark ? 0.25 : 0.16),
+                                blur: 52,
+                              ),
+                            ]
+                          : const [],
+                    ),
+                    child: child!,
                   ),
-                  child: child!,
                 ),
               );
             },
@@ -5043,43 +5080,6 @@ class _ZedBlobCardState extends State<_ZedBlobCard>
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 14),
-        // The place's chip under the blob: a tap opens the servers page.
-        InkWell(
-          onTap: widget.onOpenServers,
-          borderRadius: BorderRadius.circular(14),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 6, 10, 6),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CountryFlag(code: widget.place.flag, width: 24),
-                const SizedBox(width: 10),
-                if (widget.place.auto) ...[
-                  Icon(
-                    Icons.auto_awesome_rounded,
-                    size: 14,
-                    color: widget.accent,
-                  ),
-                  const SizedBox(width: 4),
-                ],
-                Flexible(
-                  child: Text(
-                    widget.place.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: p.text,
-                    ),
-                  ),
-                ),
-                if (widget.onOpenServers != null)
-                  Icon(Icons.chevron_right_rounded, size: 20, color: p.muted),
-              ],
             ),
           ),
         ),
@@ -5174,5 +5174,152 @@ class _ZedBlobPainter extends CustomPainter {
       if (old.glows[i] != glows[i]) return true;
     }
     return false;
+  }
+}
+
+/// The zed page's opening pair: the two rate cards the reference wears
+/// under its header — download in the carrying green, upload in the
+/// design's violet, the session's bytes muted beneath each rate. The
+/// reference keeps them on the page whatever the connection says; ours
+/// do too: alive with the session's numbers while the tunnel carries,
+/// resting at their zeros when it does not.
+class _ZedRatePair extends StatelessWidget {
+  const _ZedRatePair({required this.palette, required this.traffic});
+
+  final _HomePalette palette;
+
+  /// The session's own numbers; null while the tunnel rests — the pair
+  /// stands at its zeros.
+  final Traffic? traffic;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final t = traffic;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 420),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: _RateCell(
+                palette: p,
+                label: l.statDown,
+                icon: Icons.south_rounded,
+                bytes: (t?.down ?? 0) + (t?.directDown ?? 0),
+                rate: t?.downRate ?? 0,
+                color: p.dark
+                    ? const Color(0xFF34C759)
+                    : const Color(0xFF1E9E6B),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _RateCell(
+                palette: p,
+                label: l.statUp,
+                icon: Icons.north_rounded,
+                bytes: (t?.up ?? 0) + (t?.directUp ?? 0),
+                rate: t?.upRate ?? 0,
+                color: DesignStyle.of(context).navActive,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The zed page's server card — the reference's bright pill over the
+/// dock: the place's name bold with the change's word muted beneath, and
+/// a white circle with the globe's glyph at its end. A tap opens the
+/// servers page, the way the reference's own card answers.
+class _ZedServerCard extends StatelessWidget {
+  const _ZedServerCard({
+    required this.palette,
+    required this.place,
+    this.onOpenServers,
+  });
+
+  final _HomePalette palette;
+  final HomePlace place;
+  final VoidCallback? onOpenServers;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final violet = DesignStyle.of(context).navActive;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 420),
+      child: Material(
+        color: violet,
+        borderRadius: BorderRadius.circular(26),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onOpenServers,
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 11, 11, 11),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              place.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.2,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          if (place.auto) ...[
+                            const SizedBox(width: 5),
+                            Icon(
+                              Icons.auto_awesome_rounded,
+                              size: 13,
+                              color: Colors.white.withValues(alpha: 0.8),
+                            ),
+                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l.tapToChangeServer,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.75),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: Icon(Icons.public_rounded, size: 22, color: violet),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

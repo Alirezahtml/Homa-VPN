@@ -2551,6 +2551,25 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn50Ping => 'aether 的延迟胶囊再次一触即测，就像参考里它自己的胶囊那样应答。';
+
+  @override
+  String get tapToChangeServer => '点击更换服务器';
+
+  @override
+  String get wn51Smooth =>
+      '旗子轮盘和横条像真正的轮盘那样转动：拖动和换国家现在直接在合成层上完成——旗子转动时没有任何东西重新排版，也没有任何光晕重绘自己；轮盘转得顺滑，页面也跟着它流畅滚动。';
+
+  @override
+  String get wn51Zed =>
+      'zed 的主页穿上了参考自己的结构：两张速率卡立在品牌之下（隧道休息时停在各自的零点上），状态的词语以 display 的大脸出现在气泡之下，而地点住在底栏上方明亮的伺服器卡上——小胶囊和重复的名字都走了。';
+
+  @override
+  String get wn51Aether =>
+      'aether 的主页只把地点说一次：横条上重复的名字一行歇下了，状态卡和电源键守着自己的座位，页面读起来像一根干净的立柱。';
+
+  @override
+  String get wn51Veil =>
+      '时钟的薄纱长高了一口呼吸的距离，并把自己的颜色护住整个时钟的横带：从它下面滚过的内容完整地淡出，它的词语再也碰不到时钟。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5101,4 +5120,23 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn50Ping => 'aether 的延遲膠囊再次一觸即測，就像參考裡它自己的膠囊那樣應答。';
+
+  @override
+  String get tapToChangeServer => '點擊更換伺服器';
+
+  @override
+  String get wn51Smooth =>
+      '旗子輪盤和橫條像真正的輪盤那樣轉動：拖動和換國家現在直接在合成層上完成——旗子轉動時沒有任何東西重新排版，也沒有任何光暈重繪自己；輪盤轉得順暢，頁面也跟著它流暢捲動。';
+
+  @override
+  String get wn51Zed =>
+      'zed 的首頁穿上了參考自己的結構：兩張速率卡立在品牌之下（隧道休息時停在各自的零點上），狀態的詞語以 display 的大臉出現在氣泡之下，而地點住在底欄上方明亮的伺服器卡上——小膠囊和重複的名字都走了。';
+
+  @override
+  String get wn51Aether =>
+      'aether 的首頁只把地點說一次：橫條上重複的名字一行歇下了，狀態卡和電源鍵守著自己的座位，頁面讀起來像一根乾淨的立柱。';
+
+  @override
+  String get wn51Veil =>
+      '時鐘的薄紗長高了一口呼吸的距離，並把自己的顏色護住整個時鐘的橫帶：從它下面捲過的內容完整地淡出，它的詞語再也碰不到時鐘。';
 }

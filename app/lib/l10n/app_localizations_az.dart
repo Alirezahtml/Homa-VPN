@@ -2708,4 +2708,23 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn50Ping =>
       'aether-in ping çipi bir toxunuşla yenidən ölçür, elə ki referensin öz çipi də belə cavab verir.';
+
+  @override
+  String get tapToChangeServer => 'Serveri dəyişmək üçün toxunun';
+
+  @override
+  String get wn51Smooth =>
+      'Bayraq çarxı və zolağı bir çarxın döndüyü kimi döner: sürüşdürmə və ölkə dəyişimi artıq kompozitorda səyahət edir — bayraqlar dönərkən heç nə yenidən düzülmür və heç bir işıq özünü yenidən çəkmir; çarx hamar döner və səhifə onunla birlikdə hamar sürüşür.';
+
+  @override
+  String get wn51Zed =>
+      'zed-in evi referensin öz quruluşunu geydi: iki sürət kartı markanın altında durur (tünel istirahətdə ikisi də sıfırlarında dincəlir), vəziyyətin sözü qovuğun altında display-in böyük üzü ilə gəlir, yer isə dokun üstündəki parlaq server kartında yaşayır — kiçik nişan və təkrarlanan ad getdi.';
+
+  @override
+  String get wn51Aether =>
+      'aether-in evi yeri bir dəfə deyir: zolağın təkrarlanan ad sətri dincəlir, vəziyyət kartı və güc düyməsi oturacaqlarını qoruyur və səhifə tək təmiz sütun kimi oxunur.';
+
+  @override
+  String get wn51Veil =>
+      'Saatın pərdəsi bir nəfəs boy atdı və rəngini saatın bütün zolağında saxlayır: altından sürüşən məzmun bütöv halda solur və sözləri saatla heç vaxt görüşmür.';
 }

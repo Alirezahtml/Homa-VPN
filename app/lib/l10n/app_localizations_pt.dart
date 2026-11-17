@@ -2716,4 +2716,23 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn50Ping =>
       'A pílula de ping do aether mede de novo com um toque, do jeito que a pílula da própria referência responde.';
+
+  @override
+  String get tapToChangeServer => 'Toque para mudar de servidor';
+
+  @override
+  String get wn51Smooth =>
+      'A roda e a faixa de bandeiras giram como uma roda deve girar: o arrasto e a troca de país viajam agora no compositor — nada se remaqueta e nenhum brilho se redesenha enquanto as bandeiras giram; a roda gira suave e a página rola com ela.';
+
+  @override
+  String get wn51Zed =>
+      'A casa do zed veste a estrutura da própria referência: os dois cartões de taxas ficam sob a marca (em repouso, nos seus zeros, quando o túnel descansa), a palavra do estado chega com a grande face do display sob a gota, e o lugar vive no brilhante cartão de servidor acima do dock — o chip pequeno e o nome repetido se foram.';
+
+  @override
+  String get wn51Aether =>
+      'A casa do aether diz o lugar uma vez: a linha do nome repetido da faixa descansa, o cartão de status e o botão de energia guardam seus assentos, e a página se lê como uma coluna limpa.';
+
+  @override
+  String get wn51Veil =>
+      'O véu do relógio cresceu um suspiro de altura e segura sua cor por toda a faixa do relógio: o conteúdo que rola por baixo dele desvanece inteiro, e suas palavras nunca alcançam o relógio.';
 }

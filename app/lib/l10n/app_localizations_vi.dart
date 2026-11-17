@@ -2706,4 +2706,23 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn50Ping =>
       'Viên chip ping của aether đo lại bằng một lần chạm, đúng cách viên chip của tham chiếu tự phản hồi.';
+
+  @override
+  String get tapToChangeServer => 'Chạm để đổi máy chủ';
+
+  @override
+  String get wn51Smooth =>
+      'Bánh xe và dải cờ quay đúng cách một bánh xe phải quay: kéo và đổi quốc gia giờ đi trên bộ ghép — không gì sắp lại và không quầng sáng nào vẽ lại chính mình khi cờ quay; bánh xe quay mượt và trang cuộn theo nó.';
+
+  @override
+  String get wn51Zed =>
+      'Trang chủ của zed khoác cấu trúc của chính tham chiếu: hai thẻ tốc độ đứng dưới thương hiệu (nghỉ ngơi ở số không của chúng khi đường hầm nghỉ), từ trạng thái đến bằng gương mặt lớn của display dưới bong bóng, còn địa điểm sống trên thẻ máy chủ sáng rực phía trên dock — viên chip nhỏ và cái tên lặp lại đã đi.';
+
+  @override
+  String get wn51Aether =>
+      'Trang chủ của aether chỉ nói địa điểm một lần: dòng tên lặp lại của dải nghỉ ngơi, thẻ trạng thái và nút nguồn giữ ghế của chúng, và trang đọc như một cột sạch sẽ.';
+
+  @override
+  String get wn51Veil =>
+      'Tấm voan của đồng hồ cao thêm một hơi thở và giữ màu của nó qua toàn dải đồng hồ: nội dung cuộn bên dưới mờ dần trọn vẹn, và lời của nó không bao giờ chạm tới đồng hồ.';
 }

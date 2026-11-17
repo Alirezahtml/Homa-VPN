@@ -796,5 +796,10 @@
   "wn50Notch": "İki tasarımın giysisi taşıdığı dağınıklıktan çıkıyor: aether'in çentikli çubuğu çemberin kendi merkezini okuyor, seçilen sekmenin adı her iki görünümde sayfanın kendi mürekkebini giyiyor, çemberin ışıması çemberde kalıyor ve adı yıkamıyor.",
   "wn50Cards": "zed'in evi hızlarını bentoya katlıyor: hız kartı bentonun iki gözüne ve oturum satırına katılıyor, sayfanın son kartları dock'un koltuğunu boş bırakıyor ve sayfa sonuna kadar kaydığında hiçbir şeyin yarısı dock'un altında kalmıyor.",
   "wn50Veil": "Durum şeridi kendi perdesini giyiyor: kayan içerik saatle çarpışmak yerine saatin altında solar, zed'in açtığı sayfalar artık saatin altında başlamıyor ve yüzen araçları dock'un koltuğundan uzak duruyor.",
-  "wn50Ping": "aether'in ping çipi bir dokunuşla yeniden ölçüyor, tıpkı referansın kendi çipinin cevap vermesi gibi."
+  "wn50Ping": "aether'in ping çipi bir dokunuşla yeniden ölçüyor, tıpkı referansın kendi çipinin cevap vermesi gibi.",
+  "tapToChangeServer": "Sunucuyu değiştirmek için dokun",
+  "wn51Smooth": "Bayrak çarkı ve şeridi bir çarhın döndüğü gibi döner: sürükleme ve ülke değişimi artık oluşturucuda seyahat eder — bayraklar dönerken hiçbir şey yeniden düzenlenmez ve hiçbir ışıma kendini yeniden çizmez; çark pürüzsüz döner ve sayfa onunla birlikte kayar.",
+  "wn51Zed": "zed'in evi referansın kendi yapısını giydi: iki hız kartı markanın altında durur (tünel dinlendiğinde sıfırlarında dinlenir), durumun sözcüğü gırgırın altında display'in büyük yüzüyle gelir ve yer, dock'un üstündeki parlak sunucu kartında yaşar — küçük fiş ve tekrarlanan ad gitti.",
+  "wn51Aether": "aether'in evi yeri bir kez söyler: şeridin tekrarlanan ad satırı dinlenir, durum kartı ve güç düğmesi koltuklarını korur ve sayfa tek bir temiz sütun gibi okunur.",
+  "wn51Veil": "Saatin perdesi bir nefes boyandı ve rengini saatin bütün şeridinde tutuyor: altında kayan içerik bütün halde solar ve sözcükleri saate hiç ulaşmaz."
 }

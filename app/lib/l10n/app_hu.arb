@@ -796,5 +796,10 @@
   "wn50Notch": "A két dizájn ruhája kikerül abból a rendetlenségből, amit őrzött: az aether bevágású sávja a kör saját középpontját olvassa, a kiválasztott fül neve mindkét kinézetben az oldal saját tintáját viseli, a kör fénye pedig a körnél marad, s nem mossa le a nevet.",
   "wn50Cards": "A zed otthona a bentóba hajtja sebességeit: a sebességkártya a bentó két cellájához és a munkamenet sorához csatlakozik, az oldal utolsó kártyái felszabadítják a dokk ülését, és amikor az oldalt a végéig görgetik, semmi nem marad félig a dokk alatt.",
   "wn50Veil": "Az állapotsáv felvéti fátylát: a görgetett tartalom az óra alatt halványul el, ahelyett hogy nekiütközne, a zed elé tolt oldalai már nem az óra alatt kezdődnek, és lebegő eszközei távolról tartják a dokk ülését.",
-  "wn50Ping": "Az aether ping-chipje egy koppintásra megint mér, úgy felel, ahogy a referencia saját chipje."
+  "wn50Ping": "Az aether ping-chipje egy koppintásra megint mér, úgy felel, ahogy a referencia saját chipje.",
+  "tapToChangeServer": "Koppints a szerver cseréjéhez",
+  "wn51Smooth": "A zászlókerék és a sáv úgy forog, ahogy egy keréknek forognia kell: a húzás és az országváltás most a komponálón utazik — amíg a zászlók forognak, semmi nem rendezi újra magát és egy fény sem rajzolja újra magát; a kerék simán forog, és az oldal vele együtt csúszik.",
+  "wn51Zed": "A zed otthona magának a referenciának a szerkezetét ölti magára: a két sebességkártya a márka alatt áll (pihenéskor, a saját nulláikon, amikor az alagút pihen), az állapotszó a buborék alatt a display nagy arcával érkezik, a hely pedig a dokk feletti ragyogó szerverkártyán él — a kis jelvény és a kétszer mondott nevük eltűnt.",
+  "wn51Aether": "Az aether otthona egyszer mondja a helyet: a sáv kétszer mondott névsora pihen, az állapotkártya és a bekapcsológomb megtartja ülését, és az oldal egy tiszta oszlopként olvasható.",
+  "wn51Veil": "Az óra fátyla egy lélegzetet nőtt, és színét az óra egész sávján tartja: alatta átgördülő tartalom egésze halványul el, szavai többé nem érnek az órához."
 }

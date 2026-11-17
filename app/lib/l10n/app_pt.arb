@@ -796,5 +796,10 @@
   "wn50Notch": "O traje dos dois designs sai da bagunça que guardava: a barra de entalhe do aether lê o centro do próprio círculo, o nome da aba escolhida veste a tinta da página nos dois visuais, e o brilho do círculo fica no círculo em vez de lavar o nome.",
   "wn50Cards": "A casa do zed dobra suas taxas dentro do bento: o cartão de taxas se une às duas células do bento e à linha da sessão, os últimos cartões da página liberam o assento do dock, e nada fica pela metade sob o dock quando a página rola até o fim.",
   "wn50Veil": "A faixa de status veste seu véu: o conteúdo desvanece sob o relógio em vez de colidir com ele, as páginas abertas do zed não começam mais sob o relógio, e suas ferramentas flutuantes mantêm livre o assento do dock.",
-  "wn50Ping": "A pílula de ping do aether mede de novo com um toque, do jeito que a pílula da própria referência responde."
+  "wn50Ping": "A pílula de ping do aether mede de novo com um toque, do jeito que a pílula da própria referência responde.",
+  "tapToChangeServer": "Toque para mudar de servidor",
+  "wn51Smooth": "A roda e a faixa de bandeiras giram como uma roda deve girar: o arrasto e a troca de país viajam agora no compositor — nada se remaqueta e nenhum brilho se redesenha enquanto as bandeiras giram; a roda gira suave e a página rola com ela.",
+  "wn51Zed": "A casa do zed veste a estrutura da própria referência: os dois cartões de taxas ficam sob a marca (em repouso, nos seus zeros, quando o túnel descansa), a palavra do estado chega com a grande face do display sob a gota, e o lugar vive no brilhante cartão de servidor acima do dock — o chip pequeno e o nome repetido se foram.",
+  "wn51Aether": "A casa do aether diz o lugar uma vez: a linha do nome repetido da faixa descansa, o cartão de status e o botão de energia guardam seus assentos, e a página se lê como uma coluna limpa.",
+  "wn51Veil": "O véu do relógio cresceu um suspiro de altura e segura sua cor por toda a faixa do relógio: o conteúdo que rola por baixo dele desvanece inteiro, e suas palavras nunca alcançam o relógio."
 }

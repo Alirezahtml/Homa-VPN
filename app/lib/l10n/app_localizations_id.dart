@@ -2710,4 +2710,23 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn50Ping =>
       'Cip ping aether kembali mengukur dengan satu ketukan, seperti cip milik referensi sendiri menjawab.';
+
+  @override
+  String get tapToChangeServer => 'Ketuk untuk mengganti server';
+
+  @override
+  String get wn51Smooth =>
+      'Roda dan lajur bendera berputar seperti seharusnya roda berputar: geseran dan pergantian negara kini mengembara di kompositor — tak ada yang menyusun ulang dan tak ada cahaya yang menggambar ulang dirinya saat bendera berputar; roda berputar mulus dan halaman menggulir mengikutinya.';
+
+  @override
+  String get wn51Zed =>
+      'Beranda zed memakai struktur referensinya sendiri: dua kartu laju berdiri di bawah merek (beristirahat di nolnya masing-masing saat terowongan beristirahat), kata status datang dengan wajah besar display di bawah gelembung, dan tempat tinggal di kartu server yang terang di atas dock — chip kecil dan nama yang berulang sudah pergi.';
+
+  @override
+  String get wn51Aether =>
+      'Beranda aether menyebut tempat sekali: baris nama yang berulang pada lajur beristirahat, kartu status dan tombol daya menjaga kursinya, dan halaman terbaca sebagai satu kolom yang bersih.';
+
+  @override
+  String get wn51Veil =>
+      'Tirai jam tumbuh selebar satu napas dan menahan warnanya di sepanjang pita jam: konten yang menggulir di bawahnya memudar utuh, dan kata-katanya tak pernah menyentuh jam.';
 }

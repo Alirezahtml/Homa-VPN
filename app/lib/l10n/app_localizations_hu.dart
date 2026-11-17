@@ -2721,4 +2721,23 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn50Ping =>
       'Az aether ping-chipje egy koppintásra megint mér, úgy felel, ahogy a referencia saját chipje.';
+
+  @override
+  String get tapToChangeServer => 'Koppints a szerver cseréjéhez';
+
+  @override
+  String get wn51Smooth =>
+      'A zászlókerék és a sáv úgy forog, ahogy egy keréknek forognia kell: a húzás és az országváltás most a komponálón utazik — amíg a zászlók forognak, semmi nem rendezi újra magát és egy fény sem rajzolja újra magát; a kerék simán forog, és az oldal vele együtt csúszik.';
+
+  @override
+  String get wn51Zed =>
+      'A zed otthona magának a referenciának a szerkezetét ölti magára: a két sebességkártya a márka alatt áll (pihenéskor, a saját nulláikon, amikor az alagút pihen), az állapotszó a buborék alatt a display nagy arcával érkezik, a hely pedig a dokk feletti ragyogó szerverkártyán él — a kis jelvény és a kétszer mondott nevük eltűnt.';
+
+  @override
+  String get wn51Aether =>
+      'Az aether otthona egyszer mondja a helyet: a sáv kétszer mondott névsora pihen, az állapotkártya és a bekapcsológomb megtartja ülését, és az oldal egy tiszta oszlopként olvasható.';
+
+  @override
+  String get wn51Veil =>
+      'Az óra fátyla egy lélegzetet nőtt, és színét az óra egész sávján tartja: alatta átgördülő tartalom egésze halványul el, szavai többé nem érnek az órához.';
 }

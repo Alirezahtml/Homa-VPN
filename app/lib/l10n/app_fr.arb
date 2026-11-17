@@ -796,5 +796,10 @@
   "wn50Notch": "Le vêtement des deux designs sort du désordre qu'il gardait : la barre à encoche de l'aether lit le centre du cercle lui-même, le nom de l'onglet choisi porte l'encre de la page sur les deux looks, et la lueur du cercle reste au cercle au lieu de laver le nom.",
   "wn50Cards": "L'accueil du zed plie ses débits dans le bento : la carte des débits rejoint les deux cellules du bento et la rangée de la session, les dernières cartes de la page dégagent la place du dock, et rien ne reste à moitié sous le dock quand la page défile jusqu'à son bout.",
   "wn50Veil": "La bande d'état porte son voile : le contenu s'estompe sous l'horloge au lieu de la heurter, les pages poussées du zed ne commencent plus sous l'horloge, et ses outils flottants laissent libre la place du dock.",
-  "wn50Ping": "La pastille de ping de l'aether mesure de nouveau d'un toucher, comme répond la pastille de la référence elle-même."
+  "wn50Ping": "La pastille de ping de l'aether mesure de nouveau d'un toucher, comme répond la pastille de la référence elle-même.",
+  "tapToChangeServer": "Touchez pour changer de serveur",
+  "wn51Smooth": "La roue et la bande de drapeaux tournent comme une roue doit tourner : le glissement et le changement de pays voyagent maintenant dans le compositeur — rien ne se remet en page et aucune lueur ne se redessine pendant que les drapeaux tournent, si bien que la roue tourne souple et la page défile avec elle.",
+  "wn51Zed": "L'accueil de zed porte la structure de la référence elle-même : les deux cartes de débits se tiennent sous la marque (au repos, à leurs zéros, quand le tunnel repose), le mot de l'état arrive dans la grande voix du display sous la bulle, et le lieu vit sur la carte de serveur lumineuse au-dessus du dock — la petite pastille et le nom répété sont partis.",
+  "wn51Aether": "L'accueil de l'aether dit le lieu une fois : la ligne du nom répété de la bande se repose, la carte d'état et le bouton d'alimentation gardent leurs sièges, et la page se lit comme une colonne propre.",
+  "wn51Veil": "Le voile de l'horloge a grandi d'une respiration et garde sa couleur sur toute la bande de l'horloge : le contenu qui glisse dessous s'estompe entier et ses mots n'atteignent jamais l'horloge."
 }

@@ -2714,4 +2714,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn50Ping =>
       'The aether\'s ping chip measures again on a tap, the way the reference\'s own chip answers.';
+
+  @override
+  String get tapToChangeServer => 'Tap to change server';
+
+  @override
+  String get wn51Smooth =>
+      'The flags\' wheel and the strip move the way a wheel should: the drag and the change of country now ride the compositor — nothing re-lays out and no glow redraws itself while the flags turn, so the wheel spins smooth and the page scrolls with it.';
+
+  @override
+  String get wn51Zed =>
+      'The zed\'s home wears the reference\'s own structure: the two rate cards stand under the brand (resting at their zeros when the tunnel rests), the state\'s word arrives in the display\'s big face under the orb, and the place lives on the bright server card above the dock — the small chip and the repeated name are gone.';
+
+  @override
+  String get wn51Aether =>
+      'The aether\'s home says the place once: the strip\'s repeated name line rests, the status card and the power button keep their seats, and the page reads as one clean column.';
+
+  @override
+  String get wn51Veil =>
+      'The clock\'s veil grew a breath tall and holds its color across the clock\'s band: the content that scrolls beneath it fades whole, and its words never meet the clock.';
 }

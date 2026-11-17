@@ -371,7 +371,9 @@ class _FlagCarouselState extends State<FlagCarousel>
             // The halo: a soft blue light behind the chosen country — the
             // wheel's own aurora, breathing on its own clock, and following
             // the wheel as it spins (it fades out over the drag rather than
-            // smearing across it).
+            // smearing across it). One fixed size: the drag and the breath
+            // ride the compositor as a scale over its cached raster, so no
+            // tick of the wheel re-lays out or re-draws it.
             AnimatedBuilder(
               animation: Listenable.merge([controller, _breath]),
               builder: (context, _) {
@@ -382,29 +384,32 @@ class _FlagCarouselState extends State<FlagCarousel>
                   child: Transform.translate(
                     offset: Offset(0, -8 * (1.0 - glow)),
                     child: Transform.scale(
-                      scale: 1.0 + 0.07 * breathe * glow,
-                      child: Container(
-                        width: 236 + 30 * glow + 12 * breathe * glow,
-                        height: 142 + 20 * glow + 8 * breathe * glow,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(
-                            colors: [
-                              blue.withValues(
-                                alpha:
-                                    (dark ? 0.40 : 0.22) *
-                                    glow *
-                                    (0.75 + 0.25 * breathe),
-                              ),
-                              blue.withValues(
-                                alpha:
-                                    (dark ? 0.16 : 0.09) *
-                                    glow *
-                                    (0.75 + 0.25 * breathe),
-                              ),
-                              blue.withValues(alpha: 0.0),
-                            ],
-                            stops: const [0, 0.5, 1],
+                      scale:
+                          (1.0 + 0.127 * glow) * (1.0 + 0.05 * breathe * glow),
+                      child: RepaintBoundary(
+                        child: Container(
+                          width: 236,
+                          height: 142,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: RadialGradient(
+                              colors: [
+                                blue.withValues(
+                                  alpha:
+                                      (dark ? 0.40 : 0.22) *
+                                      glow *
+                                      (0.75 + 0.25 * breathe),
+                                ),
+                                blue.withValues(
+                                  alpha:
+                                      (dark ? 0.16 : 0.09) *
+                                      glow *
+                                      (0.75 + 0.25 * breathe),
+                                ),
+                                blue.withValues(alpha: 0.0),
+                              ],
+                              stops: const [0, 0.5, 1],
+                            ),
                           ),
                         ),
                       ),
@@ -698,17 +703,24 @@ class _FlagCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chosen = distance < 0.5;
-    // The size falls away from the middle exponentially, so the drop is
-    // steep beside the chosen card and gentle far out: the chosen flag
-    // fills its whole slot, the next ones read clearly smaller — a wheel
-    // with one lit card at its center, not a ladder of equals. The frame
-    // is the flag's own 3:2: the art fits whole.
+    final scheme = Theme.of(context).colorScheme;
+    // The wheel's whole shape, cheapened to what the compositor does
+    // free. The card paints ONCE, at the chosen card's own size, inside
+    // a boundary of its own — the flag, the glass, the frame and its
+    // three blurred lights are rasterized once and kept. Everything the
+    // drag and the breath change — the size, the arc's dip, the turn,
+    // the fade, the landing's spring — rides over that cached raster as
+    // transforms and opacity, layers the compositor moves without
+    // re-laying out and without re-drawing a single blur. The wheel
+    // spins the way the hand pushes it, whatever phone it stands on.
+    final base = math.min(slot, 106.0);
     final width = math.min(slot, 44.0 + 62.0 * math.exp(-0.85 * distance));
-    final height = width * 2 / 3;
-    final radius = 9.0 + 9.0 * math.exp(-1.1 * distance);
+    // The card's size falls away from the middle exponentially, so the
+    // drop is steep beside the chosen card and gentle far out — the same
+    // ladder the layout used to walk, now as a scale over the one size.
+    final scale = base <= 0 ? 0.05 : (width / base).clamp(0.05, 1.0);
     // The arc: the neighbors sit a touch lower the further they are, so
-    // the row bends gently — a wheel in perspective, not a scatter: a
-    // deep dip and a wide turn read as a mess of flags, not a wheel.
+    // the row bends gently — a wheel in perspective, not a scatter.
     final dip = 2.0 + 6.0 * math.min(1.0, distance);
     // The turn: the neighbors face the middle by a few degrees, in
     // perspective — a hair of it, barely there: enough for depth, too
@@ -718,160 +730,214 @@ class _FlagCard extends StatelessWidget {
     // fade that dissolves the outermost pages.
     final alpha =
         (1.0 - 0.30 * math.min(1.25, distance)) * _FlagCard.edgeFade(distance);
-    final scheme = Theme.of(context).colorScheme;
 
-    // The whole card steps back with its distance — frame and all: the
-    // opacity used to take only the flag, and the card's white frame
-    // stayed behind it at full ink, a ghost card floating at the wheel's
-    // edges. The chosen one is fully there; the others step back, and the
-    // outermost dissolve before the screen's edge cuts them.
-    final card = Opacity(
-      opacity: alpha.clamp(0.0, 1.0),
-      child: InkWell(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        borderRadius: BorderRadius.circular(radius),
-        child: Container(
-          width: width,
-          height: height,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius),
-            border: Border.all(
-              color: chosen
-                  ? _FlagCard.glowBlue(dark).withValues(alpha: 0.95)
-                  : border.withValues(alpha: dark ? 0.6 : 0.5),
-              width: chosen ? 1.5 : 0.7,
-            ),
-          ),
-          // The glass: a light sweep on the chosen card, a darker one on the
-          // neighbors, so the row carries depth without leaving the theme.
-          foregroundDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomCenter,
-              colors: chosen
-                  ? [
-                      Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
-                      Colors.white.withValues(alpha: 0.03),
-                    ]
-                  : [
-                      Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-                      Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
-                    ],
-            ),
-          ),
-          child: favorite
-              ? Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    _content(scheme, width),
-                    PositionedDirectional(
-                      top: -5,
-                      end: -5,
-                      child: Container(
-                        padding: const EdgeInsets.all(2.5),
-                        decoration: BoxDecoration(
-                          color: glowBlue(dark),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: dark ? Colors.black : Colors.white,
-                            width: 1.2,
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.star_rounded,
-                          size: 9,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : _content(scheme, width),
-        ),
-      ),
-    );
-
-    if (!chosen) {
-      return Padding(
-        padding: EdgeInsets.only(top: dip),
-        child: Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.0015)
-            ..rotateY(turn),
-          child: card,
-        ),
-      );
-    }
-
-    // The chosen card: it breathes with the wheel's own clock, lands
-    // with a short spring, and sits inside a glass frame — a ring of
-    // frosted glass around the flag, the frame's own blue light glowing
-    // behind it — and on a glass shelf, a soft pool of light under it,
-    // NOT a mirrored flag: a reflected second flag read as one flag cut
-    // in half, the wheel's oldest complaint, so the shelf carries only
-    // light, never art.
-    final blue = _FlagCard.glowBlue(dark);
-    final framed = Container(
-      // The glass frame: a bezel of frosted glass around the flag — the
-      // sweep comes from up-left, the fine white edge holds the shape.
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius + 4),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: dark ? 0.26 : 0.60),
-            Colors.white.withValues(alpha: dark ? 0.04 : 0.16),
-          ],
-        ),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: dark ? 0.30 : 0.55),
-          width: 1,
-        ),
-        boxShadow: [
-          // The blue light: a tight ring of it, then a wide, very soft
-          // bloom — the halo on the card itself, so the frame reads as
-          // lit from within, whatever the theme behind it.
-          BoxShadow(
-            color: blue.withValues(alpha: dark ? 0.55 : 0.34),
-            blurRadius: 26,
-            spreadRadius: 1.5,
-          ),
-          BoxShadow(
-            color: blue.withValues(alpha: dark ? 0.22 : 0.12),
-            blurRadius: 58,
-            spreadRadius: 6,
-          ),
-          BoxShadow(
-            color: Colors.black.withValues(alpha: dark ? 0.45 : 0.16),
-            blurRadius: 14,
-            offset: const Offset(0, 7),
-          ),
-        ],
-      ),
-      child: card,
-    );
     return AnimatedBuilder(
       animation: Listenable.merge([breath, settle]),
-      builder: (context, _) => Transform.translate(
-        offset: Offset(0, -2.5 * breath.value),
-        child: Transform.scale(
-          scale: (1.0 + 0.015 * breath.value) * (1.0 + 0.05 * settle.value),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              framed,
-              const SizedBox(height: 6),
-              _ShelfGleam(width: width + 6, accent: blue, dark: dark),
+      builder: (context, _) {
+        // The chosen card alone breathes and lands: the others keep one
+        // pose, so a page of resting neighbors never ticks with them.
+        final alive = chosen ? 1.0 : 0.0;
+        return Opacity(
+          opacity: alpha.clamp(0.0, 1.0),
+          child: Transform.translate(
+            offset: Offset(0, dip - 2.5 * breath.value * alive),
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.0015)
+                ..rotateY(turn),
+              child: Transform.scale(
+                scale:
+                    scale *
+                    (1.0 + 0.015 * breath.value * alive) *
+                    (1.0 + 0.05 * settle.value * alive),
+                child: RepaintBoundary(
+                  child: chosen
+                      ? _framedCard(scheme, base, dark)
+                      : _plainCard(scheme, base),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// The card's body at the wheel's own size, unframed: a neighbor's
+  /// card, one size everywhere and let down by its scale. The frame is
+  /// the flag's own 3:2: the art fits whole.
+  Widget _plainCard(ColorScheme scheme, double base) {
+    return InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        width: base,
+        height: base * 2 / 3,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: border.withValues(alpha: dark ? 0.6 : 0.5),
+            width: 0.7,
+          ),
+        ),
+        // The glass: a darker sweep on the neighbors, so the row carries
+        // depth without leaving the theme.
+        foregroundDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
+              Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
             ],
           ),
         ),
+        child: favorite
+            ? Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  _content(scheme, base),
+                  PositionedDirectional(
+                    top: -5,
+                    end: -5,
+                    child: Container(
+                      padding: const EdgeInsets.all(2.5),
+                      decoration: BoxDecoration(
+                        color: glowBlue(dark),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: dark ? Colors.black : Colors.white,
+                          width: 1.2,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.star_rounded,
+                        size: 9,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : _content(scheme, base),
       ),
+    );
+  }
+
+  /// The chosen card: it sits inside a glass frame — a ring of frosted
+  /// glass around the flag, the frame's own blue light glowing behind
+  /// it — and on a glass shelf, a soft pool of light under it, NOT a
+  /// mirrored flag: a reflected second flag read as one flag cut in
+  /// half, the wheel's oldest complaint, so the shelf carries only
+  /// light, never art. The whole thing paints once, at one size.
+  Widget _framedCard(ColorScheme scheme, double base, bool dark) {
+    final blue = _FlagCard.glowBlue(dark);
+    final card = InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        width: base,
+        height: base * 2 / 3,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: blue.withValues(alpha: 0.95), width: 1.5),
+        ),
+        // The glass: a light sweep on the chosen card.
+        foregroundDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
+              Colors.white.withValues(alpha: 0.03),
+            ],
+          ),
+        ),
+        child: favorite
+            ? Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  _content(scheme, base),
+                  PositionedDirectional(
+                    top: -5,
+                    end: -5,
+                    child: Container(
+                      padding: const EdgeInsets.all(2.5),
+                      decoration: BoxDecoration(
+                        color: glowBlue(dark),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: dark ? Colors.black : Colors.white,
+                          width: 1.2,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.star_rounded,
+                        size: 9,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : _content(scheme, base),
+      ),
+    );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          // The glass frame: a bezel of frosted glass around the flag —
+          // the sweep comes from up-left, the fine white edge holds the
+          // shape.
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(22),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white.withValues(alpha: dark ? 0.26 : 0.60),
+                Colors.white.withValues(alpha: dark ? 0.04 : 0.16),
+              ],
+            ),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: dark ? 0.30 : 0.55),
+              width: 1,
+            ),
+            boxShadow: [
+              // The blue light: a tight ring of it, then a wide, very
+              // soft bloom — the halo on the card itself, so the frame
+              // reads as lit from within, whatever the theme behind it.
+              BoxShadow(
+                color: blue.withValues(alpha: dark ? 0.55 : 0.34),
+                blurRadius: 26,
+                spreadRadius: 1.5,
+              ),
+              BoxShadow(
+                color: blue.withValues(alpha: dark ? 0.22 : 0.12),
+                blurRadius: 58,
+                spreadRadius: 6,
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.45 : 0.16),
+                blurRadius: 14,
+                offset: const Offset(0, 7),
+              ),
+            ],
+          ),
+          child: card,
+        ),
+        const SizedBox(height: 6),
+        _ShelfGleam(width: base + 6, accent: blue, dark: dark),
+      ],
     );
   }
 
@@ -991,12 +1057,19 @@ class FlagStrip extends StatefulWidget {
     required this.text,
     required this.border,
     required this.accent,
+    this.showName = true,
   });
 
   final CoreController core;
   final Color text;
   final Color border;
   final Color accent;
+
+  /// Whether the chosen country's name shows under the strip. The homes
+  /// whose own card names the place again — the aether's status card, the
+  /// zed's server card — pass false: one page says the place once, the
+  /// way a clean layout should.
+  final bool showName;
 
   @override
   State<FlagStrip> createState() => _FlagStripState();
@@ -1105,7 +1178,7 @@ class _FlagStripState extends State<FlagStrip> {
     final l = AppLocalizations.of(context);
     final entries = _entries(l);
     if (_locations == null || entries.isEmpty) {
-      return const SizedBox(height: 96);
+      return SizedBox(height: widget.showName ? 96 : 64);
     }
     final index = _indexOf(entries, _selection);
     final centered = index >= 0 ? entries[index] : null;
@@ -1136,39 +1209,41 @@ class _FlagStripState extends State<FlagStrip> {
             },
           ),
         ),
-        const SizedBox(height: 6),
-        SizedBox(
-          height: 26,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 260),
-            switchInCurve: Curves.easeOutCubic,
-            switchOutCurve: Curves.easeIn,
-            transitionBuilder: (child, anim) => FadeTransition(
-              opacity: anim,
-              child: SlideTransition(
-                position: Tween(
-                  begin: const Offset(0, 0.4),
-                  end: Offset.zero,
-                ).animate(anim),
-                child: child,
+        if (widget.showName) ...[
+          const SizedBox(height: 6),
+          SizedBox(
+            height: 26,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 260),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeIn,
+              transitionBuilder: (child, anim) => FadeTransition(
+                opacity: anim,
+                child: SlideTransition(
+                  position: Tween(
+                    begin: const Offset(0, 0.4),
+                    end: Offset.zero,
+                  ).animate(anim),
+                  child: child,
+                ),
               ),
-            ),
-            child: Text(
-              centered == null
-                  ? (_selection == 'fastest' ? l.modeFastest : '')
-                  : locationName(l, centered.code, centered.name),
-              key: ValueKey(centered?.code ?? _selection),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: dark ? Colors.white : widget.text,
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
+              child: Text(
+                centered == null
+                    ? (_selection == 'fastest' ? l.modeFastest : '')
+                    : locationName(l, centered.code, centered.name),
+                key: ValueKey(centered?.code ?? _selection),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: dark ? Colors.white : widget.text,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ],
     );
   }
@@ -1196,63 +1271,77 @@ class _StripTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final w = chosen ? 52.0 : 46.0;
-    // The tile is the flag's own 3:2: the art fits whole, never cropped.
+    // One size for every tile, always: the chosen one stands out with its
+    // own border and glow, and the size's emphasis rides the compositor
+    // as a scale. No tile ever changes its layout when the choice moves —
+    // the change of flags stays smooth on the phones that have little to
+    // give — and each tile keeps its raster in a boundary of its own, so
+    // the strip's scroll re-uses it instead of redrawing it.
+    const w = 52.0;
     final h = w * 2 / 3;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: _FlagStripState._tileW - 10,
-        alignment: Alignment.center,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 240),
-          curve: Curves.easeOutCubic,
-          width: w,
-          height: h,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: chosen
-                  ? accent.withValues(alpha: 0.9)
-                  : border.withValues(alpha: dark ? 0.5 : 0.45),
-              width: chosen ? 1.4 : 0.7,
+    return RepaintBoundary(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: _FlagStripState._tileW - 10,
+          alignment: Alignment.center,
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 240),
+            curve: Curves.easeOutCubic,
+            scale: chosen ? 1.0 : 0.885,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 240),
+              curve: Curves.easeOutCubic,
+              width: w,
+              height: h,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: chosen
+                      ? accent.withValues(alpha: 0.9)
+                      : border.withValues(alpha: dark ? 0.5 : 0.45),
+                  width: chosen ? 1.4 : 0.7,
+                ),
+                boxShadow: chosen
+                    ? [
+                        BoxShadow(
+                          color: accent.withValues(alpha: dark ? 0.35 : 0.25),
+                          blurRadius: 14,
+                          spreadRadius: 1,
+                        ),
+                      ]
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withValues(
+                            alpha: dark ? 0.4 : 0.14,
+                          ),
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+              ),
+              foregroundDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomCenter,
+                  colors: chosen
+                      ? [
+                          Colors.white.withValues(alpha: dark ? 0.18 : 0.24),
+                          Colors.white.withValues(alpha: 0.02),
+                        ]
+                      : [
+                          Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
+                          Colors.black.withValues(alpha: dark ? 0.24 : 0.08),
+                        ],
+                ),
+              ),
+              child: Opacity(
+                opacity: chosen ? 1.0 : 0.82,
+                child: _content(scheme, w),
+              ),
             ),
-            boxShadow: chosen
-                ? [
-                    BoxShadow(
-                      color: accent.withValues(alpha: dark ? 0.35 : 0.25),
-                      blurRadius: 18,
-                      spreadRadius: 1,
-                    ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: dark ? 0.4 : 0.14),
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-          ),
-          foregroundDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomCenter,
-              colors: chosen
-                  ? [
-                      Colors.white.withValues(alpha: dark ? 0.18 : 0.24),
-                      Colors.white.withValues(alpha: 0.02),
-                    ]
-                  : [
-                      Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-                      Colors.black.withValues(alpha: dark ? 0.24 : 0.08),
-                    ],
-            ),
-          ),
-          child: Opacity(
-            opacity: chosen ? 1.0 : 0.82,
-            child: _content(scheme, w),
           ),
         ),
       ),

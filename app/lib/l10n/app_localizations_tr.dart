@@ -2706,4 +2706,23 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn50Ping =>
       'aether\'in ping çipi bir dokunuşla yeniden ölçüyor, tıpkı referansın kendi çipinin cevap vermesi gibi.';
+
+  @override
+  String get tapToChangeServer => 'Sunucuyu değiştirmek için dokun';
+
+  @override
+  String get wn51Smooth =>
+      'Bayrak çarkı ve şeridi bir çarhın döndüğü gibi döner: sürükleme ve ülke değişimi artık oluşturucuda seyahat eder — bayraklar dönerken hiçbir şey yeniden düzenlenmez ve hiçbir ışıma kendini yeniden çizmez; çark pürüzsüz döner ve sayfa onunla birlikte kayar.';
+
+  @override
+  String get wn51Zed =>
+      'zed\'in evi referansın kendi yapısını giydi: iki hız kartı markanın altında durur (tünel dinlendiğinde sıfırlarında dinlenir), durumun sözcüğü gırgırın altında display\'in büyük yüzüyle gelir ve yer, dock\'un üstündeki parlak sunucu kartında yaşar — küçük fiş ve tekrarlanan ad gitti.';
+
+  @override
+  String get wn51Aether =>
+      'aether\'in evi yeri bir kez söyler: şeridin tekrarlanan ad satırı dinlenir, durum kartı ve güç düğmesi koltuklarını korur ve sayfa tek bir temiz sütun gibi okunur.';
+
+  @override
+  String get wn51Veil =>
+      'Saatin perdesi bir nefes boyandı ve rengini saatin bütün şeridinde tutuyor: altında kayan içerik bütün halde solar ve sözcükleri saate hiç ulaşmaz.';
 }

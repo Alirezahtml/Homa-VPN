@@ -2732,4 +2732,23 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn50Ping =>
       'La pastille de ping de l\'aether mesure de nouveau d\'un toucher, comme répond la pastille de la référence elle-même.';
+
+  @override
+  String get tapToChangeServer => 'Touchez pour changer de serveur';
+
+  @override
+  String get wn51Smooth =>
+      'La roue et la bande de drapeaux tournent comme une roue doit tourner : le glissement et le changement de pays voyagent maintenant dans le compositeur — rien ne se remet en page et aucune lueur ne se redessine pendant que les drapeaux tournent, si bien que la roue tourne souple et la page défile avec elle.';
+
+  @override
+  String get wn51Zed =>
+      'L\'accueil de zed porte la structure de la référence elle-même : les deux cartes de débits se tiennent sous la marque (au repos, à leurs zéros, quand le tunnel repose), le mot de l\'état arrive dans la grande voix du display sous la bulle, et le lieu vit sur la carte de serveur lumineuse au-dessus du dock — la petite pastille et le nom répété sont partis.';
+
+  @override
+  String get wn51Aether =>
+      'L\'accueil de l\'aether dit le lieu une fois : la ligne du nom répété de la bande se repose, la carte d\'état et le bouton d\'alimentation gardent leurs sièges, et la page se lit comme une colonne propre.';
+
+  @override
+  String get wn51Veil =>
+      'Le voile de l\'horloge a grandi d\'une respiration et garde sa couleur sur toute la bande de l\'horloge : le contenu qui glisse dessous s\'estompe entier et ses mots n\'atteignent jamais l\'horloge.';
 }
