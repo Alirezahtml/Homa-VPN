@@ -144,8 +144,11 @@ class MainActivity : FlutterActivity() {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "dataDir" -> result.success(CoreService.dataDir(this).absolutePath)
-                "startCore" -> {
-                    CoreService.startCore(this, on = false)
+                "startCore" -> result.success(CoreService.startCore(this, on = false))
+                "dashboardAddress" -> result.success(mobile.Mobile.dashboardAddress())
+                "routingEnabled" -> result.success(CoreService.routingEnabled(this))
+                "setRoutingEnabled" -> {
+                    CoreService.setRoutingEnabled(this, call.argument<Boolean>("on") == true)
                     result.success(null)
                 }
                 "setOn" -> {
@@ -168,9 +171,6 @@ class MainActivity : FlutterActivity() {
                 }
                 "isRunning" -> result.success(mobile.Mobile.running())
                 "autoConnectBoot" -> result.success(CoreService.autoConnectOnBoot(this))
-                // The smart sizing's own answer for the network under
-                // the app right now: the number the tunnel would take.
-                "smartMtu" -> result.success(CoreService.smartMtuValue(this))
                 "setAutoConnectBoot" -> {
                     CoreService.setAutoConnectOnBoot(this, call.argument<Boolean>("on") == true)
                     result.success(null)

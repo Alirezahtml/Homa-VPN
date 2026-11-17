@@ -2061,17 +2061,7 @@ class AppLocalizationsAz extends AppLocalizations {
       'Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.';
 
   @override
-  String get smartNetwork => 'Ağıllı bağlantı';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.';
-
-  @override
   String get valueSmart => 'Ağıllı';
-
-  @override
-  String get mtuAutoValue => 'Avtomatik — şəbəkəyə görə';
 
   @override
   String get wnSmartAdded =>
@@ -2088,12 +2078,6 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə.';
-
-  @override
-  String get smartWaiting => 'Ölçülür…';
-
-  @override
-  String get smartFamilyRace => 'İlk bağlantıda hər ikisi yarışır';
 
   @override
   String get dnsManual => 'Əl ilə DNS';
@@ -2162,11 +2146,6 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Seçilmiş: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Avtomatik — şəbəkə $mtu daşıyır';
   }
 
   @override
@@ -2708,7 +2687,7 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«Qoşuldu» daha tez gəlir: tunelin öz hökmu keçdiyi anda yerləşir, çıxışın yeri — ölkə və ünvan — ondan sonra yola düşür.';
+      'Qoşulmanın mühərriki yenidən orijinalın özüdür: relə hovuzu, əlavə yollarlar və onların yaddaşı, təkrar sorğuların qoruyucusu tuneli daşıyır — daha tez qalxır və sabit qalır.';
 
   @override
   String get wn49Mark =>

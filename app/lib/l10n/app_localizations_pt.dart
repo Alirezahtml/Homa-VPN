@@ -2070,17 +2070,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.';
 
   @override
-  String get smartNetwork => 'Conexão inteligente';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protocolo e versão de IP seguem esta rede, em busca de velocidade.';
-
-  @override
   String get valueSmart => 'Inteligente';
-
-  @override
-  String get mtuAutoValue => 'Automático — conforme a rede';
 
   @override
   String get wnSmartAdded =>
@@ -2097,12 +2087,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.';
-
-  @override
-  String get smartWaiting => 'Medindo…';
-
-  @override
-  String get smartFamilyRace => 'Ambos correm na primeira conexão';
 
   @override
   String get dnsManual => 'DNS manual';
@@ -2171,11 +2155,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Escolhidos: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Automático — a rede leva $mtu';
   }
 
   @override
@@ -2716,7 +2695,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«Ligado» chega mais cedo: o veredicto do próprio túnel assenta no momento em que passa, e o lugar de saída — o país e o endereço — viaja atrás dele.';
+      'O motor da ligação volta a ser o da versão original: o conjunto de retransmissões, as rotas alternativas e a memória delas, e o guarda dos pedidos repetidos levam o túnel — levanta-se mais cedo e aguenta.';
 
   @override
   String get wn49Mark =>

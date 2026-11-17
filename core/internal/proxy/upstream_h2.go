@@ -21,17 +21,15 @@ import (
 
 // The keepalive PINGs the connection this often and waits this long for
 // the answer: a connection the network stopped carrying (some cut the
-// connection to a server every minute or so) is found within about 25
-// seconds, while the tunnels on it wait. The wait is generous on
-// purpose: on a congested mobile link a small PING can queue for many
-// seconds while the connection is perfectly alive, and a session killed
-// by mistake rebuilds from scratch — TLS from the start, the tunnel
-// opens slow, and the speed it had ramped up to is gone, which reads as
-// the on-and-off the user calls قطع وصل. Data arriving meanwhile still
-// shows the connection alive (watchedConn). Tests shorten them.
+// connection to a server every minute or so) is found quickly, while the
+// tunnels on it wait. After a PING goes unanswered the next one is sent
+// after upstreamKeepAliveRetry, not a full interval later, so a dead
+// connection on a flaky link is found in about eight seconds rather than
+// twenty. Tests shorten them.
 var (
 	upstreamKeepAliveInterval    = 5 * time.Second
-	upstreamKeepAlivePingTimeout = 10 * time.Second
+	upstreamKeepAlivePingTimeout = 4 * time.Second
+	upstreamKeepAliveRetry       = 1 * time.Second
 )
 
 const (
@@ -49,16 +47,11 @@ const (
 	upstreamBusyGrace = 45 * time.Second
 	// upstreamStreamWindow is how much a server may send on one tunnel ahead of
 	// what arrived here. Every tunnel shares one connection, so the answer to a
-	// new one comes behind all of it: more window makes a new connection wait
-	// longer beside a download. One tunnel's speed is at most this per round
-	// trip — x/net grows no stream window of its own — and the round trip to
-	// Mozilla from a busy evening's network is long: at 1 MiB a single
-	// download stopped at some 30–70 Mbps where the network itself was able
-	// of more. Two MiB doubles what one tunnel carries while a new tunnel's
-	// answer still waits under a second beside it. Several tunnels add up:
-	// the connection's window stays large, since a client that stopped
-	// reading holds on to its share of it.
-	upstreamStreamWindow = 2 << 20
+	// new one comes behind all of it: the default 4 MiB makes a new connection
+	// wait seconds beside a download (SESSIONS.md). One tunnel's speed is at most
+	// this per round trip. Several tunnels add up: the connection's window stays
+	// large, since a client that stopped reading holds on to its share of it.
+	upstreamStreamWindow = 1 << 20
 )
 
 var errProxyHTTP2Unavailable = errors.New("proxy did not negotiate HTTP/2")
@@ -162,21 +155,26 @@ func newUpstreamH2Transport() (*http2.Transport, error) {
 // dropped session is noticed while idle, rather than when a client next tries
 // to open a tunnel through it.
 func (s *h2ProxySession) runKeepAlive(ctx context.Context) {
-	ticker := time.NewTicker(upstreamKeepAliveInterval)
-	defer ticker.Stop()
+	// A timer, not a ticker: after an unanswered PING it is reset to the
+	// short retry so the next PING comes at once, and back to the full
+	// interval once one is answered. This finds a dead connection faster
+	// without PINGing a healthy one any more often.
+	timer := time.NewTimer(upstreamKeepAliveInterval)
+	defer timer.Stop()
 
 	misses := 0
 	for {
 		select {
 		case <-ctx.Done():
 			return
-		case <-ticker.C:
+		case <-timer.C:
 			sent := time.Now()
 			pingCtx, cancel := context.WithTimeout(ctx, upstreamKeepAlivePingTimeout)
 			err := s.cc.Ping(pingCtx)
 			cancel()
 			if err == nil {
 				misses = 0
+				timer.Reset(upstreamKeepAliveInterval)
 				continue
 			}
 			if ctx.Err() != nil {
@@ -187,10 +185,12 @@ func (s *h2ProxySession) runKeepAlive(ctx context.Context) {
 				// Busy, not dead: data came while the PING waited, or it
 				// waits behind an upload.
 				misses = 0
+				timer.Reset(upstreamKeepAliveInterval)
 				continue
 			}
 			if misses++; misses < upstreamKeepAliveMisses && !closed {
 				logx.Debug("upstream HTTP/2 keepalive PING unanswered proxy=%s misses=%d err=%s", s.proxyHost, misses, logx.Err(err))
+				timer.Reset(upstreamKeepAliveRetry)
 				continue
 			}
 			s.alive.Store(false)

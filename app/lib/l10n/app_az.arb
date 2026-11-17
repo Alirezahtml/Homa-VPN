@@ -586,16 +586,11 @@
   "copiedToClipboard": "Buferə köçürüldü",
   "wnTotalsAdded": "Ana səhifə sessiyada ötürülənlərin cəmini göstərir; bir toxunuş ümumi IP-ni köçürür.",
   "wnPolishImproved": "Bayraq çarxı və serverlər səhifəsi daha səliqəlidir; mətnlər yığılmışdır, Android tunneli trafiği daha yüksək sürətlə daşıyır.",
-  "smartNetwork": "Ağıllı bağlantı",
-  "smartNetworkHint": "MTU, protokol və IP versiyası bu şəbəkəyə görə, sürət üçün seçilir.",
   "valueSmart": "Ağıllı",
-  "mtuAutoValue": "Avtomatik — şəbəkəyə görə",
   "wnSmartAdded": "Ağıllı bağlantı: MTU, protokol və IP versiyası şəbəkəyə görə, real cavablara əsaslanaraq sürət üçün seçilir.",
   "wnToastAdded": "Təsdiqlər indi yumşaq iOS üslubunda bildiriş kimi gəlir, özünü çəkən nişanla.",
   "wnFlagsImproved": "Bayraq çarxı təmiz oturur: kənarədə bayraq yarılmır, bayraqlar tam görünür və seçim yumşaq yayla enir.",
   "wnMapImproved": "Dünya xəritəsi daha böyük və aydın çəkilir: sıxılmış qitələr yox, hamar sahillər və lövbərdə parlaq halə.",
-  "smartWaiting": "Ölçülür…",
-  "smartFamilyRace": "İlk bağlantıda hər ikisi yarışır",
   "dnsManual": "Əl ilə DNS",
   "dnsManualHint": "Hər ünvan bir sətirdə: sadə IP, https:// (DNS-over-HTTPS) və ya tls://host (DNS-over-TLS). İlk cavab udur.",
   "dnsManualInvalid": "Bir sətir nüvənin işlədə biləcəyi ünvan deyil: sadə IP, https://… və ya tls://host.",
@@ -621,7 +616,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Avtomatik — şəbəkə {mtu} daşıyır",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -785,7 +779,7 @@
   "wn48Wheel": "Bayraq çarxı kartı ekran kənarı onu yarıb kəsməzdən əvvəl əridir, tövsiyə olunan yer Mozilla nişanını oxunaqlı ölçüdə geyir, düz xəritənin cənub kənarı xəttə qurtarmaq əvəzinə səhifəyə əriyir.",
   "wn49States": "Hər iki referens dizayn çəkildiyi təfərrüatları geyindi: aether kartı sessiyanın öz sürətlərini AetherST kimi daşıyır, güc düyməsi referensin işığı ilə nəfəs alır və barmağın altında çökir, zed'in qovcuğu formaları arasında döyünür, mərkəzi isə kross-feyd ilə bir-birinə keçir.",
   "wn49Words": "«Qoşulur» sözünün indi hər yerdə yeri var: tunel qurularkən açarın yolu «Qoşulur…» sözünü daşıyır, tutacağın nişanı halları arasında solur və yol qoşulmanın öz ritmi ilə nəfəs alır — barmağın altında heç nə yoxa çıxmır.",
-  "wn49Sooner": "«Qoşuldu» daha tez gəlir: tunelin öz hökmu keçdiyi anda yerləşir, çıxışın yeri — ölkə və ünvan — ondan sonra yola düşür.",
+  "wn49Sooner": "Qoşulmanın mühərriki yenidən orijinalın özüdür: relə hovuzu, əlavə yollarlar və onların yaddaşı, təkrar sorğuların qoruyucusu tuneli daşıyır — daha tez qalxır və sabit qalır.",
   "wn49Mark": "Tövsiyə olunan yer real Mozilla VPN nişanını daşıyır, yeniləmə düymələri də yeniləmənin öz işarəsini.",
   "connectAtBootHint": "Telefon açılanda özü qoşulur, VPN icazəsi artıq verilibsə.",
   "gamingProfileHint": "Bağlantının canlı gecikmə və keyfiyyətini göstərir; ölçülmüş ən sürətli server ilə birlikdə işləyir.",

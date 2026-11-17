@@ -586,16 +586,11 @@
   "copiedToClipboard": "Disalin ke papan klip",
   "wnTotalsAdded": "Beranda menampilkan total yang dipindahkan sesi, dan satu ketukan menyalin IP publik.",
   "wnPolishImproved": "Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.",
-  "smartNetwork": "Koneksi pintar",
-  "smartNetworkHint": "MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.",
   "valueSmart": "Pintar",
-  "mtuAutoValue": "Otomatis — mengikuti jaringan",
   "wnSmartAdded": "Koneksi pintar: MTU, protokol, dan versi IP mengikuti jaringan, dipilih dari jawaban nyata demi kecepatan.",
   "wnToastAdded": "Konfirmasi kini datang sebagai catatan lembut bergaya iOS, dengan tanda yang menggambar dirinya sendiri.",
   "wnFlagsImproved": "Roda bendera tampil bersih: tidak ada bendera terpotong di tepi layar, bendera tampil utuh, dan pilihan mendarat dengan pegas lembut.",
   "wnMapImproved": "Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.",
-  "smartWaiting": "Mengukur…",
-  "smartFamilyRace": "Keduanya balapan pada koneksi pertama",
   "dnsManual": "DNS manual",
   "dnsManualHint": "Satu alamat per baris: IP biasa, https:// (DNS over HTTPS), atau tls://host (DNS over TLS). Jawaban pertama menang.",
   "dnsManualInvalid": "Satu baris bukan alamat yang bisa dipakai core: IP biasa, https://…, atau tls://host.",
@@ -621,7 +616,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Otomatis — jaringan membawa {mtu}",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -785,7 +779,7 @@
   "wn48Wheel": "Roda bendera melarutkan kartu sebelum tepi layar memotongnya, lokasi yang disarankan memakai tanda Mozilla dalam ukuran yang terbaca, dan tepi selatan peta datar melebur ke halaman alih-alih berakhir menjadi garis.",
   "wn49States": "Kedua desain referensi memakai detail yang digambar untuknya: kartu aether membawa laju sesi seperti milik AetherST, tombol dayanya bernapas dengan cahaya referensi dan turun di bawah jari, dan gelembung zed berubah di antara bentuk-bentuknya sementara isinya berganti dengan cross-fade.",
   "wn49Words": "“Menyambung” kini punya kata di mana-mana: selagi terowongan dibangun, lintas saklar membawa kata Menyambung…, tanda kenop memudar di antara wujudnya, dan lintas bernapas dengan irama sambungan sendiri — tak ada yang lenyap di bawah jari.",
-  "wn49Sooner": "“Tersambung” datang lebih cepat: putusan terowongan sendiri menghampiri begitu lulus, dan tempat keluar — negara dan alamat — menyusul kemudian.",
+  "wn49Sooner": "Mesin sambungan kembali milik versi asli: kolam relai, rute alternatif dan ingatannya, serta penjaga permintaan berulang membawa terowongan — bangun lebih cepat dan bertahan.",
   "wn49Mark": "Lokasi yang disarankan memakai tanda Mozilla VPN yang sebenarnya, dan tombol pembaruan memakai glif pembaruan miliknya.",
   "connectAtBootHint": "Menyambung sendiri saat telepon dinyalakan, jika izin VPN sudah diberikan.",
   "gamingProfileHint": "Menampilkan jeda dan kualitas koneksi secara langsung; berpasangan dengan server terukur tercepat.",

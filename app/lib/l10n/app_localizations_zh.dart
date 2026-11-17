@@ -1969,16 +1969,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wnPolishImproved => '旗帜转轮和服务器页面更整洁；文字更紧凑，Android 隧道以更高的速度传输流量。';
 
   @override
-  String get smartNetwork => '智能连接';
-
-  @override
-  String get smartNetworkHint => 'MTU、协议与 IP 版本按当前网络自动选择，以速度为先。';
-
-  @override
   String get valueSmart => '智能';
-
-  @override
-  String get mtuAutoValue => '自动 — 随网络调整';
 
   @override
   String get wnSmartAdded => '智能连接：MTU、协议与 IP 版本跟随网络，按真实响应选择，以速度为先。';
@@ -1991,12 +1982,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wnMapImproved => '世界地图更大更清晰：不再压缩大陆，海岸线平滑，落点处有光晕。';
-
-  @override
-  String get smartWaiting => '正在测量……';
-
-  @override
-  String get smartFamilyRace => '首次连接时两族同时竞速';
 
   @override
   String get dnsManual => '手动 DNS';
@@ -2056,11 +2041,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return '已选：$n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return '自动 — 网络承载 $mtu';
   }
 
   @override
@@ -2551,7 +2531,8 @@ class AppLocalizationsZh extends AppLocalizations {
       '“正在连接”现在处处有词：隧道搭建期间，开关的滑轨带着「正在连接…」字样，旋钮的图标在各个形态间淡入淡出，滑轨随连接自身的节奏呼吸——指尖之下再没有什么会突然消失。';
 
   @override
-  String get wn49Sooner => '“已连接”来得更早：隧道自己的判定一通过便落定，出口的位置——国家与地址——随后抵达。';
+  String get wn49Sooner =>
+      '连接的引擎重新回到原版：中继池、备用路线和它们的记忆，以及重复请求的守卫扛着隧道——起来得更早，也站得更稳。';
 
   @override
   String get wn49Mark => '推荐位置换上了 Mozilla VPN 真正的标志，更新按钮也换上了更新自己的图标。';
@@ -4522,16 +4503,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get wnPolishImproved => '旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。';
 
   @override
-  String get smartNetwork => '智慧連線';
-
-  @override
-  String get smartNetworkHint => 'MTU、通訊協定與 IP 版本依目前網路自動選擇，以速度為先。';
-
-  @override
   String get valueSmart => '智慧';
-
-  @override
-  String get mtuAutoValue => '自動 — 隨網路調整';
 
   @override
   String get wnSmartAdded => '智慧連線：MTU、通訊協定與 IP 版本跟隨網路，按真實回應選擇，以速度為先。';
@@ -4544,12 +4516,6 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wnMapImproved => '世界地圖更大更清晰：不再壓縮大陸，海岸線平滑，落點處有光暈。';
-
-  @override
-  String get smartWaiting => '正在測量……';
-
-  @override
-  String get smartFamilyRace => '首次連線時兩族同時競速';
 
   @override
   String get dnsManual => '手動 DNS';
@@ -4609,11 +4575,6 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String bypassAppsCount(String n) {
     return '已選：$n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return '自動 — 網路承載 $mtu';
   }
 
   @override
@@ -5105,7 +5066,8 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
       '「正在連線」現在處處有詞：通道搭建期間，開關的滑軌帶著「正在連線…」字樣，旋鈕的圖示在各個形態間淡入淡出，滑軌隨連線自身的節奏呼吸——指尖之下再沒有什麼會突然消失。';
 
   @override
-  String get wn49Sooner => '「已連線」來得更早：通道自己的判定一通過便落定，出口的位置——國家與位址——隨後抵達。';
+  String get wn49Sooner =>
+      '連線的引擎重新回到原版：中繼池、備用路線和它們的記憶，以及重複請求的守衛扛著通道——起來得更早，也站得更穩。';
 
   @override
   String get wn49Mark => '建議位置換上了 Mozilla VPN 真正的標誌，更新按鈕也換上了更新自己的圖示。';

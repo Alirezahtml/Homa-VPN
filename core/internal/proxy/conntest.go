@@ -17,6 +17,20 @@ const (
 	// tunnel measures the full data path without downloading anything.
 	ConnectionTestURL     = "https://www.google.com/generate_204"
 	ConnectionTestTimeout = 15 * time.Second
+
+	// A response this quick is the way to Mozilla and nothing else, so it
+	// is taken as it is. A slower one may be the moment rather than the
+	// path: when the VPN comes on, every program's waiting connections go
+	// through the new tunnel at once and a measurement taken among them
+	// says more about that rush than about the path.
+	settledResponseMS = 170
+	// How many further measurements such a figure is given. Each is one
+	// small request; the lowest of them is the one shown, so a number that
+	// was only a moment's queue does not stand as the connection's delay.
+	settledResponseTries = 2
+	// Each of those waits less than the first request, which has already
+	// proved the path works.
+	settledResponseTimeout = 4 * time.Second
 )
 
 // ConnectionTestResult is the outcome of a test request sent through the
@@ -51,13 +65,10 @@ func (r ConnectionTestResult) Exit() ExitProbeResult {
 	return ExitProbeResult{IPv4: r.ExitIPv4, IPv6: r.ExitIPv6, CountryCode: r.ExitCountry, City: r.ExitCity, Network: r.ExitNetwork}
 }
 
-// RunTunnelTest requests ConnectionTestURL through opener and measures the
-// stages of the request. The public IP's own lookups are VerifyExit, which
-// the caller runs and records on its own: the tunnel's verdict must not wait
-// behind the exit services' answers, each of which may hold its whole
-// timeout on a network that cannot answer it — the apps read the verdict
-// from the next poll and say Connected while the exit's place still travels.
-func RunTunnelTest(opener tunnelOpener, target string, timeout time.Duration) ConnectionTestResult {
+// RunConnectionTest requests ConnectionTestURL through opener and then
+// finds the public IP and its place, waiting exitTimeout for each service
+// (0 skips that check).
+func RunConnectionTest(opener tunnelOpener, target string, exitTimeout, timeout time.Duration) ConnectionTestResult {
 	result := ConnectionTestResult{At: time.Now(), Target: target}
 	var tunnelOpened, tlsStart, tlsDone, firstByte time.Time
 	// tunnelUp is set once Mozilla opened the tunnel to the test site; a
@@ -129,6 +140,34 @@ func RunTunnelTest(opener tunnelOpener, target string, timeout time.Duration) Co
 	default:
 		result.OK = true
 	}
+
+	// The figure is settled before anything is reported, so the first one
+	// a person sees is already the one that holds, rather than a high
+	// number that is quietly replaced seconds later.
+	if result.OK && result.ResponseMS > settledResponseMS {
+		for range settledResponseTries {
+			ms, ok := responseProbe(opener, target, settledResponseTimeout)
+			if !ok {
+				break
+			}
+			if ms > 0 && ms < result.ResponseMS {
+				result.ResponseMS = ms
+			}
+			if result.ResponseMS <= settledResponseMS {
+				break
+			}
+		}
+	}
+
+	if exitTimeout > 0 {
+		exit, err := VerifyExit(opener, exitTimeout)
+		if err != nil {
+			result.ExitError = err.Error()
+		} else {
+			result.ExitIPv4, result.ExitIPv6 = exit.IPv4, exit.IPv6
+			result.ExitCountry, result.ExitCity, result.ExitNetwork = exit.CountryCode, exit.City, exit.Network
+		}
+	}
 	return result
 }
 
@@ -151,4 +190,42 @@ func elapsedMS(from, to time.Time) int64 {
 		return 0
 	}
 	return to.Sub(from).Milliseconds()
+}
+
+// responseProbe measures one more request's response time through opener,
+// for settling a figure taken while the tunnel was busy. It reports the
+// milliseconds and whether the request arrived; it changes nothing else.
+func responseProbe(opener tunnelOpener, target string, timeout time.Duration) (int64, bool) {
+	var tlsDone, firstByte time.Time
+	transport := &http.Transport{
+		Proxy:               nil,
+		DisableKeepAlives:   true,
+		TLSHandshakeTimeout: timeout,
+		TLSClientConfig:     &tls.Config{MinVersion: tls.VersionTLS12},
+		DialContext: func(ctx context.Context, _, authority string) (net.Conn, error) {
+			return openTunnelContext(ctx, opener, authority)
+		},
+	}
+	defer transport.CloseIdleConnections()
+	trace := &httptrace.ClientTrace{
+		TLSHandshakeDone:     func(tls.ConnectionState, error) { tlsDone = time.Now() },
+		GotFirstResponseByte: func() { firstByte = time.Now() },
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	req, err := http.NewRequestWithContext(httptrace.WithClientTrace(ctx, trace), http.MethodGet, target, nil)
+	if err != nil {
+		return 0, false
+	}
+	req.Header.Set("User-Agent", "arman-vpn-connection-test/1")
+	resp, err := (&http.Client{Transport: transport, Timeout: timeout}).Do(req)
+	if err != nil {
+		return 0, false
+	}
+	_, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, 4096))
+	_ = resp.Body.Close()
+	if resp.StatusCode >= 400 {
+		return 0, false
+	}
+	return elapsedMS(tlsDone, firstByte), true
 }

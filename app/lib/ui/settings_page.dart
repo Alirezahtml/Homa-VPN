@@ -307,18 +307,6 @@ class _SettingsPageState extends State<SettingsPage> {
   /// snack bar: a soft pill with a mark that draws itself.
   void _toast(String text) => showToast(context, text);
 
-  /// The smart connection is one value in the config — the transport's
-  /// — written together with its two companions, so the three rows read
-  /// as one: proxy.transport "smart" means the MTU, the protocol, and
-  /// the IP version all follow the network.
-  bool get _smart => _str(['proxy', 'transport']) == 'smart';
-
-  Future<void> _setSmart(bool on) => _save({
-    ['proxy', 'transport']: on ? 'smart' : 'h2',
-    ['proxy', 'ip_version']: on ? 'smart' : 'auto',
-    ['tun', 'smart_mtu']: on,
-  });
-
   /// Removes the TUN service; in TUN mode the core first goes back to proxy
   /// only, so the computer is not left without its connection mode.
   Future<void> _removeTunService() async {
@@ -1042,115 +1030,36 @@ class _SettingsPageState extends State<SettingsPage> {
           icon: Icons.cloud_outlined,
           child: Column(
             children: [
-              // The smart connection: one choice that sizes the MTU to
-              // the network, and picks the transport and the IP family
-              // by how the network answers — HTTP/3 where it is carried,
-              // the family that connects first kept until it fails. The
-              // core measures for real; nothing here is guessed. On,
-              // the three choices below stand down (they show what the
-              // measurement picked where it can).
+              // The location, measured: the core starts on the server its
+              // own latency test says is fastest (proxy.country "fastest"),
+              // and the wheel and the servers page read the choice back.
+              // Off, the recommended location stands as it always did.
               _Row(
-                icon: Icons.auto_awesome,
-                label: l.smartNetwork,
-                value: l.smartNetworkHint,
+                icon: Icons.travel_explore_rounded,
+                label: l.smartLocation,
+                value: l.smartLocationHint,
                 child: AppSwitch(
-                  value: _smart,
-                  onChanged: _saving ? null : _setSmart,
+                  value: _str(['proxy', 'country']) == 'fastest',
+                  onChanged: _saving
+                      ? null
+                      : (v) => _save({
+                          ['proxy', 'country']: v ? 'fastest' : '',
+                        }),
                 ),
               ),
-              if (_smart) ...[
-                // What the network's own answers picked, live from the
-                // core's memory — real measurements, not guesses. The
-                // rows stand still until the core reports.
-                ListenableBuilder(
-                  listenable: _core,
-                  builder: (context, _) {
-                    final smart = _core.status?.smart;
-                    return Column(
-                      children: [
-                        _Row(
-                          icon: Icons.http_rounded,
-                          label: l.transport,
-                          value: switch (smart?.transport) {
-                            'h3' => l.transportH3,
-                            'h2' => l.transportH2,
-                            'h1' => l.transportH1,
-                            _ => l.smartWaiting,
-                          },
-                        ),
-                        _Row(
-                          icon: Icons.lan_outlined,
-                          label: l.ipVersion,
-                          value: switch (smart?.family) {
-                            '4' => 'IPv4',
-                            '6' => 'IPv6',
-                            _ => l.smartFamilyRace,
-                          },
-                        ),
-                        // The MTU the tunnel would take, the network's
-                        // own answer (CoreService.kt computes the same
-                        // number when the VPN comes up) — a number, not
-                        // a promise, and only where the network is the
-                        // limit.
-                        if (Platform.isAndroid)
-                          FutureBuilder<int>(
-                            future: AndroidCore.smartMtu(),
-                            builder: (context, snap) {
-                              final v = snap.data ?? 0;
-                              return _Row(
-                                icon: Icons.settings_ethernet_rounded,
-                                label: l.tunMtu,
-                                value: v > 0 && v < 8500
-                                    ? l.mtuAutoMeasured(v)
-                                    : l.mtuAutoValue,
-                              );
-                            },
-                          )
-                        else
-                          _Row(
-                            icon: Icons.settings_ethernet_rounded,
-                            label: l.tunMtu,
-                            value: l.mtuAutoValue,
-                          ),
-                        // The location, too, measured: the core starts on
-                        // the server its own latency test says is fastest
-                        // (proxy.country "fastest"), and the wheel and the
-                        // servers page read the choice back. Off, the
-                        // recommended location stands as it always did.
-                        _Row(
-                          icon: Icons.travel_explore_rounded,
-                          label: l.smartLocation,
-                          value: l.smartLocationHint,
-                          child: AppSwitch(
-                            value: _str(['proxy', 'country']) == 'fastest',
-                            onChanged: _saving
-                                ? null
-                                : (v) => _save({
-                                    ['proxy', 'country']: v
-                                        ? 'fastest'
-                                        : '',
-                                  }),
-                          ),
-                        ),
-                        // Apps' own QUIC rides the tunnel too, when the
-                        // smart network is on: one less thing to think
-                        // about for calls and games.
-                        _Row(
-                          icon: Icons.bolt_rounded,
-                          label: l.quicPass,
-                          value: l.quicPassHint,
-                          child: AppSwitch(
-                            value: _bool(['tun', 'quic']),
-                            onChanged: _saving
-                                ? null
-                                : (v) => _save({['tun', 'quic']: v}),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+              // Apps' own QUIC rides the tunnel too: one less thing to
+              // think about for calls and games.
+              _Row(
+                icon: Icons.bolt_rounded,
+                label: l.quicPass,
+                value: l.quicPassHint,
+                child: AppSwitch(
+                  value: _bool(['tun', 'quic']),
+                  onChanged: _saving
+                      ? null
+                      : (v) => _save({['tun', 'quic']: v}),
                 ),
-              ] else ...[
+              ),
               _Choice<String>(
                 icon: Icons.http_rounded,
                 title: l.transport,
@@ -1202,12 +1111,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ('ipv6', l.ipVersionV6, null),
                 ],
               ),
-              ],
               // tun.mtu: the VPN interface's MTU (the phone's VPN, the
-              // computer's TUN); empty keeps each one's own. The smart
-              // connection sizes it to the network instead, and the
-              // field stands down.
-              if (!_smart)
+              // computer's TUN); empty keeps each one's own.
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                 child: _TextSetting(

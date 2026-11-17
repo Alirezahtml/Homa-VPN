@@ -2060,17 +2060,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bayrak çarkı ve sunucular sayfası daha derli toplu; metinler daha kompakt ve Android tüneli trafiği daha hızlı taşıyor.';
 
   @override
-  String get smartNetwork => 'Akıllı bağlantı';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protokol ve IP sürümü bu ağa uyarlanır; amaç hız.';
-
-  @override
   String get valueSmart => 'Akıllı';
-
-  @override
-  String get mtuAutoValue => 'Otomatik — ağa göre';
 
   @override
   String get wnSmartAdded =>
@@ -2087,12 +2077,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'Dünya haritası daha büyük ve net çiziliyor: sıkışmış kıtalar yok, pürüzsüz kıyılar ve çapada ışıltılı bir hale.';
-
-  @override
-  String get smartWaiting => 'Ölçülüyor…';
-
-  @override
-  String get smartFamilyRace => 'İlk bağlantıda ikisi de yarışır';
 
   @override
   String get dnsManual => 'Elle DNS';
@@ -2161,11 +2145,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Seçili: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Otomatik — ağ $mtu taşıyor';
   }
 
   @override
@@ -2706,7 +2685,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '“Bağlandı” daha erken gelir: tünelin kendi hükmü geçtiği an oturur, çıkışın yeri — ülke ve adres — peşinden yol alır.';
+      'Bağlantının motoru yeniden aslın kendisi: röle havuzu, yedek yollar ve bellekleri, ve yinelenen isteklerin bekçisi tüneli taşır — daha erken kurulur ve ayakta kalır.';
 
   @override
   String get wn49Mark =>

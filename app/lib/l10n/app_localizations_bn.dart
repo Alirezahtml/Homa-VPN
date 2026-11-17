@@ -2054,17 +2054,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'পতাকার চাকা ও সার্ভার পাতা আরও গোছানো; লেখা সংক্ষিপ্ত, আর Android টানেল বেশি গতিতে ট্রাফিক বহন করে।';
 
   @override
-  String get smartNetwork => 'স্মার্ট সংযোগ';
-
-  @override
-  String get smartNetworkHint =>
-      'এই নেটওয়ার্ক অনুযায়ী গতির জন্য MTU, প্রোটোকল ও IP সংস্করণ বেছে নেওয়া হয়।';
-
-  @override
   String get valueSmart => 'স্মার্ট';
-
-  @override
-  String get mtuAutoValue => 'অটো — নেটওয়ার্ক অনুযায়ী';
 
   @override
   String get wnSmartAdded =>
@@ -2081,12 +2071,6 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'বিশ্ব মানচিত্র এখন বড় ও স্পষ্ট: চাপা মহাদেশ নেই, মসৃণ উপকূলরেখা, আর অ্যাঙ্করে উজ্জ্বল হ্যালো।';
-
-  @override
-  String get smartWaiting => 'পরিমাপ চলছে…';
-
-  @override
-  String get smartFamilyRace => 'প্রথম সংযোগে দুটোই প্রতিযোগিতা করে';
 
   @override
   String get dnsManual => 'ম্যানুয়াল DNS';
@@ -2155,11 +2139,6 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'নির্বাচিত: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'স্বয়ংক্রিয় — নেটওয়ার্ক $mtu বহন করে';
   }
 
   @override
@@ -2700,7 +2679,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«সংযুক্ত» আগেই আসে: টানেলের নিজের রায় পাস করামাত্র বসে, আর প্রস্থানের জায়গা — দেশ ও ঠিকানা — তার পরে আসে।';
+      'সংযোগের ইঞ্জিন আবার মূল সংস্করণেরই: রিলে পুল, বিকল্প পথ ও তাদের স্মৃতি, এবং পুনরাবৃত্ত অনুরোধের প্রহরী টানেল বহন করে — আগেই ওঠে আর স্থির থাকে।';
 
   @override
   String get wn49Mark =>

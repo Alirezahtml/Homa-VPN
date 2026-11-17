@@ -8,7 +8,6 @@ import 'dart:ui' as ui;
 
 import '../app_settings.dart';
 import 'core_api.dart';
-import 'ports.dart';
 import 'speed_test.dart';
 import 'remote_flags.dart' show bundledFlags, RemoteFlags;
 
@@ -54,6 +53,22 @@ class AppRouting {
   final Set<String> declined;
 
   Set<String> get _chosen => onlyChosen ? only : bypass;
+
+  /// The number of chosen apps.
+  int get chosenCount => _chosen.length;
+
+  List<String> get chosenPackages => _chosen.toList()..sort();
+
+  void importPackages(Set<String> packages, {required bool merge}) {
+    if (!merge) {
+      for (final package in _chosen.difference(packages)) {
+        toggle(package, false);
+      }
+    }
+    for (final package in packages) {
+      toggle(package, true);
+    }
+  }
 
   /// Whether [package] is checked in the current mode.
   bool checked(String package) => _chosen.contains(package);
@@ -142,69 +157,26 @@ class AndroidCore {
 
   final String _dataDir;
 
-  /// Dashboard moves this app has made in this run, and when the last one
-  /// was: a move takes effect only after the core's own restart pause (5
-  /// seconds), so one move waits for it before it decides it did not help.
-  int _moves = 0;
-  DateTime? _movedAt;
-  static const _maxMoves = 3;
-
   /// Opens a client of the core, starting the core (off) when it does not
   /// run; it throws [CoreUnavailable] until the core answers.
   Future<CoreApi> connect() async {
     if (await _channel.invokeMethod<bool>('isRunning') != true) {
-      await _channel.invokeMethod<void>('startCore');
-      // The core failed to start (mobile.Mobile.start said why): the error
-      // page shows the reason and a Retry, instead of a spinner that would
-      // never end.
-      final lastError = await _channel.invokeMethod<String>('lastError') ?? '';
-      if (lastError.isNotEmpty) {
-        // Another program holds the dashboard's address (every client of
-        // this family listens on the same default port, and an older one
-        // left running keeps it): move this app's dashboard to a free
-        // loopback port and let the polls start the core again. Retry
-        // alone could never help while the address stays taken.
-        if (lastError.contains('already in use') && _moves < _maxMoves) {
-          await _freeTheDashboard();
-          throw const CoreUnavailable(CoreProblem.starting);
-        }
-        throw CoreUnavailable(CoreProblem.exited, lastError);
-      }
+      final error = await _channel.invokeMethod<String>('startCore');
+      if (error != null) throw CoreUnavailable(CoreProblem.exited, error);
       throw const CoreUnavailable(CoreProblem.starting);
     }
-    // A move did its job: the next conflict may move again.
-    _moves = 0;
-    _movedAt = null;
+    final listen = await _channel.invokeMethod<String>('dashboardAddress');
+    if (listen == null || listen.isEmpty) {
+      throw const CoreUnavailable(CoreProblem.starting);
+    }
+    final api = CoreApi(await CoreLocator.locate(_dataDir, listen: listen));
     try {
-      final api = CoreApi(await CoreLocator.locate(_dataDir));
-      try {
-        await api.status();
-        return api;
-      } on Exception {
-        api.close();
-        rethrow;
-      }
-    } on CoreUnavailable {
-      // Started, and its API is still coming up.
-      throw const CoreUnavailable(CoreProblem.starting);
+      await api.status();
+      return api;
+    } on Exception {
+      api.close();
+      rethrow;
     }
-  }
-
-  /// Moves the dashboard to a free loopback port in the core's config.json
-  /// (the core is not there to ask). It moves at most once per run of the
-  /// core's restart pause, so the polls' quick retries do not walk the
-  /// whole port range before the core even tried the last address.
-  Future<void> _freeTheDashboard() async {
-    final now = DateTime.now();
-    if (_movedAt != null &&
-        now.difference(_movedAt!) < const Duration(seconds: 6)) {
-      return;
-    }
-    final listen = await CoreLocator.dashboardListen(_dataDir);
-    final port = await findFreePort(portOf(listen) ?? 10820);
-    await CoreLocator.setDashboardListen(_dataDir, withPort(listen, port));
-    _movedAt = now;
-    _moves++;
   }
 
   /// Turns the VPN on (asking the user for the VPN permission the first
@@ -222,12 +194,32 @@ class AndroidCore {
   /// apps set up to use the local proxy). Read at start ([loadMode]).
   static final mode = ValueNotifier<String>('vpn');
 
+  /// The routing sub-mode on Android: 'all' (all apps) or 'selected' (bypass/only apps).
+  static final appRoutingMode = ValueNotifier<String>('all');
+
+  /// The count of selected apps in app routing.
+  static final selectedAppsCount = ValueNotifier<int>(0);
+
+  /// Whether per-app routing is enabled (selected apps vs all apps).
+  static Future<bool> routingEnabled() async =>
+      await _channel.invokeMethod<bool>('routingEnabled') ?? false;
+
+  /// Sets whether per-app routing is enabled.
+  static Future<void> setRoutingEnabled(bool on) async =>
+      await _channel.invokeMethod<void>('setRoutingEnabled', {'on': on});
+
   static Future<void> loadMode() async {
     mode.value = await _channel.invokeMethod<String>('connectionMode') ?? 'vpn';
     showSpeed.value = await _channel.invokeMethod<bool>('showSpeed') ?? false;
     notifFlag.value = await _channel.invokeMethod<bool>('notifFlag') ?? true;
     killSwitch.value = await _channel.invokeMethod<bool>('killSwitch') ?? false;
     isTv = await _channel.invokeMethod<bool>('isTv') ?? false;
+    try {
+      final enabled = await routingEnabled();
+      final r = await appRouting();
+      appRoutingMode.value = enabled ? 'selected' : 'all';
+      selectedAppsCount.value = r.chosenCount;
+    } catch (_) {}
   }
 
   /// Whether this is a TV, worked with a remote: the home page then says
@@ -418,15 +410,6 @@ class AndroidCore {
     await _channel.invokeMethod<void>('setAutoConnectBoot', {'on': on});
     autoConnectBoot.value = on;
   }
-
-  /// The network's own MTU under the app right now, as the tunnel's
-  /// smart sizing computes it (CoreService.kt): the very number the VPN
-  /// interface would take — the network's own, plus room for the
-  /// tunnel's headers, when the network cannot carry a whole datagram
-  /// at the batching size. The batching size's own answer (8500) means
-  /// "the network is not the limit".
-  static Future<int> smartMtu() async =>
-      await _channel.invokeMethod<int>('smartMtu') ?? 0;
 
   /// The system's VPN page: Android's own "always-on" and its "block
   /// connections without VPN", the strongest guard there is.

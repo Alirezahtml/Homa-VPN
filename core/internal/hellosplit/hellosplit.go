@@ -6,10 +6,8 @@
 // records, for an inspection that does put segments together but reads only the
 // first record.
 //
-// network.hello_split chooses how (Set); by default the choice is auto: the
-// hello goes out whole, and when TLS itself keeps dying with two whole
-// hellos — a filter that reads the name — the name goes out cut for a while,
-// without a hand on the settings.
+// network.hello_split chooses how (Set); by default the ClientHello goes out
+// whole.
 package hellosplit
 
 import (
@@ -17,61 +15,28 @@ import (
 	"errors"
 	"net"
 	"sync/atomic"
-	"time"
 
 	"github.com/armanlife/arman-vpn-client/core/internal/logx"
 )
 
-// The network.hello_split choices. Auto leaves the hello whole and lets the
-// tunnel's own answers decide: when TLS itself keeps dying on a network (a
-// filter that reads the name), the name goes out cut for a while, so the
-// tunnel gets through without a hand on the settings. SNI cuts the name
-// after its first letter; FirstByte cuts the record after its first byte;
-// Record makes two records of the hello, cut after the name's first letter.
+// The network.hello_split choices. SNI cuts the name after its first
+// letter; FirstByte cuts the record after its first byte; Record makes two
+// records of the hello, cut after the name's first letter.
 const (
-	Off       = "off"
 	Auto      = "auto"
+	Off       = "off"
 	SNI       = "sni"
 	FirstByte = "first-byte"
 	Record    = "record"
 )
 
-// autoHold is how long an auto escalation keeps the name cut: as long as
-// the transports' own failure memory, so the whole answer set turns over
-// together before the network is asked again with the hello whole.
-const autoHold = 30 * time.Minute
-
-// nowFunc stands for the clock, so a test can hold the escalation's age.
-var nowFunc = time.Now
-
 // configured is network.hello_split; nil means Auto.
 var configured atomic.Pointer[string]
 
-// escalatedUntil is when the auto escalation ends, as unix nanoseconds
-// (0 while no escalation stands).
-var escalatedUntil atomic.Int64
-
-// NoteSuspectedFilter records that TLS itself died twice in a row with two
-// whole hellos on this network — the signature of a filter reading the
-// name. In auto mode the next connections cut the name, for autoHold. A
-// hand-picked way (off, sni, first-byte, record) is never overridden.
-func NoteSuspectedFilter() {
-	if current() != Auto {
-		return
-	}
-	escalatedUntil.Store(nowFunc().Add(autoHold).UnixNano())
-}
-
-// autoEscalated reports whether an auto escalation still stands.
-func autoEscalated() bool {
-	return nowFunc().UnixNano() < escalatedUntil.Load()
-}
-
-// Valid reports whether mode is a network.hello_split choice (empty means
-// Auto).
+// Valid reports whether mode is a network.hello_split choice (empty means Auto).
 func Valid(mode string) bool {
 	switch mode {
-	case "", Off, Auto, SNI, FirstByte, Record:
+	case "", Auto, Off, SNI, FirstByte, Record:
 		return true
 	}
 	return false
@@ -86,35 +51,28 @@ func Set(mode string) {
 }
 
 // current is the way a new connection sends its ClientHello.
-func current() string {
+// Mode returns the configured policy.
+func Mode() string {
 	if mode := configured.Load(); mode != nil {
 		return *mode
 	}
 	return Auto
 }
 
-// effective is the way a hello goes out now: the chosen one, or — in auto —
-// the name cut while an escalation stands.
-func effective() string {
-	way := current()
-	if way == Auto {
-		if autoEscalated() {
-			return SNI
-		}
-		return Off
-	}
-	return way
-}
-
 // Wrap returns conn, a new connection about to start TLS, sending its
 // ClientHello in the way chosen. Anything that is not a ClientHello passes
 // untouched.
 func Wrap(conn net.Conn) net.Conn {
-	way := effective()
-	if way == Off {
-		return conn
+	return WrapMode(conn, Mode())
+}
+
+// WrapMode applies one concrete fragmentation mode to a new connection.
+func WrapMode(conn net.Conn, mode string) net.Conn {
+	switch mode {
+	case FirstByte, SNI, Record:
+		return &splitConn{Conn: conn, way: mode}
 	}
-	return &splitConn{Conn: conn, way: way}
+	return conn
 }
 
 // splitConn splits the ClientHellos written to it.

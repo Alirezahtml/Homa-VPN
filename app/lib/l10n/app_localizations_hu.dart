@@ -2075,17 +2075,7 @@ class AppLocalizationsHu extends AppLocalizations {
       'A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.';
 
   @override
-  String get smartNetwork => 'Okos kapcsolat';
-
-  @override
-  String get smartNetworkHint =>
-      'Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.';
-
-  @override
   String get valueSmart => 'Okos';
-
-  @override
-  String get mtuAutoValue => 'Automatikus — a hálózat szerint';
 
   @override
   String get wnSmartAdded =>
@@ -2102,12 +2092,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.';
-
-  @override
-  String get smartWaiting => 'Mérés folyamatban…';
-
-  @override
-  String get smartFamilyRace => 'Az első kapcsolatnál mindkettő versenyez';
 
   @override
   String get dnsManual => 'Kézi DNS';
@@ -2176,11 +2160,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Kiválasztva: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Automatikus — a hálózat $mtu visz';
   }
 
   @override
@@ -2721,7 +2700,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      'A „Csatlakozva” hamarabb érkezik: az alagút saját ítélete abban a pillanatban rögzül, amikor átjár, a kilépés helye — az ország és a cím — utána vándorol.';
+      'A kapcsolat motorja visszatért az eredetihez: a relé készlet, a tartalék utak és emlékeik, valamint az ismételt kérések őre viszi az alagutat — hamarabb áll fel és kitart.';
 
   @override
   String get wn49Mark =>

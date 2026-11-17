@@ -2072,17 +2072,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Колесо флагов и страница серверов стали аккуратнее; тексты компактнее, а туннель Android несёт трафик быстрее.';
 
   @override
-  String get smartNetwork => 'Умное подключение';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, протокол и версия IP подстраиваются под эту сеть — ради скорости.';
-
-  @override
   String get valueSmart => 'Умный';
-
-  @override
-  String get mtuAutoValue => 'Авто — по сети';
 
   @override
   String get wnSmartAdded =>
@@ -2099,12 +2089,6 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'Карта мира рисуется крупнее и чётче: без сжатых континентов, с гладкими берегами и светящимся ореолом у точки.';
-
-  @override
-  String get smartWaiting => 'Измеряется…';
-
-  @override
-  String get smartFamilyRace => 'При первом соединении стартуют оба';
 
   @override
   String get dnsManual => 'DNS вручную';
@@ -2173,11 +2157,6 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Выбрано: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Авто — сеть несёт $mtu';
   }
 
   @override
@@ -2722,7 +2701,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«Подключено» приходит раньше: вердикт самого туннеля записывается в миг прохождения, а место выхода — страна и адрес — едет следом.';
+      'Движок подключения снова оригинальный: пул ретрансляторов, запасные маршруты и их память, и страж повторных запросов несут туннель — поднимается раньше и держится.';
 
   @override
   String get wn49Mark =>

@@ -256,7 +256,10 @@ class FakeApi implements CoreApi {
   int pings = 0;
 
   @override
-  Future<LocationList> pingLocations(List<String> codes) async {
+  Future<LocationList> pingLocations(
+    List<String> codes, {
+    bool fresh = false,
+  }) async {
     pings++;
     return locations();
   }

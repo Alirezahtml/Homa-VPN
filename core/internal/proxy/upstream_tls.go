@@ -159,15 +159,6 @@ func dialUpstreamTLSFor(ctx context.Context, proxyURL *url.URL, proxyHost, proto
 	conn, raw, err = upstreamHandshake(ctx, proxyHost, name, goShake)
 	if err == nil {
 		upstreamGoTLS.Store(true)
-	} else {
-		var failed2 *upstreamHandshakeError
-		if errors.As(err, &failed2) {
-			// Both hellos died at TLS itself on a connection that TCP carried:
-			// the signature of a filter reading the name. Auto's answer — the
-			// name goes out cut on the next connections, and the tunnel gets
-			// through without a hand on the settings.
-			hellosplit.NoteSuspectedFilter()
-		}
 	}
 	return conn, raw, err
 }

@@ -2060,17 +2060,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Roda bendera dan halaman server lebih rapi; teks ringkas, dan terowong Android memuat lalu lintas dengan kecepatan lebih tinggi.';
 
   @override
-  String get smartNetwork => 'Koneksi pintar';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protokol, dan versi IP menyesuaikan jaringan ini, demi kecepatan.';
-
-  @override
   String get valueSmart => 'Pintar';
-
-  @override
-  String get mtuAutoValue => 'Otomatis — mengikuti jaringan';
 
   @override
   String get wnSmartAdded =>
@@ -2087,12 +2077,6 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'Peta dunia digambar lebih besar dan jelas: tanpa benua yang sesak, garis pantai halus, dan halo bercahaya di titik jangkar.';
-
-  @override
-  String get smartWaiting => 'Mengukur…';
-
-  @override
-  String get smartFamilyRace => 'Keduanya balapan pada koneksi pertama';
 
   @override
   String get dnsManual => 'DNS manual';
@@ -2161,11 +2145,6 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Dipilih: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Otomatis — jaringan membawa $mtu';
   }
 
   @override
@@ -2710,7 +2689,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '“Tersambung” datang lebih cepat: putusan terowongan sendiri menghampiri begitu lulus, dan tempat keluar — negara dan alamat — menyusul kemudian.';
+      'Mesin sambungan kembali milik versi asli: kolam relai, rute alternatif dan ingatannya, serta penjaga permintaan berulang membawa terowongan — bangun lebih cepat dan bertahan.';
 
   @override
   String get wn49Mark =>

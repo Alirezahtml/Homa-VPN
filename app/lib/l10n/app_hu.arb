@@ -586,16 +586,11 @@
   "copiedToClipboard": "A vágólapra másolva",
   "wnTotalsAdded": "A főoldal összesen mutatja, mit mozgatott a munkamenet, és egy koppintás átmásolja a nyilvános IP-t.",
   "wnPolishImproved": "A zászlókerék és a szerveroldal rendezettebb; a szövegek tömörebbek, és az Android-alagút gyorsabban viszi a forgalmat.",
-  "smartNetwork": "Okos kapcsolat",
-  "smartNetworkHint": "Az MTU, a protokoll és az IP-verzió ehhez a hálózathoz igazodik, a sebességért.",
   "valueSmart": "Okos",
-  "mtuAutoValue": "Automatikus — a hálózat szerint",
   "wnSmartAdded": "Okos kapcsolat: az MTU, a protokoll és az IP-verzió a hálózathoz igazodik, valódi válaszok alapján, a sebességért.",
   "wnToastAdded": "A megerősítések most puha, iOS-stílusú jelzésként érkeznek, önmagát kirajzoló jellel.",
   "wnFlagsImproved": "A zászlókerék tisztán áll: egyetlen zászló sem vágódik félbe a képernyő szélén, a zászlók egészben látszanak, és a választás puha rugóval ér földet.",
   "wnMapImproved": "A világtérkép nagyobban és tisztábban rajzolódik: nyomorított kontinensek nélkül, sima partvonalakkal, és világító aurával a ponton.",
-  "smartWaiting": "Mérés folyamatban…",
-  "smartFamilyRace": "Az első kapcsolatnál mindkettő versenyez",
   "dnsManual": "Kézi DNS",
   "dnsManualHint": "Soronként egy cím: sima IP, https:// (DNS over HTTPS) vagy tls://host (DNS over TLS). Az első válasz nyer.",
   "dnsManualInvalid": "Az egyik sor nem olyan cím, amellyel a mag dolgozhat: sima IP, https://… vagy tls://host.",
@@ -621,7 +616,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Automatikus — a hálózat {mtu} visz",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -785,7 +779,7 @@
   "wn48Wheel": "A zászlókerék feloldja a kártyát, mielőtt a képernyő széle kettévágná, a javasolt hely Mozilla-jelvényét olvasható méretben viseli, a sík térkép déli széle pedig egy vonal helyett az oldalba olvad.",
   "wn49States": "A két hivatkozási dizájn felvette a rajzolt részleteit: az aether kártya a munkamenet saját sebességeit viseli, ahogy az AetherST-é, a bekapcsológombja a referencia fényével lélegzik és elsüllyed az ujj alatt, a zed buborékja pedig alakjai között változik, középe áttűnéssel cserélődik.",
   "wn49Words": "A „Csatlakozás…” szónak most mindenhol helye van: miközben az alagút épül, a kapcsoló síne viseli a szót, a gomb jele állapotai között oldódik át, és a sín a kapcsolás saját ritmusában lélegzik — semmi nem tűnik el az ujj alatt.",
-  "wn49Sooner": "A „Csatlakozva” hamarabb érkezik: az alagút saját ítélete abban a pillanatban rögzül, amikor átjár, a kilépés helye — az ország és a cím — utána vándorol.",
+  "wn49Sooner": "A kapcsolat motorja visszatért az eredetihez: a relé készlet, a tartalék utak és emlékeik, valamint az ismételt kérések őre viszi az alagutat — hamarabb áll fel és kitart.",
   "wn49Mark": "Az ajánlott hely a Mozilla VPN igazi jelét viseli, a frissítés gombjai pedig a frissítés saját jelképét.",
   "connectAtBootHint": "A telefon bekapcsolásakor magától csatlakozik, ha a VPN-engedély már megvan.",
   "gamingProfileHint": "A kapcsolat élő késleltetését és minőségét mutatja; a mérleg gyorsabb szerverrel párosítva.",

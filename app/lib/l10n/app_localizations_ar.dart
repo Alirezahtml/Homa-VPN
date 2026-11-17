@@ -2069,17 +2069,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'عجلة الأعلام وصفحة الخوادم أكثر ترتيبًا؛ النصوص مضغوطة، وينقل نفق أندرويد البيانات بسرعة أعلى.';
 
   @override
-  String get smartNetwork => 'اتصال ذكي';
-
-  @override
-  String get smartNetworkHint =>
-      'يُضبط MTU والبروتوكول ونسخة IP وفق هذه الشبكة، بحثًا عن السرعة.';
-
-  @override
   String get valueSmart => 'ذكي';
-
-  @override
-  String get mtuAutoValue => 'تلقائي — حسب الشبكة';
 
   @override
   String get wnSmartAdded =>
@@ -2096,12 +2086,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'تُرسم خريطة العالم أكبر وأوضح: بلا قارات مضغوطة، بسواحل ناعمة، وهالة مضيئة عند المرساة.';
-
-  @override
-  String get smartWaiting => 'جارٍ القياس…';
-
-  @override
-  String get smartFamilyRace => 'كلاهما يتسابق عند أول اتصال';
 
   @override
   String get dnsManual => 'DNS يدوي';
@@ -2170,11 +2154,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'المختارة: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'تلقائي — الشبكة تحمل $mtu';
   }
 
   @override
@@ -2712,7 +2691,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      'يصل «متصل» أسرع: حكم النفق نفسه يسجّل لحظة نجاحه، ومكان الخروج — البلد والعنوان — يصل بعده.';
+      'محرك الاتصال يعود إلى ما هو في النسخة الأصلية: مُجمّع المرحّلات، والمسارات البديلة وذاكرتهما، وحارس الطلبات المكررة تحمل النفق — ينهض أسرع ويثبت.';
 
   @override
   String get wn49Mark =>

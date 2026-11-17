@@ -3669,29 +3669,11 @@ abstract class AppLocalizations {
   /// **'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.'**
   String get wnPolishImproved;
 
-  /// No description provided for @smartNetwork.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart connection'**
-  String get smartNetwork;
-
-  /// No description provided for @smartNetworkHint.
-  ///
-  /// In en, this message translates to:
-  /// **'MTU, protocol, and IP version follow this network, picked for speed.'**
-  String get smartNetworkHint;
-
   /// No description provided for @valueSmart.
   ///
   /// In en, this message translates to:
   /// **'Smart'**
   String get valueSmart;
-
-  /// No description provided for @mtuAutoValue.
-  ///
-  /// In en, this message translates to:
-  /// **'Auto — follows the network'**
-  String get mtuAutoValue;
 
   /// No description provided for @wnSmartAdded.
   ///
@@ -3716,18 +3698,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.'**
   String get wnMapImproved;
-
-  /// No description provided for @smartWaiting.
-  ///
-  /// In en, this message translates to:
-  /// **'Measuring…'**
-  String get smartWaiting;
-
-  /// No description provided for @smartFamilyRace.
-  ///
-  /// In en, this message translates to:
-  /// **'Both race on the first connect'**
-  String get smartFamilyRace;
 
   /// No description provided for @dnsManual.
   ///
@@ -3836,12 +3806,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Chosen: {n}'**
   String bypassAppsCount(String n);
-
-  /// No description provided for @mtuAutoMeasured.
-  ///
-  /// In en, this message translates to:
-  /// **'Auto — the network carries {mtu}'**
-  String mtuAutoMeasured(int mtu);
 
   /// No description provided for @sectionAppearance.
   ///
@@ -4782,7 +4746,7 @@ abstract class AppLocalizations {
   /// No description provided for @wn49Sooner.
   ///
   /// In en, this message translates to:
-  /// **'Connected arrives sooner: the tunnel\'s own verdict settles the moment it passes, and the exit\'s place — the country and the address — travels after it.'**
+  /// **'The connection\'s engine is the original\'s own again: the relay pool, the alternate routes and their cache, and the repeated-request guard carry the tunnel — it comes up sooner and holds.'**
   String get wn49Sooner;
 
   /// No description provided for @wn49Mark.

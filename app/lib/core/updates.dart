@@ -215,6 +215,7 @@ abstract final class Updates {
       for (final a in args)
         if (a == '--autostart' ||
             a == '--hidden' ||
+            a == '--show' ||
             a.startsWith('--data-dir='))
           a,
     ];

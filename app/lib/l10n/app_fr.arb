@@ -586,16 +586,11 @@
   "copiedToClipboard": "Copié dans le presse-papiers",
   "wnTotalsAdded": "La page d'accueil montre le total déplacé par la session, et un appui copie l'IP publique.",
   "wnPolishImproved": "La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite.",
-  "smartNetwork": "Connexion intelligente",
-  "smartNetworkHint": "MTU, protocole et version IP suivent ce réseau, pour la vitesse.",
   "valueSmart": "Intelligent",
-  "mtuAutoValue": "Automatique — selon le réseau",
   "wnSmartAdded": "Connexion intelligente : MTU, protocole et version IP suivent le réseau, choisis d'après des réponses réelles, pour la vitesse.",
   "wnToastAdded": "Les confirmations arrivent comme une note douce à la manière d'iOS, avec un symbole qui se dessine.",
   "wnFlagsImproved": "La roue des drapeaux est nette : aucun drapeau n'est coupé au bord de l'écran, ils s'affichent entiers, et le choix atterrit en douceur.",
   "wnMapImproved": "La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l'ancre.",
-  "smartWaiting": "Mesure en cours…",
-  "smartFamilyRace": "Les deux font la course à la première connexion",
   "dnsManual": "DNS manuel",
   "dnsManualHint": "Une adresse par ligne : IP simple, https:// (DNS over HTTPS) ou tls://host (DNS over TLS). La première réponse gagne.",
   "dnsManualInvalid": "Une ligne n'est pas une adresse que le cœur peut utiliser : IP simple, https://… ou tls://host.",
@@ -621,7 +616,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Automatique — le réseau porte {mtu}",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -785,7 +779,7 @@
   "wn48Wheel": "La roue des drapeaux dissout une carte avant que le bord de l'écran ne la coupe, le lieu recommandé porte la marque de Mozilla à une taille lisible, et le bord sud de la carte plate fond dans la page au lieu de finir en ligne.",
   "wn49States": "Les deux designs de référence portent les détails pour lesquels ils ont été dessinés : la carte d'aether affiche les débits de la session comme celle d'AetherST, son bouton d'alimentation respire avec la lueur de la référence et s'enfonce sous le doigt, et la bulle de zed se transforme entre ses formes pendant que son centre passe d'un état à l'autre en fondu.",
   "wn49Words": "« Connexion » a maintenant un mot partout : pendant que le tunnel se construit, la piste de l'interrupteur porte « Connexion… », la marque du bouton se fond entre ses états, et la piste respire au rythme de la connexion — rien ne disparaît sous le doigt.",
-  "wn49Sooner": "« Connecté » arrive plus tôt : le verdict du tunnel s'installe dès qu'il passe, et le lieu de sortie — le pays et l'adresse — voyage derrière lui.",
+  "wn49Sooner": "Le moteur de la connexion redevient celui de la version d'origine : le pool de relais, les routes alternatives et leur mémoire, et le garde des requêtes répétées portent le tunnel — il se lève plus tôt et tient.",
   "wn49Mark": "L'emplacement recommandé porte la vraie marque de Mozilla VPN, et les boutons de mise à jour portent le glyphe propre de la mise à jour.",
   "connectAtBootHint": "Se connecte tout seul au démarrage du téléphone, si l'autorisation VPN est déjà accordée.",
   "gamingProfileHint": "Affiche le délai et la qualité en direct de la connexion ; se combine au serveur mesuré le plus rapide.",

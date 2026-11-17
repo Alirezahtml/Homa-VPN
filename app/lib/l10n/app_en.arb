@@ -1185,16 +1185,11 @@
   "copiedToClipboard": "Copied to clipboard",
   "wnTotalsAdded": "The home shows what the session moved in total, and a tap copies the public IP.",
   "wnPolishImproved": "The flags' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.",
-  "smartNetwork": "Smart connection",
-  "smartNetworkHint": "MTU, protocol, and IP version follow this network, picked for speed.",
   "valueSmart": "Smart",
-  "mtuAutoValue": "Auto — follows the network",
   "wnSmartAdded": "Smart connection: MTU, protocol, and IP version follow the network, chosen by real answers for speed.",
   "wnToastAdded": "Confirmations arrive as a soft iOS-style note, with a mark that draws itself.",
   "wnFlagsImproved": "The flag wheel sits clean: no flag is cut at the screen's edge, flags show whole, and the choice lands with a soft spring.",
   "wnMapImproved": "The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.",
-  "smartWaiting": "Measuring…",
-  "smartFamilyRace": "Both race on the first connect",
   "dnsManual": "Manual DNS",
   "dnsManualHint": "One address per line: a plain IP, https:// (DNS over HTTPS), or tls://host (DNS over TLS). The first answer wins.",
   "dnsManualInvalid": "One line is not an address the core can use: a plain IP, https://…, or tls://host.",
@@ -1220,7 +1215,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Auto — the network carries {mtu}",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -1384,6 +1378,6 @@
   "wn48Wheel": "The flags' wheel dissolves a card before the screen's edge can cut it, the recommended place wears Mozilla's mark at a size that reads, and the flat map's south edge melts into the page instead of ending in a line.",
   "wn49States": "The two reference designs wear the details they were drawn with: the aether's card carries the session's own rates the way AetherST's does, its power button breathes the reference's glow and sinks under the finger, and the zed's blob turns itself between its shapes while its center's selves cross-fade.",
   "wn49Words": "Connecting has a word everywhere now: while the tunnel is being made, the switch's track carries Connecting…, the knob's mark fades between its selves, and the track breathes with the connection's own rhythm — nothing vanishes under the finger.",
-  "wn49Sooner": "Connected arrives sooner: the tunnel's own verdict settles the moment it passes, and the exit's place — the country and the address — travels after it.",
+  "wn49Sooner": "The connection's engine is the original's own again: the relay pool, the alternate routes and their cache, and the repeated-request guard carry the tunnel — it comes up sooner and holds.",
   "wn49Mark": "The recommended location wears Mozilla VPN's real mark, and the update's buttons wear the update's own glyph."
 }

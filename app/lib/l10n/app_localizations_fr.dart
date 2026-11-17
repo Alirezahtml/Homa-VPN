@@ -2081,17 +2081,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'La roue des drapeaux et la page des serveurs sont plus nettes ; les textes sont compacts et le tunnel Android transporte le trafic plus vite.';
 
   @override
-  String get smartNetwork => 'Connexion intelligente';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protocole et version IP suivent ce réseau, pour la vitesse.';
-
-  @override
   String get valueSmart => 'Intelligent';
-
-  @override
-  String get mtuAutoValue => 'Automatique — selon le réseau';
 
   @override
   String get wnSmartAdded =>
@@ -2108,13 +2098,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'La carte du monde est dessinée plus grande et plus nette : pas de continents tassés, des côtes lisses et un halo lumineux à l\'ancre.';
-
-  @override
-  String get smartWaiting => 'Mesure en cours…';
-
-  @override
-  String get smartFamilyRace =>
-      'Les deux font la course à la première connexion';
 
   @override
   String get dnsManual => 'DNS manuel';
@@ -2183,11 +2166,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Choisies : $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Automatique — le réseau porte $mtu';
   }
 
   @override
@@ -2733,7 +2711,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '« Connecté » arrive plus tôt : le verdict du tunnel s\'installe dès qu\'il passe, et le lieu de sortie — le pays et l\'adresse — voyage derrière lui.';
+      'Le moteur de la connexion redevient celui de la version d\'origine : le pool de relais, les routes alternatives et leur mémoire, et le garde des requêtes répétées portent le tunnel — il se lève plus tôt et tient.';
 
   @override
   String get wn49Mark =>

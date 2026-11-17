@@ -149,7 +149,7 @@ abstract final class CoreLocator {
     };
   }
 
-  static Future<CoreEndpoint> locate(String dataDir) async {
+  static Future<CoreEndpoint> locate(String dataDir, {String? listen}) async {
     final sep = Platform.pathSeparator;
     final tokenPath = File('$dataDir$sep$tokenFile');
     String token;
@@ -161,8 +161,10 @@ abstract final class CoreLocator {
     if (token.isEmpty) {
       throw CoreUnavailable(CoreProblem.notAnswering, tokenPath.path);
     }
-    final listen = await dashboardListen(dataDir);
-    return CoreEndpoint(listenUri(listen), token);
+    return CoreEndpoint(
+      listenUri(listen ?? await dashboardListen(dataDir)),
+      token,
+    );
   }
 
   /// The loopback URL that reaches a listen address; a wildcard host
@@ -403,12 +405,79 @@ class CoreApi {
   Future<LocationList> refreshLocations() async =>
       LocationList.fromJson(await _json('POST', '/api/locations/refresh'));
 
+  /// Measures what the tunnel carries right now: a download and an upload
+  /// from speed.cloudflare.com through the tunnel's own path (the proxy
+  /// off, the raw network itself). [onProgress], when given, gets a live
+  /// tick every quarter second and the transfers stream.
+  Future<SpeedTestResult> testSpeed({
+    void Function(SpeedTestProgress progress)? onProgress,
+    int downBytes = 0,
+    int upBytes = 0,
+  }) async {
+    final client = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 3)
+      ..findProxy = (_) => 'DIRECT';
+    try {
+      final req = await client
+          .postUrl(endpoint.baseUri.replace(path: '/api/speedtest'))
+          .timeout(_normal);
+      req.headers.set('X-Local-Token', endpoint.token);
+      req.headers.contentType = ContentType.json;
+      req.write(jsonEncode(<String, Object?>{
+        'down_bytes': downBytes,
+        'up_bytes': upBytes,
+        'stream': onProgress != null,
+      }));
+      final res = await req.close().timeout(_slow);
+      if (res.statusCode != 200) {
+        throw CoreApiException(
+          res.statusCode,
+          'Speed test API returned HTTP ${res.statusCode}.',
+        );
+      }
+      SpeedTestResult? result;
+      if (onProgress == null) {
+        final body = await res.transform(utf8.decoder).join().timeout(_slow);
+        final decoded = jsonDecode(body);
+        if (decoded is Map<String, Object?>) {
+          result = SpeedTestResult.fromJson(decoded);
+        }
+      } else {
+        await for (final line
+            in res
+                .transform(utf8.decoder)
+                .transform(const LineSplitter())
+                .timeout(const Duration(seconds: 45))) {
+          final event = jsonDecode(line);
+          if (event is! Map<String, Object?>) continue;
+          if (event['progress'] is Map<String, Object?>) {
+            onProgress(
+              SpeedTestProgress.fromJson(event['progress'] as Map<String, Object?>),
+            );
+          } else if (event['result'] is Map<String, Object?>) {
+            result = SpeedTestResult.fromJson(event['result'] as Map<String, Object?>);
+          }
+        }
+      }
+      return result ?? const SpeedTestResult.empty();
+    } finally {
+      client.close(force: true);
+    }
+  }
+
   /// Tests the real delay of [codes] (all when empty) through the tunnel;
   /// the proxy must run (409 otherwise). It can take two minutes.
-  Future<LocationList> pingLocations(List<String> codes) async =>
-      LocationList.fromJson(
-        await _json('POST', '/api/locations/ping', {'codes': codes}, _slowest),
-      );
+  /// [fresh] measures every location: a person pressed the button. Without
+  /// it the core keeps the last figure of a location that was slow lately.
+  Future<LocationList> pingLocations(
+    List<String> codes, {
+    bool fresh = false,
+  }) async => LocationList.fromJson(
+    await _json('POST', '/api/locations/ping', {
+      'codes': codes,
+      'fresh': fresh,
+    }, _slowest),
+  );
 
   /// Chooses the location: a country code, `fastest`, or empty for the
   /// recommended one. The proxy restarts.
@@ -528,66 +597,6 @@ class CoreApi {
       },
     );
     return events.stream;
-  }
-
-  /// Measures what the tunnel carries right now: a download and an upload
-  /// from speed.cloudflare.com through the tunnel's own path (the proxy
-  /// off, the raw network itself). [onProgress], when given, gets a live
-  /// tick every quarter second and the transfers stream.
-  Future<SpeedTestResult> testSpeed({
-    void Function(SpeedTestProgress progress)? onProgress,
-    int downBytes = 0,
-    int upBytes = 0,
-  }) async {
-    final client = HttpClient()
-      ..connectionTimeout = const Duration(seconds: 3)
-      ..findProxy = (_) => 'DIRECT';
-    try {
-      final req = await client
-          .postUrl(endpoint.baseUri.replace(path: '/api/speedtest'))
-          .timeout(_normal);
-      req.headers.set('X-Local-Token', endpoint.token);
-      req.headers.contentType = ContentType.json;
-      req.write(jsonEncode(<String, Object?>{
-        'down_bytes': downBytes,
-        'up_bytes': upBytes,
-        'stream': onProgress != null,
-      }));
-      final res = await req.close().timeout(_slow);
-      if (res.statusCode != 200) {
-        throw CoreApiException(
-          res.statusCode,
-          'Speed test API returned HTTP ${res.statusCode}.',
-        );
-      }
-      SpeedTestResult? result;
-      if (onProgress == null) {
-        final body = await res.transform(utf8.decoder).join().timeout(_slow);
-        final decoded = jsonDecode(body);
-        if (decoded is Map<String, Object?>) {
-          result = SpeedTestResult.fromJson(decoded);
-        }
-      } else {
-        await for (final line
-            in res
-                .transform(utf8.decoder)
-                .transform(const LineSplitter())
-                .timeout(const Duration(seconds: 45))) {
-          final event = jsonDecode(line);
-          if (event is! Map<String, Object?>) continue;
-          if (event['progress'] is Map<String, Object?>) {
-            onProgress(
-              SpeedTestProgress.fromJson(event['progress'] as Map<String, Object?>),
-            );
-          } else if (event['result'] is Map<String, Object?>) {
-            result = SpeedTestResult.fromJson(event['result'] as Map<String, Object?>);
-          }
-        }
-      }
-      return result ?? const SpeedTestResult.empty();
-    } finally {
-      client.close(force: true);
-    }
   }
 
   /// The backup file: the data folder (accounts and settings) as a zip,

@@ -3,7 +3,7 @@ package proxy
 import "time"
 
 const (
-	defaultUpstreamConnections = 2
+	defaultUpstreamConnections = 1
 
 	// APIRequestTimeout bounds a single control plane API call (FxA,
 	// Guardian, Remote Settings); the shared client adds its own safety

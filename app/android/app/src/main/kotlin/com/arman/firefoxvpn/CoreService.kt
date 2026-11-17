@@ -170,7 +170,7 @@ class CoreService : VpnService() {
                     Log.w(TAG, "posting the notification failed", e)
                 }
             }
-            if (on && usesVpn(this@CoreService) && appMode(this@CoreService) == MODE_EXCLUDE) {
+            if (on && usesVpn(this@CoreService) && routingEnabled(this@CoreService) && appMode(this@CoreService) == MODE_EXCLUDE) {
                 checkSuggested()
             }
             // The speed changes all the time: shown, it is read more often.
@@ -354,12 +354,8 @@ class CoreService : VpnService() {
             return false
         }
         return try {
-            // The MTU the VPN interface carries: the user's own tun.mtu
-            // when one is set, else the network's own (smart), else the
-            // app's batching size.
-            val smart = mobile.Mobile.tunSmartMTU()
-            val mtu = mobile.Mobile.tunMTU().takeIf { it > 0 && !smart }
-                ?: (if (smart) smartMtu() else MTU)
+            // tun.mtu when the user set one, else the app's own.
+            val mtu = mobile.Mobile.tunMTU().takeIf { it > 0 } ?: MTU
             val config = mobile.Mobile.tunConfig(mtu)
             val builder = Builder()
                 .setSession(getString(R.string.app_name))
@@ -393,6 +389,10 @@ class CoreService : VpnService() {
      * (Bypass selected apps). Apps no longer installed are skipped.
      */
     private fun applyApps(builder: Builder) {
+        if (!routingEnabled(this)) {
+            builder.addDisallowedApplication(packageName)
+            return
+        }
         fun each(packages: Set<String>, add: (String) -> Unit) {
             for (pkg in packages) {
                 try {
@@ -417,21 +417,6 @@ class CoreService : VpnService() {
         builder.addDisallowedApplication(packageName)
         each(appSet(this, BYPASS) - packageName) { builder.addDisallowedApplication(it) }
     }
-
-    /**
-     * The smart MTU: the interface follows the network it rides on
-     * (LinkProperties' own MTU of the active connection — a phone's
-     * radio, a hotspot, a VPN inside this one). Where the network can
-     * carry a whole datagram at the batching size — its MTU is 1400
-     * or more, every phone network is — the batching size stands: the
-     * download still moves with a fraction of the per-packet work.
-     * Where it cannot (a network inside a network), the interface
-     * takes the network's own plus room for the tunnel's headers, so
-     * a datagram goes out whole instead of being split on the way.
-     * Unknown: the batching size, as before.
-     */
-    private fun smartMtu(): Int = smartMtuValue(this)
-
 
     /** When the VPN interface last came up. */
     @Volatile
@@ -782,6 +767,24 @@ class CoreService : VpnService() {
 
         fun appSet(context: Context, key: String): Set<String> = prefs(context).getStringSet(key, emptySet()) ?: emptySet()
 
+        const val ROUTING_ENABLED = "routing_enabled"
+
+        fun routingEnabled(context: Context): Boolean {
+            val p = prefs(context)
+            if (p.contains(ROUTING_ENABLED)) {
+                return p.getBoolean(ROUTING_ENABLED, false)
+            }
+            return p.getString(MODE, MODE_EXCLUDE) == MODE_INCLUDE ||
+                    (p.getStringSet(BYPASS, emptySet())?.isNotEmpty() == true)
+        }
+
+        fun setRoutingEnabled(context: Context, on: Boolean) {
+            val p = prefs(context)
+            if (p.contains(ROUTING_ENABLED) && p.getBoolean(ROUTING_ENABLED, false) == on) return
+            p.edit().putBoolean(ROUTING_ENABLED, on).apply()
+            reconnect(context)
+        }
+
         /** Keeps the app choice: the mode and the sets. */
         fun setAppRouting(context: Context, mode: String, sets: Map<String, Set<String>>) {
             val edit = prefs(context).edit().putString(MODE, mode)
@@ -860,27 +863,6 @@ class CoreService : VpnService() {
          */
         private const val MTU = 8500
 
-        /**
-         * The smart sizing's own answer for the network under [context]:
-         * the number the tunnel's interface would take (the network's
-         * own MTU plus room for the tunnel's headers, when the network
-         * cannot carry a whole datagram at the batching size). The
-         * settings' smart-MTU row reads this same number — nothing is
-         * invented for the view.
-         */
-        fun smartMtuValue(context: Context): Int {
-            val base = try {
-                val cm =
-                    context.getSystemService(ConnectivityManager::class.java)
-                val net = cm.activeNetwork ?: return MTU
-                cm.getLinkProperties(net)?.mtu ?: 0
-            } catch (_: Throwable) {
-                0
-            }
-            if (base <= 0 || base >= 1400) return MTU
-            return (base + 64).coerceIn(1280, MTU)
-        }
-
         /** The core was last told that no network is connected. */
         @Volatile
         private var reportedDown = false
@@ -943,8 +925,8 @@ class CoreService : VpnService() {
 
         /** Starts the core, with the proxy [on] or off, if it does not run. */
         @Synchronized
-        fun startCore(context: Context, on: Boolean) {
-            if (mobile.Mobile.running()) return
+        fun startCore(context: Context, on: Boolean): String? {
+            if (mobile.Mobile.running()) return null
             if ((context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
                 importFromComputer(context)
             } else {
@@ -952,10 +934,12 @@ class CoreService : VpnService() {
                 // a release build never takes data from there.
                 File(context.getExternalFilesDir(null), "import").takeIf { it.exists() }?.deleteRecursively()
             }
-            try {
+            return try {
                 mobile.Mobile.start(dataDir(context).absolutePath, on)
+                null
             } catch (e: Exception) {
                 Log.e(TAG, "the core did not start", e)
+                e.message ?: e.javaClass.simpleName
             }
         }
 

@@ -586,16 +586,11 @@
   "copiedToClipboard": "Copiado para a área de transferência",
   "wnTotalsAdded": "A página inicial mostra o total que a sessão moveu, e um toque copia o IP público.",
   "wnPolishImproved": "A roda de bandeiras e a página de servidores ficaram mais arrumadas; os textos são compactos e o túnel Android leva o tráfego mais rápido.",
-  "smartNetwork": "Conexão inteligente",
-  "smartNetworkHint": "MTU, protocolo e versão de IP seguem esta rede, em busca de velocidade.",
   "valueSmart": "Inteligente",
-  "mtuAutoValue": "Automático — conforme a rede",
   "wnSmartAdded": "Conexão inteligente: MTU, protocolo e versão de IP seguem a rede, escolhidos por respostas reais e para a velocidade.",
   "wnToastAdded": "As confirmações chegam como uma nota suave ao estilo iOS, com uma marca que se desenha sozinha.",
   "wnFlagsImproved": "A roda de bandeiras fica limpa: nenhuma bandeira é cortada na borda da tela, elas aparecem inteiras e a escolha pousa com uma mola suave.",
   "wnMapImproved": "O mapa-múndi é desenhado maior e mais claro: sem continentes espremidos, litorais suaves e um halo brilhante na âncora.",
-  "smartWaiting": "Medindo…",
-  "smartFamilyRace": "Ambos correm na primeira conexão",
   "dnsManual": "DNS manual",
   "dnsManualHint": "Um endereço por linha: IP simples, https:// (DNS sobre HTTPS) ou tls://host (DNS sobre TLS). A primeira resposta vence.",
   "dnsManualInvalid": "Uma linha não é um endereço que o núcleo possa usar: IP simples, https://… ou tls://host.",
@@ -621,7 +616,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "Automático — a rede leva {mtu}",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -785,7 +779,7 @@
   "wn48Wheel": "A roda de bandeiras dissolve um cartão antes que a borda do ecrã o corte, o local recomendado veste a marca da Mozilla num tamanho legível e a borda sul do mapa plano derrete-se na página em vez de acabar numa linha.",
   "wn49States": "Os dois designs de referência vestem os detalhes com que foram desenhados: o cartão do aether carrega as taxas da sessão como o de AetherST, o botão de energia respira com o brilho da referência e afunda sob o dedo, e a gota do zed se transforma entre suas formas enquanto o centro troca de si com um fade.",
   "wn49Words": "«A ligar» tem palavra em todo o lado agora: enquanto o túnel se constrói, o trilho do interruptor carrega «A ligar…», a marca do botão esvaece entre os seus estados, e o trilho respira ao ritmo próprio da ligação — nada desaparece sob o dedo.",
-  "wn49Sooner": "«Ligado» chega mais cedo: o veredicto do próprio túnel assenta no momento em que passa, e o lugar de saída — o país e o endereço — viaja atrás dele.",
+  "wn49Sooner": "O motor da ligação volta a ser o da versão original: o conjunto de retransmissões, as rotas alternativas e a memória delas, e o guarda dos pedidos repetidos levam o túnel — levanta-se mais cedo e aguenta.",
   "wn49Mark": "A localização recomendada veste a marca verdadeira da Mozilla VPN, e os botões de atualização vestem o glifo próprio da atualização.",
   "connectAtBootHint": "Liga-se sozinho ao ligar o telefone, se a permissão de VPN já foi concedida.",
   "gamingProfileHint": "Mostra o atraso e a qualidade em vivo da conexão; combina com o servidor medido mais rápido.",

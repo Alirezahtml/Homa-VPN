@@ -598,16 +598,11 @@
   "copiedToClipboard": "已複製到剪貼簿",
   "wnTotalsAdded": "主頁顯示本次工作階段的總流量，輕點即可複製公共 IP。",
   "wnPolishImproved": "旗幟轉輪和伺服器頁面更整潔；文字更緊湊，Android 隧道以更高的速度傳輸流量。",
-  "smartNetwork": "智慧連線",
-  "smartNetworkHint": "MTU、通訊協定與 IP 版本依目前網路自動選擇，以速度為先。",
   "valueSmart": "智慧",
-  "mtuAutoValue": "自動 — 隨網路調整",
   "wnSmartAdded": "智慧連線：MTU、通訊協定與 IP 版本跟隨網路，按真實回應選擇，以速度為先。",
   "wnToastAdded": "確認提示現在以 iOS 風格輕柔呈現，圖示會自己畫出。",
   "wnFlagsImproved": "旗幟轉輪乾淨俐落：邊緣不再切半面旗，旗幟完整呈現，選擇輕輕彈落。",
   "wnMapImproved": "世界地圖更大更清晰：不再壓縮大陸，海岸線平滑，落點處有光暈。",
-  "smartWaiting": "正在測量……",
-  "smartFamilyRace": "首次連線時兩族同時競速",
   "dnsManual": "手動 DNS",
   "dnsManualHint": "每行一個位址：普通 IP、https://（DNS over HTTPS）或 tls://host（DNS over TLS）。以最先應答者為準。",
   "dnsManualInvalid": "有一行不是核心可用的位址：普通 IP、https://… 或 tls://host。",
@@ -633,7 +628,6 @@
       }
     }
   },
-  "mtuAutoMeasured": "自動 — 網路承載 {mtu}",
   "@mtuAutoMeasured": {
     "placeholders": {
       "mtu": {
@@ -797,6 +791,6 @@
   "wn48Wheel": "旗幟轉輪會在螢幕邊緣切到卡片之前把它淡出，推薦地點以看得清的尺寸戴上 Mozilla 徽標，平面地圖的南緣融進頁面，不再以一條直線收尾。",
   "wn49States": "兩個參考設計穿上了它們被畫下的細節：aether 的卡片像 AetherST 一樣顯示本次工作階段的速率，電源鍵隨參考的光暈呼吸並在指尖下沉，zed 的氣泡在自身的形狀之間變形，中央的內容交叉淡入淡出地換場。",
   "wn49Words": "「正在連線」現在處處有詞：通道搭建期間，開關的滑軌帶著「正在連線…」字樣，旋鈕的圖示在各個形態間淡入淡出，滑軌隨連線自身的節奏呼吸——指尖之下再沒有什麼會突然消失。",
-  "wn49Sooner": "「已連線」來得更早：通道自己的判定一通過便落定，出口的位置——國家與位址——隨後抵達。",
+  "wn49Sooner": "連線的引擎重新回到原版：中繼池、備用路線和它們的記憶，以及重複請求的守衛扛著通道——起來得更早，也站得更穩。",
   "wn49Mark": "建議位置換上了 Mozilla VPN 真正的標誌，更新按鈕也換上了更新自己的圖示。"
 }

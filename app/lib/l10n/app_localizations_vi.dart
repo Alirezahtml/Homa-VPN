@@ -2059,17 +2059,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bánh xe cờ và trang máy chủ gọn gàng hơn; chữ ngắn gọn, và đường hầm Android truyền lưu lượng nhanh hơn.';
 
   @override
-  String get smartNetwork => 'Kết nối thông minh';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, giao thức và phiên bản IP theo mạng này, hướng tới tốc độ.';
-
-  @override
   String get valueSmart => 'Thông minh';
-
-  @override
-  String get mtuAutoValue => 'Tự động — theo mạng';
 
   @override
   String get wnSmartAdded =>
@@ -2086,12 +2076,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'Bản đồ thế giới được vẽ lớn và rõ hơn: không còn lục địa bị nén, bờ biển mượt, và quầng sáng tại điểm neo.';
-
-  @override
-  String get smartWaiting => 'Đang đo…';
-
-  @override
-  String get smartFamilyRace => 'Cả hai đua ở lần kết nối đầu';
 
   @override
   String get dnsManual => 'DNS thủ công';
@@ -2161,11 +2145,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Đã chọn: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Tự động — mạng mang $mtu';
   }
 
   @override
@@ -2706,7 +2685,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '“Đã kết nối” đến sớm hơn: phán quyết của chính đường hầm nằm xuống ngay khi nó qua, còn nơi ra — quốc gia và địa chỉ — đi theo sau.';
+      'Động cơ kết nối trở lại là của bản gốc: bể chuyển tiếp, các tuyến thay thế và bộ nhớ của chúng, và người gác yêu cầu lặp lại mang đường hầm — dựng lên sớm hơn và giữ vững.';
 
   @override
   String get wn49Mark =>

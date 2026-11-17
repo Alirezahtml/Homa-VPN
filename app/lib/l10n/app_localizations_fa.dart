@@ -2046,17 +2046,7 @@ class AppLocalizationsFa extends AppLocalizations {
       'چرخ پرچم‌ها و صفحهٔ سرورها مرتب‌تر نشسته‌اند؛ متن‌ها فشرده‌ترند و تونل اندروید با سرعت بیشتری ترافیک را می‌برد.';
 
   @override
-  String get smartNetwork => 'اتصال هوشمند';
-
-  @override
-  String get smartNetworkHint =>
-      'اندازهٔ MTU، پروتکل و نسخهٔ IP بر اساس همین شبکه و برای سرعت انتخاب می‌شوند.';
-
-  @override
   String get valueSmart => 'هوشمند';
-
-  @override
-  String get mtuAutoValue => 'خودکار — بر اساس شبکه';
 
   @override
   String get wnSmartAdded =>
@@ -2073,12 +2063,6 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'نقشهٔ جهان بزرگ‌تر و واضح‌تر کشیده می‌شود: بدون قاره‌های فشرده، با ساحل‌های صاف و هالهٔ درخشان روی مقصد.';
-
-  @override
-  String get smartWaiting => 'در حال سنجش…';
-
-  @override
-  String get smartFamilyRace => 'در نخستین اتصال هر دو با هم می‌تازند';
 
   @override
   String get dnsManual => 'DNS دستی';
@@ -2147,11 +2131,6 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'انتخاب‌شده: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'خودکار — شبکه $mtu می‌رساند';
   }
 
   @override
@@ -2692,7 +2671,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«وصل شد» زودتر می‌رسد: حکم خودِ تونل همان دم که می‌گذارد می‌نشیند و جای خروجی — کشور و نشانی — پس از آن می‌رسد.';
+      'موتور اتصال دوباره مالِ خودِ نسخه اصلی است: استخر رله، مسیرهای جایگزین و حافظه‌شان، و نگهبان درخواست‌های تکراری تونل را می‌برند — زودتر بالا می‌آید و استوار می‌ماند.';
 
   @override
   String get wn49Mark =>

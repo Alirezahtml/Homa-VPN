@@ -183,6 +183,31 @@ func TestCheckWritableCreatesFolder(t *testing.T) {
 	}
 }
 
+// A config saved by a former build that offered the "smart" connection
+// (proxy.transport and proxy.ip_version "smart", tun.smart_mtu) loads on
+// the plain transports instead of failing validation, and the file is
+// rewritten without the removed fields.
+func TestLoadLandsASmartConfigOnThePlainTransports(t *testing.T) {
+	path := filepath.Join(t.TempDir(), FileName)
+	if err := os.WriteFile(path, []byte(`{"proxy":{"transport":"smart","ip_version":"smart"},"tun":{"smart_mtu":true}}`), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	cfg, _, err := Load(path)
+	if err != nil {
+		t.Fatalf("a smart config must load: %v", err)
+	}
+	if cfg.Proxy.Transport != "h2" {
+		t.Fatalf("the smart transport lands on h2, got %q", cfg.Proxy.Transport)
+	}
+	if cfg.Proxy.IPVersion != "auto" {
+		t.Fatalf("the smart IP version lands on auto, got %q", cfg.Proxy.IPVersion)
+	}
+	data, _ := os.ReadFile(path)
+	if strings.Contains(string(data), "smart") {
+		t.Fatalf("the file must be rewritten without the smart fields: %s", data)
+	}
+}
+
 func TestLoadDropsRemovedSettingsAndNormalizesRecommended(t *testing.T) {
 	path := filepath.Join(t.TempDir(), FileName)
 	if err := os.WriteFile(path, []byte(`{"proxy":{"country":"REC","firefox_version":"150.0"}}`), 0o600); err != nil {
@@ -552,20 +577,5 @@ func TestIPVersionDefaultsToAuto(t *testing.T) {
 		if err := cfg.Validate(); err != nil {
 			t.Errorf("%q refused: %v", v, err)
 		}
-	}
-}
-
-// The smart choices validate: one value for the transport and one for
-// the IP version that mean "measure and remember", not a fixed one.
-func TestValidateAcceptsSmart(t *testing.T) {
-	cfg := Default()
-	cfg.Proxy.Transport = "smart"
-	cfg.Proxy.IPVersion = "smart"
-	cfg.Tun.SmartMTU = true
-	if err := cfg.Validate(); err != nil {
-		t.Fatalf("smart choices refused: %v", err)
-	}
-	if cfg.Tun.MTU != 0 {
-		t.Fatalf("a config with smart MTU need not carry tun.mtu, got %d", cfg.Tun.MTU)
 	}
 }

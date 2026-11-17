@@ -2068,17 +2068,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The flags\' wheel and the servers page sit tidier; texts are compact, and the Android tunnel carries the traffic at a higher speed.';
 
   @override
-  String get smartNetwork => 'Smart connection';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protocol, and IP version follow this network, picked for speed.';
-
-  @override
   String get valueSmart => 'Smart';
-
-  @override
-  String get mtuAutoValue => 'Auto — follows the network';
 
   @override
   String get wnSmartAdded =>
@@ -2095,12 +2085,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'The world map is drawn larger and clearer: no squeezed continents, smooth coastlines, and a glowing halo at the anchor.';
-
-  @override
-  String get smartWaiting => 'Measuring…';
-
-  @override
-  String get smartFamilyRace => 'Both race on the first connect';
 
   @override
   String get dnsManual => 'Manual DNS';
@@ -2169,11 +2153,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Chosen: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Auto — the network carries $mtu';
   }
 
   @override
@@ -2714,7 +2693,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      'Connected arrives sooner: the tunnel\'s own verdict settles the moment it passes, and the exit\'s place — the country and the address — travels after it.';
+      'The connection\'s engine is the original\'s own again: the relay pool, the alternate routes and their cache, and the repeated-request guard carry the tunnel — it comes up sooner and holds.';
 
   @override
   String get wn49Mark =>

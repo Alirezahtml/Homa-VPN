@@ -2078,17 +2078,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'La rueda de banderas y la página de servidores se ven más ordenadas; los textos son compactos y el túnel de Android lleva el tráfico a mayor velocidad.';
 
   @override
-  String get smartNetwork => 'Conexión inteligente';
-
-  @override
-  String get smartNetworkHint =>
-      'MTU, protocolo y versión de IP se adaptan a esta red, buscando velocidad.';
-
-  @override
   String get valueSmart => 'Inteligente';
-
-  @override
-  String get mtuAutoValue => 'Automático — según la red';
 
   @override
   String get wnSmartAdded =>
@@ -2105,12 +2095,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wnMapImproved =>
       'El mapa del mundo se dibuja más grande y claro: sin continentes apretados, costas suaves y un halo brillante en el punto.';
-
-  @override
-  String get smartWaiting => 'Midiendo…';
-
-  @override
-  String get smartFamilyRace => 'Ambos compiten en la primera conexión';
 
   @override
   String get dnsManual => 'DNS manual';
@@ -2180,11 +2164,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String bypassAppsCount(String n) {
     return 'Elegidas: $n';
-  }
-
-  @override
-  String mtuAutoMeasured(int mtu) {
-    return 'Automático — la red lleva $mtu';
   }
 
   @override
@@ -2728,7 +2707,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wn49Sooner =>
-      '«Conectado» llega antes: el veredicto del propio túnel se asienta en el momento en que pasa, y el lugar de salida — el país y la dirección — llega detrás.';
+      'El motor de la conexión vuelve a ser el de la versión original: el grupo de relés, las rutas alternativas y su memoria, y el guardián de las peticiones repetidas llevan el túnel — se levanta antes y se mantiene.';
 
   @override
   String get wn49Mark =>
