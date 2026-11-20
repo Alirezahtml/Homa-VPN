@@ -36,6 +36,8 @@ abstract final class AppDesign {
     'aether' => DesignTheme.aether,
     'zed' => DesignTheme.zed,
     'gazette' => DesignTheme.gazette,
+    'pixel' => DesignTheme.pixel,
+    'ios' => DesignTheme.ios,
     _ => DesignTheme.mono,
   };
 
@@ -184,6 +186,86 @@ class DesignTheme {
       homeBottom: Color(0xFF070410),
       homeCard: Color(0xFF150E24),
       homeCardBorder: Color(0xFF271C3D),
+    ),
+  );
+
+  /// The pixel: Material You's own look — the tonal surfaces (the tinted
+  /// neutrals, never pure gray), the big filled shapes with no outline,
+  /// the Google blue's light. The day is the porcelain with the cool
+  /// tint; the night is the deep blue-black the tonal palettes carry.
+  static const pixel = DesignTheme._(
+    key: 'pixel',
+    day: DesignLook(
+      scaffold: Color(0xFFF8F9FC),
+      scaffoldBottom: Color(0xFFF1F3F8),
+      surface: Color(0xFFFFFFFF),
+      surfaceHigh: Color(0xFFF4F6FA),
+      containerHighest: Color(0xFFEDF0F6),
+      ink: Color(0xFF191C20),
+      muted: Color(0xFF5D6470),
+      outline: Color(0xFFDBE0E8),
+      accent: Color(0xFF0B57D0),
+      cardShadow: [],
+      homeTop: Color(0xFFF8F9FC),
+      homeBottom: Color(0xFFF1F3F8),
+      homeCard: Color(0xFFFFFFFF),
+      homeCardBorder: Color(0xFFDBE0E8),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF0F1419),
+      scaffoldBottom: Color(0xFF0A0E12),
+      surface: Color(0xFF171C22),
+      surfaceHigh: Color(0xFF1E242B),
+      containerHighest: Color(0xFF1A2027),
+      ink: Color(0xFFE1E6EC),
+      muted: Color(0xFF96A0AC),
+      outline: Color(0xFF2A313A),
+      accent: Color(0xFFA8C7FA),
+      cardShadow: [],
+      homeTop: Color(0xFF0F1419),
+      homeBottom: Color(0xFF0A0E12),
+      homeCard: Color(0xFF171C22),
+      homeCardBorder: Color(0xFF2A313A),
+    ),
+  );
+
+  /// The ios: the system's own look — the grouped porcelain (the page
+  /// sits back, the cards stand forward), the true black under the raised
+  /// gray cards, and the system blue's light. The shapes are the grouped
+  /// tables and the tab bar's; the voice is SF's own clarity.
+  static const ios = DesignTheme._(
+    key: 'ios',
+    day: DesignLook(
+      scaffold: Color(0xFFF2F2F7),
+      scaffoldBottom: Color(0xFFE9E9EE),
+      surface: Color(0xFFFFFFFF),
+      surfaceHigh: Color(0xFFF7F7FA),
+      containerHighest: Color(0xFFEFEFF4),
+      ink: Color(0xFF1C1C1E),
+      muted: Color(0xFF6C6C70),
+      outline: Color(0xFFD8D8DC),
+      accent: Color(0xFF007AFF),
+      cardShadow: [],
+      homeTop: Color(0xFFF2F2F7),
+      homeBottom: Color(0xFFE9E9EE),
+      homeCard: Color(0xFFFFFFFF),
+      homeCardBorder: Color(0xFFD8D8DC),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF000000),
+      scaffoldBottom: Color(0xFF000000),
+      surface: Color(0xFF1C1C1E),
+      surfaceHigh: Color(0xFF2C2C2E),
+      containerHighest: Color(0xFF242426),
+      ink: Color(0xFFF2F2F7),
+      muted: Color(0xFF98989F),
+      outline: Color(0xFF38383D),
+      accent: Color(0xFF0A84FF),
+      cardShadow: [],
+      homeTop: Color(0xFF000000),
+      homeBottom: Color(0xFF000000),
+      homeCard: Color(0xFF1C1C1E),
+      homeCardBorder: Color(0xFF38383D),
     ),
   );
 

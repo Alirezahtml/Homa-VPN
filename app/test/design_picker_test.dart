@@ -42,7 +42,7 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['Aether', 'Zed', 'Gazette']) {
+    for (final name in ['iOS', 'Pixel', 'Aether', 'Zed', 'Gazette']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
@@ -70,10 +70,12 @@ void main() {
     expect(AppDesign.resolve('neon').key, 'mono');
     expect(AppDesign.resolve('dusk').key, 'mono');
     expect(AppDesign.resolve('sage').key, 'mono');
-    // The three older homes keep the monochrome.
+    // The three older homes keep the monochrome; the pixel and the ios
+    // carry their own looks now.
     expect(AppDesign.resolve('wheel').key, 'mono');
     expect(AppDesign.resolve('bento').key, 'mono');
-    expect(AppDesign.resolve('pixel').key, 'mono');
+    expect(AppDesign.resolve('pixel').key, 'pixel');
+    expect(AppDesign.resolve('ios').key, 'ios');
     expect(AppDesign.resolve('whatever-else').key, 'mono');
 
     // The design's own light stands in when no accent is picked.

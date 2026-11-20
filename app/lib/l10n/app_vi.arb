@@ -570,8 +570,8 @@
   "designWheelDesc": "Lá cờ trên vòng kính, công tắc bên dưới",
   "designBento": "Ô lát",
   "designBentoDesc": "Bảng ô bo tròn: kết nối, số liệu, địa điểm",
-  "designPixel": "Gọn",
-  "designPixelDesc": "Một thẻ yên tĩnh: địa điểm, công tắc, số liệu",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn — giọng riêng của Android",
   "notifFlag": "Cờ nước trong thông báo",
   "notifFlagHint": "Cờ của chính nước đó bên cạnh tên",
   "wnDesignAdded": "Cài đặt thiết kế trang chính: vòng xoay, ô lát hay thẻ gọn",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Bản tin an ninh",
   "gazetteLiveWire": "Tin trực tiếp",
   "wn56Speed": "Bài kiểm tra tốc độ sống lại: mỗi chiều đo trên kết nối riêng và nói HTTP/1.1 thuần, việc tải lên không còn chết khi cửa sổ tải xuống đóng — bảng thêm độ trễ đường đi, độ rung và cỡ để chọn.",
-  "wn56Gazette": "Diện mạo trang chủ mới: tờ báo — trang nhất với đề mục, các cột kẻ dòng, băng tin trực tiếp và con dấu mực đóng xuống khi đường hầm chạy."
+  "wn56Gazette": "Diện mạo trang chủ mới: tờ báo — trang nhất với đề mục, các cột kẻ dòng, băng tin trực tiếp và con dấu mực đóng xuống khi đường hầm chạy.",
+  "designIos": "iOS",
+  "designIosDesc": "Giọng của hệ thống: bảng nhóm, đường kẻ mảnh của thanh tab, thẻ trạng thái và nút viên nang — sáng rõ theo giọng hệ thống",
+  "gazetteSection": "MỤC",
+  "wn58Lock": "Ổ khóa trên nút giữ màu khi đường hầm chạy: dấu giờ đọc bề mặt mình đứng — đậm trên nút sáng, trắng trên nền đậm — biểu tượng không còn bị nhòa.",
+  "wn58Enter": "Mục đã kết nối thở vào: các số mờ dần nâng lên khi không gian bên dưới mở ra, và ra đi cũng vậy — thẻ không còn bật lên giữa hai khung hình.",
+  "wn58Speed": "Bài kiểm tra tốc độ chạy nhẹ hơn: bảng vẽ lại tối đa mười lần mỗi giây, kim quét đi trong đường thẳng ngắn, và các mặt chuyển mờ dần thay vì bật nhảy.",
+  "wn58Ios": "Thiết kế mới: iOS — giọng của chính hệ thống, từ bảng nhóm và đường kẻ mảnh thanh tab đến thẻ trạng thái với nút viên nang. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng hệ thống, ở cả hai chế độ.",
+  "wn58Pixel": "Thiết kế mới: Pixel — giọng Material You, bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng riêng của Android, ở cả hai chế độ.",
+  "wn58Paper": "Tờ báo giờ là cả một tờ báo: thanh mục riêng với dấu in và gạch chân, đề mục cho từng trang mở riêng, và hộp giấy kẻ dòng cho từng nhóm cài đặt — đường in đã chạm tới toàn bộ ứng dụng."
 }

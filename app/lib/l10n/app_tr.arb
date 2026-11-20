@@ -582,8 +582,8 @@
   "designWheelDesc": "Bayraklar cam çarkında, anahtar altında",
   "designBento": "Mozaik",
   "designBentoDesc": "Yuvarlak mozaik levha: bağlantı, sayılar, konum",
-  "designPixel": "Sade",
-  "designPixelDesc": "Tek sakin bir kart: konum, anahtar, sayılar",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: tonal yüzeyler, iri dolu kartlar, hap göstergeli çubuk ve büyük başlıklar — Androidin kendi sesi",
   "notifFlag": "Bildirimde ülke bayrağı",
   "notifFlagHint": "Ülkenin kendi bayrağı adının yanında",
   "wnDesignAdded": "Ana sayfa tasarımı ayarı: çark, mozaik veya sade kart",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Güvenlik Bülteni",
   "gazetteLiveWire": "Canlı hat",
   "wn56Speed": "Hız testi canlandı: her yön kendi bağlantısında ölçüyor ve yalın HTTP/1.1 konuşuyor, indirme penceresi kapanınca yükleme artık ölmüyor — panel yolun gecikmesini, titremesini ve seçilebilir boyutu ekliyor.",
-  "wn56Gazette": "Yeni ana görünüm: gazete — başlıklı, çizgili sütunlu, canlı bantlı ve tünel tuttuğunda basılan mürekkep damgalı bir ön sayfa."
+  "wn56Gazette": "Yeni ana görünüm: gazete — başlıklı, çizgili sütunlu, canlı bantlı ve tünel tuttuğunda basılan mürekkep damgalı bir ön sayfa.",
+  "designIos": "iOS",
+  "designIosDesc": "Sistemin kendi tarzı: gruplu tablolar, sekme çubuğunun ince çizgisi, durum kartı ve kapsül düğme — sistemin sesiyle berraklık",
+  "gazetteSection": "BÖLÜM",
+  "wn58Lock": "Tünel tuttuğunda düğmenin kilidi mürekkebini korur: işaret artık bastığı yüzeyi okur — açık düğmede koyu, koyuda beyaz — simge bir daha kaybolmuyor.",
+  "wn58Enter": "Bağlı bölüm nefes alır: sayılar solarak yükselir, altlarında yer açılır ve aynı yumuşaklıkla çeker — kartlar artık iki kare arasına sıçramıyor.",
+  "wn58Speed": "Hız testi hafif koşuyor: panel saniyede çoğu on kez yeniden çiziliyor, süpürmenin ibresi kısa düz bir çizgide yürüyor ve yüzler sıçramak yerine birbirine eriyor.",
+  "wn58Ios": "Yeni tasarım: iOS — sistemin kendi tarzı, gruplu tablolardan ve sekme çubuğunun ince çizgisinden kapsül düğmeli durum kartına. Her sayfa, kart, pencere ve simge sistemin sesiyle, iki modda da.",
+  "wn58Pixel": "Yeni tasarım: Pixel — Material You tarzı, tonal yüzeyler, iri dolu kartlar, hap göstergeli çubuk ve büyük başlıklar. Her sayfa, kart, pencere ve simge Androidin kendi sesiyle, iki modda da.",
+  "wn58Paper": "Gazete artık bütün bir gazete: baskı nişanlı ve altı çizgili kendi bölüm şeridi, her ayrı sayfa için bölüm başlığı, her ayar grubu için çizgili kâğıt kutusu — matbaanın çizgileri tüm uygulamaya ulaştı."
 }

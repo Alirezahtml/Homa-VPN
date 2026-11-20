@@ -570,8 +570,8 @@
   "designWheelDesc": "As bandeiras na sua roda de vidro, o interruptor abaixo",
   "designBento": "Mosaico",
   "designBentoDesc": "Um quadro de mosaicos arredondados: conexão, números, local",
-  "designPixel": "Compacta",
-  "designPixelDesc": "Um cartão calmo: o local, o interruptor, os números",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: superfícies tonais, cartões grandes e cheios, barra de indicador pastilha e títulos grandes — a voz própria do Android",
   "notifFlag": "Bandeira do país na notificação",
   "notifFlagHint": "A bandeira do próprio país ao lado do nome",
   "wnDesignAdded": "Uma configuração de design da página inicial: roda, mosaico ou cartão compacto",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Boletim de segurança",
   "gazetteLiveWire": "Manchete ao vivo",
   "wn56Speed": "O teste de velocidade vive de novo: cada sentido mede na sua própria ligação e fala HTTP/1.1 simples, o envio já não morre quando a janela da descarga fecha — e o painel acrescenta o atraso do caminho, o jitter e um tamanho à escolha.",
-  "wn56Gazette": "Um novo aspeto da casa: o jornal — uma primeira página com cabeçalho, colunas pautadas, teletipo ao vivo e o carimbo de tinta que pressiona quando o túnel corre."
+  "wn56Gazette": "Um novo aspeto da casa: o jornal — uma primeira página com cabeçalho, colunas pautadas, teletipo ao vivo e o carimbo de tinta que pressiona quando o túnel corre.",
+  "designIos": "iOS",
+  "designIosDesc": "O próprio do sistema: tabelas agrupadas, o filete da barra de separadores, o cartão de estado e o botão cápsula — clareza na voz do sistema",
+  "gazetteSection": "SEÇÃO",
+  "wn58Lock": "O cadeado do botão mantém a sua tinta quando o túnel corre: a marca lê agora a superfície onde pisa — escura em botão claro, branca em escuro — o ícone nunca mais se afoga.",
+  "wn58Enter": "A secção ligada respira: os números desvanecem e elevam-se enquanto o espaço cresce por baixo, e saem da mesma forma — os cartões deixaram de saltar entre dois fotogramas.",
+  "wn58Speed": "O teste de velocidade corre mais leve: o painel repinta dez vezes por segundo no máximo, o ponteiro do varrimento anda em linha reta curta, e as faces fundem-se em vez de saltar.",
+  "wn58Ios": "Um design novo: iOS — o próprio do sistema, das tabelas agrupadas e do filete da barra ao cartão de estado com o botão cápsula. Cada página, cartão, diálogo e ícone na voz do sistema, nos dois modos.",
+  "wn58Pixel": "Um design novo: Pixel — o estilo Material You, superfícies tonais, cartões grandes e cheios, a barra de indicador pastilha e os títulos grandes. Cada página, cartão, diálogo e ícone na voz própria do Android, nos dois modos.",
+  "wn58Paper": "O jornal é agora um jornal inteiro: a sua própria barra de secções com a vírgula impressa e o sublinhado, cabeçalho de secção para cada página aberta, e a caixa de papel pautada para cada grupo de definições — as linhas da imprensa chegaram a toda a app."
 }

@@ -70,6 +70,16 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
   Timer? _clock;
   Duration _legElapsed = Duration.zero;
 
+  // The progress events arrive faster than the eye needs; each one
+  // repainted the whole panel (the glass shell with it) and the run
+  // read heavy. The panel paints ten times a second at most — the
+  // numbers always carry the latest bytes, only the repaint waits its
+  // turn.
+  DateTime _lastPaint = DateTime.fromMillisecondsSinceEpoch(0);
+  bool _upPhaseShown = false;
+
+  static const _paintGate = Duration(milliseconds: 100);
+
   SpeedTestSize get _size =>
       SpeedTestSize.forKey(widget.settings?.speedTestSize ?? 'standard');
 
@@ -92,6 +102,7 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
       _result = null;
       _downBytes = _downBps = _upBytes = _upBps = 0;
       _upPhase = false;
+      _upPhaseShown = false;
       _legElapsed = Duration.zero;
     });
     // The leg's clock: the sweep of the measuring leg, honest time.
@@ -106,19 +117,26 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
           upBytes: size.upBytes,
           onProgress: (progress) {
             if (!mounted) return;
-            setState(() {
-              if (progress.dir == 'down') {
-                _downBytes = progress.bytes;
-                _downBps = progress.bps;
-              } else if (progress.dir == 'up') {
-                if (!_upPhase) {
-                  _upPhase = true;
-                  _legElapsed = Duration.zero;
-                }
-                _upBytes = progress.bytes;
-                _upBps = progress.bps;
+            if (progress.dir == 'down') {
+              _downBytes = progress.bytes;
+              _downBps = progress.bps;
+            } else if (progress.dir == 'up') {
+              if (!_upPhase) {
+                _upPhase = true;
+                _legElapsed = Duration.zero;
               }
-            });
+              _upBytes = progress.bytes;
+              _upBps = progress.bps;
+            }
+            // The phase's flip paints at once (the legs' seats change);
+            // the bytes' arrival paints on the gate.
+            final now = DateTime.now();
+            if ((_upPhase && !_upPhaseShown) ||
+                now.difference(_lastPaint) >= _paintGate) {
+              _upPhaseShown = _upPhase;
+              _lastPaint = now;
+              setState(() {});
+            }
           },
         ),
       );
@@ -182,115 +200,172 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
               ],
             ),
             const SizedBox(height: 16),
-            if (_running) ...[
-              _leg(
-                l,
-                l.statDown,
-                _downBytes,
-                _downBps,
-                !_upPhase,
-                Icons.south_rounded,
-              ),
-              const SizedBox(height: 10),
-              _leg(l, l.statUp, _upBytes, _upBps, _upPhase, Icons.north_rounded),
-              const SizedBox(height: 10),
-              MeterArc(value: sweep, color: scheme.primary, stroke: 5),
-              const SizedBox(height: 4),
-            ] else if (_error != null) ...[
-              Wobble(
-                trigger: _error.hashCode,
-                child: Text(
-                  l.speedTestFailed,
-                  style: TextStyle(color: scheme.error),
+            // The panel's faces share one seat too: the run, the verdict
+            // and the idle hint crossfade and lift between themselves
+            // instead of snapping. Two keys — the run's face and the
+            // idle's face (the verdict and the hint share the idle's, the
+            // sizes ride with them) — so the switcher has one walk to do
+            // and does it lightly.
+            AnimatedSwitcher(
+              duration: MediaQuery.of(context).disableAnimations
+                  ? Duration.zero
+                  : const Duration(milliseconds: 260),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              transitionBuilder: (child, anim) => FadeTransition(
+                opacity: anim,
+                child: SlideTransition(
+                  position: Tween(
+                    begin: const Offset(0, 0.05),
+                    end: Offset.zero,
+                  ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
+                  child: child,
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(_error!, style: theme.textTheme.bodySmall),
-            ] else if (result != null) ...[
-              if (result.error.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    result.error,
-                    style: TextStyle(color: scheme.error),
-                  ),
-                ),
-              // The path's own delay, the probes' answer: the median round
-              // trip, and the jitter beside it — both quiet when the
-              // probes found no path to time.
-              if (result.latencyMs > 0) ...[
-                Row(
-                  children: [
-                    Expanded(
-                      child: _probeCell(
-                        context,
-                        label: l.realDelay,
-                        value: '${result.latencyMs} ms',
-                        icon: Icons.schedule_rounded,
+              child: _running
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        key: const ValueKey('speed-run'),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                        _leg(
+                          l,
+                          l.statDown,
+                          _downBytes,
+                          _downBps,
+                          !_upPhase,
+                          Icons.south_rounded,
+                        ),
+                        const SizedBox(height: 10),
+                        _leg(
+                          l,
+                          l.statUp,
+                          _upBytes,
+                          _upBps,
+                          _upPhase,
+                          Icons.north_rounded,
+                        ),
+                        const SizedBox(height: 10),
+                        // The honest sweep: the clock repaints ten times a
+                        // second, so the arc asks for a short linear walk —
+                        // the old 900-millisecond ease restarted at every
+                        // retarget and the needle never caught its value.
+                        MeterArc(
+                          value: sweep,
+                          color: scheme.primary,
+                          stroke: 5,
+                          duration: const Duration(milliseconds: 280),
+                          curve: Curves.linear,
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                      ),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        key: const ValueKey('speed-idle'),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                        if (_error != null) ...[
+                          Wobble(
+                            trigger: _error.hashCode,
+                            child: Text(
+                              l.speedTestFailed,
+                              style: TextStyle(color: scheme.error),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(_error!, style: theme.textTheme.bodySmall),
+                        ] else if (result != null) ...[
+                          if (result.error.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Text(
+                                result.error,
+                                style: TextStyle(color: scheme.error),
+                              ),
+                            ),
+                          // The path's own delay, the probes' answer: the
+                          // median round trip, and the jitter beside it —
+                          // both quiet when the probes found no path to
+                          // time.
+                          if (result.latencyMs > 0) ...[
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _probeCell(
+                                    context,
+                                    label: l.realDelay,
+                                    value: '${result.latencyMs} ms',
+                                    icon: Icons.schedule_rounded,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: _probeCell(
+                                    context,
+                                    label: l.speedTestJitter,
+                                    value: '${result.jitterMs} ms',
+                                    icon: Icons.graphic_eq_rounded,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                          _big(l.statDown, result.downBps, Icons.south_rounded),
+                          const SizedBox(height: 8),
+                          _big(l.statUp, result.upBps, Icons.north_rounded),
+                          const SizedBox(height: 10),
+                          FadeThrough(
+                            child: Text(
+                              result.throughTunnel
+                                  ? l.speedTestThrough
+                                  : l.speedTestDirect,
+                              style: theme.textTheme.bodySmall,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ] else
+                          Text(
+                            l.speedTestHint,
+                            style: theme.textTheme.bodySmall,
+                            textAlign: TextAlign.center,
+                          ),
+                        const SizedBox(height: 12),
+                        // The sizes: how much the legs move. The choice
+                        // carries to the next test, so the user picks once.
+                        Text(
+                          l.speedTestSizesTitle,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: scheme.onSurfaceVariant,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 4,
+                          children: [
+                            for (final size in [
+                              SpeedTestSize.light,
+                              SpeedTestSize.standard,
+                              SpeedTestSize.full,
+                            ])
+                              ChoiceChip(
+                                label: Text(sizeLabel(l, size)),
+                                selected: _size.key == size.key,
+                                visualDensity: VisualDensity.compact,
+                                onSelected: (_) => _pickSize(size),
+                              ),
+                          ],
+                        ),
+                      ],
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: _probeCell(
-                        context,
-                        label: l.speedTestJitter,
-                        value: '${result.jitterMs} ms',
-                        icon: Icons.graphic_eq_rounded,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-              ],
-              _big(l.statDown, result.downBps, Icons.south_rounded),
-              const SizedBox(height: 8),
-              _big(l.statUp, result.upBps, Icons.north_rounded),
-              const SizedBox(height: 10),
-              FadeThrough(
-                child: Text(
-                  result.throughTunnel
-                      ? l.speedTestThrough
-                      : l.speedTestDirect,
-                  style: theme.textTheme.bodySmall,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ] else
-              Text(
-                l.speedTestHint,
-                style: theme.textTheme.bodySmall,
-                textAlign: TextAlign.center,
-              ),
-            const SizedBox(height: 12),
-            if (!_running) ...[
-              // The sizes: how much the legs move. The choice carries to
-              // the next test, so the user picks once.
-              Text(
-                l.speedTestSizesTitle,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Wrap(
-                spacing: 8,
-                runSpacing: 4,
-                children: [
-                  for (final size in [
-                    SpeedTestSize.light,
-                    SpeedTestSize.standard,
-                    SpeedTestSize.full,
-                  ])
-                    ChoiceChip(
-                      label: Text(sizeLabel(l, size)),
-                      selected: _size.key == size.key,
-                      visualDensity: VisualDensity.compact,
-                      onSelected: (_) => _pickSize(size),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 8),
-            ],
+            ),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

@@ -570,8 +570,8 @@
   "designWheelDesc": "Las banderas en su rueda de cristal, el interruptor debajo",
   "designBento": "Mosaico",
   "designBentoDesc": "Tablero de fichas redondeadas: conexión, cifras, lugar",
-  "designPixel": "Compacta",
-  "designPixelDesc": "Una tarjeta serena: el lugar, el interruptor, las cifras",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: superficies tonales, tarjetas grandes y llenas, barra de indicador pastilla y títulos grandes — la voz propia de Android",
   "notifFlag": "Bandera del país en la notificación",
   "notifFlagHint": "La bandera del propio país junto a su nombre",
   "wnDesignAdded": "Un ajuste de diseño de inicio: rueda, mosaico o tarjeta compacta",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Boletín de seguridad",
   "gazetteLiveWire": "Última hora",
   "wn56Speed": "La prueba de velocidad vuelve a vivir: cada sentido mide sobre su propia conexión y habla HTTP/1.1 llano, así la subida ya no muere al cerrarse la ventana de la bajada — y el panel añade el retardo de la ruta, su fluctuación y un tamaño a elegir.",
-  "wn56Gazette": "Un nuevo aspecto de inicio: el periódico — una portada con cabecera, columnas fileteadas, un teletipo en vivo y el sello de tinta que se estampa cuando el túnel funciona."
+  "wn56Gazette": "Un nuevo aspecto de inicio: el periódico — una portada con cabecera, columnas fileteadas, un teletipo en vivo y el sello de tinta que se estampa cuando el túnel funciona.",
+  "designIos": "iOS",
+  "designIosDesc": "Lo propio del sistema: tablas agrupadas, el filete de la barra de pestañas, la tarjeta de estado y el botón cápsula — claridad con voz del sistema",
+  "gazetteSection": "SECCIÓN",
+  "wn58Lock": "El candado del pomo conserva su tinta cuando el túnel funciona: la marca lee ahora la superficie que pisa — oscura sobre pomo claro, blanca sobre oscuro — y el icono ya no se ahoga.",
+  "wn58Enter": "La sección conectada respira: los números se desvanecen y se alzan mientras el espacio crece bajo ellos, y salen igual — las tarjetas ya no aparecen de golpe entre dos fotogramas.",
+  "wn58Speed": "La prueba de velocidad corre más ligera: el panel repinta diez veces por segundo como máximo, la aguja del barrido camina en línea recta corta, y las caras se funden en vez de saltar.",
+  "wn58Ios": "Un diseño nuevo: iOS — lo propio del sistema, desde las tablas agrupadas y el filete de la barra hasta la tarjeta de estado con su botón cápsula. Cada página, tarjeta, diálogo e icono con voz del sistema, en ambos modos.",
+  "wn58Pixel": "Un diseño nuevo: Pixel — el estilo Material You, superficies tonales, tarjetas grandes y llenas, la barra de indicador pastilla y los títulos grandes. Cada página, tarjeta, diálogo e icono con voz propia de Android, en ambos modos.",
+  "wn58Paper": "El periódico ya es un periódico entero: su propia barra de secciones con la viñeta impresa y el subrayado, cabecera de sección para cada página aparte, y la caja de papel fileteada para cada grupo de ajustes — las líneas de imprenta llegaron a toda la app."
 }

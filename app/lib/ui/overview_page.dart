@@ -1427,7 +1427,15 @@ class _PhoneHome extends StatelessWidget {
         side,
         top + 14,
         side,
-        design == 'aether' || design == 'zed' ? 104 : 72,
+        // The pages run under the navigation: the floating pill asks for
+        // 72, the docks and the M3 bar (the bar is tall, its labels ride
+        // with it) ask for 104, and the iOS tab bar — glued to the edge,
+        // its labels under the icons — clears at 84.
+        design == 'aether' || design == 'zed' || design == 'pixel'
+            ? 104
+            : design == 'ios'
+            ? 84
+            : 72,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1567,6 +1575,25 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 22),
+          ] else if (design == 'ios') ...[
+            // The iOS home's opening: the flags in their strip above the
+            // status card — the card names the place itself, so the
+            // strip's own name line rests, the way the system keeps one
+            // word per thing.
+            const SizedBox(height: 24),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagStrip(
+                  core: core,
+                  text: p.text,
+                  border: p.cardBorder,
+                  accent: accent,
+                  showName: false,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1590,7 +1617,8 @@ class _PhoneHome extends StatelessWidget {
               design != 'bento' &&
               design != 'aether' &&
               design != 'zed' &&
-              design != 'gazette')
+              design != 'gazette' &&
+              design != 'ios')
             Reveal(
               index: 1,
               child: Center(
@@ -1938,6 +1966,45 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 8 : 14),
+          ] else if (design == 'ios') ...[
+            // The iOS hero: the system's own status card — the raised
+            // rounded sheet with the state's dot and word, the place's
+            // cell (the flag, the name, the chevron to the servers), the
+            // session's numbers in their inset-grouped table, and the
+            // full-width capsule button under them. No glass, no glow:
+            // the clarity is the style.
+            Flexible(
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Reveal(
+                    index: 2,
+                    child: RepaintBoundary(
+                      child: _IosStatusCard(
+                        palette: p,
+                        place: place,
+                        on: on,
+                        busy: core.switchingProxy || status.connectPending,
+                        error: confirming &&
+                            ((proxy?.wakeError.isNotEmpty ?? false) ||
+                                (test?.ok == false)),
+                        label: label,
+                        press: press,
+                        startedAt: proxy?.startedAt,
+                        pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                        traffic: status.traffic,
+                        showTraffic: settings.showTraffic,
+                        onOpenServers: onOpenServers,
+                        onPressed: () => status.totalAccounts == 0
+                            ? _openAccounts(context, core, settings, onOpenAccounts)
+                            : runShowingErrors(context, () => _toggle(on)),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
           ] else ...[
             // The compact switch: the orb, on the place's own card.
             const SizedBox(height: 14),
@@ -1961,124 +2028,163 @@ class _PhoneHome extends StatelessWidget {
             ),
             SizedBox(height: short ? 8 : 18),
           ],
-          if (connected) ...[
-            // The connection's numbers, in the page itself: the time
-            // it has been up, the real delay, the live rates. The wheel
-            // and the tiles lay them out as cards; the compact home as
-            // rows inside one card of its own; the zed's pair lives at
-            // the page's top, the reference's own place for it.
-            if (design == 'pixel')
-              RepaintBoundary(
-                child: _FlatStats(
-                  core: core,
-                  status: status,
-                  palette: p,
-                  startedAt: proxy?.startedAt,
-                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                  showTraffic: settings.showTraffic,
-                  showConnection: true,
-                ),
-              )
-            else if (design != 'aether' && design != 'zed')
-              // The aether's card carries the time, the ping and the two
-              // rates itself (the reference's own rows); its page keeps
-              // no second numbers card under them.
-              RepaintBoundary(
-                child: _HomeStats(
-                  core: core,
-                  status: status,
-                  palette: p,
-                  settings: settings,
-                  startedAt: proxy?.startedAt,
-                  pingMs: (test?.ok ?? false) ? test!.responseMs : null,
-                  showTraffic: settings.showTraffic,
-                ),
-              ),
-            if (ip.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: _HomeRow(
-                  palette: p,
-                  icon: Icons.public_rounded,
-                  label: l.publicIp,
-                  value: ltr(ip),
-                  // The address is the kind of thing a report needs: a
-                  // tap carries it to the clipboard, and a word says so.
-                  onTap: () => _copyPublicIp(context, ip),
-                  trailing: Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 8),
-                    child: Icon(Icons.copy_rounded, size: 14, color: p.muted),
+          // The connected section and the idle words share one seat, and
+          // the seat moves as one motion between them: the numbers breathe
+          // in (fade, a small lift, the room growing beneath) when the
+          // tunnel carries, and walk back out when it does not. The old
+          // seat swapped its faces between two frames — the cards came up
+          // dry and sudden. Reduce-motion keeps the honest instant.
+          SmoothEnter(
+            show: connected,
+            // The faces force the seat's full width: the switcher's stack
+            // loosens its children, and a lone Text would narrow the seat
+            // instead of filling it as the page's own column does.
+            shown: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                // The connection's numbers, in the page itself: the time
+                // it has been up, the real delay, the live rates. The wheel
+                // and the tiles lay them out as cards; the compact home as
+                // rows inside one card of its own; the zed's pair lives at
+                // the page's top, the reference's own place for it; the
+                // iOS card carries its own table inside the hero.
+                if (design == 'pixel')
+                  RepaintBoundary(
+                    child: _FlatStats(
+                      core: core,
+                      status: status,
+                      palette: p,
+                      startedAt: proxy?.startedAt,
+                      pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                      showTraffic: settings.showTraffic,
+                      showConnection: true,
+                    ),
+                  )
+                else if (design != 'aether' &&
+                    design != 'zed' &&
+                    design != 'ios')
+                  // The aether's card carries the time, the ping and the two
+                  // rates itself (the reference's own rows); its page keeps
+                  // no second numbers card under them.
+                  RepaintBoundary(
+                    child: _HomeStats(
+                      core: core,
+                      status: status,
+                      palette: p,
+                      settings: settings,
+                      startedAt: proxy?.startedAt,
+                      pingMs: (test?.ok ?? false) ? test!.responseMs : null,
+                      showTraffic: settings.showTraffic,
+                    ),
                   ),
-                ),
-              ),
-            if (status.upstreamProxy.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Center(
-                  child: _UpstreamProxyPill(
-                    address: status.upstreamProxy,
-                    palette: p,
-                    onPressed: onOpenUpstreamProxy,
+                if (ip.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: _HomeRow(
+                      palette: p,
+                      icon: Icons.public_rounded,
+                      label: l.publicIp,
+                      value: ltr(ip),
+                      // The address is the kind of thing a report needs: a
+                      // tap carries it to the clipboard, and a word says so.
+                      onTap: () => _copyPublicIp(context, ip),
+                      trailing: Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 8),
+                        child: Icon(
+                          Icons.copy_rounded,
+                          size: 14,
+                          color: p.muted,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-          ] else if (failing || noNetwork || gaveUp)
-            // Not connecting stands out from the ordinary hints.
-            problem(
-              _ProblemBox(
-                text: noNetwork
-                    ? l.noNetwork
-                    : failure != null
-                    ? failure.text
-                    : failureCodeText(l, status.connectFailure),
-                color: p.error,
-                icon: Icons.error_outline_rounded,
-                tooltip: noNetwork ? '' : failure?.detail ?? '',
-              ),
-            )
-          else if (core.autoStopReason == 'idle' && !noNetwork)
-            // The caretaker ended the session: the idle wait passed.
-            problem(
-              _ProblemBox(
-                text: l.autoStoppedIdle(settings.idleTimeoutMin),
-                color: StatusColors.busy,
-                icon: Icons.hourglass_bottom_rounded,
-              ),
-            )
-          else if (core.autoStopReason == 'data')
-            // The caretaker ended the session: the data limit.
-            problem(
-              _ProblemBox(
-                text: l.autoStoppedData(settings.dataLimitMb),
-                color: StatusColors.busy,
-                icon: Icons.data_usage_rounded,
-              ),
-            )
-          else if (design == 'bento' ||
-              design == 'aether' ||
-              design == 'zed' ||
-              confirming)
-            // The tiles' bar, the aether's status card and the zed's own
-            // word already say the tap's own hint; the plain hint line
-            // below would only say it twice. While the connection is
-            // still being made, the state's word stands alone — "tap to
-            // disconnect" under a reaching tunnel reads as noise. The
-            // state's own guidance still has the problem boxes above.
-            const SizedBox.shrink()
-          else
-            // A start failure's hint is general; the core's reason is
-            // on a long press.
-            Tooltip(
-              message:
-                  !status.connectPending && status.state.phase == Phase.error
-                  ? status.state.message
-                  : '',
-              child: Text(
-                look.hint.isNotEmpty ? look.hint : press,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(color: p.muted),
+                if (status.upstreamProxy.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Center(
+                      child: _UpstreamProxyPill(
+                        address: status.upstreamProxy,
+                        palette: p,
+                        onPressed: onOpenUpstreamProxy,
+                      ),
+                    ),
+                  ),
+              ],
               ),
             ),
+            hidden: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                if (failing || noNetwork || gaveUp)
+                  // Not connecting stands out from the ordinary hints.
+                  problem(
+                    _ProblemBox(
+                      text: noNetwork
+                          ? l.noNetwork
+                          : failure != null
+                          ? failure.text
+                          : failureCodeText(l, status.connectFailure),
+                      color: p.error,
+                      icon: Icons.error_outline_rounded,
+                      tooltip: noNetwork ? '' : failure?.detail ?? '',
+                    ),
+                  )
+                else if (core.autoStopReason == 'idle' && !noNetwork)
+                  // The caretaker ended the session: the idle wait passed.
+                  problem(
+                    _ProblemBox(
+                      text: l.autoStoppedIdle(settings.idleTimeoutMin),
+                      color: StatusColors.busy,
+                      icon: Icons.hourglass_bottom_rounded,
+                    ),
+                  )
+                else if (core.autoStopReason == 'data')
+                  // The caretaker ended the session: the data limit.
+                  problem(
+                    _ProblemBox(
+                      text: l.autoStoppedData(settings.dataLimitMb),
+                      color: StatusColors.busy,
+                      icon: Icons.data_usage_rounded,
+                    ),
+                  )
+                else if (design == 'bento' ||
+                    design == 'aether' ||
+                    design == 'zed' ||
+                    design == 'ios' ||
+                    confirming)
+                  // The tiles' bar, the aether's status card, the zed's own
+                  // word and the iOS card's button already say the tap's
+                  // own hint; the plain hint line below would only say it
+                  // twice. While the connection is still being made, the
+                  // state's word stands alone — "tap to disconnect" under a
+                  // reaching tunnel reads as noise. The state's own
+                  // guidance still has the problem boxes above.
+                  const SizedBox.shrink()
+                else
+                  // A start failure's hint is general; the core's reason is
+                  // on a long press.
+                  Tooltip(
+                    message:
+                        !status.connectPending &&
+                            status.state.phase == Phase.error
+                        ? status.state.message
+                        : '',
+                    child: Text(
+                      look.hint.isNotEmpty ? look.hint : press,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: p.muted,
+                      ),
+                    ),
+                  ),
+              ],
+              ),
+            ),
+          ),
           // Where to find the proxy, on a line of its own under the delay.
           if (connected && proxyOnly && proxy != null)
             Padding(
@@ -2296,6 +2402,51 @@ class _HomeCard extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(onTap: onTap, child: child),
+        ),
+      );
+    }
+    // The pixel's card: Material You's filled shape — the big tonal
+    // surface with no outline and no glass; the radius speaks, the
+    // shadow stays home.
+    if (AppDesign.current.key == 'pixel') {
+      return Material(
+        color: AppDesign.current.look(palette.dark).containerHighest,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28),
+        ),
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: compact
+                ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+            child: child,
+          ),
+        ),
+      );
+    }
+    // The iOS card: the system's raised sheet — the surface's own white
+    // (the night's raised gray), the hairline's edge, the grouped
+    // table's round. No glass, no shadow; the clarity is the style.
+    if (AppDesign.current.key == 'ios') {
+      return Material(
+        color: AppDesign.current.look(palette.dark).surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: palette.cardBorder),
+        ),
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: compact
+                ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+            child: child,
+          ),
         ),
       );
     }
@@ -5588,4 +5739,339 @@ class _ZedServerCard extends StatelessWidget {
       ),
     );
   }
+}
+
+// ---------------------------------------------------------------------------
+// The iOS home: the system's own status card.
+// ---------------------------------------------------------------------------
+
+/// The iOS home's status card: the system's own voice — the raised
+/// rounded sheet with the state's dot and word, the place's cell (the
+/// flag, the name, the chevron to the servers), the session's numbers in
+/// their inset-grouped table, and the full-width capsule button under
+/// them: filled blue while off, the state's own tint while on. No glass,
+/// no glow — the clarity is the style, the hairline is the line.
+class _IosStatusCard extends StatelessWidget {
+  const _IosStatusCard({
+    required this.palette,
+    required this.place,
+    required this.on,
+    required this.busy,
+    required this.error,
+    required this.label,
+    required this.press,
+    required this.startedAt,
+    required this.pingMs,
+    required this.traffic,
+    required this.showTraffic,
+    required this.onOpenServers,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final HomePlace place;
+  final bool on;
+  final bool busy;
+
+  /// The start gave up on its own: the card's light reads red.
+  final bool error;
+  final String label;
+
+  /// The tap's own word — the button's label (state-aware already).
+  final String press;
+  final DateTime? startedAt;
+  final int? pingMs;
+  final Traffic? traffic;
+  final bool showTraffic;
+  final VoidCallback? onOpenServers;
+  final VoidCallback onPressed;
+
+  /// The system's own state lights: the green carries, the amber
+  /// reaches, the red blocks, the gray rests.
+  Color get _state {
+    final p = palette;
+    final style = DesignStyle.resolve('ios', p.dark);
+    if (error) return style.danger;
+    if (busy) return style.scanning;
+    if (on) return style.connected;
+    return p.dark ? const Color(0xFF98989F) : const Color(0xFF999CA1);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final style = DesignStyle.of(context);
+    final state = _state;
+    final blue = style.navActive;
+    final groupColor = p.dark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7);
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // The status card: the raised sheet, the hairline's edge, the
+          // state's word over the place's cell.
+          Material(
+            color: p.card,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: p.cardBorder),
+            ),
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      // The state's own dot; while the connection is being
+                      // made it breathes — the wait made visible.
+                      busy
+                          ? PulseDot(color: state, size: 9)
+                          : Container(
+                              width: 9,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: state,
+                              ),
+                            ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 17,
+                            letterSpacing: 0.2,
+                            color: state,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  // The place's cell: the system settings' own row — the
+                  // flag, the name, the chevron; a tap opens the servers.
+                  InkWell(
+                    onTap: onOpenServers,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                        12,
+                        10,
+                        8,
+                        10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: groupColor,
+                      ),
+                      child: Row(
+                        children: [
+                          CountryFlag(code: place.flag, width: 22),
+                          const SizedBox(width: 10),
+                          if (place.auto) ...[
+                            Icon(Icons.auto_awesome_rounded,
+                                size: 13, color: blue),
+                            const SizedBox(width: 4),
+                          ],
+                          Expanded(
+                            child: Text(
+                              place.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: p.text,
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.chevron_right_rounded, color: p.muted),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // The session's numbers: the inset-grouped table, the
+                  // system's own — the label left, the value right, the
+                  // hairlines between. The elapsed rides the top row while
+                  // the tunnel carries; the dashes keep the seats when it
+                  // does not.
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: groupColor,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      children: [
+                        if (on && startedAt != null) ...[
+                          _iosRow(
+                            context,
+                            theme,
+                            p,
+                            l.statElapsed,
+                            _ElapsedText(startedAt: startedAt!),
+                          ),
+                          _iosLine(p),
+                        ],
+                        _iosRow(
+                          context,
+                          theme,
+                          p,
+                          l.realDelay,
+                          Text(
+                            pingMs != null ? '$pingMs ms' : '—',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (showTraffic) ...[
+                          _iosLine(p),
+                          _iosRow(
+                            context,
+                            theme,
+                            p,
+                            l.statDown,
+                            Text(formatRate(traffic?.downRate ?? 0),
+                                maxLines: 1, overflow: TextOverflow.ellipsis),
+                          ),
+                          _iosLine(p),
+                          _iosRow(
+                            context,
+                            theme,
+                            p,
+                            l.statUp,
+                            Text(formatRate(traffic?.upRate ?? 0),
+                                maxLines: 1, overflow: TextOverflow.ellipsis),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          // The capsule button: filled blue while off and while the
+          // connection is being made, the state's own tint when the
+          // tunnel carries — the system's two weights of the same press.
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: busy ? null : onPressed,
+              borderRadius: BorderRadius.circular(27),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutCubic,
+                height: 54,
+                decoration: BoxDecoration(
+                  color: on && !busy && !error
+                      ? state.withValues(alpha: 0.16)
+                      : blue,
+                  borderRadius: BorderRadius.circular(27),
+                ),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 220),
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeIn,
+                    transitionBuilder: (child, anim) => FadeTransition(
+                      opacity: anim,
+                      child: child,
+                    ),
+                    child: Row(
+                      key: ValueKey('$label-$busy'),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (busy) ...[
+                          SizedBox.square(
+                            dimension: 17,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.2,
+                              color: on ? blue : Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                        ],
+                        Text(
+                          busy
+                              ? AppLocalizations.of(context).stateConnecting
+                              : press,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.5,
+                            letterSpacing: 0.2,
+                            color: on && !busy && !error
+                                ? state
+                                : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// One row of the grouped table: the label left, the value right, the
+  /// value in the display's own voice with the tabular figures.
+  Widget _iosRow(
+    BuildContext context,
+    ThemeData theme,
+    _HomePalette p,
+    String label,
+    Widget value,
+  ) {
+    final typefaces = typefacesOf(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodyMedium?.copyWith(color: p.text),
+            ),
+          ),
+          DefaultTextStyle(
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontFeatures: const [FontFeature.tabularFigures()],
+              fontFamily: typefaces.display,
+              fontFamilyFallback: typefaces.displayFallback,
+              color: p.text,
+            ),
+            child: value,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// The table's hairline: a half-point line, inset to the text's start.
+  Widget _iosLine(_HomePalette p) => Divider(
+    height: 1,
+    thickness: 0.5,
+    indent: 12,
+    color: p.cardBorder.withValues(alpha: 0.7),
+  );
 }

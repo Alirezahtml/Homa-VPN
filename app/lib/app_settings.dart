@@ -291,6 +291,7 @@ class AppSettings extends ChangeNotifier {
   static String homeDesignFor(String? key) => switch (key) {
     'bento' => 'bento',
     'pixel' => 'pixel',
+    'ios' => 'ios',
     'aether' => 'aether',
     'zed' => 'zed',
     'gazette' => 'gazette',

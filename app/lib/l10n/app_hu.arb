@@ -570,8 +570,8 @@
   "designWheelDesc": "A zászlók üvegkorongján, a kapcsoló alattuk",
   "designBento": "Mozaik",
   "designBentoDesc": "Kerek mozaiklapok: kapcsolat, számok, hely",
-  "designPixel": "Kompakt",
-  "designPixelDesc": "Egy nyugodt kártya: hely, kapcsoló, számok",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek — az Android saját hangja",
   "notifFlag": "Országzászló az értesítésben",
   "notifFlagHint": "Az ország saját zászlója a neve mellett",
   "wnDesignAdded": "Kezdőlap-design beállítás: korong, mozaik vagy kompakt kártya",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Biztonsági híradó",
   "gazetteLiveWire": "Riportsor",
   "wn56Speed": "A sebességteszt újra él: minden irány a saját kapcsolatán mér és sima HTTP/1.1-en beszél, így a feltöltés nem hal meg, amikor a letöltés ablaka zárul — a panel adja az út késleltetését, a jittert és választható méretet.",
-  "wn56Gazette": "Új otthon-look: a lap — címlap fejléccel, vonaltagolt hasábokkal, élő hírsorral és a tintabélyegzővel, amely akkor csapódik rá, amikor az alagút áll."
+  "wn56Gazette": "Új otthon-look: a lap — címlap fejléccel, vonaltagolt hasábokkal, élő hírsorral és a tintabélyegzővel, amely akkor csapódik rá, amikor az alagút áll.",
+  "designIos": "iOS",
+  "designIosDesc": "A rendszer sajátja: csoportosított táblák, a fülca sávja, az állapotkártya és a kapszula gomb — tisztaság a rendszer hangján",
+  "gazetteSection": "ROVAT",
+  "wn58Lock": "Az alagút állásakor a gomb zárja megtartja tintáját: a jel most olvassa a felületet, amin áll — sötét világos gombon, fehér sötéten — az ikon sosemfullad többé.",
+  "wn58Enter": "A csatlakoztatott rész lélegzik: a számok elsápadva emelkednek, miközben alattuk nő a hely, és úgy távoznak is — a kártyák nem ugranak be két képkocka között.",
+  "wn58Speed": "A sebességteszt könnyebben fut: a panel másodpercenként legfeljebb tízszer újrarajzolódik, a mérő mutatója rövid egyenesen jár, és a lapok átúszanak egymásba, nem ugranak.",
+  "wn58Ios": "Új dizájn: iOS — a rendszer sajátja, a csoportosított tábláktól és a fülca vonalán át az állapotkártyáig a kapszula gombbal. Minden oldal, kártya, párbeszéd és ikon a rendszer hangján, mindkét módban.",
+  "wn58Pixel": "Új dizájn: Pixel — a Material You stílusa, tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek. Minden oldal, kártya, párbeszéd és ikon az Android saját hangján, mindkét módban.",
+  "wn58Paper": "A lap most már egész újság: saját rovatsávja a nyomtatott jelel és aláhúzással, rovatfejléc minden külön oldalhoz, és vonaltagolt papírdoboz minden beállításcsoporthoz — a nyomdai vonalak elértek az egész alkalmazásig."
 }

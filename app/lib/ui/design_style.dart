@@ -32,6 +32,19 @@ enum NavVariant {
   /// ZedSecure's floating dock: a very-round pill hovering over the
   /// content, the chosen tab's icon in the brand's own circle.
   floatingDock,
+
+  /// The gazette's section bar: a paper strip ruled like the masthead,
+  /// the tabs set as sections — the chosen one carries the print's own
+  /// bullet and its ink underline.
+  gazetteRuled,
+
+  /// The iOS tab bar: glued to the screen's edge, the hairline on top,
+  /// icon over label, the chosen tab tinted the system blue.
+  cupertinoBar,
+
+  /// Material 3's navigation bar: the full-width tonal surface, the
+  /// chosen tab's icon riding its own pill indicator, the label under it.
+  m3Bar,
 }
 
 enum HeaderVariant {
@@ -44,6 +57,15 @@ enum HeaderVariant {
   /// ZedSecure's page header: a round back button and a big display
   /// title living in the page itself, no bar above.
   zed,
+
+  /// The gazette's section front: the back in its ruled square, the
+  /// title in the paper's own serif, and the masthead's double rule
+  /// under them.
+  gazette,
+
+  /// Material 3's large title: a plain back arrow, then the title big in
+  /// the page itself.
+  m3,
 }
 
 enum GroupVariant {
@@ -56,6 +78,14 @@ enum GroupVariant {
 
   /// ZedSecure's bento: the very-round card with generous padding.
   bento,
+
+  /// The gazette's ruled box: the paper card's own double rules, no
+  /// fill, the rows parted by hairlines — a printed data box.
+  gazetteRules,
+
+  /// Material 3's filled card: the big tonal surface with no outline at
+  /// all, the shape speaking instead of the line.
+  m3Card,
 }
 
 class DesignStyle {
@@ -89,6 +119,8 @@ class DesignStyle {
     'aether' => _aether(dark),
     'zed' => _zed(dark),
     'gazette' => _gazette(dark),
+    'pixel' => _pixel(dark),
+    'ios' => _ios(dark),
     _ => _mono(dark),
   };
 
@@ -179,18 +211,19 @@ class DesignStyle {
     switchTrack: const Color(0xFF7A5CFF),
   );
 
-  /// The gazette's structure: the printed page's own — near-square cards
-  /// ruled with hairlines, the small dialog, the ink's state colors (the
-  /// green stamp carries, the ochre reaches, the red ink blocks), and
-  /// the paper-toned pill for the navigation. The material header stays:
-  /// a pushed page reads like a section front.
+  /// The gazette's structure: the printed page's own — the near-square
+  /// ruled boxes (the group wears the paper card's double rules), the
+  /// small print's dialog, the section front for the pushed page, and
+  /// the paper's own section bar for the navigation. The ink's state
+  /// colors: the green stamp carries, the ochre reaches, the red ink
+  /// blocks.
   static DesignStyle _gazette(bool dark) => DesignStyle._(
-    nav: NavVariant.glassPill,
-    header: HeaderVariant.material,
-    group: GroupVariant.flat,
+    nav: NavVariant.gazetteRuled,
+    header: HeaderVariant.gazette,
+    group: GroupVariant.gazetteRules,
     cardRadius: 6,
     listRadius: 4,
-    dialogRadius: 8,
+    dialogRadius: 6,
     iconBadge: false,
     connected: dark ? const Color(0xFF74B089) : const Color(0xFF1F5F3F),
     scanning: dark ? const Color(0xFFC4A24D) : const Color(0xFF8A6D1F),
@@ -199,6 +232,50 @@ class DesignStyle {
     navActive: dark ? const Color(0xFFEDE4CF) : const Color(0xFF1C1712),
     navInactive: dark ? const Color(0xFFA3967F) : const Color(0xFF6E6355),
     switchTrack: dark ? const Color(0xFFEDE4CF) : const Color(0xFF1C1712),
+  );
+
+  /// The pixel's structure: Material You's own — the full-width M3 bar
+  /// with its pill indicator, the large title, the big filled tonal
+  /// cards with no outline (the shape speaks, not the line), and the
+  /// tonal state colors (the Google blue carries, the amber reaches,
+  /// the M3 red blocks).
+  static DesignStyle _pixel(bool dark) => DesignStyle._(
+    nav: NavVariant.m3Bar,
+    header: HeaderVariant.m3,
+    group: GroupVariant.m3Card,
+    cardRadius: 28,
+    listRadius: 20,
+    dialogRadius: 28,
+    iconBadge: false,
+    connected: dark ? const Color(0xFFA8C7FA) : const Color(0xFF0B57D0),
+    scanning: dark ? const Color(0xFFFCC64B) : const Color(0xFFB45309),
+    danger: dark ? const Color(0xFFF2B8B5) : const Color(0xFFB3261E),
+    navBackground: dark ? const Color(0xFF161B21) : const Color(0xFFF2F4F9),
+    navActive: dark ? const Color(0xFFA8C7FA) : const Color(0xFF0B57D0),
+    navInactive: dark ? const Color(0xFF96A0AC) : const Color(0xFF5D6470),
+    switchTrack: dark ? const Color(0xFFA8C7FA) : const Color(0xFF0B57D0),
+  );
+
+  /// The ios's structure: the system's own — the tab bar glued to the
+  /// screen's edge with its hairline, the compact bold page bar, the
+  /// grouped tables (the aether carries the same tables), the rounded
+  /// alert, and the system's state colors in both modes. The rows'
+  /// icons wear the colored badges, the system settings' way.
+  static DesignStyle _ios(bool dark) => DesignStyle._(
+    nav: NavVariant.cupertinoBar,
+    header: HeaderVariant.ios,
+    group: GroupVariant.iosTable,
+    cardRadius: 16,
+    listRadius: 16,
+    dialogRadius: 14,
+    iconBadge: true,
+    connected: dark ? const Color(0xFF30D158) : const Color(0xFF2FB558),
+    scanning: dark ? const Color(0xFFFF9F0A) : const Color(0xFFE08900),
+    danger: dark ? const Color(0xFFFF453A) : const Color(0xFFE0362B),
+    navBackground: dark ? const Color(0xFF1D1D1F) : const Color(0xFFF9F9F9),
+    navActive: dark ? const Color(0xFF0A84FF) : const Color(0xFF007AFF),
+    navInactive: dark ? const Color(0xFF98989F) : const Color(0xFF999CA1),
+    switchTrack: dark ? const Color(0xFF30D158) : const Color(0xFF34C759),
   );
 
   /// The row's icon badge: the iOS table's colored rounded squares (the
@@ -910,3 +987,529 @@ class ZedPageHeader extends StatelessWidget {
 /// alignment, mirrored by the caller for right-to-left.
 double navSlotAlignment(double position, int tabs) =>
     tabs < 2 ? 0 : -1 + 2 * (position / (tabs - 1));
+
+// ---------------------------------------------------------------------------
+// The gazette's furniture: the section bar and the section front.
+// ---------------------------------------------------------------------------
+
+/// The gazette's bottom navigation: the paper's own section bar — a strip
+/// of the same stock the page prints on, the masthead's double rule on
+/// its top edge, the tabs set as the sections' names. The chosen section
+/// carries the print's own bullet (a small square of the red ink, the
+/// way a column announces itself) and a thin underline growing under its
+/// word; a tap presses the new section's name in, a stamp's arrival.
+class GazetteNav extends StatelessWidget {
+  const GazetteNav({super.key, required this.index, required this.onSelect});
+
+  final int index;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = DesignStyle.of(context);
+    final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
+    final dark = theme.brightness == Brightness.dark;
+    final ink = style.navActive;
+    final muted = style.navInactive;
+    final tabs = [l.navHome, l.navSettings];
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
+        child: Align(
+          heightFactor: 1,
+          alignment: Alignment.bottomCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 380),
+            child: Container(
+              decoration: BoxDecoration(
+                color: style.navBackground.withValues(alpha: dark ? 0.97 : 1),
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: dark ? 0.45 : 0.12),
+                    blurRadius: 22,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // The masthead's double rule rides the bar's top edge:
+                  // the thick ink rule, then the hairline under it.
+                  Container(height: 2.2, color: ink),
+                  Container(height: 0.8, color: muted.withValues(alpha: 0.55)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 9, 8, 9),
+                    child: Row(
+                      children: [
+                        for (var i = 0; i < tabs.length; i++)
+                          Expanded(child: _section(context, i, tabs[i])),
+                      ],
+                    ),
+                  ),
+                  Container(height: 1, color: muted.withValues(alpha: 0.35)),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _section(BuildContext context, int i, String label) {
+    final style = DesignStyle.of(context);
+    final theme = Theme.of(context);
+    final chosen = index == i;
+    final ink = style.navActive;
+    final muted = style.navInactive;
+    final stamp = theme.colorScheme.primary;
+    final arabic = _arabicScriptWord(label);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        if (!chosen) {
+          HapticFeedback.selectionClick();
+          AppSounds.play(SoundCue.tap);
+          onSelect(i);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // The print's own bullet: a small square of the red ink,
+                // growing in beside the chosen section's word.
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 240),
+                  curve: Curves.easeOutCubic,
+                  width: chosen ? 5 : 0,
+                  height: 5,
+                  margin: EdgeInsetsDirectional.only(end: chosen ? 6 : 0),
+                  decoration: BoxDecoration(
+                    color: chosen ? stamp : Colors.transparent,
+                    borderRadius: BorderRadius.circular(1),
+                  ),
+                ),
+                // The section's word, pressed in when it is chosen — the
+                // stamp's own arrival: a quick press and a settle.
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  switchInCurve: Curves.easeOutBack,
+                  switchOutCurve: Curves.easeIn,
+                  transitionBuilder: (child, anim) => FadeTransition(
+                    opacity: anim,
+                    child: ScaleTransition(
+                      scale: Tween(begin: 0.92, end: 1.0).animate(anim),
+                      child: child,
+                    ),
+                  ),
+                  child: Text(
+                    label,
+                    key: ValueKey('$i-$chosen'),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: chosen ? FontWeight.w800 : FontWeight.w600,
+                      letterSpacing: arabic ? 0 : 0.6,
+                      color: chosen ? ink : muted,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            // The chosen section's underline: a thin ink rule growing to
+            // its width, the way a column's head rules itself.
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 280),
+              curve: Curves.easeOutCubic,
+              height: 1.2,
+              width: chosen ? 30 : 0,
+              decoration: BoxDecoration(
+                color: chosen ? ink : Colors.transparent,
+                borderRadius: BorderRadius.circular(1),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Whether [text] carries Arabic-script letters — the script the letter
+/// tracking would tear apart.
+bool _arabicScriptWord(String text) => text.contains(
+  RegExp(r'[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]'),
+);
+
+/// The gazette's pushed-page header: a section front — the back in its
+/// ruled square, the title in the paper's own voice, and the masthead's
+/// double rule carrying the page under the clock.
+class GazettePageHeader extends StatelessWidget {
+  const GazettePageHeader({super.key, required this.title, this.onBack});
+
+  final String title;
+  final VoidCallback? onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final ink = theme.colorScheme.onSurface;
+    final muted = theme.colorScheme.onSurfaceVariant;
+    // The header leads the pushed page under the clock, so it carries
+    // the status bar's own inset.
+    final top = MediaQuery.paddingOf(context).top;
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(16, top + 8, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              // The back in its ruled square: the paper's own button, the
+              // near-square corners and the ink's hairline.
+              GestureDetector(
+                onTap:
+                    onBack ??
+                    () => Navigator.of(context, rootNavigator: true).pop(),
+                child: Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: ink.withValues(alpha: 0.8)),
+                  ),
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 15,
+                    color: ink,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  // The section's own word above the title: the small,
+                  // widely spaced letters the paper tags its sections
+                  // with — the Latin takes the tracking, the Arabic
+                  // script keeps its joins.
+                  AppLocalizations.of(context).gazetteSection,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: _arabicScriptWord(title) ? 0 : 2.4,
+                    color: muted,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w800,
+              fontSize: 26,
+              height: 1.1,
+              color: ink,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(height: 2.2, color: ink),
+          const SizedBox(height: 2),
+          Container(height: 0.8, color: muted.withValues(alpha: 0.55)),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The ios's furniture: the tab bar and the system's clarity.
+// ---------------------------------------------------------------------------
+
+/// The iOS tab bar: glued to the screen's edge — the system's own way —
+/// the hairline on top, the icon above its label, the chosen tab tinted
+/// the system blue. No splash, no pill: the tint itself is the answer,
+/// crossfading with a small scale the way the system's own bars swap
+/// their symbols.
+class CupertinoBarNav extends StatelessWidget {
+  const CupertinoBarNav({
+    super.key,
+    required this.index,
+    required this.onSelect,
+  });
+
+  final int index;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = DesignStyle.of(context);
+    final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
+    final dark = theme.brightness == Brightness.dark;
+    final tabs = [
+      (Icons.home_rounded, Icons.home_outlined, l.navHome),
+      (Icons.settings_rounded, Icons.settings_outlined, l.navSettings),
+    ];
+    return SafeArea(
+      top: false,
+      child: Container(
+        decoration: BoxDecoration(
+          color: style.navBackground.withValues(alpha: dark ? 0.96 : 0.97),
+          border: Border(
+            top: BorderSide(
+              color: dark
+                  ? Colors.white.withValues(alpha: 0.10)
+                  : Colors.black.withValues(alpha: 0.10),
+              width: 0.5,
+            ),
+          ),
+        ),
+        height: 62,
+        child: Row(
+          children: [
+            for (var i = 0; i < tabs.length; i++)
+              Expanded(child: _tab(context, i, tabs[i])),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tab(
+    BuildContext context,
+    int i,
+    (IconData, IconData, String) tab,
+  ) {
+    final style = DesignStyle.of(context);
+    final chosen = index == i;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        if (!chosen) {
+          HapticFeedback.selectionClick();
+          AppSounds.play(SoundCue.tap);
+          onSelect(i);
+        }
+      },
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // The symbol swaps itself: the filled one for the chosen tab,
+            // the outline for the rest, crossfading with a small scale —
+            // the system's own bar never snaps between its symbols.
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              switchInCurve: Curves.easeOutBack,
+              switchOutCurve: Curves.easeIn,
+              transitionBuilder: (child, anim) => FadeTransition(
+                opacity: anim,
+                child: ScaleTransition(
+                  scale: Tween(begin: 0.86, end: 1.0).animate(anim),
+                  child: child,
+                ),
+              ),
+              child: Icon(
+                chosen ? tab.$1 : tab.$2,
+                key: ValueKey('ios-tab-$i-$chosen'),
+                size: 24,
+                color: chosen ? style.navActive : style.navInactive,
+              ),
+            ),
+            const SizedBox(height: 3),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                fontSize: 10.5,
+                fontWeight: chosen ? FontWeight.w700 : FontWeight.w500,
+                color: chosen ? style.navActive : style.navInactive,
+                fontFamily: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.fontFamily,
+              ),
+              child: Text(tab.$3, maxLines: 1, overflow: TextOverflow.ellipsis),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The pixel's furniture: the M3 bar and the large title.
+// ---------------------------------------------------------------------------
+
+/// Material 3's navigation bar: the full-width tonal surface at the
+/// screen's foot, each tab's icon riding its own pill indicator when
+/// chosen — the pill grows around the icon while the label takes its
+/// weight. The indicator's own color is the light's tonal companion.
+class M3BarNav extends StatelessWidget {
+  const M3BarNav({super.key, required this.index, required this.onSelect});
+
+  final int index;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final tabs = [
+      (Icons.home_rounded, Icons.home_outlined, l.navHome),
+      (Icons.settings_rounded, Icons.settings_outlined, l.navSettings),
+    ];
+    return SafeArea(
+      top: false,
+      child: Material(
+        color: DesignStyle.of(context).navBackground,
+        elevation: 0,
+        child: SizedBox(
+          height: 80,
+          child: Row(
+            children: [
+              for (var i = 0; i < tabs.length; i++)
+                Expanded(child: _tab(context, i, tabs[i])),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _tab(
+    BuildContext context,
+    int i,
+    (IconData, IconData, String) tab,
+  ) {
+    final style = DesignStyle.of(context);
+    final chosen = index == i;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        if (!chosen) {
+          HapticFeedback.selectionClick();
+          AppSounds.play(SoundCue.tap);
+          onSelect(i);
+        }
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // The indicator pill: the chosen tab's icon sits inside its own
+          // rounded seat, which grows from nothing the M3 way.
+          SizedBox(
+            height: 32,
+            width: 64,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  width: chosen ? 64 : 0,
+                  height: chosen ? 32 : 0,
+                  decoration: BoxDecoration(
+                    color: style.navActive.withValues(alpha: 0.16),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 220),
+                  switchInCurve: Curves.easeOutBack,
+                  switchOutCurve: Curves.easeIn,
+                  transitionBuilder: (child, anim) => FadeTransition(
+                    opacity: anim,
+                    child: ScaleTransition(
+                      scale: Tween(begin: 0.84, end: 1.0).animate(anim),
+                      child: child,
+                    ),
+                  ),
+                  child: Icon(
+                    chosen ? tab.$1 : tab.$2,
+                    key: ValueKey('m3-tab-$i-$chosen'),
+                    size: 24,
+                    color: chosen ? style.navActive : style.navInactive,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
+          AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 200),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: chosen ? FontWeight.w700 : FontWeight.w500,
+              letterSpacing: 0.2,
+              color: chosen ? style.navActive : style.navInactive,
+              fontFamily: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.fontFamily,
+            ),
+            child: Text(tab.$3, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Material 3's large title: the plain back arrow, then the title big in
+/// the page itself — the bar stays out of the way.
+class M3PageHeader extends StatelessWidget {
+  const M3PageHeader({super.key, required this.title, this.onBack});
+
+  final String title;
+  final VoidCallback? onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final top = MediaQuery.paddingOf(context).top;
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(4, top + 6, 22, 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed:
+                onBack ??
+                () => Navigator.of(context, rootNavigator: true).pop(),
+            icon: const Icon(Icons.arrow_back_rounded),
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 12),
+            child: Text(
+              title,
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+                fontSize: 26,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+}

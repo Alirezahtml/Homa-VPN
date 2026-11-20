@@ -127,6 +127,25 @@ class _MobileShellState extends State<MobileShell> {
                   ],
                 ),
               ),
+              // The gazette's section front: the ruled square, the serif
+              // title, the masthead's double rule.
+              HeaderVariant.gazette => Scaffold(
+                body: Column(
+                  children: [
+                    GazettePageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
+              // Material 3's large title: the plain arrow, the big word.
+              HeaderVariant.m3 => Scaffold(
+                body: Column(
+                  children: [
+                    M3PageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
             };
           },
         ),
@@ -246,6 +265,18 @@ class _MobileShellState extends State<MobileShell> {
             onSelect: (i) => setState(() => _tab = i),
           ),
           NavVariant.floatingDock => ZedDockNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.gazetteRuled => GazetteNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.cupertinoBar => CupertinoBarNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.m3Bar => M3BarNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),
           ),

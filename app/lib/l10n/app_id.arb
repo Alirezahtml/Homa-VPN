@@ -570,8 +570,8 @@
   "designWheelDesc": "Bendera pada roda kacanya, tombol di bawah",
   "designBento": "Ubin",
   "designBentoDesc": "Papan ubin membulat: sambungan, angka, lokasi",
-  "designPixel": "Ringkas",
-  "designPixelDesc": "Satu kartu tenang: lokasi, tombol, angka",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar — suara Android sendiri",
   "notifFlag": "Bendera negara di notifikasi",
   "notifFlagHint": "Bendera negaranya sendiri di samping namanya",
   "wnDesignAdded": "Pengaturan desain halaman utama: roda, ubin, atau kartu ringkas",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Buletin Keamanan",
   "gazetteLiveWire": "Kabar langsung",
   "wn56Speed": "Tes kecepatan hidup kembali: setiap arah mengukur di koneksinya sendiri dan berbicara HTTP/1.1 murni, unggahan tidak lagi mati saat jendela unduhan tertutup — panel menambah latensi jalur, jitter, dan ukuran yang bisa dipilih.",
-  "wn56Gazette": "Tampilan rumah baru: koran — halaman depan dengan masthead, kolom bergaris, ticker langsung, dan stempel tinta yang menghentak saat terowongan berjalan."
+  "wn56Gazette": "Tampilan rumah baru: koran — halaman depan dengan masthead, kolom bergaris, ticker langsung, dan stempel tinta yang menghentak saat terowongan berjalan.",
+  "designIos": "iOS",
+  "designIosDesc": "Gaya sistem sendiri: tabel berkelompok, garis tipis bilah tab, kartu status dan tombol kapsul — kejelasan dengan suara sistem",
+  "gazetteSection": "RUBRIK",
+  "wn58Lock": "Gembok pada tombol mempertahankan warnanya saat terowongan berjalan: tanda kini membaca permukaan yang diinjaknya — gelap di atas tombol terang, putih di atas gelap — ikon tak lagi tenggelam.",
+  "wn58Enter": "Bagian tersambung bernapas: angka memudar dan naik saat ruang di bawahnya membuka, dan pergi dengan cara yang sama — kartu tak lagi muncul mendadak di antara dua frame.",
+  "wn58Speed": "Tes kecepatan berjalan lebih ringan: panel menggambar ulang paling sering sepuluh kali per detik, jarum sapuan berjalan lurus pendek, dan wajah-wajah memudar berganti, bukan melompat.",
+  "wn58Ios": "Desain baru: iOS — gaya sistem sendiri, dari tabel berkelompok dan garis tipis bilah tab hingga kartu status dengan tombol kapsul. Setiap halaman, kartu, dialog, dan ikon dengan suara sistem, di kedua mode.",
+  "wn58Pixel": "Desain baru: Pixel — gaya Material You, permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar. Setiap halaman, kartu, dialog, dan ikon dengan suara Android sendiri, di kedua mode.",
+  "wn58Paper": "Koran kini koran utuh: bilah rubrik khasnya dengan peluru cetak dan garis bawah, kepala rubrik untuk setiap halaman terpisah, dan kotak kertas bergaris untuk setiap kelompok pengaturan — garis cetak menjangkau seluruh aplikasi."
 }

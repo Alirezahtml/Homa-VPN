@@ -1169,8 +1169,8 @@
   "designWheelDesc": "The flags in their glass wheel, the switch under them",
   "designBento": "Tiles",
   "designBentoDesc": "A board of rounded tiles: connect, numbers, place",
-  "designPixel": "Compact",
-  "designPixelDesc": "One quiet card: the place, the switch, the numbers",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You: the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles — the Android's own voice",
   "notifFlag": "Country flag in the notification",
   "notifFlagHint": "The notification's own flag beside the country's name",
   "wnDesignAdded": "A Home design setting: the wheel, the tiles, or the compact card",
@@ -1415,5 +1415,14 @@
   "gazetteBulletin": "Security Bulletin",
   "gazetteLiveWire": "Live wire",
   "wn56Speed": "The speed test lives again: each leg measures on its own connection and speaks plain HTTP/1.1, so the upload no longer dies when the download's window closes — and the panel adds the path's delay, its jitter, and a size to pick.",
-  "wn56Gazette": "A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries."
+  "wn56Gazette": "A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries.",
+  "designIos": "iOS",
+  "designIosDesc": "The system's own: the grouped tables, the tab bar's hairline, the status card and the capsule button — clarity in the system's voice",
+  "gazetteSection": "SECTION",
+  "wn58Lock": "The knob's lock keeps its ink when the tunnel carries: the mark now reads the face it stands on — dark on a light knob, white on a dark one — so the icon never drowns again.",
+  "wn58Enter": "The connected section breathes in: the numbers fade and lift while the room grows beneath them, and walk back out the same way — the cards no longer snap up between two frames.",
+  "wn58Speed": "The speed test runs lighter: the panel repaints ten times a second at most, the sweep's needle walks in a short straight line, and the faces crossfade instead of snapping.",
+  "wn58Ios": "A new design: iOS — the system's own look, from the grouped tables and the tab bar's hairline to the status card with its capsule button. Every page, card, dialog and icon in the system's voice, in both modes.",
+  "wn58Pixel": "A new design: Pixel — Material You's look, the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles. Every page, card, dialog and icon in the Android's own voice, in both modes.",
+  "wn58Paper": "The gazette is a whole paper now: its own section bar with the print's bullet and underline, a section-front header for every pushed page, and the ruled paper box for every group of settings — the print's rules reach the whole app."
 }

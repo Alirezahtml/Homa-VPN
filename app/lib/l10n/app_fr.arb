@@ -570,8 +570,8 @@
   "designWheelDesc": "Les drapeaux sur leur roue de verre, l’interrupteur dessous",
   "designBento": "Tuiles",
   "designBentoDesc": "Un plateau de tuiles arrondies : connexion, chiffres, lieu",
-  "designPixel": "Compacte",
-  "designPixelDesc": "Une seule carte calme : le lieu, l’interrupteur, les chiffres",
+  "designPixel": "Pixel",
+  "designPixelDesc": "Material You : surfaces tonales, grandes cartes pleines, barre à indicateur pastille et grands titres — la voix propre d'Android",
   "notifFlag": "Drapeau du pays dans la notification",
   "notifFlagHint": "Le drapeau du pays même, à côté de son nom",
   "wnDesignAdded": "Un réglage de design de l’accueil : roue, tuiles ou carte compacte",
@@ -821,5 +821,14 @@
   "gazetteBulletin": "Bulletin de sécurité",
   "gazetteLiveWire": "Fil direct",
   "wn56Speed": "Le test de vitesse revit : chaque sens mesure sur sa propre connexion et parle HTTP/1.1, l'envoi ne meurt plus quand la fenêtre du téléchargement se ferme — et le panneau ajoute le délai du chemin, sa gigue et une taille au choix.",
-  "wn56Gazette": "Un nouveau look d'accueil : la gazette — une « une » avec bandeau, colonnes filetées, téléscripteur en direct et le tampon d'encre qui se pose quand le tunnel tient."
+  "wn56Gazette": "Un nouveau look d'accueil : la gazette — une « une » avec bandeau, colonnes filetées, téléscripteur en direct et le tampon d'encre qui se pose quand le tunnel tient.",
+  "designIos": "iOS",
+  "designIosDesc": "Le style du système : les tables groupées, le filet de la barre d'onglets, la carte d'état et le bouton capsule — la clarté à la voix du système",
+  "gazetteSection": "RUBRIQUE",
+  "wn58Lock": "Le cadenas du bouton garde son encre quand le tunnel tient : la marque lit désormais la surface sous elle — sombre sur bouton clair, blanche sur sombre — et l'icône ne se noie plus.",
+  "wn58Enter": "La section connectée respire : les nombres s'estompent et se soulèvent pendant que la place grandit sous eux, et repartent de même — les cartes ne surgissent plus entre deux images.",
+  "wn58Speed": "Le test de vitesse court plus léger : le panneau se repeint dix fois par seconde au plus, l'aiguille du balayage marche en ligne droite courte, et les visages se fondent au lieu de sauter.",
+  "wn58Ios": "Un nouveau design : iOS — le style du système, des tables groupées et du filet de la barre à la carte d'état avec son bouton capsule. Chaque page, carte, dialogue et icône à la voix du système, dans les deux modes.",
+  "wn58Pixel": "Un nouveau design : Pixel — le style Material You, les surfaces tonales, les grandes cartes pleines, la barre à indicateur pastille et les grands titres. Chaque page, carte, dialogue et icône à la voix propre d'Android, dans les deux modes.",
+  "wn58Paper": "La gazette est un journal entier maintenant : sa propre barre de sections avec la puce imprimée et le soulignement, un en-tête de rubrique pour chaque page ouverte, et la boîte de papier filetée pour chaque groupe de réglages — les traits de l'imprimerie atteignent toute l'app."
 }

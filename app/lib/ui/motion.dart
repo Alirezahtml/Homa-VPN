@@ -477,6 +477,18 @@ class _SlideToConnectState extends State<SlideToConnect>
                       : w.on
                       ? (w.labelOn.isEmpty ? w.labelConnect : w.labelOn)
                       : w.labelConnect;
+                  // The knob's own mark-ink when it carries: the face the
+                  // knob wears then is the accent itself — and a light
+                  // accent (the night monochrome's white, the gazette's
+                  // cream) drowns a white mark in white. The mark reads the
+                  // face it stands on: dark ink on a light accent, white on
+                  // a dark one. This was the lock's disappearance — the
+                  // icon never left, it only stopped contrasting.
+                  final markInk =
+                      ThemeData.estimateBrightnessForColor(w.accent) ==
+                          Brightness.light
+                      ? const Color(0xFF17130E)
+                      : Colors.white;
                   return Stack(
                     clipBehavior: Clip.none,
                     children: [
@@ -762,7 +774,7 @@ class _SlideToConnectState extends State<SlideToConnect>
                                               child: CircularProgressIndicator(
                                                 strokeWidth: 2.2,
                                                 color: w.on
-                                                    ? Colors.white
+                                                    ? markInk
                                                     : w.accent,
                                               ),
                                             )
@@ -776,7 +788,7 @@ class _SlideToConnectState extends State<SlideToConnect>
                                                         .power_settings_new_rounded,
                                               size: 26,
                                               color: w.on
-                                                  ? Colors.white
+                                                  ? markInk
                                                   : Color.lerp(
                                                       w.muted,
                                                       w.accent,
@@ -2338,12 +2350,19 @@ class MeterArc extends StatelessWidget {
   final Color? track;
   final Widget? child;
 
+  /// The walk's own time and ease: the caller that retargets every
+  /// hundred milliseconds (the speed test's honest sweep) asks for a
+  /// short linear walk, or the needle spends its run catching up with
+  /// the value it was given.
+  final Duration duration;
+  final Curve curve;
+
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       tween: Tween<double>(end: value.clamp(0.0, 1.0)),
-      duration: const Duration(milliseconds: 900),
-      curve: Curves.easeOutCubic,
+      duration: duration,
+      curve: curve,
       builder:
           (context, v, child) => CustomPaint(
             painter: _ArcPainter(
@@ -2991,6 +3010,66 @@ class _SectionSweepState extends State<SectionSweep>
         );
       },
       child: widget.child,
+    );
+  }
+}
+// ---------------------------------------------------------------------------
+// SmoothEnter: the section that breathes in instead of snapping.
+// ---------------------------------------------------------------------------
+
+/// The section whose arrival reads as one motion: the content fades and
+/// lifts in while the space it needs grows beneath the page, and walks
+/// back out the same way. The connected section's home was the abrupt
+/// one — the cards snapped up between two frames, dry and sudden; this
+/// hands the same section its own entrance. Under reduce-motion the
+/// change keeps its honest instant.
+class SmoothEnter extends StatelessWidget {
+  const SmoothEnter({
+    super.key,
+    required this.show,
+    required this.shown,
+    required this.hidden,
+  });
+
+  /// Which of the two faces stands: the [shown] child when true, the
+  /// [hidden] child when false — the crossfade and the size walk run
+  /// between them, in both directions.
+  final bool show;
+
+  /// The face the section wears while [show] stands.
+  final Widget shown;
+
+  /// The face the section wears otherwise (the hints, the problem boxes).
+  final Widget hidden;
+
+  @override
+  Widget build(BuildContext context) {
+    final still = MediaQuery.of(context).disableAnimations;
+    final duration = still ? Duration.zero : const Duration(milliseconds: 380);
+    return ClipRect(
+      child: AnimatedSize(
+        duration: duration,
+        curve: Curves.easeInOutCubic,
+        alignment: Alignment.topCenter,
+        child: AnimatedSwitcher(
+          duration: duration,
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, anim) => FadeTransition(
+            opacity: anim,
+            child: SlideTransition(
+              position: Tween(
+                begin: const Offset(0, 0.07),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
+              child: child,
+            ),
+          ),
+          child: show
+              ? KeyedSubtree(key: const ValueKey('enter-shown'), child: shown)
+              : KeyedSubtree(key: const ValueKey('enter-hidden'), child: hidden),
+        ),
+      ),
     );
   }
 }

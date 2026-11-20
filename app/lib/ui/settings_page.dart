@@ -155,24 +155,36 @@ class SettingsGroup extends StatelessWidget {
     final theme = Theme.of(context);
     // The design's card, as the Panel wears it: flat and bordered — or
     // the design's own table: the aether's iOS group (tighter round, the
-    // hairline inset divider), the zed's very-round bento card.
+    // hairline inset divider), the zed's very-round bento card, the
+    // gazette's ruled paper box, the pixel's big filled tonal card.
     final style = DesignStyle.of(context);
     final look = AppDesign.current.look(
       theme.brightness == Brightness.dark,
     );
     final iosTable = style.group == GroupVariant.iosTable;
+    final gazetteRules = style.group == GroupVariant.gazetteRules;
+    final m3Card = style.group == GroupVariant.m3Card;
     Widget card = Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      color: look.surface,
+      // The pixel's filled card carries the tonal surface instead of the
+      // page's card color — the shape speaks, not the line; the gazette's
+      // ruled box keeps no fill at all (the rules carry it), so the page's
+      // own paper shows through.
+      color: m3Card ? look.containerHighest : (gazetteRules ? null : look.surface),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(style.cardRadius),
         side: look.cardShadow.isEmpty
-            ? BorderSide(
-                color: theme.colorScheme.outlineVariant.withValues(
-                  alpha: iosTable ? 0.35 : 0.5,
-                ),
-              )
+            ? (m3Card
+                  ? BorderSide.none
+                  : BorderSide(
+                      color: gazetteRules
+                          ? theme.colorScheme.onSurface.withValues(alpha: 0.85)
+                          : theme.colorScheme.outlineVariant.withValues(
+                              alpha: iosTable ? 0.35 : 0.5,
+                            ),
+                      width: gazetteRules ? 1.1 : 1,
+                    ))
             : BorderSide.none,
       ),
       child: Column(
@@ -180,12 +192,17 @@ class SettingsGroup extends StatelessWidget {
           for (var i = 0; i < tiles.length; i++) ...[
             // The line stops where the row's text starts (the icon
             // badge plus the row's own padding) — the iOS table's own
-            // hairline, thinner than the flat card's.
+            // hairline, thinner than the flat card's. The pixel's filled
+            // card parts its rows with the faintest of lines — the big
+            // shape carries the grouping, not the rules.
             if (i > 0)
               Divider(
                 height: 1,
-                thickness: iosTable ? 0.5 : 1,
+                thickness: iosTable ? 0.5 : (m3Card ? 0.5 : 1),
                 indent: iosTable ? 58 : 68,
+                color: m3Card
+                    ? theme.colorScheme.outlineVariant.withValues(alpha: 0.25)
+                    : null,
               ),
             // Each tile arrives a beat after the one above it.
             Reveal(index: i, child: tiles[i]),
@@ -3952,6 +3969,7 @@ int? _hexArgb(String text) {
 String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'bento' => l.designBento,
   'pixel' => l.designPixel,
+  'ios' => l.designIos,
   'aether' => l.designAether,
   'zed' => l.designZed,
   'gazette' => l.designGazette,
@@ -3985,6 +4003,7 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'wheel',
                   'bento',
                   'pixel',
+                  'ios',
                   'aether',
                   'zed',
                   'gazette',
@@ -4033,6 +4052,7 @@ class _DesignCard extends StatelessWidget {
     final (name, desc) = switch (kind) {
       'bento' => (l.designBento, l.designBentoDesc),
       'pixel' => (l.designPixel, l.designPixelDesc),
+      'ios' => (l.designIos, l.designIosDesc),
       'aether' => (l.designAether, l.designAetherDesc),
       'zed' => (l.designZed, l.designZedDesc),
       'gazette' => (l.designGazette, l.designGazetteDesc),
@@ -4156,27 +4176,115 @@ class _DesignMockup extends StatelessWidget {
           ],
         );
       case 'pixel':
+        // Material You: the big tonal card, the pill indicator's bar
+        // under it — the shape speaks, not the line.
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            tile(w: 30, h: 10, color: ink.withValues(alpha: 0.5)),
-            const SizedBox(height: 6),
             Container(
               width: 76,
-              height: 62,
+              height: 52,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: scheme.outlineVariant, width: 0.5),
+                color: scheme.surfaceContainerHighest.withValues(alpha: 0.7),
               ),
               child: Center(
                 child: Container(
-                  width: 30,
-                  height: 30,
+                  width: 28,
+                  height: 28,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: lit,
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            // The M3 bar: the pill indicator around the chosen icon.
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 26,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: lit.withValues(alpha: 0.25),
+                  ),
+                  child: Center(child: tile(w: 8, h: 8, color: lit, r: 4)),
+                ),
+                const SizedBox(width: 10),
+                tile(w: 10, h: 10, r: 5),
+              ],
+            ),
+          ],
+        );
+      case 'ios':
+        // The system's own: the raised rounded card with the state's
+        // word, and the tab bar's hairline with the tinted tab under it.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 76,
+              height: 44,
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: scheme.surface,
+                border: Border.all(color: scheme.outlineVariant, width: 0.5),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: lit,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      tile(w: 22, h: 5),
+                    ],
+                  ),
+                  const Spacer(),
+                  Container(
+                    width: 34,
+                    height: 9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.5),
+                      color: lit,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            // The tab bar's own line, the chosen tab tinted over it.
+            SizedBox(
+              width: 76,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      tile(w: 10, h: 10, color: lit, r: 5),
+                      const SizedBox(height: 2),
+                      tile(w: 14, h: 3, color: lit.withValues(alpha: 0.5)),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      tile(w: 10, h: 10),
+                      const SizedBox(height: 2),
+                      tile(w: 14, h: 3),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

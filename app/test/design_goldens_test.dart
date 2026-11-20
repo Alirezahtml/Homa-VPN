@@ -199,6 +199,28 @@ void main() {
     await phone(tester, name: 'pixel_fa', design: 'pixel', language: 'fa');
   });
 
+  testWidgets('design pixel, light, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'pixel_light',
+      design: 'pixel',
+      theme: ThemeMode.light,
+    );
+  });
+
+  testWidgets('design ios, dark, connected', (tester) async {
+    await phone(tester, name: 'ios_dark', design: 'ios');
+  });
+
+  testWidgets('design ios, light, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'ios_light',
+      design: 'ios',
+      theme: ThemeMode.light,
+    );
+  });
+
   testWidgets('design aether, dark, connected', (tester) async {
     await phone(tester, name: 'aether_dark', design: 'aether');
   });

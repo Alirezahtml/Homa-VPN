@@ -36,6 +36,32 @@ void main() {
     expect(zed.dialogRadius, 28);
     expect(zed.connected, const Color(0xFF7A5CFF));
 
+    // The gazette's print: the section bar, the section front, the
+    // ruled paper box, the small dialog.
+    final gazette = DesignStyle.resolve('gazette', false);
+    expect(gazette.nav, NavVariant.gazetteRuled);
+    expect(gazette.header, HeaderVariant.gazette);
+    expect(gazette.group, GroupVariant.gazetteRules);
+    expect(gazette.dialogRadius, 6);
+
+    // Material You: the M3 bar, the large title, the filled tonal card.
+    final pixel = DesignStyle.resolve('pixel', true);
+    expect(pixel.nav, NavVariant.m3Bar);
+    expect(pixel.header, HeaderVariant.m3);
+    expect(pixel.group, GroupVariant.m3Card);
+    expect(pixel.cardRadius, 28);
+    expect(pixel.dialogRadius, 28);
+
+    // The system's own: the tab bar, the compact bold bar, the grouped
+    // table, the rounded alert, the green switch.
+    final ios = DesignStyle.resolve('ios', true);
+    expect(ios.nav, NavVariant.cupertinoBar);
+    expect(ios.header, HeaderVariant.ios);
+    expect(ios.group, GroupVariant.iosTable);
+    expect(ios.dialogRadius, 14);
+    expect(ios.switchTrack, const Color(0xFF30D158));
+    expect(ios.navActive, const Color(0xFF0A84FF));
+
     // The monochrome keeps the shapes it always had, and the looks that
     // left land on its structure as they land on its palette.
     for (final key in ['mono', 'wheel', 'aurora', 'whatever-else']) {
