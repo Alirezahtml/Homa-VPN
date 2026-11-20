@@ -246,56 +246,64 @@ class _FlagBoardState extends State<FlagBoard> with FlagChoices {
     final visible = showAll
         ? entries.take(cellCount - 1).toList()
         : entries.toList();
-    // The board's height comes from the width the home gives it: a fixed
-    // seat the grid fills. The home page measures itself through
-    // IntrinsicHeight, and a shrink-wrapping viewport cannot answer
-    // intrinsics — the fixed height answers for it, and the grid stays a
-    // plain, never-scrolling viewport inside.
-    return LayoutBuilder(
-      builder: (context, box) {
-        const spacing = 10.0;
-        final cols = widget.columns;
-        final tileW = (box.maxWidth - spacing * (cols - 1)) / cols;
-        final tileH = tileW / 0.92;
-        final boardH = tileH * widget.rows + spacing * (widget.rows - 1);
-        return SizedBox(
-          height: boardH,
-          child: GridView.count(
-            crossAxisCount: cols,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            mainAxisSpacing: spacing,
-            crossAxisSpacing: spacing,
-            childAspectRatio: 0.92,
+    // The board is plain rows of plain cells — no grid viewport anywhere,
+    // because the home measures itself through IntrinsicHeight and a
+    // viewport cannot answer intrinsics. The cells share the row by
+    // weight, so the board fills whatever width the home gives it.
+    List<Widget> cell(int i) {
+      if (i < visible.length) {
+        return [
+          Expanded(
+            child: _BoardTile(
+              location: visible[i],
+              chosen: i == chosenIndex,
+              pinned: favorites.any(
+                (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
+              ),
+              accent: widget.accent,
+              border: widget.border,
+              dark: dark,
+              round: style.flagRound,
+              onTap: () => choose(visible[i]),
+              onLongPress: widget.onToggleFavorite == null
+                  ? null
+                  : () => widget.onToggleFavorite!(visible[i].code),
+            ),
+          ),
+        ];
+      }
+      if (showAll && i == visible.length) {
+        // The board's last seat: the tile that says the whole list lives
+        // on the servers page.
+        return [
+          Expanded(
+            child: _BoardTile.all(
+              accent: widget.accent,
+              border: widget.border,
+              dark: dark,
+              label: l.flagAllPlaces,
+              onTap: widget.onOpenServers,
+            ),
+          ),
+        ];
+      }
+      return [const Expanded(child: SizedBox())];
+    }
+
+    return Column(
+      children: [
+        for (var r = 0; r < widget.rows; r++) ...[
+          if (r > 0) const SizedBox(height: 10),
+          Row(
             children: [
-              for (var i = 0; i < visible.length; i++)
-                _BoardTile(
-                  location: visible[i],
-                  chosen: i == chosenIndex,
-                  pinned: favorites.any(
-                    (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
-                  ),
-                  accent: widget.accent,
-                  border: widget.border,
-                  dark: dark,
-                  round: style.flagRound,
-                  onTap: () => choose(visible[i]),
-                  onLongPress: widget.onToggleFavorite == null
-                      ? null
-                      : () => widget.onToggleFavorite!(visible[i].code),
-                ),
-              if (showAll)
-                _BoardTile.all(
-                  accent: widget.accent,
-                  border: widget.border,
-                  dark: dark,
-                  label: l.flagAllPlaces,
-                  onTap: widget.onOpenServers,
-                ),
+              for (var c = 0; c < widget.columns; c++) ...[
+                if (c > 0) const SizedBox(width: 10),
+                ...cell(r * widget.columns + c),
+              ],
             ],
           ),
-        );
-      },
+        ],
+      ],
     );
   }
 }
@@ -1343,48 +1351,91 @@ class _GazetteRegionBoxState extends State<GazetteRegionBox>
             ],
           ),
           const SizedBox(height: 6),
-          LayoutBuilder(
-            builder: (context, box) {
-              final tileW = (box.maxWidth - 18) / 2;
-              return SizedBox(
-                height: _rowHeight * (scrollable ? _visibleRows : rows),
-                child: GridView.count(
-                  controller: scrollable ? _columns : null,
-                  crossAxisCount: 2,
-                  shrinkWrap: !scrollable,
-                  physics: scrollable
-                      ? const ClampingScrollPhysics()
-                      : const NeverScrollableScrollPhysics(),
-                  childAspectRatio: tileW / _rowHeight,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 18,
-                  padding: EdgeInsets.zero,
-                  children: [
-                    for (var i = 0; i < entries.length; i++)
-                      _RegionRow(
-                        location: entries[i],
-                        chosen: i == chosenIndex,
-                        pinned: favorites.any(
-                          (f) =>
-                              f.toLowerCase() == entries[i].code.toLowerCase(),
-                        ),
-                        ink: widget.text,
-                        muted: widget.muted,
-                        accent: widget.accent,
-                        display: widget.display,
-                        displayFallback: widget.displayFallback,
-                        onTap: () => choose(entries[i]),
-                        onLongPress: widget.onToggleFavorite == null
-                            ? null
-                            : () => widget.onToggleFavorite!(entries[i].code),
-                      ),
-                  ],
-                ),
-              );
-            },
+          // The columns are plain rows of paired lines — no grid viewport
+          // and no LayoutBuilder anywhere, because the home measures
+          // itself through IntrinsicHeight and neither of the two can
+          // answer intrinsics. A longer list scrolls in its own fixed
+          // seat, the way a long index does.
+          SizedBox(
+            height: _rowHeight * (scrollable ? _visibleRows : rows),
+            child: scrollable
+                ? SingleChildScrollView(
+                    controller: _columns,
+                    physics: const ClampingScrollPhysics(),
+                    child: _rowsColumn(l, entries, chosenIndex),
+                  )
+                : _rowsColumn(l, entries, chosenIndex),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _rowsColumn(
+    AppLocalizations l,
+    List<Location> entries,
+    int chosenIndex,
+  ) {
+    final pairs = (entries.length + 1) ~/ 2;
+    return Column(
+      children: [
+        for (var r = 0; r < pairs; r++)
+          SizedBox(
+            height: _rowHeight,
+            child: Row(
+              children: [
+                Expanded(
+                  child: _RegionRow(
+                    location: entries[r * 2],
+                    chosen: r * 2 == chosenIndex,
+                    pinned: favorites.any(
+                      (f) =>
+                          f.toLowerCase() ==
+                          entries[r * 2].code.toLowerCase(),
+                    ),
+                    ink: widget.text,
+                    muted: widget.muted,
+                    accent: widget.accent,
+                    display: widget.display,
+                    displayFallback: widget.displayFallback,
+                    onTap: () => choose(entries[r * 2]),
+                    onLongPress: widget.onToggleFavorite == null
+                        ? null
+                        : () => widget.onToggleFavorite!(entries[r * 2].code),
+                  ),
+                ),
+                // The column rule between the two listings: the paper's
+                // own hairline between its columns.
+                Container(width: 1, height: _rowHeight - 10, color: widget.rule),
+                const SizedBox(width: 17),
+                if (r * 2 + 1 < entries.length)
+                  Expanded(
+                    child: _RegionRow(
+                      location: entries[r * 2 + 1],
+                      chosen: r * 2 + 1 == chosenIndex,
+                      pinned: favorites.any(
+                        (f) =>
+                            f.toLowerCase() ==
+                            entries[r * 2 + 1].code.toLowerCase(),
+                      ),
+                      ink: widget.text,
+                      muted: widget.muted,
+                      accent: widget.accent,
+                      display: widget.display,
+                      displayFallback: widget.displayFallback,
+                      onTap: () => choose(entries[r * 2 + 1]),
+                      onLongPress: widget.onToggleFavorite == null
+                          ? null
+                          : () =>
+                                widget.onToggleFavorite!(entries[r * 2 + 1].code),
+                    ),
+                  )
+                else
+                  const Expanded(child: SizedBox()),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }
