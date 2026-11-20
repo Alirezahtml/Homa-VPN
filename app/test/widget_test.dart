@@ -2658,7 +2658,8 @@ void main() {
     await settle(tester);
 
     // On, with no system proxy: connected, not "proxy only". The state's
-    // word shows twice — above the switch and in its track.
+    // word stands in the switch's own track (the capsule above it is
+    // gone — the home says each state once).
     expect(find.text('Connected'), findsWidgets);
     // Connected through the recommended location: the exit's country,
     // without the city, under "Recommended location".
@@ -2681,7 +2682,11 @@ void main() {
     await tester.tap(find.byTooltip('Tap to disconnect'));
     await settle(tester);
     expect(api.on, isFalse);
-    expect(find.text('Disconnected'), findsOneWidget);
+    // The state's word lives in the slider's track now: off, the track
+    // carries the connect hint — the capsule that said "Disconnected"
+    // above the switch is gone, the page says each state once.
+    expect(find.text('Disconnected'), findsNothing);
+    expect(find.text('Slide to connect'), findsOneWidget);
     // Off: the chosen location, the recommended one by default.
     expect(find.text('Location'), findsOneWidget);
     expect(find.text('Recommended location'), findsOneWidget);
@@ -2735,7 +2740,8 @@ void main() {
     api.online = true;
     await core.runTest();
     await settle(tester);
-    // The state's word shows twice: above the switch and in its track.
+    // The state's word stands in the switch's own track (the capsule
+    // above it is gone — the home says each state once).
     expect(find.text('Connected'), findsWidgets);
 
     // Wi-Fi and mobile data off: Android says so, and the app at once,
@@ -2781,12 +2787,12 @@ void main() {
         find.byTooltip(desktop ? l.tapToConnect : l.tapToConnectPhone),
       );
       await settle(tester);
-      // The state's word stands twice on the phone while the connection
-      // is being made: in its capsule, and in the switch's own track —
-      // the wheel's slider carries the connecting word now, so nothing
-      // vanishes under the finger. The desktop's home has no slider in
-      // its track, so its word stands once.
-      final words = desktop ? findsOneWidget : findsNWidgets(2);
+      // The state's word stands in the switch's own track while the
+      // connection is being made — the wheel's slider carries the
+      // connecting word now, so nothing vanishes under the finger. The
+      // capsule that repeated it is gone, so the word stands once, on
+      // the phone as on the desktop.
+      final words = findsOneWidget;
       expect(find.text(l.stateConnecting), words);
       expect(api.on, isFalse, reason: 'the engine has not started yet');
 
