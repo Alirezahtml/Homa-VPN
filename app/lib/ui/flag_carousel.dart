@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart' show SpringDescription;
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -429,15 +430,10 @@ class _FlagCarouselState extends State<FlagCarousel>
               clipBehavior: Clip.none,
               // The wheel's walk, tuned to read as one glide: the page
               // physics keep the landing on the country (one fling, one
-              // place), and the slow deceleration under them gives the
-              // drag a heavier, steadier read — the wheel settles into
-              // the chosen flag instead of knocking into it like a
-              // ratchet.
-              physics: const PageScrollPhysics(
-                parent: BouncingScrollPhysics(
-                  decelerationRate: ScrollDecelerationRate.slow,
-                ),
-              ),
+              // place), and the wheel's own settle spring — a touch
+              // softer, just critically damped — arrives without the
+              // hard ratchet knock.
+              physics: const _WheelGlide(),
               onPageChanged: (page) {
                 final loc = entries[page % entries.length];
                 final chosen = isRecommendedPlace(loc.code)
@@ -1388,4 +1384,23 @@ class _StripTile extends StatelessWidget {
     }
     return CountryFlag(code: code, width: width);
   }
+}
+
+/// The wheel's own settle: the page physics' landing, a touch softer and
+/// just critically damped — the wheel glides into the chosen flag instead
+/// of knocking into it like a ratchet. One fling still carries one
+/// country: the page math itself is the parent's own.
+class _WheelGlide extends PageScrollPhysics {
+  const _WheelGlide({super.parent});
+
+  @override
+  _WheelGlide applyTo(ScrollPhysics? ancestor) =>
+      _WheelGlide(parent: buildParent(ancestor));
+
+  @override
+  SpringDescription get spring => SpringDescription.withDampingRatio(
+        mass: 0.55,
+        stiffness: 130,
+        ratio: 1.0,
+      );
 }
