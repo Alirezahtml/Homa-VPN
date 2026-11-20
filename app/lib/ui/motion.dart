@@ -3062,7 +3062,9 @@ class SmoothEnter extends StatelessWidget {
       transitionBuilder: (child, anim) => SizeTransition(
         sizeFactor: anim,
         axis: Axis.vertical,
-        axisAlignment: -1,
+        // The seat's top: the child sits at the growth's start, so the
+        // section never drifts while its height walks.
+        alignment: const Alignment(0, -1),
         child: FadeTransition(opacity: anim, child: child),
       ),
       // Both faces pin to the seat's top while the crossfade runs, so
@@ -3070,10 +3072,7 @@ class SmoothEnter extends StatelessWidget {
       layoutBuilder: (currentChild, previousChildren) => Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
-        children: <Widget>[
-          ...previousChildren,
-          if (currentChild != null) currentChild,
-        ],
+        children: <Widget>[...previousChildren, ?currentChild],
       ),
       child: show
           ? KeyedSubtree(key: const ValueKey('enter-shown'), child: shown)
