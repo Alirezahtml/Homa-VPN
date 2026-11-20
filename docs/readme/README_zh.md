@@ -53,6 +53,8 @@
 
 🌙 浅色和深色主题
 
+🎨 八种主页设计 — 玻璃转轮、报纸 Gazette、iOS、Material You 的 Pixel、Zed 与 Aether — 每种都是完整的外观：自己的卡片、旗帜、导航、世界地图与动效
+
 🛡 开源、安全、社区驱动
 
 🔄 自动更新
@@ -60,10 +62,17 @@
 ## 📸 截图
 
 <p align="center">
-<img src="../screenshots/phone_01.webp" width="240" alt="Home">&nbsp;&nbsp;
-<img src="../screenshots/phone_02.webp" width="240" alt="Servers">&nbsp;&nbsp;
-<img src="../screenshots/phone_03.webp" width="240" alt="Settings">
+<img src="../screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
+<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
+<img src="../screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="../screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
+<img src="../screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
+<img src="../screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="../screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
+<img src="../screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
+
+*主页设计 — 转轮、Gazette、iOS、Pixel、Zed 与 Aether — 每种拥有自己的完整外观：卡片、旗帜、导航、世界地图与动效。最后两张：服务器与设置。*
 
 ## 📥 下载
 

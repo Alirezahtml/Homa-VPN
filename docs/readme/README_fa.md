@@ -55,6 +55,8 @@
 
 🌙 پوسته روشن و تیره
 
+🎨 هشت طرح صفحهٔ اصلی — چرخ شیشه‌ای، روزنامه، iOS، پیکسل Material You، زد و اثیر — هر کدام یک پوشش کامل از خودش: کارت‌ها، پرچم‌ها، ناوبری، نقشهٔ جهان و حرکت‌ها
+
 🛡 اپن سورس، کاملا امن و کامیونیتی محور
 
 🔄 آپدیت خودکار
@@ -62,10 +64,17 @@
 ## 📸 تصاویر
 
 <p align="center" dir="ltr">
-<img src="../screenshots/phone_01.webp" width="240" alt="Home">&nbsp;&nbsp;
-<img src="../screenshots/phone_02.webp" width="240" alt="Servers">&nbsp;&nbsp;
-<img src="../screenshots/phone_03.webp" width="240" alt="Settings">
+<img src="../screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
+<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
+<img src="../screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="../screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
+<img src="../screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
+<img src="../screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="../screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
+<img src="../screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
+
+*طرح‌های صفحهٔ اصلی — چرخ، روزنامه، iOS، پیکسل، زد و اثیر — هر کدام پوشش کاملی از خودش: کارت‌ها، پرچم‌ها، ناوبری، نقشهٔ جهان و حرکت‌ها. دو تصویر آخر: سرورها و تنظیمات.*
 
 ## 📥 دانلود مستقیم
 

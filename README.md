@@ -59,6 +59,8 @@ For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 
 🌙 Light and dark themes
 
+🎨 Eight home designs — the glass wheel, the newspaper Gazette, iOS, Material You's Pixel, Zed and the Aether — each a complete look of its own: cards, flags, navigation, the world map and the motion
+
 🛡 Open source, secure, and community-driven
 
 🔄 Automatic updates
@@ -66,10 +68,17 @@ For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 ## 📸 Screenshots
 
 <p align="center">
-<img src="docs/screenshots/phone_01.webp" width="240" alt="Home">&nbsp;&nbsp;
-<img src="docs/screenshots/phone_02.webp" width="240" alt="Servers">&nbsp;&nbsp;
-<img src="docs/screenshots/phone_03.webp" width="240" alt="Settings">
+<img src="docs/screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
+<img src="docs/screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
+<img src="docs/screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="docs/screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
+<img src="docs/screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
+<img src="docs/screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="docs/screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
+<img src="docs/screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
+
+*The home designs — the wheel, the Gazette, iOS, Pixel, Zed and the Aether — each a complete look of its own: cards, flags, navigation, the world map and the motion. The last two: the servers and the settings.*
 
 ## 📥 Download
 
