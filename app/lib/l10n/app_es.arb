@@ -830,5 +830,9 @@
   "wn58Speed": "La prueba de velocidad corre más ligera: el panel repinta diez veces por segundo como máximo, la aguja del barrido camina en línea recta corta, y las caras se funden en vez de saltar.",
   "wn58Ios": "Un diseño nuevo: iOS — lo propio del sistema, desde las tablas agrupadas y el filete de la barra hasta la tarjeta de estado con su botón cápsula. Cada página, tarjeta, diálogo e icono con voz del sistema, en ambos modos.",
   "wn58Pixel": "Un diseño nuevo: Pixel — el estilo Material You, superficies tonales, tarjetas grandes y llenas, la barra de indicador pastilla y los títulos grandes. Cada página, tarjeta, diálogo e icono con voz propia de Android, en ambos modos.",
-  "wn58Paper": "El periódico ya es un periódico entero: su propia barra de secciones con la viñeta impresa y el subrayado, cabecera de sección para cada página aparte, y la caja de papel fileteada para cada grupo de ajustes — las líneas de imprenta llegaron a toda la app."
+  "wn58Paper": "El periódico ya es un periódico entero: su propia barra de secciones con la viñeta impresa y el subrayado, cabecera de sección para cada página aparte, y la caja de papel fileteada para cada grupo de ajustes — las líneas de imprenta llegaron a toda la app.",
+  "wn59Flags": "Las banderas llevan el corte de cada diseño: la medalla redonda en iOS y aether, el squircle en zed, la placa reglada en gazette, los grandes redondeos de pixel — la rueda, la tira y la banderita de cada fila lo siguen.",
+  "wn59Map": "El mapa del mundo se dibuja con la tinta de cada diseño: el marrón cálido del papel en gazette, el gris de la noche violeta en zed, el azul grisáceo tonal en pixel — el mundo de cada diseño pertenece a su página.",
+  "wn59Buttons": "Los botones de conexión hablan la voz de su diseño: la gran píldora tonal de Material You en pixel, la cápsula de iOS que respira mientras se establece la conexión, y las tarjetas de cada página entrando con el movimiento de su diseño.",
+  "wn59Scroll": "Las ruedas y las tiras se deslizan con la física de su diseño: el rebote del sistema, la parada rápida de Material y el peso del papel que muere en el doblez."
 }

@@ -10,8 +10,96 @@ import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../core/remote_flags.dart' show bundledFlags;
 import '../l10n/app_localizations.dart';
+import 'design.dart';
+import 'design_style.dart';
 import 'sound.dart' show AppSounds, SoundCue;
 import 'widgets.dart';
+
+/// The shape a flag card wears, in the design's own cut — the border
+/// shape the InkWell's splash follows, the container's decoration the
+/// art clips to, and whether the art fills by cropping (the medal's
+/// square, whose circle cuts the plate's sides) or fits whole.
+ShapeBorder flagCutShape(DesignStyle design, double w, double h) =>
+    switch (design.flagShape) {
+      FlagShape.rounded => RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(design.flagRound),
+      ),
+      FlagShape.plate => RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(3),
+      ),
+      FlagShape.squircle => ContinuousRectangleBorder(
+        borderRadius: BorderRadius.circular(h * 0.42),
+      ),
+      FlagShape.circle => const CircleBorder(),
+    };
+
+/// The plain box a flag paints in: the design's cut with the edge's
+/// hairline around it.
+Decoration flagCutDecoration(
+  DesignStyle design,
+  double w,
+  double h,
+  Color edge, {
+  double weight = 0.7,
+}) => switch (design.flagShape) {
+  FlagShape.rounded => BoxDecoration(
+    borderRadius: BorderRadius.circular(design.flagRound),
+    border: Border.all(color: edge, width: weight),
+  ),
+  FlagShape.plate => BoxDecoration(
+    borderRadius: BorderRadius.circular(3),
+    border: Border.all(color: edge, width: weight),
+  ),
+  FlagShape.squircle => ShapeDecoration(
+    shape: ContinuousRectangleBorder(
+      borderRadius: BorderRadius.circular(h * 0.42),
+      side: BorderSide(color: edge, width: weight),
+    ),
+  ),
+  FlagShape.circle => BoxDecoration(
+    shape: BoxShape.circle,
+    border: Border.all(color: edge, width: weight),
+  ),
+};
+
+/// The glass sweep the flag cards wear: the light from up-left that
+/// gives the plate its sheen. The print's mood keeps none — the paper
+/// is flat, the ink does not gleam.
+Decoration? flagSweep(
+  DesignStyle design,
+  double w,
+  double h,
+  bool dark, {
+  double top = 0.08,
+}) {
+  if (design.fx == FxMood.print || design.fx == FxMood.tonal) return null;
+  final colors = [
+    Colors.white.withValues(alpha: dark ? top * 0.6 : top),
+    Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
+  ];
+  final gradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomCenter,
+    colors: colors,
+  );
+  return switch (design.flagShape) {
+    FlagShape.rounded => BoxDecoration(
+      borderRadius: BorderRadius.circular(design.flagRound),
+      gradient: gradient,
+    ),
+    FlagShape.plate => BoxDecoration(
+      borderRadius: BorderRadius.circular(3),
+      gradient: gradient,
+    ),
+    FlagShape.squircle => ShapeDecoration(
+      shape: ContinuousRectangleBorder(
+        borderRadius: BorderRadius.circular(h * 0.42),
+      ),
+      gradient: gradient,
+    ),
+    FlagShape.circle => BoxDecoration(shape: BoxShape.circle, gradient: gradient),
+  };
+}
 
 /// The home page's country wheel: the locations' flags in one horizontal,
 /// draggable row, the chosen one larger in the middle, over a glass shelf
@@ -770,42 +858,35 @@ class _FlagCard extends StatelessWidget {
   }
 
   /// The card's body at the wheel's own size, unframed: a neighbor's
-  /// card, one size everywhere and let down by its scale. The frame is
-  /// the flag's own 3:2: the art fits whole.
+  /// card, one size everywhere and let down by its scale. The cut is
+  /// the design's own — the rounded plate, the medal, the squircle or
+  /// the printed plate — and the art follows it.
   Widget _plainCard(ColorScheme scheme, double base) {
+    final design = DesignStyle.of(context);
+    final medal = design.flagShape == FlagShape.circle;
+    // The medal's box is square: the circle's diameter is the plate's
+    // height, and the art crops to fill it.
+    final w = medal ? base * 2 / 3 : base;
+    final h = base * 2 / 3;
+    final edge = border.withValues(alpha: dark ? 0.6 : 0.5);
     return InkWell(
       onTap: onTap,
       onLongPress: onLongPress,
-      borderRadius: BorderRadius.circular(18),
+      customBorder: flagCutShape(design, w, h),
       child: Container(
-        width: base,
-        height: base * 2 / 3,
+        width: w,
+        height: h,
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: border.withValues(alpha: dark ? 0.6 : 0.5),
-            width: 0.7,
-          ),
-        ),
+        decoration: flagCutDecoration(design, w, h, edge),
         // The glass: a darker sweep on the neighbors, so the row carries
-        // depth without leaving the theme.
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-              Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
-            ],
-          ),
-        ),
+        // depth without leaving the theme. The print and the tonal
+        // surface keep none.
+        foregroundDecoration: flagSweep(design, w, h, dark),
         child: favorite
             ? Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  _content(scheme, base),
+                  _content(scheme, w, cover: medal),
                   PositionedDirectional(
                     top: -5,
                     end: -5,
@@ -828,7 +909,7 @@ class _FlagCard extends StatelessWidget {
                   ),
                 ],
               )
-            : _content(scheme, base),
+            : _content(scheme, w, cover: medal),
       ),
     );
   }
@@ -839,69 +920,178 @@ class _FlagCard extends StatelessWidget {
   /// mirrored flag: a reflected second flag read as one flag cut in
   /// half, the wheel's oldest complaint, so the shelf carries only
   /// light, never art. The whole thing paints once, at one size.
+  ///
+  /// The frame itself wears the design's own dress: the monochrome's
+  /// frosted bezel and its blue bloom; the system designs' medal ring;
+  /// the zed's violet glow; the pixel's quiet tonal edge; and the
+  /// paper's double rule, flat, no light at all.
   Widget _framedCard(ColorScheme scheme, double base, bool dark) {
-    final blue = _FlagCard.glowBlue(dark);
-    final card = InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
-        width: base,
-        height: base * 2 / 3,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: blue.withValues(alpha: 0.95), width: 1.5),
-        ),
-        // The glass: a light sweep on the chosen card.
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
-              Colors.white.withValues(alpha: 0.03),
-            ],
-          ),
-        ),
-        child: favorite
-            ? Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  _content(scheme, base),
-                  PositionedDirectional(
-                    top: -5,
-                    end: -5,
-                    child: Container(
-                      padding: const EdgeInsets.all(2.5),
-                      decoration: BoxDecoration(
-                        color: glowBlue(dark),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: dark ? Colors.black : Colors.white,
-                          width: 1.2,
-                        ),
-                      ),
-                      child: Icon(
-                        Icons.star_rounded,
-                        size: 9,
-                        color: Colors.white,
-                      ),
+    final design = DesignStyle.of(context);
+    final shape = design.flagShape;
+    final medal = shape == FlagShape.circle;
+    final w = medal ? base * 2 / 3 : base;
+    final h = base * 2 / 3;
+    // The frame's light: the monochrome's own blue; every design that
+    // carries a palette lights its frame with that palette's ink.
+    final light = AppDesign.current.key == 'mono'
+        ? _FlagCard.glowBlue(dark)
+        : design.navActive;
+    final edge = border.withValues(alpha: dark ? 0.6 : 0.5);
+    // The favorite's star: the same coin on every design.
+    Widget fav(Widget child) => favorite
+        ? Stack(
+            clipBehavior: Clip.none,
+            children: [
+              child,
+              PositionedDirectional(
+                top: -5,
+                end: -5,
+                child: Container(
+                  padding: const EdgeInsets.all(2.5),
+                  decoration: BoxDecoration(
+                    color: glowBlue(dark),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: dark ? Colors.black : Colors.white,
+                      width: 1.2,
                     ),
                   ),
-                ],
-              )
-            : _content(scheme, base),
-      ),
-    );
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          // The glass frame: a bezel of frosted glass around the flag —
-          // the sweep comes from up-left, the fine white edge holds the
-          // shape.
+                  child: Icon(
+                    Icons.star_rounded,
+                    size: 9,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : child;
+    final Widget frame;
+    var shelf = false;
+    switch (design.fx) {
+      case FxMood.print:
+        // The paper's plate: the double rule in the ink, no shadow, no
+        // light — flat, like everything the press makes.
+        frame = Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: light.withValues(alpha: 0.9), width: 1.2),
+          ),
+          child: Container(
+            width: w,
+            height: h,
+            clipBehavior: Clip.antiAlias,
+            decoration: flagCutDecoration(
+              design,
+              w,
+              h,
+              light.withValues(alpha: 0.55),
+              weight: 0.7,
+            ),
+            child: fav(_content(scheme, w, cover: medal)),
+          ),
+        );
+      case FxMood.soft:
+        // The system's medal: the ring of light around the circle, and
+        // the soft shadow that lifts it off the page — depth without a
+        // bloom.
+        frame = Container(
+          width: w + 6,
+          height: h + 6,
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: light.withValues(alpha: 0.85), width: 1.3),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.40 : 0.16),
+                blurRadius: 12,
+                offset: const Offset(0, 5),
+              ),
+              BoxShadow(
+                color: light.withValues(alpha: dark ? 0.30 : 0.18),
+                blurRadius: 16,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: const BoxDecoration(shape: BoxShape.circle),
+            child: fav(_content(scheme, w, cover: true)),
+          ),
+        );
+      case FxMood.glow:
+        // The bento's glow: the frame lit from within, the violet bloom
+        // reaching past the squircle's corners, and the shelf of light
+        // under it.
+        frame = Container(
+          width: w + 6,
+          height: h + 6,
+          padding: const EdgeInsets.all(3),
+          decoration: ShapeDecoration(
+            shape: ContinuousRectangleBorder(
+              borderRadius: BorderRadius.circular((h + 6) * 0.42),
+              side: BorderSide(color: light.withValues(alpha: 0.9), width: 1.3),
+            ),
+            shadows: [
+              BoxShadow(
+                color: light.withValues(alpha: dark ? 0.50 : 0.32),
+                blurRadius: 26,
+                spreadRadius: 1.5,
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.45 : 0.16),
+                blurRadius: 14,
+                offset: const Offset(0, 7),
+              ),
+            ],
+          ),
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: ShapeDecoration(
+              shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.circular(h * 0.42),
+              ),
+            ),
+            child: fav(_content(scheme, w)),
+          ),
+        );
+        shelf = true;
+      case FxMood.tonal:
+        // Material's quiet edge: the tonal surface speaks, the shape
+        // carries, the shadow only whispers.
+        frame = Container(
+          width: w + 4,
+          height: h + 4,
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(design.flagRound + 2),
+            border: Border.all(
+              color: light.withValues(alpha: 0.55),
+              width: 1.2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.38 : 0.15),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: flagCutDecoration(design, w, h, edge),
+            child: fav(_content(scheme, w, cover: medal)),
+          ),
+        );
+      case FxMood.glass:
+        // The glass frame: a bezel of frosted glass around the flag —
+        // the sweep comes from up-left, the fine white edge holds the
+        // shape, and the blue light blooms behind it. The shelf under
+        // it holds only light.
+        frame = Container(
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
@@ -918,16 +1108,13 @@ class _FlagCard extends StatelessWidget {
               width: 1,
             ),
             boxShadow: [
-              // The blue light: a tight ring of it, then a wide, very
-              // soft bloom — the halo on the card itself, so the frame
-              // reads as lit from within, whatever the theme behind it.
               BoxShadow(
-                color: blue.withValues(alpha: dark ? 0.55 : 0.34),
+                color: light.withValues(alpha: dark ? 0.55 : 0.34),
                 blurRadius: 26,
                 spreadRadius: 1.5,
               ),
               BoxShadow(
-                color: blue.withValues(alpha: dark ? 0.22 : 0.12),
+                color: light.withValues(alpha: dark ? 0.22 : 0.12),
                 blurRadius: 58,
                 spreadRadius: 6,
               ),
@@ -938,19 +1125,49 @@ class _FlagCard extends StatelessWidget {
               ),
             ],
           ),
-          child: card,
-        ),
-        const SizedBox(height: 6),
-        _ShelfGleam(width: base + 6, accent: blue, dark: dark),
+          child: Container(
+            width: w,
+            height: h,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(design.flagRound),
+              border: Border.all(color: light.withValues(alpha: 0.95), width: 1.5),
+            ),
+            foregroundDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(design.flagRound),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.white.withValues(alpha: dark ? 0.22 : 0.28),
+                  Colors.white.withValues(alpha: 0.03),
+                ],
+              ),
+            ),
+            child: fav(_content(scheme, w, cover: medal)),
+          ),
+        );
+        shelf = true;
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        frame,
+        if (shelf) ...[
+          const SizedBox(height: 6),
+          _ShelfGleam(width: base + 6, accent: light, dark: dark),
+        ],
       ],
     );
   }
 
   /// The card's content, full bleed: a real country's flag, or Mozilla's
   /// own mark on its tile for the recommended location — the corners as
-  /// rounded as the flags' card.
-  Widget _content(ColorScheme scheme, double width) {
+  /// rounded as the flags' card. [width] is the box's width; [cover]
+  /// says the box is the medal's square, the art cropped to fill it.
+  Widget _content(ColorScheme scheme, double width, {bool cover = false}) {
     final code = location.code;
+    final height = cover ? width : width * 2 / 3;
     if (isRecommendedPlace(code)) {
       return Container(
         color: scheme.primaryContainer,
@@ -972,19 +1189,19 @@ class _FlagCard extends StatelessWidget {
     if (bundledFlags.contains(code.toLowerCase())) {
       // The boundary keeps the flag's raster while the wheel's breath
       // recomposes the frame around it: the art repaints only when it
-      // really changes, not on every tick. The frame is 3:2, the flag's
-      // own shape: no country is cropped to fit.
+      // really changes, not on every tick. The plate fits the art whole
+      // (the flag's own 3:2); the medal crops it to its round.
       return RepaintBoundary(
         child: SvgPicture.asset(
           'assets/flags/${code.toLowerCase()}.svg',
           width: width,
-          height: width * 2 / 3,
-          fit: BoxFit.contain,
+          height: height,
+          fit: cover ? BoxFit.cover : BoxFit.contain,
         ),
       );
     }
     // Not carried: from the core, the code until it arrives.
-    return CountryFlag(code: code, width: width);
+    return CountryFlag(code: code, width: cover ? height : width);
   }
 }
 
@@ -1196,7 +1413,16 @@ class _FlagStripState extends State<FlagStrip> {
             controller: _strip,
             scrollDirection: Axis.horizontal,
             clipBehavior: Clip.none,
-            physics: const BouncingScrollPhysics(),
+            // The strip scrolls in the design's own physics: the system
+            // designs' light bounce, the paper's clamped weight that
+            // dies against the fold, Material's quicker settle.
+            physics: switch (DesignStyle.of(context).scroll) {
+              ScrollMood.heavy => const ClampingScrollPhysics(),
+              ScrollMood.springy => const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.fast,
+              ),
+              _ => const BouncingScrollPhysics(),
+            },
             padding: const EdgeInsets.symmetric(horizontal: 24),
             itemCount: entries.length,
             separatorBuilder: (_, _) => const SizedBox(width: 10),
@@ -1276,14 +1502,73 @@ class _StripTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final design = DesignStyle.of(context);
+    final shape = design.flagShape;
+    final medal = shape == FlagShape.circle;
     // One size for every tile, always: the chosen one stands out with its
     // own border and glow, and the size's emphasis rides the compositor
     // as a scale. No tile ever changes its layout when the choice moves —
     // the change of flags stays smooth on the phones that have little to
     // give — and each tile keeps its raster in a boundary of its own, so
-    // the strip's scroll re-uses it instead of redrawing it.
+    // the strip's scroll re-uses it instead of redrawing it. The cut is
+    // the design's own: the medal's circle for the system designs, the
+    // paper's ruled plate, the squircle for the bento.
     const w = 52.0;
     final h = w * 2 / 3;
+    final boxW = medal ? h : w;
+    final edge = chosen
+        ? accent.withValues(alpha: 0.9)
+        : border.withValues(alpha: dark ? 0.5 : 0.45);
+    // The mood's own light: the glass and the glow carry a bloom on the
+    // chosen tile, the soft keeps a whisper of it, and the print and the
+    // tonal surface stand flat — the border alone says chosen.
+    final List<BoxShadow> shadows = switch (design.fx) {
+      FxMood.print || FxMood.tonal => chosen
+          ? [
+              BoxShadow(
+                color: accent.withValues(alpha: dark ? 0.28 : 0.18),
+                blurRadius: 6,
+              ),
+            ]
+          : const [],
+      FxMood.soft => [
+          BoxShadow(
+            color: chosen
+                ? accent.withValues(alpha: dark ? 0.26 : 0.18)
+                : Colors.black.withValues(alpha: dark ? 0.30 : 0.10),
+            blurRadius: chosen ? 10 : 5,
+            offset: chosen ? Offset.zero : const Offset(0, 2),
+          ),
+        ],
+      FxMood.glass || FxMood.glow => chosen
+          ? [
+              BoxShadow(
+                color: accent.withValues(alpha: dark ? 0.35 : 0.25),
+                blurRadius: 14,
+                spreadRadius: 1,
+              ),
+            ]
+          : [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.4 : 0.14),
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+    };
+    final Decoration tile = medal
+        ? BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: edge, width: chosen ? 1.4 : 0.7),
+            boxShadow: shadows,
+          )
+        : flagCutDecoration(
+            design,
+            boxW,
+            h,
+            edge,
+            weight: chosen ? 1.4 : 0.7,
+          );
     return RepaintBoundary(
       child: GestureDetector(
         onTap: onTap,
@@ -1297,54 +1582,20 @@ class _StripTile extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 240),
               curve: Curves.easeOutCubic,
-              width: w,
+              width: boxW,
               height: h,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: chosen
-                      ? accent.withValues(alpha: 0.9)
-                      : border.withValues(alpha: dark ? 0.5 : 0.45),
-                  width: chosen ? 1.4 : 0.7,
-                ),
-                boxShadow: chosen
-                    ? [
-                        BoxShadow(
-                          color: accent.withValues(alpha: dark ? 0.35 : 0.25),
-                          blurRadius: 14,
-                          spreadRadius: 1,
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color: Colors.black.withValues(
-                            alpha: dark ? 0.4 : 0.14,
-                          ),
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-              ),
-              foregroundDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomCenter,
-                  colors: chosen
-                      ? [
-                          Colors.white.withValues(alpha: dark ? 0.18 : 0.24),
-                          Colors.white.withValues(alpha: 0.02),
-                        ]
-                      : [
-                          Colors.white.withValues(alpha: dark ? 0.04 : 0.08),
-                          Colors.black.withValues(alpha: dark ? 0.24 : 0.08),
-                        ],
-                ),
+              decoration: tile,
+              foregroundDecoration: flagSweep(
+                design,
+                boxW,
+                h,
+                dark,
+                top: chosen ? 0.24 : 0.08,
               ),
               child: Opacity(
                 opacity: chosen ? 1.0 : 0.82,
-                child: _content(scheme, w),
+                child: _content(scheme, boxW, cover: medal),
               ),
             ),
           ),
@@ -1353,8 +1604,9 @@ class _StripTile extends StatelessWidget {
     );
   }
 
-  Widget _content(ColorScheme scheme, double width) {
+  Widget _content(ColorScheme scheme, double width, {bool cover = false}) {
     final code = location.code;
+    final height = cover ? width : width * 2 / 3;
     if (isRecommendedPlace(code)) {
       return Container(
         color: scheme.primaryContainer,
@@ -1377,11 +1629,11 @@ class _StripTile extends StatelessWidget {
       return SvgPicture.asset(
         'assets/flags/${code.toLowerCase()}.svg',
         width: width,
-        height: width * 2 / 3,
-        fit: BoxFit.contain,
+        height: height,
+        fit: cover ? BoxFit.cover : BoxFit.contain,
       );
     }
-    return CountryFlag(code: code, width: width);
+    return CountryFlag(code: code, width: cover ? height : width);
   }
 }
 

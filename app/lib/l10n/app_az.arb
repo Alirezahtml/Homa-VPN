@@ -830,5 +830,9 @@
   "wn58Speed": "Sürət testi yüngül qaçır: panel saniyədə çox on dəfə çəkilir, saat əli qısa düz xəttdə gəzir, üzlər sıçramadın yavaşca bir-birinə keçir.",
   "wn58Ios": "Yeni dizayn: iOS — sistemin öz görünüşü, qruplu cədvəllərdən sekme barının xəttinə, kapsul düyməli status kartınadək. Hər səhifə, kart, pəncərə və ikon sistemin səsi ilə, hər iki rejimdə.",
   "wn58Pixel": "Yeni dizayn: Pixel — Material You görünüşü, tonal səthlər, iri dolu kartlar, kapsul göstəricili bar və böyük başlıqlar. Hər səhifə, kart, pəncərə və ikon Androidin səsi ilə, hər iki rejimdə.",
-  "wn58Paper": "Qəzet indi tam qəzetdir: öz bölmə zolağı çap nişanı və alt xətti ilə, hər ayrı səhifəyə bölmə başlığı, hər tənzimləmə qrupuna xətli kəpənzər qutusu — çap xətləri bütün tətbiqə çatdı."
+  "wn58Paper": "Qəzet indi tam qəzetdir: öz bölmə zolağı çap nişanı və alt xətti ilə, hər ayrı səhifəyə bölmə başlığı, hər tənzimləmə qrupuna xətli kəpənzər qutusu — çap xətləri bütün tətbiqə çatdı.",
+  "wn59Flags": "Bayraqlar hər dizaynın öz kəsiyini geyinir: iOS və «Əsir»də dairəvi medal, «Zed»də skvorkl, «Qəzet»də xətli lövhə, «Pixel»də böyük yumuşaq bucaqlar — çarx, zolaq və hər sətirin kiçik bayrağı onları izləyir.",
+  "wn59Map": "Dünya xəritəsi öz dizaynın mürəkkəbi ilə çəkilir: «Qəzet»də kağızın isti qəhvəyisi, «Zed»də bənövşəyi gecənin bozu, «Pixel»də tonal mavi-boz — hər dizaynın dünyası öz səhifəsinə məxsusdur.",
+  "wn59Buttons": "Qoşulma düymələri öz dizaynının səsi ilə danışır: «Pixel»də Material You-un böyük tonal həbi, qoşulma qurularkən nəfəs alan iOS kapsulu, və hər səhifənin kartlarının öz dizaynının hərəkəti ilə girişi.",
+  "wn59Scroll": "Çarxlar və zolaqlar öz dizaynın fizikası ilə sürüşür: sistemin secməsi, Material-un sürətli dayanması və qatlanmaya qarşı duran kağızın ağırlığı."
 }

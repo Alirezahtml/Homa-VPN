@@ -830,5 +830,9 @@
   "wn58Speed": "O teste de velocidade corre mais leve: o painel repinta dez vezes por segundo no máximo, o ponteiro do varrimento anda em linha reta curta, e as faces fundem-se em vez de saltar.",
   "wn58Ios": "Um design novo: iOS — o próprio do sistema, das tabelas agrupadas e do filete da barra ao cartão de estado com o botão cápsula. Cada página, cartão, diálogo e ícone na voz do sistema, nos dois modos.",
   "wn58Pixel": "Um design novo: Pixel — o estilo Material You, superfícies tonais, cartões grandes e cheios, a barra de indicador pastilha e os títulos grandes. Cada página, cartão, diálogo e ícone na voz própria do Android, nos dois modos.",
-  "wn58Paper": "O jornal é agora um jornal inteiro: a sua própria barra de secções com a vírgula impressa e o sublinhado, cabeçalho de secção para cada página aberta, e a caixa de papel pautada para cada grupo de definições — as linhas da imprensa chegaram a toda a app."
+  "wn58Paper": "O jornal é agora um jornal inteiro: a sua própria barra de secções com a vírgula impressa e o sublinhado, cabeçalho de secção para cada página aberta, e a caixa de papel pautada para cada grupo de definições — as linhas da imprensa chegaram a toda a app.",
+  "wn59Flags": "As bandeiras vestem o corte de cada design: a medalha redonda no iOS e no aether, o squircle no zed, a placa pautada no gazette, os grandes arredondados do pixel — a roda, a fita e a bandeirola de cada linha seguem-nos.",
+  "wn59Map": "O mapa-múndi é desenhado com a tinta do próprio design: o castanho quente do papel no gazette, o cinza da noite violeta no zed, o azulado tonal no pixel — o mundo de cada design pertence à sua página.",
+  "wn59Buttons": "Os botões de ligação falam a voz do seu design: a grande pílula tonal do Material You no pixel, a cápsula do iOS que respira enquanto a ligação se estabelece, e os cartões de cada página a entrar com o movimento do seu design.",
+  "wn59Scroll": "As rodas e as fitas rolam com a física do seu design: o salto do sistema, a paragem rápida do Material e o peso do papel que morre na dobra."
 }

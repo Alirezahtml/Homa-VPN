@@ -115,6 +115,10 @@ jobs:
         run: |
           flutter pub get
           flutter analyze
+          # The golden tests draw the designs' own pixels (the release's
+          # screenshots); their comparison needs the exact Flutter that
+          # drew the checked-in images, so without GOLDENS in the
+          # environment those files stay empty of tests.
           flutter test
 
   windows:
@@ -419,8 +423,37 @@ jobs:
           path: out/*
           if-no-files-found: error
 
+  screenshots:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Draw the designs
+        working-directory: app
+        run: |
+          flutter pub get
+          # The golden tests' --update-goldens run: the drawings are made,
+          # not compared, so CI's Flutter rendering the text its own shade
+          # is fine — these are the release's screenshots, drawn by the
+          # exact build that ships it. The phone homes in every design
+          # (wheel, tiles, compact, aether, zed, gazette, pixel, ios), the
+          # servers, the settings — always current, never stale.
+          GOLDENS=1 flutter test --update-goldens \
+            test/design_goldens_test.dart test/golden_home_test.dart
+      - uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: app/test/goldens/*.png
+          if-no-files-found: error
+
   release:
-    needs: [test, windows, android, linux, linux-desktop, macos]
+    needs: [test, windows, android, linux, linux-desktop, macos, screenshots]
     # A platform left out by PLATFORMS is skipped, not failed: the release
     # goes on with the rest.
     if: startsWith(github.ref, 'refs/tags/v') && !failure() && !cancelled()

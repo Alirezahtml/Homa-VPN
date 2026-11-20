@@ -830,5 +830,9 @@
   "wn58Speed": "Hız testi hafif koşuyor: panel saniyede çoğu on kez yeniden çiziliyor, süpürmenin ibresi kısa düz bir çizgide yürüyor ve yüzler sıçramak yerine birbirine eriyor.",
   "wn58Ios": "Yeni tasarım: iOS — sistemin kendi tarzı, gruplu tablolardan ve sekme çubuğunun ince çizgisinden kapsül düğmeli durum kartına. Her sayfa, kart, pencere ve simge sistemin sesiyle, iki modda da.",
   "wn58Pixel": "Yeni tasarım: Pixel — Material You tarzı, tonal yüzeyler, iri dolu kartlar, hap göstergeli çubuk ve büyük başlıklar. Her sayfa, kart, pencere ve simge Androidin kendi sesiyle, iki modda da.",
-  "wn58Paper": "Gazete artık bütün bir gazete: baskı nişanlı ve altı çizgili kendi bölüm şeridi, her ayrı sayfa için bölüm başlığı, her ayar grubu için çizgili kâğıt kutusu — matbaanın çizgileri tüm uygulamaya ulaştı."
+  "wn58Paper": "Gazete artık bütün bir gazete: baskı nişanlı ve altı çizgili kendi bölüm şeridi, her ayrı sayfa için bölüm başlığı, her ayar grubu için çizgili kâğıt kutusu — matbaanın çizgileri tüm uygulamaya ulaştı.",
+  "wn59Flags": "Bayraklar artık her tasarımın kendi kesimini taşır: iOS ve aether'da yuvarlak madalya, zed'de skuar, gazetede çizgili plaka, pixel'de yumuşak büyük köşeler — tekerlek, şerit ve her satırın küçük bayrağı uyar.",
+  "wn59Map": "Dünya haritası tasarımın kendi mürekkebiyle çizilir: gazetede kâğıdın sıcak kahvesi, zed'de mor gecenin grisi, pixel'de tonal mavi-gri — her tasarımın dünyası kendi sayfasına ait.",
+  "wn59Buttons": "Bağlan düğmeleri tasarımının sesiyle konuşur: pixel'de Material You'nun büyük tonal hapı, bağlantı kurulurken nefes alan iOS kapsülü, ve her sayfanın kartları kendi tasarımının hareketiyle girer.",
+  "wn59Scroll": "Tekerlekler ve şeritler tasarımın kendi fiziğiyle kayar: sistemin sekmesi, Material'in hızlı duruşu ve katlanmaya karşı duran kâğıdın ağırlığı."
 }

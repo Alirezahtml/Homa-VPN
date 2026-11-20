@@ -830,5 +830,9 @@
   "wn58Speed": "Tes kecepatan berjalan lebih ringan: panel menggambar ulang paling sering sepuluh kali per detik, jarum sapuan berjalan lurus pendek, dan wajah-wajah memudar berganti, bukan melompat.",
   "wn58Ios": "Desain baru: iOS — gaya sistem sendiri, dari tabel berkelompok dan garis tipis bilah tab hingga kartu status dengan tombol kapsul. Setiap halaman, kartu, dialog, dan ikon dengan suara sistem, di kedua mode.",
   "wn58Pixel": "Desain baru: Pixel — gaya Material You, permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar. Setiap halaman, kartu, dialog, dan ikon dengan suara Android sendiri, di kedua mode.",
-  "wn58Paper": "Koran kini koran utuh: bilah rubrik khasnya dengan peluru cetak dan garis bawah, kepala rubrik untuk setiap halaman terpisah, dan kotak kertas bergaris untuk setiap kelompok pengaturan — garis cetak menjangkau seluruh aplikasi."
+  "wn58Paper": "Koran kini koran utuh: bilah rubrik khasnya dengan peluru cetak dan garis bawah, kepala rubrik untuk setiap halaman terpisah, dan kotak kertas bergaris untuk setiap kelompok pengaturan — garis cetak menjangkau seluruh aplikasi.",
+  "wn59Flags": "Bendera memakai potongan desainnya sendiri: medali bulat di iOS dan aether, squircle di zed, pelat bergaris di gazette, sudut besar lembut di pixel — roda, lajur, dan bendera kecil setiap baris mengikutinya.",
+  "wn59Map": "Peta dunia digambar dengan tinta desainnya sendiri: cokelat hangat kertas di gazette, abu-abu malam ungu di zed, biru-abu tonal di pixel — dunia setiap desain milik halamannya.",
+  "wn59Buttons": "Tombol sambung berbicara dengan suara desainnya: pil tonal besar Material You di pixel, kapsul iOS yang bernapas saat koneksi dibuat, dan kartu setiap halaman masuk dengan gerak desainnya sendiri.",
+  "wn59Scroll": "Roda dan lajur menggulir dengan fisika desainnya: pantulan sistem, jeda cepat Material, dan berat kertas yang mati di lipatan."
 }

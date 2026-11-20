@@ -1,17 +1,16 @@
 // Renders the phone's home in both themes and both states, and the
 // Persian one, as golden images — real pixels of the design, for a look
-// that no assertion can give. Refresh with:
-//   flutter test --update-goldens test/golden_home_test.dart
+// that no assertion can give. Draw them with:
+//   GOLDENS=1 flutter test --update-goldens test/golden_home_test.dart
 //
-// Skipped on CI, whose Flutter renders text a shade differently from the
-// build that drew the goldens; a golden run is a local affair.
-@Skip(
-  'Golden images depend on the exact Flutter build rendering the text; '
-  'they are for a local look at the design (flutter test '
-  '--update-goldens test/golden_home_test.dart), not for CI, which runs '
-  'another Flutter version.',
-)
+// The ordinary run (and CI's test job) leaves the file empty: a golden
+// COMPARISON needs the exact Flutter that drew the checked-in images, and
+// CI's renders the text a shade differently. The release pipeline's
+// screenshots job sets GOLDENS=1 and draws them with --update-goldens, so
+// the release always carries the designs' current pixels.
 library;
+
+import 'dart:io' show Platform;
 
 import 'package:arman_vpn/app_settings.dart';
 import 'package:arman_vpn/core/core_controller.dart';
@@ -24,6 +23,9 @@ import 'settle.dart' show quietAudio, settle;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
+  // Only a golden run draws here: the ordinary suite has nothing to
+  // compare the drawings against, so it leaves the file without a test.
+  if (!Platform.environment.containsKey('GOLDENS')) return;
   setUpAll(() async {
     Future<void> load(String family, List<String> files) async {
       final loader = FontLoader(family);
@@ -53,6 +55,11 @@ void main() {
       'SpaceGrotesk/SpaceGrotesk-SemiBold.ttf',
       'SpaceGrotesk/SpaceGrotesk-Bold.ttf',
     ]);
+    // The icons' own face: the drawings would show hollow boxes where
+    // the nav's and the rows' glyphs stand if it were missing.
+    final icons = FontLoader('MaterialIcons')
+      ..addFont(rootBundle.load('fonts/MaterialIcons-Regular.otf'));
+    await icons.load();
   });
 
   Future<void> phone(

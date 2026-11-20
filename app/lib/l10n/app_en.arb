@@ -1424,5 +1424,9 @@
   "wn58Speed": "The speed test runs lighter: the panel repaints ten times a second at most, the sweep's needle walks in a short straight line, and the faces crossfade instead of snapping.",
   "wn58Ios": "A new design: iOS — the system's own look, from the grouped tables and the tab bar's hairline to the status card with its capsule button. Every page, card, dialog and icon in the system's voice, in both modes.",
   "wn58Pixel": "A new design: Pixel — Material You's look, the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles. Every page, card, dialog and icon in the Android's own voice, in both modes.",
-  "wn58Paper": "The gazette is a whole paper now: its own section bar with the print's bullet and underline, a section-front header for every pushed page, and the ruled paper box for every group of settings — the print's rules reach the whole app."
+  "wn58Paper": "The gazette is a whole paper now: its own section bar with the print's bullet and underline, a section-front header for every pushed page, and the ruled paper box for every group of settings — the print's rules reach the whole app.",
+  "wn59Flags": "The flags wear each design's own cut: the round medal on iOS and the aether, the squircle on the zed, the ruled plate on the gazette, the pixel's soft big rounds — the wheel, the strip and every row's little flag follow.",
+  "wn59Map": "The world map is drawn in the design's own ink: the paper's warm brown on the gazette, the violet night's gray on the zed, the tonal blue-gray on the pixel — each design's world belongs to its page.",
+  "wn59Buttons": "The connect controls speak their designs: Material You's big tonal pill on the pixel, the iOS capsule breathing while the connection is being made, and every page's cards entering in their design's own motion.",
+  "wn59Scroll": "The wheels and strips scroll in the design's own physics: the system's bounce, Material's quick settle, and the paper's weight that dies against the fold."
 }

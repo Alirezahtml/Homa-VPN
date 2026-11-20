@@ -830,5 +830,9 @@
   "wn58Speed": "A sebességteszt könnyebben fut: a panel másodpercenként legfeljebb tízszer újrarajzolódik, a mérő mutatója rövid egyenesen jár, és a lapok átúszanak egymásba, nem ugranak.",
   "wn58Ios": "Új dizájn: iOS — a rendszer sajátja, a csoportosított tábláktól és a fülca vonalán át az állapotkártyáig a kapszula gombbal. Minden oldal, kártya, párbeszéd és ikon a rendszer hangján, mindkét módban.",
   "wn58Pixel": "Új dizájn: Pixel — a Material You stílusa, tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek. Minden oldal, kártya, párbeszéd és ikon az Android saját hangján, mindkét módban.",
-  "wn58Paper": "A lap most már egész újság: saját rovatsávja a nyomtatott jelel és aláhúzással, rovatfejléc minden külön oldalhoz, és vonaltagolt papírdoboz minden beállításcsoporthoz — a nyomdai vonalak elértek az egész alkalmazásig."
+  "wn58Paper": "A lap most már egész újság: saját rovatsávja a nyomtatott jelel és aláhúzással, rovatfejléc minden külön oldalhoz, és vonaltagolt papírdoboz minden beállításcsoporthoz — a nyomdai vonalak elértek az egész alkalmazásig.",
+  "wn59Flags": "A zászlók mindegyik dizájn saját vágását viselik: kerek medál az iOS-on és az aetheren, szkvircle a zeden, vonalazott lemez a gazette-on, a pixel nagy kerek sarkai — a kerék, a sor és minden sor kis zászlója követi őket.",
+  "wn59Map": "A világtérkép a dizájn saját tusával készül: a papír meleg barnája a gazette-on, a lila éjszaka szürkéje a zeden, a tonális kékesszürke a pixelen — minden dizájn világa a saját oldaláé.",
+  "wn59Buttons": "A csatlakozás gombjai a dizájnjuk hangján szólnak: a Material You nagy tonális pirulája a pixelen, az iOS kapszula lélegzete a kapcsolat épülésekor, és minden oldal kártyái a saját dizájnjuk mozgásával lépnek be.",
+  "wn59Scroll": "A kerekek és sorok a dizájn saját fizikájával görgetnek: a rendszer pattanása, a Material gyors megállása, és a papír súlya, ami a hajtásnál elhal."
 }

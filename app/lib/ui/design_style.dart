@@ -88,6 +88,65 @@ enum GroupVariant {
   m3Card,
 }
 
+/// How the flags are cut, everywhere the app shows one — the wheel's
+/// cards, the strip's tiles, and the little flag beside every row.
+enum FlagShape {
+  /// The rounded rectangle: the flag's own 3:2 plate with soft corners.
+  rounded,
+
+  /// The circle: the flag cropped to a round medal — the system's own
+  /// way in the settings' tables.
+  circle,
+
+  /// The squircle: the continuous-corner superellipse, the shape that
+  /// bends without a knee.
+  squircle,
+
+  /// The printed plate: the paper's near-square cut with the double
+  /// rule around it, the engraving's own frame.
+  plate,
+}
+
+/// How loud the design's surfaces are: the depth of the shadows, the
+/// reach of the glows, the weight of the lines. One mood per design,
+/// read by every card and control the app paints.
+enum FxMood {
+  /// The monochrome's glass: the soft shadows and the glass blur.
+  glass,
+
+  /// The raised card and the hairline — depth without shadow.
+  soft,
+
+  /// Material's tonal depth: the surface's own color speaks, no shadow
+  /// and no line.
+  tonal,
+
+  /// The printed page: flat ink on flat paper, the rules carrying the
+  /// structure.
+  print,
+
+  /// The brand's light: the surfaces carry a glow of their own.
+  glow,
+}
+
+/// How the wheels and strips scroll: each design hands its lists the
+/// physics of its own world.
+enum ScrollMood {
+  /// The wheel's glide: one fling one country, the spring that lands it
+  /// softly (the wheel's own page physics).
+  glide,
+
+  /// The system's bounce: the light overscroll the iPhone's lists wear.
+  bounce,
+
+  /// Material's spring: a touch of the overshoot the M3 lists carry.
+  springy,
+
+  /// The press's weight: the paper does not overscroll; a fling dies
+  /// against the fold.
+  heavy,
+}
+
 class DesignStyle {
   const DesignStyle._({
     required this.nav,
@@ -104,6 +163,11 @@ class DesignStyle {
     required this.navActive,
     required this.navInactive,
     required this.switchTrack,
+    required this.flagShape,
+    required this.flagRound,
+    required this.smallFlagRound,
+    required this.fx,
+    required this.scroll,
   });
 
   /// The style for the design the app currently wears, in [dark].
@@ -127,6 +191,23 @@ class DesignStyle {
   final NavVariant nav;
   final HeaderVariant header;
   final GroupVariant group;
+
+  /// The cut every flag wears on this design — the wheel's cards, the
+  /// strip's tiles, and the row's little flags all read it.
+  final FlagShape flagShape;
+
+  /// The round of the wheel's flag card when the shape is [FlagShape.rounded].
+  final double flagRound;
+
+  /// The round of the row's small flag when the shape is
+  /// [FlagShape.rounded] — the little plate's corners are softer.
+  final double smallFlagRound;
+
+  /// How loud the surfaces are on this design.
+  final FxMood fx;
+
+  /// How the wheels and strips scroll on this design.
+  final ScrollMood scroll;
 
   /// The round of the cards that hold settings' groups and panels.
   final double cardRadius;
@@ -158,6 +239,11 @@ class DesignStyle {
     nav: NavVariant.glassPill,
     header: HeaderVariant.material,
     group: GroupVariant.flat,
+    flagShape: FlagShape.rounded,
+    flagRound: 18,
+    smallFlagRound: 5,
+    fx: FxMood.glass,
+    scroll: ScrollMood.glide,
     cardRadius: 24,
     listRadius: 16,
     dialogRadius: 24,
@@ -177,6 +263,11 @@ class DesignStyle {
     nav: NavVariant.curvedNotch,
     header: HeaderVariant.ios,
     group: GroupVariant.iosTable,
+    flagShape: FlagShape.circle,
+    flagRound: 16,
+    smallFlagRound: 8,
+    fx: FxMood.soft,
+    scroll: ScrollMood.bounce,
     cardRadius: 16,
     listRadius: 16,
     dialogRadius: 20,
@@ -198,6 +289,11 @@ class DesignStyle {
     nav: NavVariant.floatingDock,
     header: HeaderVariant.zed,
     group: GroupVariant.bento,
+    flagShape: FlagShape.squircle,
+    flagRound: 24,
+    smallFlagRound: 9,
+    fx: FxMood.glow,
+    scroll: ScrollMood.glide,
     cardRadius: 26,
     listRadius: 26,
     dialogRadius: 28,
@@ -221,6 +317,11 @@ class DesignStyle {
     nav: NavVariant.gazetteRuled,
     header: HeaderVariant.gazette,
     group: GroupVariant.gazetteRules,
+    flagShape: FlagShape.plate,
+    flagRound: 3,
+    smallFlagRound: 2,
+    fx: FxMood.print,
+    scroll: ScrollMood.heavy,
     cardRadius: 6,
     listRadius: 4,
     dialogRadius: 6,
@@ -243,6 +344,11 @@ class DesignStyle {
     nav: NavVariant.m3Bar,
     header: HeaderVariant.m3,
     group: GroupVariant.m3Card,
+    flagShape: FlagShape.rounded,
+    flagRound: 22,
+    smallFlagRound: 8,
+    fx: FxMood.tonal,
+    scroll: ScrollMood.springy,
     cardRadius: 28,
     listRadius: 20,
     dialogRadius: 28,
@@ -265,6 +371,11 @@ class DesignStyle {
     nav: NavVariant.cupertinoBar,
     header: HeaderVariant.ios,
     group: GroupVariant.iosTable,
+    flagShape: FlagShape.circle,
+    flagRound: 16,
+    smallFlagRound: 8,
+    fx: FxMood.soft,
+    scroll: ScrollMood.bounce,
     cardRadius: 16,
     listRadius: 16,
     dialogRadius: 14,

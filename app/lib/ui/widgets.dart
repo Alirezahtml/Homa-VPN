@@ -624,7 +624,8 @@ List<Notice> homeNotices(List<Notice> notices) => [
     if (n.kind != 'port') n,
 ];
 
-/// A country's flag, 4:3 with rounded corners; a star for the recommended
+/// A country's flag in the design's own cut — the rounded plate, the
+/// medal, the squircle or the ruled plate; a star for the recommended
 /// location, and the code in a small box when there is no flag for it.
 class CountryFlag extends StatelessWidget {
   const CountryFlag({super.key, required this.code, this.width = 28});
@@ -635,9 +636,16 @@ class CountryFlag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final style = DesignStyle.of(context);
+    final shape = style.flagShape;
+    // The flag's box: the plate's own 3:2, except the circle — the
+    // medal — whose diameter is the plate's height, the art cropped to
+    // its middle band, the way the system's own tables show flags.
     final height = width * 3 / 4;
+    final boxWidth = shape == FlagShape.circle ? height : width;
+    final edge = scheme.outlineVariant.withValues(alpha: 0.6);
     final fallback = Container(
-      width: width,
+      width: boxWidth,
       height: height,
       alignment: Alignment.center,
       color: scheme.secondaryContainer,
@@ -650,64 +658,111 @@ class CountryFlag extends StatelessWidget {
         ),
       ),
     );
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          color: scheme.outlineVariant.withValues(alpha: 0.6),
-          width: 0.5,
+    // The art fills the box whole: the circle and the squircle crop it
+    // (cover), the plate keeps the paper's margin under its second rule.
+    Widget art() => SizedBox(
+      width: boxWidth,
+      height: height,
+      child: isRecommendedPlace(code)
+            ? Container(
+                alignment: Alignment.center,
+                color: scheme.primaryContainer,
+                // Mozilla's own mark: the recommended location is
+                // Mozilla's recommender's pick, and the mark says so.
+                child: SvgPicture.asset(
+                  'assets/brand/mozilla_logo.svg',
+                  width: height * 0.72,
+                  height: height * 0.72,
+                  fit: BoxFit.contain,
+                  colorFilter: ColorFilter.mode(
+                    scheme.onPrimaryContainer,
+                    BlendMode.srcIn,
+                  ),
+                  errorBuilder: (_, _, _) => Icon(
+                    Icons.auto_awesome_rounded,
+                    size: height * 0.7,
+                    color: scheme.onPrimaryContainer,
+                  ),
+                ),
+              )
+            : code.length != 2
+            ? fallback
+            : bundledFlags.contains(code.toLowerCase())
+            ? SvgPicture.asset(
+                'assets/flags/${code.toLowerCase()}.svg',
+                width: boxWidth,
+                height: height,
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) => fallback,
+              )
+            // Not carried: from the core, the code until it arrives.
+            : FutureBuilder(
+                future: RemoteFlags.load(code.toLowerCase()),
+                builder: (context, snapshot) => switch (snapshot.data) {
+                  final svg? => SvgPicture.memory(
+                    svg,
+                    width: boxWidth,
+                    height: height,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => fallback,
+                  ),
+                  null => fallback,
+                },
+              ),
+    );
+    return switch (shape) {
+      // The medal: the round cut, the hairline's edge.
+      FlagShape.circle => Container(
+        width: boxWidth,
+        height: height,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: edge, width: 0.5)),
+        child: art(),
+      ),
+      // The squircle: the continuous corners, no knee in the bend.
+      FlagShape.squircle => Container(
+        width: boxWidth,
+        height: height,
+        clipBehavior: Clip.antiAlias,
+        decoration: ShapeDecoration(
+          shape: ContinuousRectangleBorder(
+            borderRadius: BorderRadius.circular(height * 0.42),
+            side: BorderSide(color: edge, width: 0.5),
+          ),
+        ),
+        child: art(),
+      ),
+      // The printed plate: the double rule around the art, the paper's
+      // own margin between the rules.
+      FlagShape.plate => Container(
+        width: boxWidth,
+        height: height,
+        padding: const EdgeInsets.all(2.2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2.5),
+          border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.75), width: 0.9),
+        ),
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1),
+            border: Border.all(color: edge.withValues(alpha: 0.7), width: 0.5),
+          ),
+          child: art(),
         ),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: isRecommendedPlace(code)
-          ? Container(
-              width: width,
-              height: height,
-              alignment: Alignment.center,
-              color: scheme.primaryContainer,
-              // Mozilla's own mark: the recommended location is Mozilla's
-              // recommender's pick, and the mark says so.
-              child: SvgPicture.asset(
-                'assets/brand/mozilla_logo.svg',
-                width: height * 0.72,
-                height: height * 0.72,
-                fit: BoxFit.contain,
-                colorFilter: ColorFilter.mode(
-                  scheme.onPrimaryContainer,
-                  BlendMode.srcIn,
-                ),
-                errorBuilder: (_, _, _) => Icon(
-                  Icons.auto_awesome_rounded,
-                  size: height * 0.7,
-                  color: scheme.onPrimaryContainer,
-                ),
-              ),
-            )
-          : code.length != 2
-          ? fallback
-          : bundledFlags.contains(code.toLowerCase())
-          ? SvgPicture.asset(
-              'assets/flags/${code.toLowerCase()}.svg',
-              width: width,
-              height: height,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => fallback,
-            )
-          // Not carried: from the core, the code until it arrives.
-          : FutureBuilder(
-              future: RemoteFlags.load(code.toLowerCase()),
-              builder: (context, snapshot) => switch (snapshot.data) {
-                final svg? => SvgPicture.memory(
-                  svg,
-                  width: width,
-                  height: height,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, _, _) => fallback,
-                ),
-                null => fallback,
-              },
-            ),
-    );
+      // The soft rounded rectangle the older designs wear.
+      FlagShape.rounded => Container(
+        width: boxWidth,
+        height: height,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(style.smallFlagRound),
+          border: Border.all(color: edge, width: 0.5),
+        ),
+        child: art(),
+      ),
+    };
   }
 }
 

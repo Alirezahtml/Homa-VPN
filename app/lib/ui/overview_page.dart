@@ -1269,6 +1269,10 @@ class _PhoneHome extends StatelessWidget {
                           GlobeStyle.values.asNameMap()[settings.mapStyle] ??
                           GlobeStyle.silver,
                       still: settings.batterySaver,
+                      // The land drawn in the design's own ink: the
+                      // paper's warm brown, the violet night's gray, the
+                      // tonal blue-gray — the monochrome keeps its own.
+                      ink: AppDesign.current.look(p.dark).ink,
                     ),
                   );
                 },
@@ -2016,9 +2020,7 @@ class _PhoneHome extends StatelessWidget {
                   place: place,
                   on: on,
                   busy: core.switchingProxy || status.connectPending,
-                  accent: accent,
                   tooltip: press,
-                  batterySaver: settings.batterySaver,
                   onOpenServers: onOpenServers,
                   onPressed: () => status.totalAccounts == 0
                       ? _openAccounts(context, core, settings, onOpenAccounts)
@@ -4328,24 +4330,18 @@ class _PixelHomeCard extends StatelessWidget {
     required this.place,
     required this.on,
     required this.busy,
-    required this.accent,
     required this.tooltip,
     required this.onOpenServers,
     required this.onPressed,
-    this.batterySaver = false,
   });
 
   final _HomePalette palette;
   final HomePlace place;
   final bool on;
   final bool busy;
-  final Color accent;
   final String tooltip;
   final VoidCallback? onOpenServers;
   final VoidCallback onPressed;
-
-  /// The battery saver's word, for the orb's own breath.
-  final bool batterySaver;
 
   @override
   Widget build(BuildContext context) {
@@ -4396,21 +4392,111 @@ class _PixelHomeCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              // The compact home's orb: a touch smaller than the desktop's
-              // own, so its card stays a card and not a hall.
-              Transform.scale(
-                scale: 0.88,
-                child: _PowerOrb(
-                  palette: p,
-                  on: on,
-                  accent: accent,
-                  busy: busy,
-                  batterySaver: batterySaver,
-                  tooltip: tooltip,
-                  onPressed: onPressed,
-                ),
+              // The pixel's own connect control: the Material You tonal
+              // pill — the surface's color carries the state, the state
+              // layer answers the finger, the press squishes. No glass,
+              // no glow: the shape and the color speak.
+              _PixelConnect(
+                on: on,
+                busy: busy,
+                label: tooltip,
+                onPressed: onPressed,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The pixel's connect control: Material You's big tonal pill — the
+/// filled container that carries the state's color (the surface's own
+/// tone while off, the primary's container while the tunnel carries),
+/// the power's mark, and the state's word. The press squishes the pill
+/// and the ripple answers under the finger; the connecting wait rides
+/// a thin spinner in the pill's own ink.
+class _PixelConnect extends StatelessWidget {
+  const _PixelConnect({
+    required this.on,
+    required this.busy,
+    required this.label,
+    required this.onPressed,
+  });
+
+  final bool on;
+  final bool busy;
+
+  /// The tap's own word — the state-aware label the page already holds.
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final container = on
+        ? scheme.primaryContainer
+        : scheme.surfaceContainerHighest;
+    final ink = on ? scheme.onPrimaryContainer : scheme.onSurface;
+    return Pressable(
+      depth: 0.045,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: busy ? null : onPressed,
+          customBorder: const StadiumBorder(),
+          overlayColor: WidgetStateProperty.resolveWith(
+            (states) => ink.withValues(
+              alpha: states.contains(WidgetState.pressed) ? 0.10 : 0.0,
+            ),
+          ),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 280),
+            curve: Curves.easeOutCubic,
+            height: 62,
+            decoration: BoxDecoration(color: container, borderRadius: BorderRadius.circular(31)),
+            child: Center(
+              widthFactor: 1,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 220),
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeIn,
+                transitionBuilder: (child, anim) => FadeTransition(
+                  opacity: anim,
+                  child: ScaleTransition(scale: Tween(begin: 0.97, end: 1.0).animate(anim), child: child),
+                ),
+                child: Row(
+                  key: ValueKey('$label-$busy-$on'),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (busy) ...[
+                      SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2.2, color: ink),
+                      ),
+                    ] else
+                      Icon(
+                        on ? Icons.power_settings_new_rounded : Icons.bolt_rounded,
+                        size: 22,
+                        color: ink,
+                      ),
+                    const SizedBox(width: 10),
+                    Text(
+                      busy ? AppLocalizations.of(context).stateConnecting : label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        letterSpacing: 0.1,
+                        color: ink,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -5745,6 +5831,63 @@ class _ZedServerCard extends StatelessWidget {
 // The iOS home: the system's own status card.
 // ---------------------------------------------------------------------------
 
+/// The capsule's breath while the connection is being made: a slow,
+/// light swell on the whole button — the wait made visible without a
+/// new surface. The controller runs only while [active]; the moment the
+/// state settles, the button stands still again and costs nothing.
+class _CapsuleBreath extends StatefulWidget {
+  const _CapsuleBreath({required this.active, required this.child});
+
+  final bool active;
+  final Widget child;
+
+  @override
+  State<_CapsuleBreath> createState() => _CapsuleBreathState();
+}
+
+class _CapsuleBreathState extends State<_CapsuleBreath>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1100),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(_CapsuleBreath old) {
+    super.didUpdateWidget(old);
+    if (widget.active && !_c.isAnimating) {
+      _c.repeat(reverse: true);
+    } else if (!widget.active && _c.isAnimating) {
+      _c.stop();
+      _c.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = Curves.easeInOut.transform(_c.value);
+        return Transform.scale(scale: 1.0 + 0.012 * t, child: child);
+      },
+      child: widget.child,
+    );
+  }
+}
+
 /// The iOS home's status card: the system's own voice — the raised
 /// rounded sheet with the state's dot and word, the place's cell (the
 /// flag, the name, the chevron to the servers), the session's numbers in
@@ -5965,7 +6108,13 @@ class _IosStatusCard extends StatelessWidget {
           // The capsule button: filled blue while off and while the
           // connection is being made, the state's own tint when the
           // tunnel carries — the system's two weights of the same press.
-          Material(
+          // The press sinks it a touch; the connecting wait breathes it,
+          // the wait made visible without a new surface.
+          _CapsuleBreath(
+            active: busy,
+            child: Pressable(
+              depth: 0.025,
+              child: Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: busy ? null : onPressed,
@@ -6023,6 +6172,8 @@ class _IosStatusCard extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+          ),
             ),
           ),
         ],

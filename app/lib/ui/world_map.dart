@@ -2352,6 +2352,7 @@ class WorldBackdrop extends StatelessWidget {
     required this.label,
     this.style = GlobeStyle.silver,
     this.still = false,
+    this.ink,
   });
 
   final MapKind kind;
@@ -2363,6 +2364,12 @@ class WorldBackdrop extends StatelessWidget {
   final String label;
   final GlobeStyle style;
   final bool still;
+
+  /// The land's own ink — the countries' outlines. Null keeps the
+  /// monochrome's; the designs that carry a palette pass their own, so
+  /// the map is drawn in the paper's ink, the violet's gray or the
+  /// tonal blue-gray instead of the neutral one.
+  final Color? ink;
 
   @override
   Widget build(BuildContext context) {
@@ -2381,7 +2388,7 @@ class WorldBackdrop extends StatelessWidget {
     } else {
       world = WorldMapBackdrop(
         countries: countries,
-        ink: dark ? Colors.white : const Color(0xFF0A0A0A),
+        ink: ink ?? (dark ? Colors.white : const Color(0xFF0A0A0A)),
         accent: accent,
         selected: selected,
         animated: animated,

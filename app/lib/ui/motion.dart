@@ -29,6 +29,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'design.dart';
+
 /// The shared 0→1 tween: one instance, so a parent's rebuild never
 /// restarts a finished entrance (TweenAnimationBuilder compares identity).
 final Tween<double> _unit = Tween<double>(begin: 0, end: 1);
@@ -42,6 +44,9 @@ bool _still(BuildContext context) => MediaQuery.of(context).disableAnimations;
 
 /// Fades, slides and scales its child in once; [index] staggers siblings.
 /// A rebuild with the same [index] never replays it (the tween is shared).
+/// The entrance itself wears the design's own voice: the monochrome's
+/// fade-and-lift, the paper's flat ink fade (the print does not move,
+/// it develops), Material's emphasized grow, and the bento's spring pop.
 class Reveal extends StatelessWidget {
   const Reveal({super.key, required this.child, this.index = 0});
 
@@ -54,20 +59,30 @@ class Reveal extends StatelessWidget {
   Widget build(BuildContext context) {
     final still = _still(context);
     if (still) return child;
+    // The design's own entrance: how far the child travels, how much it
+    // grows from, and whether the arrival overshoots (the bento's pop).
+    final key = AppDesign.current.key;
+    final (lift, from, spring) = switch (key) {
+      'gazette' => (0.0, 0.995, false), // the ink develops in place
+      'pixel' => (10.0, 0.96, false), // the emphasized entrance
+      'zed' => (14.0, 0.97, true), // the spring pop
+      'aether' || 'ios' => (10.0, 0.99, false), // the soft rise
+      _ => (14.0, 0.985, false), // the fade-and-lift
+    };
     final curve = Interval(
       math.min(index * 0.07, 0.45),
       1,
-      curve: Curves.easeOutCubic,
+      curve: spring ? Curves.easeOutBack : Curves.easeOutCubic,
     );
     return TweenAnimationBuilder(
       tween: _unit,
       duration: Duration(milliseconds: 420 + math.min(index, 8) * 60),
       curve: curve,
       builder: (context, v, child) => Opacity(
-        opacity: v.clamp(0, 1),
+        opacity: v.clamp(0, 1).toDouble(),
         child: Transform.translate(
-          offset: Offset(0, 14 * (1 - v)),
-          child: Transform.scale(scale: 0.985 + 0.015 * v, child: child),
+          offset: Offset(0, lift * (1 - v)),
+          child: Transform.scale(scale: from + (1.0 - from) * v, child: child),
         ),
       ),
       child: child,

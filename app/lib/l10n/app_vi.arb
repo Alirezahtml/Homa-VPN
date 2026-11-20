@@ -830,5 +830,9 @@
   "wn58Speed": "Bài kiểm tra tốc độ chạy nhẹ hơn: bảng vẽ lại tối đa mười lần mỗi giây, kim quét đi trong đường thẳng ngắn, và các mặt chuyển mờ dần thay vì bật nhảy.",
   "wn58Ios": "Thiết kế mới: iOS — giọng của chính hệ thống, từ bảng nhóm và đường kẻ mảnh thanh tab đến thẻ trạng thái với nút viên nang. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng hệ thống, ở cả hai chế độ.",
   "wn58Pixel": "Thiết kế mới: Pixel — giọng Material You, bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng riêng của Android, ở cả hai chế độ.",
-  "wn58Paper": "Tờ báo giờ là cả một tờ báo: thanh mục riêng với dấu in và gạch chân, đề mục cho từng trang mở riêng, và hộp giấy kẻ dòng cho từng nhóm cài đặt — đường in đã chạm tới toàn bộ ứng dụng."
+  "wn58Paper": "Tờ báo giờ là cả một tờ báo: thanh mục riêng với dấu in và gạch chân, đề mục cho từng trang mở riêng, và hộp giấy kẻ dòng cho từng nhóm cài đặt — đường in đã chạm tới toàn bộ ứng dụng.",
+  "wn59Flags": "Cờ mang kiểu cắt riêng của từng thiết kế: huy chương tròn trên iOS và aether, squircle trên zed, tấm có đường kẻ trên gazette, góc tròn lớn dịu trên pixel — vòng, dải và lá cờ nhỏ ở mọi hàng đều theo vậy.",
+  "wn59Map": "Bản đồ thế giới được vẽ bằng mực riêng của thiết kế: nâu ấm của giấy trên gazette, xám của đêm tím trên zed, xanh xám tông màu trên pixel — thế giới của mỗi thiết kế thuộc về trang của nó.",
+  "wn59Buttons": "Nút kết nối nói bằng giọng thiết kế của nó: viên thuốc tông màu lớn của Material You trên pixel, vỏ iOS thở khi đang kết nối, và thẻ của mỗi trang bước vào bằng chuyển động riêng của thiết kế đó.",
+  "wn59Scroll": "Vòng và dải cuộn bằng vật lý riêng của thiết kế: độ nảy của hệ thống, dừng nhanh của Material và trọng lượng giấy chết tại nếp gấp."
 }
