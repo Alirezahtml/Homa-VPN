@@ -460,12 +460,18 @@ func TestWakeMovesToAnotherServerOfTheLocation(t *testing.T) {
 	if err := proxy.SaveSelection(d.paths.Selection, proxy.Candidate{Addr: dead, CountryCode: "NL", CountryName: "Netherlands", CityCode: "ams", CityName: "Amsterdam"}); err != nil {
 		t.Fatal(err)
 	}
+	// The dead server stands for the location the user chose (NL):
+	// the wake selects the saved choice of a configured country, and
+	// the test watches the failover move inside that location.
+	d.mu.Lock()
+	d.cfg.Proxy.Country = "NL"
+	d.mu.Unlock()
 	client := newDashboardClient(t, d)
 	for i := 1; i <= 3; i++ {
 		if rec := client.do(http.MethodPost, "/api/test", nil); rec.Code == http.StatusOK {
 			t.Fatalf("test %d connected through a dead server: %s", i, rec.Body)
 		}
-		persisted, ok := proxy.PersistedSelection(d.paths.Selection, "")
+		persisted, ok := proxy.PersistedSelection(d.paths.Selection, "NL")
 		if want := map[bool]string{false: dead, true: f.upstream}[i == 3]; !ok || persisted.Addr != want {
 			t.Fatalf("after failure %d persisted %q, want %q", i, persisted.Addr, want)
 		}

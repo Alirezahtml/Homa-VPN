@@ -194,13 +194,17 @@ func TestSelectProxyCandidateFiltersCountry(t *testing.T) {
 func TestResolveProxyReusesPersistedSelection(t *testing.T) {
 	t.Parallel()
 
+	// The recommended choice reuses a saved recommended (anycast)
+	// server: the location it selects is the one the saved server
+	// belongs to. A saved country's server says nothing about the
+	// recommended one, so it is not reused (the next test).
 	path := filepath.Join(t.TempDir(), "proxy-selection.json")
 	want := Candidate{
 		Addr:        "stable.example:443",
-		CountryName: "United States",
-		CountryCode: "US",
-		CityName:    "San Jose",
-		CityCode:    "SJC",
+		CountryName: "Recommended",
+		CountryCode: "REC",
+		CityName:    "Recommended",
+		CityCode:    "REC",
 	}
 	if err := SaveSelection(path, want); err != nil {
 		t.Fatalf("saveProxySelection returned error: %v", err)
@@ -215,6 +219,51 @@ func TestResolveProxyReusesPersistedSelection(t *testing.T) {
 	}
 	if got != want {
 		t.Fatalf("expected %#v, got %#v", want, got)
+	}
+}
+
+// The recommended choice does not ride a saved country's server: a
+// country chosen before would keep the place the user just left, and
+// the recommended one would never be Mozilla's own pick again.
+func TestResolveProxyRecommendedDoesNotRideASavedCountry(t *testing.T) {
+	t.Parallel()
+
+	path := filepath.Join(t.TempDir(), "proxy-selection.json")
+	if err := SaveSelection(path, Candidate{
+		Addr:        "old-choice.example:443",
+		CountryName: "United States",
+		CountryCode: "US",
+		CityName:    "San Jose",
+		CityCode:    "SJC",
+	}); err != nil {
+		t.Fatalf("saveProxySelection returned error: %v", err)
+	}
+	countries := []serverlist.Country{
+		{
+			Name: "Netherlands", Code: "NL",
+			Cities: []serverlist.City{{
+				Name: "Amsterdam", Code: "AMS",
+				Servers: []serverlist.Server{{Hostname: "nl.example", Port: 443}},
+			}},
+		},
+		{
+			Name: "Recommended", Code: serverlist.RecommendedCountryCode,
+			Cities: []serverlist.City{{
+				Name: "Recommended", Code: serverlist.RecommendedCountryCode,
+				Servers: []serverlist.Server{{Hostname: "rec.example", Port: 443}},
+			}},
+		},
+	}
+
+	got, fromState, err := resolveProxyWithState("", countries, path)
+	if err != nil {
+		t.Fatalf("resolveProxyWithState returned error: %v", err)
+	}
+	if fromState {
+		t.Fatal("the saved country's server must not stand for the recommended choice")
+	}
+	if !got.IsRecommended() || got.Addr != "rec.example:443" {
+		t.Fatalf("expected the recommended location's server, got %#v", got)
 	}
 }
 
