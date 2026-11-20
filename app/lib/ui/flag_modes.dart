@@ -891,6 +891,10 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
       height: 116,
       child: PageView.builder(
         controller: _controller,
+        // The deck is finite: without a count the page view would build
+        // the pages past the end and the builder would read past the
+        // list.
+        itemCount: entries.length,
         clipBehavior: Clip.none,
         onPageChanged: (page) {
           // A follow's own landing answers the same event, and the page
