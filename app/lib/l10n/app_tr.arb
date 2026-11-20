@@ -580,8 +580,8 @@
   "designHint": "Ana sayfanın dizilişi",
   "designWheel": "Çark",
   "designWheelDesc": "Bayraklar cam çarkında, anahtar altında",
-  "designBento": "Mozaik",
-  "designBentoDesc": "Yuvarlak mozaik levha: bağlantı, sayılar, konum",
+  "designBento": "Bento",
+  "designBentoDesc": "Bento kutusunun kendi tasarımı: bayraklar kendi levhasında, bağlantı levhası, sayılar ve konum sıcak bir kutunun levhaları gibi",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: tonal yüzeyler, iri dolu kartlar, hap göstergeli çubuk ve büyük başlıklar — Androidin kendi sesi",
   "notifFlag": "Bildirimde ülke bayrağı",
@@ -834,5 +834,10 @@
   "wn59Flags": "Bayraklar artık her tasarımın kendi kesimini taşır: iOS ve aether'da yuvarlak madalya, zed'de skuar, gazetede çizgili plaka, pixel'de yumuşak büyük köşeler — tekerlek, şerit ve her satırın küçük bayrağı uyar.",
   "wn59Map": "Dünya haritası tasarımın kendi mürekkebiyle çizilir: gazetede kâğıdın sıcak kahvesi, zed'de mor gecenin grisi, pixel'de tonal mavi-gri — her tasarımın dünyası kendi sayfasına ait.",
   "wn59Buttons": "Bağlan düğmeleri tasarımının sesiyle konuşur: pixel'de Material You'nun büyük tonal hapı, bağlantı kurulurken nefes alan iOS kapsülü, ve her sayfanın kartları kendi tasarımının hareketiyle girer.",
-  "wn59Scroll": "Tekerlekler ve şeritler tasarımın kendi fiziğiyle kayar: sistemin sekmesi, Material'in hızlı duruşu ve katlanmaya karşı duran kâğıdın ağırlığı."
+  "wn59Scroll": "Tekerlekler ve şeritler tasarımın kendi fiziğiyle kayar: sistemin sekmesi, Material'in hızlı duruşu ve katlanmaya karşı duran kâğıdın ağırlığı.",
+  "flagAllPlaces": "Tüm yerler",
+  "gazetteRegions": "Hedefler",
+  "wn60Flags": "Her tasarım artık ülkeleri kendi yolunda gösteriyor: Bento'nun levha tahtası, Pixel'in filtre çipleri, Aether'in kapsul seçenekleri, iOS madalya destesi, Zed'in sayfalı tahtası ve gazetenin kendi baskısı gibi yazılı hedef dizini — çark çarkını koruyor.",
+  "wn60Bento": "Bento tasarımı bütün olarak duruyor: porselen ve kömürden kendi sıcak paleti, mandalina ışığı, levha dokası, squircle sayfa başlıkları, tonlu kartlar ve bayrak tahtası — her sayfa, iki kipte.",
+  "wn60Spacing": "Ana sayfalar tek ritimde yürüyor: bölümler arasındaki ölü bantlar gitti, kapanış kartları sıralarını dolduruyor ve her boşluk tasarımın koruduğu aralıkla nefes alıyor."
 }

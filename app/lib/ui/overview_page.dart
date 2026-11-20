@@ -22,6 +22,7 @@ import 'connection_mode.dart';
 import 'design.dart';
 import 'design_style.dart';
 import 'flag_carousel.dart';
+import 'flag_modes.dart';
 import 'format.dart';
 import 'gazette.dart';
 import 'glass.dart';
@@ -1437,7 +1438,7 @@ class _PhoneHome extends StatelessWidget {
         // its labels under the icons — clears at 84.
         design == 'aether' || design == 'zed' || design == 'pixel'
             ? 104
-            : design == 'ios'
+            : design == 'ios' || design == 'bento'
             ? 84
             : 72,
       ),
@@ -1485,45 +1486,53 @@ class _PhoneHome extends StatelessWidget {
             SizedBox(height: math.max(0.0, box.maxHeight * 0.068)),
             SizedBox(height: short ? 4 : 16),
           ] else if (design == 'bento') ...[
-            // The tiles' home: the flags in their strip under the brand.
-            const SizedBox(height: 26),
-            Reveal(
-              index: 1,
-              child: FlagStrip(
-                core: core,
-                text: p.text,
-                border: p.cardBorder,
-                accent: accent,
-              ),
-            ),
-            const SizedBox(height: 26),
-          ] else if (design == 'aether') ...[
-            // The aether's home: the flags in their strip too, above the
-            // status card that carries the switch. The card names the
-            // place itself, so the strip's own name line rests — the
-            // page says the place once.
-            const SizedBox(height: 24),
+            // The bento's opening: the countries on their board — the
+            // grid of tiles the box's own way, the chosen tile framed,
+            // the pinned ones starred, and the last tile handing to the
+            // servers page for the whole list.
+            const SizedBox(height: 20),
             Reveal(
               index: 1,
               child: RepaintBoundary(
-                child: FlagStrip(
+                child: FlagBoard(
                   core: core,
-                  text: p.text,
-                  border: p.cardBorder,
                   accent: accent,
-                  showName: false,
+                  border: p.cardBorder,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                  onOpenServers: onOpenServers,
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
+          ] else if (design == 'aether') ...[
+            // The aether's home: the system's capsule options in their
+            // rail above the status card that carries the switch. The
+            // card names the place itself, so the rail carries no second
+            // copy of it — the page says the place once.
+            const SizedBox(height: 16),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagCapsules(
+                  core: core,
+                  border: p.cardBorder,
+                  accent: accent,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
           ] else if (design == 'zed') ...[
             // The zed's home wears the reference's own opening: the two
             // rate cards under the brand — alive with the session's
             // numbers when the tunnel carries, resting at their zeros
             // when it does not, the way the reference's own pair stands
             // on the page whatever the connection says — then the flags'
-            // strip, whose name line rests: the server card under the
-            // blob names the place, and one page says it once.
+            // board in its bento cell, paged, whose dots walk under it.
             if (settings.showTraffic) ...[
               const SizedBox(height: 18),
               Reveal(
@@ -1533,25 +1542,27 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
             ],
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             Reveal(
               index: 1,
               child: RepaintBoundary(
-                child: FlagStrip(
+                child: FlagPager(
                   core: core,
-                  text: p.text,
                   border: p.cardBorder,
                   accent: accent,
-                  showName: false,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
           ] else if (design == 'gazette') ...[
             // The gazette's opening: the masthead — the double rule, the
             // brand riding the middle between the day's line and the
             // edition's number, the bulletin's tag under them — then the
-            // flags' strip, ruled like the paper's own region box.
+            // region index, the paper's own listing: ruled box, serif
+            // names, dot leaders, the delay at every line's end.
             const SizedBox(height: 10),
             Reveal(
               index: 0,
@@ -1565,39 +1576,66 @@ class _PhoneHome extends StatelessWidget {
                 rule: p.cardBorder,
               ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             Reveal(
               index: 1,
               child: RepaintBoundary(
-                child: FlagStrip(
+                child: GazetteRegionBox(
                   core: core,
                   text: p.text,
-                  border: p.cardBorder,
+                  muted: p.muted,
+                  rule: p.cardBorder,
+                  paper: p.card,
                   accent: accent,
-                  showName: false,
+                  display: typefacesOf(context).display,
+                  displayFallback: typefacesOf(context).displayFallback,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
                 ),
               ),
             ),
-            const SizedBox(height: 22),
+            const SizedBox(height: 14),
           ] else if (design == 'ios') ...[
-            // The iOS home's opening: the flags in their strip above the
-            // status card — the card names the place itself, so the
-            // strip's own name line rests, the way the system keeps one
-            // word per thing.
-            const SizedBox(height: 24),
+            // The iOS home's opening: the big medals in their deck above
+            // the status card — the deck snaps, the middle medal stands
+            // forward, and the card names the place itself, the way the
+            // system keeps one word per thing.
+            const SizedBox(height: 16),
             Reveal(
               index: 1,
               child: RepaintBoundary(
-                child: FlagStrip(
+                child: FlagMedalDeck(
                   core: core,
-                  text: p.text,
                   border: p.cardBorder,
                   accent: accent,
-                  showName: false,
+                  muted: p.muted,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
+          ] else if (design == 'pixel') ...[
+            // The pixel's opening: Material You's own filter chips, the
+            // chosen one in the selected state with its check — the
+            // option row above the compact card, the way Material lays a
+            // choice out.
+            const SizedBox(height: 20),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagChips(
+                  core: core,
+                  border: p.cardBorder,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1892,22 +1930,11 @@ class _PhoneHome extends StatelessWidget {
                             ? l.milliseconds(test!.responseMs)
                             : '—',
                         stampOn: connected && (test?.ok ?? false),
-                        stats: [
-                          (
-                            l.statElapsed,
-                            proxy?.startedAt != null
-                                ? gazetteElapsed(proxy!.startedAt!)
-                                : '—',
-                          ),
-                          (
-                            l.statDown,
-                            formatRate(status.traffic?.downRate ?? 0),
-                          ),
-                          (
-                            l.statUp,
-                            formatRate(status.traffic?.upRate ?? 0),
-                          ),
-                        ],
+                        // The numbers keep one seat: the session's columns
+                        // rest — the ruled cards under the page carry the
+                        // elapsed, the delay, the rates and the graph, so
+                        // the page says each figure once.
+                        stats: const [],
                         ink: p.text,
                         muted: p.muted,
                         rule: p.cardBorder,
@@ -2302,22 +2329,51 @@ class _PhoneHome extends StatelessWidget {
           else ...[
             // The compact home already shows the place as the chip its
             // switch sits on; the aurora's hero, the neon's ring and the
-            // sage's ledger carry it too. The wheel's, the tiles' and the
+            // sage's ledger carry it too. The wheel's, the box's and the
             // gazette's homes keep the place's own card down here.
             if (design == 'wheel' ||
                 design == 'bento' ||
                 design == 'gazette') ...[
-              Reveal(
-                index: 4,
-                child: RepaintBoundary(
-                  child: _PlaceCard(
-                    palette: p,
-                    place: place,
-                    accent: accent,
-                    onTap: onOpenServers,
+              // The bento's own closing: the place and the session's data
+              // as two tiles of one row — the box's mosaic, nothing left
+              // half-empty under it.
+              if (design == 'bento')
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: _PlaceCard(
+                          palette: p,
+                          place: place,
+                          accent: accent,
+                          onTap: onOpenServers,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _HomeData(
+                          status: status,
+                          palette: p,
+                          onTap: onOpenAccounts,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else ...[
+                Reveal(
+                  index: 4,
+                  child: RepaintBoundary(
+                    child: _PlaceCard(
+                      palette: p,
+                      place: place,
+                      accent: accent,
+                      onTap: onOpenServers,
+                    ),
                   ),
                 ),
-              ),
+              ],
               const SizedBox(height: 12),
               // The speed test's own door on these homes: a row like the
               // rest, one tap from the measurement — a real download and
@@ -2351,16 +2407,19 @@ class _PhoneHome extends StatelessWidget {
               ),
               const SizedBox(height: 12),
             ],
-            Reveal(
-              index: 5,
-              child: RepaintBoundary(
-                child: _HomeData(
-                  status: status,
-                  palette: p,
-                  onTap: onOpenAccounts,
+            // The bento's row above already carried the data's tile; the
+            // rest of the homes close with the data's card of their own.
+            if (design != 'bento')
+              Reveal(
+                index: 5,
+                child: RepaintBoundary(
+                  child: _HomeData(
+                    status: status,
+                    palette: p,
+                    onTap: onOpenAccounts,
+                  ),
                 ),
               ),
-            ),
           ],
         ],
       ),
@@ -2404,6 +2463,41 @@ class _HomeCard extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(onTap: onTap, child: child),
+        ),
+      );
+    }
+    // The bento's tile: the warm tint's own fill, the very round, the
+    // soft shadow under it — the box's own card, no line anywhere.
+    if (AppDesign.current.key == 'bento') {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: AppDesign.current.look(palette.dark).containerHighest,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(
+                alpha: palette.dark ? 0.32 : 0.10,
+              ),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: compact
+                  ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                  : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+              child: child,
+            ),
+          ),
         ),
       );
     }
@@ -3061,11 +3155,30 @@ class _HomeRow extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
       decoration: BoxDecoration(
         color: p.card,
-        // The gazette's row rules itself like the paper's own box.
+        // The gazette's row rules itself like the paper's own box; the
+        // bento's tile wears the warm tint with its very round and no
+        // line — the fill speaks, the way its cards do.
         borderRadius: BorderRadius.circular(
-          AppDesign.current.key == 'gazette' ? 6 : 20,
+          AppDesign.current.key == 'gazette'
+              ? 6
+              : AppDesign.current.key == 'bento'
+              ? 18
+              : 20,
         ),
-        border: Border.all(color: p.cardBorder),
+        border: AppDesign.current.key == 'bento'
+            ? null
+            : Border.all(color: p.cardBorder),
+        boxShadow: AppDesign.current.key == 'bento'
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(
+                    alpha: p.dark ? 0.30 : 0.09,
+                  ),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ]
+            : null,
       ),
       child: Row(
         children: [

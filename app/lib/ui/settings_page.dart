@@ -164,18 +164,23 @@ class SettingsGroup extends StatelessWidget {
     final iosTable = style.group == GroupVariant.iosTable;
     final gazetteRules = style.group == GroupVariant.gazetteRules;
     final m3Card = style.group == GroupVariant.m3Card;
+    final bentoBoard = style.group == GroupVariant.bentoBoard;
     Widget card = Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       // The pixel's filled card carries the tonal surface instead of the
-      // page's card color — the shape speaks, not the line; the gazette's
-      // ruled box keeps no fill at all (the rules carry it), so the page's
-      // own paper shows through.
-      color: m3Card ? look.containerHighest : (gazetteRules ? null : look.surface),
+      // page's card color — the shape speaks, not the line; the bento's
+      // tile wears the warm tint the same way, rounder and softer; the
+      // gazette's ruled box keeps no fill at all (the rules carry it),
+      // so the page's own paper shows through.
+      color:
+          m3Card || bentoBoard
+          ? look.containerHighest
+          : (gazetteRules ? null : look.surface),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(style.cardRadius),
         side: look.cardShadow.isEmpty
-            ? (m3Card
+            ? (m3Card || bentoBoard
                   ? BorderSide.none
                   : BorderSide(
                       color: gazetteRules
@@ -198,9 +203,9 @@ class SettingsGroup extends StatelessWidget {
             if (i > 0)
               Divider(
                 height: 1,
-                thickness: iosTable ? 0.5 : (m3Card ? 0.5 : 1),
+                thickness: iosTable ? 0.5 : (m3Card || bentoBoard ? 0.5 : 1),
                 indent: iosTable ? 58 : 68,
-                color: m3Card
+                color: m3Card || bentoBoard
                     ? theme.colorScheme.outlineVariant.withValues(alpha: 0.25)
                     : null,
               ),
@@ -224,13 +229,32 @@ class SettingsGroup extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 20, 8, 8),
-          child: Text(
-            title,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.3,
-            ),
+          child: Row(
+            children: [
+              // The bento's group title wears the box's own chip: a small
+              // tangerine squircle before the word, the tile's mark.
+              if (bentoBoard) ...[
+                Container(
+                  width: 8,
+                  height: 8,
+                  margin: const EdgeInsetsDirectional.only(end: 7),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+              ],
+              Expanded(
+                child: Text(
+                  title,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         card,
@@ -4148,30 +4172,53 @@ class _DesignMockup extends StatelessWidget {
         );
     switch (kind) {
       case 'bento':
+        // The box's own drawing: the flag board's grid of tiles with the
+        // chosen one lit, the wide connect tile under it.
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [
-                tile(w: 22, h: 22, color: lit, r: 11),
-                const SizedBox(width: 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    tile(w: 34, h: 7),
-                    const SizedBox(height: 3),
-                    tile(w: 24, h: 5, color: ink.withValues(alpha: 0.5)),
-                  ],
+                Expanded(
+                  child: Container(
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: lit.withValues(alpha: 0.22),
+                      border: Border.all(color: lit, width: 1),
+                    ),
+                    child: Center(child: tile(w: 10, h: 8, color: lit, r: 3)),
+                  ),
                 ),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Expanded(child: tile(h: 20, r: 6)),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
+                const SizedBox(width: 5),
+                Expanded(child: tile(h: 20, r: 6)),
               ],
             ),
             const SizedBox(height: 7),
-            Row(
-              children: [
-                tile(w: 26, h: 20),
-                const SizedBox(width: 5),
-                tile(w: 26, h: 20),
-              ],
+            Container(
+              width: 76,
+              height: 22,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: lit,
+              ),
+              child: Center(child: tile(w: 26, h: 6, r: 3)),
             ),
           ],
         );

@@ -33,6 +33,10 @@ enum NavVariant {
   /// content, the chosen tab's icon in the brand's own circle.
   floatingDock,
 
+  /// The bento's tile dock: floating rounded-square tiles, each tab its
+  /// own cell — the chosen cell fills with the tangerine and lifts.
+  bentoDock,
+
   /// The gazette's section bar: a paper strip ruled like the masthead,
   /// the tabs set as sections — the chosen one carries the print's own
   /// bullet and its ink underline.
@@ -58,6 +62,10 @@ enum HeaderVariant {
   /// title living in the page itself, no bar above.
   zed,
 
+  /// The bento's page header: the squircle back tile and the big title
+  /// in the page itself, the box's own calm.
+  bento,
+
   /// The gazette's section front: the back in its ruled square, the
   /// title in the paper's own serif, and the masthead's double rule
   /// under them.
@@ -78,6 +86,10 @@ enum GroupVariant {
 
   /// ZedSecure's bento: the very-round card with generous padding.
   bento,
+
+  /// The bento's own card: the very-round tile on the warm tint, no
+  /// line — the fill speaks, the tile carries.
+  bentoBoard,
 
   /// The gazette's ruled box: the paper card's own double rules, no
   /// fill, the rows parted by hairlines — a printed data box.
@@ -127,6 +139,10 @@ enum FxMood {
 
   /// The brand's light: the surfaces carry a glow of their own.
   glow,
+
+  /// The box's pop: the saturated tiles and the soft shadows — depth
+  /// with warmth, no blur of glass, no bloom of light.
+  pop,
 }
 
 /// How the wheels and strips scroll: each design hands its lists the
@@ -185,6 +201,7 @@ class DesignStyle {
     'gazette' => _gazette(dark),
     'pixel' => _pixel(dark),
     'ios' => _ios(dark),
+    'bento' => _bento(dark),
     _ => _mono(dark),
   };
 
@@ -387,6 +404,32 @@ class DesignStyle {
     navActive: dark ? const Color(0xFF0A84FF) : const Color(0xFF007AFF),
     navInactive: dark ? const Color(0xFF98989F) : const Color(0xFF999CA1),
     switchTrack: dark ? const Color(0xFF30D158) : const Color(0xFF34C759),
+  );
+
+  /// The bento's structure: the lunch box's own — the floating dock of
+  /// rounded tiles, the squircle-backed page header, the very-round
+  /// tinted cards with no line, the big soft state colors. The
+  /// tangerine carries, the amber reaches, the tomato blocks.
+  static DesignStyle _bento(bool dark) => DesignStyle._(
+    nav: NavVariant.bentoDock,
+    header: HeaderVariant.bento,
+    group: GroupVariant.bentoBoard,
+    flagShape: FlagShape.rounded,
+    flagRound: 18,
+    smallFlagRound: 6,
+    fx: FxMood.pop,
+    scroll: ScrollMood.springy,
+    cardRadius: 24,
+    listRadius: 18,
+    dialogRadius: 24,
+    iconBadge: false,
+    connected: dark ? const Color(0xFF57CC8D) : const Color(0xFF2F9E63),
+    scanning: dark ? const Color(0xFFE8B45A) : const Color(0xFFB98216),
+    danger: dark ? const Color(0xFFF26B5E) : const Color(0xFFC63D3D),
+    navBackground: dark ? const Color(0xFF1C1A18) : Colors.white,
+    navActive: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
+    navInactive: dark ? const Color(0xFFA39C90) : const Color(0xFF6F6A61),
+    switchTrack: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
   );
 
   /// The row's icon badge: the iOS table's colored rounded squares (the
@@ -1619,6 +1662,192 @@ class M3PageHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The bento's furniture: the tile dock and the box's page header.
+// ---------------------------------------------------------------------------
+
+/// The bento's bottom navigation: the box's own dock — floating
+/// rounded-square tiles, each tab a cell of its own. The chosen tile
+/// fills with the tangerine and lifts (its shadow grows, its scale
+/// breathes past one), the icon and the word turn the box's light; the
+/// resting tiles keep the surface's own fill and the muted ink.
+class BentoDockNav extends StatelessWidget {
+  const BentoDockNav({super.key, required this.index, required this.onSelect});
+
+  final int index;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final tabs = [
+      (Icons.home_rounded, Icons.home_outlined, l.navHome),
+      (Icons.settings_rounded, Icons.settings_outlined, l.navSettings),
+    ];
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
+        child: Align(
+          heightFactor: 1,
+          alignment: Alignment.bottomCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 380),
+            child: Row(
+              children: [
+                for (var i = 0; i < tabs.length; i++)
+                  Expanded(child: _cell(context, i, tabs[i].$1, tabs[i].$2, tabs[i].$3)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _cell(
+    BuildContext context,
+    int i,
+    IconData filled,
+    IconData outline,
+    String label,
+  ) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final style = DesignStyle.of(context);
+    final chosen = index == i;
+    final accent = style.navActive;
+    return Padding(
+      padding: EdgeInsetsDirectional.only(
+        end: i == 0 ? 10 : 0,
+      ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (!chosen) {
+            HapticFeedback.selectionClick();
+            AppSounds.play(SoundCue.tap);
+            onSelect(i);
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 240),
+          curve: Curves.easeOutCubic,
+          height: 62,
+          decoration: BoxDecoration(
+            color: chosen ? accent : style.navBackground,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: chosen
+                  ? accent
+                  : (dark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : Colors.black.withValues(alpha: 0.05)),
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: chosen
+                    ? accent.withValues(alpha: dark ? 0.35 : 0.28)
+                    : Colors.black.withValues(alpha: dark ? 0.35 : 0.10),
+                blurRadius: chosen ? 16 : 10,
+                offset: Offset(0, chosen ? 5 : 3),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedScale(
+                  scale: chosen ? 1.08 : 1.0,
+                  duration: const Duration(milliseconds: 240),
+                  curve: Curves.easeOutBack,
+                  child: Icon(
+                    chosen ? filled : outline,
+                    size: 21,
+                    color: chosen
+                        ? (accent.computeLuminance() > 0.5
+                              ? Colors.black
+                              : Colors.white)
+                        : style.navInactive,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 200),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: chosen ? FontWeight.w800 : FontWeight.w600,
+                    color: chosen
+                        ? (accent.computeLuminance() > 0.5
+                              ? Colors.black
+                              : Colors.white)
+                        : style.navInactive,
+                    fontFamily: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.fontFamily,
+                  ),
+                  child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The bento's page header: the squircle back tile, then the big title —
+/// the box's own calm, no bar above.
+class BentoPageHeader extends StatelessWidget {
+  const BentoPageHeader({super.key, required this.title, this.onBack});
+
+  final String title;
+  final VoidCallback? onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final top = MediaQuery.paddingOf(context).top;
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(14, top + 6, 22, 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap:
+                onBack ??
+                () => Navigator.of(context, rootNavigator: true).pop(),
+            child: Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHigh,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                Icons.arrow_back_rounded,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w800,
+              fontSize: 27,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

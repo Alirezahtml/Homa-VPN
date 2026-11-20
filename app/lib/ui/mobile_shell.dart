@@ -127,6 +127,16 @@ class _MobileShellState extends State<MobileShell> {
                   ],
                 ),
               ),
+              // The bento's box header: the squircle back tile, the big
+              // title in the page itself.
+              HeaderVariant.bento => Scaffold(
+                body: Column(
+                  children: [
+                    BentoPageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
               // The gazette's section front: the ruled square, the serif
               // title, the masthead's double rule.
               HeaderVariant.gazette => Scaffold(
@@ -265,6 +275,10 @@ class _MobileShellState extends State<MobileShell> {
             onSelect: (i) => setState(() => _tab = i),
           ),
           NavVariant.floatingDock => ZedDockNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.bentoDock => BentoDockNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),
           ),

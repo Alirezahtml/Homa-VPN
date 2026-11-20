@@ -199,6 +199,15 @@ void main() {
     );
   });
 
+  testWidgets('design bento, light, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'bento_light',
+      design: 'bento',
+      theme: ThemeMode.light,
+    );
+  });
+
   testWidgets('design pixel, dark, connected', (tester) async {
     await phone(tester, name: 'pixel_dark', design: 'pixel');
   });

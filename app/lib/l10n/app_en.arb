@@ -1167,8 +1167,8 @@
   "designHint": "How the home page is laid out",
   "designWheel": "Wheel",
   "designWheelDesc": "The flags in their glass wheel, the switch under them",
-  "designBento": "Tiles",
-  "designBentoDesc": "A board of rounded tiles: connect, numbers, place",
+  "designBento": "Bento",
+  "designBentoDesc": "The lunch box's own design: the flags on their board of tiles, the connect tile, the numbers and the place as tiles of one warm box",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles — the Android's own voice",
   "notifFlag": "Country flag in the notification",
@@ -1428,5 +1428,10 @@
   "wn59Flags": "The flags wear each design's own cut: the round medal on iOS and the aether, the squircle on the zed, the ruled plate on the gazette, the pixel's soft big rounds — the wheel, the strip and every row's little flag follow.",
   "wn59Map": "The world map is drawn in the design's own ink: the paper's warm brown on the gazette, the violet night's gray on the zed, the tonal blue-gray on the pixel — each design's world belongs to its page.",
   "wn59Buttons": "The connect controls speak their designs: Material You's big tonal pill on the pixel, the iOS capsule breathing while the connection is being made, and every page's cards entering in their design's own motion.",
-  "wn59Scroll": "The wheels and strips scroll in the design's own physics: the system's bounce, Material's quick settle, and the paper's weight that dies against the fold."
+  "wn59Scroll": "The wheels and strips scroll in the design's own physics: the system's bounce, Material's quick settle, and the paper's weight that dies against the fold.",
+  "flagAllPlaces": "All places",
+  "gazetteRegions": "Destinations",
+  "wn60Flags": "Each design shows the countries its own way now: the bento's board of tiles, the pixel's filter chips, the aether's capsule options, the iOS medals' deck, the zed's paged board, the gazette's region index printed like the paper's own — the wheel keeps its wheel.",
+  "wn60Bento": "The bento design stands whole: its own warm palette of porcelain and charcoal, the tangerine's light, the dock of tiles, the squircle page headers, the tinted cards and the board of flags — every page, both modes.",
+  "wn60Spacing": "The homes walk in one rhythm: the dead bands between the sections are gone, the closing cards fill their rows, and every gap breathes by the spacing the design keeps."
 }

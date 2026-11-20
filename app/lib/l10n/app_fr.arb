@@ -568,8 +568,8 @@
   "designHint": "La mise en page de l’accueil",
   "designWheel": "Roue",
   "designWheelDesc": "Les drapeaux sur leur roue de verre, l’interrupteur dessous",
-  "designBento": "Tuiles",
-  "designBentoDesc": "Un plateau de tuiles arrondies : connexion, chiffres, lieu",
+  "designBento": "Bento",
+  "designBentoDesc": "Le design propre de la boîte bento : les drapeaux sur leur plateau de tuiles, la tuile de connexion, les chiffres et le lieu en tuiles d'une boîte chaleureuse",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You : surfaces tonales, grandes cartes pleines, barre à indicateur pastille et grands titres — la voix propre d'Android",
   "notifFlag": "Drapeau du pays dans la notification",
@@ -834,5 +834,10 @@
   "wn59Flags": "Les drapeaux portent la coupe de chaque design : la médaille ronde sur iOS et aether, le squircle sur zed, la plaque réglée sur gazette, les grands adoucis de pixel — la roue, la bande et le petit drapeau de chaque ligne suivent.",
   "wn59Map": "La carte du monde est dessinée à l'encre de son design : le brun chaud du papier sur gazette, le gris de la nuit violette sur zed, le bleu-gris tonal sur pixel — le monde de chaque design appartient à sa page.",
   "wn59Buttons": "Les boutons de connexion parlent la voix de leur design : la grande pilule tonale de Material You sur pixel, la capsule iOS qui respire pendant la connexion, et les cartes de chaque page entrant dans le mouvement de leur design.",
-  "wn59Scroll": "Les roues et les bandes défilent avec la physique de leur design : le rebond du système, l'arrêt rapide de Material et le poids du papier qui meurt au pli."
+  "wn59Scroll": "Les roues et les bandes défilent avec la physique de leur design : le rebond du système, l'arrêt rapide de Material et le poids du papier qui meurt au pli.",
+  "flagAllPlaces": "Tous les lieux",
+  "gazetteRegions": "Destinations",
+  "wn60Flags": "Chaque design montre désormais les pays à sa façon : le plateau de tuiles du bento, les puces filtres du pixel, les options capsules de l'aether, le jeu de médailles de l'iOS, le plateau paginé du zed, et l'index des destinations de la gazette imprimé comme sa propre page — la roue garde sa roue.",
+  "wn60Bento": "Le design bento se tient entier : sa propre palette chaleureuse de porcelaine et de charbon, la lumière mandarine, le dock de tuiles, les en-têtes de page squircle, les cartes teintées et le plateau de drapeaux — chaque page, dans les deux modes.",
+  "wn60Spacing": "Les pages d'accueil marchent d'un seul rythme : les bandes mortes entre les sections sont parties, les cartes finales remplissent leurs rangées et chaque espace respire à l'espacement que le design garde."
 }

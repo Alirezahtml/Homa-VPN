@@ -66,6 +66,7 @@ class Reveal extends StatelessWidget {
       'gazette' => (0.0, 0.995, false), // the ink develops in place
       'pixel' => (10.0, 0.96, false), // the emphasized entrance
       'zed' => (14.0, 0.97, true), // the spring pop
+      'bento' => (12.0, 0.94, true), // the box's tiles pop in
       'aether' || 'ios' => (10.0, 0.99, false), // the soft rise
       _ => (14.0, 0.985, false), // the fade-and-lift
     };

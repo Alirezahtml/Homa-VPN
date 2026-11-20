@@ -71,9 +71,9 @@ void main() {
     expect(AppDesign.resolve('dusk').key, 'mono');
     expect(AppDesign.resolve('sage').key, 'mono');
     // The three older homes keep the monochrome; the pixel and the ios
-    // carry their own looks now.
+    // carry their own looks now, and the bento wears the box's own.
     expect(AppDesign.resolve('wheel').key, 'mono');
-    expect(AppDesign.resolve('bento').key, 'mono');
+    expect(AppDesign.resolve('bento').key, 'bento');
     expect(AppDesign.resolve('pixel').key, 'pixel');
     expect(AppDesign.resolve('ios').key, 'ios');
     expect(AppDesign.resolve('whatever-else').key, 'mono');

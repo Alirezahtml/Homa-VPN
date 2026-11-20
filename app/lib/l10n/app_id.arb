@@ -568,8 +568,8 @@
   "designHint": "Bagaimana halaman utama disusun",
   "designWheel": "Roda",
   "designWheelDesc": "Bendera pada roda kacanya, tombol di bawah",
-  "designBento": "Ubin",
-  "designBentoDesc": "Papan ubin membulat: sambungan, angka, lokasi",
+  "designBento": "Bento",
+  "designBentoDesc": "Desain khas kotak bento: bendera di papan ubinnya, ubin sambungan, angka dan lokasi sebagai ubin satu kotak hangat",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar — suara Android sendiri",
   "notifFlag": "Bendera negara di notifikasi",
@@ -834,5 +834,10 @@
   "wn59Flags": "Bendera memakai potongan desainnya sendiri: medali bulat di iOS dan aether, squircle di zed, pelat bergaris di gazette, sudut besar lembut di pixel — roda, lajur, dan bendera kecil setiap baris mengikutinya.",
   "wn59Map": "Peta dunia digambar dengan tinta desainnya sendiri: cokelat hangat kertas di gazette, abu-abu malam ungu di zed, biru-abu tonal di pixel — dunia setiap desain milik halamannya.",
   "wn59Buttons": "Tombol sambung berbicara dengan suara desainnya: pil tonal besar Material You di pixel, kapsul iOS yang bernapas saat koneksi dibuat, dan kartu setiap halaman masuk dengan gerak desainnya sendiri.",
-  "wn59Scroll": "Roda dan lajur menggulir dengan fisika desainnya: pantulan sistem, jeda cepat Material, dan berat kertas yang mati di lipatan."
+  "wn59Scroll": "Roda dan lajur menggulir dengan fisika desainnya: pantulan sistem, jeda cepat Material, dan berat kertas yang mati di lipatan.",
+  "flagAllPlaces": "Semua tempat",
+  "gazetteRegions": "Tujuan",
+  "wn60Flags": "Setiap desain kini menampilkan negara dengan caranya sendiri: papan ubin bento, chip filter pixel, opsi kapsul aether, dek medali iOS, papan terpaginasi zed, dan indeks tujuan gazette yang tercetak seperti korannya — roda tetap memakai rodanya.",
+  "wn60Bento": "Desain bento berdiri utuh: palet hangatnya sendiri dari porselen dan arang, cahaya mandarin, dok ubin, header halaman squircle, kartu berwarna dan papan bendera — setiap halaman, kedua mode.",
+  "wn60Spacing": "Halaman berjalan dengan satu ritme: pita mati antar bagian hilang, kartu penutup mengisi barisnya, dan setiap celah bernapas dengan spasi yang dijaga desain."
 }

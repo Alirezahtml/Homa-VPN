@@ -568,8 +568,8 @@
   "designHint": "Trang chính được bố trí ra sao",
   "designWheel": "Vòng xoay",
   "designWheelDesc": "Lá cờ trên vòng kính, công tắc bên dưới",
-  "designBento": "Ô lát",
-  "designBentoDesc": "Bảng ô bo tròn: kết nối, số liệu, địa điểm",
+  "designBento": "Bento",
+  "designBentoDesc": "Thiết kế riêng của hộp bento: cờ trên bảng ô của chúng, ô kết nối, số liệu và địa điểm như những ô của một hộp ấm áp",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn — giọng riêng của Android",
   "notifFlag": "Cờ nước trong thông báo",
@@ -834,5 +834,10 @@
   "wn59Flags": "Cờ mang kiểu cắt riêng của từng thiết kế: huy chương tròn trên iOS và aether, squircle trên zed, tấm có đường kẻ trên gazette, góc tròn lớn dịu trên pixel — vòng, dải và lá cờ nhỏ ở mọi hàng đều theo vậy.",
   "wn59Map": "Bản đồ thế giới được vẽ bằng mực riêng của thiết kế: nâu ấm của giấy trên gazette, xám của đêm tím trên zed, xanh xám tông màu trên pixel — thế giới của mỗi thiết kế thuộc về trang của nó.",
   "wn59Buttons": "Nút kết nối nói bằng giọng thiết kế của nó: viên thuốc tông màu lớn của Material You trên pixel, vỏ iOS thở khi đang kết nối, và thẻ của mỗi trang bước vào bằng chuyển động riêng của thiết kế đó.",
-  "wn59Scroll": "Vòng và dải cuộn bằng vật lý riêng của thiết kế: độ nảy của hệ thống, dừng nhanh của Material và trọng lượng giấy chết tại nếp gấp."
+  "wn59Scroll": "Vòng và dải cuộn bằng vật lý riêng của thiết kế: độ nảy của hệ thống, dừng nhanh của Material và trọng lượng giấy chết tại nếp gấp.",
+  "flagAllPlaces": "Tất cả nơi",
+  "gazetteRegions": "Điểm đến",
+  "wn60Flags": "Mỗi thiết kế giờ hiển thị các quốc gia theo cách riêng: bảng ô của bento, chip lọc của pixel, tùy chọn nang của aether, bộ huy chương của iOS, bảng phân trang của zed, và mục lục điểm đến của gazette in như chính tờ báo — bánh xe giữ bánh xe của nó.",
+  "wn60Bento": "Thiết kế bento đứng vẹn nguyên: bảng màu ấm riêng từ sứ và than, ánh quýt, dock ô, đầu trang squircle, thẻ tô màu và bảng cờ — từng trang, cả hai chế độ.",
+  "wn60Spacing": "Các trang chủ đi trong một nhịp: dải chết giữa các mục đã biến mất, thẻ kết thúc lấp đầy hàng của nó, và mỗi khoảng trống thở theo khoảng cách thiết kế giữ."
 }

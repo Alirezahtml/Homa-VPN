@@ -568,8 +568,8 @@
   "designHint": "Ana səhifənin düzülüşü",
   "designWheel": "Çarx",
   "designWheelDesc": "Bayraqlar şüşə çarxında, açar altında",
-  "designBento": "Mozaika",
-  "designBentoDesc": "Yumru mozaik lövhə: bağlantı, rəqəmlər, yer",
+  "designBento": "Bento",
+  "designBentoDesc": "Bento qutusunun öz dizaynı: bayraqlar öz taxtasında, bağlantı plitəsi, rəqəmlər və yer isti bir qutunun plitələri kimi",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: tonal səthlər, iri dolu kartlar, kapsul göstəricili bar və böyük başlıqlar — Androidin öz səsi",
   "notifFlag": "Bildirişdə ölkə bayrağı",
@@ -834,5 +834,10 @@
   "wn59Flags": "Bayraqlar hər dizaynın öz kəsiyini geyinir: iOS və «Əsir»də dairəvi medal, «Zed»də skvorkl, «Qəzet»də xətli lövhə, «Pixel»də böyük yumuşaq bucaqlar — çarx, zolaq və hər sətirin kiçik bayrağı onları izləyir.",
   "wn59Map": "Dünya xəritəsi öz dizaynın mürəkkəbi ilə çəkilir: «Qəzet»də kağızın isti qəhvəyisi, «Zed»də bənövşəyi gecənin bozu, «Pixel»də tonal mavi-boz — hər dizaynın dünyası öz səhifəsinə məxsusdur.",
   "wn59Buttons": "Qoşulma düymələri öz dizaynının səsi ilə danışır: «Pixel»də Material You-un böyük tonal həbi, qoşulma qurularkən nəfəs alan iOS kapsulu, və hər səhifənin kartlarının öz dizaynının hərəkəti ilə girişi.",
-  "wn59Scroll": "Çarxlar və zolaqlar öz dizaynın fizikası ilə sürüşür: sistemin secməsi, Material-un sürətli dayanması və qatlanmaya qarşı duran kağızın ağırlığı."
+  "wn59Scroll": "Çarxlar və zolaqlar öz dizaynın fizikası ilə sürüşür: sistemin secməsi, Material-un sürətli dayanması və qatlanmaya qarşı duran kağızın ağırlığı.",
+  "flagAllPlaces": "Bütün yerlər",
+  "gazetteRegions": "İstiqamətlər",
+  "wn60Flags": "Hər dizayn ölkələri indi öz yolu ilə göstərir: Bento-nun plitə taxtası, Pixel-in filtr çipləri, Aether-in kapsul seçimləri, iOS medallar dəsti, Zed-in səhifələnən taxtası və qəzetin öz çapı kimi yazılan istiqamət göstəricisi — çarx öz çarxını saxlayır.",
+  "wn60Bento": "Bento dizaynı tam durur: öz isti palitrası — farfor və kömür, mandarin işığı, plitə dokası, squircle səhifə başlıqları, çalğılı kartlar və bayraq taxtası — hər səhifə, hər iki rejimdə.",
+  "wn60Spacing": "Ana səhifələr bir ritmlə gedir: bölmələr arasındakı ölü zolaqlar gedib, son kartlar öz sıralarını doldurur və hər boşluq dizaynın saxladığı aralıqla nəfəs alır."
 }

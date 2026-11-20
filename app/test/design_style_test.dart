@@ -62,6 +62,21 @@ void main() {
     expect(ios.switchTrack, const Color(0xFF30D158));
     expect(ios.navActive, const Color(0xFF0A84FF));
 
+    // The box's own: the tile dock, the squircle header, the tinted
+    // very-round card, the tangerine's light.
+    final bento = DesignStyle.resolve('bento', true);
+    expect(bento.nav, NavVariant.bentoDock);
+    expect(bento.header, HeaderVariant.bento);
+    expect(bento.group, GroupVariant.bentoBoard);
+    expect(bento.fx, FxMood.pop);
+    expect(bento.cardRadius, 24);
+    expect(bento.dialogRadius, 24);
+    expect(bento.connected, const Color(0xFF57CC8D));
+    expect(bento.navActive, const Color(0xFFFF8B5E));
+    final bentoLight = DesignStyle.resolve('bento', false);
+    expect(bentoLight.navActive, const Color(0xFFE05D2A));
+    expect(bentoLight.scroll, ScrollMood.springy);
+
     // The monochrome keeps the shapes it always had, and the looks that
     // left land on its structure as they land on its palette.
     for (final key in ['mono', 'wheel', 'aurora', 'whatever-else']) {

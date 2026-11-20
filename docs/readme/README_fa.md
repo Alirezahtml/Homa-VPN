@@ -55,7 +55,7 @@
 
 🌙 پوسته روشن و تیره
 
-🎨 هشت طرح صفحهٔ اصلی — چرخ شیشه‌ای، روزنامه، iOS، پیکسل Material You، زد و اثیر — هر کدام یک پوشش کامل از خودش: کارت‌ها، پرچم‌ها، ناوبری، نقشهٔ جهان و حرکت‌ها
+🎨 هفت طرح صفحهٔ اصلی — چرخ شیشه‌ای، جعبهٔ بنتو، روزنامه، iOS، پیکسل Material You، زد و اثیر — هر کدام یک پوشش کامل از خودش: کارت‌ها، ناوبری، نقشهٔ جهان، حرکت‌ها، و شکل خودش برای نشان دادن کشورها (چرخ، تختهٔ کاشی‌ها، نمایهٔ چاپی روزنامه، دستهٔ مدال‌ها، تراشه‌های فیلتر، کپسول‌های گزینه‌ای، تختهٔ صفحه‌صفحه‌ای)
 
 🛡 اپن سورس، کاملا امن و کامیونیتی محور
 
@@ -65,16 +65,17 @@
 
 <p align="center" dir="ltr">
 <img src="../screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
-<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
-<img src="../screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="../screenshots/design_bento.webp" width="180" alt="Bento design">&nbsp;&nbsp;
+<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design"><br>
+<img src="../screenshots/design_ios.webp" width="180" alt="iOS design">&nbsp;&nbsp;
 <img src="../screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
-<img src="../screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
-<img src="../screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="../screenshots/design_zed.webp" width="180" alt="Zed design"><br>
+<img src="../screenshots/design_aether.webp" width="180" alt="Aether design">&nbsp;&nbsp;
 <img src="../screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
 <img src="../screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
 
-*طرح‌های صفحهٔ اصلی — چرخ، روزنامه، iOS، پیکسل، زد و اثیر — هر کدام پوشش کاملی از خودش: کارت‌ها، پرچم‌ها، ناوبری، نقشهٔ جهان و حرکت‌ها. دو تصویر آخر: سرورها و تنظیمات.*
+*طرح‌های صفحهٔ اصلی — چرخ، جعبهٔ بنتو، روزنامه، iOS، پیکسل، زد و اثیر — هر کدام پوشش کامل خودش و شکل خودش برای پرچم‌ها: چرخ، تختهٔ کاشی‌ها، نمایهٔ مقصدهای روزنامه، مدال‌ها، تراشه‌ها، کپسول‌ها و تختهٔ صفحه‌صفحه‌ای. دو تصویر آخر: سرورها و تنظیمات.*
 
 ## 📥 دانلود مستقیم
 

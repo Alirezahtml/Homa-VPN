@@ -568,8 +568,8 @@
   "designHint": "Cómo se organiza la página principal",
   "designWheel": "Rueda",
   "designWheelDesc": "Las banderas en su rueda de cristal, el interruptor debajo",
-  "designBento": "Mosaico",
-  "designBentoDesc": "Tablero de fichas redondeadas: conexión, cifras, lugar",
+  "designBento": "Bento",
+  "designBentoDesc": "El diseño propio de la caja bento: las banderas en su tablero de fichas, la ficha de conexión, las cifras y el lugar como fichas de una caja cálida",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: superficies tonales, tarjetas grandes y llenas, barra de indicador pastilla y títulos grandes — la voz propia de Android",
   "notifFlag": "Bandera del país en la notificación",
@@ -834,5 +834,10 @@
   "wn59Flags": "Las banderas llevan el corte de cada diseño: la medalla redonda en iOS y aether, el squircle en zed, la placa reglada en gazette, los grandes redondeos de pixel — la rueda, la tira y la banderita de cada fila lo siguen.",
   "wn59Map": "El mapa del mundo se dibuja con la tinta de cada diseño: el marrón cálido del papel en gazette, el gris de la noche violeta en zed, el azul grisáceo tonal en pixel — el mundo de cada diseño pertenece a su página.",
   "wn59Buttons": "Los botones de conexión hablan la voz de su diseño: la gran píldora tonal de Material You en pixel, la cápsula de iOS que respira mientras se establece la conexión, y las tarjetas de cada página entrando con el movimiento de su diseño.",
-  "wn59Scroll": "Las ruedas y las tiras se deslizan con la física de su diseño: el rebote del sistema, la parada rápida de Material y el peso del papel que muere en el doblez."
+  "wn59Scroll": "Las ruedas y las tiras se deslizan con la física de su diseño: el rebote del sistema, la parada rápida de Material y el peso del papel que muere en el doblez.",
+  "flagAllPlaces": "Todos los lugares",
+  "gazetteRegions": "Destinos",
+  "wn60Flags": "Cada diseño muestra ahora los países a su manera: el tablero de fichas del bento, los chips de filtro del pixel, las opciones de cápsula del aether, la baraja de medallas de iOS, el tablero paginado del zed y el índice de destinos de la gaceta impreso como su propio papel — la rueda conserva su rueda.",
+  "wn60Bento": "El diseño bento se completa: su propia paleta cálida de porcelana y carbón, la luz mandarina, el muelle de fichas, los encabezados de página squircle, las tarjetas tintadas y el tablero de banderas — cada página, en ambos modos.",
+  "wn60Spacing": "Las páginas de inicio caminan en un solo ritmo: las bandas muertas entre las secciones se han ido, las tarjetas finales llenan sus filas y cada hueco respira con el espaciado que el diseño guarda."
 }

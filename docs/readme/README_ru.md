@@ -53,7 +53,7 @@
 
 🌙 Светлая и тёмная темы
 
-🎨 Восемь дизайнов главной — стеклянное колесо, газета Gazette, iOS, Material You в Pixel, Zed и Aether — каждый со своим полным обликом: карточки, флаги, навигация, карта мира и движение
+🎨 Семь дизайнов главной — стеклянное колесо, коробка бенто, газета Gazette, iOS, Material You в Pixel, Zed и Aether — каждый со своим полным обликом: карточки, навигация, карта мира, движение и свой способ показывать страны (колесо, доска плиток, печатный указатель газеты, колода медалей, фильтр-чипы, капсульные варианты, постраничная доска)
 
 🛡 Открытый исходный код, безопасность и развитие сообществом
 
@@ -63,16 +63,17 @@
 
 <p align="center">
 <img src="../screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
-<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
-<img src="../screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="../screenshots/design_bento.webp" width="180" alt="Bento design">&nbsp;&nbsp;
+<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design"><br>
+<img src="../screenshots/design_ios.webp" width="180" alt="iOS design">&nbsp;&nbsp;
 <img src="../screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
-<img src="../screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
-<img src="../screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="../screenshots/design_zed.webp" width="180" alt="Zed design"><br>
+<img src="../screenshots/design_aether.webp" width="180" alt="Aether design">&nbsp;&nbsp;
 <img src="../screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
 <img src="../screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
 
-*Дизайны главной — колесо, Gazette, iOS, Pixel, Zed и Aether — каждый с собственным обликом: карточки, флаги, навигация, карта мира и движения. Последние два: серверы и настройки.*
+*Дизайны главной — колесо, коробка бенто, Gazette, iOS, Pixel, Zed и Aether — каждый со своим обликом и своим способом показывать флаги: колесо, доска плиток, печатный указатель направлений, медали, чипы, капсулы, постраничная доска. Последние два: серверы и настройки.*
 
 ## 📥 Скачать
 

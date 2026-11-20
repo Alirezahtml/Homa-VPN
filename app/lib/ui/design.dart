@@ -38,6 +38,7 @@ abstract final class AppDesign {
     'gazette' => DesignTheme.gazette,
     'pixel' => DesignTheme.pixel,
     'ios' => DesignTheme.ios,
+    'bento' => DesignTheme.bento,
     _ => DesignTheme.mono,
   };
 
@@ -306,6 +307,46 @@ class DesignTheme {
       homeBottom: Color(0xFF0F0D09),
       homeCard: Color(0xFF1C1812),
       homeCardBorder: Color(0xFF3A3426),
+    ),
+  );
+
+  /// The bento: the lunch box's own look — the warm porcelain and the
+  /// charcoal ink, the tangerine's light, and the very-round tiles that
+  /// each carry their own thing. The day is the lacquered box's light
+  /// wood; the night is the charcoal under the box's warm glaze.
+  static const bento = DesignTheme._(
+    key: 'bento',
+    day: DesignLook(
+      scaffold: Color(0xFFF5F1E8),
+      scaffoldBottom: Color(0xFFEEE8DC),
+      surface: Color(0xFFFFFFFF),
+      surfaceHigh: Color(0xFFF8F5EE),
+      containerHighest: Color(0xFFEFEAE0),
+      ink: Color(0xFF23201B),
+      muted: Color(0xFF6F6A61),
+      outline: Color(0xFFE2DCCE),
+      accent: Color(0xFFE05D2A),
+      cardShadow: [],
+      homeTop: Color(0xFFF5F1E8),
+      homeBottom: Color(0xFFEEE8DC),
+      homeCard: Color(0xFFFFFFFF),
+      homeCardBorder: Color(0xFFE2DCCE),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF121110),
+      scaffoldBottom: Color(0xFF0C0B0A),
+      surface: Color(0xFF1C1A18),
+      surfaceHigh: Color(0xFF242220),
+      containerHighest: Color(0xFF1F1D1B),
+      ink: Color(0xFFF1ECE3),
+      muted: Color(0xFFA39C90),
+      outline: Color(0xFF332F2A),
+      accent: Color(0xFFFF8B5E),
+      cardShadow: [],
+      homeTop: Color(0xFF121110),
+      homeBottom: Color(0xFF0C0B0A),
+      homeCard: Color(0xFF1C1A18),
+      homeCardBorder: Color(0xFF332F2A),
     ),
   );
 

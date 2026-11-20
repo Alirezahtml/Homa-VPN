@@ -568,8 +568,8 @@
   "designHint": "Como a página inicial se organiza",
   "designWheel": "Roda",
   "designWheelDesc": "As bandeiras na sua roda de vidro, o interruptor abaixo",
-  "designBento": "Mosaico",
-  "designBentoDesc": "Um quadro de mosaicos arredondados: conexão, números, local",
+  "designBento": "Bento",
+  "designBentoDesc": "O design da própria caixa bento: as bandeiras no seu quadro de mosaicos, o mosaico de conexão, os números e o local como mosaicos de uma caixa calorosa",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: superfícies tonais, cartões grandes e cheios, barra de indicador pastilha e títulos grandes — a voz própria do Android",
   "notifFlag": "Bandeira do país na notificação",
@@ -834,5 +834,10 @@
   "wn59Flags": "As bandeiras vestem o corte de cada design: a medalha redonda no iOS e no aether, o squircle no zed, a placa pautada no gazette, os grandes arredondados do pixel — a roda, a fita e a bandeirola de cada linha seguem-nos.",
   "wn59Map": "O mapa-múndi é desenhado com a tinta do próprio design: o castanho quente do papel no gazette, o cinza da noite violeta no zed, o azulado tonal no pixel — o mundo de cada design pertence à sua página.",
   "wn59Buttons": "Os botões de ligação falam a voz do seu design: a grande pílula tonal do Material You no pixel, a cápsula do iOS que respira enquanto a ligação se estabelece, e os cartões de cada página a entrar com o movimento do seu design.",
-  "wn59Scroll": "As rodas e as fitas rolam com a física do seu design: o salto do sistema, a paragem rápida do Material e o peso do papel que morre na dobra."
+  "wn59Scroll": "As rodas e as fitas rolam com a física do seu design: o salto do sistema, a paragem rápida do Material e o peso do papel que morre na dobra.",
+  "flagAllPlaces": "Todos os lugares",
+  "gazetteRegions": "Destinos",
+  "wn60Flags": "Cada design agora mostra os países à sua maneira: o quadro de mosaicos do bento, os chips de filtro do pixel, as opções de cápsula do aether, o baralho de medalhas do iOS, o quadro paginado do zed e o índice de destinos da gaceta impresso como o próprio papel — a roda mantém a sua roda.",
+  "wn60Bento": "O design bento permanece inteiro: a sua própria paleta calorosa de porcelana e carvão, a luz tangerina, a doca de mosaicos, os cabeçalhos de página squircle, os cartões tingidos e o quadro de bandeiras — cada página, em ambos os modos.",
+  "wn60Spacing": "As páginas iniciais caminham num só ritmo: as faixas mortas entre as seções se foram, os cartões finais preenchem suas filas e cada vão respira com o espaçamento que o design guarda."
 }

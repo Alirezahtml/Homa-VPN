@@ -72,7 +72,11 @@ Decoration? flagSweep(
   bool dark, {
   double top = 0.08,
 }) {
-  if (design.fx == FxMood.print || design.fx == FxMood.tonal) return null;
+  if (design.fx == FxMood.print ||
+      design.fx == FxMood.tonal ||
+      design.fx == FxMood.pop) {
+    return null;
+  }
   final colors = [
     Colors.white.withValues(alpha: dark ? top * 0.6 : top),
     Colors.black.withValues(alpha: dark ? 0.20 : 0.07),
@@ -1093,6 +1097,36 @@ class _FlagCard extends StatelessWidget {
             child: fav(_content(scheme, w, cover: medal)),
           ),
         );
+      case FxMood.pop:
+        // The box's tile: the flag on its warm plate, the soft shadow
+        // under it and the tangerine's breath on the chosen card — the
+        // pop carries, no glass and no bloom.
+        frame = Container(
+          width: w + 6,
+          height: h + 6,
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(design.flagRound + 3),
+            border: Border.all(color: light.withValues(alpha: 0.9), width: 1.3),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.42 : 0.14),
+                blurRadius: 12,
+                offset: const Offset(0, 5),
+              ),
+              BoxShadow(
+                color: light.withValues(alpha: dark ? 0.22 : 0.12),
+                blurRadius: 14,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: flagCutDecoration(design, w, h, edge),
+            child: fav(_content(scheme, w, cover: medal)),
+          ),
+        );
       case FxMood.glass:
         // The glass frame: a bezel of frosted glass around the flag —
         // the sweep comes from up-left, the fine white edge holds the
@@ -1530,7 +1564,8 @@ class _StripTile extends StatelessWidget {
     // chosen tile, the soft keeps a whisper of it, and the print and the
     // tonal surface stand flat — the border alone says chosen.
     final List<BoxShadow> shadows = switch (design.fx) {
-      FxMood.print || FxMood.tonal => chosen
+      FxMood.print ||
+      FxMood.tonal => chosen
           ? [
               BoxShadow(
                 color: accent.withValues(alpha: dark ? 0.28 : 0.18),
@@ -1538,6 +1573,21 @@ class _StripTile extends StatelessWidget {
               ),
             ]
           : const [],
+      FxMood.pop => chosen
+          ? [
+              BoxShadow(
+                color: accent.withValues(alpha: dark ? 0.30 : 0.20),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ]
+          : [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: dark ? 0.34 : 0.12),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
       FxMood.soft => [
           BoxShadow(
             color: chosen

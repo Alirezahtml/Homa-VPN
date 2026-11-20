@@ -53,7 +53,7 @@
 
 🌙 浅色和深色主题
 
-🎨 八种主页设计 — 玻璃转轮、报纸 Gazette、iOS、Material You 的 Pixel、Zed 与 Aether — 每种都是完整的外观：自己的卡片、旗帜、导航、世界地图与动效
+🎨 七种主页设计 — 玻璃转轮、便当盒、报纸 Gazette、iOS、Material You 的 Pixel、Zed 与 Aether — 每种都是完整的外观：自己的卡片、导航、世界地图、动效，以及各自展示国家的方式（转轮、拼块板、报纸的印刷索引、奖牌卡组、筛选芯片、胶囊选项、分页板）
 
 🛡 开源、安全、社区驱动
 
@@ -63,16 +63,17 @@
 
 <p align="center">
 <img src="../screenshots/design_wheel.webp" width="180" alt="Wheel design">&nbsp;&nbsp;
-<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design">&nbsp;&nbsp;
-<img src="../screenshots/design_ios.webp" width="180" alt="iOS design"><br>
+<img src="../screenshots/design_bento.webp" width="180" alt="Bento design">&nbsp;&nbsp;
+<img src="../screenshots/design_gazette.webp" width="180" alt="Gazette design"><br>
+<img src="../screenshots/design_ios.webp" width="180" alt="iOS design">&nbsp;&nbsp;
 <img src="../screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
-<img src="../screenshots/design_zed.webp" width="180" alt="Zed design">&nbsp;&nbsp;
-<img src="../screenshots/design_aether.webp" width="180" alt="Aether design"><br>
+<img src="../screenshots/design_zed.webp" width="180" alt="Zed design"><br>
+<img src="../screenshots/design_aether.webp" width="180" alt="Aether design">&nbsp;&nbsp;
 <img src="../screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
 <img src="../screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
 
-*主页设计 — 转轮、Gazette、iOS、Pixel、Zed 与 Aether — 每种拥有自己的完整外观：卡片、旗帜、导航、世界地图与动效。最后两张：服务器与设置。*
+*主页设计 — 转轮、便当盒、Gazette、iOS、Pixel、Zed 与 Aether — 每种拥有自己的完整外观，也用自己的方式展示旗帜：转轮、拼块板、报纸的目的地索引、奖牌、芯片、胶囊与分页板。最后两张：服务器与设置。*
 
 ## 📥 下载
 

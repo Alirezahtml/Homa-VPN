@@ -568,8 +568,8 @@
   "designHint": "A kezdőlap elrendezése",
   "designWheel": "Korong",
   "designWheelDesc": "A zászlók üvegkorongján, a kapcsoló alattuk",
-  "designBento": "Mozaik",
-  "designBentoDesc": "Kerek mozaiklapok: kapcsolat, számok, hely",
+  "designBento": "Bento",
+  "designBentoDesc": "A bento doboz saját dizajnja: a zászlók a csempéjük tábláján, a kapcsolat csempe, a számok és a hely egy meleg doboz csempéiként",
   "designPixel": "Pixel",
   "designPixelDesc": "Material You: tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek — az Android saját hangja",
   "notifFlag": "Országzászló az értesítésben",
@@ -834,5 +834,10 @@
   "wn59Flags": "A zászlók mindegyik dizájn saját vágását viselik: kerek medál az iOS-on és az aetheren, szkvircle a zeden, vonalazott lemez a gazette-on, a pixel nagy kerek sarkai — a kerék, a sor és minden sor kis zászlója követi őket.",
   "wn59Map": "A világtérkép a dizájn saját tusával készül: a papír meleg barnája a gazette-on, a lila éjszaka szürkéje a zeden, a tonális kékesszürke a pixelen — minden dizájn világa a saját oldaláé.",
   "wn59Buttons": "A csatlakozás gombjai a dizájnjuk hangján szólnak: a Material You nagy tonális pirulája a pixelen, az iOS kapszula lélegzete a kapcsolat épülésekor, és minden oldal kártyái a saját dizájnjuk mozgásával lépnek be.",
-  "wn59Scroll": "A kerekek és sorok a dizájn saját fizikájával görgetnek: a rendszer pattanása, a Material gyors megállása, és a papír súlya, ami a hajtásnál elhal."
+  "wn59Scroll": "A kerekek és sorok a dizájn saját fizikájával görgetnek: a rendszer pattanása, a Material gyors megállása, és a papír súlya, ami a hajtásnál elhal.",
+  "flagAllPlaces": "Minden hely",
+  "gazetteRegions": "Úti célok",
+  "wn60Flags": "Minden dizájn most a saját módján mutatja az országokat: a bento csempetáblája, a pixel szűrőcsipjei, az aether kapszula lehetőségei, az iOS érempaklija, a zed lapozott táblája és a gazette úti céljainak jegyzéke, mint a saját nyomtatása — a kerék megtartja kerékjét.",
+  "wn60Bento": "A bento dizájn teljesen áll: saját meleg palettája porcelánból és szénből, a mandarin fénye, a csempe dokk, a squircle oldalfejlécek, a színezett kártyák és a zászlótábla — minden oldal, mindkét módban.",
+  "wn60Spacing": "A kezdőlapok egy ritmusban járnak: a szakaszok közti holt sávok eltűntek, a záró kártyák megtöltik soraikat, és minden rés a dizájn által tartott távolsággal lélegzik."
 }
