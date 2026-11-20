@@ -299,7 +299,7 @@ class _BoardTile extends StatelessWidget {
     this.onLongPress,
   }) : _allLabel = null;
 
-  _BoardTile.all({
+  const _BoardTile.all({
     required this.accent,
     required this.border,
     required this.dark,
