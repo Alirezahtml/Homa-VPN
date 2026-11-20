@@ -805,5 +805,9 @@
   "wn52Speed": "Tunnel yenə şəbəkənin öz sürəti ilə işləyir: VPN interfeysi xəttin paket ölçüsünü (MTU 1500) danışır, şişirdilmiş ölçü yerinə; endirmələr tam sürətini alır, zənglər sabit qalır — xüsusən mobil internetdə.",
   "wn52Smart": "Ən sürətli yer və tövsiyə olunan servis yenidən sədaqətlə seçir: hər başlanğıc yerləri təzə ölçür və indinin ən yaxşısını götürür — əvvəl seçilmiş yeri səssizcə gəzdirmək əvəzinə.",
   "wn52Motion": "Tətbiqin hər yerində otuz yeni animasiya: hər səhifə və kart yumşaqca enir, basılan plitələr çöküb qayıdır, qoşulma durumunun nöqtəsi nəfəs alır, açılan səhifələr yumşaq sürüşür — sistem az hərəkət istədikdə hamısı dayanır.",
-  "wn52Pages": "Açılan səhifələr yumşaq sürüşmə ilə gəlir, başlıq öz kənarından; ayar yadda saxlanarkən bölmədə sakit bir xətt axır."
+  "wn52Pages": "Açılan səhifələr yumşaq sürüşmə ilə gəlir, başlıq öz kənarından; ayar yadda saxlanarkən bölmədə sakit bir xətt axır.",
+  "wn56Button": "Sürüşdürmə düyməsi sözünü bütün yol boyu saxlayır — «qoşulur» ilə «qoşuldu» arasında boş an qalmır: söz indi halları arasında sürüşür, iş rejiminin qaralması nəfəslə izləyir.",
+  "wn56Capsule": "Çərxin əsas səhifəsi hər halı bir dəfə deyir: düymənin üstündəki təkrarlanan status sözü gedib — yolun özü onu daşıyır, səhifə bir sətir sakit oxunur.",
+  "wn56Door": "Sürət testinin evdə öz qapısı var: bir sətir, bir toxunuş və ölçmə açılır — ilk qoşulmadan əvvəl də, yalnız tunel işləyəndə yox.",
+  "wn56Wheel": "Bayraq çərxi yumsaq sürüşmə ilə gedir: bir atış bir ölkə gətirir, eniş isə çırpılıb yerləşmək əvəzinə yerinə yığılır — çəkmə ağır və rəvan, yaxşı bir açar kimi oxunur."
 }

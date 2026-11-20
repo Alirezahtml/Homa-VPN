@@ -805,5 +805,9 @@
   "wn52Speed": "Az alagút újra a hálózat saját sebességén szalad: a VPN felülete a vonal csomagméretét (MTU 1500) beszéli a túlméretezett helyett — a letöltések visszakapják teljes sebességüket, és a hívások stabilak maradnak, főleg mobilneten.",
   "wn52Smart": "A leggyorsabb hely és az ajánlott szolgáltatás újra becsületesen választ: minden indítás frissen méri a helyeket, és a mostani legjobbot veszi — ahelyett, hogy csendben a korábban választottat vitte volna.",
   "wn52Motion": "Harminc új animáció az alkalmazás minden táján: minden oldal és kártya puhan landol, a megnyomott csempék süppednek és visszaállnak, a kapcsolódás pontja lélegzik, a nyitott oldalak lágyan úsznak be — és mind elhallgat, ha a rendszer kevesebb mozgást kér.",
-  "wn52Pages": "A nyitott oldalak lágy csúszással érkeznek, a cím a saját széléről; beállítás mentésekor egy halk vonal fut végig a szakaszon."
+  "wn52Pages": "A nyitott oldalak lágy csúszással érkeznek, a cím a saját széléről; beállítás mentésekor egy halk vonal fut végig a szakaszon.",
+  "wn56Button": "A csúszka végig őrzi a szavát — többé nincs üres pillanat a „kapcsolódás” és a „kapcsolódva” között: a szó most átcsúszik állapotai között, és a munka halványulása egy lehellel érkezik.",
+  "wn56Capsule": "A kerék hazája minden állapotot egyszer mond: eltűnt a csúszka fölött ismétlődő állapotszó — maga a pálya viszi, és az oldal egy sorral nyugodtabb.",
+  "wn56Door": "A sebességtesztnek saját ajtaja van a főoldalon: egy sor, egy koppintás, és nyílik a mérés — az első kapcsolódás előtt is, nem csak amikor az alagút viszi.",
+  "wn56Wheel": "A zászlókerék súrlódás nélkül csúszik: egy lendület egy országot hoz, és a landolás helyre ül, nem becsapódik — a húzás nehéz és egyenletes, mint egy jó gomb."
 }

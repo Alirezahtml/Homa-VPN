@@ -2584,6 +2584,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn52Pages => '推入的页面带着柔和的滑动到来，页面标题从自己的边缘抵达；设置保存时，一条安静的细线在分区里流动。';
+
+  @override
+  String get wn56Button =>
+      '连接滑块在整个过程中都保留着它的字词——『连接中』与『已连接』之间不再有空白时刻：字词如今在自己各状态间滑行过渡，工作时的变暗也随一次呼吸缓缓到来。';
+
+  @override
+  String get wn56Capsule =>
+      '转轮的首页每个状态只说一次：滑块上方重复的状态字词离开了——轨道本身承载它，页面读起来安静一行。';
+
+  @override
+  String get wn56Door =>
+      '速度测试在首页有了自己的门：一行、一点，测量即刻打开——甚至在第一次连接之前也可以，而不只是隧道运行时。';
+
+  @override
+  String get wn56Wheel =>
+      '旗帜的转轮滑行如丝：一次轻掷带来一个国家，落定归于其位而非磕碰而止——拖动手感沉稳均衡，像一枚好的旋钮。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5167,4 +5183,20 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn52Pages => '推入的頁面帶著柔和的滑動到來，頁面標題從自己的邊緣抵達；設定儲存時，一條安靜的細線在分區裡流動。';
+
+  @override
+  String get wn56Button =>
+      '連接滑塊在整個過程中都保留著它的字詞——『連接中』與『已連接』之間不再有空白時刻：字詞如今在自己各狀態間滑行過渡，工作時的變暗也隨一次呼吸緩緩到來。';
+
+  @override
+  String get wn56Capsule =>
+      '轉輪的首頁每個狀態只說一次：滑塊上方重複的狀態字詞離開了——軌道本身承載它，頁面讀起來安靜一行。';
+
+  @override
+  String get wn56Door =>
+      '速度測試在首頁有了自己的門：一行、一點，測量即刻打開——甚至在第一次連接之前也可以，而不只是隧道執行時。';
+
+  @override
+  String get wn56Wheel =>
+      '旗幟的轉輪滑行如絲：一次輕擲帶來一個國家，落定歸於其位而非磕碰而止——拖動手感沉穩均衡，像一枚好的旋鈕。';
 }

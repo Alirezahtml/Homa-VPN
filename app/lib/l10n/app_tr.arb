@@ -805,5 +805,9 @@
   "wn52Speed": "Tünel yeniden ağın kendi hızında akar: VPN arayüzü, abartılı boyut yerine hattın paket boyutunu (MTU 1500) konuşur; böylece indirmeler tam hızına ulaşır ve aramalar sabit kalır — özellikle mobil veride.",
   "wn52Smart": "En hızlı konum ve önerilen servis yeniden dürüstçe seçer: her başlangıç konumları taze ölçer ve şimdinin en iyisini alır — daha önce seçilen yeri sessizce taşımak yerine.",
   "wn52Motion": "Uygulamanın her yanında otuz yeni animasyon: her sayfa ve kart yumuşakça konar, basılan kutular çöker ve döner, bağlanıyor durumunun noktası nefes alır, açılan sayfalar yumuşak kayar — sistem daha az hareket istediğinde her biri durur.",
-  "wn52Pages": "Açılan sayfalar yumuşak bir kayışla gelir, sayfa başlığı kendi kenarından; bir ayar kaydedilirken bölümde sessiz bir çizgi akar."
+  "wn52Pages": "Açılan sayfalar yumuşak bir kayışla gelir, sayfa başlığı kendi kenarından; bir ayar kaydedilirken bölümde sessiz bir çizgi akar.",
+  "wn56Button": "Bağlantı kaydırıcısı sözünü yolun boyunca korur — 'bağlanıyor' ile 'bağlandı' arasında artık boş bir an yok: söz şimdi hâlleri arasında kayar, çalışma kararması bir nefesle gelir.",
+  "wn56Capsule": "Çarkın ana sayfası her hâli bir kez söyler: kaydırıcının üstündeki tekrarlanan durum sözü gitti — yolu kendisi taşır, sayfa bir satır daha sakin okunur.",
+  "wn56Door": "Hız testinin ana sayfada kendi kapısı var: bir satır, bir dokunuş ve ölçüm açılır — ilk bağlantıdan önce de, yalnızca tünel taşıyorken değil.",
+  "wn56Wheel": "Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur."
 }

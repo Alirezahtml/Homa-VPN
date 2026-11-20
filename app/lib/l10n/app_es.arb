@@ -805,5 +805,9 @@
   "wn52Speed": "El túnel vuelve a correr a la velocidad de la propia red: la interfaz de la VPN habla el tamaño de paquete de la línea (MTU 1500) en vez de uno sobredimensionado; las descargas alcanzan su velocidad plena y las llamadas se mantienen estables, sobre todo con datos móviles.",
   "wn52Smart": "La ubicación más rápida y el servicio recomendado vuelven a elegir con honestidad: cada arranque mide las ubicaciones de nuevo y toma la mejor ahora, en vez de cabalgar en silencio con el lugar elegido antes.",
   "wn52Motion": "Treinta animaciones nuevas por toda la app: cada página y tarjeta aterriza suave, los mosaicos pulsados se hunden y regresan, el punto de conexión respira, y las páginas abiertas se deslizan — todas se detienen si el sistema pide menos movimiento.",
-  "wn52Pages": "Las páginas abiertas llegan con un deslizamiento suave y el título desde su propio borde; al guardar un ajuste, una línea quieta recorre la sección."
+  "wn52Pages": "Las páginas abiertas llegan con un deslizamiento suave y el título desde su propio borde; al guardar un ajuste, una línea quieta recorre la sección.",
+  "wn56Button": "El deslizador de conexión conserva su palabra durante todo el camino — ya no hay un momento vacío entre «conectando» y «conectado»: la palabra ahora se desliza entre sus estados, y la atenuación de trabajo llega con una respiración.",
+  "wn56Capsule": "La rueda dice cada estado una sola vez: se fue la palabra de estado repetida sobre el deslizador — la propia pista la lleva, y la página se lee una línea más serena.",
+  "wn56Door": "La prueba de velocidad tiene su propia puerta en el inicio: una fila, un toque, y la medición se abre — también antes de la primera conexión, no solo mientras el túnel corre.",
+  "wn56Wheel": "La rueda de banderas se desliza con suavidad: un impulso trae un país, y el aterrizaje se asienta en lugar de golpear — el arrastre se lee firme y estable, como un buen dial."
 }

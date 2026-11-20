@@ -2745,4 +2745,20 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Halaman yang dibuka tiba dengan geseran lembut dan judulnya dari tepinya sendiri; saat pengaturan disimpan, satu garis tenang mengalir di bagian itu.';
+
+  @override
+  String get wn56Button =>
+      'Penggeser koneksi mempertahankan katanya sepanjang jalan — tak ada lagi jeda kosong antara \'menyambung\' dan \'tersambung\': kata kini meluncur di antara keadaannya, dan peredupan saat bekerja datang dengan satu napas.';
+
+  @override
+  String get wn56Capsule =>
+      'Beranda roda menyebut setiap keadaan sekali: kata status yang berulang di atas penggeser pergi — jalurnya sendiri yang membawanya, dan halaman terbaca satu baris lebih tenang.';
+
+  @override
+  String get wn56Door =>
+      'Uji kecepatan punya pintu sendiri di beranda: satu baris, satu ketukan, dan pengukuran terbuka — juga sebelum koneksi pertama, bukan hanya saat terowongan berjalan.';
+
+  @override
+  String get wn56Wheel =>
+      'Roda bendera meluncur mulus: satu lemparan membawa satu negara, dan pendaratannya menetap alih-alih membentur — tarikannya terasa mantap dan stabil seperti kenop yang baik.';
 }

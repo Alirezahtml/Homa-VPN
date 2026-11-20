@@ -2767,4 +2767,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Les pages ouvertes arrivent en un glissement doux et le titre depuis son propre bord ; pendant l\'enregistrement d\'un réglage, une ligne discrète traverse la section.';
+
+  @override
+  String get wn56Button =>
+      'Le curseur de connexion garde son mot pendant tout le trajet — plus aucun instant vide entre « connexion » et « connecté » : le mot glisse à présent entre ses états, et l\'assombrissement d\'activité arrive en douceur.';
+
+  @override
+  String get wn56Capsule =>
+      'La roue dit chaque état une seule fois : le mot d\'état répété au-dessus du curseur est parti — la piste le porte elle-même, et la page se lit d\'une ligne plus calme.';
+
+  @override
+  String get wn56Door =>
+      'Le test de vitesse a sa propre porte sur l\'accueil : une rangée, un geste, et la mesure s\'ouvre — avant même la première connexion, pas seulement quand le tunnel porte.';
+
+  @override
+  String get wn56Wheel =>
+      'La roue des drapeaux glisse : une impulsion amène un pays, et l\'atterrissage se pose au lieu de claquer — le geste se lit ferme et régulier, comme un bon cadran.';
 }

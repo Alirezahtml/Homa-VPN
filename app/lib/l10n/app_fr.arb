@@ -805,5 +805,9 @@
   "wn52Speed": "Le tunnel court de nouveau à la vitesse du réseau même : l'interface VPN parle la taille de paquet de la ligne (MTU 1500) au lieu d'une surdimensionnée ; les téléchargements reprennent toute leur vitesse et les appels restent stables, surtout en données mobiles.",
   "wn52Smart": "L'emplacement le plus rapide et le service recommandé rechoisissent honnêtement : chaque démarrage mesure les emplacements à neuf et prend le meilleur du moment, au lieu de chevaucher en silence l'endroit choisi avant.",
   "wn52Motion": "Trente nouvelles animations dans toute l'app : chaque page et carte se pose en douceur, les tuiles pressées s'enfoncent puis reviennent, le point de connexion respire, et les pages ouvertes glissent — chacune s'immobilise quand le système demande moins de mouvement.",
-  "wn52Pages": "Les pages ouvertes arrivent en un glissement doux et le titre depuis son propre bord ; pendant l'enregistrement d'un réglage, une ligne discrète traverse la section."
+  "wn52Pages": "Les pages ouvertes arrivent en un glissement doux et le titre depuis son propre bord ; pendant l'enregistrement d'un réglage, une ligne discrète traverse la section.",
+  "wn56Button": "Le curseur de connexion garde son mot pendant tout le trajet — plus aucun instant vide entre « connexion » et « connecté » : le mot glisse à présent entre ses états, et l'assombrissement d'activité arrive en douceur.",
+  "wn56Capsule": "La roue dit chaque état une seule fois : le mot d'état répété au-dessus du curseur est parti — la piste le porte elle-même, et la page se lit d'une ligne plus calme.",
+  "wn56Door": "Le test de vitesse a sa propre porte sur l'accueil : une rangée, un geste, et la mesure s'ouvre — avant même la première connexion, pas seulement quand le tunnel porte.",
+  "wn56Wheel": "La roue des drapeaux glisse : une impulsion amène un pays, et l'atterrissage se pose au lieu de claquer — le geste se lit ferme et régulier, comme un bon cadran."
 }

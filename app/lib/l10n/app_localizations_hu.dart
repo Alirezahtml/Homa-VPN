@@ -2756,4 +2756,20 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn52Pages =>
       'A nyitott oldalak lágy csúszással érkeznek, a cím a saját széléről; beállítás mentésekor egy halk vonal fut végig a szakaszon.';
+
+  @override
+  String get wn56Button =>
+      'A csúszka végig őrzi a szavát — többé nincs üres pillanat a „kapcsolódás” és a „kapcsolódva” között: a szó most átcsúszik állapotai között, és a munka halványulása egy lehellel érkezik.';
+
+  @override
+  String get wn56Capsule =>
+      'A kerék hazája minden állapotot egyszer mond: eltűnt a csúszka fölött ismétlődő állapotszó — maga a pálya viszi, és az oldal egy sorral nyugodtabb.';
+
+  @override
+  String get wn56Door =>
+      'A sebességtesztnek saját ajtaja van a főoldalon: egy sor, egy koppintás, és nyílik a mérés — az első kapcsolódás előtt is, nem csak amikor az alagút viszi.';
+
+  @override
+  String get wn56Wheel =>
+      'A zászlókerék súrlódás nélkül csúszik: egy lendület egy országot hoz, és a landolás helyre ül, nem becsapódik — a húzás nehéz és egyenletes, mint egy jó gomb.';
 }

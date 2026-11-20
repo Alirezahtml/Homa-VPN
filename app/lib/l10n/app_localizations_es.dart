@@ -2763,4 +2763,20 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Las páginas abiertas llegan con un deslizamiento suave y el título desde su propio borde; al guardar un ajuste, una línea quieta recorre la sección.';
+
+  @override
+  String get wn56Button =>
+      'El deslizador de conexión conserva su palabra durante todo el camino — ya no hay un momento vacío entre «conectando» y «conectado»: la palabra ahora se desliza entre sus estados, y la atenuación de trabajo llega con una respiración.';
+
+  @override
+  String get wn56Capsule =>
+      'La rueda dice cada estado una sola vez: se fue la palabra de estado repetida sobre el deslizador — la propia pista la lleva, y la página se lee una línea más serena.';
+
+  @override
+  String get wn56Door =>
+      'La prueba de velocidad tiene su propia puerta en el inicio: una fila, un toque, y la medición se abre — también antes de la primera conexión, no solo mientras el túnel corre.';
+
+  @override
+  String get wn56Wheel =>
+      'La rueda de banderas se desliza con suavidad: un impulso trae un país, y el aterrizaje se asienta en lugar de golpear — el arrastre se lee firme y estable, como un buen dial.';
 }

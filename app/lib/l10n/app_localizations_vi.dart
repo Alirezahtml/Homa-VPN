@@ -2741,4 +2741,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Trang mở đến với một cú trượt mềm và tiêu đề từ cạnh của nó; khi một cài đặt được lưu, một đường kẻ êm chảy qua mục.';
+
+  @override
+  String get wn56Button =>
+      'Thanh trượt kết nối giữ nguyên chữ của nó suốt hành trình — không còn khoảnh khắc trống giữa \'đang kết nối\' và \'đã kết nối\': chữ nay trượt mượt giữa các trạng thái, và độ mờ khi làm việc đến theo một nhịp thở.';
+
+  @override
+  String get wn56Capsule =>
+      'Trang chính của bánh xe nói mỗi trạng thái một lần: chữ trạng thái lặp lại trên thanh trượt đã đi — chính đường ray mang nó, và trang đọc êm hơn một dòng.';
+
+  @override
+  String get wn56Door =>
+      'Bài kiểm tra tốc độ có cửa riêng trên trang chính: một hàng, một chạm, và phép đo mở ra — cả trước lần kết nối đầu tiên, không chỉ khi đường hầm đang chạy.';
+
+  @override
+  String get wn56Wheel =>
+      'Bánh xe cờ trượt mượt: một cú đẩy mang một quốc gia, và cú đáp nằm yên vào chỗ thay vì va đập — cú kéo đọc nặng và ổn như một núm xoay tốt.';
 }

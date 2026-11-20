@@ -4916,4 +4916,25 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.',
   );
+
+  /// No description provided for @wn56Button.
+  ///
+  /// In en, this message translates to:
+  /// **'The connect slider keeps its word through the whole walk — no more empty moment between connecting and connected: the word glides between its states now, and the working dim follows with a breath.'**
+  String get wn56Button;
+  /// No description provided for @wn56Capsule.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheel\'s home says each state once: the repeated status word above the slider is gone — the track itself carries it, and the page reads a line quieter.'**
+  String get wn56Capsule;
+  /// No description provided for @wn56Door.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed test has its own door on the home: one row, one tap, and the measurement opens — before the first connect too, not only while the tunnel carries.'**
+  String get wn56Door;
+  /// No description provided for @wn56Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags\' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.'**
+  String get wn56Wheel;
 }

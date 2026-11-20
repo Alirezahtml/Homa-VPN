@@ -427,7 +427,17 @@ class _FlagCarouselState extends State<FlagCarousel>
               // stands in the middle, its neighbors peeking on both sides.
               itemCount: entries.length * _repeats,
               clipBehavior: Clip.none,
-              physics: const BouncingScrollPhysics(),
+              // The wheel's walk, tuned to read as one glide: the page
+              // physics keep the landing on the country (one fling, one
+              // place), and the slow deceleration under them gives the
+              // drag a heavier, steadier read — the wheel settles into
+              // the chosen flag instead of knocking into it like a
+              // ratchet.
+              physics: const PageScrollPhysics(
+                parent: BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.slow,
+                ),
+              ),
               onPageChanged: (page) {
                 final loc = entries[page % entries.length];
                 final chosen = isRecommendedPlace(loc.code)

@@ -2749,4 +2749,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn52Pages =>
       'The pushed pages arrive with a soft glide and the page\'s title from its own edge; while a setting saves, a quiet line sweeps the section.';
+
+  @override
+  String get wn56Button =>
+      'The connect slider keeps its word through the whole walk — no more empty moment between connecting and connected: the word glides between its states now, and the working dim follows with a breath.';
+
+  @override
+  String get wn56Capsule =>
+      'The wheel\'s home says each state once: the repeated status word above the slider is gone — the track itself carries it, and the page reads a line quieter.';
+
+  @override
+  String get wn56Door =>
+      'The speed test has its own door on the home: one row, one tap, and the measurement opens — before the first connect too, not only while the tunnel carries.';
+
+  @override
+  String get wn56Wheel =>
+      'The flags\' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.';
 }

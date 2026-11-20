@@ -2743,4 +2743,20 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Açılan səhifələr yumşaq sürüşmə ilə gəlir, başlıq öz kənarından; ayar yadda saxlanarkən bölmədə sakit bir xətt axır.';
+
+  @override
+  String get wn56Button =>
+      'Sürüşdürmə düyməsi sözünü bütün yol boyu saxlayır — «qoşulur» ilə «qoşuldu» arasında boş an qalmır: söz indi halları arasında sürüşür, iş rejiminin qaralması nəfəslə izləyir.';
+
+  @override
+  String get wn56Capsule =>
+      'Çərxin əsas səhifəsi hər halı bir dəfə deyir: düymənin üstündəki təkrarlanan status sözü gedib — yolun özü onu daşıyır, səhifə bir sətir sakit oxunur.';
+
+  @override
+  String get wn56Door =>
+      'Sürət testinin evdə öz qapısı var: bir sətir, bir toxunuş və ölçmə açılır — ilk qoşulmadan əvvəl də, yalnız tunel işləyəndə yox.';
+
+  @override
+  String get wn56Wheel =>
+      'Bayraq çərxi yumsaq sürüşmə ilə gedir: bir atış bir ölkə gətirir, eniş isə çırpılıb yerləşmək əvəzinə yerinə yığılır — çəkmə ağır və rəvan, yaxşı bir açar kimi oxunur.';
 }

@@ -407,8 +407,13 @@ class _SlideToConnectState extends State<SlideToConnect>
     const knob = knobSize;
     const inset = knobInset;
     final dir = rtl ? -1.0 : 1.0;
-    return Opacity(
+    return AnimatedOpacity(
+      // The busy dim follows with a breath instead of a jump: the button
+      // settles into its working look, it does not blink into it the
+      // moment the state moves.
       opacity: w.busy ? 0.75 : 1,
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOut,
       child: Tooltip(
         message: w.tooltip,
         child: Focus(
@@ -463,6 +468,15 @@ class _SlideToConnectState extends State<SlideToConnect>
                   final shimmer = _idle.value;
                   final breath = _busy.value;
                   final p = _p.clamp(0.0, 1.0);
+                  // The track's word: off → the connect hint, busy → the
+                  // connection's own word, on → the state's word. An empty
+                  // word falls back to the hint, so the track never stands
+                  // with nothing to say.
+                  final word = w.busy
+                      ? (w.labelBusy.isEmpty ? w.labelConnect : w.labelBusy)
+                      : w.on
+                      ? (w.labelOn.isEmpty ? w.labelConnect : w.labelOn)
+                      : w.labelConnect;
                   return Stack(
                     clipBehavior: Clip.none,
                     children: [
@@ -566,40 +580,63 @@ class _SlideToConnectState extends State<SlideToConnect>
                                   end: knob + inset + 4,
                                   top: 0,
                                   bottom: 0,
-                                  child: Opacity(
+                                  child: AnimatedOpacity(
+                                    // The words hold with the finger almost
+                                    // the whole slide now and melt only as
+                                    // the knob arrives at their side — the
+                                    // old curve had them gone by half the
+                                    // travel, and the track read emptied
+                                    // under the drag. The animation chases
+                                    // every retarget, so the walk itself
+                                    // reads as one smooth pursuit.
                                     opacity: w.busy
                                         ? 1
                                         : w.on
                                         ? 1
-                                        : (1 - p * 2.1).clamp(0, 1),
+                                        : ((0.95 - p) / 0.4).clamp(0.0, 1.0),
+                                    duration: const Duration(
+                                      milliseconds: 180,
+                                    ),
+                                    curve: Curves.easeOut,
                                     child: Transform.translate(
                                       offset: Offset(-14 * p * dir, 0),
                                       child: Center(
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,
-                                          child: Shimmer(
-                                            color: Colors.white.withValues(
-                                              alpha: w.dark ? 0.85 : 0.5,
+                                          child: AnimatedSwitcher(
+                                            duration: const Duration(
+                                              milliseconds: 220,
                                             ),
-                                            child: Text(
-                                              // Busy: the connection's own
-                                              // word ("Connecting…"); on:
-                                              // the state's word; off: the
-                                              // connect hint.
-                                              w.busy
-                                                  ? (w.labelBusy.isEmpty
-                                                        ? w.labelConnect
-                                                        : w.labelBusy)
-                                                  : w.on
-                                                  ? w.labelOn
-                                                  : w.labelConnect,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: w.muted,
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 15.5,
-                                                letterSpacing: 0.2,
+                                            switchInCurve: Curves.easeOutCubic,
+                                            switchOutCurve: Curves.easeInCubic,
+                                            // The track's word walks between
+                                            // its three selves — the connect
+                                            // hint, "Connecting…", the
+                                            // state's word — the old lifting
+                                            // while the new settles in place.
+                                            // Never a hard swap: the word the
+                                            // finger just read stays readable
+                                            // until the next one is there.
+                                            transitionBuilder: (child, anim) =>
+                                                FadeTransition(
+                                                  opacity: anim,
+                                                  child: child,
+                                                ),
+                                            child: Shimmer(
+                                              key: ValueKey(word),
+                                              color: Colors.white.withValues(
+                                                alpha: w.dark ? 0.85 : 0.5,
+                                              ),
+                                              child: Text(
+                                                word,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: w.muted,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 15.5,
+                                                  letterSpacing: 0.2,
+                                                ),
                                               ),
                                             ),
                                           ),

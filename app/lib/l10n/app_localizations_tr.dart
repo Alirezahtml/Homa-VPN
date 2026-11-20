@@ -2741,4 +2741,20 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn52Pages =>
       'Açılan sayfalar yumuşak bir kayışla gelir, sayfa başlığı kendi kenarından; bir ayar kaydedilirken bölümde sessiz bir çizgi akar.';
+
+  @override
+  String get wn56Button =>
+      'Bağlantı kaydırıcısı sözünü yolun boyunca korur — \'bağlanıyor\' ile \'bağlandı\' arasında artık boş bir an yok: söz şimdi hâlleri arasında kayar, çalışma kararması bir nefesle gelir.';
+
+  @override
+  String get wn56Capsule =>
+      'Çarkın ana sayfası her hâli bir kez söyler: kaydırıcının üstündeki tekrarlanan durum sözü gitti — yolu kendisi taşır, sayfa bir satır daha sakin okunur.';
+
+  @override
+  String get wn56Door =>
+      'Hız testinin ana sayfada kendi kapısı var: bir satır, bir dokunuş ve ölçüm açılır — ilk bağlantıdan önce de, yalnızca tünel taşıyorken değil.';
+
+  @override
+  String get wn56Wheel =>
+      'Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur.';
 }

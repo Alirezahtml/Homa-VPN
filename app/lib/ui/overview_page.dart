@@ -1546,7 +1546,14 @@ class _PhoneHome extends StatelessWidget {
           // aether's status card does, and the zed wears the reference's
           // own big word under the blob instead, so all three skip the
           // capsule here.
-          if (design != 'bento' && design != 'aether' && design != 'zed')
+          // The wheel's home says the state once — in the slider's own
+          // track. The capsule above it repeated the same word the track
+          // was already carrying ("Connecting…" stacked on "Connecting…",
+          // "Connected" under "Connected"), so on the wheel it leaves.
+          if (design != 'wheel' &&
+              design != 'bento' &&
+              design != 'aether' &&
+              design != 'zed')
             Reveal(
               index: 1,
               child: Center(
@@ -1595,10 +1602,12 @@ class _PhoneHome extends StatelessWidget {
                   labelConnect: l.slideToConnect,
                   labelDisconnect: l.slideToDisconnect,
                   // The state's word stays in the track once connected;
-                  // while the connection is being made the track carries
-                  // the connecting word — nothing vanishes under the
-                  // user's finger.
-                  labelOn: confirming ? '' : l.stateConnected,
+                  // while the connection is still being made — the walk
+                  // AND the confirmation wait after it — the track keeps
+                  // the connecting word. The old empty window was exactly
+                  // between the two: the tunnel was up, the test had not
+                  // said so yet, and the words left the track bare.
+                  labelOn: confirming ? l.stateConnecting : l.stateConnected,
                   labelBusy: l.stateConnecting,
                   tooltip: press,
                   // The commit's knock answers to the vibration setting.
@@ -2048,6 +2057,37 @@ class _PhoneHome extends StatelessWidget {
                     place: place,
                     accent: accent,
                     onTap: onOpenServers,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              // The speed test's own door on these homes: a row like the
+              // rest, one tap from the measurement — a real download and
+              // an upload, through the tunnel when it carries, the raw
+              // network when it does not. It stands here in every state,
+              // so the measurement is findable before the first connect
+              // too, not only through the graph that lives with the
+              // connected numbers.
+              Reveal(
+                index: 4,
+                child: RepaintBoundary(
+                  child: _HomeRow(
+                    palette: p,
+                    icon: Icons.speed_rounded,
+                    label: l.speedTestTitle,
+                    value: connected ? l.speedTestThrough : l.speedTestDirect,
+                    onTap: () {
+                      AppSounds.play(SoundCue.tap);
+                      showSpeedTest(context, core);
+                    },
+                    trailing: Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 8),
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        size: 16,
+                        color: p.muted,
+                      ),
+                    ),
                   ),
                 ),
               ),
