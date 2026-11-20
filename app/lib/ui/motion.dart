@@ -3048,30 +3048,36 @@ class SmoothEnter extends StatelessWidget {
   Widget build(BuildContext context) {
     final still = MediaQuery.of(context).disableAnimations;
     final duration = still ? Duration.zero : const Duration(milliseconds: 380);
-    return ClipRect(
-      child: AnimatedSize(
-        duration: duration,
-        curve: Curves.easeInOutCubic,
-        alignment: Alignment.topCenter,
-        child: AnimatedSwitcher(
-          duration: duration,
-          switchInCurve: Curves.easeOutCubic,
-          switchOutCurve: Curves.easeInCubic,
-          transitionBuilder: (child, anim) => FadeTransition(
-            opacity: anim,
-            child: SlideTransition(
-              position: Tween(
-                begin: const Offset(0, 0.07),
-                end: Offset.zero,
-              ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
-              child: child,
-            ),
-          ),
-          child: show
-              ? KeyedSubtree(key: const ValueKey('enter-shown'), child: shown)
-              : KeyedSubtree(key: const ValueKey('enter-hidden'), child: hidden),
-        ),
+    // The size walks through SizeTransition (a fractional seat, laid out
+    // from the parent's constraint) instead of AnimatedSize — under an
+    // IntrinsicHeight the measured child can re-declare its size in the
+    // middle of the layout pass, and an AnimatedSize would restart its
+    // own controller there (a render object mutated in its own
+    // performLayout). The fraction asks no such second answer: it grows
+    // from the height the parent already granted.
+    return AnimatedSwitcher(
+      duration: duration,
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, anim) => SizeTransition(
+        sizeFactor: anim,
+        axis: Axis.vertical,
+        axisAlignment: -1,
+        child: FadeTransition(opacity: anim, child: child),
       ),
+      // Both faces pin to the seat's top while the crossfade runs, so
+      // the section never drifts as its height walks.
+      layoutBuilder: (currentChild, previousChildren) => Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: <Widget>[
+          ...previousChildren,
+          if (currentChild != null) currentChild,
+        ],
+      ),
+      child: show
+          ? KeyedSubtree(key: const ValueKey('enter-shown'), child: shown)
+          : KeyedSubtree(key: const ValueKey('enter-hidden'), child: hidden),
     );
   }
 }
