@@ -2815,7 +2815,14 @@ void main() {
         ..connectFailure = Failure.noNetwork;
       await core.refresh();
       await settle(tester);
-      expect(find.text(l.stateOff), findsOneWidget);
+      // Off: on the phone the state's word lives in the slider's track —
+      // the connect hint stands where the capsule's word used to; the
+      // desktop's home still says the word itself.
+      expect(
+        find.text(l.stateOff),
+        desktop ? findsOneWidget : findsNothing,
+      );
+      if (!desktop) expect(find.text(l.slideToConnect), findsOneWidget);
       expect(find.text(l.failNoInternet), findsOneWidget);
       expect(find.text(l.failUnreachable), findsNothing);
       expect(api.tests, 0);
