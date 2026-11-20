@@ -114,7 +114,7 @@ mixin FlagChoices<T extends StatefulWidget> on State<T> {
     return [...recommended, ...pinned, ...rest];
   }
 
-  List<Location> entries(AppLocalizations l) =>
+  List<Location> entryList(AppLocalizations l) =>
       entriesFor(l, locations ?? const <Location>[]);
 
   /// Where the core's own choice stands in the entries; -1 when the
@@ -232,7 +232,7 @@ class _FlagBoardState extends State<FlagBoard> with FlagChoices {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return SizedBox(height: widget.rows * 86.0);
     }
@@ -297,7 +297,7 @@ class _BoardTile extends StatelessWidget {
     required this.round,
     required this.onTap,
     this.onLongPress,
-  });
+  }) : _allLabel = null;
 
   _BoardTile.all({
     required this.accent,
@@ -305,8 +305,8 @@ class _BoardTile extends StatelessWidget {
     required this.dark,
     required String label,
     this.onTap,
-    this.onLongPress,
   }) : location = null,
+       onLongPress = null,
        chosen = false,
        pinned = false,
        round = 20,
@@ -478,7 +478,7 @@ class _FlagChipsState extends State<FlagChips> with FlagChoices {
   void follow() {
     if (!_rail.hasClients) return;
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (entries.isEmpty) return;
     final index = indexOf(entries, selection);
     if (index < 0) return;
@@ -501,7 +501,7 @@ class _FlagChipsState extends State<FlagChips> with FlagChoices {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return const SizedBox(height: 44);
     }
@@ -652,7 +652,7 @@ class _FlagCapsulesState extends State<FlagCapsules> with FlagChoices {
   void follow() {
     if (!_rail.hasClients) return;
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (entries.isEmpty) return;
     final index = indexOf(entries, selection);
     if (index < 0) return;
@@ -672,7 +672,7 @@ class _FlagCapsulesState extends State<FlagCapsules> with FlagChoices {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return const SizedBox(height: 46);
     }
@@ -821,7 +821,7 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
     final controller = _controller;
     if (controller == null || !controller.hasClients || _moving) return;
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (entries.isEmpty) return;
     final index = indexOf(entries, selection);
     if (index < 0) return;
@@ -840,7 +840,7 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return const SizedBox(height: 128);
     }
@@ -1005,7 +1005,7 @@ class _FlagPagerState extends State<FlagPager> with FlagChoices {
     final controller = _controller;
     if (controller == null || !controller.hasClients || _moving) return;
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (entries.isEmpty) return;
     final index = indexOf(entries, selection);
     if (index < 0) return;
@@ -1025,7 +1025,7 @@ class _FlagPagerState extends State<FlagPager> with FlagChoices {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return const SizedBox(height: 148);
     }
@@ -1246,7 +1246,7 @@ class _GazetteRegionBoxState extends State<GazetteRegionBox>
   void follow() {
     if (!_columns.hasClients) return;
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (entries.isEmpty) return;
     final index = indexOf(entries, selection);
     if (index < 0) return;
@@ -1266,7 +1266,7 @@ class _GazetteRegionBoxState extends State<GazetteRegionBox>
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final entries = entries(l);
+    final entries = entryList(l);
     if (locations == null || entries.isEmpty) {
       return SizedBox(
         height: _rowHeight * _visibleRows + 40,
