@@ -152,6 +152,13 @@ func newLazyFixture(t *testing.T) *lazyFixture {
 // until the test ends, and waits for its engine to run.
 func runLazyDaemon(t *testing.T) (*Daemon, *lazyFixture) {
 	t.Helper()
+	return runLazyDaemonCountry(t, "")
+}
+
+// runLazyDaemonCountry is runLazyDaemon with the configured country set
+// before the engine starts (the engine carries the config of its start).
+func runLazyDaemonCountry(t *testing.T, country string) (*Daemon, *lazyFixture) {
+	t.Helper()
 	d := newTestDaemon(t)
 	f := newLazyFixture(t)
 	addTestAccount(t, d, "user")
@@ -162,6 +169,9 @@ func runLazyDaemon(t *testing.T) (*Daemon, *lazyFixture) {
 	noExitCheck(t)
 	d.mu.Lock()
 	d.cfg.Dashboard.Listen = "127.0.0.1:0"
+	if country != "" {
+		d.cfg.Proxy.Country = country
+	}
 	d.mu.Unlock()
 	if controlplane.Transport() != f.controlPlane {
 		t.Fatal("the fixture control plane is not installed; requests could reach real endpoints")
@@ -449,7 +459,10 @@ func noExitCheck(t *testing.T) {
 // A wake that keeps failing on the persisted server moves to another
 // server of the location after three failures, and saves it.
 func TestWakeMovesToAnotherServerOfTheLocation(t *testing.T) {
-	d, f := runLazyDaemon(t)
+	// The dead server stands for the location the user chose (NL): the
+	// wake selects the saved choice of a configured country, and the
+	// test watches the failover move inside that location.
+	d, f := runLazyDaemonCountry(t, "NL")
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatal(err)
@@ -460,12 +473,6 @@ func TestWakeMovesToAnotherServerOfTheLocation(t *testing.T) {
 	if err := proxy.SaveSelection(d.paths.Selection, proxy.Candidate{Addr: dead, CountryCode: "NL", CountryName: "Netherlands", CityCode: "ams", CityName: "Amsterdam"}); err != nil {
 		t.Fatal(err)
 	}
-	// The dead server stands for the location the user chose (NL):
-	// the wake selects the saved choice of a configured country, and
-	// the test watches the failover move inside that location.
-	d.mu.Lock()
-	d.cfg.Proxy.Country = "NL"
-	d.mu.Unlock()
 	client := newDashboardClient(t, d)
 	for i := 1; i <= 3; i++ {
 		if rec := client.do(http.MethodPost, "/api/test", nil); rec.Code == http.StatusOK {
