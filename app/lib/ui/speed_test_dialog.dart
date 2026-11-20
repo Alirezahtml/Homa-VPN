@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
+import '../app_settings.dart';
 import 'glass.dart';
 import 'widgets.dart' show typefacesOf;
 import 'format.dart';
@@ -9,22 +10,49 @@ import 'motion.dart';
 import '../core/core_controller.dart';
 import '../core/speed_test.dart';
 
+/// The speed test's sizes: how much each leg moves before the core calls
+/// the direction done — the light pass for a wounded tunnel, the standard
+/// pass for most lines, the full pass for a patient one.
+class SpeedTestSize {
+  const SpeedTestSize._(this.key, this.downBytes, this.upBytes);
+
+  final String key;
+  final int downBytes;
+  final int upBytes;
+
+  static const light = SpeedTestSize._('light', 5 << 20, 2 << 20);
+  static const standard = SpeedTestSize._('standard', 25 << 20, 8 << 20);
+  static const full = SpeedTestSize._('full', 64 << 20, 32 << 20);
+
+  static SpeedTestSize forKey(String key) => switch (key) {
+    'light' => light,
+    'full' => full,
+    _ => standard,
+  };
+}
+
 /// Opens the speed test: what the tunnel really carries, measured by a
-/// real download and upload through the tunnel's own path. With the proxy
-/// off the same transfers measure the raw network, and the panel says
-/// which. The panel itself is a sheet of glass over the page — the test's
-/// numbers land on it with the app's own motion.
-Future<void> showSpeedTest(BuildContext context, CoreController core) {
+/// real download and upload through the tunnel's own path — each on its
+/// own connection, so one leg's wound never reaches the other. With the
+/// proxy off the same transfers measure the raw network, and the panel
+/// says which. [settings], when given, carries the size the user chose
+/// last time and takes the next one.
+Future<void> showSpeedTest(
+  BuildContext context,
+  CoreController core, [
+  AppSettings? settings,
+]) {
   return showDialog<void>(
     context: context,
-    builder: (context) => _SpeedTestDialog(core: core),
+    builder: (context) => _SpeedTestDialog(core: core, settings: settings),
   );
 }
 
 class _SpeedTestDialog extends StatefulWidget {
-  const _SpeedTestDialog({required this.core});
+  const _SpeedTestDialog({required this.core, this.settings});
 
   final CoreController core;
+  final AppSettings? settings;
 
   @override
   State<_SpeedTestDialog> createState() => _SpeedTestDialogState();
@@ -42,6 +70,14 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
   Timer? _clock;
   Duration _legElapsed = Duration.zero;
 
+  SpeedTestSize get _size =>
+      SpeedTestSize.forKey(widget.settings?.speedTestSize ?? 'standard');
+
+  void _pickSize(SpeedTestSize size) {
+    widget.settings?.update(speedTestSize: size.key);
+    setState(() {});
+  }
+
   @override
   void dispose() {
     _clock?.cancel();
@@ -49,6 +85,7 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
   }
 
   Future<void> _run() async {
+    final size = _size;
     setState(() {
       _running = true;
       _error = null;
@@ -65,6 +102,8 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
     try {
       final result = await widget.core.call(
         (api) => api.testSpeed(
+          downBytes: size.downBytes,
+          upBytes: size.upBytes,
           onProgress: (progress) {
             if (!mounted) return;
             setState(() {
@@ -169,7 +208,40 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
               Text(_error!, style: theme.textTheme.bodySmall),
             ] else if (result != null) ...[
               if (result.error.isNotEmpty)
-                Text(result.error, style: TextStyle(color: scheme.error)),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    result.error,
+                    style: TextStyle(color: scheme.error),
+                  ),
+                ),
+              // The path's own delay, the probes' answer: the median round
+              // trip, and the jitter beside it — both quiet when the
+              // probes found no path to time.
+              if (result.latencyMs > 0) ...[
+                Row(
+                  children: [
+                    Expanded(
+                      child: _probeCell(
+                        context,
+                        label: l.realDelay,
+                        value: '${result.latencyMs} ms',
+                        icon: Icons.schedule_rounded,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: _probeCell(
+                        context,
+                        label: l.speedTestJitter,
+                        value: '${result.jitterMs} ms',
+                        icon: Icons.graphic_eq_rounded,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+              ],
               _big(l.statDown, result.downBps, Icons.south_rounded),
               const SizedBox(height: 8),
               _big(l.statUp, result.upBps, Icons.north_rounded),
@@ -190,6 +262,35 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 12),
+            if (!_running) ...[
+              // The sizes: how much the legs move. The choice carries to
+              // the next test, so the user picks once.
+              Text(
+                l.speedTestSizesTitle,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  for (final size in [
+                    SpeedTestSize.light,
+                    SpeedTestSize.standard,
+                    SpeedTestSize.full,
+                  ])
+                    ChoiceChip(
+                      label: Text(sizeLabel(l, size)),
+                      selected: _size.key == size.key,
+                      visualDensity: VisualDensity.compact,
+                      onSelected: (_) => _pickSize(size),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -219,6 +320,45 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _probeCell(
+    BuildContext context, {
+    required String label,
+    required String value,
+    required IconData icon,
+  }) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final typefaces = typefacesOf(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 15, color: scheme.onSurfaceVariant),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              label,
+              style: theme.textTheme.bodySmall,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Text(
+            value,
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontFeatures: const [FontFeature.tabularFigures()],
+              fontWeight: FontWeight.w800,
+              fontFamily: typefaces.display,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -306,3 +446,10 @@ class _SpeedTestDialogState extends State<_SpeedTestDialog> {
     );
   }
 }
+
+/// The size's word, in the panel's language.
+String sizeLabel(AppLocalizations l, SpeedTestSize size) => switch (size.key) {
+  'light' => l.speedTestSizeLight,
+  'full' => l.speedTestSizeFull,
+  _ => l.speedTestSizeStandard,
+};

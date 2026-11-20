@@ -127,6 +127,12 @@ class AppSettings extends ChangeNotifier {
   /// carries the first four as "connect here" shortcuts. Saved order.
   List<String> favoriteCountries = const [];
 
+  /// The speed test's size: 'light' (a quick 5 MiB / 2 MiB pass),
+  /// 'standard' (25 MiB / 8 MiB — the default) or 'full' (64 MiB / 32 MiB,
+  /// for a patient line). Whatever else lands in the file reads as the
+  /// standard.
+  String speedTestSize = 'standard';
+
   /// The home map's look: one of [GlobeStyle]'s names ('silver',
   /// 'midnight', 'ocean', 'mono', 'aurora'). Whatever else lands in the
   /// file reads as the silver.
@@ -287,6 +293,7 @@ class AppSettings extends ChangeNotifier {
     'pixel' => 'pixel',
     'aether' => 'aether',
     'zed' => 'zed',
+    'gazette' => 'gazette',
     _ => 'wheel',
   };
 
@@ -367,6 +374,12 @@ class AppSettings extends ChangeNotifier {
         s.soundFeedback = j['sound_feedback'] != false;
         if (j['lock_background_min'] case final int v) {
           s.lockBackgroundMin = switch (v) { 1 || 5 || 15 => v, _ => 0 };
+        }
+        if (j['speed_test_size'] case final String v) {
+          s.speedTestSize = switch (v) {
+            'light' || 'full' => v,
+            _ => 'standard',
+          };
         }
         s.rateBits = j['rate_bits'] == true;
         s.keepScreenOn = j['keep_screen_on'] == true;
@@ -456,6 +469,7 @@ class AppSettings extends ChangeNotifier {
     int? customAccent,
     List<String>? favoriteCountries,
     String? homeDesign,
+    String? speedTestSize,
     String? mapStyle,
     String? mapKind,
     Map<String, String>? accountNames,
@@ -494,6 +508,12 @@ class AppSettings extends ChangeNotifier {
     this.customAccent = customAccent ?? this.customAccent;
     if (homeDesign != null) {
       this.homeDesign = homeDesignFor(homeDesign);
+    }
+    if (speedTestSize != null) {
+      this.speedTestSize = switch (speedTestSize) {
+        'light' || 'full' => speedTestSize,
+        _ => 'standard',
+      };
     }
     if (mapStyle != null) {
       this.mapStyle = switch (mapStyle) {
@@ -587,6 +607,7 @@ class AppSettings extends ChangeNotifier {
           'accent': accentKey,
           'custom_accent': customAccent,
           'home_design': homeDesign,
+          'speed_test_size': speedTestSize,
           'favorite_countries': favoriteCountries,
           'map_style': mapStyle,
           'map_kind': mapKind,

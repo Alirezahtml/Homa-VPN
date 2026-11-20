@@ -23,6 +23,8 @@ class SpeedTestResult {
     required this.downBytes,
     required this.upBytes,
     required this.totalMs,
+    this.latencyMs = 0,
+    this.jitterMs = 0,
     this.error = '',
   });
 
@@ -34,6 +36,8 @@ class SpeedTestResult {
       downBytes = 0,
       upBytes = 0,
       totalMs = 0,
+      latencyMs = 0,
+      jitterMs = 0,
       error = '';
 
   SpeedTestResult.fromJson(Map<String, Object?> j)
@@ -44,6 +48,8 @@ class SpeedTestResult {
       downBytes = (j['down_bytes'] as num?)?.toInt() ?? 0,
       upBytes = (j['up_bytes'] as num?)?.toInt() ?? 0,
       totalMs = (j['total_ms'] as num?)?.toInt() ?? 0,
+      latencyMs = (j['latency_ms'] as num?)?.toInt() ?? 0,
+      jitterMs = (j['jitter_ms'] as num?)?.toInt() ?? 0,
       error = j['error'] as String? ?? '';
 
   final bool ok;
@@ -52,6 +58,14 @@ class SpeedTestResult {
   final int upBps;
   final int downBytes;
   final int upBytes;
+
+  /// The path's own delay: the five empty probes' median round trip, in
+  /// milliseconds. Zero when the probes landed nowhere and the panel says
+  /// nothing about the delay.
+  final int latencyMs;
+
+  /// The runs' wander around [latencyMs] — the jitter, in milliseconds.
+  final int jitterMs;
   final int totalMs;
   final String error;
 }

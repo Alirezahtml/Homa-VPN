@@ -443,11 +443,18 @@ class CoreApi {
           result = SpeedTestResult.fromJson(decoded);
         }
       } else {
-        await for (final line
-            in res
-                .transform(utf8.decoder)
-                .transform(const LineSplitter())
-                .timeout(const Duration(seconds: 45))) {
+        await for (
+          final line
+          in res
+              .transform(utf8.decoder)
+              .transform(const LineSplitter())
+              // The stream's own patience: the core answers a tick every
+              // quarter second while a leg runs, but the first leg can
+              // stay quiet through its dial, its handshake and its first
+              // slow breaths on a wounded tunnel — the whole test is
+              // worth two minutes before the listener gives up.
+              .timeout(const Duration(seconds: 120))
+        ) {
           final event = jsonDecode(line);
           if (event is! Map<String, Object?>) continue;
           if (event['progress'] is Map<String, Object?>) {
