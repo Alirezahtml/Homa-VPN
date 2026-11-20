@@ -846,8 +846,8 @@ class _FlagCard extends StatelessWidget {
                     (1.0 + 0.05 * settle.value * alive),
                 child: RepaintBoundary(
                   child: chosen
-                      ? _framedCard(scheme, base, dark)
-                      : _plainCard(scheme, base),
+                      ? _framedCard(DesignStyle.of(context), scheme, base, dark)
+                      : _plainCard(DesignStyle.of(context), scheme, base),
                 ),
               ),
             ),
@@ -861,8 +861,11 @@ class _FlagCard extends StatelessWidget {
   /// card, one size everywhere and let down by its scale. The cut is
   /// the design's own — the rounded plate, the medal, the squircle or
   /// the printed plate — and the art follows it.
-  Widget _plainCard(ColorScheme scheme, double base) {
-    final design = DesignStyle.of(context);
+  Widget _plainCard(
+    DesignStyle design,
+    ColorScheme scheme,
+    double base,
+  ) {
     final medal = design.flagShape == FlagShape.circle;
     // The medal's box is square: the circle's diameter is the plate's
     // height, and the art crops to fill it.
@@ -925,8 +928,12 @@ class _FlagCard extends StatelessWidget {
   /// frosted bezel and its blue bloom; the system designs' medal ring;
   /// the zed's violet glow; the pixel's quiet tonal edge; and the
   /// paper's double rule, flat, no light at all.
-  Widget _framedCard(ColorScheme scheme, double base, bool dark) {
-    final design = DesignStyle.of(context);
+  Widget _framedCard(
+    DesignStyle design,
+    ColorScheme scheme,
+    double base,
+    bool dark,
+  ) {
     final shape = design.flagShape;
     final medal = shape == FlagShape.circle;
     final w = medal ? base * 2 / 3 : base;

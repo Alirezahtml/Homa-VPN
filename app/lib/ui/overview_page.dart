@@ -4370,7 +4370,7 @@ class _PixelHomeCard extends StatelessWidget {
                         Icon(
                           Icons.auto_awesome_rounded,
                           size: 14,
-                          color: accent,
+                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(width: 4),
                       ],
