@@ -96,7 +96,7 @@ func ResolveWithStateAndCountry(proxyFlag, countryFilter string, countries []ser
 		if err == nil {
 			if avoided != nil && avoided(persisted.Addr) && len(countries) > 0 {
 				logx.Info("persisted proxy failed recently; selecting another server of the location proxy=%s", persisted.Addr)
-			} else if proxyCandidateMatchesCountry(persisted, countryFilter) {
+			} else if persistedSuitsFilter(persisted, countryFilter) {
 				if matched, ok := findProxyCandidate(persisted.Addr, countries); ok {
 					matched.Addr = persisted.Addr
 					return matched, true, nil
@@ -219,6 +219,19 @@ func pickInFirstCity(candidates []Candidate, match func(Candidate) bool) (pick C
 	return city[rand.IntN(len(city))], true
 }
 
+// persistedSuitsFilter reports whether a saved choice may stand in for
+// the configured country. The recommended location takes only a saved
+// recommended (anycast) server: a saved country server matched the
+// empty filter before, so choosing the recommended service after a
+// country reconnected to that country again — the place chosen
+// before, not Mozilla's recommended one.
+func persistedSuitsFilter(persisted Candidate, countryFilter string) bool {
+	if strings.TrimSpace(countryFilter) == "" && !persisted.IsRecommended() {
+		return false
+	}
+	return proxyCandidateMatchesCountry(persisted, countryFilter)
+}
+
 func proxyCandidateMatchesCountry(candidate Candidate, countryFilter string) bool {
 	countryFilter = strings.TrimSpace(countryFilter)
 	if countryFilter == "" {
@@ -277,7 +290,7 @@ func loadProxySelection(path string) (Candidate, error) {
 // it before the proxy first connects to Mozilla, which selects for real.
 func PersistedSelection(path, countryFilter string) (Candidate, bool) {
 	candidate, err := loadProxySelection(path)
-	if err != nil || !proxyCandidateMatchesCountry(candidate, countryFilter) {
+	if err != nil || !persistedSuitsFilter(candidate, countryFilter) {
 		return Candidate{}, false
 	}
 	return candidate, true

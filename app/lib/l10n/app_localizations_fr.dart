@@ -2751,4 +2751,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Le voile de l\'horloge a grandi d\'une respiration et garde sa couleur sur toute la bande de l\'horloge : le contenu qui glisse dessous s\'estompe entier et ses mots n\'atteignent jamais l\'horloge.';
+
+  @override
+  String get wn52Speed =>
+      'Le tunnel court de nouveau à la vitesse du réseau même : l\'interface VPN parle la taille de paquet de la ligne (MTU 1500) au lieu d\'une surdimensionnée ; les téléchargements reprennent toute leur vitesse et les appels restent stables, surtout en données mobiles.';
+
+  @override
+  String get wn52Smart =>
+      'L\'emplacement le plus rapide et le service recommandé rechoisissent honnêtement : chaque démarrage mesure les emplacements à neuf et prend le meilleur du moment, au lieu de chevaucher en silence l\'endroit choisi avant.';
+
+  @override
+  String get wn52Motion =>
+      'Trente nouvelles animations dans toute l\'app : chaque page et carte se pose en douceur, les tuiles pressées s\'enfoncent puis reviennent, le point de connexion respire, et les pages ouvertes glissent — chacune s\'immobilise quand le système demande moins de mouvement.';
+
+  @override
+  String get wn52Pages =>
+      'Les pages ouvertes arrivent en un glissement doux et le titre depuis son propre bord ; pendant l\'enregistrement d\'un réglage, une ligne discrète traverse la section.';
 }

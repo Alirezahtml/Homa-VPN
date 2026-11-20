@@ -23,6 +23,7 @@ import 'design.dart';
 import 'design_style.dart';
 import 'flag_carousel.dart';
 import 'format.dart';
+import 'glass.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
 import 'sound.dart' show AppSounds, SoundCue;
@@ -2103,20 +2104,24 @@ class _HomeCard extends StatelessWidget {
             ],
     ),
     child: Pressable(
-      child: Material(
-        color: palette.card,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(22),
-          side: BorderSide(color: palette.cardBorder),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: compact
-                ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
-                : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
-            child: child,
+      // The home's own card, as glass: the fill the page breathes
+      // through, the rim's hair of light in the card border's place.
+      child: LiquidGlass(
+        radius: 22,
+        child: Material(
+          color: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(22)),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: compact
+                  ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                  : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+              child: child,
+            ),
           ),
         ),
       ),
@@ -2136,42 +2141,59 @@ class _HomeDelay extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final test = core.lastTest;
+    final showMs = test != null && test.ok;
     final (text, color) = switch (test) {
       null => (l.testConnection, palette.muted),
       final t when !t.ok => (l.testFailed, palette.error),
       final t => (l.milliseconds(t.responseMs), delayColor(t.responseMs)),
     };
-    return Tooltip(
-      message: '${l.realDelay} · ${l.testConnection}',
-      child: Material(
-        color: palette.card,
-        shape: StadiumBorder(side: BorderSide(color: palette.cardBorder)),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: core.testing
-              ? null
-              : () => runShowingErrors(context, core.runTest),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (core.testing)
-                  const SizedBox.square(
-                    dimension: 12,
-                    child: CircularProgressIndicator(strokeWidth: 1.5),
-                  )
-                else
-                  Icon(Icons.bolt_rounded, size: 16, color: color),
-                const SizedBox(width: 4),
-                Text(
-                  text,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
+    return RadarPing(
+      active: core.testing,
+      color: color,
+      child: Tooltip(
+        message: '${l.realDelay} · ${l.testConnection}',
+        child: Material(
+          color: Colors.transparent,
+          shape: const StadiumBorder(),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: core.testing
+                ? null
+                : () => runShowingErrors(context, core.runTest),
+            child: LiquidGlass(
+              radius: 999,
+              accent: core.testing ? color : null,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 7,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (core.testing)
+                    SweepLoader(color: color, size: 13, stroke: 1.6)
+                  else
+                    Icon(Icons.bolt_rounded, size: 16, color: color),
+                  const SizedBox(width: 4),
+                  if (showMs)
+                    FlipCounter(
+                      text: text,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w700,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    )
+                  else
+                    Text(
+                      text,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -2247,22 +2269,17 @@ class _HomeStats extends StatelessWidget {
           card(
             Icons.bolt_rounded,
             l.realDelay,
-            Text(
-              core.testing
-                  ? ''
-                  : ping == null
-                  ? l.testConnection
-                  : l.milliseconds(ping),
-            ),
+            core.testing
+                ? const Text('')
+                : ping == null
+                ? Text(l.testConnection)
+                : FlipCounter(text: l.milliseconds(ping)),
             valueColor: ping == null ? p.muted : delayColor(ping),
             onTap: core.testing
                 ? null
                 : () => runShowingErrors(context, core.runTest),
             busy: core.testing
-                ? const SizedBox.square(
-                    dimension: 14,
-                    child: CircularProgressIndicator(strokeWidth: 1.5),
-                  )
+                ? SweepLoader(color: p.muted, size: 14, stroke: 1.6)
                 : null,
           ),
         ),
@@ -2517,13 +2534,11 @@ class _StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = palette;
     final theme = Theme.of(context);
-    final child = Container(
+    // The stat's own card, as glass: the fill the home breathes through,
+    // the rim's light, the state's color carried at the light's corner.
+    final child = LiquidGlass(
+      radius: 20,
       padding: const EdgeInsetsDirectional.fromSTEB(14, 12, 14, 12),
-      decoration: BoxDecoration(
-        color: p.card,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: p.cardBorder),
-      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -4160,14 +4175,9 @@ class _RateCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final p = palette;
-    return Container(
+    return LiquidGlass(
+      radius: 14,
       padding: const EdgeInsetsDirectional.fromSTEB(12, 9, 12, 9),
-      decoration: BoxDecoration(
-        color: p.dark
-            ? Colors.white.withValues(alpha: 0.06)
-            : Colors.black.withValues(alpha: 0.04),
-        borderRadius: BorderRadius.circular(14),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -4191,15 +4201,23 @@ class _RateCell extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 3),
-          Text(
-            formatRate(rate),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: (theme.textTheme.titleMedium ?? const TextStyle()).copyWith(
-              fontWeight: FontWeight.w800,
-              fontFeatures: const [FontFeature.tabularFigures()],
-              color: p.text,
-            ),
+          // The moment's rate, walked to its next value — the live
+          // numbers glide instead of flickering between polls.
+          TickerNumber(
+            value: rate,
+            builder:
+                (context, v) => Text(
+                  formatRate(v),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: (
+                    theme.textTheme.titleMedium ?? const TextStyle()
+                  ).copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                    color: p.text,
+                  ),
+                ),
           ),
           const SizedBox(height: 1),
           Text(
@@ -4361,156 +4379,89 @@ class _AetherHeroCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // The status card itself: the raised surface with the state's
-          // light washing down from its top edge.
-          DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: p.card,
-              border: Border.all(color: p.cardBorder),
-            ),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [state.withValues(alpha: 0.14), Colors.transparent],
+          // The status card itself: a sheet of glass with the state's
+          // light washing down from its top edge, the rim's own light
+          // walking it while the connection is being made.
+          GlassFlow(
+            radius: 16,
+            color: state,
+            paused: !busy || batterySaver,
+            child: LiquidGlass(
+              radius: 16,
+              accent: on || busy || error ? state : null,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      state.withValues(alpha: 0.14),
+                      Colors.transparent,
+                    ],
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16, 13, 16, 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // The state's line: the dot, the word, and the place's
-                    // flag chip that opens the servers page. The word takes
-                    // the room before the chip — a Spacer here would split
-                    // the free width with the word and leave it halved,
-                    // ellipsizing "Disconnected" on the phones that size
-                    // their text up.
-                    Row(
-                      children: [
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: state,
-                          ),
-                        ),
-                        const SizedBox(width: 7),
-                        Expanded(
-                          child: Text(
-                            label,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.labelLarge?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 0.5,
-                              color: state,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        InkWell(
-                          onTap: onOpenServers,
-                          borderRadius: BorderRadius.circular(9),
-                          child: Container(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              8,
-                              5,
-                              8,
-                              5,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(9),
-                              color: p.dark
-                                  ? const Color(0xFF2C2C2E)
-                                  : const Color(0xFFECECF1),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                CountryFlag(code: place.flag, width: 18),
-                                const SizedBox(width: 7),
-                                ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 120,
-                                  ),
-                                  child: Text(
-                                    place.name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: p.text,
-                                    ),
-                                  ),
-                                ),
-                                if (place.auto) ...[
-                                  const SizedBox(width: 4),
-                                  Icon(
-                                    Icons.auto_awesome_rounded,
-                                    size: 12,
-                                    color: p.muted,
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    // The session's line: the time big when the tunnel
-                    // carries, the tap's word when it rests.
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: on && startedAt != null
-                              ? DefaultTextStyle(
-                                  style:
-                                      (theme.textTheme.headlineMedium ??
-                                              const TextStyle(fontSize: 26))
-                                          .copyWith(
-                                            fontWeight: FontWeight.w800,
-                                            fontFeatures: const [
-                                              FontFeature.tabularFigures(),
-                                            ],
-                                            color: p.text,
-                                            height: 1.1,
-                                          ),
-                                  child: _ElapsedText(startedAt: startedAt!),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                    16,
+                    13,
+                    16,
+                    15,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // The state's line: the dot, the word, and the place's
+                      // flag chip that opens the servers page. The word takes
+                      // the room before the chip — a Spacer here would split
+                      // the free width with the word and leave it halved,
+                      // ellipsizing "Disconnected" on the phones that size
+                      // their text up.
+                      Row(
+                        children: [
+                          // The state's own dot; while the connection is
+                          // being made it breathes — the wait made visible.
+                          busy
+                              ? PulseDot(
+                                  color: state,
+                                  size: 8,
+                                  paused: batterySaver,
                                 )
-                              : Text(
-                                  hint,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: p.muted,
+                              : Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: state,
                                   ),
                                 ),
-                        ),
-                        // The ping chip at the time's side: the last
-                        // test's own number, the way the iOS card reads —
-                        // and a tap measures it again, the way the
-                        // reference's chip answers.
-                        if (on && pingMs != null) ...[
-                          const SizedBox(width: 10),
-                          InkWell(
-                            onTap: testing ? null : onTest,
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                8,
-                                4,
-                                8,
-                                4,
+                          const SizedBox(width: 7),
+                          Expanded(
+                            child: Text(
+                              label,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.5,
+                                color: state,
                               ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          InkWell(
+                            onTap: onOpenServers,
+                            borderRadius: BorderRadius.circular(9),
+                            child: Container(
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(
+                                    8,
+                                    5,
+                                    8,
+                                    5,
+                                  ),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(9),
                                 color: p.dark
                                     ? const Color(0xFF2C2C2E)
                                     : const Color(0xFFECECF1),
@@ -4518,36 +4469,129 @@ class _AetherHeroCard extends StatelessWidget {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  testing
-                                      ? const SizedBox.square(
-                                          dimension: 12,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 1.5,
+                                  CountryFlag(code: place.flag, width: 18),
+                                  const SizedBox(width: 7),
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 120,
+                                    ),
+                                    child: Text(
+                                      place.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: theme.textTheme.labelSmall
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: p.text,
                                           ),
-                                        )
-                                      : Icon(
-                                          Icons.speed_rounded,
-                                          size: 13,
-                                          color: p.muted,
-                                        ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    '$pingMs ms',
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontFeatures: const [
-                                        FontFeature.tabularFigures(),
-                                      ],
-                                      color: p.muted,
                                     ),
                                   ),
+                                  if (place.auto) ...[
+                                    const SizedBox(width: 4),
+                                    Icon(
+                                      Icons.auto_awesome_rounded,
+                                      size: 12,
+                                      color: p.muted,
+                                    ),
+                                  ],
                                 ],
                               ),
                             ),
                           ),
                         ],
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 12),
+                      // The session's line: the time big when the tunnel
+                      // carries, the tap's word when it rests.
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: on && startedAt != null
+                                ? DefaultTextStyle(
+                                    style:
+                                        (
+                                          theme.textTheme.headlineMedium ??
+                                              const TextStyle(fontSize: 26),
+                                        )
+                                            .copyWith(
+                                              fontWeight: FontWeight.w800,
+                                              fontFeatures: const [
+                                                FontFeature.tabularFigures(),
+                                              ],
+                                              color: p.text,
+                                              height: 1.1,
+                                            ),
+                                    child: _ElapsedText(startedAt: startedAt!),
+                                  )
+                                : Text(
+                                    hint,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.bodyMedium
+                                        ?.copyWith(color: p.muted),
+                                  ),
+                          ),
+                          // The ping chip at the time's side: the last
+                          // test's own number, the way the iOS card reads —
+                          // and a tap measures it again, the way the
+                          // reference's chip answers.
+                          if (on && pingMs != null) ...[
+                            const SizedBox(width: 10),
+                            RadarPing(
+                              active: testing,
+                              color: state,
+                              child: InkWell(
+                                onTap: testing ? null : onTest,
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                  padding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                        8,
+                                        4,
+                                        8,
+                                        4,
+                                      ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: p.dark
+                                        ? const Color(0xFF2C2C2E)
+                                        : const Color(0xFFECECF1),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      testing
+                                          ? SweepLoader(
+                                              color: p.muted,
+                                              size: 12,
+                                              stroke: 1.5,
+                                            )
+                                          : Icon(
+                                              Icons.speed_rounded,
+                                              size: 13,
+                                              color: p.muted,
+                                            ),
+                                      const SizedBox(width: 4),
+                                      FlipCounter(
+                                        text: '$pingMs ms',
+                                        style: theme.textTheme.labelSmall
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontFeatures: const [
+                                                FontFeature.tabularFigures(),
+                                              ],
+                                              color: p.muted,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
                     // The session's numbers, the reference's card wears
                     // while the tunnel carries: the two rates side by
                     // side in the iOS group's own grey, the download in
@@ -4602,6 +4646,7 @@ class _AetherHeroCard extends StatelessWidget {
                 ),
               ),
             ),
+          ),
           ),
           const SizedBox(height: 18),
           // The morphing power button: a circle while off, a squircle

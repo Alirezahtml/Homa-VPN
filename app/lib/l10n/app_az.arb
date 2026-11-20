@@ -801,5 +801,9 @@
   "wn51Smooth": "Bayraq çarxı və zolağı bir çarxın döndüyü kimi döner: sürüşdürmə və ölkə dəyişimi artıq kompozitorda səyahət edir — bayraqlar dönərkən heç nə yenidən düzülmür və heç bir işıq özünü yenidən çəkmir; çarx hamar döner və səhifə onunla birlikdə hamar sürüşür.",
   "wn51Zed": "zed-in evi referensin öz quruluşunu geydi: iki sürət kartı markanın altında durur (tünel istirahətdə ikisi də sıfırlarında dincəlir), vəziyyətin sözü qovuğun altında display-in böyük üzü ilə gəlir, yer isə dokun üstündəki parlaq server kartında yaşayır — kiçik nişan və təkrarlanan ad getdi.",
   "wn51Aether": "aether-in evi yeri bir dəfə deyir: zolağın təkrarlanan ad sətri dincəlir, vəziyyət kartı və güc düyməsi oturacaqlarını qoruyur və səhifə tək təmiz sütun kimi oxunur.",
-  "wn51Veil": "Saatın pərdəsi bir nəfəs boy atdı və rəngini saatın bütün zolağında saxlayır: altından sürüşən məzmun bütöv halda solur və sözləri saatla heç vaxt görüşmür."
+  "wn51Veil": "Saatın pərdəsi bir nəfəs boy atdı və rəngini saatın bütün zolağında saxlayır: altından sürüşən məzmun bütöv halda solur və sözləri saatla heç vaxt görüşmür.",
+  "wn52Speed": "Tunnel yenə şəbəkənin öz sürəti ilə işləyir: VPN interfeysi xəttin paket ölçüsünü (MTU 1500) danışır, şişirdilmiş ölçü yerinə; endirmələr tam sürətini alır, zənglər sabit qalır — xüsusən mobil internetdə.",
+  "wn52Smart": "Ən sürətli yer və tövsiyə olunan servis yenidən sədaqətlə seçir: hər başlanğıc yerləri təzə ölçür və indinin ən yaxşısını götürür — əvvəl seçilmiş yeri səssizcə gəzdirmək əvəzinə.",
+  "wn52Motion": "Tətbiqin hər yerində otuz yeni animasiya: hər səhifə və kart yumşaqca enir, basılan plitələr çöküb qayıdır, qoşulma durumunun nöqtəsi nəfəs alır, açılan səhifələr yumşaq sürüşür — sistem az hərəkət istədikdə hamısı dayanır.",
+  "wn52Pages": "Açılan səhifələr yumşaq sürüşmə ilə gəlir, başlıq öz kənarından; ayar yadda saxlanarkən bölmədə sakit bir xətt axır."
 }

@@ -2733,4 +2733,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn51Veil =>
       'The clock\'s veil grew a breath tall and holds its color across the clock\'s band: the content that scrolls beneath it fades whole, and its words never meet the clock.';
+
+  @override
+  String get wn52Speed =>
+      'The tunnel runs at the network\'s own speed again: the VPN\'s interface speaks the line\'s packet size (MTU 1500) instead of an oversized one, so downloads take their full speed and calls stay steady — on mobile data especially.';
+
+  @override
+  String get wn52Smart =>
+      'Fastest location and the recommended service choose honestly again: every start measures the locations fresh and takes the best one now, instead of quietly riding the place chosen before.';
+
+  @override
+  String get wn52Motion =>
+      'Thirty new animations, all over the app: every page and card lands softly, pressed tiles sink and return, the connecting state\'s dot breathes, and pushed pages glide in — each one standing still when the system asks for less motion.';
+
+  @override
+  String get wn52Pages =>
+      'The pushed pages arrive with a soft glide and the page\'s title from its own edge; while a setting saves, a quiet line sweeps the section.';
 }

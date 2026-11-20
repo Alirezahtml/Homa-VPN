@@ -2729,4 +2729,20 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Tirai jam tumbuh selebar satu napas dan menahan warnanya di sepanjang pita jam: konten yang menggulir di bawahnya memudar utuh, dan kata-katanya tak pernah menyentuh jam.';
+
+  @override
+  String get wn52Speed =>
+      'Tunnel kembali berlari dengan kecepatan jaringan sendiri: antarmuka VPN memakai ukuran paket jalur (MTU 1500), bukan yang terlalu besar — unduhan kembali ke kecepatan penuhnya dan panggilan tetap stabil, apalagi pada data seluler.';
+
+  @override
+  String get wn52Smart =>
+      'Lokasi tercepat dan layanan yang disarankan memilih lagi dengan jujur: setiap mulai mengukur lokasi segar dan mengambil yang terbaik saat ini — bukan diam-diam menunggangi tempat yang dipilih sebelumnya.';
+
+  @override
+  String get wn52Motion =>
+      'Tiga puluh animasi baru di seluruh aplikasi: setiap halaman dan kartu mendarat lembut, ubin yang ditekan tenggelam lalu kembali, titik status menyambung berdenyut halus, halaman yang dibuka meluncur masuk — semuanya diam saat sistem meminta gerakan lebih sedikit.';
+
+  @override
+  String get wn52Pages =>
+      'Halaman yang dibuka tiba dengan geseran lembut dan judulnya dari tepinya sendiri; saat pengaturan disimpan, satu garis tenang mengalir di bagian itu.';
 }

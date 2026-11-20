@@ -2740,4 +2740,20 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Az óra fátyla egy lélegzetet nőtt, és színét az óra egész sávján tartja: alatta átgördülő tartalom egésze halványul el, szavai többé nem érnek az órához.';
+
+  @override
+  String get wn52Speed =>
+      'Az alagút újra a hálózat saját sebességén szalad: a VPN felülete a vonal csomagméretét (MTU 1500) beszéli a túlméretezett helyett — a letöltések visszakapják teljes sebességüket, és a hívások stabilak maradnak, főleg mobilneten.';
+
+  @override
+  String get wn52Smart =>
+      'A leggyorsabb hely és az ajánlott szolgáltatás újra becsületesen választ: minden indítás frissen méri a helyeket, és a mostani legjobbot veszi — ahelyett, hogy csendben a korábban választottat vitte volna.';
+
+  @override
+  String get wn52Motion =>
+      'Harminc új animáció az alkalmazás minden táján: minden oldal és kártya puhan landol, a megnyomott csempék süppednek és visszaállnak, a kapcsolódás pontja lélegzik, a nyitott oldalak lágyan úsznak be — és mind elhallgat, ha a rendszer kevesebb mozgást kér.';
+
+  @override
+  String get wn52Pages =>
+      'A nyitott oldalak lágy csúszással érkeznek, a cím a saját széléről; beállítás mentésekor egy halk vonal fut végig a szakaszon.';
 }

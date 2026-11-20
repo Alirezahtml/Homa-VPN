@@ -15,6 +15,11 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.52' => [
+    (title: l.whatsNewFixed, lines: [l.wn52Speed, l.wn52Smart]),
+    (title: l.whatsNewAdded, lines: [l.wn52Motion]),
+    (title: l.whatsNewImproved, lines: [l.wn52Pages]),
+  ],
   '1.0.51' => [
     (title: l.whatsNewImproved, lines: [l.wn51Smooth, l.wn51Zed, l.wn51Aether]),
     (title: l.whatsNewFixed, lines: [l.wn51Veil]),
@@ -143,6 +148,7 @@ List<({String title, List<String> lines})> whatsNewSections(
 
 /// The versions that carry a page (every language has it at once).
 const _whatsNewVersions = {
+  '1.0.52',
   '1.0.30',
   '1.0.31',
   '1.0.32',

@@ -106,6 +106,34 @@ class _ServersPageState extends State<ServersPage> {
       return;
     }
     setState(() => _busy = country);
+    // "Fastest" is chosen now, not carried over: a fresh measure of the
+    // locations first, so the pick reads the network as it stands — the
+    // best of this moment, not the place an older test liked. A measure
+    // that could not run is no refusal: the core still measures its own
+    // at the connect.
+    if (country.toLowerCase() == 'fastest') {
+      final codes = [
+        for (final loc in _locations ?? const <Location>[]) loc.code,
+      ];
+      try {
+        final result = await _core.call(
+          (api) => api.pingLocations(codes, fresh: true),
+        );
+        if (!mounted) return;
+        final tested = {for (final loc in result.locations) loc.code: loc};
+        setState(() {
+          _locations = [
+            for (final loc in _locations ?? const <Location>[])
+              tested[loc.code] ?? loc,
+          ];
+          _pingedAt = result.pingedAt ?? DateTime.now();
+        });
+      } on CoreApiException {
+        // The core's own words are for the log; the choice goes on.
+      } on CoreUnavailable {
+        // Same: the choice goes through; the connect measures its own.
+      }
+    }
     final ok = await runShowingErrors(
       context,
       () => _core.setLocation(country),

@@ -235,6 +235,11 @@ type Daemon struct {
 	// the network pingSkipNetwork; pingMu guards both.
 	pingSkip        map[string]time.Time
 	pingSkipNetwork string
+	// pingNetwork is the network the kept figures (pings) were measured
+	// on. A measurement from another network says nothing about this
+	// one, so the "fastest" choice does not stand on it; pingMu
+	// guards it.
+	pingNetwork string
 }
 
 func NewDaemon(paths DataPaths, forceVerbose bool) (*Daemon, error) {

@@ -286,8 +286,8 @@ func (d *Daemon) connectEngine(ctx context.Context, e *proxyEngine) (*proxy.Cont
 		}
 		return nil, fmt.Errorf("establishing upstream proxy session: %w", err)
 	}
-	// A stand-in is not saved: the recommended location accepts any
-	// persisted server, and would keep it.
+	// A stand-in is not saved: it belongs to the failure's moment, not
+	// to the user's choice, and the next wake selects for itself.
 	if server == "" && !standIn {
 		if err := proxy.SaveSelection(d.paths.Selection, selected); err != nil {
 			logx.Warn("saving proxy selection failed path=%s err=%s", d.paths.Selection, logx.Err(err))

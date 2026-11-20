@@ -853,15 +853,17 @@ class CoreService : VpnService() {
                 .joinToString("")
 
         /**
-         * The VPN interface's MTU, which the tunnel gets too. 8500, not
-         * the line's 1500: the packets cross no wire here — the tunnel
-         * reads them and forwards them over the loopback to the core —
-         * so a bigger MTU just means fewer, bigger reads, and a download
-         * moves with a fraction of the per-packet work (the desktop's own
-         * TUN runs 9000 for the same reason). The real path's limits stay
-         * the outside connection's business, as they were.
+         * The VPN interface's MTU, which the tunnel gets too. The line's
+         * own 1500, not an oversized one: the packets cross no wire here,
+         * but the network outside does — an interface speaking 8500 let
+         * the phone hand the tunnel packets bigger than the path could
+         * carry, so every big transfer arrived as fragments and re-sent
+         * pieces: downloads crawled, calls broke up, mobile data first.
+         * 1500 keeps the interface at the path's own size (the desktop's
+         * TUN keeps its own large one; its line is not the phone's). A
+         * tun.mtu the user set still overrides this.
          */
-        private const val MTU = 8500
+        private const val MTU = 1500
 
         /** The core was last told that no network is connected. */
         @Volatile

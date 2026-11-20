@@ -1082,3 +1082,1878 @@ class _ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+// ---------------------------------------------------------------------------
+// The motion appendix: thirty more pieces, one vocabulary.
+//
+// The same rules the first nine keep: nothing loops without asking — every
+// repeated motion takes a `paused` word (the battery saver's) and lies
+// still under the system's reduce-motion setting; every entrance runs
+// once, never re-run by a parent's rebuild; the on-demand wiggles replay
+// only when their trigger really changes.
+// ---------------------------------------------------------------------------
+
+/// Whether motion rests here: the system's reduce-motion word, public for
+/// the glass and the pages' own moving pieces.
+bool motionStill(BuildContext context) => _still(context);
+
+/// The shared entrance engine: one controller, an optional wait before it
+/// runs, and the reduce-motion shortcut that lands the child where it
+/// ends. The page's widgets build their own tweens on top of it.
+class _Entrance extends StatefulWidget {
+  const _Entrance({
+    required this.child,
+    required this.build,
+    this.delay = 0,
+    this.duration = const Duration(milliseconds: 380),
+    this.curve = Curves.easeOutCubic,
+  });
+
+  final Widget child;
+
+  /// The child drawn from the animation: the tween's own stage.
+  final Widget Function(BuildContext context, Animation<double> animation)
+  build;
+
+  /// The wait before the entrance, so a page's pieces land one after
+  /// another instead of all at once.
+  final int delay;
+  final Duration duration;
+  final Curve curve;
+
+  @override
+  State<_Entrance> createState() => _EntranceState();
+}
+
+class _EntranceState extends State<_Entrance>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  )..value = 1;
+
+  late CurvedAnimation _a = CurvedAnimation(parent: _c, curve: widget.curve);
+  bool _ran = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _run();
+  }
+
+  void _run() {
+    if (_ran) return;
+    _ran = true;
+    if (_still(context)) return; // value stands at 1: the child, landed.
+    _c.value = 0;
+    if (widget.delay > 0) {
+      Future.delayed(Duration(milliseconds: widget.delay), () {
+        if (mounted) _c.forward();
+      });
+    } else {
+      _c.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.build(context, _a);
+}
+
+/// 1. PopIn: the child lands with one small overshoot — the pop a good
+/// badge makes. Under reduce-motion it simply is.
+class PopIn extends StatelessWidget {
+  const PopIn({
+    super.key,
+    required this.child,
+    this.delay = 0,
+    this.from = 0.72,
+  });
+
+  final Widget child;
+  final int delay;
+  final double from;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return _Entrance(
+      delay: delay,
+      duration: const Duration(milliseconds: 460),
+      curve: Curves.easeOutBack,
+      build:
+          (context, a) => ScaleTransition(
+            scale: a.drive(Tween<double>(begin: from, end: 1)),
+            child: FadeTransition(opacity: a, child: child),
+          ),
+    );
+  }
+}
+
+/// 2. SlideFadeIn: the child arrives from a direction — up from a list's
+/// row, in from the page's own edge. Reduce-motion: it is simply there.
+enum MotionFrom { up, down, start, end }
+
+class SlideFadeIn extends StatelessWidget {
+  const SlideFadeIn({
+    super.key,
+    required this.child,
+    this.from = MotionFrom.up,
+    this.delay = 0,
+    this.duration = const Duration(milliseconds: 360),
+    this.distance = 18,
+  });
+
+  final Widget child;
+  final MotionFrom from;
+  final int delay;
+  final Duration duration;
+  final double distance;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    final offset = switch (from) {
+      MotionFrom.up => Offset(0, distance),
+      MotionFrom.down => Offset(0, -distance),
+      MotionFrom.start => Offset(distance, 0),
+      MotionFrom.end => Offset(-distance, 0),
+    };
+    final rtl = Directionality.of(context) == TextDirection.rtl;
+    final begin = rtl ? Offset(-offset.dx, offset.dy) : offset;
+    return _Entrance(
+      delay: delay,
+      duration: duration,
+      build:
+          (context, a) => SlideTransition(
+            position: a.drive(Tween<Offset>(begin: begin, end: Offset.zero)),
+            child: FadeTransition(opacity: a, child: child),
+          ),
+    );
+  }
+}
+
+/// 3. StaggerIn: the children cascade in — each one waits for the one
+/// before it, the way a well-set list lands.
+class StaggerIn extends StatelessWidget {
+  const StaggerIn({
+    super.key,
+    required this.children,
+    this.step = 70,
+    this.from = MotionFrom.up,
+  });
+
+  final List<Widget> children;
+  final int step;
+  final MotionFrom from;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final (i, child) in children.indexed)
+          SlideFadeIn(child: child, from: from, delay: i * step),
+      ],
+    );
+  }
+}
+
+/// 4. ScaleSwap: when the child's identity changes, the old folds away
+/// and the new unfolds — one breath, no hard swap. Reduce-motion: the
+/// plain change.
+class ScaleSwap extends StatelessWidget {
+  const ScaleSwap({super.key, required this.child, this.duration = 280});
+
+  final Widget child;
+  final int duration;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: duration),
+      switchInCurve: Curves.easeOutBack,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder:
+          (child, a) => ScaleTransition(
+            scale: a.drive(Tween<double>(begin: 0.86, end: 1)),
+            child: FadeTransition(opacity: a, child: child),
+          ),
+      child: KeyedSubtree(key: ValueKey(child), child: child),
+    );
+  }
+}
+
+/// 5. SlideSwap: the word (or row) glides to its next self — the old
+/// leaves by one door, the new enters by the other.
+class SlideSwap extends StatelessWidget {
+  const SlideSwap({super.key, required this.child, this.up = true});
+
+  final Widget child;
+
+  /// The travel's direction: a rising value climbs.
+  final bool up;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, a) {
+        final incoming = child.key == ValueKey(this.child);
+        final begin = incoming
+            ? Offset(0, up ? 0.7 : -0.7)
+            : Offset(0, up ? -0.7 : 0.7);
+        return ClipRect(
+          child: SlideTransition(
+            position: a.drive(
+              Tween<Offset>(
+                begin: begin,
+                end: Offset.zero,
+              ).chain(CurveTween(curve: Curves.easeOutCubic)),
+            ),
+            child: FadeTransition(opacity: a, child: child),
+          ),
+        );
+      },
+      child: KeyedSubtree(key: ValueKey(child), child: child),
+    );
+  }
+}
+
+/// 6. FadeThrough: the content fades out through its own middle and the
+/// next fades in — the material's own patient change.
+class FadeThrough extends StatelessWidget {
+  const FadeThrough({super.key, required this.child, this.duration = 260});
+
+  final Widget child;
+  final int duration;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: duration),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder:
+          (child, a) => FadeTransition(opacity: a, child: child),
+      child: KeyedSubtree(key: ValueKey(child), child: child),
+    );
+  }
+}
+
+/// 7. FlipCounter: the number's digits roll like an odometer's — each one
+/// that changed travels up to its next self. Tabular figures make the
+/// columns stand still while the digits travel. Reduce-motion: the plain
+/// text.
+class FlipCounter extends StatelessWidget {
+  const FlipCounter({
+    super.key,
+    required this.text,
+    this.style,
+    this.duration = const Duration(milliseconds: 420),
+  });
+
+  final String text;
+  final TextStyle? style;
+  final Duration duration;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return Text(text, style: style);
+    final chars = text.characters.toList();
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final (i, ch) in chars.indexed)
+          ClipRect(
+            child: AnimatedSwitcher(
+              duration: duration,
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              transitionBuilder: (child, a) {
+                final incoming = child.key == ValueKey('$i-$ch');
+                // Both runs travel up: the arriving digit climbs from
+                // below, the leaving one climbs out the top.
+                final begin = incoming
+                    ? const Offset(0, 0.62)
+                    : const Offset(0, -0.62);
+                return ClipRect(
+                  child: SlideTransition(
+                    position: a.drive(
+                      Tween<Offset>(
+                        begin: begin,
+                        end: Offset.zero,
+                      ).chain(CurveTween(curve: Curves.easeOutCubic)),
+                    ),
+                    child: FadeTransition(opacity: a, child: child),
+                  ),
+                );
+              },
+              child: KeyedSubtree(
+                key: ValueKey('$i-$ch'),
+                child: Text(ch, style: style),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// 8. TickerNumber: a live number that walks to its target instead of
+/// jumping — the rates' own pace. The builder draws the walked value.
+class TickerNumber extends StatefulWidget {
+  const TickerNumber({
+    super.key,
+    required this.value,
+    required this.builder,
+    this.duration = const Duration(milliseconds: 320),
+  });
+
+  final int value;
+  final Widget Function(BuildContext context, int value) builder;
+  final Duration duration;
+
+  @override
+  State<TickerNumber> createState() => _TickerNumberState();
+}
+
+class _TickerNumberState extends State<TickerNumber>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  )..value = 1;
+  late int _from = widget.value;
+  late int _to = widget.value;
+
+  @override
+  void didUpdateWidget(TickerNumber old) {
+    super.didUpdateWidget(old);
+    if (widget.value == _to) return;
+    _from = _shown;
+    _to = widget.value;
+    if (_still(context) || _from == _to) {
+      _c.value = 1;
+      return;
+    }
+    _c.forward(from: 0);
+  }
+
+  int get _shown => (_from + (_to - _from) * _c.value).round();
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) => widget.builder(context, _shown),
+    );
+  }
+}
+
+/// 9. PulseDot: the state's own dot, breathing softly — the connecting
+/// card's word made visible. Still for the battery saver and the
+/// reduce-motion setting.
+class PulseDot extends StatefulWidget {
+  const PulseDot({
+    super.key,
+    required this.color,
+    this.size = 8,
+    this.paused = false,
+  });
+
+  final Color color;
+  final double size;
+  final bool paused;
+
+  @override
+  State<PulseDot> createState() => _PulseDotState();
+}
+
+class _PulseDotState extends State<PulseDot>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1600),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.paused) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(PulseDot old) {
+    super.didUpdateWidget(old);
+    if (widget.paused != old.paused) {
+      if (widget.paused) {
+        _c.stop();
+      } else {
+        _c.repeat();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context) || widget.paused) {
+      return _dot(1, 1);
+    }
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => _dot(
+            1 - 0.35 * math.sin(_c.value * math.pi),
+            1 + 0.28 * math.sin(_c.value * math.pi),
+          ),
+    );
+  }
+
+  Widget _dot(double opacity, double scale) => Opacity(
+    opacity: opacity.clamp(0.0, 1.0),
+    child: Transform.scale(
+      scale: scale,
+      child: Container(
+        width: widget.size,
+        height: widget.size,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: widget.color),
+      ),
+    ),
+  );
+}
+
+/// 10. Breathe: the container's own quiet scale, in and out — the orb's
+/// patience. Still under the battery saver and reduce-motion.
+class Breathe extends StatefulWidget {
+  const Breathe({
+    super.key,
+    required this.child,
+    this.amount = 0.025,
+    this.period = const Duration(milliseconds: 2400),
+    this.paused = false,
+  });
+
+  final Widget child;
+  final double amount;
+  final Duration period;
+  final bool paused;
+
+  @override
+  State<Breathe> createState() => _BreatheState();
+}
+
+class _BreatheState extends State<Breathe> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.period,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.paused) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(Breathe old) {
+    super.didUpdateWidget(old);
+    if (widget.paused != old.paused) {
+      if (widget.paused) {
+        _c.stop();
+      } else {
+        _c.repeat();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context) || widget.paused) return widget.child;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => Transform.scale(
+            scale: 1 + widget.amount * math.sin(_c.value * math.pi * 2),
+            child: widget.child,
+          ),
+    );
+  }
+}
+
+/// 11. FloatY: the piece hangs in the air — a slow rise and settle. A
+/// resting loop: still for the battery saver and reduce-motion.
+class FloatY extends StatefulWidget {
+  const FloatY({
+    super.key,
+    required this.child,
+    this.distance = 5,
+    this.period = const Duration(milliseconds: 3200),
+    this.paused = false,
+  });
+
+  final Widget child;
+  final double distance;
+  final Duration period;
+  final bool paused;
+
+  @override
+  State<FloatY> createState() => _FloatYState();
+}
+
+class _FloatYState extends State<FloatY> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.period,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.paused) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(FloatY old) {
+    super.didUpdateWidget(old);
+    if (widget.paused != old.paused) {
+      if (widget.paused) {
+        _c.stop();
+      } else {
+        _c.repeat();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context) || widget.paused) return widget.child;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => Transform.translate(
+            offset: Offset(
+              0,
+              widget.distance * math.sin(_c.value * math.pi * 2),
+            ),
+            child: widget.child,
+          ),
+    );
+  }
+}
+
+/// 12. GlowRing: one ring leaves the piece and dies — the commit's own
+/// ripple. Played once; reduce-motion keeps it home.
+class GlowRing extends StatefulWidget {
+  const GlowRing({super.key, required this.color, this.trigger = 0});
+
+  final Color color;
+
+  /// Bump to play the ring again.
+  final int trigger;
+
+  @override
+  State<GlowRing> createState() => _GlowRingState();
+}
+
+class _GlowRingState extends State<GlowRing>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 700),
+  );
+
+  @override
+  void didUpdateWidget(GlowRing old) {
+    super.didUpdateWidget(old);
+    if (widget.trigger != old.trigger && !_still(context)) {
+      _c.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        final t = _c.value;
+        if (t == 0 || t == 1) return const SizedBox.shrink();
+        return Container(
+          margin: EdgeInsets.all(24 * t),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: widget.color.withValues(alpha: (1 - t) * 0.55),
+              width: 2.4 * (1 - t) + 0.6,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// 13. RadarPing: the rings a measuring chip sends out — soft circles
+/// leaving the piece while it listens, and stopping when it answers.
+class RadarPing extends StatefulWidget {
+  const RadarPing({
+    super.key,
+    required this.child,
+    required this.color,
+    this.active = false,
+  });
+
+  final Widget child;
+  final Color color;
+  final bool active;
+
+  @override
+  State<RadarPing> createState() => _RadarPingState();
+}
+
+class _RadarPingState extends State<RadarPing>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1800),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(RadarPing old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active) {
+        _c.repeat();
+      } else {
+        _c.stop();
+        _c.value = 0;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final moving = widget.active && !_still(context);
+    return Stack(
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+      children: [
+        if (widget.active) ...[
+          if (moving) ...[
+            AnimatedBuilder(
+              animation: _c,
+              builder: (context, _) {
+                final t = _c.value;
+                return _ring(t, (1 - t) * 0.35);
+              },
+            ),
+            AnimatedBuilder(
+              animation: _c,
+              builder: (context, _) {
+                final t = (_c.value + 0.5) % 1;
+                return _ring(t, (1 - t) * 0.35);
+              },
+            ),
+          ] else
+            // Reduce-motion: one resting ring, no loop.
+            _ring(0.15, 0.30),
+        ],
+        widget.child,
+      ],
+    );
+  }
+
+  Widget _ring(double t, double alpha) => Container(
+    width: 34 + 26 * t,
+    height: 34 + 26 * t,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(
+        color: widget.color.withValues(alpha: alpha.clamp(0.0, 1.0)),
+        width: 1.2,
+      ),
+    ),
+  );
+}
+
+/// 14. OrbitDots: three dots chase each other around the circle while the
+/// piece waits. Still — with the saver or reduce-motion — three resting
+/// dots.
+class OrbitDots extends StatefulWidget {
+  const OrbitDots({
+    super.key,
+    required this.color,
+    this.size = 18,
+    this.active = true,
+  });
+
+  final Color color;
+  final double size;
+  final bool active;
+
+  @override
+  State<OrbitDots> createState() => _OrbitDotsState();
+}
+
+class _OrbitDotsState extends State<OrbitDots>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(OrbitDots old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active) {
+        _c.repeat();
+      } else {
+        _c.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final spin = _still(context) || !widget.active ? 0.0 : _c.value;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => SizedBox.square(
+            dimension: widget.size,
+            child: CustomPaint(
+              painter: _OrbitPainter(color: widget.color, turn: spin),
+            ),
+          ),
+    );
+  }
+}
+
+class _OrbitPainter extends CustomPainter {
+  _OrbitPainter({required this.color, required this.turn});
+
+  final Color color;
+  final double turn;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final radius = size.shortestSide / 2 - 1.5;
+    for (var i = 0; i < 3; i++) {
+      final angle = turn * math.pi * 2 + i * math.pi * 2 / 3;
+      final dot = center + Offset(math.cos(angle), math.sin(angle)) * radius;
+      canvas.drawCircle(
+        dot,
+        1.8,
+        Paint()..color = color.withValues(alpha: 0.35 + 0.65 * (i / 3)),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_OrbitPainter old) =>
+      old.color != color || old.turn != turn;
+}
+
+/// 15. TypeDots: the wait's own ellipsis, one dot at a time — "…" that
+/// breathes while the work runs.
+class TypeDots extends StatefulWidget {
+  const TypeDots({
+    super.key,
+    required this.color,
+    this.active = true,
+    this.period = const Duration(milliseconds: 1100),
+  });
+
+  final Color color;
+  final bool active;
+  final Duration period;
+
+  @override
+  State<TypeDots> createState() => _TypeDotsState();
+}
+
+class _TypeDotsState extends State<TypeDots>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.period,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(TypeDots old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active) {
+        _c.repeat();
+      } else {
+        _c.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var i = 0; i < 3; i++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1.5),
+                  child: Opacity(
+                    opacity: _lit(i),
+                    child: Container(
+                      width: 3,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: widget.color,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+    );
+  }
+
+  double _lit(int i) {
+    if (_still(context) || !widget.active) return i == 0 ? 1 : 0.35;
+    final t = (_c.value * 3 - i) % 1;
+    return 0.35 + 0.65 * (1 - t.abs());
+  }
+}
+
+/// 16. SweepLoader: the arc that sweeps and spins — the busy word drawn
+/// by hand, quiet beside the material spinner's own.
+class SweepLoader extends StatefulWidget {
+  const SweepLoader({
+    super.key,
+    required this.color,
+    this.size = 16,
+    this.stroke = 2,
+    this.active = true,
+  });
+
+  final Color color;
+  final double size;
+  final double stroke;
+  final bool active;
+
+  @override
+  State<SweepLoader> createState() => _SweepLoaderState();
+}
+
+class _SweepLoaderState extends State<SweepLoader>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(SweepLoader old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active) {
+        _c.repeat();
+      } else {
+        _c.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final turn = _still(context) || !widget.active ? 0.0 : _c.value;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, _) => SizedBox.square(
+            dimension: widget.size,
+            child: CustomPaint(
+              painter: _SweepPainter(
+                color: widget.color,
+                turn: turn,
+                stroke: widget.stroke,
+              ),
+            ),
+          ),
+    );
+  }
+}
+
+class _SweepPainter extends CustomPainter {
+  _SweepPainter({
+    required this.color,
+    required this.turn,
+    required this.stroke,
+  });
+
+  final Color color;
+  final double turn;
+  final double stroke;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final radius = size.shortestSide / 2 - stroke;
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    final span = math.pi * (0.6 + 0.4 * math.sin(turn * math.pi * 2));
+    canvas.drawArc(
+      rect,
+      turn * math.pi * 2,
+      span,
+      false,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = stroke
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_SweepPainter old) =>
+      old.color != color || old.turn != turn;
+}
+
+/// 17. WaveProgress: the bar the water fills — a wave rides the level
+/// while it moves, and rests when the fill is done or motion sleeps.
+class WaveProgress extends StatefulWidget {
+  const WaveProgress({
+    super.key,
+    required this.value,
+    required this.color,
+    this.height = 6,
+    this.radius = 3,
+    this.active = true,
+  });
+
+  /// The fill's level, 0→1.
+  final double value;
+  final Color color;
+  final double height;
+  final double radius;
+  final bool active;
+
+  @override
+  State<WaveProgress> createState() => _WaveProgressState();
+}
+
+class _WaveProgressState extends State<WaveProgress>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1600),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(WaveProgress old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active) {
+        _c.repeat();
+      } else {
+        _c.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(end: widget.value.clamp(0.0, 1.0)),
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOutCubic,
+      builder:
+          (context, level, _) => ClipRRect(
+            borderRadius: BorderRadius.circular(widget.radius),
+            child: CustomPaint(
+              size: Size(double.infinity, widget.height),
+              painter: _WavePainter(
+                color: widget.color,
+                level: level,
+                phase: _still(context) || !widget.active ? 0 : _c.value,
+              ),
+            ),
+          ),
+    );
+  }
+}
+
+class _WavePainter extends CustomPainter {
+  _WavePainter({
+    required this.color,
+    required this.level,
+    required this.phase,
+  });
+
+  final Color color;
+  final double level;
+  final double phase;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final track =
+        Paint()
+          ..color = color.withValues(alpha: 0.16)
+          ..style = PaintingStyle.fill;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        Radius.circular(size.height / 2),
+      ),
+      track,
+    );
+    final top = size.height * (1 - level);
+    final path =
+        Path()
+          ..moveTo(0, top)
+          ..lineTo(0, size.height)
+          ..lineTo(size.width, size.height)
+          ..lineTo(size.width, top);
+    // The water's own surface: crests that travel while the fill moves.
+    for (var x = 0.0; x <= size.width; x += 4) {
+      final y =
+          top +
+          1.4 *
+              math.sin(
+                (x / size.width) * math.pi * 6 + phase * math.pi * 2,
+              );
+      path.lineTo(x, y);
+    }
+    path.close();
+    canvas.drawPath(path, Paint()..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_WavePainter old) =>
+      old.color != color || old.level != level || old.phase != phase;
+}
+
+/// 18. SpringBar: the width that arrives with a spring — the quota bar's
+/// own landing, one soft overshoot and settle.
+class SpringBar extends StatelessWidget {
+  const SpringBar({
+    super.key,
+    required this.value,
+    required this.color,
+    this.height = 8,
+    this.radius = 4,
+    this.track,
+  });
+
+  /// The fill's level, 0→1.
+  final double value;
+  final Color color;
+  final double height;
+  final double radius;
+  final Color? track;
+
+  @override
+  Widget build(BuildContext context) {
+    final level = value.clamp(0.0, 1.0);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
+      child: Container(
+        height: height,
+        color: track ?? color.withValues(alpha: 0.14),
+        child: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 0, end: level),
+            duration: const Duration(milliseconds: 720),
+            curve: Curves.easeOutBack,
+            builder:
+                (context, v, _) => FractionallySizedBox(
+                  widthFactor: v.clamp(0.0, 1.0),
+                  child: Container(color: color),
+                ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 19. MeterArc: the arc that walks to its value — the speed test's own
+/// needle, drawn without a needle.
+class MeterArc extends StatelessWidget {
+  const MeterArc({
+    super.key,
+    required this.value,
+    required this.color,
+    this.stroke = 8,
+    this.track,
+    this.child,
+  });
+
+  /// The level, 0→1.
+  final double value;
+  final Color color;
+  final double stroke;
+  final Color? track;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(end: value.clamp(0.0, 1.0)),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeOutCubic,
+      builder:
+          (context, v, child) => CustomPaint(
+            painter: _ArcPainter(
+              color: color,
+              value: v,
+              stroke: stroke,
+              track: track ?? color.withValues(alpha: 0.14),
+            ),
+            child: child,
+          ),
+      child: child,
+    );
+  }
+}
+
+class _ArcPainter extends CustomPainter {
+  _ArcPainter({
+    required this.color,
+    required this.value,
+    required this.stroke,
+    required this.track,
+  });
+
+  final Color color;
+  final double value;
+  final double stroke;
+  final Color track;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final radius = size.shortestSide / 2 - stroke;
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    final trackPaint =
+        Paint()
+          ..color = track
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = stroke
+          ..strokeCap = StrokeCap.round;
+    // The arc runs the circle's top: from the left horizon, over the
+    // noon, to the right.
+    canvas.drawArc(rect, -math.pi, math.pi, false, trackPaint);
+    if (value <= 0) return;
+    canvas.drawArc(
+      rect,
+      -math.pi,
+      math.pi * value,
+      false,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = stroke
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_ArcPainter old) =>
+      old.color != color || old.value != value;
+}
+
+/// 20. IconSpin: the icon turns in — a half-turn and a fade, the way a
+/// refreshed state announces itself.
+class IconSpin extends StatelessWidget {
+  const IconSpin({super.key, required this.child, this.turns = 0.5});
+
+  final Widget child;
+  final double turns;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 420),
+      switchInCurve: Curves.easeOutCubic,
+      transitionBuilder:
+          (child, a) => FadeTransition(
+            opacity: a,
+            child: AnimatedBuilder(
+              animation: a,
+              builder:
+                  (context, _) => RotationTransition(
+                    turns: AlwaysStoppedAnimation(turns * (1 - a.value)),
+                    child: child,
+                  ),
+            ),
+          ),
+      child: KeyedSubtree(key: ValueKey(child), child: child),
+    );
+  }
+}
+
+/// 21. ShimmerText: the word the light walks across — once for an
+/// announcement, and again while [active] asks.
+class ShimmerText extends StatefulWidget {
+  const ShimmerText({
+    super.key,
+    required this.child,
+    required this.color,
+    this.active = false,
+    this.once = true,
+  });
+
+  final Widget child;
+  final Color color;
+
+  /// True keeps the light walking while it shows; false lets it pass
+  /// once and be done.
+  final bool active;
+  final bool once;
+
+  @override
+  State<ShimmerText> createState() => _ShimmerTextState();
+}
+
+class _ShimmerTextState extends State<ShimmerText>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1800),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.active || !widget.once) {
+      _c.repeat();
+    } else {
+      _c.forward(from: 0);
+    }
+  }
+
+  @override
+  void didUpdateWidget(ShimmerText old) {
+    super.didUpdateWidget(old);
+    if (widget.active != old.active) {
+      if (widget.active || !widget.once) {
+        _c.repeat();
+      } else {
+        _c.stop();
+        _c.value = 0;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return widget.child;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, child) => ShaderMask(
+            blendMode: BlendMode.srcATop,
+            shaderCallback:
+                (bounds) => LinearGradient(
+                  begin: AlignmentDirectional.centerStart,
+                  end: AlignmentDirectional.centerEnd,
+                  colors: [
+                    Colors.transparent,
+                    widget.color.withValues(alpha: 0.65),
+                    Colors.transparent,
+                  ],
+                  stops: const [0.0, 0.5, 1.0],
+                ).createShader(
+                  bounds.translate(bounds.width * (2 * _c.value - 1), 0),
+                ),
+            child: child,
+          ),
+      child: widget.child,
+    );
+  }
+}
+
+/// 22. CheckBloom: the ring of light blooms out from under the piece —
+/// the answer's own entrance (the drawn check rides on top of it).
+class CheckBloom extends StatelessWidget {
+  const CheckBloom({
+    super.key,
+    required this.child,
+    required this.color,
+    this.size = 44,
+  });
+
+  final Widget child;
+  final Color color;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return _Entrance(
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeOutCubic,
+      build:
+          (context, a) => Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: size + size * 0.9 * a.value,
+                height: size + size * 0.9 * a.value,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: color.withValues(alpha: (1 - a.value) * 0.5),
+                    width: 1.6,
+                  ),
+                ),
+              ),
+              child,
+            ],
+          ),
+    );
+  }
+}
+
+/// 23. LiftHover: the card rises to the pointer — a small lift and a
+/// shadow, the desktop's own invitation. Nothing moves without a pointer.
+class LiftHover extends StatefulWidget {
+  const LiftHover({super.key, required this.child, this.height = 2});
+
+  final Widget child;
+  final double height;
+
+  @override
+  State<LiftHover> createState() => _LiftHoverState();
+}
+
+class _LiftHoverState extends State<LiftHover> {
+  bool _over = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _over = true),
+      onExit: (_) => setState(() => _over = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+        transform: Matrix4.translationValues(0, _over ? -widget.height : 0, 0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: _over
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.14),
+                    blurRadius: 18,
+                    offset: const Offset(0, 10),
+                  ),
+                ]
+              : const [],
+        ),
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+/// 24. TiltHover: the card leans to the pointer — a parallax the desktop
+/// knows from the glass panels of its best apps.
+class TiltHover extends StatefulWidget {
+  const TiltHover({super.key, required this.child, this.angle = 0.03});
+
+  final Widget child;
+  final double angle;
+
+  @override
+  State<TiltHover> createState() => _TiltHoverState();
+}
+
+class _TiltHoverState extends State<TiltHover> {
+  Offset _lean = Offset.zero;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return widget.child;
+    return MouseRegion(
+      onHover: (event) {
+        final box = context.findRenderObject()! as RenderBox;
+        final size = box.size;
+        final local = event.localPosition;
+        setState(() {
+          _lean = Offset(
+            (local.dx / size.width - 0.5) * -2,
+            (local.dy / size.height - 0.5) * 2,
+          );
+        });
+      },
+      onExit: (_) => setState(() => _lean = Offset.zero),
+      child: TweenAnimationBuilder<Offset>(
+        tween: Tween<Offset>(end: _lean),
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOutCubic,
+        builder:
+            (context, lean, child) => Transform(
+              alignment: Alignment.center,
+              transform:
+                  Matrix4()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateX(widget.angle * lean.dy)
+                    ..rotateY(widget.angle * lean.dx),
+              child: child,
+            ),
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+/// 25. Wobble: the piece rocks once — a small no that asks to be seen.
+/// Bump [trigger] to play it again.
+class Wobble extends StatefulWidget {
+  const Wobble({super.key, required this.child, this.trigger = 0});
+
+  final Widget child;
+  final int trigger;
+
+  @override
+  State<Wobble> createState() => _WobbleState();
+}
+
+class _WobbleState extends State<Wobble> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 520),
+  );
+
+  @override
+  void didUpdateWidget(Wobble old) {
+    super.didUpdateWidget(old);
+    if (widget.trigger != old.trigger && !_still(context)) {
+      _c.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, child) =>
+              _c.value == 0 || _c.value == 1
+                  ? child!
+                  : Transform.rotate(
+                    angle:
+                        math.sin(_c.value * math.pi * 4) *
+                        0.05 *
+                        (1 - _c.value),
+                    child: child,
+                  ),
+      child: widget.child,
+    );
+  }
+}
+
+/// 26. Heartbeat: the double pulse — the piece beats twice, once, when
+/// the news needs the eye. Bump [trigger] to play it again.
+class Heartbeat extends StatefulWidget {
+  const Heartbeat({super.key, required this.child, this.trigger = 0});
+
+  final Widget child;
+  final int trigger;
+
+  @override
+  State<Heartbeat> createState() => _HeartbeatState();
+}
+
+class _HeartbeatState extends State<Heartbeat>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 640),
+  );
+
+  @override
+  void didUpdateWidget(Heartbeat old) {
+    super.didUpdateWidget(old);
+    if (widget.trigger != old.trigger && !_still(context)) {
+      _c.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, child) =>
+              _c.value == 0 || _c.value == 1
+                  ? child!
+                  : Transform.scale(
+                    scale: 1 + 0.06 * math.sin(_c.value * math.pi * 4),
+                    child: child,
+                  ),
+      child: widget.child,
+    );
+  }
+}
+
+/// 27. AuroraShift: the hero's wash of color drifts, very slowly — the
+/// light of the two designs' tops, alive but at rest for the saver.
+class AuroraShift extends StatefulWidget {
+  const AuroraShift({
+    super.key,
+    required this.child,
+    required this.colors,
+    this.period = const Duration(milliseconds: 9000),
+    this.paused = false,
+  });
+
+  final Widget child;
+  final List<Color> colors;
+  final Duration period;
+  final bool paused;
+
+  @override
+  State<AuroraShift> createState() => _AuroraShiftState();
+}
+
+class _AuroraShiftState extends State<AuroraShift>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: widget.period,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.paused) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(AuroraShift old) {
+    super.didUpdateWidget(old);
+    if (widget.paused != old.paused) {
+      if (widget.paused) {
+        _c.stop();
+      } else {
+        _c.repeat();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context) || widget.paused) return widget.child;
+    return AnimatedBuilder(
+      animation: _c,
+      builder:
+          (context, child) => DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: widget.colors,
+                transform: GradientRotation(_c.value * math.pi * 2),
+              ),
+            ),
+            child: child,
+          ),
+      child: widget.child,
+    );
+  }
+}
+
+/// 28. DockRise: the dock's pieces rise in — each one a breath after the
+/// one before, with the spring a floating bar arrives with.
+class DockRise extends StatelessWidget {
+  const DockRise({
+    super.key,
+    required this.child,
+    this.index = 0,
+    this.step = 60,
+  });
+
+  final Widget child;
+
+  /// The piece's seat in the dock: later seats rise later.
+  final int index;
+  final int step;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return _Entrance(
+      delay: index * step,
+      duration: const Duration(milliseconds: 560),
+      curve: Curves.easeOutBack,
+      build:
+          (context, a) => SlideTransition(
+            position: a.drive(
+              Tween<Offset>(
+                begin: const Offset(0, 0.6),
+                end: Offset.zero,
+              ),
+            ),
+            child: ScaleTransition(
+              scale: a.drive(Tween<double>(begin: 0.88, end: 1)),
+              child: FadeTransition(opacity: a, child: child),
+            ),
+          ),
+    );
+  }
+}
+
+/// 29. PageGlide: a pushed page arrives by gliding — a short rise and a
+/// fade, once, the way the shell's own push should feel. Reduce-motion:
+/// the page is simply there.
+class PageGlide extends StatelessWidget {
+  const PageGlide({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_still(context)) return child;
+    return _Entrance(
+      duration: const Duration(milliseconds: 380),
+      curve: Curves.easeOutCubic,
+      build:
+          (context, a) => SlideTransition(
+            position: a.drive(
+              Tween<Offset>(
+                begin: const Offset(0, 0.025),
+                end: Offset.zero,
+              ),
+            ),
+            child: FadeTransition(opacity: a, child: child),
+          ),
+    );
+  }
+}
+
+/// 30. SectionSweep: the quiet line that runs along a section's edge
+/// while it saves — a word for "working" without a spinner's noise.
+class SectionSweep extends StatefulWidget {
+  const SectionSweep({
+    super.key,
+    required this.child,
+    required this.color,
+    this.busy = false,
+  });
+
+  final Widget child;
+  final Color color;
+  final bool busy;
+
+  @override
+  State<SectionSweep> createState() => _SectionSweepState();
+}
+
+class _SectionSweepState extends State<SectionSweep>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1500),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.busy) _c.repeat();
+  }
+
+  @override
+  void didUpdateWidget(SectionSweep old) {
+    super.didUpdateWidget(old);
+    if (widget.busy != old.busy) {
+      if (widget.busy) {
+        _c.repeat();
+      } else {
+        _c.stop();
+        _c.value = 0;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, child) {
+        // The line's own walk: alignment carries it from edge to edge
+        // inside the section, so nothing paints over the neighbors.
+        final walk = -1.0 + 2.0 * _c.value;
+        return Stack(
+          children: [
+            child!,
+            if (widget.busy)
+              PositionedDirectional(
+                top: 0,
+                start: 0,
+                end: 0,
+                child: Align(
+                  alignment: Alignment(walk, 0),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.4,
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(1),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            widget.color,
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+      child: widget.child,
+    );
+  }
+}

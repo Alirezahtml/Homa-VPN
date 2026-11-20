@@ -105,7 +105,8 @@ func (d *Daemon) measureLocations(ctx context.Context, token string, codes []str
 	}
 	targets := proxy.FilterTargets(proxy.PingTargets(countries), codes)
 	now := time.Now()
-	if network, _ := networkNow(); network != d.pingSkipNetwork {
+	network, _ := networkNow()
+	if network != d.pingSkipNetwork {
 		d.pingSkip, d.pingSkipNetwork = nil, network
 	}
 	measure := make([]proxy.Candidate, 0, len(targets))
@@ -132,6 +133,7 @@ func (d *Daemon) measureLocations(ctx context.Context, token string, codes []str
 	d.mu.Lock()
 	merged := proxy.MergePings(d.pings, results)
 	d.pings, d.pingedAt = merged, now
+	d.pingNetwork = network
 	d.mu.Unlock()
 	if len(measure) < len(targets) {
 		// The answer covers every location asked for: the skipped ones with
@@ -174,14 +176,31 @@ func (d *Daemon) lastPings() ([]proxy.LocationPing, time.Time) {
 	return append([]proxy.LocationPing(nil), d.pings...), d.pingedAt
 }
 
+// lastPingsNetwork returns the network the kept figures were measured
+// on: a measurement from another network says nothing about this one.
+func (d *Daemon) lastPingsNetwork() string {
+	d.pingMu.Lock()
+	defer d.pingMu.Unlock()
+	return d.pingNetwork
+}
+
 // resolveFastestCountry returns the country code to use for
 // proxy.country = "fastest": from a recent measurement, or measured now
 // with token. It returns "" (the recommended location) when nothing could
 // be measured.
 func (d *Daemon) resolveFastestCountry(ctx context.Context, token string) string {
 	results, at := d.lastPings()
+	// Figures measured on another network would hand back the place
+	// that won there: the fastest is chosen for the network that is
+	// live now, not carried over from the one before.
+	if _, network := networkNow(); network != "" && network != d.lastPingsNetwork() {
+		results, at = nil, time.Time{}
+	}
 	if time.Since(at) > pingReuseAge {
-		results, _ = d.measureLocations(ctx, token, nil, false)
+		// fresh: every location gets its say, even the ones slow
+		// lately — a place that was slow once, on another hour, is a
+		// candidate again when the fastest is chosen.
+		results, _ = d.measureLocations(ctx, token, nil, true)
 	}
 	best, ok := proxy.FastestLocation(results)
 	if !ok {

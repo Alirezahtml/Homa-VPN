@@ -2725,4 +2725,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Tấm voan của đồng hồ cao thêm một hơi thở và giữ màu của nó qua toàn dải đồng hồ: nội dung cuộn bên dưới mờ dần trọn vẹn, và lời của nó không bao giờ chạm tới đồng hồ.';
+
+  @override
+  String get wn52Speed =>
+      'Đường hầm lại chạy với tốc độ riêng của mạng: giao diện VPN nói kích thước gói của đường truyền (MTU 1500) thay vì một kích thước phóng đại — bản tải về lấy lại tốc độ đầy đủ, cuộc gọi giữ vững, nhất là trên dữ liệu di động.';
+
+  @override
+  String get wn52Smart =>
+      'Vị trí nhanh nhất và dịch vụ khuyên dùng chọn lại một cách trung thực: mỗi lần khởi động đều đo vị trí mới và lấy cái tốt nhất hiện nay — thay vì lặng lẽ cưỡi lên nơi đã chọn trước đó.';
+
+  @override
+  String get wn52Motion =>
+      'Ba mươi hiệu ứng mới khắp ứng dụng: mỗi trang và thẻ đáp xuống nhẹ nhàng, ô được nhấn chìm xuống rồi trở lại, chấm trạng thái đang kết nối thở nhẹ, trang mở trượt vào êm ru — tất cả lặng khi hệ thống yêu cầu bớt chuyển động.';
+
+  @override
+  String get wn52Pages =>
+      'Trang mở đến với một cú trượt mềm và tiêu đề từ cạnh của nó; khi một cài đặt được lưu, một đường kẻ êm chảy qua mục.';
 }

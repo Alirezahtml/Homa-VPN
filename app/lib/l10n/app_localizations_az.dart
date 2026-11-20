@@ -2727,4 +2727,20 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Saatın pərdəsi bir nəfəs boy atdı və rəngini saatın bütün zolağında saxlayır: altından sürüşən məzmun bütöv halda solur və sözləri saatla heç vaxt görüşmür.';
+
+  @override
+  String get wn52Speed =>
+      'Tunnel yenə şəbəkənin öz sürəti ilə işləyir: VPN interfeysi xəttin paket ölçüsünü (MTU 1500) danışır, şişirdilmiş ölçü yerinə; endirmələr tam sürətini alır, zənglər sabit qalır — xüsusən mobil internetdə.';
+
+  @override
+  String get wn52Smart =>
+      'Ən sürətli yer və tövsiyə olunan servis yenidən sədaqətlə seçir: hər başlanğıc yerləri təzə ölçür və indinin ən yaxşısını götürür — əvvəl seçilmiş yeri səssizcə gəzdirmək əvəzinə.';
+
+  @override
+  String get wn52Motion =>
+      'Tətbiqin hər yerində otuz yeni animasiya: hər səhifə və kart yumşaqca enir, basılan plitələr çöküb qayıdır, qoşulma durumunun nöqtəsi nəfəs alır, açılan səhifələr yumşaq sürüşür — sistem az hərəkət istədikdə hamısı dayanır.';
+
+  @override
+  String get wn52Pages =>
+      'Açılan səhifələr yumşaq sürüşmə ilə gəlir, başlıq öz kənarından; ayar yadda saxlanarkən bölmədə sakit bir xətt axır.';
 }

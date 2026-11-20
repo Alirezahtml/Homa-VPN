@@ -5,6 +5,7 @@ import 'package:flutter/services.dart' show HapticFeedback;
 
 import '../l10n/app_localizations.dart';
 import 'design.dart';
+import 'motion.dart';
 import 'sound.dart' show AppSounds, SoundCue;
 
 /// The structural half of every design: the palette (which [DesignTheme]
@@ -781,16 +782,24 @@ class _ZedFabClusterState extends State<ZedFabCluster> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _fab(
-                  context,
-                  icon: Icons.public_rounded,
-                  onTap: widget.onOpenServers,
+                // Each fab rises in, one breath after the other — the
+                // cluster's own entrance, once, at the page's landing.
+                DockRise(
+                  index: 0,
+                  child: _fab(
+                    context,
+                    icon: Icons.public_rounded,
+                    onTap: widget.onOpenServers,
+                  ),
                 ),
                 const SizedBox(height: _gap),
-                _fab(
-                  context,
-                  icon: Icons.speed_rounded,
-                  onTap: widget.onOpenSpeedTest,
+                DockRise(
+                  index: 1,
+                  child: _fab(
+                    context,
+                    icon: Icons.speed_rounded,
+                    onTap: widget.onOpenSpeedTest,
+                  ),
                 ),
               ],
             ),

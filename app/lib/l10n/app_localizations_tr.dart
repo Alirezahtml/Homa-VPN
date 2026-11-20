@@ -2725,4 +2725,20 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn51Veil =>
       'Saatin perdesi bir nefes boyandı ve rengini saatin bütün şeridinde tutuyor: altında kayan içerik bütün halde solar ve sözcükleri saate hiç ulaşmaz.';
+
+  @override
+  String get wn52Speed =>
+      'Tünel yeniden ağın kendi hızında akar: VPN arayüzü, abartılı boyut yerine hattın paket boyutunu (MTU 1500) konuşur; böylece indirmeler tam hızına ulaşır ve aramalar sabit kalır — özellikle mobil veride.';
+
+  @override
+  String get wn52Smart =>
+      'En hızlı konum ve önerilen servis yeniden dürüstçe seçer: her başlangıç konumları taze ölçer ve şimdinin en iyisini alır — daha önce seçilen yeri sessizce taşımak yerine.';
+
+  @override
+  String get wn52Motion =>
+      'Uygulamanın her yanında otuz yeni animasyon: her sayfa ve kart yumuşakça konar, basılan kutular çöker ve döner, bağlanıyor durumunun noktası nefes alır, açılan sayfalar yumuşak kayar — sistem daha az hareket istediğinde her biri durur.';
+
+  @override
+  String get wn52Pages =>
+      'Açılan sayfalar yumuşak bir kayışla gelir, sayfa başlığı kendi kenarından; bir ayar kaydedilirken bölümde sessiz bir çizgi akar.';
 }

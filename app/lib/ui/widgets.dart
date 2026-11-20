@@ -20,6 +20,7 @@ import 'country_names.dart';
 import 'design.dart';
 import 'design_style.dart';
 import 'format.dart';
+import 'glass.dart';
 import 'local_country_names.dart';
 import 'motion.dart';
 import 'sound.dart' show AppSounds, SoundCue;
@@ -940,53 +941,44 @@ class Panel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     // The design's card: the flat bordered card the monochrome wears,
-    // the tighter iOS group or the very-round bento card for the rest.
+    // the tighter iOS group or the very-round bento card for the rest —
+    // each of them glass now: the fill the ground breathes through, the
+    // rim's own hair of light, and the one sheen when the card lands.
     final look = AppDesign.current.look(theme.brightness == Brightness.dark);
     final round = DesignStyle.of(context).cardRadius;
-    Widget card = Card(
-      margin: EdgeInsets.zero,
-      color: look.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(round),
-        side: look.cardShadow.isEmpty
-            ? BorderSide(
-                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-              )
-            : BorderSide.none,
-      ),
-      child: Padding(
-        padding: padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (title != null) ...[
-              Row(
-                children: [
-                  if (icon != null) ...[
-                    Icon(
-                      icon,
-                      size: 18,
+    Widget card = LiquidGlass(
+      radius: round,
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (title != null) ...[
+            Row(
+              children: [
+                if (icon != null) ...[
+                  Icon(
+                    icon,
+                    size: 18,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+                Expanded(
+                  child: Text(
+                    title!,
+                    style: theme.textTheme.labelLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                  Expanded(
-                    child: Text(
-                      title!,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                        letterSpacing: 0.4,
-                      ),
+                      letterSpacing: 0.4,
                     ),
                   ),
-                  ?trailing,
-                ],
-              ),
-              const SizedBox(height: 14),
-            ],
-            child,
+                ),
+                ?trailing,
+              ],
+            ),
+            const SizedBox(height: 14),
           ],
-        ),
+          child,
+        ],
       ),
     );
     // The neumorphism's card is drawn twice: once for its dual shadow
@@ -1000,7 +992,7 @@ class Panel extends StatelessWidget {
         child: card,
       );
     }
-    return Reveal(child: card);
+    return Reveal(child: GlassSheen(child: card));
   }
 }
 

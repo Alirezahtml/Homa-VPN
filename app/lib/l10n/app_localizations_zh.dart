@@ -2570,6 +2570,19 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get wn51Veil =>
       '时钟的薄纱长高了一口呼吸的距离，并把自己的颜色护住整个时钟的横带：从它下面滚过的内容完整地淡出，它的词语再也碰不到时钟。';
+
+  @override
+  String get wn52Speed =>
+      '隧道重新以网络本来的速度奔跑：VPN 界面改用线路的包尺寸（MTU 1500），不再用过大的值——下载恢复全速，通话保持稳定，移动数据下尤其明显。';
+  @override
+  String get wn52Smart =>
+      '最快位置与推荐服务重新诚实地选择：每次启动都会重新测量各位置，取当下最优，而不是悄悄沿用上次选的地方。';
+  @override
+  String get wn52Motion =>
+      '全新三十种动画，遍布应用：每个页面和卡片轻盈落定，按下的磁贴下沉又回弹，连接中的状态点轻轻呼吸，推入的页面柔和滑入——系统要求减少动效时，一切归于安静。';
+  @override
+  String get wn52Pages =>
+      '推入的页面带着柔和的滑动到来，页面标题从自己的边缘抵达；设置保存时，一条安静的细线在分区里流动。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5139,4 +5152,17 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn51Veil =>
       '時鐘的薄紗長高了一口呼吸的距離，並把自己的顏色護住整個時鐘的橫帶：從它下面捲過的內容完整地淡出，它的詞語再也碰不到時鐘。';
+
+  @override
+  String get wn52Speed =>
+      '隧道重新以網路本來的速度奔馳：VPN 介面改用線路的封包尺寸（MTU 1500），不再用過大的值——下載恢復全速，通話保持穩定，行動數據下尤其明顯。';
+  @override
+  String get wn52Smart =>
+      '最快位置與建議服務重新誠實地選擇：每次啟動都會重新測量各位置，取當下最優，而不是悄悄沿用上次選的地方。';
+  @override
+  String get wn52Motion =>
+      '全新三十種動畫，遍佈應用：每個頁面與卡片輕盈落定，按下的磚塊下沉又回彈，連線中的狀態點輕輕呼吸，推入的頁面柔和滑入——系統要求減少動態時，一切歸於安靜。';
+  @override
+  String get wn52Pages =>
+      '推入的頁面帶著柔和的滑動到來，頁面標題從自己的邊緣抵達；設定儲存時，一條安靜的細線在分區裡流動。';
 }
