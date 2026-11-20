@@ -2341,6 +2341,8 @@ class MeterArc extends StatelessWidget {
     this.stroke = 8,
     this.track,
     this.child,
+    this.duration = const Duration(milliseconds: 900),
+    this.curve = Curves.easeOutCubic,
   });
 
   /// The level, 0→1.

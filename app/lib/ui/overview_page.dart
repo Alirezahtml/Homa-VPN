@@ -6059,7 +6059,8 @@ class _IosStatusCard extends StatelessWidget {
               fontFamily: typefaces.display,
               fontFamilyFallback: typefaces.displayFallback,
               color: p.text,
-            ),
+            ) ??
+            const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
             child: value,
           ),
         ],
