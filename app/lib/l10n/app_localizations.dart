@@ -4814,16 +4814,19 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The tunnel runs at the network\'s own speed again: the VPN\'s interface speaks the line\'s packet size (MTU 1500) instead of an oversized one, so downloads take their full speed and calls stay steady — on mobile data especially.'**
   String get wn52Speed;
+
   /// No description provided for @wn52Smart.
   ///
   /// In en, this message translates to:
   /// **'Fastest location and the recommended service choose honestly again: every start measures the locations fresh and takes the best one now, instead of quietly riding the place chosen before.'**
   String get wn52Smart;
+
   /// No description provided for @wn52Motion.
   ///
   /// In en, this message translates to:
   /// **'Thirty new animations, all over the app: every page and card lands softly, pressed tiles sink and return, the connecting state\'s dot breathes, and pushed pages glide in — each one standing still when the system asks for less motion.'**
   String get wn52Motion;
+
   /// No description provided for @wn52Pages.
   ///
   /// In en, this message translates to:
@@ -4913,5 +4916,4 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.',
   );
-
 }

@@ -4512,7 +4512,7 @@ class _AetherHeroCard extends StatelessWidget {
                                     style:
                                         (
                                           theme.textTheme.headlineMedium ??
-                                              const TextStyle(fontSize: 26),
+                                              const TextStyle(fontSize: 26)
                                         )
                                             .copyWith(
                                               fontWeight: FontWeight.w800,

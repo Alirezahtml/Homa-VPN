@@ -1102,14 +1102,11 @@ bool motionStill(BuildContext context) => _still(context);
 /// ends. The page's widgets build their own tweens on top of it.
 class _Entrance extends StatefulWidget {
   const _Entrance({
-    required this.child,
     required this.build,
     this.delay = 0,
     this.duration = const Duration(milliseconds: 380),
     this.curve = Curves.easeOutCubic,
   });
-
-  final Widget child;
 
   /// The child drawn from the animation: the tween's own stage.
   final Widget Function(BuildContext context, Animation<double> animation)
@@ -1132,7 +1129,10 @@ class _EntranceState extends State<_Entrance>
     duration: widget.duration,
   )..value = 1;
 
-  late CurvedAnimation _a = CurvedAnimation(parent: _c, curve: widget.curve);
+  late final CurvedAnimation _a = CurvedAnimation(
+    parent: _c,
+    curve: widget.curve,
+  );
   bool _ran = false;
 
   @override
@@ -1259,7 +1259,7 @@ class StaggerIn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final (i, child) in children.indexed)
-          SlideFadeIn(child: child, from: from, delay: i * step),
+          SlideFadeIn(from: from, delay: i * step, child: child),
       ],
     );
   }
@@ -2609,7 +2609,7 @@ class _TiltHoverState extends State<TiltHover> {
             (context, lean, child) => Transform(
               alignment: Alignment.center,
               transform:
-                  Matrix4()
+                  Matrix4.identity()
                     ..setEntry(3, 2, 0.001)
                     ..rotateX(widget.angle * lean.dy)
                     ..rotateY(widget.angle * lean.dx),

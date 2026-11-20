@@ -129,7 +129,14 @@ class LiquidGlass extends StatelessWidget {
     final accent = this.accent;
     final content = Padding(
       padding: padding ?? EdgeInsets.zero,
-      child: child,
+      // The glass's own Material: the rows and tiles inside a glass card
+      // paint their backgrounds and splashes on the nearest Material, and
+      // the glass's decorated box would stand between them and the page's
+      // one — so the card carries its own for them.
+      child: Material(
+        type: MaterialType.transparency,
+        child: child,
+      ),
     );
     Widget box = Container(
       decoration: BoxDecoration(
