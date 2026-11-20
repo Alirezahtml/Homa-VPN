@@ -4832,6 +4832,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The pushed pages arrive with a soft glide and the page\'s title from its own edge; while a setting saves, a quiet line sweeps the section.'**
   String get wn52Pages;
+
+  /// No description provided for @wn56Button.
+  ///
+  /// In en, this message translates to:
+  /// **'The connect slider keeps its word through the whole walk — no more empty moment between connecting and connected: the word glides between its states now, and the working dim follows with a breath.'**
+  String get wn56Button;
+
+  /// No description provided for @wn56Capsule.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheel\'s home says each state once: the repeated status word above the slider is gone — the track itself carries it, and the page reads a line quieter.'**
+  String get wn56Capsule;
+
+  /// No description provided for @wn56Door.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed test has its own door on the home: one row, one tap, and the measurement opens — before the first connect too, not only while the tunnel carries.'**
+  String get wn56Door;
+
+  /// No description provided for @wn56Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags\' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.'**
+  String get wn56Wheel;
+
+  /// No description provided for @designGazette.
+  ///
+  /// In en, this message translates to:
+  /// **'Gazette'**
+  String get designGazette;
+
+  /// No description provided for @designGazetteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A front page: the masthead, the ruled columns and the ink stamp — the news sheet\'s own calm, in paper and ink'**
+  String get designGazetteDesc;
+
+  /// No description provided for @speedTestSizesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Test size'**
+  String get speedTestSizesTitle;
+
+  /// No description provided for @speedTestSizeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get speedTestSizeLight;
+
+  /// No description provided for @speedTestSizeStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get speedTestSizeStandard;
+
+  /// No description provided for @speedTestSizeFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get speedTestSizeFull;
+
+  /// No description provided for @speedTestJitter.
+  ///
+  /// In en, this message translates to:
+  /// **'Jitter'**
+  String get speedTestJitter;
+
+  /// No description provided for @gazetteEdition.
+  ///
+  /// In en, this message translates to:
+  /// **'No. {n}'**
+  String gazetteEdition(int n);
+
+  /// No description provided for @gazetteBulletin.
+  ///
+  /// In en, this message translates to:
+  /// **'Security Bulletin'**
+  String get gazetteBulletin;
+
+  /// No description provided for @gazetteLiveWire.
+  ///
+  /// In en, this message translates to:
+  /// **'Live wire'**
+  String get gazetteLiveWire;
+
+  /// No description provided for @wn56Speed.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed test lives again: each leg measures on its own connection and speaks plain HTTP/1.1, so the upload no longer dies when the download\'s window closes — and the panel adds the path\'s delay, its jitter, and a size to pick.'**
+  String get wn56Speed;
+
+  /// No description provided for @wn56Gazette.
+  ///
+  /// In en, this message translates to:
+  /// **'A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries.'**
+  String get wn56Gazette;
 }
 
 class _AppLocalizationsDelegate
@@ -4916,25 +5012,4 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.',
   );
-
-  /// No description provided for @wn56Button.
-  ///
-  /// In en, this message translates to:
-  /// **'The connect slider keeps its word through the whole walk — no more empty moment between connecting and connected: the word glides between its states now, and the working dim follows with a breath.'**
-  String get wn56Button;
-  /// No description provided for @wn56Capsule.
-  ///
-  /// In en, this message translates to:
-  /// **'The wheel\'s home says each state once: the repeated status word above the slider is gone — the track itself carries it, and the page reads a line quieter.'**
-  String get wn56Capsule;
-  /// No description provided for @wn56Door.
-  ///
-  /// In en, this message translates to:
-  /// **'The speed test has its own door on the home: one row, one tap, and the measurement opens — before the first connect too, not only while the tunnel carries.'**
-  String get wn56Door;
-  /// No description provided for @wn56Wheel.
-  ///
-  /// In en, this message translates to:
-  /// **'The flags\' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.'**
-  String get wn56Wheel;
 }

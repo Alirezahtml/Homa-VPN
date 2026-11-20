@@ -809,5 +809,17 @@
   "wn56Button": "Thanh trượt kết nối giữ nguyên chữ của nó suốt hành trình — không còn khoảnh khắc trống giữa 'đang kết nối' và 'đã kết nối': chữ nay trượt mượt giữa các trạng thái, và độ mờ khi làm việc đến theo một nhịp thở.",
   "wn56Capsule": "Trang chính của bánh xe nói mỗi trạng thái một lần: chữ trạng thái lặp lại trên thanh trượt đã đi — chính đường ray mang nó, và trang đọc êm hơn một dòng.",
   "wn56Door": "Bài kiểm tra tốc độ có cửa riêng trên trang chính: một hàng, một chạm, và phép đo mở ra — cả trước lần kết nối đầu tiên, không chỉ khi đường hầm đang chạy.",
-  "wn56Wheel": "Bánh xe cờ trượt mượt: một cú đẩy mang một quốc gia, và cú đáp nằm yên vào chỗ thay vì va đập — cú kéo đọc nặng và ổn như một núm xoay tốt."
+  "wn56Wheel": "Bánh xe cờ trượt mượt: một cú đẩy mang một quốc gia, và cú đáp nằm yên vào chỗ thay vì va đập — cú kéo đọc nặng và ổn như một núm xoay tốt.",
+  "designGazette": "Tờ báo",
+  "designGazetteDesc": "Trang nhất: đề mục, các cột kẻ dòng và con dấu mực — sự tĩnh lặng của tờ báo, bằng giấy và mực",
+  "speedTestSizesTitle": "Cỡ bài kiểm tra",
+  "speedTestSizeLight": "Nhẹ",
+  "speedTestSizeStandard": "Tiêu chuẩn",
+  "speedTestSizeFull": "Đầy đủ",
+  "speedTestJitter": "Độ rung",
+  "gazetteEdition": "Số {n}",
+  "gazetteBulletin": "Bản tin an ninh",
+  "gazetteLiveWire": "Tin trực tiếp",
+  "wn56Speed": "Bài kiểm tra tốc độ sống lại: mỗi chiều đo trên kết nối riêng và nói HTTP/1.1 thuần, việc tải lên không còn chết khi cửa sổ tải xuống đóng — bảng thêm độ trễ đường đi, độ rung và cỡ để chọn.",
+  "wn56Gazette": "Diện mạo trang chủ mới: tờ báo — trang nhất với đề mục, các cột kẻ dòng, băng tin trực tiếp và con dấu mực đóng xuống khi đường hầm chạy."
 }

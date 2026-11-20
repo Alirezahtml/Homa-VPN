@@ -2757,4 +2757,45 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'Bánh xe cờ trượt mượt: một cú đẩy mang một quốc gia, và cú đáp nằm yên vào chỗ thay vì va đập — cú kéo đọc nặng và ổn như một núm xoay tốt.';
+
+  @override
+  String get designGazette => 'Tờ báo';
+
+  @override
+  String get designGazetteDesc =>
+      'Trang nhất: đề mục, các cột kẻ dòng và con dấu mực — sự tĩnh lặng của tờ báo, bằng giấy và mực';
+
+  @override
+  String get speedTestSizesTitle => 'Cỡ bài kiểm tra';
+
+  @override
+  String get speedTestSizeLight => 'Nhẹ';
+
+  @override
+  String get speedTestSizeStandard => 'Tiêu chuẩn';
+
+  @override
+  String get speedTestSizeFull => 'Đầy đủ';
+
+  @override
+  String get speedTestJitter => 'Độ rung';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'Số $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Bản tin an ninh';
+
+  @override
+  String get gazetteLiveWire => 'Tin trực tiếp';
+
+  @override
+  String get wn56Speed =>
+      'Bài kiểm tra tốc độ sống lại: mỗi chiều đo trên kết nối riêng và nói HTTP/1.1 thuần, việc tải lên không còn chết khi cửa sổ tải xuống đóng — bảng thêm độ trễ đường đi, độ rung và cỡ để chọn.';
+
+  @override
+  String get wn56Gazette =>
+      'Diện mạo trang chủ mới: tờ báo — trang nhất với đề mục, các cột kẻ dòng, băng tin trực tiếp và con dấu mực đóng xuống khi đường hầm chạy.';
 }

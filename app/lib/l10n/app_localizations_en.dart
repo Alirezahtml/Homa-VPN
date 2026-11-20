@@ -2765,4 +2765,45 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'The flags\' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.';
+
+  @override
+  String get designGazette => 'Gazette';
+
+  @override
+  String get designGazetteDesc =>
+      'A front page: the masthead, the ruled columns and the ink stamp — the news sheet\'s own calm, in paper and ink';
+
+  @override
+  String get speedTestSizesTitle => 'Test size';
+
+  @override
+  String get speedTestSizeLight => 'Light';
+
+  @override
+  String get speedTestSizeStandard => 'Standard';
+
+  @override
+  String get speedTestSizeFull => 'Full';
+
+  @override
+  String get speedTestJitter => 'Jitter';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'No. $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Security Bulletin';
+
+  @override
+  String get gazetteLiveWire => 'Live wire';
+
+  @override
+  String get wn56Speed =>
+      'The speed test lives again: each leg measures on its own connection and speaks plain HTTP/1.1, so the upload no longer dies when the download\'s window closes — and the panel adds the path\'s delay, its jitter, and a size to pick.';
+
+  @override
+  String get wn56Gazette =>
+      'A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries.';
 }

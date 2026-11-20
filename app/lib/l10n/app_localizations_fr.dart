@@ -2783,4 +2783,45 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'La roue des drapeaux glisse : une impulsion amène un pays, et l\'atterrissage se pose au lieu de claquer — le geste se lit ferme et régulier, comme un bon cadran.';
+
+  @override
+  String get designGazette => 'Gazette';
+
+  @override
+  String get designGazetteDesc =>
+      'Une « une » : le bandeau, les colonnes filetées et le tampon d\'encre — le calme du journal, en papier et encre';
+
+  @override
+  String get speedTestSizesTitle => 'Taille du test';
+
+  @override
+  String get speedTestSizeLight => 'Léger';
+
+  @override
+  String get speedTestSizeStandard => 'Standard';
+
+  @override
+  String get speedTestSizeFull => 'Complet';
+
+  @override
+  String get speedTestJitter => 'Gigue';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'N° $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Bulletin de sécurité';
+
+  @override
+  String get gazetteLiveWire => 'Fil direct';
+
+  @override
+  String get wn56Speed =>
+      'Le test de vitesse revit : chaque sens mesure sur sa propre connexion et parle HTTP/1.1, l\'envoi ne meurt plus quand la fenêtre du téléchargement se ferme — et le panneau ajoute le délai du chemin, sa gigue et une taille au choix.';
+
+  @override
+  String get wn56Gazette =>
+      'Un nouveau look d\'accueil : la gazette — une « une » avec bandeau, colonnes filetées, téléscripteur en direct et le tampon d\'encre qui se pose quand le tunnel tient.';
 }

@@ -88,6 +88,7 @@ class DesignStyle {
   static DesignStyle resolve(String key, bool dark) => switch (key) {
     'aether' => _aether(dark),
     'zed' => _zed(dark),
+    'gazette' => _gazette(dark),
     _ => _mono(dark),
   };
 
@@ -176,6 +177,28 @@ class DesignStyle {
     navActive: const Color(0xFF7A5CFF),
     navInactive: dark ? const Color(0xFFA99BC8) : const Color(0xFF6E6488),
     switchTrack: const Color(0xFF7A5CFF),
+  );
+
+  /// The gazette's structure: the printed page's own — near-square cards
+  /// ruled with hairlines, the small dialog, the ink's state colors (the
+  /// green stamp carries, the ochre reaches, the red ink blocks), and
+  /// the paper-toned pill for the navigation. The material header stays:
+  /// a pushed page reads like a section front.
+  static DesignStyle _gazette(bool dark) => DesignStyle._(
+    nav: NavVariant.glassPill,
+    header: HeaderVariant.material,
+    group: GroupVariant.flat,
+    cardRadius: 6,
+    listRadius: 4,
+    dialogRadius: 8,
+    iconBadge: false,
+    connected: dark ? const Color(0xFF74B089) : const Color(0xFF1F5F3F),
+    scanning: dark ? const Color(0xFFC4A24D) : const Color(0xFF8A6D1F),
+    danger: dark ? const Color(0xFFD6574A) : const Color(0xFFA8231D),
+    navBackground: dark ? const Color(0xFF1C1812) : const Color(0xFFFBF7EC),
+    navActive: dark ? const Color(0xFFEDE4CF) : const Color(0xFF1C1712),
+    navInactive: dark ? const Color(0xFFA3967F) : const Color(0xFF6E6355),
+    switchTrack: dark ? const Color(0xFFEDE4CF) : const Color(0xFF1C1712),
   );
 
   /// The row's icon badge: the iOS table's colored rounded squares (the

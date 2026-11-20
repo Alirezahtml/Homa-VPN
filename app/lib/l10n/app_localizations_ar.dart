@@ -2763,4 +2763,45 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'تنزلق عجلة الأعلام بانسيابية: رمية واحدة تجلب دولة واحدة، والهبوط يستقر في مكانه بدل أن يرتطم — فيُقرأ السحب ثقيلًا وثابتًا كقرص جيد.';
+
+  @override
+  String get designGazette => 'صحيفة';
+
+  @override
+  String get designGazetteDesc =>
+      'صفحة أولى: الترويسة والأعمدة المخططة وختم الحبر — هدوء الجريدة من ورق وحبر';
+
+  @override
+  String get speedTestSizesTitle => 'حجم الاختبار';
+
+  @override
+  String get speedTestSizeLight => 'خفيف';
+
+  @override
+  String get speedTestSizeStandard => 'قياسي';
+
+  @override
+  String get speedTestSizeFull => 'كامل';
+
+  @override
+  String get speedTestJitter => 'التذبذب';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'العدد $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'نشرة الأمن';
+
+  @override
+  String get gazetteLiveWire => 'الأخبار العاجلة';
+
+  @override
+  String get wn56Speed =>
+      'اختبار السرعة عاد للحياة: كل اتجاه يقيس على وصله الخاصة ويتكلم HTTP/1.1 الصافي، فلا يموت الرفع عند إغلاق نافذة التنزيل — وتضيف اللوحة تأخير المسار وتذبذبه وحجمًا للاختيار.';
+
+  @override
+  String get wn56Gazette =>
+      'مظهر رئيسي جديد: الصحيفة — صفحة أولى بترويسة وأعمدة مخططة وشريط أخبار حي وختم حبر يُطبع عند عمل النفق.';
 }

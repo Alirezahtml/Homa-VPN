@@ -2757,4 +2757,45 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur.';
+
+  @override
+  String get designGazette => 'Gazete';
+
+  @override
+  String get designGazetteDesc =>
+      'Manşet: başlık, çizgili sütunlar ve mürekkep damgası — kâğıt ve mürekkepte gazetenin sükûneti';
+
+  @override
+  String get speedTestSizesTitle => 'Test boyutu';
+
+  @override
+  String get speedTestSizeLight => 'Hafif';
+
+  @override
+  String get speedTestSizeStandard => 'Standart';
+
+  @override
+  String get speedTestSizeFull => 'Tam';
+
+  @override
+  String get speedTestJitter => 'Titreme';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'Sayı $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Güvenlik Bülteni';
+
+  @override
+  String get gazetteLiveWire => 'Canlı hat';
+
+  @override
+  String get wn56Speed =>
+      'Hız testi canlandı: her yön kendi bağlantısında ölçüyor ve yalın HTTP/1.1 konuşuyor, indirme penceresi kapanınca yükleme artık ölmüyor — panel yolun gecikmesini, titremesini ve seçilebilir boyutu ekliyor.';
+
+  @override
+  String get wn56Gazette =>
+      'Yeni ana görünüm: gazete — başlıklı, çizgili sütunlu, canlı bantlı ve tünel tuttuğunda basılan mürekkep damgalı bir ön sayfa.';
 }

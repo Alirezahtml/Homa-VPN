@@ -2751,4 +2751,45 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'পতাকার চাকা মসৃণভাবে ভাসে: এক ফ্লিং একটি দেশ আনে, আর অবতরণ ঠোকর খেয়ে না বসে জায়গায় স্থির হয় — টানটা ভারী ও স্থির, ভালো ঘুরানো নবের মতো।';
+
+  @override
+  String get designGazette => 'সংবাদপত্র';
+
+  @override
+  String get designGazetteDesc =>
+      'সংবাদপত্রের প্রথম পাতা: মাস্টহেড, রেখাযুক্ত কলাম এবং কালির সিল — কাগজ ও কালিতে খবরের শান্তি';
+
+  @override
+  String get speedTestSizesTitle => 'পরীক্ষার আকার';
+
+  @override
+  String get speedTestSizeLight => 'হালকা';
+
+  @override
+  String get speedTestSizeStandard => 'স্ট্যান্ডার্ড';
+
+  @override
+  String get speedTestSizeFull => 'পূর্ণ';
+
+  @override
+  String get speedTestJitter => 'জিটার';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'সংখ্যা $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'নিরাপত্তা বুলেটিন';
+
+  @override
+  String get gazetteLiveWire => 'লাইভ সংবাদ';
+
+  @override
+  String get wn56Speed =>
+      'স্পিড টেস্ট ফিরে এসেছে: প্রতিটি দিক নিজের সংযোগে মাপে এবং সাধারণ HTTP/1.1-এ কথা বলে, তাই ডাউনলোডের জানালা বন্ধ হলে আপলোড আর মারা যায় না — প্যানেলে পাথের ডিলে, জিটার ও পছন্দের আকার যোগ হয়েছে।';
+
+  @override
+  String get wn56Gazette =>
+      'নতুন হোম চেহারা: সংবাদপত্র — মাস্টহেড, রেখাযুক্ত কলাম, লাইভ টিকার এবং টানেল চালু হলে ছাপা হওয়া কালির সিলসহ প্রথম পাতা।';
 }

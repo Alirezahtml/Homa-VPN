@@ -2772,4 +2772,45 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'A zászlókerék súrlódás nélkül csúszik: egy lendület egy országot hoz, és a landolás helyre ül, nem becsapódik — a húzás nehéz és egyenletes, mint egy jó gomb.';
+
+  @override
+  String get designGazette => 'Lap';
+
+  @override
+  String get designGazetteDesc =>
+      'Címlap: a fejléc, a vonaltagolt hasábok és a tintabélyegző — az újság nyugalma, papíron és tintával';
+
+  @override
+  String get speedTestSizesTitle => 'Teszt mérete';
+
+  @override
+  String get speedTestSizeLight => 'Könnyű';
+
+  @override
+  String get speedTestSizeStandard => 'Normál';
+
+  @override
+  String get speedTestSizeFull => 'Teljes';
+
+  @override
+  String get speedTestJitter => 'Jitter';
+
+  @override
+  String gazetteEdition(int n) {
+    return '$n. szám';
+  }
+
+  @override
+  String get gazetteBulletin => 'Biztonsági híradó';
+
+  @override
+  String get gazetteLiveWire => 'Riportsor';
+
+  @override
+  String get wn56Speed =>
+      'A sebességteszt újra él: minden irány a saját kapcsolatán mér és sima HTTP/1.1-en beszél, így a feltöltés nem hal meg, amikor a letöltés ablaka zárul — a panel adja az út késleltetését, a jittert és választható méretet.';
+
+  @override
+  String get wn56Gazette =>
+      'Új otthon-look: a lap — címlap fejléccel, vonaltagolt hasábokkal, élő hírsorral és a tintabélyegzővel, amely akkor csapódik rá, amikor az alagút áll.';
 }

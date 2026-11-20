@@ -2767,4 +2767,45 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'A roda das bandeiras desliza: um impulso traz um país, e a aterragem assenta em vez de bater — o arrasto lê-se firme e estável, como um bom botão.';
+
+  @override
+  String get designGazette => 'Jornal';
+
+  @override
+  String get designGazetteDesc =>
+      'Uma primeira página: o cabeçalho, as colunas pautadas e o carimbo de tinta — a calma do jornal, em papel e tinta';
+
+  @override
+  String get speedTestSizesTitle => 'Tamanho do teste';
+
+  @override
+  String get speedTestSizeLight => 'Leve';
+
+  @override
+  String get speedTestSizeStandard => 'Padrão';
+
+  @override
+  String get speedTestSizeFull => 'Completo';
+
+  @override
+  String get speedTestJitter => 'Jitter';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'N.º $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Boletim de segurança';
+
+  @override
+  String get gazetteLiveWire => 'Manchete ao vivo';
+
+  @override
+  String get wn56Speed =>
+      'O teste de velocidade vive de novo: cada sentido mede na sua própria ligação e fala HTTP/1.1 simples, o envio já não morre quando a janela da descarga fecha — e o painel acrescenta o atraso do caminho, o jitter e um tamanho à escolha.';
+
+  @override
+  String get wn56Gazette =>
+      'Um novo aspeto da casa: o jornal — uma primeira página com cabeçalho, colunas pautadas, teletipo ao vivo e o carimbo de tinta que pressiona quando o túnel corre.';
 }

@@ -809,5 +809,17 @@
   "wn56Button": "A csúszka végig őrzi a szavát — többé nincs üres pillanat a „kapcsolódás” és a „kapcsolódva” között: a szó most átcsúszik állapotai között, és a munka halványulása egy lehellel érkezik.",
   "wn56Capsule": "A kerék hazája minden állapotot egyszer mond: eltűnt a csúszka fölött ismétlődő állapotszó — maga a pálya viszi, és az oldal egy sorral nyugodtabb.",
   "wn56Door": "A sebességtesztnek saját ajtaja van a főoldalon: egy sor, egy koppintás, és nyílik a mérés — az első kapcsolódás előtt is, nem csak amikor az alagút viszi.",
-  "wn56Wheel": "A zászlókerék súrlódás nélkül csúszik: egy lendület egy országot hoz, és a landolás helyre ül, nem becsapódik — a húzás nehéz és egyenletes, mint egy jó gomb."
+  "wn56Wheel": "A zászlókerék súrlódás nélkül csúszik: egy lendület egy országot hoz, és a landolás helyre ül, nem becsapódik — a húzás nehéz és egyenletes, mint egy jó gomb.",
+  "designGazette": "Lap",
+  "designGazetteDesc": "Címlap: a fejléc, a vonaltagolt hasábok és a tintabélyegző — az újság nyugalma, papíron és tintával",
+  "speedTestSizesTitle": "Teszt mérete",
+  "speedTestSizeLight": "Könnyű",
+  "speedTestSizeStandard": "Normál",
+  "speedTestSizeFull": "Teljes",
+  "speedTestJitter": "Jitter",
+  "gazetteEdition": "{n}. szám",
+  "gazetteBulletin": "Biztonsági híradó",
+  "gazetteLiveWire": "Riportsor",
+  "wn56Speed": "A sebességteszt újra él: minden irány a saját kapcsolatán mér és sima HTTP/1.1-en beszél, így a feltöltés nem hal meg, amikor a letöltés ablaka zárul — a panel adja az út késleltetését, a jittert és választható méretet.",
+  "wn56Gazette": "Új otthon-look: a lap — címlap fejléccel, vonaltagolt hasábokkal, élő hírsorral és a tintabélyegzővel, amely akkor csapódik rá, amikor az alagút áll."
 }

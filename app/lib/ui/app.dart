@@ -108,9 +108,21 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   final fallbacks = fontFallbacks(font);
   // The display's own voice: the titles, the state word and the stat
   // values wear the face that says "this app" — Space Grotesk for the
-  // Latin languages, the language's own face for the rest.
-  final display = displayFont(AppSettings.languageFor(locale));
-  final displayFallback = displayFallbacks(display);
+  // Latin languages, the language's own face for the rest. The gazette
+  // wears its printed voices instead: Noto Serif's masthead face for
+  // the Latin, Noto Naskh Arabic's newspaper face for the Persian and
+  // the Arabic.
+  final gazette = AppDesign.current.key == 'gazette';
+  final gazetteScript = AppSettings.languageFor(locale) == 'fa' ||
+      AppSettings.languageFor(locale) == 'ar';
+  final display = gazette
+      ? (gazetteScript ? 'GazetteNaskh' : 'GazetteSerif')
+      : displayFont(AppSettings.languageFor(locale));
+  final displayFallback = gazette
+      ? (gazetteScript
+            ? ['GazetteSerif', 'Vazirmatn', 'Inter', 'SpaceGrotesk']
+            : ['GazetteNaskh', 'Vazirmatn', 'Inter', 'SpaceGrotesk'])
+      : displayFallbacks(display);
   final lit = accent == null ? null : accentForTheme(accent, dark);
   final effective = lit == null
       ? scheme

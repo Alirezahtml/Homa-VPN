@@ -2759,4 +2759,45 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'Bayraq çərxi yumsaq sürüşmə ilə gedir: bir atış bir ölkə gətirir, eniş isə çırpılıb yerləşmək əvəzinə yerinə yığılır — çəkmə ağır və rəvan, yaxşı bir açar kimi oxunur.';
+
+  @override
+  String get designGazette => 'Qəzet';
+
+  @override
+  String get designGazetteDesc =>
+      'Qəzet səhifəsi: başlıq, xətli sütunlar və mürəkkəb möhür — kağız və mürəkkəblə qəzetin sakitliyi';
+
+  @override
+  String get speedTestSizesTitle => 'Test ölçüsü';
+
+  @override
+  String get speedTestSizeLight => 'Yüngül';
+
+  @override
+  String get speedTestSizeStandard => 'Standart';
+
+  @override
+  String get speedTestSizeFull => 'Tam';
+
+  @override
+  String get speedTestJitter => 'Titrəmə';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'Sayı $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Təhlükəsizlik bülleteni';
+
+  @override
+  String get gazetteLiveWire => 'Canlı xəbər';
+
+  @override
+  String get wn56Speed =>
+      'Sürət testi canlandı: hər istiqamət öz bağlantısında ölçür və sadə HTTP/1.1 danışır, yükləmə endirmənin pəncərisi bağlananda ölmür — panel yolun gecikməsini, titrəməsini və seçiləcək ölçünü əlavə edir.';
+
+  @override
+  String get wn56Gazette =>
+      'Yeni ev görünüşü: qəzet — başlıqlı, xətli sütunlu, canlı xəbər lentli və tünel işləyəndə vuran mürəkkəb möhürlü birinci səhifə.';
 }

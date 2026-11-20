@@ -35,6 +35,7 @@ abstract final class AppDesign {
   static DesignTheme resolve(String key) => switch (key) {
     'aether' => DesignTheme.aether,
     'zed' => DesignTheme.zed,
+    'gazette' => DesignTheme.gazette,
     _ => DesignTheme.mono,
   };
 
@@ -183,6 +184,46 @@ class DesignTheme {
       homeBottom: Color(0xFF070410),
       homeCard: Color(0xFF150E24),
       homeCardBorder: Color(0xFF271C3D),
+    ),
+  );
+
+  /// The gazette: the news sheet's own look — ivory paper, warm ink, the
+  /// red ink's light, and the hairline rules of a printed page. The day
+  /// is the folded morning paper; the night is the paper printed in
+  /// negative, cream ink on dark stock.
+  static const gazette = DesignTheme._(
+    key: 'gazette',
+    day: DesignLook(
+      scaffold: Color(0xFFF5F0E4),
+      scaffoldBottom: Color(0xFFEDE6D5),
+      surface: Color(0xFFFBF7EC),
+      surfaceHigh: Color(0xFFF3EDE0),
+      containerHighest: Color(0xFFEFE8D8),
+      ink: Color(0xFF1C1712),
+      muted: Color(0xFF6E6355),
+      outline: Color(0xFFCFC4AB),
+      accent: Color(0xFFA8231D),
+      cardShadow: [],
+      homeTop: Color(0xFFF5F0E4),
+      homeBottom: Color(0xFFEDE6D5),
+      homeCard: Color(0xFFFBF7EC),
+      homeCardBorder: Color(0xFFCFC4AB),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF14110C),
+      scaffoldBottom: Color(0xFF0F0D09),
+      surface: Color(0xFF1C1812),
+      surfaceHigh: Color(0xFF242016),
+      containerHighest: Color(0xFF201B13),
+      ink: Color(0xFFEDE4CF),
+      muted: Color(0xFFA3967F),
+      outline: Color(0xFF3A3426),
+      accent: Color(0xFFD6574A),
+      cardShadow: [],
+      homeTop: Color(0xFF14110C),
+      homeBottom: Color(0xFF0F0D09),
+      homeCard: Color(0xFF1C1812),
+      homeCardBorder: Color(0xFF3A3426),
     ),
   );
 

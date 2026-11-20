@@ -3954,13 +3954,14 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'pixel' => l.designPixel,
   'aether' => l.designAether,
   'zed' => l.designZed,
+  'gazette' => l.designGazette,
   _ => l.designWheel,
 };
 
-/// The home design picker: the five real layouts the home page has —
-/// the wheel, the tiles, the compact card, and the two looks that carry
+/// The home design picker: the six real layouts the home page has —
+/// the wheel, the tiles, the compact card, and the looks that carry
 /// a whole palette of their own (the aether's iOS status card, the
-/// zed's gradient blob) — each as a card with a small mock-up of itself
+/// zed's gradient blob, the gazette's front page) — each as a card with a small mock-up of itself
 /// drawn in the theme's own ink, its name, and a word about what it is.
 /// A tap chooses; the home page follows at once (the app's root rebuilds
 /// on the settings), and with the two, the whole app's palette follows
@@ -3986,13 +3987,14 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'pixel',
                   'aether',
                   'zed',
+                  'gazette',
                 ]) ...[
                   _DesignCard(
                     kind: kind,
                     selected: s.homeDesign == kind,
                     onTap: () => s.update(homeDesign: kind),
                   ),
-                  if (kind != 'zed') const SizedBox(height: 10),
+                  if (kind != 'gazette') const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -4033,6 +4035,7 @@ class _DesignCard extends StatelessWidget {
       'pixel' => (l.designPixel, l.designPixelDesc),
       'aether' => (l.designAether, l.designAetherDesc),
       'zed' => (l.designZed, l.designZedDesc),
+      'gazette' => (l.designGazette, l.designGazetteDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4255,6 +4258,52 @@ class _DesignMockup extends StatelessWidget {
             ),
             const SizedBox(height: 7),
             tile(w: 40, h: 7),
+          ],
+        );
+      case 'gazette':
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // The masthead: the thick rule, the fine rule, the name.
+            Container(height: 2.4, color: lit),
+            const SizedBox(height: 2),
+            Container(height: 1, color: ink.withValues(alpha: 0.55)),
+            const SizedBox(height: 6),
+            Center(child: tile(w: 30, h: 6, color: ink.withValues(alpha: 0.8))),
+            const SizedBox(height: 6),
+            Container(height: 1, color: ink.withValues(alpha: 0.55)),
+            const SizedBox(height: 6),
+            // The headline with the stamp beside it.
+            Row(
+              children: [
+                tile(w: 42, h: 10, color: lit),
+                const Spacer(),
+                Container(
+                  width: 22,
+                  height: 14,
+                  transform: Matrix4.rotationZ(-0.1),
+                  transformAlignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(color: lit, width: 1.2),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Container(height: 1, color: ink.withValues(alpha: 0.35)),
+            const SizedBox(height: 6),
+            // The numbers in their ruled columns.
+            Row(
+              children: [
+                for (var i = 0; i < 3; i++) ...[
+                  if (i > 0)
+                    Container(width: 1, height: 12, color: ink.withValues(alpha: 0.35)),
+                  Expanded(child: Center(child: tile(w: 14, h: 8))),
+                ],
+              ],
+            ),
           ],
         );
       default: // The wheel.

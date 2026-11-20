@@ -809,5 +809,17 @@
   "wn56Button": "Penggeser koneksi mempertahankan katanya sepanjang jalan — tak ada lagi jeda kosong antara 'menyambung' dan 'tersambung': kata kini meluncur di antara keadaannya, dan peredupan saat bekerja datang dengan satu napas.",
   "wn56Capsule": "Beranda roda menyebut setiap keadaan sekali: kata status yang berulang di atas penggeser pergi — jalurnya sendiri yang membawanya, dan halaman terbaca satu baris lebih tenang.",
   "wn56Door": "Uji kecepatan punya pintu sendiri di beranda: satu baris, satu ketukan, dan pengukuran terbuka — juga sebelum koneksi pertama, bukan hanya saat terowongan berjalan.",
-  "wn56Wheel": "Roda bendera meluncur mulus: satu lemparan membawa satu negara, dan pendaratannya menetap alih-alih membentur — tarikannya terasa mantap dan stabil seperti kenop yang baik."
+  "wn56Wheel": "Roda bendera meluncur mulus: satu lemparan membawa satu negara, dan pendaratannya menetap alih-alih membentur — tarikannya terasa mantap dan stabil seperti kenop yang baik.",
+  "designGazette": "Koran",
+  "designGazetteDesc": "Halaman depan: masthead, kolom bergaris, dan stempel tinta — ketenangan koran, dalam kertas dan tinta",
+  "speedTestSizesTitle": "Ukuran tes",
+  "speedTestSizeLight": "Ringan",
+  "speedTestSizeStandard": "Standar",
+  "speedTestSizeFull": "Penuh",
+  "speedTestJitter": "Jitter",
+  "gazetteEdition": "No. {n}",
+  "gazetteBulletin": "Buletin Keamanan",
+  "gazetteLiveWire": "Kabar langsung",
+  "wn56Speed": "Tes kecepatan hidup kembali: setiap arah mengukur di koneksinya sendiri dan berbicara HTTP/1.1 murni, unggahan tidak lagi mati saat jendela unduhan tertutup — panel menambah latensi jalur, jitter, dan ukuran yang bisa dipilih.",
+  "wn56Gazette": "Tampilan rumah baru: koran — halaman depan dengan masthead, kolom bergaris, ticker langsung, dan stempel tinta yang menghentak saat terowongan berjalan."
 }

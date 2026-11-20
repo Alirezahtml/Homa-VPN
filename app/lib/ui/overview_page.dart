@@ -23,6 +23,7 @@ import 'design.dart';
 import 'design_style.dart';
 import 'flag_carousel.dart';
 import 'format.dart';
+import 'gazette.dart';
 import 'glass.dart';
 import 'motion.dart';
 import 'port_dialog.dart';
@@ -344,7 +345,7 @@ class _DesktopHome extends StatelessWidget {
           Positioned.fill(
             child: ZedFabCluster(
               onOpenServers: () => onOpenServers?.call(),
-              onOpenSpeedTest: () => showSpeedTest(context, core),
+              onOpenSpeedTest: () => showSpeedTest(context, core, settings),
             ),
           ),
         ],
@@ -1323,7 +1324,7 @@ class _PhoneHome extends StatelessWidget {
           Positioned.fill(
             child: ZedFabCluster(
               onOpenServers: () => onOpenServers?.call(),
-              onOpenSpeedTest: () => showSpeedTest(context, core),
+              onOpenSpeedTest: () => showSpeedTest(context, core, settings),
             ),
           ),
         ],
@@ -1431,8 +1432,11 @@ class _PhoneHome extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // The brand: the official wordmark, in the theme's face.
-          Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
+          // The brand: the official wordmark, in the theme's face — the
+          // gazette's masthead carries it instead, so the wordmark rests
+          // there and the page opens like a paper, not a screen.
+          if (design != 'gazette')
+            Reveal(index: 0, child: Center(child: BrandWordmark(height: 24))),
           if (design == 'wheel') ...[
             // The wheel sits a touch lower than the wordmark: a breath of
             // space under the brand before the flags begin.
@@ -1531,6 +1535,38 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
+          ] else if (design == 'gazette') ...[
+            // The gazette's opening: the masthead — the double rule, the
+            // brand riding the middle between the day's line and the
+            // edition's number, the bulletin's tag under them — then the
+            // flags' strip, ruled like the paper's own region box.
+            const SizedBox(height: 10),
+            Reveal(
+              index: 0,
+              child: GazetteMasthead(
+                brand: BrandWordmark(height: 22),
+                dateLine: gazetteDateLine(l, DateTime.now()),
+                edition: l.gazetteEdition(gazetteEditionNo()),
+                bulletin: l.gazetteBulletin,
+                ink: p.text,
+                muted: p.muted,
+                rule: p.cardBorder,
+              ),
+            ),
+            const SizedBox(height: 18),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagStrip(
+                  core: core,
+                  text: p.text,
+                  border: p.cardBorder,
+                  accent: accent,
+                  showName: false,
+                ),
+              ),
+            ),
+            const SizedBox(height: 22),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1553,7 +1589,8 @@ class _PhoneHome extends StatelessWidget {
           if (design != 'wheel' &&
               design != 'bento' &&
               design != 'aether' &&
-              design != 'zed')
+              design != 'zed' &&
+              design != 'gazette')
             Reveal(
               index: 1,
               child: Center(
@@ -1791,6 +1828,116 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 8 : 18),
+          ] else if (design == 'gazette') ...[
+            // The gazette's hero: the front page — the headline (the
+            // state's word, typed by the wire) with the measured delay's
+            // stamp beside it, the slider's commit under a rule, and the
+            // session's numbers in their ruled columns. The live wire's
+            // tape walks under the page while the tunnel carries.
+            Flexible(
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Reveal(
+                    index: 2,
+                    child: RepaintBoundary(
+                      child: GazetteFrontPage(
+                        headline: label,
+                        headlineStyle: (theme.textTheme.headlineLarge ??
+                                const TextStyle(fontSize: 32))
+                            .copyWith(
+                              fontWeight: FontWeight.w800,
+                              height: 1.1,
+                              fontFamily: typefacesOf(context).display,
+                              fontFamilyFallback: typefacesOf(context)
+                                  .displayFallback,
+                              color: confirming
+                                  ? p.text
+                                  : (on ? accent : p.text),
+                            ),
+                        stampLabel: l.realDelay,
+                        stampValue: (test?.ok ?? false)
+                            ? l.milliseconds(test!.responseMs)
+                            : '—',
+                        stampOn: connected && (test?.ok ?? false),
+                        stats: [
+                          (
+                            l.statElapsed,
+                            proxy?.startedAt != null
+                                ? gazetteElapsed(proxy!.startedAt!)
+                                : '—',
+                          ),
+                          (
+                            l.statDown,
+                            formatRate(status.traffic?.downRate ?? 0),
+                          ),
+                          (
+                            l.statUp,
+                            formatRate(status.traffic?.upRate ?? 0),
+                          ),
+                        ],
+                        ink: p.text,
+                        muted: p.muted,
+                        rule: p.cardBorder,
+                        paper: p.card,
+                        display: typefacesOf(context).display,
+                        displayFallback: typefacesOf(context).displayFallback,
+                        accent: accent,
+                        slider: SlideToConnect(
+                          on: on,
+                          busy: core.switchingProxy || status.connectPending,
+                          accent: accent,
+                          dark: p.dark,
+                          card: p.card,
+                          border: p.cardBorder,
+                          text: p.text,
+                          muted: p.muted,
+                          labelConnect: l.slideToConnect,
+                          labelDisconnect: l.slideToDisconnect,
+                          // The headline carries the state's word, so the
+                          // track carries the action's instead — one page,
+                          // no word said twice.
+                          labelOn: l.slideToDisconnect,
+                          labelBusy: l.stateConnecting,
+                          tooltip: press,
+                          haptic: settings.hapticFeedback,
+                          onPressed: () => status.totalAccounts == 0
+                              ? _openAccounts(
+                                  context,
+                                  core,
+                                  settings,
+                                  onOpenAccounts,
+                                )
+                              : runShowingErrors(context, () => _toggle(on)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 12),
+            // The live wire: the session's own news, walking while the
+            // tunnel carries, resting when the battery saver asks.
+            Reveal(
+              index: 3,
+              child: GazetteTicker(
+                items: gazetteTickerItems(
+                  l: l,
+                  downRate: status.traffic?.downRate,
+                  upRate: status.traffic?.upRate,
+                  delay: (test?.ok ?? false)
+                      ? l.milliseconds(test!.responseMs)
+                      : null,
+                  place: place.name,
+                ),
+                ink: p.text,
+                muted: p.muted,
+                rule: p.cardBorder,
+                moving: connected && !settings.batterySaver,
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
           ] else ...[
             // The compact switch: the orb, on the place's own card.
             const SizedBox(height: 14),
@@ -1841,6 +1988,7 @@ class _PhoneHome extends StatelessWidget {
                   core: core,
                   status: status,
                   palette: p,
+                  settings: settings,
                   startedAt: proxy?.startedAt,
                   pingMs: (test?.ok ?? false) ? test!.responseMs : null,
                   showTraffic: settings.showTraffic,
@@ -2046,9 +2194,11 @@ class _PhoneHome extends StatelessWidget {
           else ...[
             // The compact home already shows the place as the chip its
             // switch sits on; the aurora's hero, the neon's ring and the
-            // sage's ledger carry it too. The wheel's and the tiles'
-            // homes keep the place's own card down here.
-            if (design == 'wheel' || design == 'bento') ...[
+            // sage's ledger carry it too. The wheel's, the tiles' and the
+            // gazette's homes keep the place's own card down here.
+            if (design == 'wheel' ||
+                design == 'bento' ||
+                design == 'gazette') ...[
               Reveal(
                 index: 4,
                 child: RepaintBoundary(
@@ -2078,7 +2228,7 @@ class _PhoneHome extends StatelessWidget {
                     value: connected ? l.speedTestThrough : l.speedTestDirect,
                     onTap: () {
                       AppSounds.play(SoundCue.tap);
-                      showSpeedTest(context, core);
+                      showSpeedTest(context, core, settings);
                     },
                     trailing: Padding(
                       padding: const EdgeInsetsDirectional.only(start: 8),
@@ -2129,44 +2279,65 @@ class _HomeCard extends StatelessWidget {
   final bool compact;
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(22),
-      boxShadow: palette.dark
-          ? null
-          : [
-              // Monochrome: a quiet black shade, no hue.
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.06),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
-              ),
-            ],
-    ),
-    child: Pressable(
-      // The home's own card, as glass: the fill the page breathes
-      // through, the rim's hair of light in the card border's place.
-      child: LiquidGlass(
-        radius: 22,
+  Widget build(BuildContext context) {
+    // The gazette's card wears paper instead of glass: the ruled box,
+    // the near-square corners, no shadow — the rules alone hold it.
+    if (AppDesign.current.key == 'gazette') {
+      return PaperCard(
+        ink: palette.text,
+        rule: palette.cardBorder,
+        paper: palette.card,
+        padding: EdgeInsetsDirectional.fromSTEB(
+          compact ? 14 : 16,
+          compact ? 10 : 14,
+          compact ? 8 : 10,
+          compact ? 10 : 14,
+        ),
         child: Material(
           color: Colors.transparent,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(22)),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: onTap,
-            child: Padding(
-              padding: compact
-                  ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
-                  : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
-              child: child,
+          child: InkWell(onTap: onTap, child: child),
+        ),
+      );
+    }
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: palette.dark
+            ? null
+            : [
+                // Monochrome: a quiet black shade, no hue.
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 24,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+      ),
+      child: Pressable(
+        // The home's own card, as glass: the fill the page breathes
+        // through, the rim's hair of light in the card border's place.
+        child: LiquidGlass(
+          radius: 22,
+          child: Material(
+            color: Colors.transparent,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(22)),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: compact
+                    ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                    : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+                child: child,
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /// The real delay under the state; a tap tests again.
@@ -2250,6 +2421,7 @@ class _HomeStats extends StatelessWidget {
     required this.core,
     required this.status,
     required this.palette,
+    required this.settings,
     required this.startedAt,
     required this.pingMs,
     this.showTraffic = true,
@@ -2258,6 +2430,7 @@ class _HomeStats extends StatelessWidget {
   final CoreController core;
   final CoreStatus status;
   final _HomePalette palette;
+  final AppSettings settings;
   final DateTime? startedAt;
   final int? pingMs;
 
@@ -2341,7 +2514,7 @@ class _HomeStats extends StatelessWidget {
           const SizedBox(height: 12),
           // The last minute of both rates, drawn: the tunnel's own pulse.
           // Tapping it measures the tunnel for real (the speed test).
-          _SpeedGraph(core: core, palette: p),
+          _SpeedGraph(core: core, palette: p, settings: settings),
           const SizedBox(height: 12),
           // What the whole session moved, through the tunnel and routed
           // directly: the rates say how fast, this says how much.
@@ -2365,10 +2538,15 @@ class _HomeStats extends StatelessWidget {
 /// traffic moves; tapped, it measures the tunnel for real (the speed
 /// test), so the graph and the numbers answer each other.
 class _SpeedGraph extends StatefulWidget {
-  const _SpeedGraph({required this.core, required this.palette});
+  const _SpeedGraph({
+    required this.core,
+    required this.palette,
+    required this.settings,
+  });
 
   final CoreController core;
   final _HomePalette palette;
+  final AppSettings settings;
 
   @override
   State<_SpeedGraph> createState() => _SpeedGraphState();
@@ -2408,7 +2586,7 @@ class _SpeedGraphState extends State<_SpeedGraph> {
   }
 
   void _openTest() {
-    showSpeedTest(context, widget.core);
+    showSpeedTest(context, widget.core, widget.settings);
     AppSounds.play(SoundCue.tap);
   }
 
@@ -2730,7 +2908,10 @@ class _HomeRow extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
       decoration: BoxDecoration(
         color: p.card,
-        borderRadius: BorderRadius.circular(20),
+        // The gazette's row rules itself like the paper's own box.
+        borderRadius: BorderRadius.circular(
+          AppDesign.current.key == 'gazette' ? 6 : 20,
+        ),
         border: Border.all(color: p.cardBorder),
       ),
       child: Row(

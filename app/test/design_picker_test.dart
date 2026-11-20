@@ -12,9 +12,9 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The design picker: five real designs, and the two reference ones
+  // The design picker: six real designs, and the reference ones
   // each carry a whole palette the whole app wears.
-  testWidgets('the design picker offers five designs', (tester) async {
+  testWidgets('the design picker offers six designs', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 1500);
@@ -42,7 +42,7 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['Aether', 'Zed']) {
+    for (final name in ['Aether', 'Zed', 'Gazette']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
@@ -60,6 +60,11 @@ void main() {
     expect(settings.homeDesign, 'zed');
     expect(AppDesign.resolve(settings.homeDesign).key, 'zed');
     expect(AppDesign.resolve('aether').key, 'aether');
+    expect(AppDesign.resolve('gazette').key, 'gazette');
+    // The gazette's own light stands in too.
+    settings.update(homeDesign: 'gazette');
+    await settle(tester);
+    expect(AppDesign.resolveFor(settings, false), isNotNull);
     // The four looks that left land on the monochrome again.
     expect(AppDesign.resolve('aurora').key, 'mono');
     expect(AppDesign.resolve('neon').key, 'mono');

@@ -1396,5 +1396,24 @@
   "wn56Button": "The connect slider keeps its word through the whole walk — no more empty moment between connecting and connected: the word glides between its states now, and the working dim follows with a breath.",
   "wn56Capsule": "The wheel's home says each state once: the repeated status word above the slider is gone — the track itself carries it, and the page reads a line quieter.",
   "wn56Door": "The speed test has its own door on the home: one row, one tap, and the measurement opens — before the first connect too, not only while the tunnel carries.",
-  "wn56Wheel": "The flags' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns."
+  "wn56Wheel": "The flags' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.",
+  "designGazette": "Gazette",
+  "designGazetteDesc": "A front page: the masthead, the ruled columns and the ink stamp — the news sheet's own calm, in paper and ink",
+  "speedTestSizesTitle": "Test size",
+  "speedTestSizeLight": "Light",
+  "speedTestSizeStandard": "Standard",
+  "speedTestSizeFull": "Full",
+  "speedTestJitter": "Jitter",
+  "gazetteEdition": "No. {n}",
+  "@gazetteEdition": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "gazetteBulletin": "Security Bulletin",
+  "gazetteLiveWire": "Live wire",
+  "wn56Speed": "The speed test lives again: each leg measures on its own connection and speaks plain HTTP/1.1, so the upload no longer dies when the download's window closes — and the panel adds the path's delay, its jitter, and a size to pick.",
+  "wn56Gazette": "A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries."
 }

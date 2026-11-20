@@ -809,5 +809,17 @@
   "wn56Button": "O deslizador de ligação guarda a palavra durante todo o caminho — já não há um momento vazio entre «a ligar» e «ligado»: a palavra agora desliza entre os seus estados, e o escurecer de trabalho chega num fôlego.",
   "wn56Capsule": "A roda diz cada estado uma vez: sumiu a palavra de estado repetida sobre o deslizador — a própria pista a leva, e a página lê-se uma linha mais serena.",
   "wn56Door": "O teste de velocidade tem a sua própria porta no início: uma linha, um toque, e a medição abre-se — também antes da primeira ligação, não só quando o túnel corre.",
-  "wn56Wheel": "A roda das bandeiras desliza: um impulso traz um país, e a aterragem assenta em vez de bater — o arrasto lê-se firme e estável, como um bom botão."
+  "wn56Wheel": "A roda das bandeiras desliza: um impulso traz um país, e a aterragem assenta em vez de bater — o arrasto lê-se firme e estável, como um bom botão.",
+  "designGazette": "Jornal",
+  "designGazetteDesc": "Uma primeira página: o cabeçalho, as colunas pautadas e o carimbo de tinta — a calma do jornal, em papel e tinta",
+  "speedTestSizesTitle": "Tamanho do teste",
+  "speedTestSizeLight": "Leve",
+  "speedTestSizeStandard": "Padrão",
+  "speedTestSizeFull": "Completo",
+  "speedTestJitter": "Jitter",
+  "gazetteEdition": "N.º {n}",
+  "gazetteBulletin": "Boletim de segurança",
+  "gazetteLiveWire": "Manchete ao vivo",
+  "wn56Speed": "O teste de velocidade vive de novo: cada sentido mede na sua própria ligação e fala HTTP/1.1 simples, o envio já não morre quando a janela da descarga fecha — e o painel acrescenta o atraso do caminho, o jitter e um tamanho à escolha.",
+  "wn56Gazette": "Um novo aspeto da casa: o jornal — uma primeira página com cabeçalho, colunas pautadas, teletipo ao vivo e o carimbo de tinta que pressiona quando o túnel corre."
 }

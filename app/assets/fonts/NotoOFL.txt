@@ -1,4 +1,5 @@
-Noto Sans SC, Noto Sans TC and Noto Sans Bengali are distributed under the SIL Open Font License 1.1:
+Noto Sans SC, Noto Sans TC, Noto Sans Bengali, Noto Serif and
+Noto Naskh Arabic are distributed under the SIL Open Font License 1.1:
 
 Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
 

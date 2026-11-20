@@ -809,5 +809,17 @@
   "wn56Button": "Le curseur de connexion garde son mot pendant tout le trajet — plus aucun instant vide entre « connexion » et « connecté » : le mot glisse à présent entre ses états, et l'assombrissement d'activité arrive en douceur.",
   "wn56Capsule": "La roue dit chaque état une seule fois : le mot d'état répété au-dessus du curseur est parti — la piste le porte elle-même, et la page se lit d'une ligne plus calme.",
   "wn56Door": "Le test de vitesse a sa propre porte sur l'accueil : une rangée, un geste, et la mesure s'ouvre — avant même la première connexion, pas seulement quand le tunnel porte.",
-  "wn56Wheel": "La roue des drapeaux glisse : une impulsion amène un pays, et l'atterrissage se pose au lieu de claquer — le geste se lit ferme et régulier, comme un bon cadran."
+  "wn56Wheel": "La roue des drapeaux glisse : une impulsion amène un pays, et l'atterrissage se pose au lieu de claquer — le geste se lit ferme et régulier, comme un bon cadran.",
+  "designGazette": "Gazette",
+  "designGazetteDesc": "Une « une » : le bandeau, les colonnes filetées et le tampon d'encre — le calme du journal, en papier et encre",
+  "speedTestSizesTitle": "Taille du test",
+  "speedTestSizeLight": "Léger",
+  "speedTestSizeStandard": "Standard",
+  "speedTestSizeFull": "Complet",
+  "speedTestJitter": "Gigue",
+  "gazetteEdition": "N° {n}",
+  "gazetteBulletin": "Bulletin de sécurité",
+  "gazetteLiveWire": "Fil direct",
+  "wn56Speed": "Le test de vitesse revit : chaque sens mesure sur sa propre connexion et parle HTTP/1.1, l'envoi ne meurt plus quand la fenêtre du téléchargement se ferme — et le panneau ajoute le délai du chemin, sa gigue et une taille au choix.",
+  "wn56Gazette": "Un nouveau look d'accueil : la gazette — une « une » avec bandeau, colonnes filetées, téléscripteur en direct et le tampon d'encre qui se pose quand le tunnel tient."
 }

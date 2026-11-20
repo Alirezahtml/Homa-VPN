@@ -809,5 +809,17 @@
   "wn56Button": "Bağlantı kaydırıcısı sözünü yolun boyunca korur — 'bağlanıyor' ile 'bağlandı' arasında artık boş bir an yok: söz şimdi hâlleri arasında kayar, çalışma kararması bir nefesle gelir.",
   "wn56Capsule": "Çarkın ana sayfası her hâli bir kez söyler: kaydırıcının üstündeki tekrarlanan durum sözü gitti — yolu kendisi taşır, sayfa bir satır daha sakin okunur.",
   "wn56Door": "Hız testinin ana sayfada kendi kapısı var: bir satır, bir dokunuş ve ölçüm açılır — ilk bağlantıdan önce de, yalnızca tünel taşıyorken değil.",
-  "wn56Wheel": "Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur."
+  "wn56Wheel": "Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur.",
+  "designGazette": "Gazete",
+  "designGazetteDesc": "Manşet: başlık, çizgili sütunlar ve mürekkep damgası — kâğıt ve mürekkepte gazetenin sükûneti",
+  "speedTestSizesTitle": "Test boyutu",
+  "speedTestSizeLight": "Hafif",
+  "speedTestSizeStandard": "Standart",
+  "speedTestSizeFull": "Tam",
+  "speedTestJitter": "Titreme",
+  "gazetteEdition": "Sayı {n}",
+  "gazetteBulletin": "Güvenlik Bülteni",
+  "gazetteLiveWire": "Canlı hat",
+  "wn56Speed": "Hız testi canlandı: her yön kendi bağlantısında ölçüyor ve yalın HTTP/1.1 konuşuyor, indirme penceresi kapanınca yükleme artık ölmüyor — panel yolun gecikmesini, titremesini ve seçilebilir boyutu ekliyor.",
+  "wn56Gazette": "Yeni ana görünüm: gazete — başlıklı, çizgili sütunlu, canlı bantlı ve tünel tuttuğunda basılan mürekkep damgalı bir ön sayfa."
 }

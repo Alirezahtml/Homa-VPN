@@ -2743,4 +2743,45 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'چرخ پرچم‌ها با یک لغزش نرم می‌رود: یک پرتاب یک کشور را می‌آورد و فرود، جای اینکه با ضربه بنشیند، آرام در جای خود می‌ایستد — کشیدن، سنگین و پیوسته مثل یک ولوم خوب خوانده می‌شود.';
+
+  @override
+  String get designGazette => 'روزنامه';
+
+  @override
+  String get designGazetteDesc =>
+      'روزنامه: سرلوحه، ستون‌های خط‌کشی‌شده و مُهر جوهر — آرامش صفحهٔ اول، با کاغذ و مرکب';
+
+  @override
+  String get speedTestSizesTitle => 'اندازهٔ آزمون';
+
+  @override
+  String get speedTestSizeLight => 'سبک';
+
+  @override
+  String get speedTestSizeStandard => 'استاندارد';
+
+  @override
+  String get speedTestSizeFull => 'کامل';
+
+  @override
+  String get speedTestJitter => 'لرزش';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'شمارهٔ $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'بولتن امنیت';
+
+  @override
+  String get gazetteLiveWire => 'اخبار فوری';
+
+  @override
+  String get wn56Speed =>
+      'تست سرعت جان گرفت: هر لگ روی اتصال خودش و با HTTP/1.1 ساده اندازه می‌گیرد، پس آپلود با بسته‌شدن پنجرهٔ دانلود نمی‌میرد — و پنل، تأخیر مسیر، لرزش و اندازهٔ آزمون را هم می‌دهد.';
+
+  @override
+  String get wn56Gazette =>
+      'خانهٔ تازه: روزنامه — صفحهٔ اول با سرلوحه، ستون‌های خط‌کشی‌شده، نوار اخبار زنده و مُهر جوهر که با برقراری تونل کوبیده می‌شود.';
 }

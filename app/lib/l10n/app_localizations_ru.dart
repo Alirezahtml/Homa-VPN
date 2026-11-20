@@ -2773,4 +2773,45 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'Колесо флагов скользит: один бросок приносит одну страну, и посадка устраивается на место вместо стука — тяга читается тяжёлой и ровной, как у хорошего регулятора.';
+
+  @override
+  String get designGazette => 'Газета';
+
+  @override
+  String get designGazetteDesc =>
+      'Передовица: шапка, колонки с линейками и чернильный штамп — спокойствие газеты, из бумаги и чернил';
+
+  @override
+  String get speedTestSizesTitle => 'Размер теста';
+
+  @override
+  String get speedTestSizeLight => 'Лёгкий';
+
+  @override
+  String get speedTestSizeStandard => 'Обычный';
+
+  @override
+  String get speedTestSizeFull => 'Полный';
+
+  @override
+  String get speedTestJitter => 'Джиттер';
+
+  @override
+  String gazetteEdition(int n) {
+    return '№ $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Бюллетень безопасности';
+
+  @override
+  String get gazetteLiveWire => 'Прямая лента';
+
+  @override
+  String get wn56Speed =>
+      'Тест скорости снова жив: каждое направление меряет на своём соединении и говорит на простом HTTP/1.1, отправка больше не умирает при закрытии окна загрузки — а панель добавляет задержку пути, джиттер и выбор размера.';
+
+  @override
+  String get wn56Gazette =>
+      'Новый вид дома: газета — передовица с шапкой, колонками с линейками, бегущей строкой и чернильным штампом, который впечатывается, когда туннель держит.';
 }

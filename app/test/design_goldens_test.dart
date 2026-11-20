@@ -1,5 +1,6 @@
-// Renders the phone's home in each of its five designs (the wheel, the
-// tiles, the compact card, the aether's status card, the zed's blob), in
+// Renders the phone's home in each of its six designs (the wheel, the
+// tiles, the compact card, the aether's status card, the zed's blob, the
+// gazette's front page), in
 // both themes and both states, as golden images — real pixels of the
 // design, for a look that no assertion can give. Refresh with:
 //   flutter test --update-goldens test/design_goldens_test.dart
@@ -75,6 +76,18 @@ void main() {
       'SpaceGrotesk/SpaceGrotesk-Medium.ttf',
       'SpaceGrotesk/SpaceGrotesk-SemiBold.ttf',
       'SpaceGrotesk/SpaceGrotesk-Bold.ttf',
+    ]);
+    await load('GazetteSerif', [
+      'NotoSerif/NotoSerif-Regular.ttf',
+      'NotoSerif/NotoSerif-Medium.ttf',
+      'NotoSerif/NotoSerif-SemiBold.ttf',
+      'NotoSerif/NotoSerif-Bold.ttf',
+    ]);
+    await load('GazetteNaskh', [
+      'NotoNaskh/NotoNaskhArabic-Regular.ttf',
+      'NotoNaskh/NotoNaskhArabic-Medium.ttf',
+      'NotoNaskh/NotoNaskhArabic-SemiBold.ttf',
+      'NotoNaskh/NotoNaskhArabic-Bold.ttf',
     ]);
   });
 
@@ -224,6 +237,37 @@ void main() {
       design: 'zed',
       language: 'fa',
       connected: false,
+    );
+  });
+
+  testWidgets('design gazette, dark, connected', (tester) async {
+    await phone(tester, name: 'gazette_dark', design: 'gazette');
+  });
+
+  testWidgets('design gazette, dark, disconnected', (tester) async {
+    await phone(
+      tester,
+      name: 'gazette_dark_off',
+      design: 'gazette',
+      connected: false,
+    );
+  });
+
+  testWidgets('design gazette, light, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'gazette_light',
+      design: 'gazette',
+      theme: ThemeMode.light,
+    );
+  });
+
+  testWidgets('design gazette, Persian, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'gazette_fa',
+      design: 'gazette',
+      language: 'fa',
     );
   });
 }

@@ -2761,4 +2761,45 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn56Wheel =>
       'Roda bendera meluncur mulus: satu lemparan membawa satu negara, dan pendaratannya menetap alih-alih membentur — tarikannya terasa mantap dan stabil seperti kenop yang baik.';
+
+  @override
+  String get designGazette => 'Koran';
+
+  @override
+  String get designGazetteDesc =>
+      'Halaman depan: masthead, kolom bergaris, dan stempel tinta — ketenangan koran, dalam kertas dan tinta';
+
+  @override
+  String get speedTestSizesTitle => 'Ukuran tes';
+
+  @override
+  String get speedTestSizeLight => 'Ringan';
+
+  @override
+  String get speedTestSizeStandard => 'Standar';
+
+  @override
+  String get speedTestSizeFull => 'Penuh';
+
+  @override
+  String get speedTestJitter => 'Jitter';
+
+  @override
+  String gazetteEdition(int n) {
+    return 'No. $n';
+  }
+
+  @override
+  String get gazetteBulletin => 'Buletin Keamanan';
+
+  @override
+  String get gazetteLiveWire => 'Kabar langsung';
+
+  @override
+  String get wn56Speed =>
+      'Tes kecepatan hidup kembali: setiap arah mengukur di koneksinya sendiri dan berbicara HTTP/1.1 murni, unggahan tidak lagi mati saat jendela unduhan tertutup — panel menambah latensi jalur, jitter, dan ukuran yang bisa dipilih.';
+
+  @override
+  String get wn56Gazette =>
+      'Tampilan rumah baru: koran — halaman depan dengan masthead, kolom bergaris, ticker langsung, dan stempel tinta yang menghentak saat terowongan berjalan.';
 }
