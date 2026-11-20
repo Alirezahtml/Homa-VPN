@@ -193,7 +193,7 @@ func (d *Daemon) resolveFastestCountry(ctx context.Context, token string) string
 	// Figures measured on another network would hand back the place
 	// that won there: the fastest is chosen for the network that is
 	// live now, not carried over from the one before.
-	if _, network := networkNow(); network != "" && network != d.lastPingsNetwork() {
+	if network, ok := networkNow(); ok && network != d.lastPingsNetwork() {
 		results, at = nil, time.Time{}
 	}
 	if time.Since(at) > pingReuseAge {
