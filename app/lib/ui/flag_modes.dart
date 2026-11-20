@@ -379,7 +379,12 @@ class _BoardTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              // The flag area keeps its own fixed height: the tile's
+              // height is its content's, and a flex child could not
+              // answer the home's intrinsic measure with an unbounded
+              // room to expand into.
+              SizedBox(
+                height: 34,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -1071,6 +1076,9 @@ class _FlagPagerState extends State<FlagPager> with FlagChoices {
           height: 118,
           child: PageView.builder(
             controller: _controller,
+            // The board's pages are finite: the count keeps the finger
+            // from swiping past the last one into an empty page.
+            itemCount: pages,
             clipBehavior: Clip.none,
             onPageChanged: (page) => setState(() => _page = page),
             itemBuilder: (context, p) {
