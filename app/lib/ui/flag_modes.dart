@@ -246,40 +246,56 @@ class _FlagBoardState extends State<FlagBoard> with FlagChoices {
     final visible = showAll
         ? entries.take(cellCount - 1).toList()
         : entries.toList();
-    return GridView.count(
-      crossAxisCount: widget.columns,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      childAspectRatio: 0.92,
-      children: [
-        for (var i = 0; i < visible.length; i++)
-          _BoardTile(
-            location: visible[i],
-            chosen: i == chosenIndex,
-            pinned: favorites.any(
-              (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
-            ),
-            accent: widget.accent,
-            border: widget.border,
-            dark: dark,
-            round: style.flagRound,
-            onTap: () => choose(visible[i]),
-            onLongPress: widget.onToggleFavorite == null
-                ? null
-                : () => widget.onToggleFavorite!(visible[i].code),
+    // The board's height comes from the width the home gives it: a fixed
+    // seat the grid fills. The home page measures itself through
+    // IntrinsicHeight, and a shrink-wrapping viewport cannot answer
+    // intrinsics — the fixed height answers for it, and the grid stays a
+    // plain, never-scrolling viewport inside.
+    return LayoutBuilder(
+      builder: (context, box) {
+        const spacing = 10.0;
+        final cols = widget.columns;
+        final tileW = (box.maxWidth - spacing * (cols - 1)) / cols;
+        final tileH = tileW / 0.92;
+        final boardH = tileH * widget.rows + spacing * (widget.rows - 1);
+        return SizedBox(
+          height: boardH,
+          child: GridView.count(
+            crossAxisCount: cols,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            mainAxisSpacing: spacing,
+            crossAxisSpacing: spacing,
+            childAspectRatio: 0.92,
+            children: [
+              for (var i = 0; i < visible.length; i++)
+                _BoardTile(
+                  location: visible[i],
+                  chosen: i == chosenIndex,
+                  pinned: favorites.any(
+                    (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
+                  ),
+                  accent: widget.accent,
+                  border: widget.border,
+                  dark: dark,
+                  round: style.flagRound,
+                  onTap: () => choose(visible[i]),
+                  onLongPress: widget.onToggleFavorite == null
+                      ? null
+                      : () => widget.onToggleFavorite!(visible[i].code),
+                ),
+              if (showAll)
+                _BoardTile.all(
+                  accent: widget.accent,
+                  border: widget.border,
+                  dark: dark,
+                  label: l.flagAllPlaces,
+                  onTap: widget.onOpenServers,
+                ),
+            ],
           ),
-        if (showAll)
-          _BoardTile.all(
-            accent: widget.accent,
-            border: widget.border,
-            dark: dark,
-            label: l.flagAllPlaces,
-            onTap: widget.onOpenServers,
-          ),
-      ],
+        );
+      },
     );
   }
 }
