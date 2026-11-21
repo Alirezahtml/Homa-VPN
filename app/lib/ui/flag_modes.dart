@@ -1771,7 +1771,7 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
       return;
     }
     final step = _step(entries.length);
-    final radius = math.min(box.size.width, 340) / 2 - 16;
+    final radius = math.min(box.size.width, 340.0) / 2 - 16;
     var best = -1;
     var bestDist = 30.0;
     for (var i = 0; i < entries.length; i++) {
@@ -1806,7 +1806,7 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
         width: double.infinity,
         child: LayoutBuilder(
           builder: (context, box) {
-            final size = math.min(box.maxWidth, 340);
+            final size = math.min(box.maxWidth, 340.0);
             final radius = size / 2 - 16;
             final center = Offset(size / 2, (size + 6) / 2);
             final step = _step(entries.length);
