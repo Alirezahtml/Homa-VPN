@@ -2437,34 +2437,6 @@ class _WorldPainter extends CustomPainter {
       canvas.drawPath(s.path, edge);
     }
 
-    // The hud's roads: the game map's own dress — every border wears a
-    // casing under a lighter line, the way the game's streets carry a
-    // pale fill inside a darker rim. The world reads as one drawn map,
-    // the coasts as the ring roads around the land.
-    if (hud) {
-      final casing = Paint()
-        ..color = lineInk.withValues(alpha: dark ? 0.85 : 0.9)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.6
-        ..isAntiAlias = true
-        ..strokeJoin = StrokeJoin.round
-        ..strokeCap = StrokeCap.round;
-      final road = Paint()
-        ..color = (dark ? Colors.white : Colors.white).withValues(
-          alpha: dark ? 0.5 : 0.85,
-        )
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.2
-        ..isAntiAlias = true
-        ..strokeJoin = StrokeJoin.round
-        ..strokeCap = StrokeCap.round;
-      for (final s in shapes) {
-        if (identical(s, chosen)) continue;
-        canvas.drawPath(s.path, casing);
-        canvas.drawPath(s.path, road);
-      }
-    }
-
     // The breath every moving part below reads: 0 at rest's start, 1 at
     // its peak, back and forth over the controller's period.
     final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * t);
