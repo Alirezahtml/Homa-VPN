@@ -845,5 +845,11 @@
   "gazetteRegions": "Điểm đến",
   "wn60Flags": "Mỗi thiết kế giờ hiển thị các quốc gia theo cách riêng: bảng ô của bento, chip lọc của pixel, tùy chọn nang của aether, bộ huy chương của iOS, bảng phân trang của zed, và mục lục điểm đến của gazette in như chính tờ báo — bánh xe giữ bánh xe của nó.",
   "wn60Bento": "Thiết kế bento đứng vẹn nguyên: bảng màu ấm riêng từ sứ và than, ánh quýt, dock ô, đầu trang squircle, thẻ tô màu và bảng cờ — từng trang, cả hai chế độ.",
-  "wn60Spacing": "Các trang chủ đi trong một nhịp: dải chết giữa các mục đã biến mất, thẻ kết thúc lấp đầy hàng của nó, và mỗi khoảng trống thở theo khoảng cách thiết kế giữ."
+  "wn60Spacing": "Các trang chủ đi trong một nhịp: dải chết giữa các mục đã biến mất, thẻ kết thúc lấp đầy hàng của nó, và mỗi khoảng trống thở theo khoảng cách thiết kế giữ.",
+  "wn63Retired": "Các thiết kế aether và zed nghỉ hưu: người dùng chuyển sang các thiết kế mang cấu trúc của chúng — bảng của aether sang iOS, bento của zed sang Bento",
+  "wn63Map": "Bản đồ GTA đọc như bản đồ của trò chơi: mỗi biên giới là một con đường, một điểm hổ phách trên mỗi quốc gia máy chủ, nơi chọn là waypoint với chùm sáng và tên trên tấm biển, la bàn ở góc",
+  "wn63Servers": "Trang máy chủ mặc danh sách riêng của từng thiết kế — bảng nhóm của iOS, chỉ mục kẻ dòng của gazette, ô HUD của GTA, thẻ tông màu của pixel, bảng của bento",
+  "wn63Accounts": "Trang tài khoản cũng mặc thiết kế: thẻ với bo tròn riêng của thiết kế, nút thêm với giọng thiết kế, tiêu đề hộp thoại với mặt hiển thị, ô nhập trong khung thiết kế",
+  "wn63Wheel": "Bánh xe vũ khí dựng lại theo thước của trò chơi: vòng tròn đầy đủ các đường chia, mí sáng hai lớp, cung đồng hồ đếm, cú bật khi mở và nhịp của lựa chọn",
+  "wn63Ios": "Thiết kế iOS đứng đầy hơn: lớp phủ trạng thái trên thẻ trạng thái, chấm trang của bộ bài huy chương, tích ở mỗi lần snap"
 }

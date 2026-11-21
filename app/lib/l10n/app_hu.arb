@@ -845,5 +845,11 @@
   "gazetteRegions": "Úti célok",
   "wn60Flags": "Minden dizájn most a saját módján mutatja az országokat: a bento csempetáblája, a pixel szűrőcsipjei, az aether kapszula lehetőségei, az iOS érempaklija, a zed lapozott táblája és a gazette úti céljainak jegyzéke, mint a saját nyomtatása — a kerék megtartja kerékjét.",
   "wn60Bento": "A bento dizájn teljesen áll: saját meleg palettája porcelánból és szénből, a mandarin fénye, a csempe dokk, a squircle oldalfejlécek, a színezett kártyák és a zászlótábla — minden oldal, mindkét módban.",
-  "wn60Spacing": "A kezdőlapok egy ritmusban járnak: a szakaszok közti holt sávok eltűntek, a záró kártyák megtöltik soraikat, és minden rés a dizájn által tartott távolsággal lélegzik."
+  "wn60Spacing": "A kezdőlapok egy ritmusban járnak: a szakaszok közti holt sávok eltűntek, a záró kártyák megtöltik soraikat, és minden rés a dizájn által tartott távolsággal lélegzik.",
+  "wn63Retired": "Az aether és a zed dizájnok nyugdíjba mentek: használóik azokhoz a dizájnokhoz állnak, amelyek a szerkezetüket viselik — az aether táblái az iOS-hoz, a zed bentója a Bentóhoz",
+  "wn63Map": "A GTA térkép a játék saját térképeként olvasható: minden határ útként, borostyán jel minden szerver-országban, a választott hely útpontként a fénnyel és a táblán lévő nevével, az iránytű a sarokban",
+  "wn63Servers": "A szerverek oldala minden dizájn saját listáját viseli — az iOS csoportos táblája, a gazetta vonalazott jegyzéke, a GTA HUD slotjai, a pixel tónusú kártyái, a bento táblája",
+  "wn63Accounts": "A fiókok oldala is a dizájnt viseli: a kártyák a dizájn saját kerekítésében, a hozzáadás gombja a dizájn hangján, a párbeszédek címe a kijelző saját arcán, a mezők a dizájn keretében",
+  "wn63Wheel": "A fegykerelendítő a játék saját méretére épült: a szektorválasztók teljes köre, a kétrétegű megvilágított körcikk, a számláló mutatóíve, a nyitás ugrása és a választás saját pulzusa",
+  "wn63Ios": "Az iOS dizájn teljesebben áll: az állapotkártya állapota-mosása, a medália-pakli oldalszám-pontjai, a minden kapcsolódás tikje"
 }

@@ -845,5 +845,11 @@
   "gazetteRegions": "Tujuan",
   "wn60Flags": "Setiap desain kini menampilkan negara dengan caranya sendiri: papan ubin bento, chip filter pixel, opsi kapsul aether, dek medali iOS, papan terpaginasi zed, dan indeks tujuan gazette yang tercetak seperti korannya — roda tetap memakai rodanya.",
   "wn60Bento": "Desain bento berdiri utuh: palet hangatnya sendiri dari porselen dan arang, cahaya mandarin, dok ubin, header halaman squircle, kartu berwarna dan papan bendera — setiap halaman, kedua mode.",
-  "wn60Spacing": "Halaman berjalan dengan satu ritme: pita mati antar bagian hilang, kartu penutup mengisi barisnya, dan setiap celah bernapas dengan spasi yang dijaga desain."
+  "wn60Spacing": "Halaman berjalan dengan satu ritme: pita mati antar bagian hilang, kartu penutup mengisi barisnya, dan setiap celah bernapas dengan spasi yang dijaga desain.",
+  "wn63Retired": "Desain aether dan zed pensiun: penggunanya pindah ke desain yang memakai strukturnya — tabel aether ke iOS, bento zed ke Bento",
+  "wn63Map": "Peta GTA terbaca seperti peta game-nya: setiap perbatasan sebagai jalan, penanda amber di setiap negara server, tempat terpilih sebagai waypoint dengan sinar dan namanya di pelat, kompas di sudut",
+  "wn63Servers": "Halaman server memakai daftar tiap desain — tabel bergrup iOS, indeks bergaris gazette, slot HUD GTA, kartu tonal pixel, papan bento",
+  "wn63Accounts": "Halaman akun juga memakai desain: kartu dengan sudut khas desain, tombol tambah dengan suara desain, judul dialog dengan huruf tampilan, kolom dalam bingkai desain",
+  "wn63Wheel": "Roda senjata dibangun ulang dengan ukuran game-nya: lingkaran penuh pembagi sektor, irisan bercahaya dua lapis, busur gauge penghitung, lompatan pembukaan, dan denyut pemilihan",
+  "wn63Ios": "Desain iOS berdiri lebih penuh: bilas status pada kartu status, titik halaman dek medali, tik pada setiap snap"
 }

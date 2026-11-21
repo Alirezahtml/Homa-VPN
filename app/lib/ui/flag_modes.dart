@@ -1359,7 +1359,16 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     });
     _pulse.addListener(() => setState(() {}));
     _open.forward();
-    _syncBreathe();
+    // The breath's controller is made here directly, not through
+    // [_syncBreathe]'s setState — a state's initState cannot call
+    // setState; the first build reads the field it sets.
+    if (widget.animated && !widget.still) {
+      _breathe = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 2100),
+      )..repeat(reverse: true);
+      _breathe!.addListener(() => setState(() {}));
+    }
   }
 
   @override
@@ -1690,7 +1699,6 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                     ink: look.ink,
                     breath: alive ? breathe : 0,
                     alive: alive,
-                    confirming: widget.animated,
                   ),
                 ),
               ),
@@ -2026,10 +2034,6 @@ class _WheelHudPainter extends CustomPainter {
   final double breath;
   final bool alive;
 
-  /// Whether the connection is carrying (or reaching): the breath's
-  /// own light rides only then.
-  final bool confirming;
-
   Offset _dir(double a) => Offset(math.sin(a), -math.cos(a));
 
   @override
@@ -2213,8 +2217,7 @@ class _WheelHudPainter extends CustomPainter {
       old.panel != panel ||
       old.ink != ink ||
       (old.breath - breath).abs() > 0.004 ||
-      old.alive != alive ||
-      old.confirming != confirming;
+      old.alive != alive;
 }
 
 /// The center screen's own dial: the counter's gauge — a quiet track

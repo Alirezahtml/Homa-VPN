@@ -845,5 +845,11 @@
   "gazetteRegions": "İstiqamətlər",
   "wn60Flags": "Hər dizayn ölkələri indi öz yolu ilə göstərir: Bento-nun plitə taxtası, Pixel-in filtr çipləri, Aether-in kapsul seçimləri, iOS medallar dəsti, Zed-in səhifələnən taxtası və qəzetin öz çapı kimi yazılan istiqamət göstəricisi — çarx öz çarxını saxlayır.",
   "wn60Bento": "Bento dizaynı tam durur: öz isti palitrası — farfor və kömür, mandarin işığı, plitə dokası, squircle səhifə başlıqları, çalğılı kartlar və bayraq taxtası — hər səhifə, hər iki rejimdə.",
-  "wn60Spacing": "Ana səhifələr bir ritmlə gedir: bölmələr arasındakı ölü zolaqlar gedib, son kartlar öz sıralarını doldurur və hər boşluq dizaynın saxladığı aralıqla nəfəs alır."
+  "wn60Spacing": "Ana səhifələr bir ritmlə gedir: bölmələr arasındakı ölü zolaqlar gedib, son kartlar öz sıralarını doldurur və hər boşluq dizaynın saxladığı aralıqla nəfəs alır.",
+  "wn63Retired": "Aether və zed dizaynları təqaüdə çıxdı: istifadəçiləri strukturlarını daşıyan dizaynlara keçir — aetherin cədvəlləri iOS-a, zedin bentosu Bentoya",
+  "wn63Map": "GTA xəritəsi indi oyunun öz xəritəsi kimi oxunur: hər sərhəd yol kimi, hər server ölkəsində kəhrəba nişanı, seçilmiş yer göstərici kimi işıq sütunu və lövhədə adı ilə, guşədə kompas",
+  "wn63Servers": "Serverlər səhifəsi hər dizaynin öz siyahısını geyir — iOS-un qrup cədvəli, qəzetin xətli göstəricisi, GTA-nın HUD yuvaları, pikselin tonal kartları, bento taxtası",
+  "wn63Accounts": "Hesablar səhifəsi də dizaynı geyir: kartlar dizaynin öz yuvarlaqlığında, əlavə düyməsi dizaynin səsi ilə, dialoq başlıqları ekran üzlü qələmi ilə, sahələr dizaynin çərçivəsində",
+  "wn63Wheel": "Silah çarxı oyunun öz ölçüsünə görə quruldu: sektor ayırıcılarının tam dairəsi, ikiqat işıqlı dilim, sayğacın göstərici qövsü, açılışın sıçrayışı və seçimin öz nəbzi",
+  "wn63Ios": "iOS dizaynı daha dolu durur: status kartının vəziyyət yuyulması, medal dəstinin səhifə nöqtələri, hər snapdə tik"
 }

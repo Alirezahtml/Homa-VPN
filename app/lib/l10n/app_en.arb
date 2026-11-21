@@ -1439,5 +1439,11 @@
   "gazetteRegions": "Destinations",
   "wn60Flags": "Each design shows the countries its own way now: the bento's board of tiles, the pixel's filter chips, the aether's capsule options, the iOS medals' deck, the zed's paged board, the gazette's region index printed like the paper's own — the wheel keeps its wheel.",
   "wn60Bento": "The bento design stands whole: its own warm palette of porcelain and charcoal, the tangerine's light, the dock of tiles, the squircle page headers, the tinted cards and the board of flags — every page, both modes.",
-  "wn60Spacing": "The homes walk in one rhythm: the dead bands between the sections are gone, the closing cards fill their rows, and every gap breathes by the spacing the design keeps."
+  "wn60Spacing": "The homes walk in one rhythm: the dead bands between the sections are gone, the closing cards fill their rows, and every gap breathes by the spacing the design keeps.",
+  "wn63Retired": "The aether and the zed designs retired: their users walk to the designs that wear their structure — the aether's tables to iOS, the zed's bento to Bento",
+  "wn63Map": "The GTA map reads as the game's own now: every border as a road, an amber blip on every server country, the chosen place as the waypoint with its beam and its name on the plate, the compass at the corner",
+  "wn63Servers": "The servers page wears each design's own list — the iOS grouped table, the gazette's ruled index, the GTA's HUD slots, the pixel's tonal cards, the bento's board",
+  "wn63Accounts": "The accounts page wears the design too: the cards in the design's own round, the add button in the design's voice, the dialogs' titles in the display's face, the fields in the design's frame",
+  "wn63Wheel": "The weapon wheel rebuilt to the game's own measure: the full circle of sector dividers, the two-layer lit wedge, the counter's gauge arc, the pop of the opening, and the pick's own pulse",
+  "wn63Ios": "The iOS design stands fuller: the status card's state wash, the medal deck's page dots, the tick at every snap"
 }

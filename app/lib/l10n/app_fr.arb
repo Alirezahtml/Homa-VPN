@@ -845,5 +845,11 @@
   "gazetteRegions": "Destinations",
   "wn60Flags": "Chaque design montre désormais les pays à sa façon : le plateau de tuiles du bento, les puces filtres du pixel, les options capsules de l'aether, le jeu de médailles de l'iOS, le plateau paginé du zed, et l'index des destinations de la gazette imprimé comme sa propre page — la roue garde sa roue.",
   "wn60Bento": "Le design bento se tient entier : sa propre palette chaleureuse de porcelaine et de charbon, la lumière mandarine, le dock de tuiles, les en-têtes de page squircle, les cartes teintées et le plateau de drapeaux — chaque page, dans les deux modes.",
-  "wn60Spacing": "Les pages d'accueil marchent d'un seul rythme : les bandes mortes entre les sections sont parties, les cartes finales remplissent leurs rangées et chaque espace respire à l'espacement que le design garde."
+  "wn60Spacing": "Les pages d'accueil marchent d'un seul rythme : les bandes mortes entre les sections sont parties, les cartes finales remplissent leurs rangées et chaque espace respire à l'espacement que le design garde.",
+  "wn63Retired": "Les designs aether et zed prennent leur retraite : leurs utilisateurs rejoignent les designs qui portent leur structure — les tables de l'aether vers iOS, le bento du zed vers Bento",
+  "wn63Map": "La carte GTA se lit comme celle du jeu : chaque frontière en route, un repère ambre sur chaque pays serveur, le lieu choisi en waypoint avec son faisceau et son nom sur la plaque, la boussole au coin",
+  "wn63Servers": "La page des serveurs porte la liste propre à chaque design — la table groupée d'iOS, l'index réglé de la gazette, les fentes HUD du GTA, les cartes tonales du pixel, le plateau du bento",
+  "wn63Accounts": "La page des comptes porte aussi le design : les cartes au rond propre du design, le bouton d'ajout à la voix du design, les titres des dialogues à la face d'affichage, les champs au cadre du design",
+  "wn63Wheel": "La roue d'armes rebâtie à la mesure du jeu : le cercle complet des séparateurs, le coin éclairé à deux couches, l'arc du compteur, le pop de l'ouverture et la pulsation du choix",
+  "wn63Ios": "Le design iOS se tient plus plein : le voile d'état de la carte de statut, les points de page du paquet de médailles, le tic de chaque arrêt"
 }

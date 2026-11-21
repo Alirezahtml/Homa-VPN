@@ -194,19 +194,14 @@ class _IosServerList extends StatelessWidget {
                 indent: 56,
                 color: look.homeCardBorder.withValues(alpha: 0.55),
               ),
-            _iosRow(context, rows[i], dark, look),
+            _iosRow(context, rows[i], look),
           ],
         ],
       ),
     );
   }
 
-  Widget _iosRow(
-    BuildContext context,
-    ServerRow row,
-    bool dark,
-    DesignLook look,
-  ) {
+  Widget _iosRow(BuildContext context, ServerRow row, DesignLook look) {
     final theme = Theme.of(context);
     final style = DesignStyle.of(context);
     final blue = style.navActive;

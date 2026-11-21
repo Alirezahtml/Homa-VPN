@@ -845,5 +845,11 @@
   "gazetteRegions": "Destinos",
   "wn60Flags": "Cada diseño muestra ahora los países a su manera: el tablero de fichas del bento, los chips de filtro del pixel, las opciones de cápsula del aether, la baraja de medallas de iOS, el tablero paginado del zed y el índice de destinos de la gaceta impreso como su propio papel — la rueda conserva su rueda.",
   "wn60Bento": "El diseño bento se completa: su propia paleta cálida de porcelana y carbón, la luz mandarina, el muelle de fichas, los encabezados de página squircle, las tarjetas tintadas y el tablero de banderas — cada página, en ambos modos.",
-  "wn60Spacing": "Las páginas de inicio caminan en un solo ritmo: las bandas muertas entre las secciones se han ido, las tarjetas finales llenan sus filas y cada hueco respira con el espaciado que el diseño guarda."
+  "wn60Spacing": "Las páginas de inicio caminan en un solo ritmo: las bandas muertas entre las secciones se han ido, las tarjetas finales llenan sus filas y cada hueco respira con el espaciado que el diseño guarda.",
+  "wn63Retired": "Los diseños aether y zed se retiraron: sus usuarios pasan a los diseños que llevan su estructura — las tablas del aether a iOS, el bento del zed a Bento",
+  "wn63Map": "El mapa GTA se lee como el del juego: cada frontera como carretera, una marca ámbar en cada país servidor, el lugar elegido como waypoint con su haz y su nombre en la placa, la brújula en la esquina",
+  "wn63Servers": "La página de servidores viste la lista propia de cada diseño — la tabla agrupada de iOS, el índice reglado de la gaceta, las ranuras HUD del GTA, las tarjetas tonales del pixel, el tablero del bento",
+  "wn63Accounts": "La página de cuentas también viste el diseño: las tarjetas con el redondeo propio del diseño, el botón de añadir con la voz del diseño, los títulos de los diálogos en la cara de la pantalla, los campos en el marco del diseño",
+  "wn63Wheel": "La rueda de armas reconstruida a la medida del juego: el círculo completo de divisores, la cuña iluminada de dos capas, el arco del contador, el salto de la apertura y el pulso de la elección",
+  "wn63Ios": "El diseño iOS se yergue más lleno: el baño de estado en la tarjeta, los puntos de página del mazo de medallas, el tic en cada encuadre"
 }

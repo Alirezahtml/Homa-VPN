@@ -845,5 +845,11 @@
   "gazetteRegions": "Destinos",
   "wn60Flags": "Cada design agora mostra os países à sua maneira: o quadro de mosaicos do bento, os chips de filtro do pixel, as opções de cápsula do aether, o baralho de medalhas do iOS, o quadro paginado do zed e o índice de destinos da gaceta impresso como o próprio papel — a roda mantém a sua roda.",
   "wn60Bento": "O design bento permanece inteiro: a sua própria paleta calorosa de porcelana e carvão, a luz tangerina, a doca de mosaicos, os cabeçalhos de página squircle, os cartões tingidos e o quadro de bandeiras — cada página, em ambos os modos.",
-  "wn60Spacing": "As páginas iniciais caminham num só ritmo: as faixas mortas entre as seções se foram, os cartões finais preenchem suas filas e cada vão respira com o espaçamento que o design guarda."
+  "wn60Spacing": "As páginas iniciais caminham num só ritmo: as faixas mortas entre as seções se foram, os cartões finais preenchem suas filas e cada vão respira com o espaçamento que o design guarda.",
+  "wn63Retired": "Os designs aether e zed aposentaram: seus usuários vão para os designs que vestem sua estrutura — as tabelas do aether para o iOS, o bento do zed para o Bento",
+  "wn63Map": "O mapa GTA lê-se como o do jogo: cada fronteira como estrada, um marcador âmbar em cada país de servidor, o lugar escolhido como waypoint com o seu feixe e o nome na placa, a bússola no canto",
+  "wn63Servers": "A página de servidores veste a lista própria de cada design — a tabela agrupada do iOS, o índice pautado da gazeta, as vagas HUD do GTA, os cartões tonais do pixel, a prancha do bento",
+  "wn63Accounts": "A página de contas também veste o design: os cartões no arredondado próprio do design, o botão de adicionar na voz do design, os títulos dos diálogos na face de exibição, os campos na moldura do design",
+  "wn63Wheel": "A roda de armas reconstruída à medida do jogo: o círculo completo dos divisores, a cunha acesa em duas camadas, o arco do contador, o salto da abertura e o pulso da escolha",
+  "wn63Ios": "O design iOS fica mais cheio: a lavagem de estado no cartão de status, os pontos de página do baralho de medalhas, o tique a cada encaixe"
 }
