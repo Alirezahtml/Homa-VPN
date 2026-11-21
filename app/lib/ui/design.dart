@@ -5,6 +5,10 @@ import 'accent.dart';
 
 /// The looks the whole app wears, one behind each home design.
 ///
+/// The gta carries the game HUD's own voice: the wheel's amber, the
+/// sunset's pink, the radar's green — drawn from the weapon wheel and
+/// the night skyline the design opens with.
+///
 /// A design is not only the home page's layout (that is the home design:
 /// the wheel, the tiles, the compact card, and the two that joined them).
 /// Each of the two reference designs carries a complete palette of its
@@ -39,6 +43,7 @@ abstract final class AppDesign {
     'pixel' => DesignTheme.pixel,
     'ios' => DesignTheme.ios,
     'bento' => DesignTheme.bento,
+    'gta' => DesignTheme.gta,
     _ => DesignTheme.mono,
   };
 
@@ -347,6 +352,47 @@ class DesignTheme {
       homeBottom: Color(0xFF0C0B0A),
       homeCard: Color(0xFF1C1A18),
       homeCardBorder: Color(0xFF332F2A),
+    ),
+  );
+
+  /// The gta: the game HUD's own look — the night city's deep
+  /// blue-black under the neon (the hot pink and the amber of the
+  /// sunset), and the day is the Miami morning: warm sand with the
+  /// deep pink's light. The HUD's panels, the wheel's amber, the
+  /// radar's green all read this palette.
+  static const gta = DesignTheme._(
+    key: 'gta',
+    day: DesignLook(
+      scaffold: Color(0xFFF7F1E6),
+      scaffoldBottom: Color(0xFFEFE7D8),
+      surface: Color(0xFFFFFBF2),
+      surfaceHigh: Color(0xFFF8F2E6),
+      containerHighest: Color(0xFFF1EADC),
+      ink: Color(0xFF241A28),
+      muted: Color(0xFF7C6E80),
+      outline: Color(0xFFDFD3C2),
+      accent: Color(0xFFD6336C),
+      cardShadow: [],
+      homeTop: Color(0xFFF7F1E6),
+      homeBottom: Color(0xFFEFE7D8),
+      homeCard: Color(0xFFFFFBF2),
+      homeCardBorder: Color(0xFFDFD3C2),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF0B0B14),
+      scaffoldBottom: Color(0xFF07070E),
+      surface: Color(0xFF14141F),
+      surfaceHigh: Color(0xFF1C1C2A),
+      containerHighest: Color(0xFF181824),
+      ink: Color(0xFFF2EFF7),
+      muted: Color(0xFF8E8AA6),
+      outline: Color(0xFF2A2A3E),
+      accent: Color(0xFFFF4D8D),
+      cardShadow: [],
+      homeTop: Color(0xFF0B0B14),
+      homeBottom: Color(0xFF07070E),
+      homeCard: Color(0xFF14141F),
+      homeCardBorder: Color(0xFF2A2A3E),
     ),
   );
 

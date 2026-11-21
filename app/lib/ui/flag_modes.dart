@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +9,7 @@ import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../core/remote_flags.dart' show bundledFlags;
 import '../l10n/app_localizations.dart';
+import 'design.dart';
 import 'design_style.dart';
 import 'gazette.dart' show PaperCard;
 import 'sound.dart' show AppSounds, SoundCue;
@@ -1561,4 +1564,618 @@ class _RegionRow extends StatelessWidget {
       ),
     );
   }
+}
+
+/// The GTA design's weapon wheel: the countries as the game's own
+/// radial dial — the circular medals seated around a dark HUD disc, the
+/// amber rim and its tick marks, the selection notch at the top, and
+/// the center screen carrying the active country's flag, its name and
+/// the counter (n of N) in the display's heavy face. A drag turns the
+/// dial; every seat the dial passes answers with the tick. A tap on a
+/// medal or the center screen picks the country, the way a tap picks
+/// the weapon.
+class FlagWeaponWheel extends StatefulWidget {
+  const FlagWeaponWheel({
+    super.key,
+    required this.core,
+    required this.accent,
+    this.favorites = const [],
+    this.onToggleFavorite,
+    this.onOpenServers,
+  });
+
+  final CoreController core;
+  final Color accent;
+  final List<String> favorites;
+  final void Function(String code)? onToggleFavorite;
+  final VoidCallback? onOpenServers;
+
+  @override
+  State<FlagWeaponWheel> createState() => _FlagWeaponWheelState();
+}
+
+class _FlagWeaponWheelState extends State<FlagWeaponWheel>
+    with FlagChoices, SingleTickerProviderStateMixin {
+  final GlobalKey _key = GlobalKey(debugLabel: 'gta-weapon-wheel');
+  late final AnimationController _settle = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 460),
+  );
+  Animation<double>? _motion;
+  double _turn = 0;
+  int _active = 0;
+  double? _lastPointerAngle;
+  String? _followedSel;
+  int _followedCount = -1;
+
+  @override
+  CoreController get core => widget.core;
+  @override
+  List<String> get favorites => widget.favorites;
+  @override
+  void Function(String code)? get onToggleFavorite => widget.onToggleFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    flagChoicesInitState();
+    _settle.addListener(() {
+      final anim = _motion;
+      if (anim == null) return;
+      setState(() => _turn = anim.value);
+    });
+    _settle.addStatusListener((status) {
+      if (status == AnimationStatus.completed) _motion = null;
+    });
+  }
+
+  @override
+  void dispose() {
+    _settle.dispose();
+    flagChoicesDispose();
+    super.dispose();
+  }
+
+  double _step(int n) => n <= 0 ? math.pi / 4 : 2 * math.pi / n;
+
+  double _wrap(double a) {
+    while (a > math.pi) {
+      a -= 2 * math.pi;
+    }
+    while (a < -math.pi) {
+      a += 2 * math.pi;
+    }
+    return a;
+  }
+
+  /// Turns the dial so the entry [i] lands on the top seat.
+  void _animateTo(double target, {int? active}) {
+    final twoPi = 2 * math.pi;
+    var t = target;
+    while (t - _turn > math.pi) {
+      t -= twoPi;
+    }
+    while (t - _turn < -math.pi) {
+      t += twoPi;
+    }
+    if ((t - _turn).abs() < 0.0005) {
+      setState(() {
+        _turn = t;
+        if (active != null) _active = active;
+      });
+      return;
+    }
+    _motion = Tween<double>(
+      begin: _turn,
+      end: t,
+    ).animate(CurvedAnimation(parent: _settle, curve: Curves.easeOutBack));
+    if (active != null) _active = active;
+    _settle
+      ..reset()
+      ..forward();
+  }
+
+  /// The seat the dial holds at the top right now: the entry whose
+  /// wrapped angle stands nearest zero.
+  void _syncActive() {
+    final l = AppLocalizations.of(context);
+    final entries = entryList(l);
+    if (entries.isEmpty) return;
+    final step = _step(entries.length);
+    var best = 0;
+    var bestDist = double.infinity;
+    for (var i = 0; i < entries.length; i++) {
+      final d = _wrap(_turn + i * step).abs();
+      if (d < bestDist) {
+        bestDist = d;
+        best = i;
+      }
+    }
+    if (best != _active) {
+      setState(() => _active = best);
+      HapticFeedback.selectionClick();
+      AppSounds.play(SoundCue.wheelTick);
+    }
+  }
+
+  @override
+  void follow() {
+    final sel = selection;
+    final count = locations?.length ?? -1;
+    if (sel == _followedSel && count == _followedCount) return;
+    _followedSel = sel;
+    _followedCount = count;
+    final l = AppLocalizations.of(context);
+    final entries = entryList(l);
+    if (entries.isEmpty) return;
+    final idx = indexOf(entries, sel);
+    if (idx < 0) return;
+    _animateTo(-idx * _step(entries.length), active: idx);
+  }
+
+  Offset _centerOf() {
+    final box = _key.currentContext?.findRenderObject() as RenderBox?;
+    if (box == null || !box.attached) return Offset.zero;
+    return box.size.center(Offset.zero) + box.localToGlobal(Offset.zero);
+  }
+
+  void _panStart(DragStartDetails d) {
+    _settle.stop();
+    _motion = null;
+    final v = d.globalPosition - _centerOf();
+    if (v.distance < 8) {
+      _lastPointerAngle = null;
+      return;
+    }
+    _lastPointerAngle = math.atan2(v.dy, v.dx);
+  }
+
+  void _panUpdate(DragUpdateDetails d) {
+    final last = _lastPointerAngle;
+    if (last == null) return;
+    final v = d.globalPosition - _centerOf();
+    if (v.distance < 8) return;
+    final a = math.atan2(v.dy, v.dx);
+    setState(() => _turn += _wrap(a - last));
+    _lastPointerAngle = a;
+    _syncActive();
+  }
+
+  void _panEnd(DragEndDetails d) {
+    _lastPointerAngle = null;
+    final l = AppLocalizations.of(context);
+    final entries = entryList(l);
+    if (entries.isEmpty) return;
+    _animateTo(-_active * _step(entries.length));
+  }
+
+  void _pick(int i, List<Location> entries) {
+    if (i < 0 || i >= entries.length) return;
+    setState(() => _active = i);
+    _animateTo(-i * _step(entries.length));
+    choose(entries[i]);
+  }
+
+  void _tap(TapUpDetails d) {
+    final l = AppLocalizations.of(context);
+    final entries = entryList(l);
+    if (entries.isEmpty) return;
+    final box = _key.currentContext?.findRenderObject() as RenderBox?;
+    if (box == null) return;
+    final local = box.globalToLocal(d.globalPosition);
+    final c = box.size.center(Offset.zero);
+    final v = local - c;
+    // The center screen: the active country's own button.
+    if (v.distance <= 74) {
+      _pick(_active, entries);
+      return;
+    }
+    final step = _step(entries.length);
+    final radius = math.min(box.size.width, 340) / 2 - 16;
+    var best = -1;
+    var bestDist = 30.0;
+    for (var i = 0; i < entries.length; i++) {
+      final a = _wrap(_turn + i * step);
+      if (a.abs() > math.pi * 0.62) continue;
+      final p = c + Offset(math.sin(a), -math.cos(a)) * radius;
+      final dist = (p - local).distance;
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    }
+    if (best >= 0) _pick(best, entries);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final entries = entryList(l);
+    if (locations == null || entries.isEmpty) {
+      return const SizedBox(height: 348);
+    }
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final style = DesignStyle.of(context);
+    final amber = style.navActive;
+    final look = AppDesign.current.look(dark);
+    final chosenIndex = indexOf(entries, selection);
+    final active = entries[_active.clamp(0, entries.length - 1)];
+    return RepaintBoundary(
+      child: SizedBox(
+        height: 348,
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (context, box) {
+            final size = math.min(box.maxWidth, 340);
+            final radius = size / 2 - 16;
+            final center = Offset(size / 2, (size + 6) / 2);
+            final step = _step(entries.length);
+            return Center(
+              child: GestureDetector(
+                key: _key,
+                behavior: HitTestBehavior.opaque,
+                onPanStart: _panStart,
+                onPanUpdate: _panUpdate,
+                onPanEnd: _panEnd,
+                onTapUp: _tap,
+                child: SizedBox(
+                  width: size,
+                  height: size + 6,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    // The HUD disc: the dial's own plate — the rim, the
+                    // ticks, the separators and the top seat's notch.
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: _WheelHudPainter(
+                          count: entries.length,
+                          amber: amber,
+                          dark: dark,
+                          panel: look.homeCard,
+                          ink: look.ink,
+                        ),
+                      ),
+                    ),
+                    // The medals, seated by their own angle: the front
+                    // arc shows them big, the arc's ends fade them out
+                    // before they would wrap the back.
+                    for (var i = 0; i < entries.length; i++)
+                      _seat(
+                        context,
+                        entries[i],
+                        angle: _wrap(_turn + i * step),
+                        radius: radius,
+                        center: center,
+                        amber: amber,
+                        dark: dark,
+                        border: look.homeCardBorder,
+                        activeSeat: i == _active,
+                        chosenSeat: i == chosenIndex,
+                        pinned: widget.favorites.any(
+                          (f) => f.toLowerCase() == entries[i].code.toLowerCase(),
+                        ),
+                      ),
+                    // The center screen: the active country's flag, its
+                    // name, and the counter in the heavy face.
+                    Positioned.fromRect(
+                      rect: Rect.fromCircle(center: center, radius: 62),
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => _pick(_active, entries),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: look.homeCard,
+                            border: Border.all(
+                              color: amber.withValues(alpha: 0.75),
+                              width: 1.4,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(
+                                  alpha: dark ? 0.5 : 0.18,
+                                ),
+                                blurRadius: 14,
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipOval(
+                                child: SizedBox(
+                                  width: 44,
+                                  height: 44,
+                                  child: flagArt(
+                                    context,
+                                    active.code,
+                                    44,
+                                    44,
+                                    cover: true,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                locationName(l, active.code, active.name),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  height: 1.15,
+                                  fontWeight: FontWeight.w700,
+                                  color: look.ink,
+                                ),
+                              ),
+                              Text(
+                                '${_active + 1} / ${entries.length}',
+                                textDirection: TextDirection.ltr,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  height: 1.2,
+                                  letterSpacing: 1.4,
+                                  color: amber,
+                                  fontFamily: 'GtaHud',
+                                  fontFamilyFallback: const [
+                                    'Vazirmatn',
+                                    'Inter',
+                                  ],
+                                  fontFeatures: const [
+                                    FontFeature.tabularFigures(),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _seat(
+    BuildContext context,
+    Location loc, {
+    required double angle,
+    required double radius,
+    required Offset center,
+    required Color amber,
+    required bool dark,
+    required Color border,
+    required bool activeSeat,
+    required bool chosenSeat,
+    required bool pinned,
+  }) {
+    // The seat's own reach: the medal's presence fades past the front
+    // arc, so the wrap to the back happens unseen.
+    final t = (1 - angle.abs() / (math.pi * 0.62)).clamp(0.0, 1.0);
+    if (t <= 0.04) return const SizedBox.shrink();
+    final pos = center + Offset(math.sin(angle), -math.cos(angle)) * radius;
+    final size = 40.0 + 8.0 * t;
+    final ring = chosenSeat
+        ? widget.accent
+        : activeSeat
+        ? amber
+        : border;
+    final ringWidth = chosenSeat ? 2.4 : (activeSeat ? 2.0 : 1.0);
+    final glow = (chosenSeat || activeSeat)
+        ? [
+            BoxShadow(
+              color: (chosenSeat ? widget.accent : amber).withValues(
+                alpha: 0.40 * (0.4 + 0.6 * t),
+              ),
+              blurRadius: 14,
+            ),
+          ]
+        : null;
+    return Positioned(
+      left: pos.dx - (size + 10) / 2,
+      top: pos.dy - (size + 10) / 2,
+      width: size + 10,
+      height: size + 10,
+      child: Opacity(
+        opacity: (0.22 + 0.78 * t).clamp(0.0, 1.0),
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            final l = AppLocalizations.of(context);
+            final entries = entryList(l);
+            _pick(entries.indexOf(loc), entries);
+          },
+          onLongPress: widget.onToggleFavorite == null
+              ? null
+              : () => widget.onToggleFavorite!(loc.code),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: size + 10,
+                height: size + 10,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: dark
+                      ? Colors.black.withValues(alpha: 0.45)
+                      : Colors.white.withValues(alpha: 0.82),
+                  border: Border.all(color: ring, width: ringWidth),
+                  boxShadow: glow,
+                ),
+                child: ClipOval(
+                  child: SizedBox(
+                    width: size,
+                    height: size,
+                    child: flagArt(context, loc.code, size, size, cover: true),
+                  ),
+                ),
+              ),
+              if (pinned)
+                PositionedDirectional(
+                  top: -2,
+                  end: -2,
+                  child: Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: amber,
+                      border: Border.all(
+                        color: dark ? Colors.black : Colors.white,
+                        width: 1.2,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.star_rounded,
+                      size: 9,
+                      color: amber.computeLuminance() > 0.5
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The dial's own plate, painted once behind the medals: the dark disc,
+/// the amber rim, the tick marks the HUD wears, the thin separators
+/// between the seats, and the notch that marks the top seat — the one
+/// the center screen answers for.
+class _WheelHudPainter extends CustomPainter {
+  const _WheelHudPainter({
+    required this.count,
+    required this.amber,
+    required this.dark,
+    required this.panel,
+    required this.ink,
+  });
+
+  final int count;
+  final Color amber;
+  final bool dark;
+  final Color panel;
+  final Color ink;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = Offset(size.width / 2, size.height / 2);
+    final r = size.width / 2 - 6;
+    // The disc: the HUD's dark glass, a touch lighter at the middle.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            panel.withValues(alpha: dark ? 0.92 : 0.98),
+            panel.withValues(alpha: dark ? 0.75 : 0.88),
+          ],
+        ).createShader(Rect.fromCircle(center: c, radius: r)),
+    );
+    // The rim: the dial's amber edge, the wheel's own light.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.2
+        ..color = amber.withValues(alpha: dark ? 0.85 : 0.7),
+    );
+    // The inner hairline: the plate's quiet edge.
+    canvas.drawCircle(
+      c,
+      r - 20,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.8
+        ..color = ink.withValues(alpha: dark ? 0.16 : 0.14),
+    );
+    // The tick marks: the HUD's own rim graduations, the cardinals
+    // longer and lit.
+    final tick = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.6
+      ..strokeCap = StrokeCap.round
+      ..color = ink.withValues(alpha: dark ? 0.30 : 0.26);
+    final tickLit = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.round
+      ..color = amber.withValues(alpha: dark ? 0.8 : 0.65);
+    for (var i = 0; i < 28; i++) {
+      final a = i * 2 * math.pi / 28;
+      final dir = Offset(math.sin(a), -math.cos(a));
+      final inner = r - (i % 7 == 0 ? 15.0 : 10.0);
+      canvas.drawLine(c + dir * inner, c + dir * (r - 4), i % 7 == 0 ? tickLit : tick);
+    }
+    // The separators: one thin spoke between each pair of seats.
+    if (count > 1) {
+      final step = 2 * math.pi / count;
+      final spoke = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = ink.withValues(alpha: dark ? 0.13 : 0.11);
+      for (var i = 0; i < count; i++) {
+        final a = _wrapAngle(_halfStepOffset(i, step));
+        if (a.abs() > math.pi * 0.72) continue;
+        final dir = Offset(math.sin(a), -math.cos(a));
+        canvas.drawLine(c + dir * (r - 24), c + dir * (r - 6), spoke);
+      }
+    }
+    // The selection notch: the amber arc and the small triangle that
+    // mark the top seat — the seat the center screen names.
+    final notch = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4.4
+      ..strokeCap = StrokeCap.round
+      ..color = amber.withValues(alpha: dark ? 0.95 : 0.85);
+    canvas.drawArc(
+      Rect.fromCircle(center: c, radius: r - 2),
+      -math.pi / 2 - 0.16,
+      0.32,
+      false,
+      notch,
+    );
+    final tip = c + Offset(0, -(r - 12));
+    final left = c + Offset(-7, -(r - 2));
+    final right = c + Offset(7, -(r - 2));
+    canvas.drawPath(
+      Path()..moveTo(left.dx, left.dy)..lineTo(tip.dx, tip.dy)..lineTo(right.dx, right.dy)..close(),
+      Paint()..color = amber.withValues(alpha: dark ? 0.95 : 0.85),
+    );
+  }
+
+  double _halfStepOffset(int i, double step) => i * step + step / 2;
+
+  double _wrapAngle(double a) {
+    while (a > math.pi) {
+      a -= 2 * math.pi;
+    }
+    while (a < -math.pi) {
+      a += 2 * math.pi;
+    }
+    return a;
+  }
+
+  @override
+  bool shouldRepaint(covariant _WheelHudPainter old) =>
+      old.count != count ||
+      old.amber != amber ||
+      old.dark != dark ||
+      old.panel != panel ||
+      old.ink != ink;
 }

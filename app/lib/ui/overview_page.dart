@@ -1438,6 +1438,8 @@ class _PhoneHome extends StatelessWidget {
         // its labels under the icons — clears at 84.
         design == 'aether' || design == 'zed' || design == 'pixel'
             ? 104
+            : design == 'gta'
+            ? 106
             : design == 'ios' || design == 'bento'
             ? 84
             : 72,
@@ -1636,6 +1638,25 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+          ] else if (design == 'gta') ...[
+            // The GTA home's opening: the weapon wheel — the countries
+            // as the game's own radial dial, the drag that turns it, the
+            // tick each seat answers, and the center screen that names
+            // the country the top seat holds.
+            const SizedBox(height: 2),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagWeaponWheel(
+                  core: core,
+                  accent: accent,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1660,7 +1681,8 @@ class _PhoneHome extends StatelessWidget {
               design != 'aether' &&
               design != 'zed' &&
               design != 'gazette' &&
-              design != 'ios')
+              design != 'ios' &&
+              design != 'gta')
             Reveal(
               index: 1,
               child: Center(
@@ -2036,6 +2058,34 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 8 : 14),
+          ] else if (design == 'gta') ...[
+            // The GTA hero: the HUD panel — the amber strip on its top
+            // edge, the power disc in its amber ring, the state's word
+            // in the display's heavy face. The pad lights the radar
+            // green while the tunnel carries and keeps the amber's glow
+            // while the connection is being made.
+            Flexible(
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Reveal(
+                    index: 2,
+                    child: _GtaConnectPad(
+                      palette: p,
+                      on: on,
+                      busy: core.switchingProxy || status.connectPending,
+                      accent: accent,
+                      label: label,
+                      hint: press,
+                      onPressed: () => status.totalAccounts == 0
+                          ? _openAccounts(context, core, settings, onOpenAccounts)
+                          : runShowingErrors(context, () => _toggle(on)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
           ] else ...[
             // The compact switch: the orb, on the place's own card.
             const SizedBox(height: 14),
@@ -2184,6 +2234,7 @@ class _PhoneHome extends StatelessWidget {
                     design == 'aether' ||
                     design == 'zed' ||
                     design == 'ios' ||
+                    design == 'gta' ||
                     confirming)
                   // The tiles' bar, the aether's status card, the zed's own
                   // word and the iOS card's button already say the tap's
@@ -2333,7 +2384,8 @@ class _PhoneHome extends StatelessWidget {
             // gazette's homes keep the place's own card down here.
             if (design == 'wheel' ||
                 design == 'bento' ||
-                design == 'gazette') ...[
+                design == 'gazette' ||
+                design == 'gta') ...[
               // The bento's own closing: the place and the session's data
               // as two tiles of one row — the box's mosaic, nothing left
               // half-empty under it.
@@ -4311,6 +4363,175 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The GTA design's connect pad: the game's own HUD panel — the dark
+/// plate with the amber rule on its top edge, the power disc in its
+/// amber ring, the state's word in the display's heavy face. The pad
+/// lights the radar green while the tunnel carries and keeps the
+/// amber's glow while the connection is being made.
+class _GtaConnectPad extends StatelessWidget {
+  const _GtaConnectPad({
+    required this.palette,
+    required this.on,
+    required this.busy,
+    required this.accent,
+    required this.label,
+    required this.hint,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final bool on;
+  final bool busy;
+  final Color accent;
+  final String label;
+  final String hint;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    final style = DesignStyle.of(context);
+    final amber = style.navActive;
+    final lit = on ? accent : amber;
+    final discInk = lit.computeLuminance() > 0.5 ? Colors.black : Colors.white;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: busy ? null : onPressed,
+        child: Container(
+          decoration: BoxDecoration(
+            color: p.card,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: amber.withValues(alpha: p.dark ? 0.5 : 0.38),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: p.dark ? 0.40 : 0.10),
+                blurRadius: 18,
+                offset: const Offset(0, 6),
+              ),
+              BoxShadow(
+                color: lit.withValues(alpha: p.dark ? 0.14 : 0.09),
+                blurRadius: 22,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Column(
+              children: [
+                // The HUD's own top edge: the amber strip, the panel's
+                // lit rule.
+                Container(height: 2.4, color: amber.withValues(alpha: 0.9)),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(22, 18, 22, 20),
+                  child: Column(
+                    children: [
+                      // The power disc: the HUD's own button, amber at
+                      // rest, the state's light when the tunnel carries.
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 260),
+                        curve: Curves.easeOutCubic,
+                        width: 86,
+                        height: 86,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: on
+                              ? LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    lit.withValues(alpha: 0.92),
+                                    lit,
+                                  ],
+                                )
+                              : null,
+                          color: on ? null : p.card,
+                          border: Border.all(
+                            color: on ? lit : amber.withValues(alpha: 0.75),
+                            width: 2.4,
+                          ),
+                          boxShadow: on || busy
+                              ? [
+                                  BoxShadow(
+                                    color: lit.withValues(
+                                      alpha: p.dark ? 0.45 : 0.30,
+                                    ),
+                                    blurRadius: 26,
+                                    spreadRadius: 1,
+                                  ),
+                                ]
+                              : [
+                                  BoxShadow(
+                                    color: amber.withValues(
+                                      alpha: p.dark ? 0.18 : 0.12,
+                                    ),
+                                    blurRadius: 12,
+                                  ),
+                                ],
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            if (busy)
+                              SizedBox.square(
+                                dimension: 84,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.4,
+                                  valueColor: AlwaysStoppedAnimation(lit),
+                                ),
+                              ),
+                            Icon(
+                              Icons.power_settings_new_rounded,
+                              size: 38,
+                              color: on
+                                  ? discInk
+                                  : (p.dark ? amber : amber.withValues(alpha: 0.85)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      // The state's word, in the display's heavy face —
+                      // the HUD's own voice.
+                      CrossfadeText(
+                        label,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 21,
+                          letterSpacing: 0.8,
+                          height: 1.15,
+                          fontFamily: 'GtaHud',
+                          fontFamilyFallback: const ['Vazirmatn', 'Inter'],
+                          color: lit,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        hint,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontSize: 11.5,
+                          color: p.muted,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

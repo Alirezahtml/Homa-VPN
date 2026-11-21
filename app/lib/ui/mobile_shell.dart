@@ -156,6 +156,16 @@ class _MobileShellState extends State<MobileShell> {
                   ],
                 ),
               ),
+              // The GTA HUD's header: the amber-ruled back square, the
+              // heavy face, the HUD's rule under them.
+              HeaderVariant.gta => Scaffold(
+                body: Column(
+                  children: [
+                    GtaPageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
             };
           },
         ),
@@ -291,6 +301,10 @@ class _MobileShellState extends State<MobileShell> {
             onSelect: (i) => setState(() => _tab = i),
           ),
           NavVariant.m3Bar => M3BarNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.gtaRadar => GtaRadarNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),
           ),

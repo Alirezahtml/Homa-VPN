@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart'
     show NavigatorObserver, Route;
 
-/// The app's own sounds: eight short cues the ear adds to what the hand
+/// The app's own sounds: nine short cues the ear adds to what the hand
 /// already feels. A tap for pills, pages and presses; two notes rising
 /// and falling for the switches; a soft swell for the connect that has
 /// begun, a rising arpeggio for the one that carried, a falling one for
@@ -20,6 +20,7 @@ enum SoundCue {
   disconnect,
   error,
   lock,
+  wheelTick,
 }
 
 /// The connection's voice: the cues that say what the tunnel itself is
@@ -48,6 +49,7 @@ abstract final class AppSounds {
     SoundCue.disconnect: 'sounds/disconnect.wav',
     SoundCue.error: 'sounds/error.wav',
     SoundCue.lock: 'sounds/lock.wav',
+    SoundCue.wheelTick: 'sounds/wheelTick.wav',
   };
 
   static final Map<SoundCue, AudioPool> _pools = {};

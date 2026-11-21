@@ -165,6 +165,10 @@ class SettingsGroup extends StatelessWidget {
     final gazetteRules = style.group == GroupVariant.gazetteRules;
     final m3Card = style.group == GroupVariant.m3Card;
     final bentoBoard = style.group == GroupVariant.bentoBoard;
+    // The GTA HUD's panel: the dark raised plate with the amber-steel
+    // hairline — a screen from the game's own HUD.
+    final gtaPanel = style.group == GroupVariant.gtaPanel;
+    final amber = style.navActive;
     Widget card = Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
@@ -185,10 +189,12 @@ class SettingsGroup extends StatelessWidget {
                   : BorderSide(
                       color: gazetteRules
                           ? theme.colorScheme.onSurface.withValues(alpha: 0.85)
+                          : gtaPanel
+                          ? amber.withValues(alpha: 0.42)
                           : theme.colorScheme.outlineVariant.withValues(
                               alpha: iosTable ? 0.35 : 0.5,
                             ),
-                      width: gazetteRules ? 1.1 : 1,
+                      width: gazetteRules ? 1.1 : (gtaPanel ? 1.2 : 1),
                     ))
             : BorderSide.none,
       ),
@@ -205,9 +211,11 @@ class SettingsGroup extends StatelessWidget {
                 height: 1,
                 thickness: iosTable ? 0.5 : (m3Card || bentoBoard ? 0.5 : 1),
                 indent: iosTable ? 58 : 68,
-                color: m3Card || bentoBoard
+                color: gtaPanel
+                    ? theme.colorScheme.outlineVariant.withValues(alpha: 0.35)
+                    : (m3Card || bentoBoard
                     ? theme.colorScheme.outlineVariant.withValues(alpha: 0.25)
-                    : null,
+                    : null),
               ),
             // Each tile arrives a beat after the one above it.
             Reveal(index: i, child: tiles[i]),
@@ -215,6 +223,31 @@ class SettingsGroup extends StatelessWidget {
         ],
       ),
     );
+    if (gtaPanel) {
+      // The HUD panel's own shadow: the plate lifted off the page, the
+      // amber's quiet wash under it.
+      card = DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(style.cardRadius),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(
+                alpha: theme.brightness == Brightness.dark ? 0.38 : 0.10,
+              ),
+              blurRadius: 14,
+              offset: const Offset(0, 5),
+            ),
+            BoxShadow(
+              color: amber.withValues(
+                alpha: theme.brightness == Brightness.dark ? 0.10 : 0.07,
+              ),
+              blurRadius: 18,
+            ),
+          ],
+        ),
+        child: card,
+      );
+    }
     if (look.cardShadow.isNotEmpty) {
       card = DecoratedBox(
         decoration: BoxDecoration(
@@ -3997,6 +4030,7 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'aether' => l.designAether,
   'zed' => l.designZed,
   'gazette' => l.designGazette,
+  'gta' => l.designGta,
   _ => l.designWheel,
 };
 
@@ -4031,13 +4065,14 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'aether',
                   'zed',
                   'gazette',
+                  'gta',
                 ]) ...[
                   _DesignCard(
                     kind: kind,
                     selected: s.homeDesign == kind,
                     onTap: () => s.update(homeDesign: kind),
                   ),
-                  if (kind != 'gazette') const SizedBox(height: 10),
+                  if (kind != 'gta') const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -4080,6 +4115,7 @@ class _DesignCard extends StatelessWidget {
       'aether' => (l.designAether, l.designAetherDesc),
       'zed' => (l.designZed, l.designZedDesc),
       'gazette' => (l.designGazette, l.designGazetteDesc),
+      'gta' => (l.designGta, l.designGtaDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4459,6 +4495,62 @@ class _DesignMockup extends StatelessWidget {
                 ],
               ],
             ),
+          ],
+        );
+      case 'gta':
+        // The weapon wheel: the dark disc with the amber rim, the
+        // medals seated around it, the center screen lit.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox.square(
+              dimension: 74,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 74,
+                    height: 74,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ink.withValues(alpha: 0.16),
+                      border: Border.all(color: lit, width: 1.6),
+                    ),
+                  ),
+                  for (var i = 0; i < 6; i++)
+                    Transform.translate(
+                      offset: Offset.fromDirection(
+                        -math.pi / 2 + i * math.pi / 3,
+                        31,
+                      ),
+                      child: Container(
+                        width: i == 0 ? 13 : 10,
+                        height: i == 0 ? 13 : 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: i == 0
+                              ? lit
+                              : ink.withValues(alpha: 0.55),
+                          border: i == 0
+                              ? Border.all(color: lit, width: 2)
+                              : null,
+                        ),
+                      ),
+                    ),
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ink.withValues(alpha: 0.28),
+                      border: Border.all(color: lit, width: 1.2),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 7),
+            tile(w: 30, h: 7, color: lit),
           ],
         );
       default: // The wheel.

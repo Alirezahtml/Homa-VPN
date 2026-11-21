@@ -283,11 +283,12 @@ class AppSettings extends ChangeNotifier {
     return '';
   }
 
-  /// The home design a stored key asks for. The five keys the app
-  /// carries stand (the wheel, the bento, the pixel, and the two
-  /// reference looks); anything else — the looks that left, or a value
-  /// a newer or older build wrote — lands on the wheel: the app's own
-  /// home, until the user picks one of the looks that stand.
+  /// The home design a stored key asks for. The keys the app carries
+  /// stand (the wheel, the bento, the pixel, the gazette, and the looks
+  /// that carry a palette of their own); anything else — the looks that
+  /// left, or a value a newer or older build wrote — lands on the wheel:
+  /// the app's own home, until the user picks one of the looks that
+  /// stand.
   static String homeDesignFor(String? key) => switch (key) {
     'bento' => 'bento',
     'pixel' => 'pixel',
@@ -295,6 +296,7 @@ class AppSettings extends ChangeNotifier {
     'aether' => 'aether',
     'zed' => 'zed',
     'gazette' => 'gazette',
+    'gta' => 'gta',
     _ => 'wheel',
   };
 

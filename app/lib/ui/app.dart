@@ -111,17 +111,25 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
   // Latin languages, the language's own face for the rest. The gazette
   // wears its printed voices instead: Noto Serif's masthead face for
   // the Latin, Noto Naskh Arabic's newspaper face for the Persian and
-  // the Arabic.
-  final gazette = AppDesign.current.key == 'gazette';
+  // the Arabic. The gta wears the HUD's own heavy condensed face —
+  // Anton — with the language's face falling through for the Persian
+  // and the Arabic.
+  final designKey = AppDesign.current.key;
+  final gazette = designKey == 'gazette';
+  final gtaHud = designKey == 'gta';
   final gazetteScript = AppSettings.languageFor(locale) == 'fa' ||
       AppSettings.languageFor(locale) == 'ar';
   final display = gazette
       ? (gazetteScript ? 'GazetteNaskh' : 'GazetteSerif')
+      : gtaHud
+      ? 'GtaHud'
       : displayFont(AppSettings.languageFor(locale));
   final displayFallback = gazette
       ? (gazetteScript
             ? ['GazetteSerif', 'Vazirmatn', 'Inter', 'SpaceGrotesk']
             : ['GazetteNaskh', 'Vazirmatn', 'Inter', 'SpaceGrotesk'])
+      : gtaHud
+      ? ['Vazirmatn', 'Inter', 'SpaceGrotesk']
       : displayFallbacks(display);
   final lit = accent == null ? null : accentForTheme(accent, dark);
   final effective = lit == null
