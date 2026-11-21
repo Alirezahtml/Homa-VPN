@@ -23,9 +23,9 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'design.dart';
 import 'design_style.dart';
-import 'flag_modes.dart' show flagArt, locationName;
+import 'flag_modes.dart' show flagArt;
 import 'widgets.dart'
-    show CountryFlag, HomaTypefaces, delayColor, typefacesOf;
+    show CountryFlag, HomaTypefaces, delayColor, locationName, typefacesOf;
 
 /// One place as the list reads it: the entry itself, the name in the
 /// page's language, and the row's own states (the page's choice, the

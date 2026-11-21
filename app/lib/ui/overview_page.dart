@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'dart:ui' as ui;
 
 import '../app_settings.dart';
 import '../core/android_core.dart';
@@ -4773,91 +4772,6 @@ class _FlatStats extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// One of the flat stats' two rate cells: the direction's word and the
-/// moment's rate on the first line, the session's bytes muted beneath —
-/// a tile of the bento the design wears, not a row of a ledger.
-class _RateCell extends StatelessWidget {
-  const _RateCell({
-    required this.palette,
-    required this.label,
-    required this.icon,
-    required this.bytes,
-    required this.rate,
-    required this.color,
-  });
-
-  final _HomePalette palette;
-  final String label;
-  final IconData icon;
-  final int bytes;
-  final int rate;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final p = palette;
-    return LiquidGlass(
-      radius: 14,
-      padding: const EdgeInsetsDirectional.fromSTEB(12, 9, 12, 9),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Icon(icon, size: 14, color: color),
-              const SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.3,
-                    color: color,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 3),
-          // The moment's rate, walked to its next value — the live
-          // numbers glide instead of flickering between polls.
-          TickerNumber(
-            value: rate,
-            builder:
-                (context, v) => Text(
-                  formatRate(v),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: (
-                    theme.textTheme.titleMedium ?? const TextStyle()
-                  ).copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontFeatures: const [FontFeature.tabularFigures()],
-                    color: p.text,
-                  ),
-                ),
-          ),
-          const SizedBox(height: 1),
-          Text(
-            formatBytes(bytes),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontFeatures: const [FontFeature.tabularFigures()],
-              color: p.muted,
-            ),
-          ),
-        ],
       ),
     );
   }
