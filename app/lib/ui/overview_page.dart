@@ -5050,7 +5050,12 @@ class _IosStatusCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // The status card: the raised sheet, the hairline's edge, the
-          // state's word over the place's cell.
+          // state's word over the place's cell. The system's own
+          // ambience rides it: a wash of the state's color falls from
+          // the card's top — green while the tunnel carries, amber on
+          // the way, red on a failure, and no light at all at rest —
+          // melting into the card by its middle, the way the system's
+          // own cards take the state's tint without a hard edge.
           Material(
             color: p.card,
             shape: RoundedRectangleBorder(
@@ -5059,9 +5064,34 @@ class _IosStatusCard extends StatelessWidget {
             ),
             clipBehavior: Clip.antiAlias,
             elevation: 0,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-              child: Column(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 520),
+                      curve: Curves.easeOutCubic,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: const [0, 1],
+                          colors: [
+                            on || busy || error
+                                ? state.withValues(
+                                    alpha: p.dark ? 0.16 : 0.12,
+                                  )
+                                : Colors.transparent,
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -5196,6 +5226,8 @@ class _IosStatusCard extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+              ],
             ),
           ),
           const SizedBox(height: 16),

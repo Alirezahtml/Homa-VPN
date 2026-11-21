@@ -655,6 +655,10 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
   PageController? _controller;
   bool _moving = false;
 
+  /// The page the finger last snapped to: the dots' own truth — they
+  /// follow the deck's motion, not the tunnel's round trip.
+  int _page = 0;
+
   @override
   CoreController get core => widget.core;
   @override
@@ -718,26 +722,36 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
     }
     final dark = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
-      height: 116,
-      child: PageView.builder(
-        controller: _controller,
-        // The deck is finite: without a count the page view would build
-        // the pages past the end and the builder would read past the
-        // list.
-        itemCount: entries.length,
-        clipBehavior: Clip.none,
-        onPageChanged: (page) {
-          // A follow's own landing answers the same event, and the page
-          // the choice already owns says nothing new: only the finger's
-          // arrival at a new country moves the tunnel.
-          if (!_moving && page >= 0 && page < entries.length) {
-            final loc = entries[page];
-            final chosen = isRecommendedPlace(loc.code)
-                ? ''
-                : loc.code.toLowerCase();
-            if (chosen != selection) choose(loc);
-          }
-        },
+      height: 138,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _controller,
+              // The deck is finite: without a count the page view would
+              // build the pages past the end and the builder would read
+              // past the list.
+              itemCount: entries.length,
+              clipBehavior: Clip.none,
+              onPageChanged: (page) {
+                // The system's own tick: every medal the finger snaps
+                // to answers with the selection's click, the dock's own
+                // way of saying the page turned.
+                HapticFeedback.selectionClick();
+                // A follow's own landing answers the same event, and
+                // the page the choice already owns says nothing new:
+                // only the finger's arrival at a new country moves the
+                // tunnel.
+                if (!_moving && page >= 0 && page < entries.length) {
+                  final loc = entries[page];
+                  final chosen = isRecommendedPlace(loc.code)
+                      ? ''
+                      : loc.code.toLowerCase();
+                  if (chosen != selection) choose(loc);
+                }
+                setState(() => _page = page);
+              },
         itemBuilder: (context, i) {
           final loc = entries[i];
           final distance =
@@ -806,6 +820,64 @@ class _FlagMedalDeckState extends State<FlagMedalDeck> with FlagChoices {
             ),
           );
         },
+              ),
+          ),
+          // The deck's dots: the system's own page dots — the chosen
+          // one elongated and lit the accent's blue, the rest the quiet
+          // gray, each turning with the snap. A long list shows a
+          // window around the current page, the ellipses standing where
+          // the window does not reach.
+          if (entries.length > 1)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (entries.length <= 9)
+                    for (var d = 0; d < entries.length; d++) _dot(context, d)
+                  else ...[
+                    for (var d = 0; d < entries.length; d++)
+                      if (d == 0 || d == entries.length - 1 ||
+                          (d >= _page - 2 && d <= _page + 2))
+                        _dot(context, d)
+                      else if (d == 1 && _page > 3 ||
+                          d == entries.length - 2 &&
+                              _page < entries.length - 4)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: Text(
+                            '…',
+                            style: TextStyle(
+                              fontSize: 10,
+                              height: 1,
+                              color: widget.muted.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ),
+                  ],
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// One of the deck's dots: the chosen page's elongated pill in the
+  /// accent, the rest the round quiet gray.
+  Widget _dot(BuildContext context, int d) {
+    final chosen = d == _page;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 260),
+      curve: Curves.easeOutCubic,
+      margin: const EdgeInsets.symmetric(horizontal: 2.5),
+      width: chosen ? 16 : 5.5,
+      height: 5.5,
+      decoration: BoxDecoration(
+        color: chosen
+            ? widget.accent
+            : widget.muted.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }

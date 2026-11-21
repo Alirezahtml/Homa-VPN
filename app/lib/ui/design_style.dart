@@ -767,8 +767,10 @@ class CupertinoBarNav extends StatelessWidget {
           onSelect(i);
         }
       },
-      child: Center(
-        child: Column(
+      child: Pressable(
+        depth: 0.06,
+        child: Center(
+          child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             // The symbol swaps itself: the filled one for the chosen tab,
@@ -807,6 +809,7 @@ class CupertinoBarNav extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }
