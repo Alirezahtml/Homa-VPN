@@ -2114,9 +2114,10 @@ class _WheelHudPainter extends CustomPainter {
       r,
       Paint()
         ..shader = RadialGradient(
-          center: Alignment(-0.35, -1.05).withinRect(
-            Rect.fromCircle(center: c, radius: r),
-          ),
+          // The sheen gathers up and to the start side, the way a curved
+          // pane catches the room's light — relative to the disc's own
+          // rect, so it rides whatever size the wheel takes.
+          center: const Alignment(-0.35, -1.05),
           radius: 0.9,
           colors: [
             Colors.white.withValues(alpha: dark ? 0.10 : 0.30),

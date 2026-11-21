@@ -5526,7 +5526,7 @@ class _IosGroupRow extends StatelessWidget {
             ],
             if (trailing != null) ...[
               const SizedBox(width: 6),
-              Icon(trailing, size: 14, color: p.muted),
+              Icon(trailing!, size: 14, color: p.muted),
             ],
             if (chevron) ...[
               const SizedBox(width: 4),
