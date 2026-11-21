@@ -75,7 +75,8 @@ For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 <img src="docs/screenshots/design_pixel.webp" width="180" alt="Pixel design">&nbsp;&nbsp;
 <img src="docs/screenshots/design_zed.webp" width="180" alt="Zed design"><br>
 <img src="docs/screenshots/design_aether.webp" width="180" alt="Aether design">&nbsp;&nbsp;
-<img src="docs/screenshots/design_servers.webp" width="180" alt="Servers">&nbsp;&nbsp;
+<img src="docs/screenshots/design_gta.webp" width="180" alt="GTA design">&nbsp;&nbsp;
+<img src="docs/screenshots/design_servers.webp" width="180" alt="Servers"><br>
 <img src="docs/screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
 
