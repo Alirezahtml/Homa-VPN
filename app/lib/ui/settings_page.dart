@@ -4768,6 +4768,7 @@ class _GlobePreviewPainter extends CustomPainter {
 String mapKindName(AppLocalizations l, MapKind kind) => switch (kind) {
   MapKind.globe => l.mapKindGlobe,
   MapKind.flat => l.mapKindFlat,
+  MapKind.hud => l.mapKindHud,
   _ => l.mapKindClassic,
 };
 
@@ -4858,15 +4859,28 @@ class _MapKindPreviewPainter extends CustomPainter {
 
     if (!sphere) {
       // The flat kinds: a rounded map card, its graticule, the land, the
-      // lit country's halo — the classic's quiet ink, or the modern
-      // finish's shadow and stronger lit country.
+      // lit country's halo — the classic's quiet ink, the modern
+      // finish's shadow and stronger lit country, or the hud's amber
+      // radar grid, its neon coast and its lit halo.
       final modern = kind == MapKind.flat;
+      final hud = kind == MapKind.hud;
       final rect = Rect.fromCenter(
         center: c,
         width: size.width * 0.86,
         height: size.height * 0.5,
       );
       final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(7));
+      if (hud) {
+        // The hud's own water: the deep plate the game's map sits on.
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = dark
+                ? const Color(0xFF0B1122)
+                : const Color(0xFFB9CFDA).withValues(alpha: 0.55)
+            ..isAntiAlias = true,
+        );
+      }
       if (modern) {
         canvas.drawRRect(
           rrect,
@@ -4884,9 +4898,15 @@ class _MapKindPreviewPainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 0.8,
       );
-      // The graticule: three meridians, one parallel.
+      // The graticule: three meridians, one parallel — the hud's in the
+      // amber the game's radar wears.
       final grid = Paint()
-        ..color = ink.withValues(alpha: dark ? 0.09 : 0.08)
+        ..color = hud
+            ? (dark
+                    ? const Color(0xFFFFB84D)
+                    : const Color(0xFFB97A14))
+                .withValues(alpha: dark ? 0.38 : 0.42)
+            : ink.withValues(alpha: dark ? 0.09 : 0.08)
         ..strokeWidth = 0.6;
       for (var i = 1; i <= 2; i++) {
         final x = rect.left + rect.width * i / 3;
@@ -4915,13 +4935,46 @@ class _MapKindPreviewPainter extends CustomPainter {
         3.5,
         landPaint,
       );
+      // The hud's neon coast: the sunset's pink breathing around each
+      // blob — the night city's own light on the map's edges.
+      if (hud) {
+        final neon = Paint()
+          ..color = (dark
+                  ? const Color(0xFFFF4D8D)
+                  : const Color(0xFFD6336C))
+              .withValues(alpha: dark ? 0.55 : 0.40)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.2
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.8)
+          ..isAntiAlias = true;
+        for (final (bx, by, rx, ry) in [
+          (rect.left + rect.width * 0.18, c.dy, 6.5, 4.0),
+          (rect.left + rect.width * 0.46, c.dy - 2, 4.0, 3.0),
+          (rect.left + rect.width * 0.74, c.dy + 1, 5.5, 3.5),
+        ]) {
+          canvas.drawOval(
+            Rect.fromCenter(
+              center: Offset(bx, by),
+              width: rx * 2 + 2.4,
+              height: ry * 2 + 2.4,
+            ),
+            neon,
+          );
+        }
+      }
       // The lit country: a small halo on the first blob, brighter where
-      // the modern finish carries its own shadow.
+      // the modern finish carries its own shadow — the hud's in the
+      // amber, the game's own light.
       canvas.drawCircle(
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         7.5,
         Paint()
-          ..color = ink.withValues(alpha: modern ? 0.34 : 0.20)
+          ..color = hud
+              ? (dark
+                      ? const Color(0xFFFFB84D)
+                      : const Color(0xFFB97A14))
+                  .withValues(alpha: 0.44)
+              : ink.withValues(alpha: modern ? 0.34 : 0.20)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5)
           ..isAntiAlias = true,
       );
@@ -4929,7 +4982,12 @@ class _MapKindPreviewPainter extends CustomPainter {
         Offset(rect.left + rect.width * 0.18, c.dy - 1),
         1.8,
         Paint()
-          ..color = ink.withValues(alpha: dark ? 0.9 : 0.7)
+          ..color = hud
+              ? (dark
+                      ? const Color(0xFFFFB84D)
+                      : const Color(0xFFB97A14))
+                  .withValues(alpha: dark ? 0.95 : 0.85)
+              : ink.withValues(alpha: dark ? 0.9 : 0.7)
           ..isAntiAlias = true,
       );
       return;

@@ -1273,7 +1273,12 @@ class _PhoneHome extends StatelessWidget {
                       // The land drawn in the design's own ink: the
                       // paper's warm brown, the violet night's gray, the
                       // tonal blue-gray — the monochrome keeps its own.
+                      // The design's own world rides with it: the
+                      // palette designs recolor the water, the land and
+                      // the grid, so the map wears the design the page
+                      // wears.
                       ink: AppDesign.current.look(p.dark).ink,
+                      designKey: AppDesign.current.key,
                     ),
                   );
                 },
@@ -4374,8 +4379,9 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
 /// plate with the amber rule on its top edge, the power disc in its
 /// amber ring, the state's word in the display's heavy face. The pad
 /// lights the radar green while the tunnel carries and keeps the
-/// amber's glow while the connection is being made.
-class _GtaConnectPad extends StatelessWidget {
+/// amber's glow while the connection is being made. A press sinks the
+/// whole panel a shade, the way the game's buttons answer.
+class _GtaConnectPad extends StatefulWidget {
   const _GtaConnectPad({
     required this.palette,
     required this.on,
@@ -4395,142 +4401,175 @@ class _GtaConnectPad extends StatelessWidget {
   final VoidCallback onPressed;
 
   @override
+  State<_GtaConnectPad> createState() => _GtaConnectPadState();
+}
+
+class _GtaConnectPadState extends State<_GtaConnectPad> {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final p = palette;
+    final p = widget.palette;
+    final on = widget.on;
+    final busy = widget.busy;
     final style = DesignStyle.of(context);
     final amber = style.navActive;
-    final lit = on ? accent : amber;
+    final lit = on ? widget.accent : amber;
     final discInk = lit.computeLuminance() > 0.5 ? Colors.black : Colors.white;
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 400),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: busy ? null : onPressed,
-        child: Container(
-          decoration: BoxDecoration(
-            color: p.card,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: amber.withValues(alpha: p.dark ? 0.5 : 0.38),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: p.dark ? 0.40 : 0.10),
-                blurRadius: 18,
-                offset: const Offset(0, 6),
+        onTap: busy ? null : widget.onPressed,
+        onTapDown: busy ? null : (_) => setState(() => _pressed = true),
+        onTapUp: (_) => setState(() => _pressed = false),
+        onTapCancel: () => setState(() => _pressed = false),
+        child: AnimatedScale(
+          // The press's own sink: the whole panel yields a shade under
+          // the finger and returns with a soft overshoot.
+          scale: _pressed ? 0.975 : 1.0,
+          duration: const Duration(milliseconds: 140),
+          curve: _pressed ? Curves.easeOut : Curves.easeOutBack,
+          child: Container(
+            decoration: BoxDecoration(
+              color: p.card,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: amber.withValues(alpha: p.dark ? 0.5 : 0.38),
               ),
-              BoxShadow(
-                color: lit.withValues(alpha: p.dark ? 0.14 : 0.09),
-                blurRadius: 22,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Column(
-              children: [
-                // The HUD's own top edge: the amber strip, the panel's
-                // lit rule.
-                Container(height: 2.4, color: amber.withValues(alpha: 0.9)),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(22, 18, 22, 20),
-                  child: Column(
-                    children: [
-                      // The power disc: the HUD's own button, amber at
-                      // rest, the state's light when the tunnel carries.
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 260),
-                        curve: Curves.easeOutCubic,
-                        width: 86,
-                        height: 86,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: on
-                              ? LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    lit.withValues(alpha: 0.92),
-                                    lit,
-                                  ],
-                                )
-                              : null,
-                          color: on ? null : p.card,
-                          border: Border.all(
-                            color: on ? lit : amber.withValues(alpha: 0.75),
-                            width: 2.4,
-                          ),
-                          boxShadow: on || busy
-                              ? [
-                                  BoxShadow(
-                                    color: lit.withValues(
-                                      alpha: p.dark ? 0.45 : 0.30,
-                                    ),
-                                    blurRadius: 26,
-                                    spreadRadius: 1,
-                                  ),
-                                ]
-                              : [
-                                  BoxShadow(
-                                    color: amber.withValues(
-                                      alpha: p.dark ? 0.18 : 0.12,
-                                    ),
-                                    blurRadius: 12,
-                                  ),
-                                ],
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            if (busy)
-                              SizedBox.square(
-                                dimension: 84,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.4,
-                                  valueColor: AlwaysStoppedAnimation(lit),
-                                ),
-                              ),
-                            Icon(
-                              Icons.power_settings_new_rounded,
-                              size: 38,
-                              color: on
-                                  ? discInk
-                                  : (p.dark ? amber : amber.withValues(alpha: 0.85)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      // The state's word, in the display's heavy face —
-                      // the HUD's own voice.
-                      CrossfadeText(
-                        label,
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 21,
-                          letterSpacing: 0.8,
-                          height: 1.15,
-                          fontFamily: 'GtaHud',
-                          fontFamilyFallback: const ['Vazirmatn', 'Inter'],
-                          color: lit,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        hint,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          fontSize: 11.5,
-                          color: p.muted,
-                        ),
-                      ),
-                    ],
-                  ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: p.dark ? 0.40 : 0.10),
+                  blurRadius: 18,
+                  offset: const Offset(0, 6),
+                ),
+                BoxShadow(
+                  color: lit.withValues(alpha: p.dark ? 0.14 : 0.09),
+                  blurRadius: 22,
                 ),
               ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Column(
+                children: [
+                  // The HUD's own top edge: the amber strip, the panel's
+                  // lit rule.
+                  Container(height: 2.4, color: amber.withValues(alpha: 0.9)),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                      22,
+                      18,
+                      22,
+                      20,
+                    ),
+                    child: Column(
+                      children: [
+                        // The power disc: the HUD's own button, amber at
+                        // rest, the state's light when the tunnel carries.
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 260),
+                          curve: Curves.easeOutCubic,
+                          width: 86,
+                          height: 86,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: on
+                                ? LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      lit.withValues(alpha: 0.92),
+                                      lit,
+                                    ],
+                                  )
+                                : null,
+                            color: on ? null : p.card,
+                            border: Border.all(
+                              color: on ? lit : amber.withValues(alpha: 0.75),
+                              width: 2.4,
+                            ),
+                            boxShadow: on || busy
+                                ? [
+                                    BoxShadow(
+                                      color: lit.withValues(
+                                        alpha: p.dark ? 0.45 : 0.30,
+                                      ),
+                                      blurRadius: 26,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : [
+                                    BoxShadow(
+                                      color: amber.withValues(
+                                        alpha: p.dark ? 0.18 : 0.12,
+                                      ),
+                                      blurRadius: 12,
+                                    ),
+                                  ],
+                          ),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              if (busy)
+                                SizedBox.square(
+                                  dimension: 84,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.4,
+                                    valueColor: AlwaysStoppedAnimation(lit),
+                                  ),
+                                ),
+                              // The power's mark: it steps back while the
+                              // connection is being made — the spinner
+                              // owns the disc for that breath.
+                              AnimatedOpacity(
+                                opacity: busy ? 0.40 : 1.0,
+                                duration: const Duration(milliseconds: 200),
+                                child: Icon(
+                                  Icons.power_settings_new_rounded,
+                                  size: 38,
+                                  color: on
+                                      ? discInk
+                                      : (p.dark
+                                            ? amber
+                                            : amber.withValues(alpha: 0.85)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 14),
+                        // The state's word, in the display's heavy face —
+                        // the HUD's own voice.
+                        CrossfadeText(
+                          widget.label,
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 21,
+                            letterSpacing: 0.8,
+                            height: 1.15,
+                            fontFamily: 'GtaHud',
+                            fontFamilyFallback: const ['Vazirmatn', 'Inter'],
+                            color: lit,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.hint,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            fontSize: 11.5,
+                            color: p.muted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -5521,12 +5560,14 @@ class _AetherTrafficCell extends StatelessWidget {
   }
 }
 
-/// The aether look's power button: the rounded square that becomes a
-/// circle when the VPN rests, in the state's own system color, with the
-/// reference's two glow layers breathing behind it while the tunnel
-/// carries or is being made — the rest of the time nothing here redraws,
-/// and the battery keeps its frames. A press sinks the button the way
-/// the reference's spring does.
+/// The aether look's power button, rebuilt as the control the design's
+/// own cards speak: the state-colored disc standing in a thin ring
+/// track, the rounded square that becomes a circle when the tunnel
+/// carries, the connecting state's own sweep arcing round the ring, and
+/// the two glow layers breathing behind it while the tunnel carries or
+/// is being made — the rest of the time nothing here redraws, and the
+/// battery keeps its frames. A press sinks the button and returns it
+/// with a spring.
 class _AetherPowerButton extends StatefulWidget {
   const _AetherPowerButton({
     required this.on,
@@ -5561,14 +5602,30 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
     duration: const Duration(milliseconds: 1600),
   );
 
+  /// The connecting sweep's own walk round the ring.
+  late final AnimationController _spin = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1100),
+  );
+
   bool _pressed = false;
 
   @override
   void didUpdateWidget(_AetherPowerButton old) {
     super.didUpdateWidget(old);
-    // The glow runs only while the tunnel carries or is being made; every
-    // other state holds one pose and the battery keeps the frames.
-    final alive = (widget.on || widget.busy) && !widget.batterySaver;
+    // The glow and the sweep run only while the tunnel carries or is
+    // being made; every other state holds one pose and the battery
+    // keeps the frames. The system's reduce-motion answer holds one
+    // pose too.
+    final alive =
+        (widget.on || widget.busy) &&
+        !widget.batterySaver &&
+        !MediaQuery.of(context).disableAnimations;
+    if (widget.busy && alive && !_spin.isAnimating) {
+      _spin.repeat();
+    } else if ((!widget.busy || !alive) && _spin.isAnimating) {
+      _spin.stop();
+    }
     if (alive && !_breath.isAnimating) {
       _breath.repeat(reverse: true);
     } else if (!alive && _breath.isAnimating) {
@@ -5580,6 +5637,7 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
   @override
   void dispose() {
     _breath.dispose();
+    _spin.dispose();
     super.dispose();
   }
 
@@ -5603,122 +5661,207 @@ class _AetherPowerButtonState extends State<_AetherPowerButton>
     const size = 108.0;
     // The stage gives the glow room to breathe: the widest glow layer
     // stays inside it, so nothing clips.
-    const stage = 176.0;
+    const stage = 184.0;
     final still = MediaQuery.of(context).disableAnimations;
+    final ringR = size / 2 + 8;
     return Tooltip(
       message: widget.tooltip,
-      child: AnimatedBuilder(
-        animation: _breath,
-        builder: (context, child) {
-          final t = Curves.easeInOut.transform(_breath.value);
-          final glowScale = 1.18 + 0.30 * t;
-          final glowAlpha =
-              (widget.on || widget.busy) && !widget.batterySaver && !still
-              ? 0.34 - 0.26 * t
-              : 0.0;
-          final glow = color.withValues(alpha: glowAlpha);
-          final radius = widget.on ? 34.0 : size / 2;
-          return SizedBox(
-            width: stage,
-            height: stage,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // The two glow layers, the reference's own: the wide one
-                // breathing behind, the nearer one riding its back while
-                // the tunnel carries.
-                if (glowAlpha > 0) ...[
-                  Transform.scale(
-                    scale: glowScale,
-                    child: Container(
-                      width: size,
-                      height: size,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(radius),
-                        color: glow,
-                      ),
-                    ),
-                  ),
-                  Transform.scale(
-                    scale: glowScale * 0.74,
-                    child: Container(
-                      width: size,
-                      height: size,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(radius),
-                        color: color.withValues(alpha: glowAlpha * 1.7),
-                      ),
-                    ),
-                  ),
-                ],
-                child!,
-              ],
-            ),
-          );
-        },
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: widget.busy ? null : widget.onPressed,
-            onTapDown: widget.busy
-                ? null
-                : (_) => setState(() => _pressed = true),
-            onTapUp: (_) => setState(() => _pressed = false),
-            onTapCancel: () => setState(() => _pressed = false),
-            customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(size / 2),
-            ),
-            child: AnimatedScale(
-              // The press's own sink, the reference's spring in spirit:
-              // the button yields a shade under the finger and returns
-              // with a soft overshoot.
-              scale: _pressed ? 0.88 : 1.0,
-              duration: const Duration(milliseconds: 150),
-              curve: _pressed ? Curves.easeOut : Curves.easeOutBack,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 450),
-                curve: Curves.easeOutCubic,
-                width: size,
-                height: size,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    widget.on ? 34 : size / 2,
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.white.withValues(alpha: 0.32),
-                      Colors.white.withValues(alpha: 0.04),
-                      Colors.transparent,
-                    ],
-                  ),
-                  color: color,
-                  boxShadow: [
-                    BoxShadow(
-                      color: color.withValues(
-                        alpha: widget.on || widget.busy ? 0.35 : 0.22,
-                      ),
-                      blurRadius: 24,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.power_settings_new_rounded,
-                  size: 44,
-                  color: Colors.white,
-                  shadows: widget.dark
-                      ? null
-                      : const [Shadow(color: Color(0x33000000), blurRadius: 6)],
+      child: SizedBox(
+        width: stage,
+        height: stage,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // The ring track: the control's own seat — the hairline the
+            // disc stands in, the state's color on its rim while the
+            // tunnel carries or is being made.
+            Container(
+              width: ringR * 2,
+              height: ringR * 2,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: (widget.on || widget.busy
+                          ? color
+                          : widget.dark
+                          ? Colors.white
+                          : Colors.black)
+                      .withValues(alpha: widget.dark ? 0.24 : 0.16),
+                  width: 1.2,
                 ),
               ),
             ),
-          ),
+            // The connecting sweep: the arc that walks the ring while
+            // the connection is being made — the wait, given a home of
+            // its own on the control.
+            if (widget.busy)
+              AnimatedBuilder(
+                animation: _spin,
+                builder: (context, _) {
+                  final start = still ? 0.0 : _spin.value * 2 * math.pi;
+                  return CustomPaint(
+                    size: Size.square(ringR * 2),
+                    painter: _AetherSweepPainter(color: color, start: start),
+                  );
+                },
+              ),
+            AnimatedBuilder(
+              animation: _breath,
+              builder: (context, child) {
+                final t = Curves.easeInOut.transform(_breath.value);
+                final glowScale = 1.10 + 0.22 * t;
+                final glowAlpha =
+                    (widget.on || widget.busy) && !widget.batterySaver && !still
+                    ? 0.30 - 0.22 * t
+                    : 0.0;
+                if (glowAlpha <= 0) return child!;
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.scale(
+                      scale: glowScale,
+                      child: Container(
+                        width: size,
+                        height: size,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            widget.on ? 34 : size / 2,
+                          ),
+                          color: color.withValues(alpha: glowAlpha),
+                        ),
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: glowScale * 0.74,
+                      child: Container(
+                        width: size,
+                        height: size,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            widget.on ? 34 : size / 2,
+                          ),
+                          color: color.withValues(alpha: glowAlpha * 1.6),
+                        ),
+                      ),
+                    ),
+                    child!,
+                  ],
+                );
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: widget.busy ? null : widget.onPressed,
+                  onTapDown: widget.busy
+                      ? null
+                      : (_) => setState(() => _pressed = true),
+                  onTapUp: (_) => setState(() => _pressed = false),
+                  onTapCancel: () => setState(() => _pressed = false),
+                  customBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(size / 2),
+                  ),
+                  child: AnimatedScale(
+                    // The press's own sink: the button yields a shade
+                    // under the finger and returns with a soft overshoot.
+                    scale: _pressed ? 0.92 : 1.0,
+                    duration: const Duration(milliseconds: 150),
+                    curve: _pressed ? Curves.easeOut : Curves.easeOutBack,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 450),
+                      curve: Curves.easeOutCubic,
+                      width: size,
+                      height: size,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          widget.on ? 34 : size / 2,
+                        ),
+                        // The machined face: the state's color, the
+                        // light's own band from above, and the hairline
+                        // edge the glass reads.
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white.withValues(alpha: 0.30),
+                            Colors.white.withValues(alpha: 0.05),
+                            Colors.transparent,
+                          ],
+                        ),
+                        color: color,
+                        border: Border.all(
+                          color: Colors.white.withValues(
+                            alpha: widget.dark ? 0.22 : 0.34,
+                          ),
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: color.withValues(
+                              alpha: widget.on || widget.busy ? 0.38 : 0.24,
+                            ),
+                            blurRadius: 24,
+                            offset: const Offset(0, 8),
+                          ),
+                          BoxShadow(
+                            color: Colors.black.withValues(
+                              alpha: widget.dark ? 0.32 : 0.10,
+                            ),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.power_settings_new_rounded,
+                        size: 44,
+                        color: Colors.white,
+                        shadows: widget.dark
+                            ? null
+                            : const [
+                                Shadow(color: Color(0x33000000), blurRadius: 6),
+                              ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+/// The aether button's connecting arc: one rounded segment of the ring,
+/// walking round while the connection is being made — the sweep the
+/// wait reads as.
+class _AetherSweepPainter extends CustomPainter {
+  const _AetherSweepPainter({required this.color, required this.start});
+
+  final Color color;
+  final double start;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.width / 2 - 1.2;
+    canvas.drawArc(
+      Rect.fromCircle(center: c, radius: r),
+      start,
+      1.9,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.6
+        ..strokeCap = StrokeCap.round
+        ..color = color.withValues(alpha: 0.9),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _AetherSweepPainter old) =>
+      old.color != color || old.start != start;
 }
 
 /// The zed home's hero: the gradient blob the ZedSecure design wears —

@@ -139,8 +139,9 @@ class AppSettings extends ChangeNotifier {
   String mapStyle = 'silver';
 
   /// The home map's kind: 'classic' (the flat map as it always was),
-  /// 'globe' (the metal ball), or 'flat' (the flat map's modern finish).
-  /// The classic carries the default: the map the home has always stood
+  /// 'globe' (the metal ball), 'flat' (the flat map's modern finish), or
+  /// 'hud' (the GTA design's own map — the game's HUD plate). The
+  /// classic carries the default: the map the home has always stood
   /// on. The night, the terrain and the satellite kinds the picker once
   /// offered land here on their nearest survivor when a settings file
   /// still names them.
@@ -535,6 +536,7 @@ class AppSettings extends ChangeNotifier {
         // look closest now.
         'satellite' => 'globe',
         'flat' => 'flat',
+        'hud' => 'hud',
         // The night's deep water and the terrain's atlas tint read
         // closest to the modern flat's finish.
         'night' || 'terrain' => 'flat',

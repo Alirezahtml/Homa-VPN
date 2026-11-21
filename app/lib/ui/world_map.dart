@@ -344,17 +344,20 @@ List<(double, double, double)> greatCirclePath(
 ///   lit country.
 /// - [MapKind.globe]: the metal ball, turned so the chosen country
 ///   faces the viewer.
+/// - [MapKind.hud]: the GTA design's own map — the game's HUD plate:
+///   the deep water, the slate land, the neon coast, the amber radar
+///   grid and the sweep that walks the world while the tunnel carries.
 ///
 /// The night, the terrain and the satellite's earth were here before,
 /// and left: three ways to paint one world was the picker's whole
 /// point, and the three that read best are the three that stayed. A
 /// settings file that still names one of them lands on its nearest
 /// survivor (app_settings.dart reads the saved kind back).
-enum MapKind { classic, flat, globe }
+enum MapKind { classic, flat, globe, hud }
 
 /// The flat map's finishes: how its land and its water take their
 /// color, whatever theme carries them.
-enum FlatFinish { classic, modern, night, terrain }
+enum FlatFinish { classic, modern, night, terrain, hud }
 
 /// The looks the settings offer for the home's map: six ways to paint
 /// the same real world. Every style carries its own metal, its own land,
@@ -1909,6 +1912,145 @@ class WorldShape {
   final ui.Offset anchor;
 }
 
+/// One design's own map colors, when the design carries a palette: the
+/// water, the land, the coast's ink and the grid — so the world wears
+/// the design the page wears, instead of the neutral ink every look
+/// shared. The monochrome and the homes without a palette keep the
+/// quiet ink; a design that stands gets a world of its own.
+@immutable
+class MapSkin {
+  const MapSkin({
+    required this.water,
+    required this.waterFade,
+    required this.land,
+    required this.edge,
+    required this.grid,
+  });
+
+  /// The water's wash and its fade at the map's own top and bottom.
+  final Color water;
+  final Color waterFade;
+
+  /// The land's fill and the coastlines' ink.
+  final Color land;
+  final Color edge;
+
+  /// The graticule's ink (the painter carries its own alpha).
+  final Color grid;
+
+  /// The design's own world: null keeps the monochrome's quiet ink —
+  /// the homes that carry no palette read it, and any key that is not
+  /// one of the designs that stand lands there too.
+  static MapSkin? forDesign(String key, bool dark) => switch (key) {
+    'aether' => dark
+        ? const MapSkin(
+            water: Color(0xFF0D1420),
+            waterFade: Color(0xFF080C13),
+            land: Color(0xFF1D2430),
+            edge: Color(0xFF33415A),
+            grid: Color(0xFF33415A),
+          )
+        : const MapSkin(
+            water: Color(0xFFE3E9F2),
+            waterFade: Color(0xFFEDF0F6),
+            land: Color(0xFFFDFEFF),
+            edge: Color(0xFFC7D1E0),
+            grid: Color(0xFFC7D1E0),
+          ),
+    'zed' => dark
+        ? const MapSkin(
+            water: Color(0xFF0D0A1E),
+            waterFade: Color(0xFF070511),
+            land: Color(0xFF1A1230),
+            edge: Color(0xFF37275C),
+            grid: Color(0xFF37275C),
+          )
+        : const MapSkin(
+            water: Color(0xFFE7E1F5),
+            waterFade: Color(0xFFEFEBF9),
+            land: Color(0xFFFDFBFF),
+            edge: Color(0xFFCDC2E8),
+            grid: Color(0xFFCDC2E8),
+          ),
+    'gazette' => dark
+        ? const MapSkin(
+            water: Color(0xFF131009),
+            waterFade: Color(0xFF0C0A06),
+            land: Color(0xFF221D13),
+            edge: Color(0xFF463B26),
+            grid: Color(0xFF463B26),
+          )
+        : const MapSkin(
+            water: Color(0xFFEBE1C9),
+            waterFade: Color(0xFFF1E9D6),
+            land: Color(0xFFFBF5E2),
+            edge: Color(0xFFC2B48E),
+            grid: Color(0xFFC2B48E),
+          ),
+    'pixel' => dark
+        ? const MapSkin(
+            water: Color(0xFF0C121A),
+            waterFade: Color(0xFF070B10),
+            land: Color(0xFF1A2430),
+            edge: Color(0xFF2D3E52),
+            grid: Color(0xFF2D3E52),
+          )
+        : const MapSkin(
+            water: Color(0xFFE1EAF5),
+            waterFade: Color(0xFFEBF1F8),
+            land: Color(0xFFF7FAFD),
+            edge: Color(0xFFC1CFE2),
+            grid: Color(0xFFC1CFE2),
+          ),
+    'ios' => dark
+        ? const MapSkin(
+            water: Color(0xFF0C0C10),
+            waterFade: Color(0xFF070709),
+            land: Color(0xFF1C1C22),
+            edge: Color(0xFF33333C),
+            grid: Color(0xFF33333C),
+          )
+        : const MapSkin(
+            water: Color(0xFFE5E5EB),
+            waterFade: Color(0xFFEEEFF2),
+            land: Color(0xFFFBFBFD),
+            edge: Color(0xFFC8C8D0),
+            grid: Color(0xFFC8C8D0),
+          ),
+    'bento' => dark
+        ? const MapSkin(
+            water: Color(0xFF100E0B),
+            waterFade: Color(0xFF0A0907),
+            land: Color(0xFF201C16),
+            edge: Color(0xFF3B332A),
+            grid: Color(0xFF3B332A),
+          )
+        : const MapSkin(
+            water: Color(0xFFEDE4D1),
+            waterFade: Color(0xFFF3ECDC),
+            land: Color(0xFFFFFDF4),
+            edge: Color(0xFFD6C9AC),
+            grid: Color(0xFFD6C9AC),
+          ),
+    'gta' => dark
+        ? const MapSkin(
+            water: Color(0xFF0A0E1D),
+            waterFade: Color(0xFF050812),
+            land: Color(0xFF171D33),
+            edge: Color(0xFF39406B),
+            grid: Color(0xFFFFB84D),
+          )
+        : const MapSkin(
+            water: Color(0xFFEDE2C9),
+            waterFade: Color(0xFFF3EAD5),
+            land: Color(0xFFFFF7E4),
+            edge: Color(0xFFD8C2A0),
+            grid: Color(0xFFB97A14),
+          ),
+    _ => null,
+  };
+}
+
 /// The flat map, in the finish the settings picked — the quiet ink of
 /// the classic, the modern tint, the night water, or the terrain's
 /// greens. The world is drawn in the standard Web Mercator projection,
@@ -1930,6 +2072,7 @@ class WorldMapBackdrop extends StatefulWidget {
     this.finish = FlatFinish.classic,
     this.alignment = Alignment.center,
     this.scale = 1.45,
+    this.skin,
   });
 
   /// The world, from [WorldMap.load]; empty until it arrives.
@@ -1957,6 +2100,12 @@ class WorldMapBackdrop extends StatefulWidget {
   /// the page's width, where every continent reads as a squeezed ribbon;
   /// more gives the countries room, and the page clips what runs over.
   final double scale;
+
+  /// The design's own map colors, when the design carries a palette —
+  /// the ink-based finishes (the classic, the modern) read them; the
+  /// finishes that carry their own palette (the night, the terrain, the
+  /// hud) keep theirs.
+  final MapSkin? skin;
 
   @override
   State<WorldMapBackdrop> createState() => _WorldMapBackdropState();
@@ -2087,6 +2236,7 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
                           accent: widget.accent,
                           selected: widget.selected,
                           finish: widget.finish,
+                          skin: widget.skin,
                           t: widget.animated ? _breath.value : 0.5,
                         ),
                       ),
@@ -2114,6 +2264,7 @@ class _WorldPainter extends CustomPainter {
     required this.selected,
     required this.finish,
     required this.t,
+    this.skin,
   });
 
   final List<WorldShape> shapes;
@@ -2123,58 +2274,81 @@ class _WorldPainter extends CustomPainter {
 
   /// How the land and water take their color.
   final FlatFinish finish;
+
+  /// The design's own map colors, when the design carries a palette.
+  final MapSkin? skin;
   final double t;
+
+  /// The ink-based finishes: the ones the design's own map colors can
+  /// carry (the night, the terrain and the hud paint themselves).
+  bool get _inked =>
+      finish == FlatFinish.classic || finish == FlatFinish.modern;
 
   @override
   void paint(Canvas canvas, Size size) {
     // A light ink on the night, a dark one on the day — the classic's
     // quiet is a matter of alpha, not hue, in either theme. The finishes
     // carry their own land and water instead: the night's deep water and
-    // slate land, the terrain's greens over soft blue. In every finish
-    // the land sits a shade above the graticule, so a country reads as a
-    // shape, not as noise.
+    // slate land, the terrain's greens over soft blue, the hud's slate
+    // over the deep water. In every finish the land sits a shade above
+    // the graticule, so a country reads as a shape, not as noise. The
+    // design's own skin recolors the ink-based finishes, so the world
+    // wears the design the page wears.
     final dark = ink.computeLuminance() > 0.5;
     final modern = finish == FlatFinish.modern;
-    final (landColor, lineInk) = switch (finish) {
-      FlatFinish.classic => (
-        ink.withValues(alpha: dark ? 0.20 : 0.14),
-        ink.withValues(alpha: dark ? 0.32 : 0.26),
-      ),
-      FlatFinish.modern => (
-        Color.alphaBlend(
-          accent.withValues(alpha: dark ? 0.10 : 0.07),
-          ink.withValues(alpha: dark ? 0.20 : 0.14),
-        ),
-        ink.withValues(alpha: dark ? 0.32 : 0.26),
-      ),
-      FlatFinish.night => (
-        dark ? const Color(0xFF1D2A45) : const Color(0xFF25335A),
-        dark ? const Color(0xFF42567F) : const Color(0xFF4E6392),
-      ),
-      FlatFinish.terrain => (
-        dark ? const Color(0xFF33534A) : const Color(0xFF9DBE93),
-        dark ? const Color(0xFF517A6A) : const Color(0xFF6F9566),
-      ),
-    };
+    final hud = finish == FlatFinish.hud;
+    final (landColor, lineInk) = skin != null && _inked
+        ? (skin!.land, skin!.edge)
+        : switch (finish) {
+            FlatFinish.classic => (
+              ink.withValues(alpha: dark ? 0.20 : 0.14),
+              ink.withValues(alpha: dark ? 0.32 : 0.26),
+            ),
+            FlatFinish.modern => (
+              Color.alphaBlend(
+                accent.withValues(alpha: dark ? 0.10 : 0.07),
+                ink.withValues(alpha: dark ? 0.20 : 0.14),
+              ),
+              ink.withValues(alpha: dark ? 0.32 : 0.26),
+            ),
+            FlatFinish.night => (
+              dark ? const Color(0xFF1D2A45) : const Color(0xFF25335A),
+              dark ? const Color(0xFF42567F) : const Color(0xFF4E6392),
+            ),
+            FlatFinish.terrain => (
+              dark ? const Color(0xFF33534A) : const Color(0xFF9DBE93),
+              dark ? const Color(0xFF517A6A) : const Color(0xFF6F9566),
+            ),
+            FlatFinish.hud => (
+              dark ? const Color(0xFF1D2540) : const Color(0xFFE7DBC0),
+              dark ? const Color(0xFF46548A) : const Color(0xFFB49F78),
+            ),
+          };
 
     // The water, where the finish paints it: a wash under everything,
     // fading to nothing at the map's own top and bottom, so the world
     // meets the page as a horizon meets the sky — never a hard edge.
-    if (finish != FlatFinish.classic) {
-      final (water, waterFade) = switch (finish) {
-        FlatFinish.night => (
-          dark ? const Color(0xFF0A1526) : const Color(0xFF15233D),
-          dark ? const Color(0xFF060C18) : const Color(0xFF0B1424),
-        ),
-        FlatFinish.terrain => (
-          dark ? const Color(0xFF123047) : const Color(0xFFB5CFE2),
-          dark ? const Color(0xFF0A1D2E) : const Color(0xFFDCE9F2),
-        ),
-        _ => (
-          dark ? ink.withValues(alpha: 0.05) : ink.withValues(alpha: 0.035),
-          dark ? ink.withValues(alpha: 0.0) : ink.withValues(alpha: 0.0),
-        ),
-      };
+    if (finish != FlatFinish.classic || (skin != null && _inked)) {
+      final (water, waterFade) = skin != null && _inked
+          ? (skin!.water, skin!.waterFade)
+          : switch (finish) {
+              FlatFinish.night => (
+                dark ? const Color(0xFF0A1526) : const Color(0xFF15233D),
+                dark ? const Color(0xFF060C18) : const Color(0xFF0B1424),
+              ),
+              FlatFinish.terrain => (
+                dark ? const Color(0xFF123047) : const Color(0xFFB5CFE2),
+                dark ? const Color(0xFF0A1D2E) : const Color(0xFFDCE9F2),
+              ),
+              FlatFinish.hud => (
+                dark ? const Color(0xFF0B1122) : const Color(0xFFB9CFDA),
+                dark ? const Color(0xFF060A16) : const Color(0xFFDCE8EC),
+              ),
+              _ => (
+                dark ? ink.withValues(alpha: 0.05) : ink.withValues(alpha: 0.035),
+                dark ? ink.withValues(alpha: 0.0) : ink.withValues(alpha: 0.0),
+              ),
+            };
       canvas.drawRect(
         Offset.zero & size,
         Paint()
@@ -2190,17 +2364,27 @@ class _WorldPainter extends CustomPainter {
     // The graticule: meridians every 30 degrees the whole way round, and
     // the parallels at their own rows on the Mercator map — the lines
     // bend with the projection, the way a real atlas draws them, thinner
-    // than the land's edge.
+    // than the land's edge. The hud's radar grid is its own: finer, and
+    // in the amber the game's panels wear.
+    final hudAmber = dark ? const Color(0xFFFFB84D) : const Color(0xFFB97A14);
     final grid = Paint()
-      ..color = finish == FlatFinish.classic || finish == FlatFinish.modern
+      ..color = hud
+          ? hudAmber.withValues(alpha: dark ? 0.11 : 0.16)
+          : skin != null && _inked
+          ? skin!.grid.withValues(alpha: dark ? 0.10 : 0.14)
+          : finish == FlatFinish.classic || finish == FlatFinish.modern
           ? ink.withValues(alpha: dark ? 0.055 : 0.05)
           : (dark ? Colors.white : Colors.black).withValues(alpha: 0.07)
-      ..strokeWidth = 0.6;
-    for (var lon = 0; lon <= 12; lon++) {
-      final x = lon / 12 * size.width;
+      ..strokeWidth = hud ? 0.7 : 0.6;
+    final lonSteps = hud ? 24 : 12;
+    for (var lon = 0; lon <= lonSteps; lon++) {
+      final x = lon / lonSteps * size.width;
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
     }
-    for (final lat in const [60.0, 30.0, 0.0, -30.0, -60.0]) {
+    final parallels = hud
+        ? const [75.0, 60.0, 45.0, 30.0, 15.0, 0.0, -15.0, -30.0, -45.0, -60.0, -75.0]
+        : const [60.0, 30.0, 0.0, -30.0, -60.0];
+    for (final lat in parallels) {
       final y = mercatorYOfLat(lat, size.height);
       canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
     }
@@ -2218,17 +2402,24 @@ class _WorldPainter extends CustomPainter {
 
     // The tinted finishes lay a breath of shadow under the land first, so
     // the continents read lifted off the page the way they do on the
-    // globe; the classic keeps its quiet.
-    if (modern) {
+    // globe; the classic keeps its quiet. The hud lays the neon instead:
+    // the coast glows in the sunset's pink, the night city's own light.
+    if (modern || hud) {
       canvas.drawPath(
         _allLand(shapes, chosen),
         Paint()
-          ..color = (dark ? Colors.black : ink).withValues(
-            alpha: dark ? 0.34 : 0.10,
-          )
-          ..style = PaintingStyle.fill
-          ..isAntiAlias = true
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.4),
+          ..color = hud
+              ? (dark
+                      ? const Color(0xFFFF4D8D)
+                      : const Color(0xFFD6336C))
+                  .withValues(alpha: dark ? 0.30 : 0.18)
+              : (dark ? Colors.black : ink).withValues(
+                alpha: dark ? 0.34 : 0.10,
+              )
+          ..style = hud ? PaintingStyle.stroke : PaintingStyle.fill
+          ..strokeWidth = hud ? 2.4 : 1.0
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, hud ? 2.6 : 2.4)
+          ..isAntiAlias = true,
       );
     }
 
@@ -2313,6 +2504,32 @@ class _WorldPainter extends CustomPainter {
           ..isAntiAlias = true,
       );
     }
+
+    // The hud's radar sweep: a band of amber light walking the world
+    // top to bottom while the tunnel carries — the radar's own scan,
+    // made of the breath the animated map already runs. At rest it
+    // holds one quiet line mid-map.
+    if (hud) {
+      final y = size.height * t;
+      final band = Paint()
+        ..shader = ui.Gradient.linear(
+          Offset(0, y - 30),
+          Offset(0, y + 30),
+          [
+            hudAmber.withValues(alpha: 0.0),
+            hudAmber.withValues(alpha: dark ? 0.12 : 0.10),
+            hudAmber.withValues(alpha: 0.0),
+          ],
+        );
+      canvas.drawRect(Offset(0, y - 30) & Size(size.width, 60), band);
+      canvas.drawLine(
+        Offset(0, y),
+        Offset(size.width, y),
+        Paint()
+          ..color = hudAmber.withValues(alpha: dark ? 0.26 : 0.20)
+          ..strokeWidth = 1.1,
+      );
+    }
   }
 
   /// Every country but the chosen one, as one path — the shadow's own
@@ -2332,14 +2549,17 @@ class _WorldPainter extends CustomPainter {
       old.accent != accent ||
       old.ink != ink ||
       old.finish != finish ||
+      old.skin != skin ||
       old.shapes != shapes ||
       (old.t - t).abs() > 0.003;
 }
 
 /// The home's world, in the kind the settings picked: the flat map (the
-/// classic and the modern finish) or the globe (the metal ball). A change
-/// of kind is a soft crossfade, so the map melts into its next self
-/// instead of popping.
+/// classic and the modern finish), the globe (the metal ball), or the
+/// hud (the GTA design's own map). A change of kind is a soft crossfade,
+/// so the map melts into its next self instead of popping — and a change
+/// of design fades it the same way, the world wearing the design's own
+/// colors.
 class WorldBackdrop extends StatelessWidget {
   const WorldBackdrop({
     super.key,
@@ -2353,6 +2573,7 @@ class WorldBackdrop extends StatelessWidget {
     this.style = GlobeStyle.silver,
     this.still = false,
     this.ink,
+    this.designKey = 'mono',
   });
 
   final MapKind kind;
@@ -2371,6 +2592,10 @@ class WorldBackdrop extends StatelessWidget {
   /// tonal blue-gray instead of the neutral one.
   final Color? ink;
 
+  /// The design the page wears: the key the design's own map colors
+  /// ([MapSkin.forDesign]) read from.
+  final String designKey;
+
   @override
   Widget build(BuildContext context) {
     final Widget world;
@@ -2386,14 +2611,22 @@ class WorldBackdrop extends StatelessWidget {
         still: still,
       );
     } else {
+      // The design's own world: the palette designs recolor the
+      // ink-based finishes, and the hud kind paints the GTA design's
+      // own map whatever the design — the game's plate is the game's.
       world = WorldMapBackdrop(
         countries: countries,
         ink: ink ?? (dark ? Colors.white : const Color(0xFF0A0A0A)),
         accent: accent,
         selected: selected,
         animated: animated,
-        finish: kind == MapKind.flat ? FlatFinish.modern : FlatFinish.classic,
+        finish: kind == MapKind.flat
+            ? FlatFinish.modern
+            : kind == MapKind.hud
+            ? FlatFinish.hud
+            : FlatFinish.classic,
         scale: kind == MapKind.classic ? 1.45 : 1.32,
+        skin: MapSkin.forDesign(designKey, dark),
       );
     }
     return AnimatedSwitcher(
@@ -2407,7 +2640,10 @@ class WorldBackdrop extends StatelessWidget {
           child: child,
         ),
       ),
-      child: KeyedSubtree(key: ValueKey(kind), child: world),
+      child: KeyedSubtree(
+        key: ValueKey('$designKey-$kind'),
+        child: world,
+      ),
     );
   }
 }
