@@ -719,19 +719,6 @@ class CountryFlag extends StatelessWidget {
         decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: edge, width: 0.5)),
         child: art(),
       ),
-      // The squircle: the continuous corners, no knee in the bend.
-      FlagShape.squircle => Container(
-        width: boxWidth,
-        height: height,
-        clipBehavior: Clip.antiAlias,
-        decoration: ShapeDecoration(
-          shape: ContinuousRectangleBorder(
-            borderRadius: BorderRadius.circular(height * 0.42),
-            side: BorderSide(color: edge, width: 0.5),
-          ),
-        ),
-        child: art(),
-      ),
       // The printed plate: the double rule around the art, the paper's
       // own margin between the rules.
       FlagShape.plate => Container(

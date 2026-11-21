@@ -172,7 +172,6 @@ Widget flagArt(BuildContext context, String code, double w, double h,
 /// The row flag's round for a shape, the small plate's own cut.
 double styleSmallRound(FlagShape shape) => switch (shape) {
   FlagShape.rounded => 8,
-  FlagShape.squircle => 10,
   FlagShape.plate => 2,
   FlagShape.circle => 15,
 };
@@ -1300,6 +1299,13 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     with FlagChoices, TickerProviderStateMixin {
   final GlobalKey _key = GlobalKey(debugLabel: 'gta-weapon-wheel');
 
+  @override
+  CoreController get core => widget.core;
+  @override
+  List<String> get favorites => widget.favorites;
+  @override
+  void Function(String code)? get onToggleFavorite => widget.onToggleFavorite;
+
   /// The drag's settle: the dial's glide to the seat it lands on.
   late final AnimationController _settle = AnimationController(
     vsync: this,
@@ -2018,7 +2024,6 @@ class _WheelHudPainter extends CustomPainter {
     required this.ink,
     required this.breath,
     required this.alive,
-    required this.confirming,
   });
 
   /// One seat's angle on the ring, and where the top seat stands right

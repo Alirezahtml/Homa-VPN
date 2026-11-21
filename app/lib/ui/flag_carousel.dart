@@ -27,9 +27,6 @@ ShapeBorder flagCutShape(DesignStyle design, double w, double h) =>
       FlagShape.plate => RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),
-      FlagShape.squircle => ContinuousRectangleBorder(
-        borderRadius: BorderRadius.circular(h * 0.42),
-      ),
       FlagShape.circle => const CircleBorder(),
     };
 
@@ -50,12 +47,7 @@ Decoration flagCutDecoration(
     borderRadius: BorderRadius.circular(3),
     border: Border.all(color: edge, width: weight),
   ),
-  FlagShape.squircle => ShapeDecoration(
-    shape: ContinuousRectangleBorder(
-      borderRadius: BorderRadius.circular(h * 0.42),
-      side: BorderSide(color: edge, width: weight),
-    ),
-  ),
+
   FlagShape.circle => BoxDecoration(
     shape: BoxShape.circle,
     border: Border.all(color: edge, width: weight),
@@ -95,12 +87,7 @@ Decoration? flagSweep(
       borderRadius: BorderRadius.circular(3),
       gradient: gradient,
     ),
-    FlagShape.squircle => ShapeDecoration(
-      shape: ContinuousRectangleBorder(
-        borderRadius: BorderRadius.circular(h * 0.42),
-      ),
-      gradient: gradient,
-    ),
+
     FlagShape.circle => BoxDecoration(shape: BoxShape.circle, gradient: gradient),
   };
 }
