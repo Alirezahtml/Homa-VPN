@@ -2043,6 +2043,8 @@ class WorldMapBackdrop extends StatefulWidget {
     this.alignment = Alignment.center,
     this.scale = 1.45,
     this.skin,
+    this.blips = const [],
+    this.label = '',
   });
 
   /// The world, from [WorldMap.load]; empty until it arrives.
@@ -2076,6 +2078,17 @@ class WorldMapBackdrop extends StatefulWidget {
   /// finishes that carry their own palette (the night, the terrain, the
   /// hud) keep theirs.
   final MapSkin? skin;
+
+  /// The servers' country codes (upper-case): the hud's blips — the
+  /// game's own location markers, one on every country the tunnel can
+  /// carry to. The other finishes leave them out; a plain world needs
+  /// no markers.
+  final List<String> blips;
+
+  /// The chosen country's name, in the page's language: the hud draws
+  /// it as the waypoint's own area label — the game's name plate above
+  /// the marker.
+  final String label;
 
   @override
   State<WorldMapBackdrop> createState() => _WorldMapBackdropState();
@@ -2208,6 +2221,8 @@ class _WorldMapBackdropState extends State<WorldMapBackdrop>
                           finish: widget.finish,
                           skin: widget.skin,
                           t: widget.animated ? _breath.value : 0.5,
+                          blips: widget.blips,
+                          label: widget.label,
                         ),
                       ),
                     ),
@@ -2235,6 +2250,8 @@ class _WorldPainter extends CustomPainter {
     required this.finish,
     required this.t,
     this.skin,
+    this.blips = const [],
+    this.label = '',
   });
 
   final List<WorldShape> shapes;
@@ -2248,6 +2265,13 @@ class _WorldPainter extends CustomPainter {
   /// The design's own map colors, when the design carries a palette.
   final MapSkin? skin;
   final double t;
+
+  /// The servers' country codes: the hud's blips (the game's own
+  /// location markers). The other finishes leave them out.
+  final List<String> blips;
+
+  /// The chosen country's name: the hud's area label above the waypoint.
+  final String label;
 
   /// The ink-based finishes: the ones the design's own map colors can
   /// carry (the night, the terrain and the hud paint themselves).
@@ -2413,6 +2437,34 @@ class _WorldPainter extends CustomPainter {
       canvas.drawPath(s.path, edge);
     }
 
+    // The hud's roads: the game map's own dress — every border wears a
+    // casing under a lighter line, the way the game's streets carry a
+    // pale fill inside a darker rim. The world reads as one drawn map,
+    // the coasts as the ring roads around the land.
+    if (hud) {
+      final casing = Paint()
+        ..color = lineInk.withValues(alpha: dark ? 0.85 : 0.9)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.6
+        ..isAntiAlias = true
+        ..strokeJoin = StrokeJoin.round
+        ..strokeCap = StrokeCap.round;
+      final road = Paint()
+        ..color = (dark ? Colors.white : Colors.white).withValues(
+          alpha: dark ? 0.5 : 0.85,
+        )
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2
+        ..isAntiAlias = true
+        ..strokeJoin = StrokeJoin.round
+        ..strokeCap = StrokeCap.round;
+      for (final s in shapes) {
+        if (identical(s, chosen)) continue;
+        canvas.drawPath(s.path, casing);
+        canvas.drawPath(s.path, road);
+      }
+    }
+
     // The breath every moving part below reads: 0 at rest's start, 1 at
     // its peak, back and forth over the controller's period.
     final breathe = 0.5 - 0.5 * math.cos(2 * math.pi * t);
@@ -2499,6 +2551,127 @@ class _WorldPainter extends CustomPainter {
           ..color = hudAmber.withValues(alpha: dark ? 0.26 : 0.20)
           ..strokeWidth = 1.1,
       );
+
+      // The blips: the game map's own location markers — one on every
+      // country the tunnel can carry to, the amber disc with the dark
+      // rim the game's markers wear. The chosen country's blip is the
+      // game's waypoint instead: the purple disc with the white ring,
+      // its beam of light rising off the map, its pulse walking the
+      // rings out around it, and the area's own name on the plate
+      // above it — the name the map hangs over the marker.
+      final waypoint = const Color(0xFFB15DE3);
+      final byCode = {for (final s in shapes) s.code.toUpperCase(): s};
+      for (final code in blips) {
+        final s = byCode[code];
+        if (s == null) continue;
+        if (s.code.toUpperCase() == selected.toUpperCase()) continue;
+        final at = s.anchor;
+        canvas.drawCircle(
+          at,
+          9,
+          Paint()
+            ..color = Colors.black.withValues(alpha: dark ? 0.4 : 0.16)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
+        );
+        canvas.drawCircle(
+          at,
+          5,
+          Paint()..color = hudAmber.withValues(alpha: dark ? 0.95 : 0.9),
+        );
+        canvas.drawCircle(
+          at,
+          5,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5
+            ..color = Colors.black.withValues(alpha: dark ? 0.65 : 0.5),
+        );
+      }
+      if (chosen != null) {
+        final at = chosen.anchor;
+        // The pulse rings: the waypoint's own ripple, riding the breath.
+        canvas.drawCircle(
+          at,
+          13 + 9 * breathe,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2
+            ..color = waypoint.withValues(
+              alpha: (dark ? 0.5 : 0.4) * (1 - 0.6 * breathe),
+            ),
+        );
+        // The beam: the light column rising off the map above the
+        // marker — the game's waypoint column, melting out at the top.
+        final beamTop = at - const Offset(0, 52);
+        canvas.drawRect(
+          Rect.fromLTRB(at.dx - 3, beamTop.dy, at.dx + 3, at.dy - 7),
+          Paint()
+            ..shader = ui.Gradient.linear(
+              beamTop,
+              at,
+              [
+                waypoint.withValues(alpha: 0.0),
+                waypoint.withValues(alpha: dark ? 0.45 : 0.32),
+              ],
+            ),
+        );
+        // The disc: the purple fill, the white ring, the dark rim
+        // under it — the game's own waypoint chip.
+        canvas.drawCircle(
+          at,
+          10,
+          Paint()
+            ..color = Colors.black.withValues(alpha: dark ? 0.45 : 0.2)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
+        );
+        canvas.drawCircle(at, 6.8, Paint()..color = waypoint);
+        canvas.drawCircle(
+          at,
+          6.8,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2
+            ..color = Colors.white,
+        );
+        // The area label: the name on its plate above the beam — the
+        // map's own label for the place the waypoint names.
+        if (label.isNotEmpty) {
+          final name = label.toUpperCase();
+          final tp = TextPainter(
+            text: TextSpan(
+              text: name,
+              style: TextStyle(
+                fontSize: 11,
+                letterSpacing: 1.6,
+                fontWeight: FontWeight.w800,
+                color: dark ? Colors.white : const Color(0xFF241A28),
+                fontFamily: 'GtaHud',
+                fontFamilyFallback: const ['Vazirmatn', 'Inter'],
+              ),
+            ),
+            textDirection: TextDirection.ltr,
+          )..layout();
+          final plateW = tp.width + 16;
+          final plateH = tp.height + 8;
+          final plateTop = at - Offset(plateW / 2, 52 + plateH + 6);
+          final plateRect = plateTop & Size(plateW, plateH);
+          canvas.drawRRect(
+            RRect.fromRectAndRadius(plateRect, const Radius.circular(5)),
+            Paint()
+              ..color = dark
+                  ? Colors.black.withValues(alpha: 0.72)
+                  : Colors.white.withValues(alpha: 0.9),
+          );
+          canvas.drawRRect(
+            RRect.fromRectAndRadius(plateRect, const Radius.circular(5)),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1
+              ..color = hudAmber.withValues(alpha: dark ? 0.7 : 0.55),
+          );
+          tp.paint(canvas, plateTop + const Offset(8, 4));
+        }
+      }
     }
   }
 
@@ -2518,6 +2691,8 @@ class _WorldPainter extends CustomPainter {
       old.selected != selected ||
       old.accent != accent ||
       old.ink != ink ||
+      old.label != label ||
+      !identical(old.blips, blips) ||
       old.finish != finish ||
       old.skin != skin ||
       old.shapes != shapes ||
@@ -2544,6 +2719,7 @@ class WorldBackdrop extends StatelessWidget {
     this.still = false,
     this.ink,
     this.designKey = 'mono',
+    this.blips = const [],
   });
 
   final MapKind kind;
@@ -2565,6 +2741,10 @@ class WorldBackdrop extends StatelessWidget {
   /// The design the page wears: the key the design's own map colors
   /// ([MapSkin.forDesign]) read from.
   final String designKey;
+
+  /// The servers' country codes: the hud's blips — the game map's own
+  /// location markers, one on every country the tunnel can carry to.
+  final List<String> blips;
 
   @override
   Widget build(BuildContext context) {
@@ -2597,6 +2777,70 @@ class WorldBackdrop extends StatelessWidget {
             : FlatFinish.classic,
         scale: kind == MapKind.classic ? 1.45 : 1.32,
         skin: MapSkin.forDesign(designKey, dark),
+        blips: blips,
+        label: label,
+      );
+    }
+    // The hud's compass: the game map's own north — the amber needle
+    // and its letter in the plate at the screen's corner, the map's own
+    // furniture, whatever the world wears behind it.
+    if (kind == MapKind.hud) {
+      return Stack(
+        children: [
+          Positioned.fill(child: world),
+          PositionedDirectional(
+            top: 14,
+            end: 18,
+            child: IgnorePointer(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 9,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: dark
+                      ? Colors.black.withValues(alpha: 0.55)
+                      : Colors.white.withValues(alpha: 0.82),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: (dark
+                            ? const Color(0xFFFFB84D)
+                            : const Color(0xFFB97A14))
+                        .withValues(alpha: 0.6),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'N',
+                      textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1,
+                        color: dark
+                            ? const Color(0xFFFFB84D)
+                            : const Color(0xFFB97A14),
+                        fontFamily: 'GtaHud',
+                        fontFamilyFallback: const ['Vazirmatn', 'Inter'],
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.navigation_rounded,
+                      size: 11,
+                      color: dark
+                          ? const Color(0xFFFFB84D)
+                          : const Color(0xFFB97A14),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       );
     }
     return AnimatedSwitcher(

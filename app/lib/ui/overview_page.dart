@@ -36,6 +36,27 @@ import 'world_map.dart';
 /// The home page: the switch, the state, where the traffic goes, and the
 /// data used; the phone's (_PhoneHome) and the computer's (_DesktopHome)
 /// share the look, not the logic. Developer mode adds the details.
+/// The servers' country codes, read once per controller — the map's
+/// blips wear them (the GTA map's markers, one on every country the
+/// tunnel can carry to). The read is memoized: the home rebuilds often,
+/// the list does not change under it, and a failed read answers empty
+/// instead of poisoning every later build.
+final Map<CoreController, Future<List<String>>> _serverCodeReads = {};
+
+Future<List<String>> _serverCodes(CoreController core) {
+  return _serverCodeReads.putIfAbsent(
+    core,
+    () => core
+        .call((api) => api.locations())
+        .then<List<String>>(
+          (list) => [
+            for (final loc in list.locations) loc.code.toUpperCase(),
+          ],
+        )
+        .catchError((Object _) => <String>[]),
+  );
+}
+
 class OverviewPage extends StatelessWidget {
   const OverviewPage({
     super.key,
@@ -1237,33 +1258,43 @@ class _PhoneHome extends StatelessWidget {
                   // A boundary of its own: the map redraws every frame it
                   // breathes, and this keeps that redraw inside the map —
                   // the page's own content never repaints for it.
-                  return RepaintBoundary(
-                    child: WorldBackdrop(
-                      kind: mapKind,
-                      countries: snapshot.data ?? const [],
-                      accent: status.state.phase == Phase.running
-                          ? p.connected
-                          : p.idle,
-                      selected: selectedCode,
-                      animated: status.state.phase == Phase.running,
-                      dark: p.dark,
-                      label: selectedCode.length == 2
-                          ? countryName(l, selectedCode)
-                          : '',
-                      style:
-                          GlobeStyle.values.asNameMap()[settings.mapStyle] ??
-                          GlobeStyle.silver,
-                      still: settings.batterySaver,
-                      // The land drawn in the design's own ink: the
-                      // paper's warm brown, the violet night's gray, the
-                      // tonal blue-gray — the monochrome keeps its own.
-                      // The design's own world rides with it: the
-                      // palette designs recolor the water, the land and
-                      // the grid, so the map wears the design the page
-                      // wears.
-                      ink: AppDesign.current.look(p.dark).ink,
-                      designKey: AppDesign.current.key,
-                    ),
+                  // The servers' codes, read once: the GTA map's blips
+                  // (the game's own location markers) wear them. The
+                  // other map kinds leave the list out.
+                  return FutureBuilder<List<String>>(
+                    future: mapKind == MapKind.hud
+                        ? _serverCodes(core)
+                        : Future.value(const <String>[]),
+                    builder: (context, blips) {
+                      return RepaintBoundary(
+                        child: WorldBackdrop(
+                          kind: mapKind,
+                          countries: snapshot.data ?? const [],
+                          accent: status.state.phase == Phase.running
+                              ? p.connected
+                              : p.idle,
+                          selected: selectedCode,
+                          animated: status.state.phase == Phase.running,
+                          dark: p.dark,
+                          label: selectedCode.length == 2
+                              ? countryName(l, selectedCode)
+                              : '',
+                          style: GlobeStyle.values
+                                  .asNameMap()[settings.mapStyle] ??
+                              GlobeStyle.silver,
+                          still: settings.batterySaver,
+                          // The land drawn in the design's own ink: the
+                          // paper's warm brown, the tonal blue-gray —
+                          // the monochrome keeps its own. The design's
+                          // own world rides with it: the palette designs
+                          // recolor the water, the land and the grid, so
+                          // the map wears the design the page wears.
+                          ink: AppDesign.current.look(p.dark).ink,
+                          designKey: AppDesign.current.key,
+                          blips: blips.data ?? const <String>[],
+                        ),
+                      );
+                    },
                   );
                 },
               ),
