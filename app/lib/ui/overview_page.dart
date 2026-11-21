@@ -2096,15 +2096,18 @@ class _PhoneHome extends StatelessWidget {
           if (design == 'ios')
             Padding(
               padding: const EdgeInsets.only(top: 12),
-              child: RepaintBoundary(
-                child: _IosActionsGroup(
-                  palette: p,
-                  onSpeedTest: () {
-                    AppSounds.play(SoundCue.tap);
-                    showSpeedTest(context, core, settings);
-                  },
-                  onConnection: onOpenConnection,
-                  onAccounts: onOpenAccounts,
+              child: Reveal(
+                index: 3,
+                child: RepaintBoundary(
+                  child: _IosActionsGroup(
+                    palette: p,
+                    onSpeedTest: () {
+                      AppSounds.play(SoundCue.tap);
+                      showSpeedTest(context, core, settings);
+                    },
+                    onConnection: onOpenConnection,
+                    onAccounts: onOpenAccounts,
+                  ),
                 ),
               ),
             ),
