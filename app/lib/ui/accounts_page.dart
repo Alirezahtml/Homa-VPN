@@ -9,6 +9,8 @@ import '../l10n/app_localizations.dart';
 import 'app_lock.dart';
 import 'backup.dart';
 import 'browser_signin.dart';
+import 'design.dart';
+import 'design_style.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'signin_dialog.dart';
@@ -32,10 +34,10 @@ class AccountsPage extends StatelessWidget {
         Row(
           children: [
             Expanded(child: PageTitle(l.navAccounts)),
-            FilledButton.icon(
-              onPressed: () => startAddAccount(context, core, settings),
-              icon: const Icon(Icons.add_rounded),
-              label: Text(l.addAccount),
+            _AddAccountButton(
+              core: core,
+              settings: settings,
+              label: l.addAccount,
             ),
             const SizedBox(width: 4),
             BackupMenuButton(core: core),
@@ -109,6 +111,68 @@ class AccountsPage extends StatelessWidget {
         const SizedBox(height: 16),
         const _CreateAccountGuide(),
       ],
+    );
+  }
+}
+
+/// The add-account button, in the design's own voice: the ios's blue
+/// capsule, the gazette's near-square inked stamp, the gta's HUD slot
+/// with the heavy face, the pixel's big tonal pill, the bento's
+/// very-round tile — the page's first action reads as the design's own
+/// button, not as one shape every design borrows.
+class _AddAccountButton extends StatelessWidget {
+  const _AddAccountButton({
+    required this.core,
+    required this.settings,
+    required this.label,
+  });
+
+  final CoreController core;
+  final AppSettings settings;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final key = AppDesign.current.key;
+    final (shape, faces) = switch (key) {
+      'ios' => (
+        const StadiumBorder(),
+        const TextStyle(fontWeight: FontWeight.w700),
+      ),
+      'gazette' => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        const TextStyle(
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.2,
+        ),
+      ),
+      'gta' => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        const TextStyle(
+          fontWeight: FontWeight.w800,
+          letterSpacing: 0.6,
+          fontFamily: 'GtaHud',
+          fontFamilyFallback: ['Vazirmatn', 'Inter'],
+        ),
+      ),
+      'pixel' => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        const TextStyle(fontWeight: FontWeight.w600),
+      ),
+      'bento' => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        const TextStyle(fontWeight: FontWeight.w700),
+      ),
+      _ => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        const TextStyle(fontWeight: FontWeight.w600),
+      ),
+    };
+    return FilledButton.icon(
+      onPressed: () => startAddAccount(context, core, settings),
+      style: FilledButton.styleFrom(shape: shape),
+      icon: const Icon(Icons.add_rounded),
+      label: Text(label, style: faces),
     );
   }
 }
@@ -661,13 +725,18 @@ class _AccountCardState extends State<_AccountCard> {
         ? ''
         : l.resets(formatDate(l, usage.resetAt!));
 
+    // The card's round is the design's own: the gazette's near-square
+    // ruled plate, the pixel's big tonal round, the bento's very-round
+    // tile — the accounts read as the design's own cards, not as one
+    // shape every design borrows.
+    final round = DesignStyle.of(context).listRadius;
     return Opacity(
       opacity: a.enabled ? 1 : 0.6,
       child: Card(
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(round),
           side: a.active
               ? BorderSide(color: theme.colorScheme.primary, width: 1.5)
               : BorderSide.none,

@@ -169,6 +169,30 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(style.dialogRadius),
       ),
+      // The dialogs speak the design's own voice too: the title in the
+      // display's face — the gazette's serif, the gta's heavy HUD face —
+      // so a dialog reads as the design's own, not the system's.
+      titleTextStyle: TextStyle(
+        fontSize: 18,
+        height: 1.25,
+        fontWeight: FontWeight.w800,
+        color: effective.onSurface,
+        fontFamily: display,
+        fontFamilyFallback: displayFallback,
+      ),
+    ),
+    // The fields wear the design's own round too: every typed answer —
+    // the sign-in's email, the port's number, the search — lands in the
+    // design's own frame, the gazette's near-square plate, the pixel's
+    // big round.
+    inputDecorationTheme: InputDecorationThemeData(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(style.listRadius),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(style.listRadius),
+        borderSide: BorderSide(color: effective.outlineVariant),
+      ),
     ),
     // The switches carry in the design's own track color (the ios's
     // system green); the monochrome keeps the Material's own pair, as
