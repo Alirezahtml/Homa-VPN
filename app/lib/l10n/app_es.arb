@@ -851,5 +851,12 @@
   "wn63Servers": "La página de servidores viste la lista propia de cada diseño — la tabla agrupada de iOS, el índice reglado de la gaceta, las ranuras HUD del GTA, las tarjetas tonales del pixel, el tablero del bento",
   "wn63Accounts": "La página de cuentas también viste el diseño: las tarjetas con el redondeo propio del diseño, el botón de añadir con la voz del diseño, los títulos de los diálogos en la cara de la pantalla, los campos en el marco del diseño",
   "wn63Wheel": "La rueda de armas reconstruida a la medida del juego: el círculo completo de divisores, la cuña iluminada de dos capas, el arco del contador, el salto de la apertura y el pulso de la elección",
-  "wn63Ios": "El diseño iOS se yergue más lleno: el baño de estado en la tarjeta, los puntos de página del mazo de medallas, el tic en cada encuadre"
+  "wn63Ios": "El diseño iOS se yergue más lleno: el baño de estado en la tarjeta, los puntos de página del mazo de medallas, el tic en cada encuadre",
+  "wn64Wheel": "Las medallas de la rueda GTA se sientan ahora dentro del disco — doce asientos al ritmo del propio juego, ninguna medalla en el borde ni fuera de la pantalla, y ninguna medalla toca a otra",
+  "wn64Glass": "La rueda viste el cristal del juego: el mundo se difumina bajo el dial, la placa es algo translúcida y su brillo se reúne arriba",
+  "wn64Groups": "Los grupos propios del inicio de iOS: la tabla de la sesión — la dirección del túnel, a un toque al portapapeles — y las acciones rápidas: la prueba de velocidad, los ajustes de conexión, las cuentas",
+  "wn64Headers": "La cabecera de cada página vuelve a ocupar el ancho de la página — la flecha de retorno vuelve a su borde, no al centro de la pantalla",
+  "wn64Pill": "La etiqueta de la píldora Material You mantiene su aire dentro de los extremos redondeados",
+  "wn64Map": "Las fronteras del mapa GTA vuelven a su primer traje — la costa conserva su neón y la tierra su borde de tinta fina",
+  "wn64Name": "El diseño Pixel responde a su propio nombre: Material You"
 }

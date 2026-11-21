@@ -851,5 +851,12 @@
   "wn63Servers": "A szerverek oldala minden dizájn saját listáját viseli — az iOS csoportos táblája, a gazetta vonalazott jegyzéke, a GTA HUD slotjai, a pixel tónusú kártyái, a bento táblája",
   "wn63Accounts": "A fiókok oldala is a dizájnt viseli: a kártyák a dizájn saját kerekítésében, a hozzáadás gombja a dizájn hangján, a párbeszédek címe a kijelző saját arcán, a mezők a dizájn keretében",
   "wn63Wheel": "A fegykerelendítő a játék saját méretére épült: a szektorválasztók teljes köre, a kétrétegű megvilágított körcikk, a számláló mutatóíve, a nyitás ugrása és a választás saját pulzusa",
-  "wn63Ios": "Az iOS dizájn teljesebben áll: az állapotkártya állapota-mosása, a medália-pakli oldalszám-pontjai, a minden kapcsolódás tikje"
+  "wn63Ios": "Az iOS dizájn teljesebben áll: az állapotkártya állapota-mosása, a medália-pakli oldalszám-pontjai, a minden kapcsolódás tikje",
+  "wn64Wheel": "A GTA kerék érmei most a korong belsejében ülnek — tizen két ülés a játék saját ritmusában, érem sincs a peremen és a képernyő szélén túl, és egyik érem sem ér a másikhoz",
+  "wn64Glass": "A kerék a játék üvegét öltötte: a világ a tárcsa alatt puhán elmosódik, a lap enyhén átlátszó, fénye felül gyűlik össze",
+  "wn64Groups": "Az iOS nyitóképernyő saját csoportjai: a munkamenet táblája — az alagút címe, egy koppintás a vágólapra — és a gyors műveletek: sebességteszt, kapcsolat beállításai, fiókok",
+  "wn64Headers": "Minden oldal fejléce újra az oldal szélességét fogja — a vissza nyíl a peremén áll, nem a képernyő közepén",
+  "wn64Pill": "A Material You tabletta felirata a lekerekített végek levegőjében marad",
+  "wn64Map": "A GTA térkép határai visszatértek első ruhájukhoz — a part megtartja neonját, a szárazföld a vékony tintacsíkját",
+  "wn64Name": "A Pixel dizájn a saját nevén szólal meg: Material You"
 }

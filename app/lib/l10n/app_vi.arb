@@ -851,5 +851,12 @@
   "wn63Servers": "Trang máy chủ mặc danh sách riêng của từng thiết kế — bảng nhóm của iOS, chỉ mục kẻ dòng của gazette, ô HUD của GTA, thẻ tông màu của pixel, bảng của bento",
   "wn63Accounts": "Trang tài khoản cũng mặc thiết kế: thẻ với bo tròn riêng của thiết kế, nút thêm với giọng thiết kế, tiêu đề hộp thoại với mặt hiển thị, ô nhập trong khung thiết kế",
   "wn63Wheel": "Bánh xe vũ khí dựng lại theo thước của trò chơi: vòng tròn đầy đủ các đường chia, mí sáng hai lớp, cung đồng hồ đếm, cú bật khi mở và nhịp của lựa chọn",
-  "wn63Ios": "Thiết kế iOS đứng đầy hơn: lớp phủ trạng thái trên thẻ trạng thái, chấm trang của bộ bài huy chương, tích ở mỗi lần snap"
+  "wn63Ios": "Thiết kế iOS đứng đầy hơn: lớp phủ trạng thái trên thẻ trạng thái, chấm trang của bộ bài huy chương, tích ở mỗi lần snap",
+  "wn64Wheel": "Các huy chương của bánh xe GTA nay ngồi bên trong đĩa — mười hai chỗ theo nhịp của chính trò chơi, không huy chương nào trên vành hay vượt mép màn hình, và không huy chương nào chạm vào huy chương kế bên",
+  "wn64Glass": "Bánh xe khoác lớp kính của trò chơi: thế giới mờ dần êm dưới mặt số, tấm kính hơi trong, ánh sắc của nó tụ lại phía trên",
+  "wn64Groups": "Các nhóm riêng của trang chủ iOS: bảng của phiên — địa chỉ của đường hầm, một chạm vào clipboard — và các tác vụ nhanh: đo tốc độ, cài đặt kết nối, tài khoản",
+  "wn64Headers": "Đầu trang của mọi trang lại trải rộng cả trang — mũi tên quay lại đứng ở mép, không ở giữa màn hình",
+  "wn64Pill": "Nhãn viên Material You giữ hơi thở của mình trong phần tròn ở hai đầu",
+  "wn64Map": "Biên giới của bản đồ GTA trở lại bộ áo đầu tiên — bờ biển giữ neon của nó, đất liền giữ viền mỏng như nét mực",
+  "wn64Name": "Thiết kế Pixel nay đáp đúng tên của mình: Material You"
 }

@@ -851,5 +851,12 @@
   "wn63Servers": "Serverlər səhifəsi hər dizaynin öz siyahısını geyir — iOS-un qrup cədvəli, qəzetin xətli göstəricisi, GTA-nın HUD yuvaları, pikselin tonal kartları, bento taxtası",
   "wn63Accounts": "Hesablar səhifəsi də dizaynı geyir: kartlar dizaynin öz yuvarlaqlığında, əlavə düyməsi dizaynin səsi ilə, dialoq başlıqları ekran üzlü qələmi ilə, sahələr dizaynin çərçivəsində",
   "wn63Wheel": "Silah çarxı oyunun öz ölçüsünə görə quruldu: sektor ayırıcılarının tam dairəsi, ikiqat işıqlı dilim, sayğacın göstərici qövsü, açılışın sıçrayışı və seçimin öz nəbzi",
-  "wn63Ios": "iOS dizaynı daha dolu durur: status kartının vəziyyət yuyulması, medal dəstinin səhifə nöqtələri, hər snapdə tik"
+  "wn63Ios": "iOS dizaynı daha dolu durur: status kartının vəziyyət yuyulması, medal dəstinin səhifə nöqtələri, hər snapdə tik",
+  "wn64Wheel": "GTA çarxının medalları indi disk içinde oturur — oyunun öz düzümü ilə on iki oturacaq, nə kənar üstündə medal, nə ekranın kənarından keçən, nə də bir-birinə toxunan medallar",
+  "wn64Glass": "Çarx oyunun öz şüşəsini geyindi: dünya disk altında yumşaq bulanıq olur, lövhə azca şəffafdır, parlağı yuxarıda toplanır",
+  "wn64Groups": "iOS əsas səhifəsinin öz qrupları: sessiya cədvəli — tunnelin ünvanı bir toxunuşla mübadilə buferində — və sürətli əməllər: sürət testi, bağlantı ayarları, hesablar",
+  "wn64Headers": "Hər səhifənin başlığı yenidən səhifənin eninə uzanır — geri oxu öz kənarında dayanır, ekranın ortasında deyil",
+  "wn64Pill": "Material You həbünün yazısı yuvarlaq uclarının içində nəfəsini saxlayır",
+  "wn64Map": "GTA xəritəsinin sərhədləri ilk geyiminə qayıtdı — sahil neonunu, quru isə nazik xətt kənarını saxladı",
+  "wn64Name": "Pixel dizaynı indi öz adı ilə tanınır: Material You"
 }

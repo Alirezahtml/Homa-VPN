@@ -851,5 +851,12 @@
   "wn63Servers": "La page des serveurs porte la liste propre à chaque design — la table groupée d'iOS, l'index réglé de la gazette, les fentes HUD du GTA, les cartes tonales du pixel, le plateau du bento",
   "wn63Accounts": "La page des comptes porte aussi le design : les cartes au rond propre du design, le bouton d'ajout à la voix du design, les titres des dialogues à la face d'affichage, les champs au cadre du design",
   "wn63Wheel": "La roue d'armes rebâtie à la mesure du jeu : le cercle complet des séparateurs, le coin éclairé à deux couches, l'arc du compteur, le pop de l'ouverture et la pulsation du choix",
-  "wn63Ios": "Le design iOS se tient plus plein : le voile d'état de la carte de statut, les points de page du paquet de médailles, le tic de chaque arrêt"
+  "wn63Ios": "Le design iOS se tient plus plein : le voile d'état de la carte de statut, les points de page du paquet de médailles, le tic de chaque arrêt",
+  "wn64Wheel": "Les médailles de la roue GTA s'asseyent maintenant dans le disque — douze sièges au rythme du jeu lui-même, aucune médaille sur le pourtour ni hors de l'écran, et aucune ne touche sa voisine",
+  "wn64Glass": "La roue porte le verre du jeu : le monde fond doucement sous le cadran, la plaque est un peu translucide, son reflet se rassemble en haut",
+  "wn64Groups": "Les groupes propres à l'accueil iOS : le tableau de la session — l'adresse du tunnel, un geste vers le presse-papiers — et les actions rapides : le test de vitesse, les réglages de connexion, les comptes",
+  "wn64Headers": "L'en-tête de chaque page reprend tout son large — la flèche de retour retrouve son bord, non le milieu de l'écran",
+  "wn64Pill": "Le libellé de la pilule Material You garde son souffle dans les bouts arrondis",
+  "wn64Map": "Les frontières de la carte GTA reprennent leur première robe — la côte garde son néon, la terre son liseré d'encre fine",
+  "wn64Name": "Le design Pixel répond à son propre nom : Material You"
 }

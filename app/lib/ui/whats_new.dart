@@ -15,6 +15,20 @@ List<({String title, List<String> lines})> whatsNewSections(
   AppLocalizations l,
   String version,
 ) => switch (version) {
+  '1.0.64' => [
+    (
+      title: l.whatsNewFixed,
+      lines: [l.wn64Wheel, l.wn64Headers, l.wn64Pill],
+    ),
+    (
+      title: l.whatsNewAdded,
+      lines: [l.wn64Groups],
+    ),
+    (
+      title: l.whatsNewImproved,
+      lines: [l.wn64Glass, l.wn64Map, l.wn64Name],
+    ),
+  ],
   '1.0.63' => [
     (
       title: l.whatsNewRemoved,
