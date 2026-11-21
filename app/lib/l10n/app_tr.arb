@@ -673,7 +673,7 @@
   "mapKindGlobe": "3D küre",
   "mapKindSatellite": "Uydu",
   "mapKindFlat": "Düz 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "3D kürenin giydiği renkler. Uydu kendi Dünya'sını, düz haritalar kendi mürekkebini taşır.",
   "aboutVersions": "Sürüm",
   "aboutChannels": "İletişim sayfaları",
@@ -809,8 +809,6 @@
   "wn56Wheel": "Bayrak çarkı akıcı kayar: bir savurma bir ülke getirir, iniş çarpıp oturmak yerine yerine yerleşir — sürükleme ağır ve düzenli, iyi bir düğme gibi okunur.",
   "designGazette": "Gazete",
   "designGazetteDesc": "Manşet: başlık, çizgili sütunlar ve mürekkep damgası — kâğıt ve mürekkepte gazetenin sükûneti",
-  "designGta": "GTA",
-  "designGtaDesc": "Oyunun kendi arayüzü: dönen silah çarkı, radarın yeşil tüneli, kehribar paneller ve neon gece",
   "speedTestSizesTitle": "Test boyutu",
   "wn61Gta": "GTA tasarımı: oyunun kendi arayüzü — bayraklar için silah çarkı, radarın yeşil tüneli, kehribar paneller, ağır yazı tipi ve kendi sesi",
   "wn61Sound": "Çarkın tiki: çarkın geçtiği her yuva kulakta da cevap verir",
@@ -858,5 +856,8 @@
   "wn64Headers": "Her sayfanın başlığı yeniden sayfa genişliğine uzanıyor — geri oku kendi kenarında duruyor, ekranın ortasında değil",
   "wn64Pill": "Material You hapının etiketi nefesini yuvarlak uçların içinde tutuyor",
   "wn64Map": "GTA haritasının sınırları ilk kıyafetine döndü — kıyı neonunu, kara ince mürekkep kenarını korudu",
-  "wn64Name": "Pixel tasarımı artık kendi adıyla anılıyor: Material You"
+  "wn64Name": "Pixel tasarımı artık kendi adıyla anılıyor: Material You",
+  "wn65Gone": "GTA tasarımı gitti: kendi ana sayfası, kendi sayfaları, kendi paleti — beş tasarım kalıyor, onu hâlâ adlandıran ayar dosyası çarka düşer",
+  "wn65Tight": "Ana sayfa her tasarımda daha sıkı dizildi: ekranın artığının kartlar arasında açtığı çıplak şeritler yok oldu — çark, karolar, gazete, madalyalar ve çipler bir nefeslik arayla birbirini izler, sayfa gerildiği yerde kayar",
+  "wn65Radar": "GTA tasarımının taşıdığı harita artık kendi adıyla duruyor: radar — aynı derin su, kehribar ızgara ve tarama, bu kez harita seçicide kendi adıyla"
 }

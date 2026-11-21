@@ -451,10 +451,10 @@ class _ServersPageState extends State<ServersPage> {
           Reveal(
             index: 2,
             // The list in the design's own presentation: the ios's
-            // grouped table, the gazette's ruled index, the gta's HUD
-            // slots, the pixel's tonal cards, the bento's board, and
-            // the monochrome's grid of tiles as always — each design's
-            // servers page its own, the way its home is.
+            // grouped table, the gazette's ruled index, the pixel's
+            // tonal cards, the bento's board, and the monochrome's grid
+            // of tiles as always — each design's servers page its own,
+            // the way its home is.
             child: serversListFor(
               context,
               rows: [

@@ -3564,25 +3564,25 @@ abstract class AppLocalizations {
   /// No description provided for @designBento.
   ///
   /// In en, this message translates to:
-  /// **'Tiles'**
+  /// **'Bento'**
   String get designBento;
 
   /// No description provided for @designBentoDesc.
   ///
   /// In en, this message translates to:
-  /// **'A board of rounded tiles: connect, numbers, place'**
+  /// **'The lunch box\'s own design: the flags on their board of tiles, the connect tile, the numbers and the place as tiles of one warm box'**
   String get designBentoDesc;
 
   /// No description provided for @designPixel.
   ///
   /// In en, this message translates to:
-  /// **'Compact'**
+  /// **'Material You'**
   String get designPixel;
 
   /// No description provided for @designPixelDesc.
   ///
   /// In en, this message translates to:
-  /// **'One quiet card: the place, the switch, the numbers'**
+  /// **'Material You: the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles — the Android\'s own voice'**
   String get designPixelDesc;
 
   /// No description provided for @notifFlag.
@@ -4034,6 +4034,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Flat 2D'**
   String get mapKindFlat;
+
+  /// No description provided for @mapKindHud.
+  ///
+  /// In en, this message translates to:
+  /// **'Radar'**
+  String get mapKindHud;
 
   /// No description provided for @mapStyleGlobeHint.
   ///
@@ -4617,10 +4623,6 @@ abstract class AppLocalizations {
   /// **'That picture could not be used'**
   String get avatarPhotoFailed;
 
-
-
-
-
   /// No description provided for @tlsFragmentAuto.
   ///
   /// In en, this message translates to:
@@ -4855,6 +4857,48 @@ abstract class AppLocalizations {
   /// **'Test size'**
   String get speedTestSizesTitle;
 
+  /// No description provided for @wn61Gta.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA design: the game\'s own HUD — the weapon wheel for the flags, the radar-green tunnel, the amber panels, the heavy face and its own tick'**
+  String get wn61Gta;
+
+  /// No description provided for @wn61Sound.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheel\'s tick: every seat the dial passes answers in the ear as well as the hand'**
+  String get wn61Sound;
+
+  /// No description provided for @wn62Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The weapon wheel rebuilt: the seats keep the game\'s own spacing at any country count, the chosen sector carries the wheel\'s lit wedge, and a flick throws the dial'**
+  String get wn62Wheel;
+
+  /// No description provided for @wn62Map.
+  ///
+  /// In en, this message translates to:
+  /// **'The home\'s map wears each design\'s own colors now — the water, the land and the grid follow the design the page carries'**
+  String get wn62Map;
+
+  /// No description provided for @wn62HudMap.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA design\'s own map: the game\'s HUD plate — deep water, the neon coast, the amber radar grid and the sweep that walks the world while the tunnel carries'**
+  String get wn62HudMap;
+
+  /// No description provided for @wn62Aether.
+  ///
+  /// In en, this message translates to:
+  /// **'The Aether design\'s power control rebuilt: the disc stands in a thin ring track, the connecting arc walks the ring, and the machined face catches the light'**
+  String get wn62Aether;
+
+  /// No description provided for @wn62Gta.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA connect pad answers the hand — the whole panel sinks on a press, and the power\'s mark steps back while the connection is being made'**
+  String get wn62Gta;
+
   /// No description provided for @speedTestSizeLight.
   ///
   /// In en, this message translates to:
@@ -4908,6 +4952,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries.'**
   String get wn56Gazette;
+
+  /// No description provided for @designIos.
+  ///
+  /// In en, this message translates to:
+  /// **'iOS'**
+  String get designIos;
+
+  /// No description provided for @designIosDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The system\'s own: the grouped tables, the tab bar\'s hairline, the status card and the capsule button — clarity in the system\'s voice'**
+  String get designIosDesc;
+
+  /// No description provided for @gazetteSection.
+  ///
+  /// In en, this message translates to:
+  /// **'SECTION'**
+  String get gazetteSection;
+
+  /// No description provided for @wn58Lock.
+  ///
+  /// In en, this message translates to:
+  /// **'The knob\'s lock keeps its ink when the tunnel carries: the mark now reads the face it stands on — dark on a light knob, white on a dark one — so the icon never drowns again.'**
+  String get wn58Lock;
+
+  /// No description provided for @wn58Enter.
+  ///
+  /// In en, this message translates to:
+  /// **'The connected section breathes in: the numbers fade and lift while the room grows beneath them, and walk back out the same way — the cards no longer snap up between two frames.'**
+  String get wn58Enter;
+
+  /// No description provided for @wn58Speed.
+  ///
+  /// In en, this message translates to:
+  /// **'The speed test runs lighter: the panel repaints ten times a second at most, the sweep\'s needle walks in a short straight line, and the faces crossfade instead of snapping.'**
+  String get wn58Speed;
+
+  /// No description provided for @wn58Ios.
+  ///
+  /// In en, this message translates to:
+  /// **'A new design: iOS — the system\'s own look, from the grouped tables and the tab bar\'s hairline to the status card with its capsule button. Every page, card, dialog and icon in the system\'s voice, in both modes.'**
+  String get wn58Ios;
+
+  /// No description provided for @wn58Pixel.
+  ///
+  /// In en, this message translates to:
+  /// **'A new design: Pixel — Material You\'s look, the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles. Every page, card, dialog and icon in the Android\'s own voice, in both modes.'**
+  String get wn58Pixel;
+
+  /// No description provided for @wn58Paper.
+  ///
+  /// In en, this message translates to:
+  /// **'The gazette is a whole paper now: its own section bar with the print\'s bullet and underline, a section-front header for every pushed page, and the ruled paper box for every group of settings — the print\'s rules reach the whole app.'**
+  String get wn58Paper;
+
+  /// No description provided for @wn59Flags.
+  ///
+  /// In en, this message translates to:
+  /// **'The flags wear each design\'s own cut: the round medal on iOS and the aether, the squircle on the zed, the ruled plate on the gazette, the pixel\'s soft big rounds — the wheel, the strip and every row\'s little flag follow.'**
+  String get wn59Flags;
+
+  /// No description provided for @wn59Map.
+  ///
+  /// In en, this message translates to:
+  /// **'The world map is drawn in the design\'s own ink: the paper\'s warm brown on the gazette, the violet night\'s gray on the zed, the tonal blue-gray on the pixel — each design\'s world belongs to its page.'**
+  String get wn59Map;
+
+  /// No description provided for @wn59Buttons.
+  ///
+  /// In en, this message translates to:
+  /// **'The connect controls speak their designs: Material You\'s big tonal pill on the pixel, the iOS capsule breathing while the connection is being made, and every page\'s cards entering in their design\'s own motion.'**
+  String get wn59Buttons;
+
+  /// No description provided for @wn59Scroll.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheels and strips scroll in the design\'s own physics: the system\'s bounce, Material\'s quick settle, and the paper\'s weight that dies against the fold.'**
+  String get wn59Scroll;
+
+  /// No description provided for @flagAllPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'All places'**
+  String get flagAllPlaces;
+
+  /// No description provided for @gazetteRegions.
+  ///
+  /// In en, this message translates to:
+  /// **'Destinations'**
+  String get gazetteRegions;
+
+  /// No description provided for @wn60Flags.
+  ///
+  /// In en, this message translates to:
+  /// **'Each design shows the countries its own way now: the bento\'s board of tiles, the pixel\'s filter chips, the aether\'s capsule options, the iOS medals\' deck, the zed\'s paged board, the gazette\'s region index printed like the paper\'s own — the wheel keeps its wheel.'**
+  String get wn60Flags;
+
+  /// No description provided for @wn60Bento.
+  ///
+  /// In en, this message translates to:
+  /// **'The bento design stands whole: its own warm palette of porcelain and charcoal, the tangerine\'s light, the dock of tiles, the squircle page headers, the tinted cards and the board of flags — every page, both modes.'**
+  String get wn60Bento;
+
+  /// No description provided for @wn60Spacing.
+  ///
+  /// In en, this message translates to:
+  /// **'The homes walk in one rhythm: the dead bands between the sections are gone, the closing cards fill their rows, and every gap breathes by the spacing the design keeps.'**
+  String get wn60Spacing;
+
+  /// No description provided for @wn63Retired.
+  ///
+  /// In en, this message translates to:
+  /// **'The aether and the zed designs retired: their users walk to the designs that wear their structure — the aether\'s tables to iOS, the zed\'s bento to Bento'**
+  String get wn63Retired;
+
+  /// No description provided for @wn63Map.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA map reads as the game\'s own now: every border as a road, an amber blip on every server country, the chosen place as the waypoint with its beam and its name on the plate, the compass at the corner'**
+  String get wn63Map;
+
+  /// No description provided for @wn63Servers.
+  ///
+  /// In en, this message translates to:
+  /// **'The servers page wears each design\'s own list — the iOS grouped table, the gazette\'s ruled index, the GTA\'s HUD slots, the pixel\'s tonal cards, the bento\'s board'**
+  String get wn63Servers;
+
+  /// No description provided for @wn63Accounts.
+  ///
+  /// In en, this message translates to:
+  /// **'The accounts page wears the design too: the cards in the design\'s own round, the add button in the design\'s voice, the dialogs\' titles in the display\'s face, the fields in the design\'s frame'**
+  String get wn63Accounts;
+
+  /// No description provided for @wn63Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The weapon wheel rebuilt to the game\'s own measure: the full circle of sector dividers, the two-layer lit wedge, the counter\'s gauge arc, the pop of the opening, and the pick\'s own pulse'**
+  String get wn63Wheel;
+
+  /// No description provided for @wn63Ios.
+  ///
+  /// In en, this message translates to:
+  /// **'The iOS design stands fuller: the status card\'s state wash, the medal deck\'s page dots, the tick at every snap'**
+  String get wn63Ios;
+
+  /// No description provided for @wn64Wheel.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA wheel\'s medals sit inside the dial now — twelve seats the game\'s own spread, no medal on the rim or past the screen\'s edge, no two medals touching'**
+  String get wn64Wheel;
+
+  /// No description provided for @wn64Glass.
+  ///
+  /// In en, this message translates to:
+  /// **'The wheel wears the game\'s glass: the world blurred softly under the dial, the plate a touch see-through, its sheen gathered at the top'**
+  String get wn64Glass;
+
+  /// No description provided for @wn64Groups.
+  ///
+  /// In en, this message translates to:
+  /// **'The iOS home\'s own groups: the session\'s table — the tunnel\'s address, a tap from the clipboard — and the quick actions: the speed test, the connection\'s settings, the accounts'**
+  String get wn64Groups;
+
+  /// No description provided for @wn64Headers.
+  ///
+  /// In en, this message translates to:
+  /// **'Every page header stretches the page again — the back arrow stands at its edge, not the screen\'s middle'**
+  String get wn64Headers;
+
+  /// No description provided for @wn64Pill.
+  ///
+  /// In en, this message translates to:
+  /// **'The Material You pill\'s label keeps its breath inside the rounded ends'**
+  String get wn64Pill;
+
+  /// No description provided for @wn64Map.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA map\'s borders return to their first dress — the coast keeps its neon, the land its thin ink edge'**
+  String get wn64Map;
+
+  /// No description provided for @wn64Name.
+  ///
+  /// In en, this message translates to:
+  /// **'The Pixel design answers to its own name: Material You'**
+  String get wn64Name;
+
+  /// No description provided for @wn65Gone.
+  ///
+  /// In en, this message translates to:
+  /// **'The GTA design left: its home, its pages, its palette — five designs stay, and a settings file that still names it lands on the wheel'**
+  String get wn65Gone;
+
+  /// No description provided for @wn65Tight.
+  ///
+  /// In en, this message translates to:
+  /// **'The home packs tighter in every design: the bare bands the screen\'s leftover used to open between the cards are gone — the wheel, the tiles, the paper, the medals and the chips follow one another at a breath\'s distance, and the page scrolls where it used to stretch'**
+  String get wn65Tight;
+
+  /// No description provided for @wn65Radar.
+  ///
+  /// In en, this message translates to:
+  /// **'The map the GTA design carried stands on its own now, as the radar: the same deep water, the amber grid and the sweep, under its own name in the map picker'**
+  String get wn65Radar;
 }
 
 class _AppLocalizationsDelegate

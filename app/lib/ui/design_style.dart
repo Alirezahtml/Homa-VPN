@@ -15,9 +15,8 @@ import 'sound.dart' show AppSounds, SoundCue;
 /// The shapes were drawn on the designs the picker carries: the ios
 /// wears the system's own structure (the grouped tables, the tab bar
 /// glued to the edge, the inset dividers, the system's state colors),
-/// the bento its lunch box, the gazette its press, the pixel Material
-/// You, the gta the game's HUD. The monochrome keeps the app's own
-/// shapes.
+/// the bento its lunch box, the gazette its press, the pixel the
+/// phone's own Material You. The monochrome keeps the app's own shapes.
 enum NavVariant {
   /// The monochrome's floating glass pill.
   glassPill,
@@ -38,11 +37,6 @@ enum NavVariant {
   /// Material 3's navigation bar: the full-width tonal surface, the
   /// chosen tab's icon riding its own pill indicator, the label under it.
   m3Bar,
-
-  /// The GTA HUD's bottom bar: a dark panel with the amber hairline on
-  /// top, each tab a HUD slot — the chosen one wears the amber badge and
-  /// its glow, the way the game's own panels light the picked thing.
-  gtaRadar,
 }
 
 enum HeaderVariant {
@@ -64,11 +58,6 @@ enum HeaderVariant {
   /// Material 3's large title: a plain back arrow, then the title big in
   /// the page itself.
   m3,
-
-  /// The GTA HUD's page header: the back button in its amber-ruled HUD
-  /// square, the title in the display's heavy face, and the HUD's own
-  /// rule under them.
-  gta,
 }
 
 enum GroupVariant {
@@ -90,11 +79,6 @@ enum GroupVariant {
   /// Material 3's filled card: the big tonal surface with no outline at
   /// all, the shape speaking instead of the line.
   m3Card,
-
-  /// The GTA HUD's panel: the dark raised panel with the amber-steel
-  /// hairline and the beveled corners — a screen from the game's own
-  /// HUD, holding the rows behind its glass.
-  gtaPanel,
 }
 
 /// How the flags are cut, everywhere the app shows one — the wheel's
@@ -193,7 +177,6 @@ class DesignStyle {
     'pixel' => _pixel(dark),
     'ios' => _ios(dark),
     'bento' => _bento(dark),
-    'gta' => _gta(dark),
     _ => _mono(dark),
   };
 
@@ -372,33 +355,6 @@ class DesignStyle {
     navActive: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
     navInactive: dark ? const Color(0xFFA39C90) : const Color(0xFF6F6A61),
     switchTrack: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
-  );
-
-  /// The gta's structure: the game HUD's own — the dark panels with the
-  /// amber hairlines (the group wears the HUD panel), the amber-ruled
-  /// page header, the HUD slot bar for the navigation. The radar's
-  /// green carries, the amber reaches, the neon red blocks. The flags
-  /// are the wheel's circular medals; the glow is the neon's own.
-  static DesignStyle _gta(bool dark) => DesignStyle._(
-    nav: NavVariant.gtaRadar,
-    header: HeaderVariant.gta,
-    group: GroupVariant.gtaPanel,
-    flagShape: FlagShape.circle,
-    flagRound: 16,
-    smallFlagRound: 8,
-    fx: FxMood.glow,
-    scroll: ScrollMood.glide,
-    cardRadius: 14,
-    listRadius: 12,
-    dialogRadius: 16,
-    iconBadge: false,
-    connected: dark ? const Color(0xFF3ECF6E) : const Color(0xFF1FA050),
-    scanning: dark ? const Color(0xFFFFB84D) : const Color(0xFFB97A14),
-    danger: dark ? const Color(0xFFFF4D5E) : const Color(0xFFC62F45),
-    navBackground: dark ? const Color(0xFF101018) : const Color(0xFFFFFBF2),
-    navActive: dark ? const Color(0xFFFFB84D) : const Color(0xFFB97A14),
-    navInactive: dark ? const Color(0xFF8E8AA6) : const Color(0xFF7C6E80),
-    switchTrack: dark ? const Color(0xFFFFB84D) : const Color(0xFFB97A14),
   );
 
   /// The row's icon badge: the iOS table's colored rounded squares, or
@@ -1152,267 +1108,6 @@ class BentoPageHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-        ],
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// The gta's furniture: the HUD slot bar and the HUD page header.
-// ---------------------------------------------------------------------------
-
-/// The GTA HUD's bottom navigation: a dark panel riding over the page,
-/// the amber hairline along its top edge, each tab a HUD slot of its
-/// own. The chosen slot's badge fills with the amber and glows the way
-/// the game's own panels light the picked thing; the label reads in the
-/// display's heavy face, like the HUD's own words.
-class GtaRadarNav extends StatelessWidget {
-  const GtaRadarNav({super.key, required this.index, required this.onSelect});
-
-  final int index;
-  final ValueChanged<int> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final tabs = [
-      (Icons.home_rounded, Icons.home_outlined, l.navHome),
-      (Icons.settings_rounded, Icons.settings_outlined, l.navSettings),
-    ];
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-        child: Align(
-          heightFactor: 1,
-          alignment: Alignment.bottomCenter,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 420),
-            child: Container(
-              height: 66,
-              decoration: BoxDecoration(
-                color: DesignStyle.of(context).navBackground,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: DesignStyle.of(
-                    context,
-                  ).navActive.withValues(alpha: 0.45),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.45),
-                    blurRadius: 18,
-                    offset: const Offset(0, 6),
-                  ),
-                  // The amber's own wash under the panel: the HUD's light.
-                  BoxShadow(
-                    color: DesignStyle.of(
-                      context,
-                    ).navActive.withValues(alpha: 0.10),
-                    blurRadius: 22,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: Column(
-                  children: [
-                    // The HUD's own top edge: the amber strip the game's
-                    // panels wear, thin and exact.
-                    Container(
-                      height: 2,
-                      color: DesignStyle.of(
-                        context,
-                      ).navActive.withValues(alpha: 0.85),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          for (var i = 0; i < tabs.length; i++)
-                            Expanded(
-                              child: _slot(
-                                context,
-                                i,
-                                tabs[i].$1,
-                                tabs[i].$2,
-                                tabs[i].$3,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _slot(
-    BuildContext context,
-    int i,
-    IconData filled,
-    IconData outline,
-    String label,
-  ) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
-    final style = DesignStyle.of(context);
-    final chosen = index == i;
-    final amber = style.navActive;
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        if (!chosen) {
-          HapticFeedback.selectionClick();
-          AppSounds.play(SoundCue.tap);
-          onSelect(i);
-        }
-      },
-      child: Center(
-        child: AnimatedScale(
-          duration: const Duration(milliseconds: 220),
-          curve: Curves.easeOutBack,
-          scale: chosen ? 1.0 : 0.94,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // The HUD slot: a beveled square badge, amber when chosen,
-              // the panel's own surface when resting.
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 220),
-                curve: Curves.easeOutCubic,
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: chosen
-                      ? amber
-                      : (dark
-                            ? Colors.white.withValues(alpha: 0.06)
-                            : Colors.black.withValues(alpha: 0.05)),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: chosen
-                        ? amber
-                        : amber.withValues(alpha: dark ? 0.30 : 0.25),
-                    width: 1,
-                  ),
-                  boxShadow: chosen
-                      ? [
-                          BoxShadow(
-                            color: amber.withValues(alpha: 0.45),
-                            blurRadius: 12,
-                            spreadRadius: 1,
-                          ),
-                        ]
-                      : const [],
-                ),
-                child: Icon(
-                  chosen ? filled : outline,
-                  size: 17,
-                  color: chosen
-                      ? (amber.computeLuminance() > 0.5
-                            ? Colors.black
-                            : Colors.white)
-                      : style.navInactive,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4,
-                  color: chosen ? style.navActive : style.navInactive,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The GTA HUD's page header: the back button in its amber-ruled HUD
-/// square, the title in the display's heavy face, and the HUD's rule —
-/// the thin amber strip over the quiet hairline — under them.
-class GtaPageHeader extends StatelessWidget {
-  const GtaPageHeader({super.key, required this.title, this.onBack});
-
-  final String title;
-  final VoidCallback? onBack;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = DesignStyle.of(context);
-    final amber = style.navActive;
-    final top = MediaQuery.paddingOf(context).top;
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16, top + 8, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              // The HUD's back: the square with the amber rule around it,
-              // the way the game's own panels frame their buttons.
-              GestureDetector(
-                onTap:
-                    onBack ??
-                    () => Navigator.of(context, rootNavigator: true).pop(),
-                child: Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHigh,
-                    borderRadius: BorderRadius.circular(9),
-                    border: Border.all(color: amber.withValues(alpha: 0.55)),
-                  ),
-                  child: Icon(
-                    Icons.arrow_back_rounded,
-                    size: 19,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 24,
-                    letterSpacing: 0.6,
-                    color: theme.colorScheme.onSurface,
-                    // The HUD's own face: the heavy condensed voice the
-                    // game's titles wear — Persian falls through to
-                    // Vazirmatn.
-                    fontFamily: 'GtaHud',
-                    fontFamilyFallback: const ['Vazirmatn', 'Inter'],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          // The HUD's rule: the amber strip over the quiet hairline —
-          // the game's own panel edge, closing the header.
-          Container(height: 2.4, color: amber.withValues(alpha: 0.9)),
-          const SizedBox(height: 2),
-          Container(height: 0.8, color: amber.withValues(alpha: 0.30)),
-          const SizedBox(height: 10),
         ],
       ),
     );

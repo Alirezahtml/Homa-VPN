@@ -1996,16 +1996,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get designWheelDesc => 'Lá cờ trên vòng kính, công tắc bên dưới';
 
   @override
-  String get designBento => 'Ô lát';
+  String get designBento => 'Bento';
 
   @override
-  String get designBentoDesc => 'Bảng ô bo tròn: kết nối, số liệu, địa điểm';
+  String get designBentoDesc =>
+      'Thiết kế riêng của hộp bento: cờ trên bảng ô của chúng, ô kết nối, số liệu và địa điểm như những ô của một hộp ấm áp';
 
   @override
-  String get designPixel => 'Gọn';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => 'Một thẻ yên tĩnh: địa điểm, công tắc, số liệu';
+  String get designPixelDesc =>
+      'Material You: bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn — giọng riêng của Android';
 
   @override
   String get notifFlag => 'Cờ nước trong thông báo';
@@ -2275,6 +2277,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Phẳng 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2604,14 +2609,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get avatarPhotoFailed => 'Không thể dùng ảnh đó';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Tự động';
 
   @override
@@ -2763,6 +2760,34 @@ class AppLocalizationsVi extends AppLocalizations {
   String get speedTestSizesTitle => 'Cỡ bài kiểm tra';
 
   @override
+  String get wn61Gta =>
+      'Thiết kế GTA: HUD của trò chơi — bánh vũ khí cho cờ, đường hầm xanh radar, tấm panel hổ phách, chữ nặng và âm thanh riêng';
+
+  @override
+  String get wn61Sound =>
+      'Tiếng tích của bánh xe: mỗi vị trí bánh xe đi qua cũng trả lời trong tai';
+
+  @override
+  String get wn62Wheel =>
+      'Bánh xe vũ khí được dựng lại: các ghế giữ khoảng cách của trò chơi dù số quốc gia là bao nhiêu, cung đã chọn mang hình nêm sáng của bánh xe, và một cú hất làm bánh quay vọt';
+
+  @override
+  String get wn62Map =>
+      'Bản đồ trang chủ nay mang màu riêng của từng thiết kế — nước, đất lục địa và lưới đi theo thiết kế của trang';
+
+  @override
+  String get wn62HudMap =>
+      'Bản đồ riêng của thiết kế GTA: tấm HUD của trò chơi — nước sâu, bờ biển neon, lưới radar màu hổ phách và vệt quét đi khắp thế giới khi đường hầm đang chạy';
+
+  @override
+  String get wn62Aether =>
+      'Nút nguồn của thiết kế Aether được dựng lại: đĩa đứng trong vòng mỏng, cung kết nối chạy quanh vòng, và mặt gia công bắt lấy ánh sáng';
+
+  @override
+  String get wn62Gta =>
+      'Bảng kết nối GTA phản hồi tay — cả bảng lún nhẹ khi nhấn, và biểu tượng nguồn lùi lại trong khi đang kết nối';
+
+  @override
   String get speedTestSizeLight => 'Nhẹ';
 
   @override
@@ -2792,4 +2817,136 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Diện mạo trang chủ mới: tờ báo — trang nhất với đề mục, các cột kẻ dòng, băng tin trực tiếp và con dấu mực đóng xuống khi đường hầm chạy.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'Giọng của hệ thống: bảng nhóm, đường kẻ mảnh của thanh tab, thẻ trạng thái và nút viên nang — sáng rõ theo giọng hệ thống';
+
+  @override
+  String get gazetteSection => 'MỤC';
+
+  @override
+  String get wn58Lock =>
+      'Ổ khóa trên nút giữ màu khi đường hầm chạy: dấu giờ đọc bề mặt mình đứng — đậm trên nút sáng, trắng trên nền đậm — biểu tượng không còn bị nhòa.';
+
+  @override
+  String get wn58Enter =>
+      'Mục đã kết nối thở vào: các số mờ dần nâng lên khi không gian bên dưới mở ra, và ra đi cũng vậy — thẻ không còn bật lên giữa hai khung hình.';
+
+  @override
+  String get wn58Speed =>
+      'Bài kiểm tra tốc độ chạy nhẹ hơn: bảng vẽ lại tối đa mười lần mỗi giây, kim quét đi trong đường thẳng ngắn, và các mặt chuyển mờ dần thay vì bật nhảy.';
+
+  @override
+  String get wn58Ios =>
+      'Thiết kế mới: iOS — giọng của chính hệ thống, từ bảng nhóm và đường kẻ mảnh thanh tab đến thẻ trạng thái với nút viên nang. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng hệ thống, ở cả hai chế độ.';
+
+  @override
+  String get wn58Pixel =>
+      'Thiết kế mới: Pixel — giọng Material You, bề mặt tông màu, thẻ lớn đặc, thanh chỉ dẫn viên nang và tiêu đề lớn. Mỗi trang, thẻ, hộp thoại và biểu tượng theo giọng riêng của Android, ở cả hai chế độ.';
+
+  @override
+  String get wn58Paper =>
+      'Tờ báo giờ là cả một tờ báo: thanh mục riêng với dấu in và gạch chân, đề mục cho từng trang mở riêng, và hộp giấy kẻ dòng cho từng nhóm cài đặt — đường in đã chạm tới toàn bộ ứng dụng.';
+
+  @override
+  String get wn59Flags =>
+      'Cờ mang kiểu cắt riêng của từng thiết kế: huy chương tròn trên iOS và aether, squircle trên zed, tấm có đường kẻ trên gazette, góc tròn lớn dịu trên pixel — vòng, dải và lá cờ nhỏ ở mọi hàng đều theo vậy.';
+
+  @override
+  String get wn59Map =>
+      'Bản đồ thế giới được vẽ bằng mực riêng của thiết kế: nâu ấm của giấy trên gazette, xám của đêm tím trên zed, xanh xám tông màu trên pixel — thế giới của mỗi thiết kế thuộc về trang của nó.';
+
+  @override
+  String get wn59Buttons =>
+      'Nút kết nối nói bằng giọng thiết kế của nó: viên thuốc tông màu lớn của Material You trên pixel, vỏ iOS thở khi đang kết nối, và thẻ của mỗi trang bước vào bằng chuyển động riêng của thiết kế đó.';
+
+  @override
+  String get wn59Scroll =>
+      'Vòng và dải cuộn bằng vật lý riêng của thiết kế: độ nảy của hệ thống, dừng nhanh của Material và trọng lượng giấy chết tại nếp gấp.';
+
+  @override
+  String get flagAllPlaces => 'Tất cả nơi';
+
+  @override
+  String get gazetteRegions => 'Điểm đến';
+
+  @override
+  String get wn60Flags =>
+      'Mỗi thiết kế giờ hiển thị các quốc gia theo cách riêng: bảng ô của bento, chip lọc của pixel, tùy chọn nang của aether, bộ huy chương của iOS, bảng phân trang của zed, và mục lục điểm đến của gazette in như chính tờ báo — bánh xe giữ bánh xe của nó.';
+
+  @override
+  String get wn60Bento =>
+      'Thiết kế bento đứng vẹn nguyên: bảng màu ấm riêng từ sứ và than, ánh quýt, dock ô, đầu trang squircle, thẻ tô màu và bảng cờ — từng trang, cả hai chế độ.';
+
+  @override
+  String get wn60Spacing =>
+      'Các trang chủ đi trong một nhịp: dải chết giữa các mục đã biến mất, thẻ kết thúc lấp đầy hàng của nó, và mỗi khoảng trống thở theo khoảng cách thiết kế giữ.';
+
+  @override
+  String get wn63Retired =>
+      'Các thiết kế aether và zed nghỉ hưu: người dùng chuyển sang các thiết kế mang cấu trúc của chúng — bảng của aether sang iOS, bento của zed sang Bento';
+
+  @override
+  String get wn63Map =>
+      'Bản đồ GTA đọc như bản đồ của trò chơi: mỗi biên giới là một con đường, một điểm hổ phách trên mỗi quốc gia máy chủ, nơi chọn là waypoint với chùm sáng và tên trên tấm biển, la bàn ở góc';
+
+  @override
+  String get wn63Servers =>
+      'Trang máy chủ mặc danh sách riêng của từng thiết kế — bảng nhóm của iOS, chỉ mục kẻ dòng của gazette, ô HUD của GTA, thẻ tông màu của pixel, bảng của bento';
+
+  @override
+  String get wn63Accounts =>
+      'Trang tài khoản cũng mặc thiết kế: thẻ với bo tròn riêng của thiết kế, nút thêm với giọng thiết kế, tiêu đề hộp thoại với mặt hiển thị, ô nhập trong khung thiết kế';
+
+  @override
+  String get wn63Wheel =>
+      'Bánh xe vũ khí dựng lại theo thước của trò chơi: vòng tròn đầy đủ các đường chia, mí sáng hai lớp, cung đồng hồ đếm, cú bật khi mở và nhịp của lựa chọn';
+
+  @override
+  String get wn63Ios =>
+      'Thiết kế iOS đứng đầy hơn: lớp phủ trạng thái trên thẻ trạng thái, chấm trang của bộ bài huy chương, tích ở mỗi lần snap';
+
+  @override
+  String get wn64Wheel =>
+      'Các huy chương của bánh xe GTA nay ngồi bên trong đĩa — mười hai chỗ theo nhịp của chính trò chơi, không huy chương nào trên vành hay vượt mép màn hình, và không huy chương nào chạm vào huy chương kế bên';
+
+  @override
+  String get wn64Glass =>
+      'Bánh xe khoác lớp kính của trò chơi: thế giới mờ dần êm dưới mặt số, tấm kính hơi trong, ánh sắc của nó tụ lại phía trên';
+
+  @override
+  String get wn64Groups =>
+      'Các nhóm riêng của trang chủ iOS: bảng của phiên — địa chỉ của đường hầm, một chạm vào clipboard — và các tác vụ nhanh: đo tốc độ, cài đặt kết nối, tài khoản';
+
+  @override
+  String get wn64Headers =>
+      'Đầu trang của mọi trang lại trải rộng cả trang — mũi tên quay lại đứng ở mép, không ở giữa màn hình';
+
+  @override
+  String get wn64Pill =>
+      'Nhãn viên Material You giữ hơi thở của mình trong phần tròn ở hai đầu';
+
+  @override
+  String get wn64Map =>
+      'Biên giới của bản đồ GTA trở lại bộ áo đầu tiên — bờ biển giữ neon của nó, đất liền giữ viền mỏng như nét mực';
+
+  @override
+  String get wn64Name =>
+      'Thiết kế Pixel nay đáp đúng tên của mình: Material You';
+
+  @override
+  String get wn65Gone =>
+      'Thiết kế GTA đã ra đi: trang chủ, các trang và bảng màu của nó — năm thiết kế ở lại, và tệp cài đặt còn gọi tên nó sẽ rơi về bánh xe';
+
+  @override
+  String get wn65Tight =>
+      'Trang chủ gọn gàng hơn trong mọi thiết kế: những dải trống mà phần màn hình dư mở giữa các thẻ đã biến mất — bánh xe, ô gạch, báo, huy chương và chip nối tiếp nhau cách nhau một hơi thở, và trang cuộn thay vì giãn ra';
+
+  @override
+  String get wn65Radar =>
+      'Bản đồ mà thiết kế GTA mang theo giờ đứng dưới tên riêng: radar — cùng mặt nước sâu, lưới hổ phách và vệt quét, lần này với tên riêng của nó trong bộ chọn bản đồ';
 }

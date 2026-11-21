@@ -12,9 +12,9 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The design picker: six real designs, and the palette ones each
+  // The design picker: five real designs, and the palette ones each
   // carry a whole palette the whole app wears.
-  testWidgets('the design picker offers six designs', (tester) async {
+  testWidgets('the design picker offers five designs', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 1500);
@@ -42,29 +42,32 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['iOS', 'Material You', 'Gazette', 'GTA', 'Bento']) {
+    for (final name in ['iOS', 'Material You', 'Gazette', 'Bento']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
       expect(card, findsOneWidget, reason: name);
     }
 
-    // A tap on the gta's card: the home design follows, and the whole
-    // app's look with it — the resolved design is the gta's palette.
-    final gta = find.text('GTA');
-    await tester.ensureVisible(gta);
+    // A tap on the gazette's card: the home design follows, and the
+    // whole app's look with it — the resolved design is the gazette's
+    // palette.
+    final gazette = find.text('Gazette');
+    await tester.ensureVisible(gazette);
     await settle(tester);
-    await tester.tap(gta);
+    await tester.tap(gazette);
     await settle(tester);
     // The choice went in, past the settings' own list of known designs.
-    expect(settings.homeDesign, 'gta');
-    expect(AppDesign.resolve(settings.homeDesign).key, 'gta');
+    expect(settings.homeDesign, 'gazette');
+    expect(AppDesign.resolve(settings.homeDesign).key, 'gazette');
     // The looks that left land on the monochrome (the settings walk
     // their users to the ios and the bento before the resolve runs).
     expect(AppDesign.resolve('aether').key, 'mono');
     expect(AppDesign.resolve('zed').key, 'mono');
-    expect(AppDesign.resolve('gazette').key, 'gazette');
-    expect(AppDesign.resolve('gta').key, 'gta');
+    // The retired gta design lands on the monochrome too: the design
+    // left the app, and a settings file that still names it reads as
+    // the app's own home.
+    expect(AppDesign.resolve('gta').key, 'mono');
     // The gazette's own light stands in too.
     settings.update(homeDesign: 'gazette');
     await settle(tester);
@@ -90,9 +93,9 @@ void main() {
     await settle(tester);
     final l = AppLocalizations.of(tester.element(find.text('Language')));
     expect(designName(l, settings), 'iOS');
-    settings.update(homeDesign: 'gta');
+    settings.update(homeDesign: 'gazette');
     await settle(tester);
-    expect(designName(l, settings), 'GTA');
+    expect(designName(l, settings), 'Gazette');
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

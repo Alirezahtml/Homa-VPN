@@ -661,7 +661,7 @@
   "mapKindGlobe": "Globe 3D",
   "mapKindSatellite": "Vệ tinh",
   "mapKindFlat": "Phẳng 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "Màu sắc của globe 3D. Vệ tinh mang Trái Đất riêng của nó, còn bản đồ phẳng mang mực riêng của nó.",
   "aboutVersions": "Phiên bản",
   "aboutChannels": "Trang liên hệ",
@@ -809,8 +809,6 @@
   "wn56Wheel": "Bánh xe cờ trượt mượt: một cú đẩy mang một quốc gia, và cú đáp nằm yên vào chỗ thay vì va đập — cú kéo đọc nặng và ổn như một núm xoay tốt.",
   "designGazette": "Tờ báo",
   "designGazetteDesc": "Trang nhất: đề mục, các cột kẻ dòng và con dấu mực — sự tĩnh lặng của tờ báo, bằng giấy và mực",
-  "designGta": "GTA",
-  "designGtaDesc": "HUD của trò chơi: bánh vũ khí xoay, đường hầm xanh radar, tấm panel hổ phách và đêm neon",
   "speedTestSizesTitle": "Cỡ bài kiểm tra",
   "wn61Gta": "Thiết kế GTA: HUD của trò chơi — bánh vũ khí cho cờ, đường hầm xanh radar, tấm panel hổ phách, chữ nặng và âm thanh riêng",
   "wn61Sound": "Tiếng tích của bánh xe: mỗi vị trí bánh xe đi qua cũng trả lời trong tai",
@@ -858,5 +856,8 @@
   "wn64Headers": "Đầu trang của mọi trang lại trải rộng cả trang — mũi tên quay lại đứng ở mép, không ở giữa màn hình",
   "wn64Pill": "Nhãn viên Material You giữ hơi thở của mình trong phần tròn ở hai đầu",
   "wn64Map": "Biên giới của bản đồ GTA trở lại bộ áo đầu tiên — bờ biển giữ neon của nó, đất liền giữ viền mỏng như nét mực",
-  "wn64Name": "Thiết kế Pixel nay đáp đúng tên của mình: Material You"
+  "wn64Name": "Thiết kế Pixel nay đáp đúng tên của mình: Material You",
+  "wn65Gone": "Thiết kế GTA đã ra đi: trang chủ, các trang và bảng màu của nó — năm thiết kế ở lại, và tệp cài đặt còn gọi tên nó sẽ rơi về bánh xe",
+  "wn65Tight": "Trang chủ gọn gàng hơn trong mọi thiết kế: những dải trống mà phần màn hình dư mở giữa các thẻ đã biến mất — bánh xe, ô gạch, báo, huy chương và chip nối tiếp nhau cách nhau một hơi thở, và trang cuộn thay vì giãn ra",
+  "wn65Radar": "Bản đồ mà thiết kế GTA mang theo giờ đứng dưới tên riêng: radar — cùng mặt nước sâu, lưới hổ phách và vệt quét, lần này với tên riêng của nó trong bộ chọn bản đồ"
 }

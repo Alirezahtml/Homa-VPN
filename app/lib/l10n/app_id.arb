@@ -661,7 +661,7 @@
   "mapKindGlobe": "Globe 3D",
   "mapKindSatellite": "Satelit",
   "mapKindFlat": "Datar 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "Warna yang dikenakan globe 3D. Satelit membawa buminya sendiri, dan peta datar membawa tintanya sendiri.",
   "aboutVersions": "Versi",
   "aboutChannels": "Halaman kontak",
@@ -809,8 +809,6 @@
   "wn56Wheel": "Roda bendera meluncur mulus: satu lemparan membawa satu negara, dan pendaratannya menetap alih-alih membentur — tarikannya terasa mantap dan stabil seperti kenop yang baik.",
   "designGazette": "Koran",
   "designGazetteDesc": "Halaman depan: masthead, kolom bergaris, dan stempel tinta — ketenangan koran, dalam kertas dan tinta",
-  "designGta": "GTA",
-  "designGtaDesc": "HUD khas game: roda senjata yang berputar, terowongan hijau radar, panel amber dan malam neon",
   "speedTestSizesTitle": "Ukuran tes",
   "wn61Gta": "Desain GTA: HUD khas game — roda senjata untuk bendera, terowongan hijau radar, panel amber, huruf tebal dan suaranya sendiri",
   "wn61Sound": "Klik roda: setiap kursi yang dilewati juga menjawab di telinga",
@@ -858,5 +856,8 @@
   "wn64Headers": "Kepala setiap halaman kembali membentang selebar halaman — panah kembali berdiri di tepinya, bukan di tengah layar",
   "wn64Pill": "Label pil Material You menjaga ruangnya di dalam ujung yang membulat",
   "wn64Map": "Garis batas peta GTA kembali ke pakaiannya yang pertama — pantai mempertahankan neonnya, daratan tetap tepian tintanya yang tipis",
-  "wn64Name": "Desain Pixel kini menjawab namanya sendiri: Material You"
+  "wn64Name": "Desain Pixel kini menjawab namanya sendiri: Material You",
+  "wn65Gone": "Desain GTA pergi: berandanya, halamannya, paletnya — lima desain bertahan, dan berkas pengaturan yang masih menyebutnya jatuh ke roda",
+  "wn65Tight": "Beranda kini lebih rapat di setiap desain: pita kosong yang dulu dibuka sisa layar di antara kartu hilang — roda, ubin, koran, medali, dan chip saling mengikuti dalam jarak satu helaan napas, dan halaman menggulir alih-alih meregang",
+  "wn65Radar": "Peta yang dibawa desain GTA kini berdiri dengan namanya sendiri: radar — air dalam yang sama, kisi amber dan sapuan yang sama, kali ini dengan namanya sendiri di pemilih peta"
 }

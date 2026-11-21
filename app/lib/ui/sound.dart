@@ -20,7 +20,6 @@ enum SoundCue {
   disconnect,
   error,
   lock,
-  wheelTick,
 }
 
 /// The connection's voice: the cues that say what the tunnel itself is
@@ -49,7 +48,6 @@ abstract final class AppSounds {
     SoundCue.disconnect: 'sounds/disconnect.wav',
     SoundCue.error: 'sounds/error.wav',
     SoundCue.lock: 'sounds/lock.wav',
-    SoundCue.wheelTick: 'sounds/wheelTick.wav',
   };
 
   static final Map<SoundCue, AudioPool> _pools = {};

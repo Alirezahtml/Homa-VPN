@@ -661,7 +661,7 @@
   "mapKindGlobe": "3D kürə",
   "mapKindSatellite": "Peyk",
   "mapKindFlat": "Düz 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "3D kürənin geyindiyi rənglər. Peyk öz yumrusunu, düz xəritələr öz mürəkkəbini daşıyır.",
   "aboutVersions": "Versiya",
   "aboutChannels": "Əlaqə səhifələri",
@@ -809,8 +809,6 @@
   "wn56Wheel": "Bayraq çərxi yumsaq sürüşmə ilə gedir: bir atış bir ölkə gətirir, eniş isə çırpılıb yerləşmək əvəzinə yerinə yığılır — çəkmə ağır və rəvan, yaxşı bir açar kimi oxunur.",
   "designGazette": "Qəzet",
   "designGazetteDesc": "Qəzet səhifəsi: başlıq, xətli sütunlar və mürəkkəb möhür — kağız və mürəkkəblə qəzetin sakitliyi",
-  "designGta": "GTA",
-  "designGtaDesc": "Oyunun öz interfeysi: dönen silah çarxı, radarın yaşıl tunneli, kəhrəba panelləri və neon gecə",
   "speedTestSizesTitle": "Test ölçüsü",
   "wn61Gta": "GTA dizaynı: oyunun öz interfeysi — bayraqlar üçün silah çarxı, radarın yaşıl tunneli, kəhrəba panellər, ağır şrift və öz səsi",
   "wn61Sound": "Çarxın tiki: çarxın keçdiyi hər yuva qulaqda da cavab tapır",
@@ -858,5 +856,8 @@
   "wn64Headers": "Hər səhifənin başlığı yenidən səhifənin eninə uzanır — geri oxu öz kənarında dayanır, ekranın ortasında deyil",
   "wn64Pill": "Material You həbünün yazısı yuvarlaq uclarının içində nəfəsini saxlayır",
   "wn64Map": "GTA xəritəsinin sərhədləri ilk geyiminə qayıtdı — sahil neonunu, quru isə nazik xətt kənarını saxladı",
-  "wn64Name": "Pixel dizaynı indi öz adı ilə tanınır: Material You"
+  "wn64Name": "Pixel dizaynı indi öz adı ilə tanınır: Material You",
+  "wn65Gone": "GTA dizayni getdi: öz evi, öz səhifələri, öz palitrası — beş dizayn qalır, adını hələ daşıyan parametrlər faylı çarxa düşür",
+  "wn65Tight": "Ana səhifə hər dizaynda daha sıx yığıldı: ekranın qalan boşluğunun kartlar arasında açdığı çılpaq zolaqlar aradan qaldırıldı — çarx, plitkələr, qəzet, medallar və çiplər bir nəfəs məsafədə bir-birini izləyir, səhifə uzandığı yerdə sürüşür",
+  "wn65Radar": "GTA dizaynının apardığı xəritə indi öz adı ilə durur: radar — eyni dərin su, kəhrəba tor və süzülmə, bu dəfə xəritə seçicisində öz adı ilə"
 }

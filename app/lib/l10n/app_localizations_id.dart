@@ -1997,16 +1997,18 @@ class AppLocalizationsId extends AppLocalizations {
   String get designWheelDesc => 'Bendera pada roda kacanya, tombol di bawah';
 
   @override
-  String get designBento => 'Ubin';
+  String get designBento => 'Bento';
 
   @override
-  String get designBentoDesc => 'Papan ubin membulat: sambungan, angka, lokasi';
+  String get designBentoDesc =>
+      'Desain khas kotak bento: bendera di papan ubinnya, ubin sambungan, angka dan lokasi sebagai ubin satu kotak hangat';
 
   @override
-  String get designPixel => 'Ringkas';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => 'Satu kartu tenang: lokasi, tombol, angka';
+  String get designPixelDesc =>
+      'Material You: permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar — suara Android sendiri';
 
   @override
   String get notifFlag => 'Bendera negara di notifikasi';
@@ -2275,6 +2277,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Datar 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2608,14 +2613,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get avatarPhotoFailed => 'Gambar itu tidak dapat dipakai';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Otomatis';
 
   @override
@@ -2767,6 +2764,34 @@ class AppLocalizationsId extends AppLocalizations {
   String get speedTestSizesTitle => 'Ukuran tes';
 
   @override
+  String get wn61Gta =>
+      'Desain GTA: HUD khas game — roda senjata untuk bendera, terowongan hijau radar, panel amber, huruf tebal dan suaranya sendiri';
+
+  @override
+  String get wn61Sound =>
+      'Klik roda: setiap kursi yang dilewati juga menjawab di telinga';
+
+  @override
+  String get wn62Wheel =>
+      'Roda senjata dibangun ulang: kursi menjaga jarak milik gim berapa pun jumlah negaranya, sektor terpilih membawa baji bercahaya roda, dan sentuhan cepat melemparkan dial';
+
+  @override
+  String get wn62Map =>
+      'Peta beranda kini memakai warna khas setiap desain — air, daratan, dan grid mengikuti desain halaman';
+
+  @override
+  String get wn62HudMap =>
+      'Peta milik desain GTA: pelat HUD gim — laut dalam, pantai neon, grid radar amber, dan sapuan yang menyusuri dunia selama terowongan berjalan';
+
+  @override
+  String get wn62Aether =>
+      'Kontrol daya desain Aether dibangun ulang: cakram berdir di cincin tipis, busur penghubung berputar di cincin, dan permukaan presisi menangkap cahaya';
+
+  @override
+  String get wn62Gta =>
+      'Pad koneksi GTA menjawab tangan — seluruh panel turun saat ditekan, dan tanda daya mundur saat koneksi dibuat';
+
+  @override
   String get speedTestSizeLight => 'Ringan';
 
   @override
@@ -2796,4 +2821,136 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Tampilan rumah baru: koran — halaman depan dengan masthead, kolom bergaris, ticker langsung, dan stempel tinta yang menghentak saat terowongan berjalan.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'Gaya sistem sendiri: tabel berkelompok, garis tipis bilah tab, kartu status dan tombol kapsul — kejelasan dengan suara sistem';
+
+  @override
+  String get gazetteSection => 'RUBRIK';
+
+  @override
+  String get wn58Lock =>
+      'Gembok pada tombol mempertahankan warnanya saat terowongan berjalan: tanda kini membaca permukaan yang diinjaknya — gelap di atas tombol terang, putih di atas gelap — ikon tak lagi tenggelam.';
+
+  @override
+  String get wn58Enter =>
+      'Bagian tersambung bernapas: angka memudar dan naik saat ruang di bawahnya membuka, dan pergi dengan cara yang sama — kartu tak lagi muncul mendadak di antara dua frame.';
+
+  @override
+  String get wn58Speed =>
+      'Tes kecepatan berjalan lebih ringan: panel menggambar ulang paling sering sepuluh kali per detik, jarum sapuan berjalan lurus pendek, dan wajah-wajah memudar berganti, bukan melompat.';
+
+  @override
+  String get wn58Ios =>
+      'Desain baru: iOS — gaya sistem sendiri, dari tabel berkelompok dan garis tipis bilah tab hingga kartu status dengan tombol kapsul. Setiap halaman, kartu, dialog, dan ikon dengan suara sistem, di kedua mode.';
+
+  @override
+  String get wn58Pixel =>
+      'Desain baru: Pixel — gaya Material You, permukaan tonal, kartu besar terisi, bilah indikator pil dan judul besar. Setiap halaman, kartu, dialog, dan ikon dengan suara Android sendiri, di kedua mode.';
+
+  @override
+  String get wn58Paper =>
+      'Koran kini koran utuh: bilah rubrik khasnya dengan peluru cetak dan garis bawah, kepala rubrik untuk setiap halaman terpisah, dan kotak kertas bergaris untuk setiap kelompok pengaturan — garis cetak menjangkau seluruh aplikasi.';
+
+  @override
+  String get wn59Flags =>
+      'Bendera memakai potongan desainnya sendiri: medali bulat di iOS dan aether, squircle di zed, pelat bergaris di gazette, sudut besar lembut di pixel — roda, lajur, dan bendera kecil setiap baris mengikutinya.';
+
+  @override
+  String get wn59Map =>
+      'Peta dunia digambar dengan tinta desainnya sendiri: cokelat hangat kertas di gazette, abu-abu malam ungu di zed, biru-abu tonal di pixel — dunia setiap desain milik halamannya.';
+
+  @override
+  String get wn59Buttons =>
+      'Tombol sambung berbicara dengan suara desainnya: pil tonal besar Material You di pixel, kapsul iOS yang bernapas saat koneksi dibuat, dan kartu setiap halaman masuk dengan gerak desainnya sendiri.';
+
+  @override
+  String get wn59Scroll =>
+      'Roda dan lajur menggulir dengan fisika desainnya: pantulan sistem, jeda cepat Material, dan berat kertas yang mati di lipatan.';
+
+  @override
+  String get flagAllPlaces => 'Semua tempat';
+
+  @override
+  String get gazetteRegions => 'Tujuan';
+
+  @override
+  String get wn60Flags =>
+      'Setiap desain kini menampilkan negara dengan caranya sendiri: papan ubin bento, chip filter pixel, opsi kapsul aether, dek medali iOS, papan terpaginasi zed, dan indeks tujuan gazette yang tercetak seperti korannya — roda tetap memakai rodanya.';
+
+  @override
+  String get wn60Bento =>
+      'Desain bento berdiri utuh: palet hangatnya sendiri dari porselen dan arang, cahaya mandarin, dok ubin, header halaman squircle, kartu berwarna dan papan bendera — setiap halaman, kedua mode.';
+
+  @override
+  String get wn60Spacing =>
+      'Halaman berjalan dengan satu ritme: pita mati antar bagian hilang, kartu penutup mengisi barisnya, dan setiap celah bernapas dengan spasi yang dijaga desain.';
+
+  @override
+  String get wn63Retired =>
+      'Desain aether dan zed pensiun: penggunanya pindah ke desain yang memakai strukturnya — tabel aether ke iOS, bento zed ke Bento';
+
+  @override
+  String get wn63Map =>
+      'Peta GTA terbaca seperti peta game-nya: setiap perbatasan sebagai jalan, penanda amber di setiap negara server, tempat terpilih sebagai waypoint dengan sinar dan namanya di pelat, kompas di sudut';
+
+  @override
+  String get wn63Servers =>
+      'Halaman server memakai daftar tiap desain — tabel bergrup iOS, indeks bergaris gazette, slot HUD GTA, kartu tonal pixel, papan bento';
+
+  @override
+  String get wn63Accounts =>
+      'Halaman akun juga memakai desain: kartu dengan sudut khas desain, tombol tambah dengan suara desain, judul dialog dengan huruf tampilan, kolom dalam bingkai desain';
+
+  @override
+  String get wn63Wheel =>
+      'Roda senjata dibangun ulang dengan ukuran game-nya: lingkaran penuh pembagi sektor, irisan bercahaya dua lapis, busur gauge penghitung, lompatan pembukaan, dan denyut pemilihan';
+
+  @override
+  String get wn63Ios =>
+      'Desain iOS berdiri lebih penuh: bilas status pada kartu status, titik halaman dek medali, tik pada setiap snap';
+
+  @override
+  String get wn64Wheel =>
+      'Medali roda GTA kini duduk di dalam cakram — dua belas kursi dalam susunan permainannya sendiri, tak ada medali di tepi cakram maupun lewat tepi layar, dan tak ada dua medali yang bersentuhan';
+
+  @override
+  String get wn64Glass =>
+      'Roda memakai kaca permainannya: dunia melebur lembut di bawah dial, lempengnya sedang tembus pandang, kilauannya berkumpul di atas';
+
+  @override
+  String get wn64Groups =>
+      'Grup milik beranda iOS: tabel sesi — alamat terowongan, sekali ketuk ke papan klip — dan tindakan cepat: uji kecepatan, pengaturan koneksi, akun';
+
+  @override
+  String get wn64Headers =>
+      'Kepala setiap halaman kembali membentang selebar halaman — panah kembali berdiri di tepinya, bukan di tengah layar';
+
+  @override
+  String get wn64Pill =>
+      'Label pil Material You menjaga ruangnya di dalam ujung yang membulat';
+
+  @override
+  String get wn64Map =>
+      'Garis batas peta GTA kembali ke pakaiannya yang pertama — pantai mempertahankan neonnya, daratan tetap tepian tintanya yang tipis';
+
+  @override
+  String get wn64Name =>
+      'Desain Pixel kini menjawab namanya sendiri: Material You';
+
+  @override
+  String get wn65Gone =>
+      'Desain GTA pergi: berandanya, halamannya, paletnya — lima desain bertahan, dan berkas pengaturan yang masih menyebutnya jatuh ke roda';
+
+  @override
+  String get wn65Tight =>
+      'Beranda kini lebih rapat di setiap desain: pita kosong yang dulu dibuka sisa layar di antara kartu hilang — roda, ubin, koran, medali, dan chip saling mengikuti dalam jarak satu helaan napas, dan halaman menggulir alih-alih meregang';
+
+  @override
+  String get wn65Radar =>
+      'Peta yang dibawa desain GTA kini berdiri dengan namanya sendiri: radar — air dalam yang sama, kisi amber dan sapuan yang sama, kali ini dengan namanya sendiri di pemilih peta';
 }

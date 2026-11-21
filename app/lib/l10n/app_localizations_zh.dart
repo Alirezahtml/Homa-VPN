@@ -1915,16 +1915,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get designWheelDesc => '旗帜排在玻璃轮盘上，开关在下方';
 
   @override
-  String get designBento => '拼块';
+  String get designBento => '便当';
 
   @override
-  String get designBentoDesc => '圆角拼块面板：连接、数字、位置';
+  String get designBentoDesc => '便当盒自己的设计：旗帜排在拼块板上，连接拼块，数字与位置同属一只温暖的盒子';
 
   @override
-  String get designPixel => '紧凑';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => '一张安静的卡片：位置、开关、数字';
+  String get designPixelDesc => 'Material You：色调表面、大块填充卡片、胶囊指示条与醒目标题——安卓自己的声音';
 
   @override
   String get notifFlag => '通知中的国旗';
@@ -2161,6 +2161,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mapKindFlat => '平面 2D';
+
+  @override
+  String get mapKindHud => '雷达';
 
   @override
   String get mapStyleGlobeHint => '3D 球体的配色。卫星有自己的地球，平面地图有自己的墨色。';
@@ -2460,14 +2463,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get avatarPhotoFailed => '无法使用该图片';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => '自动';
 
   @override
@@ -2605,6 +2600,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String get speedTestSizesTitle => '测试规模';
 
   @override
+  String get wn61Gta => 'GTA 设计：游戏原生 HUD — 旗帜武器轮盘、雷达绿隧道、琥珀色面板、重型字体与专属音效';
+
+  @override
+  String get wn61Sound => '轮盘的咔哒：拨盘经过的每个座位也在耳边作答';
+
+  @override
+  String get wn62Wheel => '武器轮盘重构：无论国家数量多少，卡位都保持游戏原有间距，所选扇区带有发光楔形，轻扫即可甩动转盘';
+
+  @override
+  String get wn62Map => '首页地图现在换上每种设计自己的配色——水体、陆地和网格随页面设计而变';
+
+  @override
+  String get wn62HudMap =>
+      'GTA 设计专属地图：游戏的 HUD 面板——深色水域、霓虹海岸、琥珀色雷达网格，以及隧道运行时掠过世界的扫描线';
+
+  @override
+  String get wn62Aether => 'Aether 设计的电源按钮重构：圆盘立于纤细的圆环轨道中，连接弧线沿环游走，机加工质感表面折射光泽';
+
+  @override
+  String get wn62Gta => 'GTA 连接面板回应手感——按下时整块面板微微下沉，连接进行中电源图标会退后';
+
+  @override
   String get speedTestSizeLight => '轻量';
 
   @override
@@ -2633,6 +2650,129 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wn56Gazette => '全新的首页外观：报章——头版带报头、栏线分明的栏目、实时快讯条，以及隧道连通时盖下的墨戳。';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc => '系统本来的样子：分组表格、标签栏的细线、状态卡与胶囊按钮——以系统的声音呈现清晰';
+
+  @override
+  String get gazetteSection => '栏目';
+
+  @override
+  String get wn58Lock =>
+      '隧道连通时旋钮上的锁保住了自己的墨色：标记现在会读它脚下的表面——浅色旋钮上用深色，深色旋钮上用白色——图标再也不会被淹没。';
+
+  @override
+  String get wn58Enter =>
+      '已连接区域有了呼吸感：数字淡入上浮、下方的空间随之展开，离开时同样柔和——卡片不再在两帧之间硬生生蹦出。';
+
+  @override
+  String get wn58Speed => '测速跑得更轻了：面板每秒最多重绘十次，扫动指针沿短直线行进，各界面相互淡入淡出而不再硬切。';
+
+  @override
+  String get wn58Ios =>
+      '全新设计：iOS——系统本来的样子，从分组表格、标签栏细线到带胶囊按钮的状态卡。每一页、卡片、对话框和图标都用系统的声音，两种模式皆然。';
+
+  @override
+  String get wn58Pixel =>
+      '全新设计：Pixel——Material You 的风格，色调表面、大块填充卡片、胶囊指示条与醒目标题。每一页、卡片、对话框和图标都用安卓自己的声音，两种模式皆然。';
+
+  @override
+  String get wn58Paper =>
+      '报章现在是一份完整的报纸：带印刷圆点与下划线的专属栏目条、每个独立页面的版面页眉、每个设置组的栏线纸框——印刷的线条已抵达整个应用。';
+
+  @override
+  String get wn59Flags =>
+      '旗帜穿上各设计自己的裁形：iOS 与 aether 的圆形徽章、zed 的方圆、gazette 的标线印板、pixel 的大圆角 — 转轮、横条与每行的小旗都随之而变。';
+
+  @override
+  String get wn59Map =>
+      '世界地图以设计自己的墨色描绘：gazette 的暖纸棕、zed 的紫夜灰、pixel 的色调蓝灰 — 每个设计的世界都属于它的页面。';
+
+  @override
+  String get wn59Buttons =>
+      '连接按钮说出各自设计的语言：pixel 上 Material You 的大号色调药丸、连接建立时轻呼吸的 iOS 胶囊，以及每页卡片以自己设计的动效入场。';
+
+  @override
+  String get wn59Scroll =>
+      '转轮与横条以设计自己的物理滚动：系统的回弹、Material 的利落停下，以及在折痕处收住的纸的重感。';
+
+  @override
+  String get flagAllPlaces => '全部地区';
+
+  @override
+  String get gazetteRegions => '目的地';
+
+  @override
+  String get wn60Flags =>
+      '每种设计现在都以自己的方式展示国家：便当的拼块板、像素的筛选芯片、以太的胶囊选项、iOS 的奖牌卡组、zed 的分页板，以及报版像自己的版面一样印出的目的地索引——转轮保留了转轮。';
+
+  @override
+  String get wn60Bento =>
+      '便当设计完整站立：瓷器与炭色的暖调色板、柑橘的光、拼块坞、方圆页头、着色卡片与旗帜板——每一页，两种模式。';
+
+  @override
+  String get wn60Spacing =>
+      '主页以同一个节奏行进：区块之间的死带已经消失，收尾卡片填满自己的行，每个间隙都按设计保留的间距呼吸。';
+
+  @override
+  String get wn63Retired =>
+      'aether 与 zed 设计退役：用户转向承载相同结构的设计 —— aether 的分组表格归入 iOS，zed 的便当盒归入 Bento';
+
+  @override
+  String get wn63Map =>
+      'GTA 地图现在读起来就是游戏自己的地图：每条边界化作道路，每个服务器国家亮起琥珀色标记，所选位置成为带光柱与名牌的航点，角落立着罗盘';
+
+  @override
+  String get wn63Servers =>
+      '服务器页面换上每个设计自己的列表 —— iOS 的分组表格、报纸的分栏索引、GTA 的 HUD 槽位、Pixel 的色调卡片、Bento 的格子板';
+
+  @override
+  String get wn63Accounts =>
+      '账户页面也换上设计：卡片用设计自己的圆角，添加按钮用设计的声音，对话框标题用展示字体，输入框落在设计的边框里';
+
+  @override
+  String get wn63Wheel =>
+      '武器轮盘按游戏自己的尺度重建：完整的扇区分隔线圆环、双层发光楔形、计数器的仪表弧、开启时的弹跳，以及选择本身的脉动';
+
+  @override
+  String get wn63Ios => 'iOS 设计更丰满了：状态卡的状态晕染、奖牌卡组的页点、每次贴合的提示音';
+
+  @override
+  String get wn64Wheel =>
+      'GTA 轮盘的徽章现在坐进表盘之内 —— 十二个座位沿用游戏自己的排布，没有徽章骑在边框上，也没有谁探出屏幕边缘，相邻的徽章互不相碰';
+
+  @override
+  String get wn64Glass => '轮盘换上了游戏自己的玻璃：表盘之下世界柔和虚化，盘面微微透明，光泽凝聚在顶部';
+
+  @override
+  String get wn64Groups =>
+      'iOS 主页自己的分组：会话表格 —— 隧道地址一点即入剪贴板 —— 以及快捷操作：测速、连接设置、账户';
+
+  @override
+  String get wn64Headers => '每个页面的页眉重新铺满整页 —— 返回箭头回到页边，不再落在屏幕中央';
+
+  @override
+  String get wn64Pill => 'Material You 胶囊按钮的文字在圆角之内留有自己的呼吸';
+
+  @override
+  String get wn64Map => 'GTA 地图的边界换回最初的样子 —— 海岸留下霓虹，陆地留着细细的墨线';
+
+  @override
+  String get wn64Name => 'Pixel 设计改用它自己的名字：Material You';
+
+  @override
+  String get wn65Gone => 'GTA 设计离开：它的主页、它的页面、它的调色板 —— 五个设计保留，仍写着它名字的设置文件会落到转盘上';
+
+  @override
+  String get wn65Tight =>
+      '所有设计的主页排得更紧：屏幕多余空间曾在卡片之间留出的空带消失了 —— 转盘、瓷砖、报纸、奖牌与筛选芯片以一口气的间距依次相连，页面不再拉伸而是滚动';
+
+  @override
+  String get wn65Radar =>
+      'GTA 设计带来的地图如今以自己的名字立身：雷达 —— 同样的深水、琥珀色网格与扫描线，这次在地图选择器中用着自己的名字';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -4546,16 +4686,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get designWheelDesc => '旗幟排在玻璃轉盤上，開關在下方';
 
   @override
-  String get designBento => '拼塊';
+  String get designBento => '便當';
 
   @override
-  String get designBentoDesc => '圓角拼塊面板：連線、數字、位置';
+  String get designBentoDesc => '便當盒自己的設計：旗幟排在拼塊板上，連線拼塊，數字與位置同屬一隻溫暖的盒子';
 
   @override
-  String get designPixel => '精簡';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => '一張安靜的卡片：位置、開關、數字';
+  String get designPixelDesc => 'Material You：色調表面、大塊填充卡片、膠囊指示條與醒目標題——安卓自己的聲音';
 
   @override
   String get notifFlag => '通知中的國旗';
@@ -4793,6 +4933,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get mapKindFlat => '平面 2D';
+
+  @override
+  String get mapKindHud => '雷達';
 
   @override
   String get mapStyleGlobeHint => '3D 球體的配色。衛星有自己的地球，平面地圖有自己的墨色。';
@@ -5092,14 +5235,6 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get avatarPhotoFailed => '無法使用該圖片';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => '自動';
 
   @override
@@ -5237,6 +5372,28 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get speedTestSizesTitle => '測試規模';
 
   @override
+  String get wn61Gta => 'GTA 設計：遊戲原生 HUD — 旗幟武器輪盤、雷達綠隧道、琥珀色面板、重型字體與專屬音效';
+
+  @override
+  String get wn61Sound => '輪盤的咔噠：撥盤經過的每個座位也在耳邊作答';
+
+  @override
+  String get wn62Wheel => '武器輪盤重構：無論國家數量多寡，卡位都保持遊戲原有間距，所選扇區帶有發光楔形，輕掃即可甩動轉盤';
+
+  @override
+  String get wn62Map => '首頁地圖現在換上每種設計自己的配色——水體、陸地和網格隨頁面設計而變';
+
+  @override
+  String get wn62HudMap =>
+      'GTA 設計專屬地圖：遊戲的 HUD 面板——深色水域、霓虹海岸、琥珀色雷達網格，以及隧道運行時掠過世界的掃描線';
+
+  @override
+  String get wn62Aether => 'Aether 設計的電源按鈕重構：圓盤立於纖細的圓環軌道中，連接弧線沿環游走，機加工質感表面折射光澤';
+
+  @override
+  String get wn62Gta => 'GTA 連接面板回應手感——按下時整塊面板微微下沉，連接進行中電源圖示會退後';
+
+  @override
   String get speedTestSizeLight => '輕量';
 
   @override
@@ -5265,4 +5422,127 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get wn56Gazette => '全新的首頁外觀：報章——頭版帶報頭、欄線分明的欄目、即時快訊條，以及隧道連通時蓋下的墨戳。';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc => '系統本來的樣子：分組表格、標籤欄的細線、狀態卡與膠囊按鈕——以系統的聲音呈現清晰';
+
+  @override
+  String get gazetteSection => '欄目';
+
+  @override
+  String get wn58Lock =>
+      '隧道連通時旋鈕上的鎖保住了自己的墨色：標記現在會讀它腳下的表面——淺色旋鈕上用深色，深色旋鈕上用白色——圖示再也不會被淹沒。';
+
+  @override
+  String get wn58Enter =>
+      '已連線區域有了呼吸感：數字淡入上浮、下方的空間隨之展開，離開時同樣柔和——卡片不再在兩幀之間硬生生蹦出。';
+
+  @override
+  String get wn58Speed => '測速跑得更輕了：面板每秒最多重繪十次，掃動指標沿短直線行進，各介面相互淡入淡出而不再硬切。';
+
+  @override
+  String get wn58Ios =>
+      '全新設計：iOS——系統本來的樣子，從分組表格、標籤欄細線到帶膠囊按鈕的狀態卡。每一頁、卡片、對話框和圖示都用系統的聲音，兩種模式皆然。';
+
+  @override
+  String get wn58Pixel =>
+      '全新設計：Pixel——Material You 的風格，色調表面、大塊填充卡片、膠囊指示條與醒目標題。每一頁、卡片、對話框和圖示都用安卓自己的聲音，兩種模式皆然。';
+
+  @override
+  String get wn58Paper =>
+      '報章現在是一份完整的報紙：帶印刷圓點與底線的專屬欄目條、每個獨立頁面的版面頁眉、每個設定組的欄線紙框——印刷的線條已抵達整個應用。';
+
+  @override
+  String get wn59Flags =>
+      '旗幟穿上各設計自己的裁形：iOS 與 aether 的圓形徽章、zed 的方圓、gazette 的標線印板、pixel 的大圓角 — 轉輪、橫條與每列的小旗都隨之而變。';
+
+  @override
+  String get wn59Map =>
+      '世界地圖以設計自己的墨色描繪：gazette 的暖紙棕、zed 的紫夜灰、pixel 的色調藍灰 — 每個設計的世界都屬於它的頁面。';
+
+  @override
+  String get wn59Buttons =>
+      '連線按鈕說出各自設計的語言：pixel 上 Material You 的大號色調藥丸、連線建立時輕呼吸的 iOS 膠囊，以及每頁卡片以自己設計的動效入場。';
+
+  @override
+  String get wn59Scroll =>
+      '轉輪與橫條以設計自己的物理捲動：系統的回彈、Material 的利落停下，以及在摺痕處收住的紙的重感。';
+
+  @override
+  String get flagAllPlaces => '全部地區';
+
+  @override
+  String get gazetteRegions => '目的地';
+
+  @override
+  String get wn60Flags =>
+      '每種設計現在都以自己的方式展示國家：便當的拼塊板、像素的篩選晶片、以太的膠囊選項、iOS 的獎牌卡組、zed 的分頁板，以及報版像自己的版面一樣印出的目的地索引——轉輪保留了轉輪。';
+
+  @override
+  String get wn60Bento =>
+      '便當設計完整站立：瓷器與炭色的暖調色板、柑橘的光、拼塊塢、方圓頁頭、著色卡片與旗幟板——每一頁，兩種模式。';
+
+  @override
+  String get wn60Spacing =>
+      '主頁以同一個節奏行進：區塊之間的死帶已經消失，收尾卡片填滿自己的行，每個間隙都按設計保留的間距呼吸。';
+
+  @override
+  String get wn63Retired =>
+      'aether 與 zed 設計退役：使用者轉向承載相同結構的設計 —— aether 的分組表格歸入 iOS，zed 的便當盒歸入 Bento';
+
+  @override
+  String get wn63Map =>
+      'GTA 地圖現在讀起來就是遊戲自己的地圖：每條邊界化作道路，每個伺服器國家亮起琥珀色標記，所選位置成為帶光柱與名牌的航點，角落立著羅盤';
+
+  @override
+  String get wn63Servers =>
+      '伺服器頁面換上每個設計自己的列表 —— iOS 的分組表格、報紙的分欄索引、GTA 的 HUD 槽位、Pixel 的色調卡片、Bento 的格子板';
+
+  @override
+  String get wn63Accounts =>
+      '帳戶頁面也換上設計：卡片用設計自己的圓角，新增按鈕用設計的聲音，對話框標題用展示字體，輸入框落在設計的邊框裡';
+
+  @override
+  String get wn63Wheel =>
+      '武器轉盤按遊戲自己的尺度重建：完整的扇區分隔線圓環、雙層發光楔形、計數器的儀表弧、開啟時的彈跳，以及選擇本身的脈動';
+
+  @override
+  String get wn63Ios => 'iOS 設計更豐满了：狀態卡的狀態暈染、獎牌卡組的頁點、每次貼合的提示音';
+
+  @override
+  String get wn64Wheel =>
+      'GTA 輪盤的徽章現在坐進錶盤之內 —— 十二個座位沿用遊戲自己的排佈，沒有徽章騎在邊框上，也沒有誰探出螢幕邊緣，相鄰的徽章互不相碰';
+
+  @override
+  String get wn64Glass => '輪盤換上了遊戲自己的玻璃：錶盤之下世界柔和虛化，盤面微微透明，光澤凝聚在頂部';
+
+  @override
+  String get wn64Groups =>
+      'iOS 主頁自己的分組：工作階段表格 —— 通道位址一點即入剪貼簿 —— 以及快捷操作：測速、連線設定、帳號';
+
+  @override
+  String get wn64Headers => '每個頁面的頁首重新鋪滿整頁 —— 返回箭頭回到頁邊，不再落在螢幕中央';
+
+  @override
+  String get wn64Pill => 'Material You 膠囊按鈕的文字在圓角之內留有自己的呼吸';
+
+  @override
+  String get wn64Map => 'GTA 地圖的邊界換回最初的樣子 —— 海岸留下霓虹，陸地留著細細的墨線';
+
+  @override
+  String get wn64Name => 'Pixel 設計改用它自己的名字：Material You';
+
+  @override
+  String get wn65Gone => 'GTA 設計離開：它的主頁、它的頁面、它的調色盤 —— 五個設計保留，仍寫著它名字的設定檔會落到轉盤上';
+
+  @override
+  String get wn65Tight =>
+      '所有設計的主頁排得更緊：螢幕多餘空間曾在卡片之間留出的空帶消失了 —— 轉盤、瓷磚、報紙、獎牌與篩選晶片以一口氣的間距依次相連，頁面不再拉伸而是捲動';
+
+  @override
+  String get wn65Radar =>
+      'GTA 設計帶來的地圖如今以自己的名字立身：雷達 —— 同樣的深水、琥珀色網格與掃描線，這次在地圖選擇器中用著自己的名字';
 }

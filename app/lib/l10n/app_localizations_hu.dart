@@ -2012,16 +2012,18 @@ class AppLocalizationsHu extends AppLocalizations {
   String get designWheelDesc => 'A zászlók üvegkorongján, a kapcsoló alattuk';
 
   @override
-  String get designBento => 'Mozaik';
+  String get designBento => 'Bento';
 
   @override
-  String get designBentoDesc => 'Kerek mozaiklapok: kapcsolat, számok, hely';
+  String get designBentoDesc =>
+      'A bento doboz saját dizajnja: a zászlók a csempéjük tábláján, a kapcsolat csempe, a számok és a hely egy meleg doboz csempéiként';
 
   @override
-  String get designPixel => 'Kompakt';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => 'Egy nyugodt kártya: hely, kapcsoló, számok';
+  String get designPixelDesc =>
+      'Material You: tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek — az Android saját hangja';
 
   @override
   String get notifFlag => 'Országzászló az értesítésben';
@@ -2290,6 +2292,9 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Lapos 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2619,14 +2624,6 @@ class AppLocalizationsHu extends AppLocalizations {
   String get avatarPhotoFailed => 'A fotó nem használható';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Auto';
 
   @override
@@ -2778,6 +2775,34 @@ class AppLocalizationsHu extends AppLocalizations {
   String get speedTestSizesTitle => 'Teszt mérete';
 
   @override
+  String get wn61Gta =>
+      'A GTA dizájn: a játék saját HUD-ja — fegykeret a zászlóknak, a radar zöld alagútja, borostyán panelek, nehéz betűk és saját hang';
+
+  @override
+  String get wn61Sound =>
+      'A kerék kattanása: minden hely, amit a tárcsa elhagy, a fülnek is válaszol';
+
+  @override
+  String get wn62Wheel =>
+      'A fegykerék újjáépítve: az ülések bármely országszámnál a játék saját távolságát tartják, a kiválasztott szektor a kerék megvilágított ékét viseli, a pöccintés pedig eldobja a tárcsát';
+
+  @override
+  String get wn62Map =>
+      'A főoldal térképe most minden dizájn saját színeit viseli — a víz, a szárazföld és a rács a lap dizájnját követi';
+
+  @override
+  String get wn62HudMap =>
+      'A GTA dizájn saját térképe: a játék HUD-lemeze — mély víz, neon part, borostyán radar rács és a söprés, amely a világot járja, míg az alagút tart';
+
+  @override
+  String get wn62Aether =>
+      'Az Aether dizájn bekapcs-gombja újjáépítve: a lemez vékony gyűrűben áll, a kapcsolódás íve a gyűrűn jár, a megmunkolt lap pedig megfogja a fényt';
+
+  @override
+  String get wn62Gta =>
+      'A GTA csatlakozó panelje kézre felel — nyomásra az egész panel kissé süllyed, és a kapcsolódás alatt a jel visszahúzódik';
+
+  @override
   String get speedTestSizeLight => 'Könnyű';
 
   @override
@@ -2807,4 +2832,136 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Új otthon-look: a lap — címlap fejléccel, vonaltagolt hasábokkal, élő hírsorral és a tintabélyegzővel, amely akkor csapódik rá, amikor az alagút áll.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'A rendszer sajátja: csoportosított táblák, a fülca sávja, az állapotkártya és a kapszula gomb — tisztaság a rendszer hangján';
+
+  @override
+  String get gazetteSection => 'ROVAT';
+
+  @override
+  String get wn58Lock =>
+      'Az alagút állásakor a gomb zárja megtartja tintáját: a jel most olvassa a felületet, amin áll — sötét világos gombon, fehér sötéten — az ikon sosemfullad többé.';
+
+  @override
+  String get wn58Enter =>
+      'A csatlakoztatott rész lélegzik: a számok elsápadva emelkednek, miközben alattuk nő a hely, és úgy távoznak is — a kártyák nem ugranak be két képkocka között.';
+
+  @override
+  String get wn58Speed =>
+      'A sebességteszt könnyebben fut: a panel másodpercenként legfeljebb tízszer újrarajzolódik, a mérő mutatója rövid egyenesen jár, és a lapok átúszanak egymásba, nem ugranak.';
+
+  @override
+  String get wn58Ios =>
+      'Új dizájn: iOS — a rendszer sajátja, a csoportosított tábláktól és a fülca vonalán át az állapotkártyáig a kapszula gombbal. Minden oldal, kártya, párbeszéd és ikon a rendszer hangján, mindkét módban.';
+
+  @override
+  String get wn58Pixel =>
+      'Új dizájn: Pixel — a Material You stílusa, tonális felületek, nagy tömör kártyák, pillancele kijelzős sáv és nagy címek. Minden oldal, kártya, párbeszéd és ikon az Android saját hangján, mindkét módban.';
+
+  @override
+  String get wn58Paper =>
+      'A lap most már egész újság: saját rovatsávja a nyomtatott jelel és aláhúzással, rovatfejléc minden külön oldalhoz, és vonaltagolt papírdoboz minden beállításcsoporthoz — a nyomdai vonalak elértek az egész alkalmazásig.';
+
+  @override
+  String get wn59Flags =>
+      'A zászlók mindegyik dizájn saját vágását viselik: kerek medál az iOS-on és az aetheren, szkvircle a zeden, vonalazott lemez a gazette-on, a pixel nagy kerek sarkai — a kerék, a sor és minden sor kis zászlója követi őket.';
+
+  @override
+  String get wn59Map =>
+      'A világtérkép a dizájn saját tusával készül: a papír meleg barnája a gazette-on, a lila éjszaka szürkéje a zeden, a tonális kékesszürke a pixelen — minden dizájn világa a saját oldaláé.';
+
+  @override
+  String get wn59Buttons =>
+      'A csatlakozás gombjai a dizájnjuk hangján szólnak: a Material You nagy tonális pirulája a pixelen, az iOS kapszula lélegzete a kapcsolat épülésekor, és minden oldal kártyái a saját dizájnjuk mozgásával lépnek be.';
+
+  @override
+  String get wn59Scroll =>
+      'A kerekek és sorok a dizájn saját fizikájával görgetnek: a rendszer pattanása, a Material gyors megállása, és a papír súlya, ami a hajtásnál elhal.';
+
+  @override
+  String get flagAllPlaces => 'Minden hely';
+
+  @override
+  String get gazetteRegions => 'Úti célok';
+
+  @override
+  String get wn60Flags =>
+      'Minden dizájn most a saját módján mutatja az országokat: a bento csempetáblája, a pixel szűrőcsipjei, az aether kapszula lehetőségei, az iOS érempaklija, a zed lapozott táblája és a gazette úti céljainak jegyzéke, mint a saját nyomtatása — a kerék megtartja kerékjét.';
+
+  @override
+  String get wn60Bento =>
+      'A bento dizájn teljesen áll: saját meleg palettája porcelánból és szénből, a mandarin fénye, a csempe dokk, a squircle oldalfejlécek, a színezett kártyák és a zászlótábla — minden oldal, mindkét módban.';
+
+  @override
+  String get wn60Spacing =>
+      'A kezdőlapok egy ritmusban járnak: a szakaszok közti holt sávok eltűntek, a záró kártyák megtöltik soraikat, és minden rés a dizájn által tartott távolsággal lélegzik.';
+
+  @override
+  String get wn63Retired =>
+      'Az aether és a zed dizájnok nyugdíjba mentek: használóik azokhoz a dizájnokhoz állnak, amelyek a szerkezetüket viselik — az aether táblái az iOS-hoz, a zed bentója a Bentóhoz';
+
+  @override
+  String get wn63Map =>
+      'A GTA térkép a játék saját térképeként olvasható: minden határ útként, borostyán jel minden szerver-országban, a választott hely útpontként a fénnyel és a táblán lévő nevével, az iránytű a sarokban';
+
+  @override
+  String get wn63Servers =>
+      'A szerverek oldala minden dizájn saját listáját viseli — az iOS csoportos táblája, a gazetta vonalazott jegyzéke, a GTA HUD slotjai, a pixel tónusú kártyái, a bento táblája';
+
+  @override
+  String get wn63Accounts =>
+      'A fiókok oldala is a dizájnt viseli: a kártyák a dizájn saját kerekítésében, a hozzáadás gombja a dizájn hangján, a párbeszédek címe a kijelző saját arcán, a mezők a dizájn keretében';
+
+  @override
+  String get wn63Wheel =>
+      'A fegykerelendítő a játék saját méretére épült: a szektorválasztók teljes köre, a kétrétegű megvilágított körcikk, a számláló mutatóíve, a nyitás ugrása és a választás saját pulzusa';
+
+  @override
+  String get wn63Ios =>
+      'Az iOS dizájn teljesebben áll: az állapotkártya állapota-mosása, a medália-pakli oldalszám-pontjai, a minden kapcsolódás tikje';
+
+  @override
+  String get wn64Wheel =>
+      'A GTA kerék érmei most a korong belsejében ülnek — tizen két ülés a játék saját ritmusában, érem sincs a peremen és a képernyő szélén túl, és egyik érem sem ér a másikhoz';
+
+  @override
+  String get wn64Glass =>
+      'A kerék a játék üvegét öltötte: a világ a tárcsa alatt puhán elmosódik, a lap enyhén átlátszó, fénye felül gyűlik össze';
+
+  @override
+  String get wn64Groups =>
+      'Az iOS nyitóképernyő saját csoportjai: a munkamenet táblája — az alagút címe, egy koppintás a vágólapra — és a gyors műveletek: sebességteszt, kapcsolat beállításai, fiókok';
+
+  @override
+  String get wn64Headers =>
+      'Minden oldal fejléce újra az oldal szélességét fogja — a vissza nyíl a peremén áll, nem a képernyő közepén';
+
+  @override
+  String get wn64Pill =>
+      'A Material You tabletta felirata a lekerekített végek levegőjében marad';
+
+  @override
+  String get wn64Map =>
+      'A GTA térkép határai visszatértek első ruhájukhoz — a part megtartja neonját, a szárazföld a vékony tintacsíkját';
+
+  @override
+  String get wn64Name =>
+      'A Pixel dizájn a saját nevén szólal meg: Material You';
+
+  @override
+  String get wn65Gone =>
+      'A GTA dizájn eltávozott: saját otthona, oldalai, palettája — öt dizájn marad, és az azt még nevező beállításfájl a kerékre esik';
+
+  @override
+  String get wn65Tight =>
+      'A honlap minden dizájnban szorosabbra áll: eltűntek a csupasz sávok, amelyeket a képernyő maradéka nyitott a kártyák között — a kerék, a csempék, a lap, az érmek és a chipek egy levegőnyi távolságra követik egymást, és az oldal görget, ahol korábban nyúlt';
+
+  @override
+  String get wn65Radar =>
+      'A GTA dizájn térképe most saját nevén áll: radar — ugyanaz a mély víz, borostyán rács és söprés, ezúttal saját nevével a térképválasztóban';
 }

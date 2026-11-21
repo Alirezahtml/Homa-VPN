@@ -86,7 +86,7 @@ class _MobileShellState extends State<MobileShell> {
   /// Opens [page] under a top bar named [title]; it follows the core.
   /// The header the page wears is the design's own: the monochrome keeps
   /// the Material bar, the ios wears the system bar's compact bold title
-  /// and chevron, the gta the HUD's ruled header.
+  /// and chevron.
   void _push(String title, Widget Function() page) {
     final header = DesignStyle.of(context).header;
     Navigator.of(context).push(
@@ -153,18 +153,6 @@ class _MobileShellState extends State<MobileShell> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     M3PageHeader(title: title),
-                    Expanded(child: body),
-                  ],
-                ),
-              ),
-              // The GTA HUD's header: the amber-ruled back square, the
-              // heavy face, the HUD's rule under them. Stretched: the
-              // rule spans the page.
-              HeaderVariant.gta => Scaffold(
-                body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    GtaPageHeader(title: title),
                     Expanded(child: body),
                   ],
                 ),
@@ -296,10 +284,6 @@ class _MobileShellState extends State<MobileShell> {
             onSelect: (i) => setState(() => _tab = i),
           ),
           NavVariant.m3Bar => M3BarNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.gtaRadar => GtaRadarNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),
           ),

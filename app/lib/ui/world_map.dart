@@ -344,9 +344,9 @@ List<(double, double, double)> greatCirclePath(
 ///   lit country.
 /// - [MapKind.globe]: the metal ball, turned so the chosen country
 ///   faces the viewer.
-/// - [MapKind.hud]: the GTA design's own map — the game's HUD plate:
-///   the deep water, the slate land, the neon coast, the amber radar
-///   grid and the sweep that walks the world while the tunnel carries.
+/// - [MapKind.hud]: the radar plate: the deep water, the slate land,
+///   the neon coast, the amber radar grid and the sweep that walks the
+///   world while the tunnel carries.
 ///
 /// The night, the terrain and the satellite's earth were here before,
 /// and left: three ways to paint one world was the picker's whole
@@ -2002,21 +2002,6 @@ class MapSkin {
             edge: Color(0xFFD6C9AC),
             grid: Color(0xFFD6C9AC),
           ),
-    'gta' => dark
-        ? const MapSkin(
-            water: Color(0xFF0A0E1D),
-            waterFade: Color(0xFF050812),
-            land: Color(0xFF171D33),
-            edge: Color(0xFF39406B),
-            grid: Color(0xFFFFB84D),
-          )
-        : const MapSkin(
-            water: Color(0xFFEDE2C9),
-            waterFade: Color(0xFFF3EAD5),
-            land: Color(0xFFFFF7E4),
-            edge: Color(0xFFD8C2A0),
-            grid: Color(0xFFB97A14),
-          ),
     _ => null,
   };
 }
@@ -2080,13 +2065,13 @@ class WorldMapBackdrop extends StatefulWidget {
   final MapSkin? skin;
 
   /// The servers' country codes (upper-case): the hud's blips — the
-  /// game's own location markers, one on every country the tunnel can
+  /// map's own location markers, one on every country the tunnel can
   /// carry to. The other finishes leave them out; a plain world needs
   /// no markers.
   final List<String> blips;
 
   /// The chosen country's name, in the page's language: the hud draws
-  /// it as the waypoint's own area label — the game's name plate above
+  /// it as the waypoint's own area label — the name plate above
   /// the marker.
   final String label;
 
@@ -2266,7 +2251,7 @@ class _WorldPainter extends CustomPainter {
   final MapSkin? skin;
   final double t;
 
-  /// The servers' country codes: the hud's blips (the game's own
+  /// The servers' country codes: the hud's blips (the map's own
   /// location markers). The other finishes leave them out.
   final List<String> blips;
 
@@ -2359,7 +2344,7 @@ class _WorldPainter extends CustomPainter {
     // the parallels at their own rows on the Mercator map — the lines
     // bend with the projection, the way a real atlas draws them, thinner
     // than the land's edge. The hud's radar grid is its own: finer, and
-    // in the amber the game's panels wear.
+    // in the amber the radar plate wears.
     final hudAmber = dark ? const Color(0xFFFFB84D) : const Color(0xFFB97A14);
     final grid = Paint()
       ..color = hud
@@ -2524,10 +2509,10 @@ class _WorldPainter extends CustomPainter {
           ..strokeWidth = 1.1,
       );
 
-      // The blips: the game map's own location markers — one on every
+      // The blips: the radar map's own location markers — one on every
       // country the tunnel can carry to, the amber disc with the dark
-      // rim the game's markers wear. The chosen country's blip is the
-      // game's waypoint instead: the purple disc with the white ring,
+      // rim the radar's markers wear. The chosen country's blip is the
+      // waypoint instead: the purple disc with the white ring,
       // its beam of light rising off the map, its pulse walking the
       // rings out around it, and the area's own name on the plate
       // above it — the name the map hangs over the marker.
@@ -2573,7 +2558,7 @@ class _WorldPainter extends CustomPainter {
             ),
         );
         // The beam: the light column rising off the map above the
-        // marker — the game's waypoint column, melting out at the top.
+        // marker — the waypoint column, melting out at the top.
         final beamTop = at - const Offset(0, 52);
         canvas.drawRect(
           Rect.fromLTRB(at.dx - 3, beamTop.dy, at.dx + 3, at.dy - 7),
@@ -2588,7 +2573,7 @@ class _WorldPainter extends CustomPainter {
             ),
         );
         // The disc: the purple fill, the white ring, the dark rim
-        // under it — the game's own waypoint chip.
+        // under it — the waypoint's own chip.
         canvas.drawCircle(
           at,
           10,
@@ -2617,7 +2602,7 @@ class _WorldPainter extends CustomPainter {
                 letterSpacing: 1.6,
                 fontWeight: FontWeight.w800,
                 color: dark ? Colors.white : const Color(0xFF241A28),
-                fontFamily: 'GtaHud',
+                fontFamily: 'HudDisplay',
                 fontFamilyFallback: const ['Vazirmatn', 'Inter'],
               ),
             ),
@@ -2673,7 +2658,7 @@ class _WorldPainter extends CustomPainter {
 
 /// The home's world, in the kind the settings picked: the flat map (the
 /// classic and the modern finish), the globe (the metal ball), or the
-/// hud (the GTA design's own map). A change of kind is a soft crossfade,
+/// hud (the radar plate). A change of kind is a soft crossfade,
 /// so the map melts into its next self instead of popping — and a change
 /// of design fades it the same way, the world wearing the design's own
 /// colors.
@@ -2734,8 +2719,8 @@ class WorldBackdrop extends StatelessWidget {
       );
     } else {
       // The design's own world: the palette designs recolor the
-      // ink-based finishes, and the hud kind paints the GTA design's
-      // own map whatever the design — the game's plate is the game's.
+      // ink-based finishes, and the hud kind paints the radar plate's
+      // own map whatever the design — the plate is the plate's.
       world = WorldMapBackdrop(
         countries: countries,
         ink: ink ?? (dark ? Colors.white : const Color(0xFF0A0A0A)),
@@ -2795,7 +2780,7 @@ class WorldBackdrop extends StatelessWidget {
                         color: dark
                             ? const Color(0xFFFFB84D)
                             : const Color(0xFFB97A14),
-                        fontFamily: 'GtaHud',
+                        fontFamily: 'HudDisplay',
                         fontFamilyFallback: const ['Vazirmatn', 'Inter'],
                       ),
                     ),

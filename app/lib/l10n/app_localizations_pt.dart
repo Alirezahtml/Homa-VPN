@@ -2005,18 +2005,18 @@ class AppLocalizationsPt extends AppLocalizations {
       'As bandeiras na sua roda de vidro, o interruptor abaixo';
 
   @override
-  String get designBento => 'Mosaico';
+  String get designBento => 'Bento';
 
   @override
   String get designBentoDesc =>
-      'Um quadro de mosaicos arredondados: conexão, números, local';
+      'O design da própria caixa bento: as bandeiras no seu quadro de mosaicos, o mosaico de conexão, os números e o local como mosaicos de uma caixa calorosa';
 
   @override
-  String get designPixel => 'Compacta';
+  String get designPixel => 'Material You';
 
   @override
   String get designPixelDesc =>
-      'Um cartão calmo: o local, o interruptor, os números';
+      'Material You: superfícies tonais, cartões grandes e cheios, barra de indicador pastilha e títulos grandes — a voz própria do Android';
 
   @override
   String get notifFlag => 'Bandeira do país na notificação';
@@ -2285,6 +2285,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Plano 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2614,14 +2617,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get avatarPhotoFailed => 'Não foi possível usar essa imagem';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Automático';
 
   @override
@@ -2773,6 +2768,34 @@ class AppLocalizationsPt extends AppLocalizations {
   String get speedTestSizesTitle => 'Tamanho do teste';
 
   @override
+  String get wn61Gta =>
+      'O design GTA: o HUD do jogo — a roda de armas para as bandeiras, o túnel verde do radar, os painéis âmbar, a letra pesada e o seu próprio som';
+
+  @override
+  String get wn61Sound =>
+      'O clique da roda: cada assento que o disco passa responde também ao ouvido';
+
+  @override
+  String get wn62Wheel =>
+      'A roda de armas reconstruída: os assentos mantêm o espaçamento do jogo com qualquer número de países, o setor escolhido traz a cunha acesa da roda e um impulso arremessa o disco';
+
+  @override
+  String get wn62Map =>
+      'O mapa da página inicial veste agora as cores de cada design — a água, a terra e a grade seguem o design da página';
+
+  @override
+  String get wn62HudMap =>
+      'O mapa próprio do design GTA: a placa HUD do jogo — água profunda, costa neon, grade de radar âmbar e a varredura que percorre o mundo enquanto o túnel segue';
+
+  @override
+  String get wn62Aether =>
+      'O controle de energia do design Aether reconstruído: o disco assenta num anel fino, o arco de ligação percorre o anel e a face usinada apanha a luz';
+
+  @override
+  String get wn62Gta =>
+      'O painel de ligação GTA responde à mão — o painel inteiro cede ao tocar e a marca de energia recua enquanto a ligação é feita';
+
+  @override
   String get speedTestSizeLight => 'Leve';
 
   @override
@@ -2802,4 +2825,136 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Um novo aspeto da casa: o jornal — uma primeira página com cabeçalho, colunas pautadas, teletipo ao vivo e o carimbo de tinta que pressiona quando o túnel corre.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'O próprio do sistema: tabelas agrupadas, o filete da barra de separadores, o cartão de estado e o botão cápsula — clareza na voz do sistema';
+
+  @override
+  String get gazetteSection => 'SEÇÃO';
+
+  @override
+  String get wn58Lock =>
+      'O cadeado do botão mantém a sua tinta quando o túnel corre: a marca lê agora a superfície onde pisa — escura em botão claro, branca em escuro — o ícone nunca mais se afoga.';
+
+  @override
+  String get wn58Enter =>
+      'A secção ligada respira: os números desvanecem e elevam-se enquanto o espaço cresce por baixo, e saem da mesma forma — os cartões deixaram de saltar entre dois fotogramas.';
+
+  @override
+  String get wn58Speed =>
+      'O teste de velocidade corre mais leve: o painel repinta dez vezes por segundo no máximo, o ponteiro do varrimento anda em linha reta curta, e as faces fundem-se em vez de saltar.';
+
+  @override
+  String get wn58Ios =>
+      'Um design novo: iOS — o próprio do sistema, das tabelas agrupadas e do filete da barra ao cartão de estado com o botão cápsula. Cada página, cartão, diálogo e ícone na voz do sistema, nos dois modos.';
+
+  @override
+  String get wn58Pixel =>
+      'Um design novo: Pixel — o estilo Material You, superfícies tonais, cartões grandes e cheios, a barra de indicador pastilha e os títulos grandes. Cada página, cartão, diálogo e ícone na voz própria do Android, nos dois modos.';
+
+  @override
+  String get wn58Paper =>
+      'O jornal é agora um jornal inteiro: a sua própria barra de secções com a vírgula impressa e o sublinhado, cabeçalho de secção para cada página aberta, e a caixa de papel pautada para cada grupo de definições — as linhas da imprensa chegaram a toda a app.';
+
+  @override
+  String get wn59Flags =>
+      'As bandeiras vestem o corte de cada design: a medalha redonda no iOS e no aether, o squircle no zed, a placa pautada no gazette, os grandes arredondados do pixel — a roda, a fita e a bandeirola de cada linha seguem-nos.';
+
+  @override
+  String get wn59Map =>
+      'O mapa-múndi é desenhado com a tinta do próprio design: o castanho quente do papel no gazette, o cinza da noite violeta no zed, o azulado tonal no pixel — o mundo de cada design pertence à sua página.';
+
+  @override
+  String get wn59Buttons =>
+      'Os botões de ligação falam a voz do seu design: a grande pílula tonal do Material You no pixel, a cápsula do iOS que respira enquanto a ligação se estabelece, e os cartões de cada página a entrar com o movimento do seu design.';
+
+  @override
+  String get wn59Scroll =>
+      'As rodas e as fitas rolam com a física do seu design: o salto do sistema, a paragem rápida do Material e o peso do papel que morre na dobra.';
+
+  @override
+  String get flagAllPlaces => 'Todos os lugares';
+
+  @override
+  String get gazetteRegions => 'Destinos';
+
+  @override
+  String get wn60Flags =>
+      'Cada design agora mostra os países à sua maneira: o quadro de mosaicos do bento, os chips de filtro do pixel, as opções de cápsula do aether, o baralho de medalhas do iOS, o quadro paginado do zed e o índice de destinos da gaceta impresso como o próprio papel — a roda mantém a sua roda.';
+
+  @override
+  String get wn60Bento =>
+      'O design bento permanece inteiro: a sua própria paleta calorosa de porcelana e carvão, a luz tangerina, a doca de mosaicos, os cabeçalhos de página squircle, os cartões tingidos e o quadro de bandeiras — cada página, em ambos os modos.';
+
+  @override
+  String get wn60Spacing =>
+      'As páginas iniciais caminham num só ritmo: as faixas mortas entre as seções se foram, os cartões finais preenchem suas filas e cada vão respira com o espaçamento que o design guarda.';
+
+  @override
+  String get wn63Retired =>
+      'Os designs aether e zed aposentaram: seus usuários vão para os designs que vestem sua estrutura — as tabelas do aether para o iOS, o bento do zed para o Bento';
+
+  @override
+  String get wn63Map =>
+      'O mapa GTA lê-se como o do jogo: cada fronteira como estrada, um marcador âmbar em cada país de servidor, o lugar escolhido como waypoint com o seu feixe e o nome na placa, a bússola no canto';
+
+  @override
+  String get wn63Servers =>
+      'A página de servidores veste a lista própria de cada design — a tabela agrupada do iOS, o índice pautado da gazeta, as vagas HUD do GTA, os cartões tonais do pixel, a prancha do bento';
+
+  @override
+  String get wn63Accounts =>
+      'A página de contas também veste o design: os cartões no arredondado próprio do design, o botão de adicionar na voz do design, os títulos dos diálogos na face de exibição, os campos na moldura do design';
+
+  @override
+  String get wn63Wheel =>
+      'A roda de armas reconstruída à medida do jogo: o círculo completo dos divisores, a cunha acesa em duas camadas, o arco do contador, o salto da abertura e o pulso da escolha';
+
+  @override
+  String get wn63Ios =>
+      'O design iOS fica mais cheio: a lavagem de estado no cartão de status, os pontos de página do baralho de medalhas, o tique a cada encaixe';
+
+  @override
+  String get wn64Wheel =>
+      'As medalhas da roda GTA sentam-se agora dentro do disco — doze lugares no ritmo do próprio jogo, nenhuma medalha na borda nem além da tela, e nenhuma encosta na vizinha';
+
+  @override
+  String get wn64Glass =>
+      'A roda veste o vidro do jogo: o mundo desfoca suave sob o mostrador, a placa é um pouco translúcida, o brilho dela se reúne no topo';
+
+  @override
+  String get wn64Groups =>
+      'Os grupos da própria home do iOS: a tabela da sessão — o endereço do túnel, um toque para a área de transferência — e as ações rápidas: o teste de velocidade, os ajustes de conexão, as contas';
+
+  @override
+  String get wn64Headers =>
+      'O cabeçalho de cada página volta a ocupar a largura da página — a seta de volta fica na sua borda, não no meio da tela';
+
+  @override
+  String get wn64Pill =>
+      'O rótulo da pílula Material You guarda seu respiro dentro das pontas arredondadas';
+
+  @override
+  String get wn64Map =>
+      'As fronteiras do mapa GTA voltam à sua primeira veste — a costa guarda seu neon e a terra sua borda de tinta fina';
+
+  @override
+  String get wn64Name =>
+      'O design Pixel responde pelo próprio nome: Material You';
+
+  @override
+  String get wn65Gone =>
+      'O design GTA partiu: sua página inicial, suas páginas, sua paleta — ficam cinco designs, e um arquivo de ajustes que ainda o nomeie cai na roda';
+
+  @override
+  String get wn65Tight =>
+      'A página inicial fica mais compacta em todos os designs: as faixas nuas que o resto da tela abria entre os cartões desapareceram — a roda, as peças, o jornal, as medalhas e os chips se seguem a um suspiro de distância, e a página rola onde antes se esticava';
+
+  @override
+  String get wn65Radar =>
+      'O mapa que o design GTA carregava agora se sustenta com nome próprio: o radar — a mesma água profunda, a grade âmbar e a varredura, agora com seu próprio nome no seletor de mapas';
 }

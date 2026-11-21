@@ -661,7 +661,7 @@
   "mapKindGlobe": "Globo 3D",
   "mapKindSatellite": "Satélite",
   "mapKindFlat": "Plano 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "As cores que o globo 3D veste. O satélite carrega a sua própria Terra e os mapas planos a sua própria tinta.",
   "aboutVersions": "Versão",
   "aboutChannels": "Páginas de contato",
@@ -809,8 +809,6 @@
   "wn56Wheel": "A roda das bandeiras desliza: um impulso traz um país, e a aterragem assenta em vez de bater — o arrasto lê-se firme e estável, como um bom botão.",
   "designGazette": "Jornal",
   "designGazetteDesc": "Uma primeira página: o cabeçalho, as colunas pautadas e o carimbo de tinta — a calma do jornal, em papel e tinta",
-  "designGta": "GTA",
-  "designGtaDesc": "O HUD do jogo: a roda de armas que gira, o túnel verde do radar, os painéis âmbar e a noite de neon",
   "speedTestSizesTitle": "Tamanho do teste",
   "wn61Gta": "O design GTA: o HUD do jogo — a roda de armas para as bandeiras, o túnel verde do radar, os painéis âmbar, a letra pesada e o seu próprio som",
   "wn61Sound": "O clique da roda: cada assento que o disco passa responde também ao ouvido",
@@ -858,5 +856,8 @@
   "wn64Headers": "O cabeçalho de cada página volta a ocupar a largura da página — a seta de volta fica na sua borda, não no meio da tela",
   "wn64Pill": "O rótulo da pílula Material You guarda seu respiro dentro das pontas arredondadas",
   "wn64Map": "As fronteiras do mapa GTA voltam à sua primeira veste — a costa guarda seu neon e a terra sua borda de tinta fina",
-  "wn64Name": "O design Pixel responde pelo próprio nome: Material You"
+  "wn64Name": "O design Pixel responde pelo próprio nome: Material You",
+  "wn65Gone": "O design GTA partiu: sua página inicial, suas páginas, sua paleta — ficam cinco designs, e um arquivo de ajustes que ainda o nomeie cai na roda",
+  "wn65Tight": "A página inicial fica mais compacta em todos os designs: as faixas nuas que o resto da tela abria entre os cartões desapareceram — a roda, as peças, o jornal, as medalhas e os chips se seguem a um suspiro de distância, e a página rola onde antes se esticava",
+  "wn65Radar": "O mapa que o design GTA carregava agora se sustenta com nome próprio: o radar — a mesma água profunda, a grade âmbar e a varredura, agora com seu próprio nome no seletor de mapas"
 }

@@ -115,10 +115,9 @@ class AppSettings extends ChangeNotifier {
   int customAccent = 0xFF60A5FA;
 
   /// The home page's design: 'wheel' (the flags in their wheel), 'bento'
-  /// (the tiles), 'pixel' (the compact card), 'ios' (the system's look),
-  /// 'gazette' (the paper) and 'gta' (the game's HUD). Whatever else
-  /// lands in the file — the looks that left among them — reads as the
-  /// wheel.
+  /// (the tiles), 'pixel' (the compact card), 'ios' (the system's look)
+  /// and 'gazette' (the paper). Whatever else lands in the file — the
+  /// looks that left among them — reads as the wheel.
   String homeDesign = 'wheel';
 
   /// The countries the user pinned in the flag wheel: they lead the wheel
@@ -139,11 +138,11 @@ class AppSettings extends ChangeNotifier {
 
   /// The home map's kind: 'classic' (the flat map as it always was),
   /// 'globe' (the metal ball), 'flat' (the flat map's modern finish), or
-  /// 'hud' (the GTA design's own map — the game's HUD plate). The
-  /// classic carries the default: the map the home has always stood
-  /// on. The night, the terrain and the satellite kinds the picker once
-  /// offered land here on their nearest survivor when a settings file
-  /// still names them.
+  /// 'hud' (the radar plate — the deep water, the amber grid and the
+  /// sweep). The classic carries the default: the map the home has
+  /// always stood on. The night, the terrain and the satellite kinds the
+  /// picker once offered land here on their nearest survivor when a
+  /// settings file still names them.
   String mapKind = 'classic';
 
   /// The accounts' own display names (account id → name): the rename a
@@ -284,8 +283,8 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// The home design a stored key asks for. The keys the app carries
-  /// stand (the wheel, the bento, the pixel, the ios, the gazette, and
-  /// the gta); anything else — the looks that left, or a value a newer
+  /// stand (the wheel, the bento, the pixel, the ios, and the gazette);
+  /// anything else — the looks that left, or a value a newer
   /// or older build wrote — lands on the wheel: the app's own home,
   /// until the user picks one of the looks that stand. The two looks
   /// that retired (the aether's iOS look, the zed's bento look) walk
@@ -298,7 +297,6 @@ class AppSettings extends ChangeNotifier {
     'aether' => 'ios',
     'zed' => 'bento',
     'gazette' => 'gazette',
-    'gta' => 'gta',
     _ => 'wheel',
   };
 

@@ -1260,7 +1260,7 @@
   "mapKindGlobe": "3D globe",
   "mapKindSatellite": "Satellite",
   "mapKindFlat": "Flat 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "Radar",
   "mapStyleGlobeHint": "The colors the 3D globe wears. The satellite carries its own earth, and the flat maps their own ink.",
   "aboutVersions": "Version",
   "aboutChannels": "Contact pages",
@@ -1396,8 +1396,6 @@
   "wn56Wheel": "The flags' wheel glides: one fling carries one country, and the landing settles into place instead of snapping — the drag reads heavy and steady, the way a good dial turns.",
   "designGazette": "Gazette",
   "designGazetteDesc": "A front page: the masthead, the ruled columns and the ink stamp — the news sheet's own calm, in paper and ink",
-  "designGta": "GTA",
-  "designGtaDesc": "The game's own HUD: the weapon wheel that turns, the radar-green tunnel, the amber panels and the neon night",
   "speedTestSizesTitle": "Test size",
   "wn61Gta": "The GTA design: the game's own HUD — the weapon wheel for the flags, the radar-green tunnel, the amber panels, the heavy face and its own tick",
   "wn61Sound": "The wheel's tick: every seat the dial passes answers in the ear as well as the hand",
@@ -1452,5 +1450,8 @@
   "wn64Headers": "Every page header stretches the page again — the back arrow stands at its edge, not the screen's middle",
   "wn64Pill": "The Material You pill's label keeps its breath inside the rounded ends",
   "wn64Map": "The GTA map's borders return to their first dress — the coast keeps its neon, the land its thin ink edge",
-  "wn64Name": "The Pixel design answers to its own name: Material You"
+  "wn64Name": "The Pixel design answers to its own name: Material You",
+  "wn65Gone": "The GTA design left: its home, its pages, its palette — five designs stay, and a settings file that still names it lands on the wheel",
+  "wn65Tight": "The home packs tighter in every design: the bare bands the screen's leftover used to open between the cards are gone — the wheel, the tiles, the paper, the medals and the chips follow one another at a breath's distance, and the page scrolls where it used to stretch",
+  "wn65Radar": "The map the GTA design carried stands on its own now, as the radar: the same deep water, the amber grid and the sweep, under its own name in the map picker"
 }

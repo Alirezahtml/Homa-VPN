@@ -116,10 +116,9 @@ class AccountsPage extends StatelessWidget {
 }
 
 /// The add-account button, in the design's own voice: the ios's blue
-/// capsule, the gazette's near-square inked stamp, the gta's HUD slot
-/// with the heavy face, the pixel's big tonal pill, the bento's
-/// very-round tile — the page's first action reads as the design's own
-/// button, not as one shape every design borrows.
+/// capsule, the gazette's near-square inked stamp, the pixel's big tonal
+/// pill, the bento's very-round tile — the page's first action reads as
+/// the design's own button, not as one shape every design borrows.
 class _AddAccountButton extends StatelessWidget {
   const _AddAccountButton({
     required this.core,
@@ -144,15 +143,6 @@ class _AddAccountButton extends StatelessWidget {
         const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: 0.2,
-        ),
-      ),
-      'gta' => (
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        const TextStyle(
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.6,
-          fontFamily: 'GtaHud',
-          fontFamilyFallback: ['Vazirmatn', 'Inter'],
         ),
       ),
       'pixel' => (

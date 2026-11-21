@@ -2013,18 +2013,18 @@ class AppLocalizationsEs extends AppLocalizations {
       'Las banderas en su rueda de cristal, el interruptor debajo';
 
   @override
-  String get designBento => 'Mosaico';
+  String get designBento => 'Bento';
 
   @override
   String get designBentoDesc =>
-      'Tablero de fichas redondeadas: conexión, cifras, lugar';
+      'El diseño propio de la caja bento: las banderas en su tablero de fichas, la ficha de conexión, las cifras y el lugar como fichas de una caja cálida';
 
   @override
-  String get designPixel => 'Compacta';
+  String get designPixel => 'Material You';
 
   @override
   String get designPixelDesc =>
-      'Una tarjeta serena: el lugar, el interruptor, las cifras';
+      'Material You: superficies tonales, tarjetas grandes y llenas, barra de indicador pastilla y títulos grandes — la voz propia de Android';
 
   @override
   String get notifFlag => 'Bandera del país en la notificación';
@@ -2294,6 +2294,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Plano 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2626,14 +2629,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get avatarPhotoFailed => 'No se pudo usar esa imagen';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Automático';
 
   @override
@@ -2785,6 +2780,34 @@ class AppLocalizationsEs extends AppLocalizations {
   String get speedTestSizesTitle => 'Tamaño de la prueba';
 
   @override
+  String get wn61Gta =>
+      'El diseño GTA: el HUD del juego — la rueda de armas para las banderas, el túnel verde del radar, los paneles ámbar, la letra pesada y su propio sonido';
+
+  @override
+  String get wn61Sound =>
+      'El clic de la rueda: cada asiento que pasa responde también al oído';
+
+  @override
+  String get wn62Wheel =>
+      'La rueda de armas reconstruida: los asientos mantienen el espacio del juego pase lo que pase con el número de países, el sector elegido lleva la cuña iluminada y un impulso lanza el dial';
+
+  @override
+  String get wn62Map =>
+      'El mapa de la página principal viste ahora los colores de cada diseño — el agua, la tierra y la cuadrícula siguen al diseño de la página';
+
+  @override
+  String get wn62HudMap =>
+      'El mapa propio del diseño GTA: el panel HUD del juego — agua profunda, costa de neón, cuadrícula de radar ámbar y el barrido que recorre el mundo mientras el túnel va';
+
+  @override
+  String get wn62Aether =>
+      'El control de energía del diseño Aether reconstruido: el disco se yergue en un anillo fino, el arco de conexión recorre el anillo y la cara mecanizada atrapa la luz';
+
+  @override
+  String get wn62Gta =>
+      'El panel de conexión GTA responde a la mano — el panel entero se hunde al pulsar y la marca de energía se aparta mientras se hace la conexión';
+
+  @override
   String get speedTestSizeLight => 'Ligera';
 
   @override
@@ -2814,4 +2837,136 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Un nuevo aspecto de inicio: el periódico — una portada con cabecera, columnas fileteadas, un teletipo en vivo y el sello de tinta que se estampa cuando el túnel funciona.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'Lo propio del sistema: tablas agrupadas, el filete de la barra de pestañas, la tarjeta de estado y el botón cápsula — claridad con voz del sistema';
+
+  @override
+  String get gazetteSection => 'SECCIÓN';
+
+  @override
+  String get wn58Lock =>
+      'El candado del pomo conserva su tinta cuando el túnel funciona: la marca lee ahora la superficie que pisa — oscura sobre pomo claro, blanca sobre oscuro — y el icono ya no se ahoga.';
+
+  @override
+  String get wn58Enter =>
+      'La sección conectada respira: los números se desvanecen y se alzan mientras el espacio crece bajo ellos, y salen igual — las tarjetas ya no aparecen de golpe entre dos fotogramas.';
+
+  @override
+  String get wn58Speed =>
+      'La prueba de velocidad corre más ligera: el panel repinta diez veces por segundo como máximo, la aguja del barrido camina en línea recta corta, y las caras se funden en vez de saltar.';
+
+  @override
+  String get wn58Ios =>
+      'Un diseño nuevo: iOS — lo propio del sistema, desde las tablas agrupadas y el filete de la barra hasta la tarjeta de estado con su botón cápsula. Cada página, tarjeta, diálogo e icono con voz del sistema, en ambos modos.';
+
+  @override
+  String get wn58Pixel =>
+      'Un diseño nuevo: Pixel — el estilo Material You, superficies tonales, tarjetas grandes y llenas, la barra de indicador pastilla y los títulos grandes. Cada página, tarjeta, diálogo e icono con voz propia de Android, en ambos modos.';
+
+  @override
+  String get wn58Paper =>
+      'El periódico ya es un periódico entero: su propia barra de secciones con la viñeta impresa y el subrayado, cabecera de sección para cada página aparte, y la caja de papel fileteada para cada grupo de ajustes — las líneas de imprenta llegaron a toda la app.';
+
+  @override
+  String get wn59Flags =>
+      'Las banderas llevan el corte de cada diseño: la medalla redonda en iOS y aether, el squircle en zed, la placa reglada en gazette, los grandes redondeos de pixel — la rueda, la tira y la banderita de cada fila lo siguen.';
+
+  @override
+  String get wn59Map =>
+      'El mapa del mundo se dibuja con la tinta de cada diseño: el marrón cálido del papel en gazette, el gris de la noche violeta en zed, el azul grisáceo tonal en pixel — el mundo de cada diseño pertenece a su página.';
+
+  @override
+  String get wn59Buttons =>
+      'Los botones de conexión hablan la voz de su diseño: la gran píldora tonal de Material You en pixel, la cápsula de iOS que respira mientras se establece la conexión, y las tarjetas de cada página entrando con el movimiento de su diseño.';
+
+  @override
+  String get wn59Scroll =>
+      'Las ruedas y las tiras se deslizan con la física de su diseño: el rebote del sistema, la parada rápida de Material y el peso del papel que muere en el doblez.';
+
+  @override
+  String get flagAllPlaces => 'Todos los lugares';
+
+  @override
+  String get gazetteRegions => 'Destinos';
+
+  @override
+  String get wn60Flags =>
+      'Cada diseño muestra ahora los países a su manera: el tablero de fichas del bento, los chips de filtro del pixel, las opciones de cápsula del aether, la baraja de medallas de iOS, el tablero paginado del zed y el índice de destinos de la gaceta impreso como su propio papel — la rueda conserva su rueda.';
+
+  @override
+  String get wn60Bento =>
+      'El diseño bento se completa: su propia paleta cálida de porcelana y carbón, la luz mandarina, el muelle de fichas, los encabezados de página squircle, las tarjetas tintadas y el tablero de banderas — cada página, en ambos modos.';
+
+  @override
+  String get wn60Spacing =>
+      'Las páginas de inicio caminan en un solo ritmo: las bandas muertas entre las secciones se han ido, las tarjetas finales llenan sus filas y cada hueco respira con el espaciado que el diseño guarda.';
+
+  @override
+  String get wn63Retired =>
+      'Los diseños aether y zed se retiraron: sus usuarios pasan a los diseños que llevan su estructura — las tablas del aether a iOS, el bento del zed a Bento';
+
+  @override
+  String get wn63Map =>
+      'El mapa GTA se lee como el del juego: cada frontera como carretera, una marca ámbar en cada país servidor, el lugar elegido como waypoint con su haz y su nombre en la placa, la brújula en la esquina';
+
+  @override
+  String get wn63Servers =>
+      'La página de servidores viste la lista propia de cada diseño — la tabla agrupada de iOS, el índice reglado de la gaceta, las ranuras HUD del GTA, las tarjetas tonales del pixel, el tablero del bento';
+
+  @override
+  String get wn63Accounts =>
+      'La página de cuentas también viste el diseño: las tarjetas con el redondeo propio del diseño, el botón de añadir con la voz del diseño, los títulos de los diálogos en la cara de la pantalla, los campos en el marco del diseño';
+
+  @override
+  String get wn63Wheel =>
+      'La rueda de armas reconstruida a la medida del juego: el círculo completo de divisores, la cuña iluminada de dos capas, el arco del contador, el salto de la apertura y el pulso de la elección';
+
+  @override
+  String get wn63Ios =>
+      'El diseño iOS se yergue más lleno: el baño de estado en la tarjeta, los puntos de página del mazo de medallas, el tic en cada encuadre';
+
+  @override
+  String get wn64Wheel =>
+      'Las medallas de la rueda GTA se sientan ahora dentro del disco — doce asientos al ritmo del propio juego, ninguna medalla en el borde ni fuera de la pantalla, y ninguna medalla toca a otra';
+
+  @override
+  String get wn64Glass =>
+      'La rueda viste el cristal del juego: el mundo se difumina bajo el dial, la placa es algo translúcida y su brillo se reúne arriba';
+
+  @override
+  String get wn64Groups =>
+      'Los grupos propios del inicio de iOS: la tabla de la sesión — la dirección del túnel, a un toque al portapapeles — y las acciones rápidas: la prueba de velocidad, los ajustes de conexión, las cuentas';
+
+  @override
+  String get wn64Headers =>
+      'La cabecera de cada página vuelve a ocupar el ancho de la página — la flecha de retorno vuelve a su borde, no al centro de la pantalla';
+
+  @override
+  String get wn64Pill =>
+      'La etiqueta de la píldora Material You mantiene su aire dentro de los extremos redondeados';
+
+  @override
+  String get wn64Map =>
+      'Las fronteras del mapa GTA vuelven a su primer traje — la costa conserva su neón y la tierra su borde de tinta fina';
+
+  @override
+  String get wn64Name =>
+      'El diseño Pixel responde a su propio nombre: Material You';
+
+  @override
+  String get wn65Gone =>
+      'El diseño GTA se fue: su página principal, sus páginas, su paleta — quedan cinco diseños, y un archivo de ajustes que aún lo nombre cae en la rueda';
+
+  @override
+  String get wn65Tight =>
+      'La página principal se compacta en todos los diseños: desaparecieron las bandas vacías que el sobrante de la pantalla abría entre las tarjetas — la rueda, las fichas, el periódico, las medallas y los chips se siguen a un respiro de distancia, y la página se desplaza donde antes se estiraba';
+
+  @override
+  String get wn65Radar =>
+      'El mapa que traía el diseño GTA ahora se sostiene por su nombre: el radar — la misma agua profunda, la rejilla ámbar y el barrido, esta vez con su propio nombre en el selector de mapas';
 }

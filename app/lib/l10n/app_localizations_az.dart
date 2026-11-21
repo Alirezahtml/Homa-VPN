@@ -1998,16 +1998,18 @@ class AppLocalizationsAz extends AppLocalizations {
   String get designWheelDesc => 'Bayraqlar şüşə çarxında, açar altında';
 
   @override
-  String get designBento => 'Mozaika';
+  String get designBento => 'Bento';
 
   @override
-  String get designBentoDesc => 'Yumru mozaik lövhə: bağlantı, rəqəmlər, yer';
+  String get designBentoDesc =>
+      'Bento qutusunun öz dizaynı: bayraqlar öz taxtasında, bağlantı plitəsi, rəqəmlər və yer isti bir qutunun plitələri kimi';
 
   @override
-  String get designPixel => 'Yığcam';
+  String get designPixel => 'Material You';
 
   @override
-  String get designPixelDesc => 'Sakit bir kart: yer, açar və rəqəmlər';
+  String get designPixelDesc =>
+      'Material You: tonal səthlər, iri dolu kartlar, kapsul göstəricili bar və böyük başlıqlar — Androidin öz səsi';
 
   @override
   String get notifFlag => 'Bildirişdə ölkə bayrağı';
@@ -2276,6 +2278,9 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Düz 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2606,14 +2611,6 @@ class AppLocalizationsAz extends AppLocalizations {
   String get avatarPhotoFailed => 'Bu şəkil işlədilə bilmədi';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Avtomatik';
 
   @override
@@ -2765,6 +2762,34 @@ class AppLocalizationsAz extends AppLocalizations {
   String get speedTestSizesTitle => 'Test ölçüsü';
 
   @override
+  String get wn61Gta =>
+      'GTA dizaynı: oyunun öz interfeysi — bayraqlar üçün silah çarxı, radarın yaşıl tunneli, kəhrəba panellər, ağır şrift və öz səsi';
+
+  @override
+  String get wn61Sound =>
+      'Çarxın tiki: çarxın keçdiyi hər yuva qulaqda da cavab tapır';
+
+  @override
+  String get wn62Wheel =>
+      'Silah çarğı yenidən quruldu: ölkə sayı nə olursa olsun yuvalar oyunun aralığını saxlayır, seçilmiş sektor çarğın işıqlı dilini daşıyır və fırlatma çarğı atır';
+
+  @override
+  String get wn62Map =>
+      'Əsas səhifənin xəritəsi artıq hər dizaynın öz rənglərini daşıyır — su, quru və şəbəkə səhifənin dizaynını izləyir';
+
+  @override
+  String get wn62HudMap =>
+      'GTA dizaynının öz xəritəsi: oyunun HUD platası — dərin su, neon sahil, kəhrəba radar şəbəkəsi və tunel işləyəndə dünyanı gəzən skan';
+
+  @override
+  String get wn62Aether =>
+      'Aether dizaynının güc düyməsi yenidən quruldu: disk nazik halqada dayanır, bağlanma qövsü halqanı gəzir və işlənmiş üz işığı tutur';
+
+  @override
+  String get wn62Gta =>
+      'GTA qoşulma paneli ələ cavab verir — basanda bütün panel bir az çöker və qoşularkən güc nişanı geri çəkilir';
+
+  @override
   String get speedTestSizeLight => 'Yüngül';
 
   @override
@@ -2794,4 +2819,135 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'Yeni ev görünüşü: qəzet — başlıqlı, xətli sütunlu, canlı xəbər lentli və tünel işləyəndə vuran mürəkkəb möhürlü birinci səhifə.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'Sistemin özü: qruplu cədvəllər, sekme barının xətti, status kartı və kapsul düyməsi — sistemin səsi ilə aydınlıq';
+
+  @override
+  String get gazetteSection => 'BÖLMƏ';
+
+  @override
+  String get wn58Lock =>
+      'Tünel işləyəndə qulpun kilidi rəngini saxlayır: işarə artıq dayandığı səthi oxuyur — açıq qulpta tünd, tünddə ağ — ikon bir daha yox olmur.';
+
+  @override
+  String get wn58Enter =>
+      'Qoşulmuş bölmə nəfəs alır: rəqəmlər yavaşca yaranır və yerləri altında açılır, eləcə də yolverirlər — kartlar artıq iki çərçivə arası sıçramır.';
+
+  @override
+  String get wn58Speed =>
+      'Sürət testi yüngül qaçır: panel saniyədə çox on dəfə çəkilir, saat əli qısa düz xəttdə gəzir, üzlər sıçramadın yavaşca bir-birinə keçir.';
+
+  @override
+  String get wn58Ios =>
+      'Yeni dizayn: iOS — sistemin öz görünüşü, qruplu cədvəllərdən sekme barının xəttinə, kapsul düyməli status kartınadək. Hər səhifə, kart, pəncərə və ikon sistemin səsi ilə, hər iki rejimdə.';
+
+  @override
+  String get wn58Pixel =>
+      'Yeni dizayn: Pixel — Material You görünüşü, tonal səthlər, iri dolu kartlar, kapsul göstəricili bar və böyük başlıqlar. Hər səhifə, kart, pəncərə və ikon Androidin səsi ilə, hər iki rejimdə.';
+
+  @override
+  String get wn58Paper =>
+      'Qəzet indi tam qəzetdir: öz bölmə zolağı çap nişanı və alt xətti ilə, hər ayrı səhifəyə bölmə başlığı, hər tənzimləmə qrupuna xətli kəpənzər qutusu — çap xətləri bütün tətbiqə çatdı.';
+
+  @override
+  String get wn59Flags =>
+      'Bayraqlar hər dizaynın öz kəsiyini geyinir: iOS və «Əsir»də dairəvi medal, «Zed»də skvorkl, «Qəzet»də xətli lövhə, «Pixel»də böyük yumuşaq bucaqlar — çarx, zolaq və hər sətirin kiçik bayrağı onları izləyir.';
+
+  @override
+  String get wn59Map =>
+      'Dünya xəritəsi öz dizaynın mürəkkəbi ilə çəkilir: «Qəzet»də kağızın isti qəhvəyisi, «Zed»də bənövşəyi gecənin bozu, «Pixel»də tonal mavi-boz — hər dizaynın dünyası öz səhifəsinə məxsusdur.';
+
+  @override
+  String get wn59Buttons =>
+      'Qoşulma düymələri öz dizaynının səsi ilə danışır: «Pixel»də Material You-un böyük tonal həbi, qoşulma qurularkən nəfəs alan iOS kapsulu, və hər səhifənin kartlarının öz dizaynının hərəkəti ilə girişi.';
+
+  @override
+  String get wn59Scroll =>
+      'Çarxlar və zolaqlar öz dizaynın fizikası ilə sürüşür: sistemin secməsi, Material-un sürətli dayanması və qatlanmaya qarşı duran kağızın ağırlığı.';
+
+  @override
+  String get flagAllPlaces => 'Bütün yerlər';
+
+  @override
+  String get gazetteRegions => 'İstiqamətlər';
+
+  @override
+  String get wn60Flags =>
+      'Hər dizayn ölkələri indi öz yolu ilə göstərir: Bento-nun plitə taxtası, Pixel-in filtr çipləri, Aether-in kapsul seçimləri, iOS medallar dəsti, Zed-in səhifələnən taxtası və qəzetin öz çapı kimi yazılan istiqamət göstəricisi — çarx öz çarxını saxlayır.';
+
+  @override
+  String get wn60Bento =>
+      'Bento dizaynı tam durur: öz isti palitrası — farfor və kömür, mandarin işığı, plitə dokası, squircle səhifə başlıqları, çalğılı kartlar və bayraq taxtası — hər səhifə, hər iki rejimdə.';
+
+  @override
+  String get wn60Spacing =>
+      'Ana səhifələr bir ritmlə gedir: bölmələr arasındakı ölü zolaqlar gedib, son kartlar öz sıralarını doldurur və hər boşluq dizaynın saxladığı aralıqla nəfəs alır.';
+
+  @override
+  String get wn63Retired =>
+      'Aether və zed dizaynları təqaüdə çıxdı: istifadəçiləri strukturlarını daşıyan dizaynlara keçir — aetherin cədvəlləri iOS-a, zedin bentosu Bentoya';
+
+  @override
+  String get wn63Map =>
+      'GTA xəritəsi indi oyunun öz xəritəsi kimi oxunur: hər sərhəd yol kimi, hər server ölkəsində kəhrəba nişanı, seçilmiş yer göstərici kimi işıq sütunu və lövhədə adı ilə, guşədə kompas';
+
+  @override
+  String get wn63Servers =>
+      'Serverlər səhifəsi hər dizaynin öz siyahısını geyir — iOS-un qrup cədvəli, qəzetin xətli göstəricisi, GTA-nın HUD yuvaları, pikselin tonal kartları, bento taxtası';
+
+  @override
+  String get wn63Accounts =>
+      'Hesablar səhifəsi də dizaynı geyir: kartlar dizaynin öz yuvarlaqlığında, əlavə düyməsi dizaynin səsi ilə, dialoq başlıqları ekran üzlü qələmi ilə, sahələr dizaynin çərçivəsində';
+
+  @override
+  String get wn63Wheel =>
+      'Silah çarxı oyunun öz ölçüsünə görə quruldu: sektor ayırıcılarının tam dairəsi, ikiqat işıqlı dilim, sayğacın göstərici qövsü, açılışın sıçrayışı və seçimin öz nəbzi';
+
+  @override
+  String get wn63Ios =>
+      'iOS dizaynı daha dolu durur: status kartının vəziyyət yuyulması, medal dəstinin səhifə nöqtələri, hər snapdə tik';
+
+  @override
+  String get wn64Wheel =>
+      'GTA çarxının medalları indi disk içinde oturur — oyunun öz düzümü ilə on iki oturacaq, nə kənar üstündə medal, nə ekranın kənarından keçən, nə də bir-birinə toxunan medallar';
+
+  @override
+  String get wn64Glass =>
+      'Çarx oyunun öz şüşəsini geyindi: dünya disk altında yumşaq bulanıq olur, lövhə azca şəffafdır, parlağı yuxarıda toplanır';
+
+  @override
+  String get wn64Groups =>
+      'iOS əsas səhifəsinin öz qrupları: sessiya cədvəli — tunnelin ünvanı bir toxunuşla mübadilə buferində — və sürətli əməllər: sürət testi, bağlantı ayarları, hesablar';
+
+  @override
+  String get wn64Headers =>
+      'Hər səhifənin başlığı yenidən səhifənin eninə uzanır — geri oxu öz kənarında dayanır, ekranın ortasında deyil';
+
+  @override
+  String get wn64Pill =>
+      'Material You həbünün yazısı yuvarlaq uclarının içində nəfəsini saxlayır';
+
+  @override
+  String get wn64Map =>
+      'GTA xəritəsinin sərhədləri ilk geyiminə qayıtdı — sahil neonunu, quru isə nazik xətt kənarını saxladı';
+
+  @override
+  String get wn64Name => 'Pixel dizaynı indi öz adı ilə tanınır: Material You';
+
+  @override
+  String get wn65Gone =>
+      'GTA dizayni getdi: öz evi, öz səhifələri, öz palitrası — beş dizayn qalır, adını hələ daşıyan parametrlər faylı çarxa düşür';
+
+  @override
+  String get wn65Tight =>
+      'Ana səhifə hər dizaynda daha sıx yığıldı: ekranın qalan boşluğunun kartlar arasında açdığı çılpaq zolaqlar aradan qaldırıldı — çarx, plitkələr, qəzet, medallar və çiplər bir nəfəs məsafədə bir-birini izləyir, səhifə uzandığı yerdə sürüşür';
+
+  @override
+  String get wn65Radar =>
+      'GTA dizaynının apardığı xəritə indi öz adı ilə durur: radar — eyni dərin su, kəhrəba tor və süzülmə, bu dəfə xəritə seçicisində öz adı ilə';
 }

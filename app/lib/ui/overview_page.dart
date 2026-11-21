@@ -36,7 +36,7 @@ import 'world_map.dart';
 /// data used; the phone's (_PhoneHome) and the computer's (_DesktopHome)
 /// share the look, not the logic. Developer mode adds the details.
 /// The servers' country codes, read once per controller — the map's
-/// blips wear them (the GTA map's markers, one on every country the
+/// blips wear them (the radar map's markers, one on every country the
 /// tunnel can carry to). The read is memoized: the home rebuilds often,
 /// the list does not change under it, and a failed read answers empty
 /// instead of poisoning every later build.
@@ -1257,8 +1257,8 @@ class _PhoneHome extends StatelessWidget {
                   // A boundary of its own: the map redraws every frame it
                   // breathes, and this keeps that redraw inside the map —
                   // the page's own content never repaints for it.
-                  // The servers' codes, read once: the GTA map's blips
-                  // (the game's own location markers) wear them. The
+                  // The servers' codes, read once: the radar map's blips
+                  // (the map's own location markers) wear them. The
                   // other map kinds leave the list out.
                   return FutureBuilder<List<String>>(
                     future: mapKind == MapKind.hud
@@ -1441,8 +1441,6 @@ class _PhoneHome extends StatelessWidget {
         // its labels under the icons — clears at 84.
         design == 'pixel'
             ? 104
-            : design == 'gta'
-            ? 106
             : design == 'ios' || design == 'bento'
             ? 84
             : 72,
@@ -1458,7 +1456,7 @@ class _PhoneHome extends StatelessWidget {
           if (design == 'wheel') ...[
             // The wheel sits a touch lower than the wordmark: a breath of
             // space under the brand before the flags begin.
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             // The countries' wheel: drag to the one the traffic leaves
             // from; it is the servers page's choice, read from the core.
             Reveal(
@@ -1483,19 +1481,17 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
-            // The hero (the state's word, the switch, its cards) sits a
-            // touch under the middle: 3.4% of the page's height lower. The
-            // box is twice that, and the two spacers each give up half of
-            // it — the group keeps its distances, only lower.
-            SizedBox(height: math.max(0.0, box.maxHeight * 0.068)),
+            // The hero follows the wheel at a breath's distance — the
+            // page packs from the top instead of stretching the screen's
+            // leftover into a bare band between the two.
+            const SizedBox(height: 16),
             SizedBox(height: short ? 4 : 16),
           ] else if (design == 'bento') ...[
             // The bento's opening: the countries on their board — the
             // grid of tiles the box's own way, the chosen tile framed,
             // the pinned ones starred, and the last tile handing to the
             // servers page for the whole list.
-            const SizedBox(height: 20),
+            const SizedBox(height: 14),
             Reveal(
               index: 1,
               child: RepaintBoundary(
@@ -1510,7 +1506,7 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 14),
           ] else if (design == 'gazette') ...[
             // The gazette's opening: the masthead — the double rule, the
             // brand riding the middle between the day's line and the
@@ -1576,7 +1572,7 @@ class _PhoneHome extends StatelessWidget {
             // chosen one in the selected state with its check — the
             // option row above the compact card, the way Material lays a
             // choice out.
-            const SizedBox(height: 20),
+            const SizedBox(height: 14),
             Reveal(
               index: 1,
               child: RepaintBoundary(
@@ -1589,35 +1585,11 @@ class _PhoneHome extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-          ] else if (design == 'gta') ...[
-            // The GTA home's opening: the weapon wheel — the countries
-            // as the game's own radial dial, the drag that turns it, the
-            // tick each seat answers, and the center screen that names
-            // the country the top seat holds.
-            const SizedBox(height: 2),
-            Reveal(
-              index: 1,
-              child: RepaintBoundary(
-                child: FlagWeaponWheel(
-                  core: core,
-                  accent: accent,
-                  favorites: settings.favoriteCountries,
-                  onToggleFavorite: (code) =>
-                      _toggleFavorite(context, core, settings, code),
-                  // The wheel's lights breathe only while the connection
-                  // carries (or is on its way): off, the disc holds one
-                  // pose and the phone's battery keeps the frames.
-                  animated: connected || confirming,
-                  still: settings.batterySaver,
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 14),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
           ],
           // The state, in words, where the island used to live. The tiles'
           // home carries it inside its connect bar instead. Here it wears
@@ -1626,8 +1598,7 @@ class _PhoneHome extends StatelessWidget {
           // glance — a quiet pulse while the connection is still being
           // made.
           // The dusk's banner said the state's word inside itself; the
-          // iOS card says it in the card, the gta in its pad — they skip
-          // the capsule here too.
+          // iOS card says it in the card — they skip the capsule here.
           // The wheel's home says the state once — in the slider's own
           // track. The capsule above it repeated the same word the track
           // was already carrying ("Connecting…" stacked on "Connecting…",
@@ -1635,8 +1606,7 @@ class _PhoneHome extends StatelessWidget {
           if (design != 'wheel' &&
               design != 'bento' &&
               design != 'gazette' &&
-              design != 'ios' &&
-              design != 'gta')
+              design != 'ios')
             Reveal(
               index: 1,
               child: Center(
@@ -1731,9 +1701,12 @@ class _PhoneHome extends StatelessWidget {
             // state's word, typed by the wire) with the measured delay's
             // stamp beside it, the slider's commit under a rule, and the
             // session's numbers in their ruled columns. The live wire's
-            // tape walks under the page while the tunnel carries.
-            Flexible(
-              child: Center(
+            // tape walks under the page while the tunnel carries. The
+            // cap only ever shrinks the page — on a short screen it
+            // scales down, never stretching the room it sits in.
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: box.maxHeight * 0.8),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Reveal(
@@ -1831,9 +1804,12 @@ class _PhoneHome extends StatelessWidget {
             // cell (the flag, the name, the chevron to the servers), the
             // session's numbers in their inset-grouped table, and the
             // full-width capsule button under them. No glass, no glow:
-            // the clarity is the style.
-            Flexible(
-              child: Center(
+            // the clarity is the style. The cap only ever shrinks the
+            // card — on a short screen it scales down, never stretching
+            // the room it sits in.
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: box.maxHeight * 0.8),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Reveal(
@@ -1858,34 +1834,6 @@ class _PhoneHome extends StatelessWidget {
                             ? _openAccounts(context, core, settings, onOpenAccounts)
                             : runShowingErrors(context, () => _toggle(on)),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: short ? 8 : 14),
-          ] else if (design == 'gta') ...[
-            // The GTA hero: the HUD panel — the amber strip on its top
-            // edge, the power disc in its amber ring, the state's word
-            // in the display's heavy face. The pad lights the radar
-            // green while the tunnel carries and keeps the amber's glow
-            // while the connection is being made.
-            Flexible(
-              child: Center(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Reveal(
-                    index: 2,
-                    child: _GtaConnectPad(
-                      palette: p,
-                      on: on,
-                      busy: core.switchingProxy || status.connectPending,
-                      accent: accent,
-                      label: label,
-                      hint: press,
-                      onPressed: () => status.totalAccounts == 0
-                          ? _openAccounts(context, core, settings, onOpenAccounts)
-                          : runShowingErrors(context, () => _toggle(on)),
                     ),
                   ),
                 ),
@@ -2054,17 +2002,14 @@ class _PhoneHome extends StatelessWidget {
                       icon: Icons.data_usage_rounded,
                     ),
                   )
-                else if (design == 'bento' ||
-                    design == 'ios' ||
-                    design == 'gta' ||
-                    confirming)
-                  // The tiles' bar, the iOS card's button and the GTA's
-                  // own word already say the tap's own hint; the plain
-                  // hint line below would only say it twice. While the
-                  // connection is still being made, the
-                  // state's word stands alone — "tap to disconnect" under a
-                  // reaching tunnel reads as noise. The state's own
-                  // guidance still has the problem boxes above.
+                else if (design == 'bento' || design == 'ios' || confirming)
+                  // The tiles' bar and the iOS card's button already say
+                  // the tap's own hint; the plain hint line below would
+                  // only say it twice. While the connection is still being
+                  // made, the state's word stands alone — "tap to
+                  // disconnect" under a reaching tunnel reads as noise.
+                  // The state's own guidance still has the problem boxes
+                  // above.
                   const SizedBox.shrink()
                 else
                   // A start failure's hint is general; the core's reason is
@@ -2185,7 +2130,10 @@ class _PhoneHome extends StatelessWidget {
             const SizedBox(height: 10),
             Center(child: _LanChip(port: portOf(proxy.listen) ?? 10810)),
           ],
-          const Spacer(),
+          // The notices and the closing cards follow the hero at a
+          // breath's distance — the screen's leftover never opens a bare
+          // band between them; the page packs and scrolls instead.
+          const SizedBox(height: 16),
           SizedBox(height: short ? 12 : 16),
           _UpdateNotice(core: core, settings: settings, palette: p),
           _UdpNotice(status: status, settings: settings, palette: p),
@@ -2230,8 +2178,7 @@ class _PhoneHome extends StatelessWidget {
             // gazette's homes keep the place's own card down here.
             if (design == 'wheel' ||
                 design == 'bento' ||
-                design == 'gazette' ||
-                design == 'gta') ...[
+                design == 'gazette') ...[
               // The bento's own closing: the place and the session's data
               // as two tiles of one row — the box's mosaic, nothing left
               // half-empty under it.
@@ -4216,208 +4163,6 @@ class _LowQuotaNoticeState extends State<_LowQuotaNotice> {
   }
 }
 
-/// The GTA design's connect pad: the game's own HUD panel — the dark
-/// plate with the amber rule on its top edge, the power disc in its
-/// amber ring, the state's word in the display's heavy face. The pad
-/// lights the radar green while the tunnel carries and keeps the
-/// amber's glow while the connection is being made. A press sinks the
-/// whole panel a shade, the way the game's buttons answer.
-class _GtaConnectPad extends StatefulWidget {
-  const _GtaConnectPad({
-    required this.palette,
-    required this.on,
-    required this.busy,
-    required this.accent,
-    required this.label,
-    required this.hint,
-    required this.onPressed,
-  });
-
-  final _HomePalette palette;
-  final bool on;
-  final bool busy;
-  final Color accent;
-  final String label;
-  final String hint;
-  final VoidCallback onPressed;
-
-  @override
-  State<_GtaConnectPad> createState() => _GtaConnectPadState();
-}
-
-class _GtaConnectPadState extends State<_GtaConnectPad> {
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final p = widget.palette;
-    final on = widget.on;
-    final busy = widget.busy;
-    final style = DesignStyle.of(context);
-    final amber = style.navActive;
-    final lit = on ? widget.accent : amber;
-    final discInk = lit.computeLuminance() > 0.5 ? Colors.black : Colors.white;
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 400),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: busy ? null : widget.onPressed,
-        onTapDown: busy ? null : (_) => setState(() => _pressed = true),
-        onTapUp: (_) => setState(() => _pressed = false),
-        onTapCancel: () => setState(() => _pressed = false),
-        child: AnimatedScale(
-          // The press's own sink: the whole panel yields a shade under
-          // the finger and returns with a soft overshoot.
-          scale: _pressed ? 0.975 : 1.0,
-          duration: const Duration(milliseconds: 140),
-          curve: _pressed ? Curves.easeOut : Curves.easeOutBack,
-          child: Container(
-            decoration: BoxDecoration(
-              color: p.card,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: amber.withValues(alpha: p.dark ? 0.5 : 0.38),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: p.dark ? 0.40 : 0.10),
-                  blurRadius: 18,
-                  offset: const Offset(0, 6),
-                ),
-                BoxShadow(
-                  color: lit.withValues(alpha: p.dark ? 0.14 : 0.09),
-                  blurRadius: 22,
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Column(
-                children: [
-                  // The HUD's own top edge: the amber strip, the panel's
-                  // lit rule.
-                  Container(height: 2.4, color: amber.withValues(alpha: 0.9)),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                      22,
-                      18,
-                      22,
-                      20,
-                    ),
-                    child: Column(
-                      children: [
-                        // The power disc: the HUD's own button, amber at
-                        // rest, the state's light when the tunnel carries.
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 260),
-                          curve: Curves.easeOutCubic,
-                          width: 86,
-                          height: 86,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: on
-                                ? LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      lit.withValues(alpha: 0.92),
-                                      lit,
-                                    ],
-                                  )
-                                : null,
-                            color: on ? null : p.card,
-                            border: Border.all(
-                              color: on ? lit : amber.withValues(alpha: 0.75),
-                              width: 2.4,
-                            ),
-                            boxShadow: on || busy
-                                ? [
-                                    BoxShadow(
-                                      color: lit.withValues(
-                                        alpha: p.dark ? 0.45 : 0.30,
-                                      ),
-                                      blurRadius: 26,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                                : [
-                                    BoxShadow(
-                                      color: amber.withValues(
-                                        alpha: p.dark ? 0.18 : 0.12,
-                                      ),
-                                      blurRadius: 12,
-                                    ),
-                                  ],
-                          ),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              if (busy)
-                                SizedBox.square(
-                                  dimension: 84,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2.4,
-                                    valueColor: AlwaysStoppedAnimation(lit),
-                                  ),
-                                ),
-                              // The power's mark: it steps back while the
-                              // connection is being made — the spinner
-                              // owns the disc for that breath.
-                              AnimatedOpacity(
-                                opacity: busy ? 0.40 : 1.0,
-                                duration: const Duration(milliseconds: 200),
-                                child: Icon(
-                                  Icons.power_settings_new_rounded,
-                                  size: 38,
-                                  color: on
-                                      ? discInk
-                                      : (p.dark
-                                            ? amber
-                                            : amber.withValues(alpha: 0.85)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                        // The state's word, in the display's heavy face —
-                        // the HUD's own voice.
-                        CrossfadeText(
-                          widget.label,
-                          textAlign: TextAlign.center,
-                          style: theme.textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 21,
-                            letterSpacing: 0.8,
-                            height: 1.15,
-                            fontFamily: 'GtaHud',
-                            fontFamilyFallback: const ['Vazirmatn', 'Inter'],
-                            color: lit,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          widget.hint,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontSize: 11.5,
-                            color: p.muted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 /// The tiles' connect bar: one wide card, the power's own circle beside
 /// the state's word and the tap's hint — a tap anywhere on it flips the

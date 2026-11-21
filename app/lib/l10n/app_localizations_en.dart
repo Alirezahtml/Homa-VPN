@@ -2002,18 +2002,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'The flags in their glass wheel, the switch under them';
 
   @override
-  String get designBento => 'Tiles';
+  String get designBento => 'Bento';
 
   @override
   String get designBentoDesc =>
-      'A board of rounded tiles: connect, numbers, place';
+      'The lunch box\'s own design: the flags on their board of tiles, the connect tile, the numbers and the place as tiles of one warm box';
 
   @override
-  String get designPixel => 'Compact';
+  String get designPixel => 'Material You';
 
   @override
   String get designPixelDesc =>
-      'One quiet card: the place, the switch, the numbers';
+      'Material You: the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles — the Android\'s own voice';
 
   @override
   String get notifFlag => 'Country flag in the notification';
@@ -2283,6 +2283,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapKindFlat => 'Flat 2D';
+
+  @override
+  String get mapKindHud => 'Radar';
 
   @override
   String get mapStyleGlobeHint =>
@@ -2612,14 +2615,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get avatarPhotoFailed => 'That picture could not be used';
 
   @override
-
-  @override
-
-  @override
-
-  @override
-
-  @override
   String get tlsFragmentAuto => 'Auto';
 
   @override
@@ -2771,6 +2766,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get speedTestSizesTitle => 'Test size';
 
   @override
+  String get wn61Gta =>
+      'The GTA design: the game\'s own HUD — the weapon wheel for the flags, the radar-green tunnel, the amber panels, the heavy face and its own tick';
+
+  @override
+  String get wn61Sound =>
+      'The wheel\'s tick: every seat the dial passes answers in the ear as well as the hand';
+
+  @override
+  String get wn62Wheel =>
+      'The weapon wheel rebuilt: the seats keep the game\'s own spacing at any country count, the chosen sector carries the wheel\'s lit wedge, and a flick throws the dial';
+
+  @override
+  String get wn62Map =>
+      'The home\'s map wears each design\'s own colors now — the water, the land and the grid follow the design the page carries';
+
+  @override
+  String get wn62HudMap =>
+      'The GTA design\'s own map: the game\'s HUD plate — deep water, the neon coast, the amber radar grid and the sweep that walks the world while the tunnel carries';
+
+  @override
+  String get wn62Aether =>
+      'The Aether design\'s power control rebuilt: the disc stands in a thin ring track, the connecting arc walks the ring, and the machined face catches the light';
+
+  @override
+  String get wn62Gta =>
+      'The GTA connect pad answers the hand — the whole panel sinks on a press, and the power\'s mark steps back while the connection is being made';
+
+  @override
   String get speedTestSizeLight => 'Light';
 
   @override
@@ -2800,4 +2823,136 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn56Gazette =>
       'A new home look: the gazette — a front page with a masthead, ruled columns, a live ticker and the ink stamp that presses when the tunnel carries.';
+
+  @override
+  String get designIos => 'iOS';
+
+  @override
+  String get designIosDesc =>
+      'The system\'s own: the grouped tables, the tab bar\'s hairline, the status card and the capsule button — clarity in the system\'s voice';
+
+  @override
+  String get gazetteSection => 'SECTION';
+
+  @override
+  String get wn58Lock =>
+      'The knob\'s lock keeps its ink when the tunnel carries: the mark now reads the face it stands on — dark on a light knob, white on a dark one — so the icon never drowns again.';
+
+  @override
+  String get wn58Enter =>
+      'The connected section breathes in: the numbers fade and lift while the room grows beneath them, and walk back out the same way — the cards no longer snap up between two frames.';
+
+  @override
+  String get wn58Speed =>
+      'The speed test runs lighter: the panel repaints ten times a second at most, the sweep\'s needle walks in a short straight line, and the faces crossfade instead of snapping.';
+
+  @override
+  String get wn58Ios =>
+      'A new design: iOS — the system\'s own look, from the grouped tables and the tab bar\'s hairline to the status card with its capsule button. Every page, card, dialog and icon in the system\'s voice, in both modes.';
+
+  @override
+  String get wn58Pixel =>
+      'A new design: Pixel — Material You\'s look, the tonal surfaces, the big filled cards, the pill-indicator bar and the large titles. Every page, card, dialog and icon in the Android\'s own voice, in both modes.';
+
+  @override
+  String get wn58Paper =>
+      'The gazette is a whole paper now: its own section bar with the print\'s bullet and underline, a section-front header for every pushed page, and the ruled paper box for every group of settings — the print\'s rules reach the whole app.';
+
+  @override
+  String get wn59Flags =>
+      'The flags wear each design\'s own cut: the round medal on iOS and the aether, the squircle on the zed, the ruled plate on the gazette, the pixel\'s soft big rounds — the wheel, the strip and every row\'s little flag follow.';
+
+  @override
+  String get wn59Map =>
+      'The world map is drawn in the design\'s own ink: the paper\'s warm brown on the gazette, the violet night\'s gray on the zed, the tonal blue-gray on the pixel — each design\'s world belongs to its page.';
+
+  @override
+  String get wn59Buttons =>
+      'The connect controls speak their designs: Material You\'s big tonal pill on the pixel, the iOS capsule breathing while the connection is being made, and every page\'s cards entering in their design\'s own motion.';
+
+  @override
+  String get wn59Scroll =>
+      'The wheels and strips scroll in the design\'s own physics: the system\'s bounce, Material\'s quick settle, and the paper\'s weight that dies against the fold.';
+
+  @override
+  String get flagAllPlaces => 'All places';
+
+  @override
+  String get gazetteRegions => 'Destinations';
+
+  @override
+  String get wn60Flags =>
+      'Each design shows the countries its own way now: the bento\'s board of tiles, the pixel\'s filter chips, the aether\'s capsule options, the iOS medals\' deck, the zed\'s paged board, the gazette\'s region index printed like the paper\'s own — the wheel keeps its wheel.';
+
+  @override
+  String get wn60Bento =>
+      'The bento design stands whole: its own warm palette of porcelain and charcoal, the tangerine\'s light, the dock of tiles, the squircle page headers, the tinted cards and the board of flags — every page, both modes.';
+
+  @override
+  String get wn60Spacing =>
+      'The homes walk in one rhythm: the dead bands between the sections are gone, the closing cards fill their rows, and every gap breathes by the spacing the design keeps.';
+
+  @override
+  String get wn63Retired =>
+      'The aether and the zed designs retired: their users walk to the designs that wear their structure — the aether\'s tables to iOS, the zed\'s bento to Bento';
+
+  @override
+  String get wn63Map =>
+      'The GTA map reads as the game\'s own now: every border as a road, an amber blip on every server country, the chosen place as the waypoint with its beam and its name on the plate, the compass at the corner';
+
+  @override
+  String get wn63Servers =>
+      'The servers page wears each design\'s own list — the iOS grouped table, the gazette\'s ruled index, the GTA\'s HUD slots, the pixel\'s tonal cards, the bento\'s board';
+
+  @override
+  String get wn63Accounts =>
+      'The accounts page wears the design too: the cards in the design\'s own round, the add button in the design\'s voice, the dialogs\' titles in the display\'s face, the fields in the design\'s frame';
+
+  @override
+  String get wn63Wheel =>
+      'The weapon wheel rebuilt to the game\'s own measure: the full circle of sector dividers, the two-layer lit wedge, the counter\'s gauge arc, the pop of the opening, and the pick\'s own pulse';
+
+  @override
+  String get wn63Ios =>
+      'The iOS design stands fuller: the status card\'s state wash, the medal deck\'s page dots, the tick at every snap';
+
+  @override
+  String get wn64Wheel =>
+      'The GTA wheel\'s medals sit inside the dial now — twelve seats the game\'s own spread, no medal on the rim or past the screen\'s edge, no two medals touching';
+
+  @override
+  String get wn64Glass =>
+      'The wheel wears the game\'s glass: the world blurred softly under the dial, the plate a touch see-through, its sheen gathered at the top';
+
+  @override
+  String get wn64Groups =>
+      'The iOS home\'s own groups: the session\'s table — the tunnel\'s address, a tap from the clipboard — and the quick actions: the speed test, the connection\'s settings, the accounts';
+
+  @override
+  String get wn64Headers =>
+      'Every page header stretches the page again — the back arrow stands at its edge, not the screen\'s middle';
+
+  @override
+  String get wn64Pill =>
+      'The Material You pill\'s label keeps its breath inside the rounded ends';
+
+  @override
+  String get wn64Map =>
+      'The GTA map\'s borders return to their first dress — the coast keeps its neon, the land its thin ink edge';
+
+  @override
+  String get wn64Name =>
+      'The Pixel design answers to its own name: Material You';
+
+  @override
+  String get wn65Gone =>
+      'The GTA design left: its home, its pages, its palette — five designs stay, and a settings file that still names it lands on the wheel';
+
+  @override
+  String get wn65Tight =>
+      'The home packs tighter in every design: the bare bands the screen\'s leftover used to open between the cards are gone — the wheel, the tiles, the paper, the medals and the chips follow one another at a breath\'s distance, and the page scrolls where it used to stretch';
+
+  @override
+  String get wn65Radar =>
+      'The map the GTA design carried stands on its own now, as the radar: the same deep water, the amber grid and the sweep, under its own name in the map picker';
 }

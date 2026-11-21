@@ -673,7 +673,7 @@
   "mapKindGlobe": "3D 球体",
   "mapKindSatellite": "卫星",
   "mapKindFlat": "平面 2D",
-  "mapKindHud": "GTA",
+  "mapKindHud": "雷达",
   "mapStyleGlobeHint": "3D 球体的配色。卫星有自己的地球，平面地图有自己的墨色。",
   "aboutVersions": "版本",
   "aboutChannels": "联系页面",
@@ -809,8 +809,6 @@
   "wn56Wheel": "旗帜的转轮滑行如丝：一次轻掷带来一个国家，落定归于其位而非磕碰而止——拖动手感沉稳均衡，像一枚好的旋钮。",
   "designGazette": "报章",
   "designGazetteDesc": "头版：报头、栏线与墨戳——纸墨之间的报纸式沉静",
-  "designGta": "GTA",
-  "designGtaDesc": "游戏原生 HUD：旋转的武器轮盘、雷达绿隧道、琥珀色面板与霓虹之夜",
   "speedTestSizesTitle": "测试规模",
   "wn61Gta": "GTA 设计：游戏原生 HUD — 旗帜武器轮盘、雷达绿隧道、琥珀色面板、重型字体与专属音效",
   "wn61Sound": "轮盘的咔哒：拨盘经过的每个座位也在耳边作答",
@@ -858,5 +856,8 @@
   "wn64Headers": "每个页面的页眉重新铺满整页 —— 返回箭头回到页边，不再落在屏幕中央",
   "wn64Pill": "Material You 胶囊按钮的文字在圆角之内留有自己的呼吸",
   "wn64Map": "GTA 地图的边界换回最初的样子 —— 海岸留下霓虹，陆地留着细细的墨线",
-  "wn64Name": "Pixel 设计改用它自己的名字：Material You"
+  "wn64Name": "Pixel 设计改用它自己的名字：Material You",
+  "wn65Gone": "GTA 设计离开：它的主页、它的页面、它的调色板 —— 五个设计保留，仍写着它名字的设置文件会落到转盘上",
+  "wn65Tight": "所有设计的主页排得更紧：屏幕多余空间曾在卡片之间留出的空带消失了 —— 转盘、瓷砖、报纸、奖牌与筛选芯片以一口气的间距依次相连，页面不再拉伸而是滚动",
+  "wn65Radar": "GTA 设计带来的地图如今以自己的名字立身：雷达 —— 同样的深水、琥珀色网格与扫描线，这次在地图选择器中用着自己的名字"
 }

@@ -9,8 +9,6 @@
 // - the gazette's ruled page — the paper's own region index, the serif
 //   names, the dot leaders, the delay at every line's end, the chosen
 //   line's bullet and red ink;
-// - the gta's HUD slots — the dark panels with the amber hairlines, the
-//   blip at every row's head, the chosen slot lit;
 // - the pixel's tonal cards — Material You's own big filled rows, the
 //   state layer speaking, no line at all;
 // - the bento's board — the very-round tiles the box lays out, the
@@ -56,7 +54,6 @@ Widget serversListFor(
   return switch (key) {
     'ios' => _IosServerList(rows: rows, onChoose: onChoose),
     'gazette' => _GazetteServerList(rows: rows, onChoose: onChoose),
-    'gta' => _GtaServerList(rows: rows, onChoose: onChoose),
     'pixel' => _PixelServerList(rows: rows, onChoose: onChoose),
     'bento' => _BentoServerList(rows: rows, onChoose: onChoose),
     _ => _TileServerList(rows: rows, onChoose: onChoose),
@@ -390,130 +387,6 @@ class _GazetteServerList extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// The gta's HUD slots.
-// ---------------------------------------------------------------------------
-
-class _GtaServerList extends StatelessWidget {
-  const _GtaServerList({required this.rows, required this.onChoose});
-
-  final List<ServerRow> rows;
-  final ValueChanged<Location> onChoose;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final dark = theme.brightness == Brightness.dark;
-    final look = AppDesign.current.look(dark);
-    final style = DesignStyle.of(context);
-    final amber = style.navActive;
-    return Column(
-      children: [
-        for (var i = 0; i < rows.length; i++)
-          Padding(
-            padding: EdgeInsets.only(bottom: i == rows.length - 1 ? 0 : 8),
-            child: Material(
-              color: look.homeCard,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-                side: BorderSide(
-                  color: rows[i].selected
-                      ? amber
-                      : look.homeCardBorder.withValues(alpha: 0.9),
-                  width: rows[i].selected ? 1.8 : 1.2,
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              elevation: 0,
-              child: InkWell(
-                onTap: () => onChoose(rows[i].location),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 260),
-                  curve: Curves.easeOutCubic,
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                    14,
-                    11,
-                    12,
-                    11,
-                  ),
-                  decoration: BoxDecoration(
-                    color: rows[i].selected
-                        ? amber.withValues(alpha: dark ? 0.10 : 0.06)
-                        : null,
-                  ),
-                  child: Row(
-                    children: [
-                      // The slot's blip: the marker disc the map wears,
-                      // at every row's head.
-                      Container(
-                        width: 12,
-                        height: 12,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: rows[i].selected
-                              ? amber
-                              : (dark
-                                    ? Colors.white.withValues(alpha: 0.25)
-                                    : Colors.black.withValues(alpha: 0.18)),
-                          border: Border.all(
-                            color: dark
-                                ? Colors.black.withValues(alpha: 0.5)
-                                : Colors.white.withValues(alpha: 0.7),
-                            width: 1.4,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          rows[i].name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 14.5,
-                            height: 1.1,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 0.5,
-                            color: rows[i].selected
-                                ? amber
-                                : look.ink,
-                            fontFamily: 'GtaHud',
-                            fontFamilyFallback: const ['Vazirmatn', 'Inter'],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      ServerDelayBadge(location: rows[i].location),
-                      const SizedBox(width: 6),
-                      SizedBox.square(
-                        dimension: 20,
-                        child: rows[i].busy
-                            ? Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: amber,
-                                ),
-                              )
-                            : rows[i].selected
-                            ? Icon(
-                                Icons.check_rounded,
-                                size: 20,
-                                color: amber,
-                              )
-                            : const SizedBox.shrink(),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
     );
   }
 }
