@@ -4667,44 +4667,51 @@ class _PixelConnect extends StatelessWidget {
             curve: Curves.easeOutCubic,
             height: 62,
             decoration: BoxDecoration(color: container, borderRadius: BorderRadius.circular(31)),
-            child: Center(
-              widthFactor: 1,
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 220),
-                switchInCurve: Curves.easeOutCubic,
-                switchOutCurve: Curves.easeIn,
-                transitionBuilder: (child, anim) => FadeTransition(
-                  opacity: anim,
-                  child: ScaleTransition(scale: Tween(begin: 0.97, end: 1.0).animate(anim), child: child),
-                ),
-                child: Row(
-                  key: ValueKey('$label-$busy-$on'),
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (busy) ...[
-                      SizedBox.square(
-                        dimension: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2.2, color: ink),
+            // The pill's own inset: the label keeps its breath inside the
+            // rounded ends — a wide word would otherwise ride the pill's
+            // full width and read past its curve.
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 220),
+                  switchInCurve: Curves.easeOutCubic,
+                  switchOutCurve: Curves.easeIn,
+                  transitionBuilder: (child, anim) => FadeTransition(
+                    opacity: anim,
+                    child: ScaleTransition(scale: Tween(begin: 0.97, end: 1.0).animate(anim), child: child),
+                  ),
+                  child: Row(
+                    key: ValueKey('$label-$busy-$on'),
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (busy) ...[
+                        SizedBox.square(
+                          dimension: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2.2, color: ink),
+                        ),
+                      ] else
+                        Icon(
+                          on ? Icons.power_settings_new_rounded : Icons.bolt_rounded,
+                          size: 22,
+                          color: ink,
+                        ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          busy ? AppLocalizations.of(context).stateConnecting : label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            letterSpacing: 0.1,
+                            color: ink,
+                          ),
+                        ),
                       ),
-                    ] else
-                      Icon(
-                        on ? Icons.power_settings_new_rounded : Icons.bolt_rounded,
-                        size: 22,
-                        color: ink,
-                      ),
-                    const SizedBox(width: 10),
-                    Text(
-                      busy ? AppLocalizations.of(context).stateConnecting : label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        letterSpacing: 0.1,
-                        color: ink,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

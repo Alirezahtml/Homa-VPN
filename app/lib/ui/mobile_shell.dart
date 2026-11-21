@@ -119,9 +119,13 @@ class _MobileShellState extends State<MobileShell> {
                 body: body,
               ),
               // The bento's box header: the squircle back tile, the big
-              // title in the page itself.
+              // title in the page itself. The column stretches: a header
+              // is the page's own width — shrink-wrapped, it would ride
+              // the title's width and the back tile would leave its
+              // edge for the screen's middle.
               HeaderVariant.bento => Scaffold(
                 body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     BentoPageHeader(title: title),
                     Expanded(child: body),
@@ -129,9 +133,11 @@ class _MobileShellState extends State<MobileShell> {
                 ),
               ),
               // The gazette's section front: the ruled square, the serif
-              // title, the masthead's double rule.
+              // title, the masthead's double rule. Stretched: the rules
+              // span the page, not the title's width.
               HeaderVariant.gazette => Scaffold(
                 body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GazettePageHeader(title: title),
                     Expanded(child: body),
@@ -139,8 +145,12 @@ class _MobileShellState extends State<MobileShell> {
                 ),
               ),
               // Material 3's large title: the plain arrow, the big word.
+              // Stretched: the header spans the page — shrink-wrapped to
+              // the title's width and centered by the column, the back
+              // arrow left its edge and landed in the screen's middle.
               HeaderVariant.m3 => Scaffold(
                 body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     M3PageHeader(title: title),
                     Expanded(child: body),
@@ -148,9 +158,11 @@ class _MobileShellState extends State<MobileShell> {
                 ),
               ),
               // The GTA HUD's header: the amber-ruled back square, the
-              // heavy face, the HUD's rule under them.
+              // heavy face, the HUD's rule under them. Stretched: the
+              // rule spans the page.
               HeaderVariant.gta => Scaffold(
                 body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GtaPageHeader(title: title),
                     Expanded(child: body),
