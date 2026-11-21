@@ -1716,24 +1716,33 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
               // The HUD disc: the dial's own plate — the game's
               // translucent glass, blurred: the world behind melts under
               // the wheel, the plate itself a touch see-through. The blur
-              // lives inside the disc's own clip, so the page around it
-              // keeps its sharpness and the cost stays one circle.
-              Positioned.fill(
+              // lives inside the disc's own clip — the exact circle the
+              // painter draws — so the page around it keeps its
+              // sharpness and the cost stays one circle.
+              Positioned.fromRect(
+                rect: Rect.fromCenter(
+                  center: Offset(size / 2, size / 2 + 3),
+                  width: size - 12,
+                  height: size - 12,
+                ),
                 child: ClipOval(
                   child: BackdropFilter(
                     filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-                    child: CustomPaint(
-                      painter: _WheelHudPainter(
-                        step: step,
-                        drift: drift,
-                        amber: amber,
-                        dark: dark,
-                        panel: look.homeCard,
-                        ink: look.ink,
-                        breath: alive ? breathe : 0,
-                        alive: alive,
-                      ),
-                    ),
+                    child: const SizedBox.expand(),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: _WheelHudPainter(
+                    step: step,
+                    drift: drift,
+                    amber: amber,
+                    dark: dark,
+                    panel: look.homeCard,
+                    ink: look.ink,
+                    breath: alive ? breathe : 0,
+                    alive: alive,
                   ),
                 ),
               ),
