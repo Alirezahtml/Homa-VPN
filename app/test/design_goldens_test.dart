@@ -91,6 +91,7 @@ void main() {
       'NotoNaskh/NotoNaskhArabic-SemiBold.ttf',
       'NotoNaskh/NotoNaskhArabic-Bold.ttf',
     ]);
+    await load('GtaHud', ['GtaHud/Anton-Regular.ttf']);
     // The icons' own face: the nav's glyphs, the orbs' marks, the
     // chevrons — the drawings would show hollow boxes where they stand
     // if the face were missing from the drawing.
@@ -306,6 +307,37 @@ void main() {
       tester,
       name: 'gazette_fa',
       design: 'gazette',
+      language: 'fa',
+    );
+  });
+
+  testWidgets('design gta, dark, connected', (tester) async {
+    await phone(tester, name: 'gta_dark', design: 'gta');
+  });
+
+  testWidgets('design gta, dark, disconnected', (tester) async {
+    await phone(
+      tester,
+      name: 'gta_dark_off',
+      design: 'gta',
+      connected: false,
+    );
+  });
+
+  testWidgets('design gta, light, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'gta_light',
+      design: 'gta',
+      theme: ThemeMode.light,
+    );
+  });
+
+  testWidgets('design gta, Persian, connected', (tester) async {
+    await phone(
+      tester,
+      name: 'gta_fa',
+      design: 'gta',
       language: 'fa',
     );
   });

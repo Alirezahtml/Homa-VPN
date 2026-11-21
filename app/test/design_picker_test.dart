@@ -12,9 +12,9 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The design picker: six real designs, and the reference ones
+  // The design picker: eight real designs, and the reference ones
   // each carry a whole palette the whole app wears.
-  testWidgets('the design picker offers six designs', (tester) async {
+  testWidgets('the design picker offers eight designs', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 1500);
@@ -42,7 +42,7 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['iOS', 'Pixel', 'Aether', 'Zed', 'Gazette']) {
+    for (final name in ['iOS', 'Pixel', 'Aether', 'Zed', 'Gazette', 'GTA']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
@@ -61,6 +61,7 @@ void main() {
     expect(AppDesign.resolve(settings.homeDesign).key, 'zed');
     expect(AppDesign.resolve('aether').key, 'aether');
     expect(AppDesign.resolve('gazette').key, 'gazette');
+    expect(AppDesign.resolve('gta').key, 'gta');
     // The gazette's own light stands in too.
     settings.update(homeDesign: 'gazette');
     await settle(tester);
@@ -86,6 +87,9 @@ void main() {
     await settle(tester);
     final l = AppLocalizations.of(tester.element(find.text('Language')));
     expect(designName(l, settings), 'Aether');
+    settings.update(homeDesign: 'gta');
+    await settle(tester);
+    expect(designName(l, settings), 'GTA');
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

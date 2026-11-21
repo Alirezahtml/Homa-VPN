@@ -59,7 +59,7 @@ For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 
 🌙 Light and dark themes
 
-🎨 Seven home designs — the glass wheel, the Bento box, the newspaper Gazette, iOS, Material You's Pixel, Zed and the Aether — each a complete look of its own: cards, navigation, the world map, the motion, and its own way of showing the countries (the wheel, the board of tiles, the printed region index, the medals' deck, the filter chips, the capsule options, the paged board)
+🎨 Eight home designs — the glass wheel, the Bento box, the newspaper Gazette, iOS, Material You's Pixel, Zed, the Aether and the game's own GTA — each a complete look of its own: cards, navigation, the world map, the motion, and its own way of showing the countries (the wheel, the board of tiles, the printed region index, the medals' deck, the filter chips, the capsule options, the paged board, the weapon wheel)
 
 🛡 Open source, secure, and community-driven
 
@@ -79,7 +79,7 @@ For **Android, Windows, macOS, and Linux**; completely free, with no ads.
 <img src="docs/screenshots/design_settings.webp" width="180" alt="Settings">
 </p>
 
-*The home designs — the wheel, the Bento box, the Gazette, iOS, Pixel, Zed and the Aether — each a complete look of its own, and each its own way of showing the countries: the wheel, the tiles' board, the paper's region index, the medals, the chips, the capsules, the paged board. The last two: the servers and the settings.*
+*The home designs — the wheel, the Bento box, the Gazette, iOS, Pixel, Zed, the Aether and the GTA — each a complete look of its own, and each its own way of showing the countries: the wheel, the tiles' board, the paper's region index, the medals, the chips, the capsules, the paged board, the weapon wheel. The last two: the servers and the settings.*
 
 ## 📥 Download
 
