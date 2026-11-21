@@ -249,56 +249,50 @@ class _FlagBoardState extends State<FlagBoard> with FlagChoices {
     // The board is plain rows of plain cells — no grid viewport anywhere,
     // because the home measures itself through IntrinsicHeight and a
     // viewport cannot answer intrinsics. The cells share the row by
-    // weight, so the board fills whatever width the home gives it.
-    List<Widget> cell(int i) {
-      if (i < visible.length) {
-        return [
-          Expanded(
-            child: _BoardTile(
-              location: visible[i],
-              chosen: i == chosenIndex,
-              pinned: favorites.any(
-                (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
+    // weight, so the board fills whatever width the home gives it — and
+    // a short last row spreads wider instead of leaving dead seats.
+    final cells = <Widget Function()>[
+      for (var i = 0; i < visible.length; i++)
+        () => Expanded(
+              child: _BoardTile(
+                location: visible[i],
+                chosen: i == chosenIndex,
+                pinned: favorites.any(
+                  (f) => f.toLowerCase() == visible[i].code.toLowerCase(),
+                ),
+                accent: widget.accent,
+                border: widget.border,
+                dark: dark,
+                round: style.flagRound,
+                onTap: () => choose(visible[i]),
+                onLongPress: widget.onToggleFavorite == null
+                    ? null
+                    : () => widget.onToggleFavorite!(visible[i].code),
               ),
-              accent: widget.accent,
-              border: widget.border,
-              dark: dark,
-              round: style.flagRound,
-              onTap: () => choose(visible[i]),
-              onLongPress: widget.onToggleFavorite == null
-                  ? null
-                  : () => widget.onToggleFavorite!(visible[i].code),
             ),
-          ),
-        ];
-      }
-      if (showAll && i == visible.length) {
-        // The board's last seat: the tile that says the whole list lives
-        // on the servers page.
-        return [
-          Expanded(
-            child: _BoardTile.all(
-              accent: widget.accent,
-              border: widget.border,
-              dark: dark,
-              label: l.flagAllPlaces,
-              onTap: widget.onOpenServers,
+      if (showAll)
+        () => Expanded(
+              child: _BoardTile.all(
+                accent: widget.accent,
+                border: widget.border,
+                dark: dark,
+                label: l.flagAllPlaces,
+                onTap: widget.onOpenServers,
+              ),
             ),
-          ),
-        ];
-      }
-      return [const Expanded(child: SizedBox())];
-    }
-
+    ];
+    final rows = (cells.length + widget.columns - 1) ~/ widget.columns;
     return Column(
       children: [
-        for (var r = 0; r < widget.rows; r++) ...[
+        for (var r = 0; r < rows; r++) ...[
           if (r > 0) const SizedBox(height: 10),
           Row(
             children: [
-              for (var c = 0; c < widget.columns; c++) ...[
-                if (c > 0) const SizedBox(width: 10),
-                ...cell(r * widget.columns + c),
+              for (var c = r * widget.columns;
+                  c < (r + 1) * widget.columns && c < cells.length;
+                  c++) ...[
+                if (c > r * widget.columns) const SizedBox(width: 10),
+                cells[c](),
               ],
             ],
           ),
