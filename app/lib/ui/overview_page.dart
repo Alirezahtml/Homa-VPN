@@ -5596,7 +5596,7 @@ class _AetherPowerButton extends StatefulWidget {
 }
 
 class _AetherPowerButtonState extends State<_AetherPowerButton>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _breath = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1600),
