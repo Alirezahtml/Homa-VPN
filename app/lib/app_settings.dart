@@ -115,11 +115,10 @@ class AppSettings extends ChangeNotifier {
   int customAccent = 0xFF60A5FA;
 
   /// The home page's design: 'wheel' (the flags in their wheel), 'bento'
-  /// (the tiles), 'pixel' (the compact card), or one of the two reference
-  /// looks that carry a palette of their own — 'aether' (the AetherST
-  /// client's iOS look) and 'zed' (the ZedSecure client's gradient
-  /// look). Whatever else lands in the file — the four looks that left
-  /// among them — reads as the wheel.
+  /// (the tiles), 'pixel' (the compact card), 'ios' (the system's look),
+  /// 'gazette' (the paper) and 'gta' (the game's HUD). Whatever else
+  /// lands in the file — the looks that left among them — reads as the
+  /// wheel.
   String homeDesign = 'wheel';
 
   /// The countries the user pinned in the flag wheel: they lead the wheel
@@ -285,17 +284,19 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// The home design a stored key asks for. The keys the app carries
-  /// stand (the wheel, the bento, the pixel, the gazette, and the looks
-  /// that carry a palette of their own); anything else — the looks that
-  /// left, or a value a newer or older build wrote — lands on the wheel:
-  /// the app's own home, until the user picks one of the looks that
-  /// stand.
+  /// stand (the wheel, the bento, the pixel, the ios, the gazette, and
+  /// the gta); anything else — the looks that left, or a value a newer
+  /// or older build wrote — lands on the wheel: the app's own home,
+  /// until the user picks one of the looks that stand. The two looks
+  /// that retired (the aether's iOS look, the zed's bento look) walk
+  /// their users to the design that wears the same structure: the aether
+  /// to the ios, the zed to the bento.
   static String homeDesignFor(String? key) => switch (key) {
     'bento' => 'bento',
     'pixel' => 'pixel',
     'ios' => 'ios',
-    'aether' => 'aether',
-    'zed' => 'zed',
+    'aether' => 'ios',
+    'zed' => 'bento',
     'gazette' => 'gazette',
     'gta' => 'gta',
     _ => 'wheel',

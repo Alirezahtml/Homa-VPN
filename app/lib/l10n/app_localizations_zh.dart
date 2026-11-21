@@ -2460,16 +2460,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get avatarPhotoFailed => '无法使用该图片';
 
   @override
-  String get designAether => '以太';
 
   @override
-  String get designAetherDesc => 'iOS 状态卡：状态词与会话时长在浮起卡片上，电源键自发光';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc => '渐变圆球：紫、粉与柠檬绿中呼吸的圆球，承载会话时长';
 
   @override
   String get tlsFragmentAuto => '自动';
@@ -5096,16 +5092,12 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get avatarPhotoFailed => '無法使用該圖片';
 
   @override
-  String get designAether => '以太';
 
   @override
-  String get designAetherDesc => 'iOS 狀態卡：狀態詞與工作階段時長在浮起卡片上，電源鍵自發光';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc => '漸層圓球：紫、粉與檸檬綠中呼吸的圓球，承載工作階段時長';
 
   @override
   String get tlsFragmentAuto => '自動';

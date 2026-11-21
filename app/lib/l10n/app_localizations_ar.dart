@@ -2610,18 +2610,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get avatarPhotoFailed => 'تعذّر استخدام هذه الصورة';
 
   @override
-  String get designAether => 'الإيثير';
 
   @override
-  String get designAetherDesc =>
-      'بطاقة حالة بنمط iOS: كلمة الحالة وزمن الجلسة على بطاقة مرتفعة، وزر طاقة متوهج';
 
   @override
-  String get designZed => 'زد';
 
   @override
-  String get designZedDesc =>
-      'كرة متدرجة اللون: كرة تتنفس بالبنفسجي والوردي والليموني تحمل زمن الجلسة';
 
   @override
   String get tlsFragmentAuto => 'تلقائي';

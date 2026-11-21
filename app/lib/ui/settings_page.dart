@@ -154,8 +154,8 @@ class SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     // The design's card, as the Panel wears it: flat and bordered — or
-    // the design's own table: the aether's iOS group (tighter round, the
-    // hairline inset divider), the zed's very-round bento card, the
+    // the design's own table: the ios's iOS group (the hairline inset
+    // divider), the bento's very-round tile card, the
     // gazette's ruled paper box, the pixel's big filled tonal card.
     final style = DesignStyle.of(context);
     final look = AppDesign.current.look(
@@ -4027,8 +4027,6 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'bento' => l.designBento,
   'pixel' => l.designPixel,
   'ios' => l.designIos,
-  'aether' => l.designAether,
-  'zed' => l.designZed,
   'gazette' => l.designGazette,
   'gta' => l.designGta,
   _ => l.designWheel,
@@ -4036,8 +4034,8 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
 
 /// The home design picker: the six real layouts the home page has —
 /// the wheel, the tiles, the compact card, and the looks that carry
-/// a whole palette of their own (the aether's iOS status card, the
-/// zed's gradient blob, the gazette's front page) — each as a card with a small mock-up of itself
+/// a whole palette of their own (the ios status card, the gazette's
+/// front page) — each as a card with a small mock-up of itself
 /// drawn in the theme's own ink, its name, and a word about what it is.
 /// A tap chooses; the home page follows at once (the app's root rebuilds
 /// on the settings), and with the two, the whole app's palette follows
@@ -4062,8 +4060,6 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'bento',
                   'pixel',
                   'ios',
-                  'aether',
-                  'zed',
                   'gazette',
                   'gta',
                 ]) ...[
@@ -4112,8 +4108,6 @@ class _DesignCard extends StatelessWidget {
       'bento' => (l.designBento, l.designBentoDesc),
       'pixel' => (l.designPixel, l.designPixelDesc),
       'ios' => (l.designIos, l.designIosDesc),
-      'aether' => (l.designAether, l.designAetherDesc),
-      'zed' => (l.designZed, l.designZedDesc),
       'gazette' => (l.designGazette, l.designGazetteDesc),
       'gta' => (l.designGta, l.designGtaDesc),
       _ => (l.designWheel, l.designWheelDesc),
@@ -4370,85 +4364,6 @@ class _DesignMockup extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        );
-      case 'aether':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 76,
-              height: 44,
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: scheme.surface,
-                border: Border.all(color: scheme.outlineVariant, width: 0.5),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: lit,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      tile(w: 22, h: 5),
-                    ],
-                  ),
-                  const Spacer(),
-                  tile(w: 30, h: 9, color: ink.withValues(alpha: 0.6)),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: lit,
-              ),
-              child: const Center(child: SizedBox.shrink()),
-            ),
-          ],
-        );
-      case 'zed':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: SweepGradient(
-                  startAngle: 0.6,
-                  endAngle: 0.6 + 2 * math.pi,
-                  colors: [
-                    scheme.primary,
-                    lit.withValues(alpha: 0.75),
-                    lit,
-                  ],
-                  tileMode: TileMode.repeated,
-                ),
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.power_settings_new_rounded,
-                  size: 18,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 7),
-            tile(w: 40, h: 7),
           ],
         );
       case 'gazette':

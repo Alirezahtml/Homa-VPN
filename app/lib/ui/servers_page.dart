@@ -728,8 +728,8 @@ class _LocationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    // The tile's round is the design's own: the aether's iOS tile, the
-    // zed's very-round bento tile, the monochrome's tile as always.
+    // The tile's round is the design's own: the ios's tile, the bento's
+    // very-round tile, the monochrome's tile as always.
     final round = DesignStyle.of(context).listRadius;
     return Material(
       color: selected

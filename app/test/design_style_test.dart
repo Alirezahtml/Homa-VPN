@@ -10,31 +10,16 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The structural side of the designs: what each reference design's
-  // port carries — the aether's iOS shapes, the zed's expressive ones —
-  // and what the monochrome keeps.
-  test('the designs carry the references\' structures', () {
-    final aetherDark = DesignStyle.resolve('aether', true);
-    expect(aetherDark.nav, NavVariant.curvedNotch);
-    expect(aetherDark.header, HeaderVariant.ios);
-    expect(aetherDark.group, GroupVariant.iosTable);
-    expect(aetherDark.iconBadge, true);
-    expect(aetherDark.cardRadius, 16);
-    expect(aetherDark.switchTrack, const Color(0xFF34C759));
-    expect(aetherDark.connected, const Color(0xFF34C759));
-    expect(aetherDark.navActive, const Color(0xFF007AFF));
-    final aetherLight = DesignStyle.resolve('aether', false);
-    // AetherST's own light nav: the porcelain with the system blue.
-    expect(aetherLight.navBackground, const Color(0xFFF2F3F7));
-    expect(aetherLight.navActive, const Color(0xFF0A6CFF));
-
-    final zed = DesignStyle.resolve('zed', false);
-    expect(zed.nav, NavVariant.floatingDock);
-    expect(zed.header, HeaderVariant.zed);
-    expect(zed.group, GroupVariant.bento);
-    expect(zed.cardRadius, 26);
-    expect(zed.dialogRadius, 28);
-    expect(zed.connected, const Color(0xFF7A5CFF));
+  // The structural side of the designs: what each design's port
+  // carries — and what the monochrome keeps. The two looks that left
+  // (the aether, the zed) walk their users to the designs that wear
+  // their structure: the aether's tables on the ios, the zed's bento on
+  // the bento; the style resolve itself lands them on the monochrome.
+  test('the designs carry their own structures', () {
+    expect(AppSettings.homeDesignFor('aether'), 'ios');
+    expect(AppSettings.homeDesignFor('zed'), 'bento');
+    expect(DesignStyle.resolve('aether', true).nav, NavVariant.glassPill);
+    expect(DesignStyle.resolve('zed', false).nav, NavVariant.glassPill);
 
     // The gazette's print: the section bar, the section front, the
     // ruled paper box, the small dialog.
@@ -86,7 +71,7 @@ void main() {
     }
   });
 
-  testWidgets('the aether wears the curved notch bar', (tester) async {
+  testWidgets('the ios wears the system\'s tab bar', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 800);
@@ -97,39 +82,14 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    final settings = AppSettings()..update(homeDesign: 'aether');
+    final settings = AppSettings()..update(homeDesign: 'ios');
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
     await settle(tester);
-    expect(find.byType(AetherCurvedNav), findsOneWidget);
-    expect(find.byType(ZedDockNav), findsNothing);
+    expect(find.byType(CupertinoBarNav), findsOneWidget);
     // The nav rides with its two names.
     expect(find.text('Home'), findsOneWidget);
     expect(find.text('Settings'), findsWidgets);
-
-    await tester.pumpWidget(const SizedBox());
-    core.dispose();
-  });
-
-  testWidgets('the zed wears the floating dock and the FABs', (tester) async {
-    stillMotion(tester);
-    quietAudio(tester);
-    tester.view.physicalSize = const Size(400, 800);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-    final api = FakeApi();
-    final core = CoreController(
-      () async => api,
-      pollInterval: const Duration(hours: 1),
-    );
-    final settings = AppSettings()..update(homeDesign: 'zed');
-    await tester.pumpWidget(VpnApp(core: core, settings: settings));
-    core.start();
-    await settle(tester);
-    expect(find.byType(ZedDockNav), findsOneWidget);
-    expect(find.byType(AetherCurvedNav), findsNothing);
-    // The draggable tool cluster rides the home (ZedSecure's FABs).
-    expect(find.byType(ZedFabCluster), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();
@@ -150,9 +110,6 @@ void main() {
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
     await settle(tester);
-    expect(find.byType(AetherCurvedNav), findsNothing);
-    expect(find.byType(ZedDockNav), findsNothing);
-    expect(find.byType(ZedFabCluster), findsNothing);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

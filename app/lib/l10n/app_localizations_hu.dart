@@ -2619,18 +2619,12 @@ class AppLocalizationsHu extends AppLocalizations {
   String get avatarPhotoFailed => 'A fotó nem használható';
 
   @override
-  String get designAether => 'Éter';
 
   @override
-  String get designAetherDesc =>
-      'iOS állapotkártya: az állapot szava és a munkamenet ideje emelt kártyán, ragyogó bekapcsológombbal';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Színátmenetes gömb: lila, rózsaszín és mész színben lélegző gömb, amely a munkamenet idejét mutatja';
 
   @override
   String get tlsFragmentAuto => 'Auto';

@@ -12,9 +12,9 @@ import 'settle.dart' show settle, quietAudio;
 import 'widget_test.dart' show FakeApi, stillMotion;
 
 void main() {
-  // The design picker: eight real designs, and the reference ones
-  // each carry a whole palette the whole app wears.
-  testWidgets('the design picker offers eight designs', (tester) async {
+  // The design picker: six real designs, and the palette ones each
+  // carry a whole palette the whole app wears.
+  testWidgets('the design picker offers six designs', (tester) async {
     stillMotion(tester);
     quietAudio(tester);
     tester.view.physicalSize = const Size(400, 1500);
@@ -42,24 +42,27 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['iOS', 'Pixel', 'Aether', 'Zed', 'Gazette', 'GTA']) {
+    for (final name in ['iOS', 'Pixel', 'Gazette', 'GTA', 'Bento']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
       expect(card, findsOneWidget, reason: name);
     }
 
-    // A tap on the zed's card: the home design follows, and the whole
-    // app's look with it — the resolved design is the zed's palette.
-    final zed = find.text('Zed');
-    await tester.ensureVisible(zed);
+    // A tap on the gta's card: the home design follows, and the whole
+    // app's look with it — the resolved design is the gta's palette.
+    final gta = find.text('GTA');
+    await tester.ensureVisible(gta);
     await settle(tester);
-    await tester.tap(zed);
+    await tester.tap(gta);
     await settle(tester);
     // The choice went in, past the settings' own list of known designs.
-    expect(settings.homeDesign, 'zed');
-    expect(AppDesign.resolve(settings.homeDesign).key, 'zed');
-    expect(AppDesign.resolve('aether').key, 'aether');
+    expect(settings.homeDesign, 'gta');
+    expect(AppDesign.resolve(settings.homeDesign).key, 'gta');
+    // The looks that left land on the monochrome (the settings walk
+    // their users to the ios and the bento before the resolve runs).
+    expect(AppDesign.resolve('aether').key, 'mono');
+    expect(AppDesign.resolve('zed').key, 'mono');
     expect(AppDesign.resolve('gazette').key, 'gazette');
     expect(AppDesign.resolve('gta').key, 'gta');
     // The gazette's own light stands in too.
@@ -83,10 +86,10 @@ void main() {
     expect(AppDesign.resolveFor(settings, true), isNotNull);
 
     // The design name the settings row reads back.
-    settings.update(homeDesign: 'aether');
+    settings.update(homeDesign: 'ios');
     await settle(tester);
     final l = AppLocalizations.of(tester.element(find.text('Language')));
-    expect(designName(l, settings), 'Aether');
+    expect(designName(l, settings), 'iOS');
     settings.update(homeDesign: 'gta');
     await settle(tester);
     expect(designName(l, settings), 'GTA');

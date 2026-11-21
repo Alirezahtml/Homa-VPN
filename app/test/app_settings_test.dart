@@ -139,10 +139,16 @@ void main() {
         .writeAsStringSync('{"home_design": "sage"}');
     s = await AppSettings.load(dir.path);
     expect(s.homeDesign, 'wheel');
+    // The looks that left walk their users to the design that wears
+    // their structure: the aether to the ios, the zed to the bento.
+    File('${dir.path}/app-settings.json')
+        .writeAsStringSync('{"home_design": "aether"}');
+    s = await AppSettings.load(dir.path);
+    expect(s.homeDesign, 'ios');
     File('${dir.path}/app-settings.json')
         .writeAsStringSync('{"home_design": "zed"}');
     s = await AppSettings.load(dir.path);
-    expect(s.homeDesign, 'zed');
+    expect(s.homeDesign, 'bento');
   });
 
 

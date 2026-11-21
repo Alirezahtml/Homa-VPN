@@ -2590,18 +2590,12 @@ class AppLocalizationsFa extends AppLocalizations {
   String get avatarPhotoFailed => 'این عکس قابل استفاده نبود';
 
   @override
-  String get designAether => 'اثیر';
 
   @override
-  String get designAetherDesc =>
-      'کارت وضعیت iOS: واژه حالت و زمان نشست روی کارت برجسته، با دکمه قدرت درخشان';
 
   @override
-  String get designZed => 'زد';
 
   @override
-  String get designZedDesc =>
-      'گوی گرادیانی: گویی نفس‌کش در بنفش، صورتی و لیمویی که زمان نشست را نشان می‌دهد';
 
   @override
   String get tlsFragmentAuto => 'خودکار';

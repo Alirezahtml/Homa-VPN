@@ -4617,29 +4617,9 @@ abstract class AppLocalizations {
   /// **'That picture could not be used'**
   String get avatarPhotoFailed;
 
-  /// No description provided for @designAether.
-  ///
-  /// In en, this message translates to:
-  /// **'Aether'**
-  String get designAether;
 
-  /// No description provided for @designAetherDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'An iOS status card: the state\'s word and the session\'s time on a raised card, over a power button that glows'**
-  String get designAetherDesc;
 
-  /// No description provided for @designZed.
-  ///
-  /// In en, this message translates to:
-  /// **'Zed'**
-  String get designZed;
 
-  /// No description provided for @designZedDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'A gradient blob: a breathing orb in violet, pink and lime that carries the session\'s time'**
-  String get designZedDesc;
 
   /// No description provided for @tlsFragmentAuto.
   ///

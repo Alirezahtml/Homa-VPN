@@ -2598,18 +2598,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get avatarPhotoFailed => 'এই ছবিটি ব্যবহার করা যায়নি';
 
   @override
-  String get designAether => 'ইথার';
 
   @override
-  String get designAetherDesc =>
-      'iOS স্ট্যাটাস কার্ড: অবস্থার শব্দ ও সেশনের সময় উঁচু কার্ডে, উজ্জ্বল পাওয়ার বোতামসহ';
 
   @override
-  String get designZed => 'জেড';
 
   @override
-  String get designZedDesc =>
-      'গ্রেডিয়েন্ট বল: বেগুনি, গোলাপি ও লাইম রঙে নিঃশ্বাস নেওয়া বৃত্ত যা সেশনের সময় বহন করে';
 
   @override
   String get tlsFragmentAuto => 'স্বয়ংক্রিয়';

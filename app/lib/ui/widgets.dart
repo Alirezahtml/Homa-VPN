@@ -930,8 +930,8 @@ class IconBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The aether's iOS table wears the colored rounded badges; the other
-    // designs keep the neutral tile they always had.
+    // The iOS table wears the colored rounded badges; the other designs
+    // keep the neutral tile they always had.
     return DesignStyle.of(context).badge(context, icon);
   }
 }

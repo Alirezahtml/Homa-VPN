@@ -170,9 +170,9 @@ ThemeData _theme(Brightness brightness, Locale locale, Color? accent) {
         borderRadius: BorderRadius.circular(style.dialogRadius),
       ),
     ),
-    // The switches carry in the design's own track color (the aether's
-    // iOS green, the zed's violet); the monochrome keeps the Material's
-    // own pair, as it always has.
+    // The switches carry in the design's own track color (the ios's
+    // system green); the monochrome keeps the Material's own pair, as
+    // it always has.
     switchTheme: style.nav == NavVariant.glassPill
         ? null
         : SwitchThemeData(

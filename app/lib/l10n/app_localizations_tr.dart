@@ -2604,18 +2604,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get avatarPhotoFailed => 'Bu fotoğraf kullanılamadı';
 
   @override
-  String get designAether => 'Eter';
 
   @override
-  String get designAetherDesc =>
-      'iOS durum kartı: durum sözcüğü ve oturum süresi yükseltilmiş kartta, parlayan güç düğmesiyle';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Gradyan küre: mor, pembe ve limonda nefes alan bir küre, oturum süresini taşır';
 
   @override
   String get tlsFragmentAuto => 'Otomatik';

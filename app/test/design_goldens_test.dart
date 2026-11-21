@@ -1,6 +1,6 @@
 // Renders the phone's home in each of its six designs (the wheel, the
-// tiles, the compact card, the aether's status card, the zed's blob, the
-// gazette's front page), in
+// tiles, the compact card, the ios status card, the gazette's front
+// page), in
 // both themes and both states, as golden images — real pixels of the
 // design, for a look that no assertion can give. Draw them with:
 //   GOLDENS=1 flutter test --update-goldens test/design_goldens_test.dart
@@ -236,47 +236,6 @@ void main() {
       name: 'ios_light',
       design: 'ios',
       theme: ThemeMode.light,
-    );
-  });
-
-  testWidgets('design aether, dark, connected', (tester) async {
-    await phone(tester, name: 'aether_dark', design: 'aether');
-  });
-
-  testWidgets('design aether, light, disconnected', (tester) async {
-    await phone(
-      tester,
-      name: 'aether_light_off',
-      design: 'aether',
-      theme: ThemeMode.light,
-      connected: false,
-    );
-  });
-
-  testWidgets('design aether, light, connected', (tester) async {
-    await phone(
-      tester,
-      name: 'aether_light',
-      design: 'aether',
-      theme: ThemeMode.light,
-    );
-  });
-
-  testWidgets('design zed, dark, connected', (tester) async {
-    await phone(tester, name: 'zed_dark', design: 'zed');
-  });
-
-  testWidgets('design zed, light, connected', (tester) async {
-    await phone(tester, name: 'zed_light', design: 'zed', theme: ThemeMode.light);
-  });
-
-  testWidgets('design zed, Persian, disconnected', (tester) async {
-    await phone(
-      tester,
-      name: 'zed_fa_off',
-      design: 'zed',
-      language: 'fa',
-      connected: false,
     );
   });
 

@@ -2620,18 +2620,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get avatarPhotoFailed => 'Это изображение не удалось использовать';
 
   @override
-  String get designAether => 'Эфир';
 
   @override
-  String get designAetherDesc =>
-      'Карточка статуса в стиле iOS: слово состояния и время сессии на приподнятой карточке, со светящейся кнопкой питания';
 
   @override
-  String get designZed => 'Зед';
 
   @override
-  String get designZedDesc =>
-      'Градиентная сфера: дышащий шар в фиолетовом, розовом и лаймовом, несёт время сессии';
 
   @override
   String get tlsFragmentAuto => 'Авто';

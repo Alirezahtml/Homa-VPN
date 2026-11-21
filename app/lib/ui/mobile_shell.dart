@@ -85,9 +85,8 @@ class _MobileShellState extends State<MobileShell> {
 
   /// Opens [page] under a top bar named [title]; it follows the core.
   /// The header the page wears is the design's own: the monochrome keeps
-  /// the Material bar, the aether wears the iOS bar's compact bold title
-  /// and chevron, the zed drops the bar and opens with its big display
-  /// header in the page itself.
+  /// the Material bar, the ios wears the system bar's compact bold title
+  /// and chevron, the gta the HUD's ruled header.
   void _push(String title, Widget Function() page) {
     final header = DesignStyle.of(context).header;
     Navigator.of(context).push(
@@ -118,14 +117,6 @@ class _MobileShellState extends State<MobileShell> {
                   ),
                 ),
                 body: body,
-              ),
-              HeaderVariant.zed => Scaffold(
-                body: Column(
-                  children: [
-                    ZedPageHeader(title: title),
-                    Expanded(child: body),
-                  ],
-                ),
               ),
               // The bento's box header: the squircle back tile, the big
               // title in the page itself.
@@ -280,14 +271,6 @@ class _MobileShellState extends State<MobileShell> {
           ),
         ),
         bottomNavigationBar: switch (DesignStyle.of(context).nav) {
-          NavVariant.curvedNotch => AetherCurvedNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.floatingDock => ZedDockNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
           NavVariant.bentoDock => BentoDockNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),

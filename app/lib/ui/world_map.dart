@@ -1942,36 +1942,6 @@ class MapSkin {
   /// the homes that carry no palette read it, and any key that is not
   /// one of the designs that stand lands there too.
   static MapSkin? forDesign(String key, bool dark) => switch (key) {
-    'aether' => dark
-        ? const MapSkin(
-            water: Color(0xFF0D1420),
-            waterFade: Color(0xFF080C13),
-            land: Color(0xFF1D2430),
-            edge: Color(0xFF33415A),
-            grid: Color(0xFF33415A),
-          )
-        : const MapSkin(
-            water: Color(0xFFE3E9F2),
-            waterFade: Color(0xFFEDF0F6),
-            land: Color(0xFFFDFEFF),
-            edge: Color(0xFFC7D1E0),
-            grid: Color(0xFFC7D1E0),
-          ),
-    'zed' => dark
-        ? const MapSkin(
-            water: Color(0xFF0D0A1E),
-            waterFade: Color(0xFF070511),
-            land: Color(0xFF1A1230),
-            edge: Color(0xFF37275C),
-            grid: Color(0xFF37275C),
-          )
-        : const MapSkin(
-            water: Color(0xFFE7E1F5),
-            waterFade: Color(0xFFEFEBF9),
-            land: Color(0xFFFDFBFF),
-            edge: Color(0xFFCDC2E8),
-            grid: Color(0xFFCDC2E8),
-          ),
     'gazette' => dark
         ? const MapSkin(
             water: Color(0xFF131009),

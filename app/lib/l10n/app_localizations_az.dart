@@ -2606,18 +2606,12 @@ class AppLocalizationsAz extends AppLocalizations {
   String get avatarPhotoFailed => 'Bu şəkil işlədilə bilmədi';
 
   @override
-  String get designAether => 'Efir';
 
   @override
-  String get designAetherDesc =>
-      'iOS status kartu: vəziyyət sözü və sessiya vaxtı qabarıq kartda, parlaq güc düyməsi ilə';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Qradient kürə: bənövşəyi, çəhrayı və limon rənglərində nəfəs alan kürə, sessiya vaxtını daşıyır';
 
   @override
   String get tlsFragmentAuto => 'Avtomatik';

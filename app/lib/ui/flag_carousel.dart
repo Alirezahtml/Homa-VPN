@@ -930,8 +930,8 @@ class _FlagCard extends StatelessWidget {
   ///
   /// The frame itself wears the design's own dress: the monochrome's
   /// frosted bezel and its blue bloom; the system designs' medal ring;
-  /// the zed's violet glow; the pixel's quiet tonal edge; and the
-  /// paper's double rule, flat, no light at all.
+  /// the pixel's quiet tonal edge; and the paper's double rule, flat,
+  /// no light at all.
   Widget _framedCard(
     DesignStyle design,
     ColorScheme scheme,
@@ -1329,9 +1329,8 @@ class FlagStrip extends StatefulWidget {
   final Color accent;
 
   /// Whether the chosen country's name shows under the strip. The homes
-  /// whose own card names the place again — the aether's status card, the
-  /// zed's server card — pass false: one page says the place once, the
-  /// way a clean layout should.
+  /// whose own card names the place again — the iOS status card — pass
+  /// false: one page says the place once, the way a clean layout should.
   final bool showName;
 
   @override

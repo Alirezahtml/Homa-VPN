@@ -2604,18 +2604,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get avatarPhotoFailed => 'Không thể dùng ảnh đó';
 
   @override
-  String get designAether => 'Aether';
 
   @override
-  String get designAetherDesc =>
-      'Thẻ trạng thái kiểu iOS: từ trạng thái và thời gian phiên trên thẻ nổi, kèm nút nguồn phát sáng';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Quả cầu chuyển sắc: quả cầu thở trong tím, hồng và chanh mang theo thời gian phiên';
 
   @override
   String get tlsFragmentAuto => 'Tự động';

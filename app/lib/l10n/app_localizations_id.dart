@@ -2608,18 +2608,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get avatarPhotoFailed => 'Gambar itu tidak dapat dipakai';
 
   @override
-  String get designAether => 'Aether';
 
   @override
-  String get designAetherDesc =>
-      'Kartu status iOS: kata status dan waktu sesi pada kartu timbul, dengan tombol daya yang menyala';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Bola gradien: orb bernapas dalam ungu, merah muda, dan limau yang membawa waktu sesi';
 
   @override
   String get tlsFragmentAuto => 'Otomatis';

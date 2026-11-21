@@ -2630,18 +2630,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get avatarPhotoFailed => 'Impossible d\'utiliser cette image';
 
   @override
-  String get designAether => 'Éther';
 
   @override
-  String get designAetherDesc =>
-      'Carte d\'état iOS : le mot d\'état et la durée de session sur une carte surélevée, avec un bouton d\'alimentation lumineux';
 
   @override
-  String get designZed => 'Zed';
 
   @override
-  String get designZedDesc =>
-      'Une bulle dégradée : un orbe respirant en violet, rose et lime qui porte la durée de la session';
 
   @override
   String get tlsFragmentAuto => 'Automatique';

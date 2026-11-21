@@ -4,7 +4,7 @@
 ///
 /// Three pieces:
 /// - [LiquidGlass]: the card's box — the fill and the edge drawn from the
-///   design's own look (the mono, the aether and the zed each wear their
+///   design's own look (each of the designs wears its own wash)
 ///   own glass), and, for the floating pieces that ride over moving
 ///   content, a real blur of what stands behind;
 /// - [GlassSheen]: the one light sweep a glass card makes as it lands;
@@ -29,7 +29,7 @@ import 'design_style.dart';
 import 'motion.dart' show motionStill;
 
 /// The glass's colors on this page, read from the design's own look: the
-/// mono's glass is quiet, the aether's is porcelain, the zed's is the
+/// mono's glass is quiet; a design with a palette tints its own
 /// violet night's — one recipe, each design's own light.
 class Glass {
   const Glass({
