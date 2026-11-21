@@ -42,7 +42,7 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['iOS', 'Pixel', 'Gazette', 'GTA', 'Bento']) {
+    for (final name in ['iOS', 'Material You', 'Gazette', 'GTA', 'Bento']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
