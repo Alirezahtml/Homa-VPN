@@ -24,7 +24,6 @@ import '../l10n/app_localizations.dart';
 import 'design.dart';
 import 'design_style.dart';
 import 'flag_modes.dart' show flagArt, locationName;
-import 'motion.dart' show Reveal;
 import 'widgets.dart' show CountryFlag, delayColor, typefacesOf;
 
 /// One place as the list reads it: the entry itself, the name in the
@@ -774,14 +773,4 @@ class ServerDelayBadge extends StatelessWidget {
       ),
     );
   }
-}
-
-/// The list's entrance: the rows walk in with the page's own reveal.
-class ServerListReveal extends StatelessWidget {
-  const ServerListReveal({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Reveal(index: 2, child: child);
 }
