@@ -1961,27 +1961,48 @@ class _PhoneHome extends StatelessWidget {
                       showTraffic: settings.showTraffic,
                     ),
                   ),
-                if (ip.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: _HomeRow(
-                      palette: p,
-                      icon: Icons.public_rounded,
-                      label: l.publicIp,
-                      value: ltr(ip),
-                      // The address is the kind of thing a report needs: a
-                      // tap carries it to the clipboard, and a word says so.
-                      onTap: () => _copyPublicIp(context, ip),
-                      trailing: Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 8),
-                        child: Icon(
-                          Icons.copy_rounded,
-                          size: 14,
-                          color: p.muted,
+                if (design == 'ios') ...[
+                  // The iOS home's info group instead of the floating
+                  // row: the session's own table — the address the
+                  // tunnel leaves from and the session's totals — the
+                  // system's inset group under the status card, so the
+                  // page's middle reads as one list, not a pill lost on
+                  // the map.
+                  if (ip.isNotEmpty ||
+                      (settings.showTraffic && status.traffic != null))
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: _IosInfoGroup(
+                        palette: p,
+                        ip: ip,
+                        onCopy: () => _copyPublicIp(context, ip),
+                        traffic: status.traffic,
+                        showSession: settings.showTraffic,
+                      ),
+                    ),
+                ] else
+                  if (ip.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: _HomeRow(
+                        palette: p,
+                        icon: Icons.public_rounded,
+                        label: l.publicIp,
+                        value: ltr(ip),
+                        // The address is the kind of thing a report
+                        // needs: a tap carries it to the clipboard, and
+                        // a word says so.
+                        onTap: () => _copyPublicIp(context, ip),
+                        trailing: Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 8),
+                          child: Icon(
+                            Icons.copy_rounded,
+                            size: 14,
+                            color: p.muted,
+                          ),
                         ),
                       ),
                     ),
-                  ),
                 if (status.upstreamProxy.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
@@ -2066,6 +2087,27 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
           ),
+          // The iOS home's own doors: the quick actions in their grouped
+          // card under the status card — the speed test's measurement,
+          // the connection's settings, the accounts' page. The system's
+          // home puts its features one grouped list from the hand; this
+          // page does the same, in both states, so the middle of the
+          // page carries the app's own options instead of an empty map.
+          if (design == 'ios')
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: RepaintBoundary(
+                child: _IosActionsGroup(
+                  palette: p,
+                  onSpeedTest: () {
+                    AppSounds.play(SoundCue.tap);
+                    showSpeedTest(context, core, settings);
+                  },
+                  onConnection: onOpenConnection,
+                  onAccounts: onOpenAccounts,
+                ),
+              ),
+            ),
           // Where to find the proxy, on a line of its own under the delay.
           if (connected && proxyOnly && proxy != null)
             Padding(
@@ -5266,4 +5308,223 @@ class _IosStatusCard extends StatelessWidget {
     indent: 12,
     color: p.cardBorder.withValues(alpha: 0.7),
   );
+}
+
+// ---------------------------------------------------------------------------
+// The iOS home's own groups: the session's table and the quick actions,
+// the system's inset lists under the status card.
+// ---------------------------------------------------------------------------
+
+/// The iOS grouped card: the raised sheet the status card wears, its
+/// hairline edge — the group the system's own tables sit in.
+Widget _iosGroupCard(_HomePalette p, {required List<Widget> children}) =>
+    Material(
+      color: p.card,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: p.cardBorder),
+      ),
+      clipBehavior: Clip.antiAlias,
+      elevation: 0,
+      child: Column(children: children),
+    );
+
+/// The group's hairline, inset past the row's badge the way the system
+/// insets its own.
+Widget _iosGroupHairline(_HomePalette p) => Divider(
+  height: 1,
+  thickness: 0.5,
+  indent: 50,
+  color: p.cardBorder.withValues(alpha: 0.7),
+);
+
+/// The iOS home's info group: the session's own table under the status
+/// card — the address the tunnel leaves from (a tap carries it to the
+/// clipboard) and the session's totals. The rows the system's tables
+/// wear: the badge, the label, the tabular value at the row's end.
+class _IosInfoGroup extends StatelessWidget {
+  const _IosInfoGroup({
+    required this.palette,
+    required this.ip,
+    required this.onCopy,
+    required this.traffic,
+    required this.showSession,
+  });
+
+  final _HomePalette palette;
+  final String ip;
+  final VoidCallback onCopy;
+  final Traffic? traffic;
+  final bool showSession;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final t = traffic;
+    final session =
+        '↓ ${formatBytes((t?.down ?? 0) + (t?.directDown ?? 0))}'
+        ' · '
+        '↑ ${formatBytes((t?.up ?? 0) + (t?.directUp ?? 0))}';
+    return _iosGroupCard(
+      p,
+      children: [
+        if (ip.isNotEmpty)
+          _IosGroupRow(
+            palette: p,
+            icon: Icons.public_rounded,
+            label: l.publicIp,
+            value: ip,
+            valueLtr: true,
+            onTap: onCopy,
+            trailing: Icons.copy_rounded,
+          ),
+        if (ip.isNotEmpty && showSession && t != null) _iosGroupHairline(p),
+        if (showSession && t != null)
+          _IosGroupRow(
+            palette: p,
+            icon: Icons.swap_vert_rounded,
+            label: l.statSession,
+            value: session,
+            valueLtr: true,
+          ),
+      ],
+    );
+  }
+}
+
+/// The iOS home's quick actions: the app's own doors in one grouped
+/// card — the speed test's measurement, the connection's settings, the
+/// accounts' page. The list the system opens its features from.
+class _IosActionsGroup extends StatelessWidget {
+  const _IosActionsGroup({
+    required this.palette,
+    required this.onSpeedTest,
+    required this.onConnection,
+    required this.onAccounts,
+  });
+
+  final _HomePalette palette;
+  final VoidCallback onSpeedTest;
+  final VoidCallback? onConnection;
+  final VoidCallback? onAccounts;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final p = palette;
+    final rows = <(IconData, String, VoidCallback)>[
+      (Icons.speed_rounded, l.speedTestTitle, onSpeedTest),
+      if (onConnection != null)
+        (Icons.tune_rounded, l.connectionSettings, onConnection!),
+      if (onAccounts != null) (Icons.person_rounded, l.navAccounts, onAccounts!),
+    ];
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: _iosGroupCard(
+        p,
+        children: [
+          for (var i = 0; i < rows.length; i++) ...[
+            if (i > 0) _iosGroupHairline(p),
+            _IosGroupRow(
+              palette: p,
+              icon: rows[i].$1,
+              label: rows[i].$2,
+              onTap: rows[i].$3,
+              chevron: true,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// One row of the iOS home's groups: the tinted badge, the label, the
+/// value (or the chevron) at the row's end. A tap on the whole row
+/// answers when [onTap] says so.
+class _IosGroupRow extends StatelessWidget {
+  const _IosGroupRow({
+    required this.palette,
+    required this.icon,
+    required this.label,
+    this.value,
+    this.valueLtr = false,
+    this.onTap,
+    this.trailing,
+    this.chevron = false,
+  });
+
+  final _HomePalette palette;
+  final IconData icon;
+  final String label;
+  final String? value;
+  final bool valueLtr;
+  final VoidCallback? onTap;
+  final IconData? trailing;
+  final bool chevron;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = palette;
+    final style = DesignStyle.of(context);
+    final blue = style.navActive;
+    final typefaces = typefacesOf(context);
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Row(
+          children: [
+            Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                color: blue.withValues(alpha: p.dark ? 0.22 : 0.14),
+              ),
+              alignment: Alignment.center,
+              child: Icon(icon, size: 16, color: blue),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyMedium?.copyWith(color: p.text),
+              ),
+            ),
+            if (value != null) ...[
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  value!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textDirection: valueLtr ? TextDirection.ltr : null,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                    fontFamily: typefaces.display,
+                    fontFamilyFallback: typefaces.displayFallback,
+                    color: p.text,
+                  ),
+                ),
+              ),
+            ],
+            if (trailing != null) ...[
+              const SizedBox(width: 6),
+              Icon(trailing, size: 14, color: p.muted),
+            ],
+            if (chevron) ...[
+              const SizedBox(width: 4),
+              Icon(Icons.chevron_right_rounded, size: 18, color: p.muted),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 }
