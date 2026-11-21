@@ -1575,6 +1575,11 @@ class _PhoneHome extends StatelessWidget {
                   favorites: settings.favoriteCountries,
                   onToggleFavorite: (code) =>
                       _toggleFavorite(context, core, settings, code),
+                  // The wheel's lights breathe only while the connection
+                  // carries (or is on its way): off, the disc holds one
+                  // pose and the phone's battery keeps the frames.
+                  animated: connected || confirming,
+                  still: settings.batterySaver,
                 ),
               ),
             ),

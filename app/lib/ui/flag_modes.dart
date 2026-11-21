@@ -1169,19 +1169,30 @@ class _RegionRow extends StatelessWidget {
 
 /// The GTA design's weapon wheel: the countries as the game's own
 /// radial dial — the circular medals seated around a dark HUD disc, the
-/// amber rim and its tick marks, the top seat's own lit wedge (the game
-/// lights the weapon the thumb points at), and the center screen
-/// carrying the active country's flag, its name and the counter (n of
-/// N) in the display's heavy face. A drag turns the dial; every seat it
-/// passes answers with the tick; a release with speed behind it throws
-/// the dial a seat or two further, the flick the game's wheel answers
-/// with. A tap on a medal, a sector or the center screen picks the
-/// country, the way a tap picks the weapon.
+/// full circle of sector dividers, the top seat's own lit wedge (the
+/// game lights the weapon the thumb points at), and the center screen
+/// carrying the active country's flag, its name and the counter in the
+/// display's heavy face, with the counter's own dial arc around them —
+/// the ammo gauge the game shows under the weapon's name.
+///
+/// A drag turns the dial; every seat it passes answers with the tick and
+/// a click of the finger's own haptic. A release with speed behind it
+/// throws the dial a seat or two further, the flick the game's wheel
+/// answers with. A tap on a medal, a sector or the center screen picks
+/// the country: the wedge flashes, the medal pulses, the tap's sound
+/// lands — the way picking a weapon lands in the game.
+///
+/// The wheel opens the way the game's does: it pops in — a quick scale
+/// from three quarters with a soft overshoot — and the wedge's light
+/// arrives a breath later, so the disc reads first and the choice's
+/// light lands on top of it.
 ///
 /// The ring holds a fixed spread of seats — the game's own spacing. A
 /// country list longer than the ring turns the dial into a drum: the
 /// seats keep their places, the countries flow through them, and the
-/// wheel reads clean at any count, from five medals to ninety.
+/// wheel reads clean at any count, from five medals to ninety. While
+/// the tunnel carries, the rim's own glow breathes; the battery saver's
+/// stillness holds it at one light.
 class FlagWeaponWheel extends StatefulWidget {
   const FlagWeaponWheel({
     super.key,
@@ -1190,6 +1201,8 @@ class FlagWeaponWheel extends StatefulWidget {
     this.favorites = const [],
     this.onToggleFavorite,
     this.onOpenServers,
+    this.animated = false,
+    this.still = false,
   });
 
   final CoreController core;
@@ -1198,13 +1211,24 @@ class FlagWeaponWheel extends StatefulWidget {
   final void Function(String code)? onToggleFavorite;
   final VoidCallback? onOpenServers;
 
+  /// Whether the wheel's own lights may move: the home hands it the
+  /// connection's state, so the rim breathes only while the tunnel
+  /// carries (or is on its way).
+  final bool animated;
+
+  /// The battery saver's stillness: one pose, no breath, whatever the
+  /// connection says.
+  final bool still;
+
   @override
   State<FlagWeaponWheel> createState() => _FlagWeaponWheelState();
 }
 
 class _FlagWeaponWheelState extends State<FlagWeaponWheel>
-    with FlagChoices, SingleTickerProviderStateMixin {
+    with FlagChoices, TickerProviderStateMixin {
   final GlobalKey _key = GlobalKey(debugLabel: 'gta-weapon-wheel');
+
+  /// The drag's settle: the dial's glide to the seat it lands on.
   late final AnimationController _settle = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 460),
@@ -1220,22 +1244,34 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
   String? _followedSel;
   int _followedCount = -1;
 
-  // The ring: the seat positions the countries flow through — the game's
-  // own spread. A list longer than the ring turns the dial into a drum:
-  // the seats keep their places and their spacing, the countries pass
-  // through them as the dial turns, and the wheel reads clean at any
-  // count — no seat ever leans on its neighbor.
-  static const int _ringSeats = 16;
+  /// The opening: the wheel's pop, the way the game's wheel arrives —
+  /// a quick scale with a soft overshoot.
+  late final AnimationController _open = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 430),
+  );
+  late final Animation<double> _openScale = Tween<double>(
+    begin: 0.72,
+    end: 1.0,
+  ).animate(CurvedAnimation(parent: _open, curve: Curves.easeOutBack));
+  late final Animation<double> _openFade = Tween<double>(begin: 0, end: 1)
+      .animate(
+        CurvedAnimation(
+          parent: _open,
+          curve: const Interval(0, 0.55, curve: Curves.easeOut),
+        ),
+      );
 
-  /// The front arc: a seat past it fades out before it would wrap.
-  static const double _arc = math.pi * 0.62;
+  /// The pick's confirm: one quick swell of the chosen medal and the
+  /// wedge's light — the tap's own answer, then quiet.
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 380),
+  );
 
-  @override
-  CoreController get core => widget.core;
-  @override
-  List<String> get favorites => widget.favorites;
-  @override
-  void Function(String code)? get onToggleFavorite => widget.onToggleFavorite;
+  /// The rim's breath while the tunnel carries: a slow two-second
+  /// swell, running only when the home allows it.
+  AnimationController? _breathe;
 
   @override
   void initState() {
@@ -1249,11 +1285,44 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     _settle.addStatusListener((status) {
       if (status == AnimationStatus.completed) _motion = null;
     });
+    _pulse.addListener(() => setState(() {}));
+    _open.forward();
+    _syncBreathe();
+  }
+
+  @override
+  void didUpdateWidget(covariant FlagWeaponWheel old) {
+    super.didUpdateWidget(old);
+    if (old.animated != widget.animated || old.still != widget.still) {
+      _syncBreathe();
+    }
+  }
+
+  /// The breath's controller, made only when the home allows movement —
+  /// a repeating controller costs frames, so the battery saver (and the
+  /// resting tunnel) keep the wheel at one light and no controller.
+  void _syncBreathe() {
+    final wanted = widget.animated && !widget.still;
+    if (wanted && _breathe == null) {
+      final controller = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 2100),
+      )..repeat(reverse: true);
+      controller.addListener(() => setState(() {}));
+      setState(() => _breathe = controller);
+    } else if (!wanted && _breathe != null) {
+      final controller = _breathe!;
+      setState(() => _breathe = null);
+      controller.dispose();
+    }
   }
 
   @override
   void dispose() {
     _settle.dispose();
+    _open.dispose();
+    _pulse.dispose();
+    _breathe?.dispose();
     flagChoicesDispose();
     super.dispose();
   }
@@ -1275,6 +1344,16 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     }
     return a;
   }
+
+  /// The ring: the seat positions the countries flow through — the game's
+  /// own spread. A list longer than the ring turns the dial into a drum:
+  /// the seats keep their places and their spacing, the countries pass
+  /// through them as the dial turns, and the wheel reads clean at any
+  /// count — no seat ever leans on its neighbor.
+  static const int _ringSeats = 16;
+
+  /// The front arc: a seat past it fades out before it would wrap.
+  static const double _arc = math.pi * 0.62;
 
   /// The dial's position in seat units: how far the ring has turned,
   /// entry 0's seat as the origin. Every seat the wheel shows reads its
@@ -1409,9 +1488,17 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     _omega = 0;
   }
 
+  /// The pick: the dial walks the choice to the top seat, the tunnel
+  /// follows, and the wheel answers — the medal's swell, the wedge's
+  /// flash, the tap's sound and the finger's own knock.
   void _pick(int i, List<Location> entries) {
     if (i < 0 || i >= entries.length) return;
     _animateTo(i, entries.length);
+    HapticFeedback.mediumImpact();
+    AppSounds.play(SoundCue.tap);
+    _pulse
+      ..reset()
+      ..forward();
     choose(entries[i]);
   }
 
@@ -1426,7 +1513,7 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final v = local - c;
     final n = entries.length;
     // The center screen: the active country's own button.
-    if (v.distance <= 74) {
+    if (v.distance <= 76) {
       _pick(_mod(_phi(n).round(), n), entries);
       return;
     }
@@ -1439,7 +1526,7 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final pa = math.atan2(v.dx, -v.dy);
     final j = ((pa - drift) / step).round();
     final angle = drift + j * step;
-    final radius = math.min(box.size.width, 340.0) / 2 - 16;
+    final radius = math.min(box.size.width, 352.0) / 2 - 16;
     if (angle.abs() > _arc + step / 2) return;
     if (v.distance > radius + 46) return;
     _pick(_mod(phi.round() + j, n), entries);
@@ -1464,6 +1551,10 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final chosenIndex = indexOf(entries, selection);
     final active = entries[_mod(top, n)];
     final jMax = (_arc / step).ceil();
+    final breathe = _breathe?.value ?? 0;
+    final pulse = _pulse.isAnimating ? 1.0 - _pulse.value : 0.0;
+    final alive = widget.animated && !widget.still;
+
     // The seats the dial shows: each ring position j seats the entry
     // (top + j) — the drum's own feed — and the arc's ends fade out
     // before they would wrap.
@@ -1496,91 +1587,129 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
       return out;
     }
 
-    return RepaintBoundary(
-      child: SizedBox(
-        height: 348,
-        width: double.infinity,
-        child: LayoutBuilder(
-          builder: (context, box) {
-            final size = math.min(box.maxWidth, 340.0);
-            final radius = size / 2 - 16;
-            final center = Offset(size / 2, (size + 6) / 2);
-            return Center(
-              child: GestureDetector(
-                key: _key,
-                behavior: HitTestBehavior.opaque,
-                onPanStart: _panStart,
-                onPanUpdate: _panUpdate,
-                onPanEnd: _panEnd,
-                onTapUp: _tap,
-                child: SizedBox(
-                  width: size,
-                  height: size + 6,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    // The HUD disc: the dial's own plate — the rim, the
-                    // ticks, the top seat's lit wedge, the spokes and
-                    // the notch.
-                    Positioned.fill(
-                      child: CustomPaint(
-                        painter: _WheelHudPainter(
-                          step: step,
-                          drift: drift,
-                          amber: amber,
-                          dark: dark,
-                          panel: look.homeCard,
-                          ink: look.ink,
-                        ),
+    Widget wheel(double size) {
+      final radius = size / 2 - 16;
+      final center = Offset(size / 2, size / 2 + 3);
+      return GestureDetector(
+        key: _key,
+        behavior: HitTestBehavior.opaque,
+        onPanStart: _panStart,
+        onPanUpdate: _panUpdate,
+        onPanEnd: _panEnd,
+        onTapUp: _tap,
+        child: SizedBox(
+          width: size,
+          height: size + 6,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              // The HUD disc: the dial's own plate — the rim, the full
+              // circle of sector dividers, the ticks, the top seat's lit
+              // wedge and the notch, and the rim's own breath while the
+              // tunnel carries.
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: _WheelHudPainter(
+                    step: step,
+                    drift: drift,
+                    amber: amber,
+                    dark: dark,
+                    panel: look.homeCard,
+                    ink: look.ink,
+                    breath: alive ? breathe : 0,
+                    alive: alive,
+                    confirming: widget.animated,
+                  ),
+                ),
+              ),
+              // The medals: the drum feeds them through the ring —
+              // the seats keep their spread whatever the list's
+              // length, the countries pass through them as the
+              // dial turns.
+              ...seats(radius, center),
+              // The center screen: the active country's flag, its
+              // name, and the counter with its own dial arc — the
+              // gauge the game hangs under the weapon's name.
+              Positioned.fromRect(
+                rect: Rect.fromCircle(center: center, radius: 66),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => _pick(_mod(top, n), entries),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: dark
+                            ? [
+                                const Color(0xFF181826),
+                                const Color(0xFF0D0D16),
+                              ]
+                            : [
+                                Colors.white,
+                                const Color(0xFFF7F3E8),
+                              ],
+                        stops: const [0.55, 1],
                       ),
-                    ),
-                    // The medals: the drum feeds them through the ring —
-                    // the seats keep their spread whatever the list's
-                    // length, the countries pass through them as the
-                    // dial turns.
-                    ...seats(radius, center),
-                    // The center screen: the active country's flag, its
-                    // name, and the counter in the heavy face.
-                    Positioned.fromRect(
-                      rect: Rect.fromCircle(center: center, radius: 62),
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => _pick(_mod(top, n), entries),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: look.homeCard,
-                            border: Border.all(
-                              color: amber.withValues(alpha: 0.75),
-                              width: 1.4,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(
-                                  alpha: dark ? 0.5 : 0.18,
-                                ),
-                                blurRadius: 14,
-                              ),
-                            ],
+                      border: Border.all(
+                        color: amber.withValues(alpha: 0.8),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(
+                            alpha: dark ? 0.55 : 0.16,
                           ),
-                          padding: const EdgeInsets.all(10),
+                          blurRadius: 16,
+                        ),
+                        if (alive)
+                          BoxShadow(
+                            color: amber.withValues(
+                              alpha: 0.16 + 0.14 * breathe,
+                            ),
+                            blurRadius: 18 + 10 * breathe,
+                          ),
+                      ],
+                    ),
+                    child: Stack(
+                      children: [
+                        // The counter's dial: the gauge arc around the
+                        // screen, the amber light walking to the active
+                        // seat's share of the list.
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: _CenterDialPainter(
+                              progress: n <= 1 ? 1 : (top % n + 1) / n,
+                              amber: amber,
+                              dark: dark,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(11),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ClipOval(
-                                child: SizedBox(
-                                  width: 44,
-                                  height: 44,
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: amber.withValues(alpha: 0.55),
+                                      width: 1.2,
+                                    ),
+                                  ),
                                   child: flagArt(
                                     context,
                                     active.code,
-                                    44,
-                                    44,
+                                    42,
+                                    42,
                                     cover: true,
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: 5),
                               Text(
                                 locationName(l, active.code, active.name),
                                 maxLines: 1,
@@ -1590,8 +1719,8 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                                   fontSize: 10.5,
                                   height: 1.15,
                                   fontWeight: FontWeight.w800,
-                                  letterSpacing: 0.2,
-                                  color: look.ink,
+                                  letterSpacing: 0.3,
+                                  color: dark ? Colors.white : look.ink,
                                   fontFamily: 'GtaHud',
                                   fontFamilyFallback: const [
                                     'Vazirmatn',
@@ -1620,13 +1749,40 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                             ],
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          );
+            ],
+          ),
+        ),
+      );
+    }
+
+    return RepaintBoundary(
+      child: SizedBox(
+        height: 372,
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (context, box) {
+            final size = math.min(box.maxWidth, 352.0);
+            // The opening: the whole wheel pops the way the game's own
+            // wheel arrives — the scale eases out past one and settles.
+            return Center(
+              child: FadeTransition(
+                opacity: _openFade,
+                child: ScaleTransition(
+                  scale: _openScale,
+                  child: Transform.scale(
+                    // The pick's own swell: the wheel breathes once under
+                    // the finger, the light lands with it.
+                    scale: 1 + 0.02 * pulse,
+                    child: wheel(size),
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),
@@ -1651,23 +1807,34 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final t = (1 - angle.abs() / _arc).clamp(0.0, 1.0);
     if (t <= 0.04) return const SizedBox.shrink();
     final pos = center + Offset(math.sin(angle), -math.cos(angle)) * radius;
-    final size = 40.0 + 8.0 * t;
+    final size = 42.0 + 9.0 * t;
     final ring = chosenSeat
         ? widget.accent
         : activeSeat
         ? amber
         : border;
-    final ringWidth = chosenSeat ? 2.4 : (activeSeat ? 2.0 : 1.0);
-    final glow = (chosenSeat || activeSeat)
+    final ringWidth = chosenSeat ? 2.6 : (activeSeat ? 2.2 : 1.0);
+    final lit = chosenSeat || activeSeat;
+    final glow = lit
         ? [
+            // The medal's own light, doubled on the chosen one — the
+            // game's selected weapon reads brighter than its seats.
             BoxShadow(
               color: (chosenSeat ? widget.accent : amber).withValues(
-                alpha: 0.40 * (0.4 + 0.6 * t),
+                alpha: 0.42 * (0.4 + 0.6 * t),
               ),
-              blurRadius: 14,
+              blurRadius: 15,
             ),
+            if (chosenSeat)
+              BoxShadow(
+                color: widget.accent.withValues(alpha: 0.22),
+                blurRadius: 26,
+              ),
           ]
         : null;
+    final plate = dark
+        ? Colors.black.withValues(alpha: 0.52)
+        : Colors.white.withValues(alpha: 0.86);
     return Positioned(
       left: pos.dx - (size + 10) / 2,
       top: pos.dy - (size + 10) / 2,
@@ -1694,9 +1861,7 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: dark
-                      ? Colors.black.withValues(alpha: 0.45)
-                      : Colors.white.withValues(alpha: 0.82),
+                  color: plate,
                   border: Border.all(color: ring, width: ringWidth),
                   boxShadow: glow,
                 ),
@@ -1708,6 +1873,23 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                   ),
                 ),
               ),
+              // The active seat's hairline: the white inner ring the
+              // game draws around the weapon the thumb holds.
+              if (activeSeat || chosenSeat)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Container(
+                      margin: const EdgeInsets.all(2.5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.55),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               if (pinned)
                 PositionedDirectional(
                   top: -2,
@@ -1741,10 +1923,11 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
 }
 
 /// The dial's own plate, painted once behind the medals: the dark disc,
-/// the amber rim, the tick marks the HUD wears, the top seat's lit
-/// wedge — the game's own answer to the thumb — the thin spokes turning
-/// between the seats, and the notch that marks the top seat — the one
-/// the center screen answers for.
+/// the amber rim, the full circle of sector dividers, the tick marks the
+/// HUD wears, the top seat's lit wedge — the game's own answer to the
+/// thumb, its white light over the amber — and the notch that marks the
+/// top seat, the one the center screen answers for. While the tunnel
+/// carries, the rim's own glow breathes around the dial.
 class _WheelHudPainter extends CustomPainter {
   const _WheelHudPainter({
     required this.step,
@@ -1753,6 +1936,9 @@ class _WheelHudPainter extends CustomPainter {
     required this.dark,
     required this.panel,
     required this.ink,
+    required this.breath,
+    required this.alive,
+    required this.confirming,
   });
 
   /// One seat's angle on the ring, and where the top seat stands right
@@ -1764,28 +1950,67 @@ class _WheelHudPainter extends CustomPainter {
   final Color panel;
   final Color ink;
 
+  /// The breath's phase (0..1) and whether the rim may breathe at all.
+  final double breath;
+  final bool alive;
+
+  /// Whether the connection is carrying (or reaching): the breath's
+  /// own light rides only then.
+  final bool confirming;
+
   Offset _dir(double a) => Offset(math.sin(a), -math.cos(a));
 
   @override
   void paint(Canvas canvas, Size size) {
     final c = Offset(size.width / 2, size.height / 2);
     final r = size.width / 2 - 6;
-    // The disc: the HUD's dark glass, a touch lighter at the middle.
+    // The disc: the HUD's dark glass, a touch lighter at the middle —
+    // the game's own translucent wheel.
     canvas.drawCircle(
       c,
       r,
       Paint()
         ..shader = RadialGradient(
           colors: [
-            panel.withValues(alpha: dark ? 0.92 : 0.98),
-            panel.withValues(alpha: dark ? 0.75 : 0.88),
+            panel.withValues(alpha: dark ? 0.94 : 0.98),
+            panel.withValues(alpha: dark ? 0.78 : 0.90),
           ],
         ).createShader(Rect.fromCircle(center: c, radius: r)),
     );
+    // The rim's outer glow: the wheel's halo, breathing only while the
+    // tunnel carries (the game's wheel lights the disc it sits on).
+    if (alive) {
+      canvas.drawCircle(
+        c,
+        r + 3,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4 + 2.5 * breath
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 9)
+          ..color = amber.withValues(alpha: 0.10 + 0.12 * breath),
+      );
+    }
+    // The sector dividers: the full circle of thin lines the game draws
+    // between its weapons' seats — every boundary the drum can carry,
+    // from the center's ring to the rim, turning with the dial.
+    if (step > 0.05) {
+      final divider = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = (dark ? Colors.white : Colors.black).withValues(
+          alpha: dark ? 0.16 : 0.10,
+        );
+      final count = (2 * math.pi / step).round();
+      for (var k = 0; k < count; k++) {
+        final a = drift + (k + 0.5) * step;
+        canvas.drawLine(c + _dir(a) * 78, c + _dir(a) * (r - 2), divider);
+      }
+    }
     // The wedge: the top seat's own sector, lit the way the game lights
-    // the weapon the thumb points at — a slice of amber that deepens
-    // toward the rim, its two edges drawn and its own bright arc on the
-    // ring. It rides with the dial, so the light follows the drag.
+    // the weapon the thumb points at — the white light over the sector,
+    // the amber's own glow deepening toward the rim, its two edges drawn
+    // and its own bright arc on the ring. It rides with the dial, so the
+    // light follows the drag.
     final a0 = drift - step / 2;
     final sweep = step.clamp(0.14, math.pi / 2);
     final wedgeRect = Rect.fromCircle(center: c, radius: r - 1.5);
@@ -1793,13 +2018,27 @@ class _WheelHudPainter extends CustomPainter {
       ..moveTo(c.dx, c.dy)
       ..arcTo(wedgeRect, a0 - math.pi / 2, sweep, false)
       ..close();
+    // The white light first: the game's sector overlay, brightest at the
+    // rim so the wedge reads as one lit slice.
+    canvas.drawPath(
+      wedge,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Colors.white.withValues(alpha: dark ? 0.02 : 0.0),
+            Colors.white.withValues(alpha: dark ? 0.13 : 0.20),
+          ],
+          stops: const [0.25, 1],
+        ).createShader(wedgeRect),
+    );
+    // The amber under it: the HUD's own light.
     canvas.drawPath(
       wedge,
       Paint()
         ..shader = RadialGradient(
           colors: [
             amber.withValues(alpha: 0.02),
-            amber.withValues(alpha: dark ? 0.30 : 0.20),
+            amber.withValues(alpha: dark ? 0.28 : 0.18),
           ],
           stops: const [0.12, 1],
         ).createShader(wedgeRect),
@@ -1807,10 +2046,10 @@ class _WheelHudPainter extends CustomPainter {
     final wedgeEdge = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1
-      ..color = amber.withValues(alpha: dark ? 0.45 : 0.32);
-    canvas.drawLine(c + _dir(a0) * 16, c + _dir(a0) * (r - 2), wedgeEdge);
+      ..color = amber.withValues(alpha: dark ? 0.5 : 0.36);
+    canvas.drawLine(c + _dir(a0) * 78, c + _dir(a0) * (r - 2), wedgeEdge);
     canvas.drawLine(
-      c + _dir(a0 + sweep) * 16,
+      c + _dir(a0 + sweep) * 78,
       c + _dir(a0 + sweep) * (r - 2),
       wedgeEdge,
     );
@@ -1821,9 +2060,9 @@ class _WheelHudPainter extends CustomPainter {
       false,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3.2
+        ..strokeWidth = 3.4
         ..strokeCap = StrokeCap.round
-        ..color = amber.withValues(alpha: dark ? 0.95 : 0.8),
+        ..color = amber.withValues(alpha: dark ? 0.95 : 0.82),
     );
     // The rim: the dial's amber edge, the wheel's own light.
     canvas.drawCircle(
@@ -1832,12 +2071,13 @@ class _WheelHudPainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.2
-        ..color = amber.withValues(alpha: dark ? 0.85 : 0.7),
+        ..color = amber.withValues(alpha: dark ? 0.88 : 0.72),
     );
-    // The inner hairline: the plate's quiet edge.
+    // The inner hairline: the plate's quiet edge, where the dividers
+    // begin.
     canvas.drawCircle(
       c,
-      r - 20,
+      78,
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 0.8
@@ -1849,32 +2089,21 @@ class _WheelHudPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.6
       ..strokeCap = StrokeCap.round
-      ..color = ink.withValues(alpha: dark ? 0.30 : 0.26);
+      ..color = ink.withValues(alpha: dark ? 0.28 : 0.24);
     final tickLit = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0
       ..strokeCap = StrokeCap.round
-      ..color = amber.withValues(alpha: dark ? 0.8 : 0.65);
+      ..color = amber.withValues(alpha: dark ? 0.8 : 0.62);
     for (var i = 0; i < 28; i++) {
       final a = i * 2 * math.pi / 28;
       final dir = _dir(a);
       final inner = r - (i % 7 == 0 ? 15.0 : 10.0);
-      canvas.drawLine(c + dir * inner, c + dir * (r - 4), i % 7 == 0 ? tickLit : tick);
-    }
-    // The spokes: one thin line between each pair of seats, turning
-    // with the dial — the drum's own divisions.
-    final spoke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = ink.withValues(alpha: dark ? 0.13 : 0.11);
-    if (step > 0.2) {
-      final spokes = (math.pi * 0.72 / step).floor();
-      for (var j = -spokes; j <= spokes; j++) {
-        final a = drift + (j + 0.5) * step;
-        if (a.abs() > math.pi * 0.72) continue;
-        final dir = _dir(a);
-        canvas.drawLine(c + dir * (r - 24), c + dir * (r - 6), spoke);
-      }
+      canvas.drawLine(
+        c + dir * inner,
+        c + dir * (r - 4),
+        i % 7 == 0 ? tickLit : tick,
+      );
     }
     // The selection notch: the amber arc and the small triangle that
     // mark the top seat — the seat the center screen names.
@@ -1894,7 +2123,11 @@ class _WheelHudPainter extends CustomPainter {
     final left = c + Offset(-7, -(r - 2));
     final right = c + Offset(7, -(r - 2));
     canvas.drawPath(
-      Path()..moveTo(left.dx, left.dy)..lineTo(tip.dx, tip.dy)..lineTo(right.dx, right.dy)..close(),
+      Path()
+        ..moveTo(left.dx, left.dy)
+        ..lineTo(tip.dx, tip.dy)
+        ..lineTo(right.dx, right.dy)
+        ..close(),
       Paint()..color = amber.withValues(alpha: dark ? 0.95 : 0.85),
     );
   }
@@ -1906,5 +2139,59 @@ class _WheelHudPainter extends CustomPainter {
       old.amber != amber ||
       old.dark != dark ||
       old.panel != panel ||
-      old.ink != ink;
+      old.ink != ink ||
+      (old.breath - breath).abs() > 0.004 ||
+      old.alive != alive ||
+      old.confirming != confirming;
+}
+
+/// The center screen's own dial: the counter's gauge — a quiet track
+/// round the screen, and the amber arc that walks to the active seat's
+/// share of the list, the ammo gauge the game hangs under the weapon's
+/// name.
+class _CenterDialPainter extends CustomPainter {
+  const _CenterDialPainter({
+    required this.progress,
+    required this.amber,
+    required this.dark,
+  });
+
+  /// The active seat's share (0..1], drawn from the top, clockwise.
+  final double progress;
+  final Color amber;
+  final bool dark;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = Offset(size.width / 2, size.height / 2);
+    final r = size.width / 2 - 2.5;
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.4
+        ..color = (dark ? Colors.white : Colors.black).withValues(
+          alpha: dark ? 0.14 : 0.10,
+        ),
+    );
+    final clamped = progress.clamp(0.02, 1.0);
+    canvas.drawArc(
+      Rect.fromCircle(center: c, radius: r),
+      -math.pi / 2,
+      2 * math.pi * clamped,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.2
+        ..strokeCap = StrokeCap.round
+        ..color = amber.withValues(alpha: 0.9),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CenterDialPainter old) =>
+      old.progress != progress ||
+      old.amber != amber ||
+      old.dark != dark;
 }
