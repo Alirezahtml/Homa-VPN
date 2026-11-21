@@ -11,6 +11,7 @@ import 'design_style.dart';
 import 'format.dart';
 import 'browser_signin.dart';
 import 'motion.dart';
+import 'servers_presentations.dart';
 import 'widgets.dart';
 
 /// The server list: the two automatic choices in one strip, then the
@@ -424,8 +425,10 @@ class _ServersPageState extends State<ServersPage> {
                     ),
               hintText: l.searchLocations,
               isDense: true,
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(DesignStyle.of(context).listRadius),
+                ),
                 borderSide: BorderSide.none,
               ),
               filled: true,
@@ -447,28 +450,23 @@ class _ServersPageState extends State<ServersPage> {
         else
           Reveal(
             index: 2,
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 260,
-                mainAxisExtent: 72,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: visible.length,
-              itemBuilder: (context, i) {
-                final loc = visible[i];
-                return _LocationTile(
-                  flag: CountryFlag(code: loc.code, width: 34),
-                  title: locationName(l, loc.code, loc.name),
-                  delay: _Delay(location: loc, testing: _testing),
-                  selected: chosen == loc.code.toLowerCase(),
-                  busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
-                  onTap: () => _choose(loc.code),
-                );
-              },
+            // The list in the design's own presentation: the ios's
+            // grouped table, the gazette's ruled index, the gta's HUD
+            // slots, the pixel's tonal cards, the bento's board, and
+            // the monochrome's grid of tiles as always — each design's
+            // servers page its own, the way its home is.
+            child: serversListFor(
+              context,
+              rows: [
+                for (final loc in visible)
+                  ServerRow(
+                    location: loc,
+                    name: locationName(l, loc.code, loc.name),
+                    selected: chosen == loc.code.toLowerCase(),
+                    busy: _busy?.toLowerCase() == loc.code.toLowerCase(),
+                  ),
+              ],
+              onChoose: (loc) => _choose(loc.code),
             ),
           ),
         if (_locations != null && visible.isNotEmpty)
@@ -621,12 +619,16 @@ class _AutoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    // The strip's round is the design's own (the gazette's near-square,
+    // the pixel's big tonal round) — the strip belongs to the page's
+    // design, not to one shape.
+    final round = DesignStyle.of(context).listRadius;
     return Material(
       color: selected
           ? scheme.primary.withValues(alpha: 0.08)
           : scheme.surfaceContainerLow,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(round),
         side: BorderSide(
           color: selected
               ? scheme.primary.withValues(alpha: 0.7)
@@ -636,7 +638,7 @@ class _AutoTile extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(round),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           child: Column(
@@ -701,100 +703,6 @@ class _IconBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Icon(icon, size: 20, color: scheme.onSurface),
-    );
-  }
-}
-
-/// One location, as a tile in the grid: the flag, the name, and the real
-/// delay in its own color; a tap chooses it, a ring marks the choice.
-class _LocationTile extends StatelessWidget {
-  const _LocationTile({
-    required this.flag,
-    required this.title,
-    required this.delay,
-    required this.selected,
-    required this.busy,
-    required this.onTap,
-  });
-
-  final Widget flag;
-  final String title;
-  final Widget delay;
-  final bool selected;
-  final bool busy;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    // The tile's round is the design's own: the ios's tile, the bento's
-    // very-round tile, the monochrome's tile as always.
-    final round = DesignStyle.of(context).listRadius;
-    return Material(
-      color: selected
-          ? scheme.primary.withValues(alpha: 0.08)
-          : scheme.surfaceContainerLow,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(round),
-        side: BorderSide(
-          color: selected
-              ? scheme.primary.withValues(alpha: 0.7)
-              : scheme.outlineVariant,
-          width: selected ? 1.6 : 1,
-        ),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(round),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  flag,
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: selected
-                            ? FontWeight.w700
-                            : FontWeight.w500,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  // Only the choice carries a mark, and only while it is
-                  // being saved a spinner: an unchecked circle on every
-                  // tile made the list read as a page of clocks.
-                  SizedBox.square(
-                    dimension: 20,
-                    child: busy
-                        ? const Padding(
-                            padding: EdgeInsets.all(3),
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : selected
-                        ? Icon(
-                            Icons.check_circle_rounded,
-                            size: 20,
-                            color: scheme.primary,
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Align(alignment: AlignmentDirectional.centerStart, child: delay),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
