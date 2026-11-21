@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -1437,7 +1438,24 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
   /// the seats keep their places and their spacing, the countries pass
   /// through them as the dial turns, and the wheel reads clean at any
   /// count — no seat ever leans on its neighbor.
-  static const int _ringSeats = 16;
+  ///
+  /// Twelve seats, the game's own handful: wide enough that two medals
+  /// never touch (the chord at the ring's edge stays wider than the
+  /// widest medal's plate), few enough that the front arc reads as one
+  /// clean dial, not a crowd.
+  static const int _ringSeats = 12;
+
+  /// The seats' orbit: the medals ride inside the disc, a breath off the
+  /// rim — the game hangs its weapons inside the wheel, never on it, and
+  /// a medal past the rim would spill over the page's own edges.
+  static const double _orbitInset = 48.0;
+
+  /// The medal at the top seat, and the growth each seat gains toward
+  /// it — sized so a seat's plate stays under the ring chord at every
+  /// step the twelve seats make.
+  static const double _medalBase = 40.0;
+  static const double _medalGrow = 8.0;
+  static const double _platePad = 7.0;
 
   /// The front arc: a seat past it fades out before it would wrap.
   static const double _arc = math.pi * 0.62;
@@ -1613,9 +1631,11 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final pa = math.atan2(v.dx, -v.dy);
     final j = ((pa - drift) / step).round();
     final angle = drift + j * step;
-    final radius = math.min(box.size.width, 352.0) / 2 - 16;
+    // The reach reads the seats' own orbit: the medals ride inside the
+    // disc, so the slice ends a breath past the orbit, not at the rim.
+    final radius = math.min(box.size.width, 352.0) / 2 - _orbitInset;
     if (angle.abs() > _arc + step / 2) return;
-    if (v.distance > radius + 46) return;
+    if (v.distance > radius + 40) return;
     _pick(_mod(phi.round() + j, n), entries);
   }
 
@@ -1675,7 +1695,10 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     }
 
     Widget wheel(double size) {
-      final radius = size / 2 - 16;
+      // The seats ride inside the disc, a breath off the rim — the game
+      // hangs its weapons inside the wheel, and a medal on the rim
+      // spills over the page's own edges.
+      final radius = size / 2 - _orbitInset;
       final center = Offset(size / 2, size / 2 + 3);
       return GestureDetector(
         key: _key,
@@ -1690,21 +1713,27 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              // The HUD disc: the dial's own plate — the rim, the full
-              // circle of sector dividers, the ticks, the top seat's lit
-              // wedge and the notch, and the rim's own breath while the
-              // tunnel carries.
+              // The HUD disc: the dial's own plate — the game's
+              // translucent glass, blurred: the world behind melts under
+              // the wheel, the plate itself a touch see-through. The blur
+              // lives inside the disc's own clip, so the page around it
+              // keeps its sharpness and the cost stays one circle.
               Positioned.fill(
-                child: CustomPaint(
-                  painter: _WheelHudPainter(
-                    step: step,
-                    drift: drift,
-                    amber: amber,
-                    dark: dark,
-                    panel: look.homeCard,
-                    ink: look.ink,
-                    breath: alive ? breathe : 0,
-                    alive: alive,
+                child: ClipOval(
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                    child: CustomPaint(
+                      painter: _WheelHudPainter(
+                        step: step,
+                        drift: drift,
+                        amber: amber,
+                        dark: dark,
+                        panel: look.homeCard,
+                        ink: look.ink,
+                        breath: alive ? breathe : 0,
+                        alive: alive,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1724,15 +1753,20 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      // The screen's own glass: translucent over the
+                      // disc's blur, so the dial reads as one pane and
+                      // the world keeps glowing softly through it.
                       gradient: RadialGradient(
                         colors: dark
                             ? [
-                                const Color(0xFF181826),
-                                const Color(0xFF0D0D16),
+                                const Color(0xB3181826),
+                                const Color(0x990D0D16),
                               ]
                             : [
-                                Colors.white,
-                                const Color(0xFFF7F3E8),
+                                Colors.white.withValues(alpha: 0.82),
+                                const Color(0xFFF7F3E8).withValues(
+                                  alpha: 0.70,
+                                ),
                               ],
                         stops: const [0.55, 1],
                       ),
@@ -1893,7 +1927,8 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
     final t = (1 - angle.abs() / _arc).clamp(0.0, 1.0);
     if (t <= 0.04) return const SizedBox.shrink();
     final pos = center + Offset(math.sin(angle), -math.cos(angle)) * radius;
-    final size = 42.0 + 9.0 * t;
+    final size = _medalBase + _medalGrow * t;
+    final plate = size + _platePad * 2;
     final ring = chosenSeat
         ? widget.accent
         : activeSeat
@@ -1918,14 +1953,16 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
               ),
           ]
         : null;
-    final plate = dark
+    // The seat's own plate: the medal's backing disc, slightly
+    // translucent so the glass under it reads through.
+    final plateColor = dark
         ? Colors.black.withValues(alpha: 0.52)
-        : Colors.white.withValues(alpha: 0.86);
+        : Colors.white.withValues(alpha: 0.72);
     return Positioned(
-      left: pos.dx - (size + 10) / 2,
-      top: pos.dy - (size + 10) / 2,
-      width: size + 10,
-      height: size + 10,
+      left: pos.dx - plate / 2,
+      top: pos.dy - plate / 2,
+      width: plate,
+      height: plate,
       child: Opacity(
         opacity: (0.22 + 0.78 * t).clamp(0.0, 1.0),
         child: GestureDetector(
@@ -1942,12 +1979,12 @@ class _FlagWeaponWheelState extends State<FlagWeaponWheel>
             clipBehavior: Clip.none,
             children: [
               Container(
-                width: size + 10,
-                height: size + 10,
+                width: plate,
+                height: plate,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: plate,
+                  color: plateColor,
                   border: Border.all(color: ring, width: ringWidth),
                   boxShadow: glow,
                 ),
@@ -2046,16 +2083,37 @@ class _WheelHudPainter extends CustomPainter {
     final c = Offset(size.width / 2, size.height / 2);
     final r = size.width / 2 - 6;
     // The disc: the HUD's dark glass, a touch lighter at the middle —
-    // the game's own translucent wheel.
+    // the game's own translucent wheel. The blur behind (the clip's own
+    // BackdropFilter) melts the world under it; the fill here stays
+    // see-through, so the map reads as a soft shape under the dial.
     canvas.drawCircle(
       c,
       r,
       Paint()
         ..shader = RadialGradient(
           colors: [
-            panel.withValues(alpha: dark ? 0.94 : 0.98),
-            panel.withValues(alpha: dark ? 0.78 : 0.90),
+            panel.withValues(alpha: dark ? 0.64 : 0.58),
+            panel.withValues(alpha: dark ? 0.42 : 0.36),
           ],
+        ).createShader(Rect.fromCircle(center: c, radius: r)),
+    );
+    // The glass's own sheen: a soft light gathered at the wheel's top,
+    // the way a curved pane gathers the room's light — the polish that
+    // says glass, not paint.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          center: Alignment(-0.35, -1.05).withinRect(
+            Rect.fromCircle(center: c, radius: r),
+          ),
+          radius: 0.9,
+          colors: [
+            Colors.white.withValues(alpha: dark ? 0.10 : 0.30),
+            Colors.white.withValues(alpha: 0.0),
+          ],
+          stops: const [0, 0.55],
         ).createShader(Rect.fromCircle(center: c, radius: r)),
     );
     // The rim's outer glow: the wheel's halo, breathing only while the
