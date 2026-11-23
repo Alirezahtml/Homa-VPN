@@ -157,6 +157,30 @@ class _MobileShellState extends State<MobileShell> {
                   ],
                 ),
               ),
+              // The sky's airy header: the floating white back tile, the
+              // big navy title, the rule that thins out beneath them.
+              // Stretched: the rule spans the page's width, not the
+              // title's.
+              HeaderVariant.sky => Scaffold(
+                body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SkyPageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
+              // The ocean's glass header: the glass back tile in the
+              // water's dark, the foam-white title, the cyan glow rule.
+              HeaderVariant.ocean => Scaffold(
+                body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    OceanPageHeader(title: title),
+                    Expanded(child: body),
+                  ],
+                ),
+              ),
             };
           },
         ),
@@ -284,6 +308,14 @@ class _MobileShellState extends State<MobileShell> {
             onSelect: (i) => setState(() => _tab = i),
           ),
           NavVariant.m3Bar => M3BarNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.skyDock => SkyDockNav(
+            index: _tab,
+            onSelect: (i) => setState(() => _tab = i),
+          ),
+          NavVariant.oceanBar => OceanBarNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),
           ),

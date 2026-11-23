@@ -62,6 +62,34 @@ void main() {
     expect(bentoLight.navActive, const Color(0xFFE05D2A));
     expect(bentoLight.scroll, ScrollMood.springy);
 
+    // The sky's daylight: the floating dock, the airy header, the soft
+    // sheet, the round medal flags, the blue that carries.
+    final sky = DesignStyle.resolve('sky', false);
+    expect(sky.nav, NavVariant.skyDock);
+    expect(sky.header, HeaderVariant.sky);
+    expect(sky.group, GroupVariant.skySheet);
+    expect(sky.flagShape, FlagShape.circle);
+    expect(sky.fx, FxMood.drift);
+    expect(sky.cardRadius, 22);
+    expect(sky.dialogRadius, 22);
+    expect(sky.navActive, const Color(0xFF2F6BFF));
+    final skyNight = DesignStyle.resolve('sky', true);
+    expect(skyNight.navActive, const Color(0xFF6D9BFF));
+
+    // The ocean's water: the dark bar, the glass header, the glass
+    // tiles, the rounded flags, the cyan's glow.
+    final ocean = DesignStyle.resolve('ocean', true);
+    expect(ocean.nav, NavVariant.oceanBar);
+    expect(ocean.header, HeaderVariant.ocean);
+    expect(ocean.group, GroupVariant.oceanGlass);
+    expect(ocean.flagShape, FlagShape.rounded);
+    expect(ocean.fx, FxMood.glow);
+    expect(ocean.scroll, ScrollMood.springy);
+    expect(ocean.cardRadius, 20);
+    expect(ocean.dialogRadius, 20);
+    expect(ocean.connected, const Color(0xFF17C3E6));
+    expect(ocean.navActive, const Color(0xFF17C3E6));
+
     // The monochrome keeps the shapes it always had, and the looks that
     // left land on its structure as they land on its palette.
     for (final key in ['mono', 'wheel', 'aurora', 'whatever-else']) {

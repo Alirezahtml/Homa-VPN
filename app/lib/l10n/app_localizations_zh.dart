@@ -2592,6 +2592,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get designGazette => '报章';
+  @override
+  String get designSky => '天空';
+  @override
+  String get designSkyDesc => '天空：柔影白卡、圆章旗帜与浅色点阵地图——云朵般的轻盈';
+  @override
+  String get designOcean => '海洋';
+  @override
+  String get designOceanDesc => '海洋：深蓝玻璃、青色辉光与光环拨盘——大海的深邃';
+  @override
+  String get connectionPort => '连接端口';
+  @override
+  String get connectionPortHint => '隧道连接服务器所用的端口；留空即 443';
+  @override
+  String get connectionPortInvalid => '请输入 1 到 65535 之间的端口';
+  @override
+  String get wn66Sky => '两款新外观：天空与海洋——每一页都有专属的卡片、导航与地图';
+  @override
+  String get wn66Port => '新增连接端口设置：隧道走 443，或服务器接受的任何端口';
 
   @override
   String get designGazetteDesc => '头版：报头、栏线与墨戳——纸墨之间的报纸式沉静';
@@ -5364,6 +5382,24 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get designGazette => '報章';
+  @override
+  String get designSky => '天空';
+  @override
+  String get designSkyDesc => '天空：柔影白卡、圓章旗幟與淺色點陣地圖——雲朵般的輕盈';
+  @override
+  String get designOcean => '海洋';
+  @override
+  String get designOceanDesc => '海洋：深藍玻璃、青色光輝與光環撥盤——大海的深邃';
+  @override
+  String get connectionPort => '連接埠';
+  @override
+  String get connectionPortHint => '通道連線伺服器所用的連接埠；留空即 443';
+  @override
+  String get connectionPortInvalid => '請輸入 1 到 65535 之間的連接埠';
+  @override
+  String get wn66Sky => '兩款新外觀：天空與海洋——每一頁都有專屬的卡片、導覽與地圖';
+  @override
+  String get wn66Port => '新增連接埠設定：通道走 443，或伺服器接受的任何連接埠';
 
   @override
   String get designGazetteDesc => '頭版：報頭、欄線與墨戳——紙墨之間的報紙式沉靜';

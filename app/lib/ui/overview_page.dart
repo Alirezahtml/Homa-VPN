@@ -1438,8 +1438,9 @@ class _PhoneHome extends StatelessWidget {
         // The pages run under the navigation: the floating pill asks for
         // 72, the docks and the M3 bar (the bar is tall, its labels ride
         // with it) ask for 104, and the iOS tab bar — glued to the edge,
-        // its labels under the icons — clears at 84.
-        design == 'pixel'
+        // its labels under the icons — clears at 84. The sky's dock
+        // floats like the pill; the ocean's bar stands tall like the M3.
+        design == 'pixel' || design == 'ocean'
             ? 104
             : design == 'ios' || design == 'bento'
             ? 84
@@ -1586,6 +1587,46 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 14),
+          ] else if (design == 'sky') ...[
+            // The sky's opening: the countries as daylight medals — the
+            // white circle plates floating on their blue shade, the deck
+            // snapping, the chosen medal wearing the sky's ring.
+            const SizedBox(height: 16),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagDeckSky(
+                  core: core,
+                  border: p.cardBorder,
+                  accent: accent,
+                  muted: p.muted,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ] else if (design == 'ocean') ...[
+            // The ocean's opening: the countries as the water's own
+            // tiles — the glass cards standing in the deep, the chosen
+            // one wearing the cyan's rim and its glow.
+            const SizedBox(height: 16),
+            Reveal(
+              index: 1,
+              child: RepaintBoundary(
+                child: FlagDeckOcean(
+                  core: core,
+                  border: p.cardBorder,
+                  accent: accent,
+                  muted: p.muted,
+                  favorites: settings.favoriteCountries,
+                  onToggleFavorite: (code) =>
+                      _toggleFavorite(context, core, settings, code),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
           ] else ...[
             // The compact home: its place is a chip in its own card
             // below; here only the space the card breathes in.
@@ -1606,7 +1647,8 @@ class _PhoneHome extends StatelessWidget {
           if (design != 'wheel' &&
               design != 'bento' &&
               design != 'gazette' &&
-              design != 'ios')
+              design != 'ios' &&
+              design != 'ocean')
             Reveal(
               index: 1,
               child: Center(
@@ -1840,6 +1882,53 @@ class _PhoneHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: short ? 8 : 14),
+          ] else if (design == 'sky') ...[
+            // The sky's switch: the daylight's own orb — the white
+            // circle floating on its blue shade, the power inside it
+            // turning the sky's blue while the tunnel carries, and
+            // spinning while the connection is being made.
+            const SizedBox(height: 8),
+            Reveal(
+              index: 2,
+              child: Center(
+                child: _SkyConnectOrb(
+                  palette: p,
+                  on: on,
+                  busy: core.switchingProxy || status.connectPending,
+                  accent: accent,
+                  tooltip: press,
+                  onPressed: () => status.totalAccounts == 0
+                      ? _openAccounts(context, core, settings, onOpenAccounts)
+                      : runShowingErrors(context, () => _toggle(on)),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
+          ] else if (design == 'ocean') ...[
+            // The ocean's hero: the water's own — the glowing ring
+            // around the power disc, the state's word under it, and the
+            // place's two tiles: where the traffic leaves from, and the
+            // door to the whole list. The dial is the deep's light.
+            const SizedBox(height: 4),
+            Reveal(
+              index: 2,
+              child: Center(
+                child: _OceanHero(
+                  palette: p,
+                  place: place,
+                  on: on,
+                  busy: core.switchingProxy || status.connectPending,
+                  accent: accent,
+                  label: label,
+                  address: status.upstreamProxy,
+                  onOpenServers: onOpenServers,
+                  onPressed: () => status.totalAccounts == 0
+                      ? _openAccounts(context, core, settings, onOpenAccounts)
+                      : runShowingErrors(context, () => _toggle(on)),
+                ),
+              ),
+            ),
+            SizedBox(height: short ? 8 : 14),
           ] else ...[
             // The compact switch: the orb, on the place's own card.
             const SizedBox(height: 14),
@@ -2002,7 +2091,10 @@ class _PhoneHome extends StatelessWidget {
                       icon: Icons.data_usage_rounded,
                     ),
                   )
-                else if (design == 'bento' || design == 'ios' || confirming)
+                else if (design == 'bento' ||
+                    design == 'ios' ||
+                    design == 'ocean' ||
+                    confirming)
                   // The tiles' bar and the iOS card's button already say
                   // the tap's own hint; the plain hint line below would
                   // only say it twice. While the connection is still being
@@ -2178,7 +2270,9 @@ class _PhoneHome extends StatelessWidget {
             // gazette's homes keep the place's own card down here.
             if (design == 'wheel' ||
                 design == 'bento' ||
-                design == 'gazette') ...[
+                design == 'gazette' ||
+                design == 'sky' ||
+                design == 'ocean') ...[
               // The bento's own closing: the place and the session's data
               // as two tiles of one row — the box's mosaic, nothing left
               // half-empty under it.
@@ -2387,6 +2481,88 @@ class _HomeCard extends StatelessWidget {
                 ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
                 : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
             child: child,
+          ),
+        ),
+      );
+    }
+    // The sky's sheet: the white card floating on its blue shade — the
+    // shadow carries it, the hairline keeps its edge, no glass in it:
+    // the daylight is clear all the way down.
+    if (AppDesign.current.key == 'sky') {
+      final look = AppDesign.current.look(palette.dark);
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: palette.dark
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.30),
+                    blurRadius: 14,
+                    offset: const Offset(0, 5),
+                  ),
+                ]
+              : const [
+                  BoxShadow(
+                    color: Color(0x162F6BFF),
+                    blurRadius: 18,
+                    offset: Offset(0, 6),
+                  ),
+                ],
+        ),
+        child: Material(
+          color: look.homeCard,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+            side: BorderSide(color: palette.cardBorder),
+          ),
+          clipBehavior: Clip.antiAlias,
+          elevation: 0,
+          child: InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: compact
+                  ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                  : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+              child: child,
+            ),
+          ),
+        ),
+      );
+    }
+    // The ocean's tile: the water's own glass standing in the page — the
+    // faint rim of light on its edge, the deep shadow under it. No blur,
+    // no glass material: the color the water carries, the line of light.
+    if (AppDesign.current.key == 'ocean') {
+      final look = AppDesign.current.look(palette.dark);
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: palette.dark
+                  ? Colors.black.withValues(alpha: 0.40)
+                  : const Color(0x33000000),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Material(
+          color: look.homeCard,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: palette.cardBorder),
+          ),
+          clipBehavior: Clip.antiAlias,
+          elevation: 0,
+          child: InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: compact
+                  ? const EdgeInsetsDirectional.fromSTEB(14, 10, 8, 10)
+                  : const EdgeInsetsDirectional.fromSTEB(16, 14, 10, 14),
+              child: child,
+            ),
           ),
         ),
       );
@@ -3002,12 +3178,17 @@ class _HomeRow extends StatelessWidget {
         color: p.card,
         // The gazette's row rules itself like the paper's own box; the
         // bento's tile wears the warm tint with its very round and no
-        // line — the fill speaks, the way its cards do.
+        // line — the fill speaks, the way its cards do. The sky's row
+        // floats on its blue shade, the ocean's on the water's shadow.
         borderRadius: BorderRadius.circular(
           AppDesign.current.key == 'gazette'
               ? 6
               : AppDesign.current.key == 'bento'
               ? 18
+              : AppDesign.current.key == 'sky'
+              ? 18
+              : AppDesign.current.key == 'ocean'
+              ? 16
               : 20,
         ),
         border: AppDesign.current.key == 'bento'
@@ -3021,6 +3202,32 @@ class _HomeRow extends StatelessWidget {
                   ),
                   blurRadius: 10,
                   offset: const Offset(0, 3),
+                ),
+              ]
+            : AppDesign.current.key == 'sky'
+            ? (p.dark
+                  ? [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.28),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ]
+                  : const [
+                      BoxShadow(
+                        color: Color(0x162F6BFF),
+                        blurRadius: 12,
+                        offset: Offset(0, 4),
+                      ),
+                    ])
+            : AppDesign.current.key == 'ocean'
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(
+                    alpha: p.dark ? 0.40 : 0.30,
+                  ),
+                  blurRadius: 14,
+                  offset: const Offset(0, 5),
                 ),
               ]
             : null,
@@ -4689,6 +4896,378 @@ class _CapsuleBreathState extends State<_CapsuleBreath>
         return Transform.scale(scale: 1.0 + 0.012 * t, child: child);
       },
       child: widget.child,
+    );
+  }
+}
+
+/// The sky's connect orb: the daylight's own dial — the white circle
+/// floating on its soft blue shade, the power inside it. Off, the icon
+/// keeps the muted ink; on, the disc fills with the sky's own gradient
+/// and the icon turns the light. The connecting wait spins in the orb's
+/// center; the battery saver holds the shade still.
+class _SkyConnectOrb extends StatelessWidget {
+  const _SkyConnectOrb({
+    required this.palette,
+    required this.on,
+    required this.busy,
+    required this.accent,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final bool on;
+  final bool busy;
+  final Color accent;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final look = AppDesign.current.look(p.dark);
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOutCubic,
+          width: 132,
+          height: 132,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: on
+                ? LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      accent,
+                      Color.lerp(accent, const Color(0xFF1E3FA0), 0.35)!,
+                    ],
+                  )
+                : null,
+            color: on ? null : look.homeCard,
+            border: Border.all(
+              color: on ? accent.withValues(alpha: 0.0) : p.cardBorder,
+              width: 1.4,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: on
+                    ? accent.withValues(alpha: p.dark ? 0.45 : 0.35)
+                    : (p.dark
+                          ? Colors.black.withValues(alpha: 0.30)
+                          : const Color(0x1C2F6BFF)),
+                blurRadius: on ? 28 : 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Center(
+            child: busy
+                ? SweepLoader(
+                    color: on ? Colors.white : accent,
+                    size: 34,
+                    stroke: 2.6,
+                  )
+                : AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 260),
+                    switchInCurve: Curves.easeOutBack,
+                    switchOutCurve: Curves.easeIn,
+                    transitionBuilder: (child, anim) => FadeTransition(
+                      opacity: anim,
+                      child: ScaleTransition(
+                        scale: Tween(begin: 0.86, end: 1.0).animate(anim),
+                        child: child,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.power_rounded,
+                      key: ValueKey('sky-orb-$on'),
+                      size: 46,
+                      color: on ? Colors.white : p.muted,
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The ocean's hero: the water's own dial — the conic ring of the blue
+/// and the cyan glowing around the power disc, the state's word under
+/// it, and the place's two tiles: where the traffic leaves from, and
+/// the door to the whole list. The tunnel's address rides beneath the
+/// tiles when it is known, the water's own receipt.
+class _OceanHero extends StatelessWidget {
+  const _OceanHero({
+    required this.palette,
+    required this.place,
+    required this.on,
+    required this.busy,
+    required this.accent,
+    required this.label,
+    required this.address,
+    required this.onOpenServers,
+    required this.onPressed,
+  });
+
+  final _HomePalette palette;
+  final HomePlace place;
+  final bool on;
+  final bool busy;
+  final Color accent;
+  final String label;
+  final String address;
+  final VoidCallback? onOpenServers;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // The dial: the halo's wash, the conic ring, the disc.
+          SizedBox(
+            width: 216,
+            height: 216,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 216,
+                  height: 216,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        accent.withValues(alpha: on ? 0.22 : 0.10),
+                        accent.withValues(alpha: 0.0),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 192,
+                  height: 192,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: SweepGradient(
+                      startAngle: 0.6,
+                      endAngle: 5.9,
+                      colors: [
+                        accent,
+                        const Color(0xFF1E5BFF),
+                        accent.withValues(alpha: 0.15),
+                        accent,
+                      ],
+                      stops: const [0.0, 0.55, 0.78, 1.0],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onPressed,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOutCubic,
+                    width: 132,
+                    height: 132,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: on
+                          ? const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFF2369FF), Color(0xFF17C3E6)],
+                            )
+                          : LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                const Color(0xFF1E5BFF).withValues(
+                                  alpha: 0.85,
+                                ),
+                                accent.withValues(alpha: 0.75),
+                              ],
+                            ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: accent.withValues(
+                            alpha: on ? 0.55 : 0.35,
+                          ),
+                          blurRadius: 24,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: busy
+                          ? SweepLoader(
+                              color: Colors.white,
+                              size: 36,
+                              stroke: 2.6,
+                            )
+                          : AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 260),
+                              switchInCurve: Curves.easeOutBack,
+                              switchOutCurve: Curves.easeIn,
+                              transitionBuilder: (child, anim) =>
+                                  FadeTransition(
+                                    opacity: anim,
+                                    child: ScaleTransition(
+                                      scale: Tween(
+                                        begin: 0.86,
+                                        end: 1.0,
+                                      ).animate(anim),
+                                      child: child,
+                                    ),
+                                  ),
+                              child: Icon(
+                                Icons.power_rounded,
+                                key: ValueKey('ocean-dial-$on'),
+                                size: 48,
+                                color: Colors.white,
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
+          // The state's word: the hero says it once, here.
+          CrossfadeText(
+            label,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+              color: on ? accent : p.text,
+            ),
+          ),
+          const SizedBox(height: 16),
+          // The place's two tiles: the flag and the name the tunnel
+          // leaves from, and the door to the whole list.
+          Row(
+            children: [
+              Expanded(
+                child: _OceanTile(
+                  palette: p,
+                  accent: accent,
+                  onTap: onOpenServers,
+                  child: Row(
+                    children: [
+                      CountryFlag(code: place.flag, width: 24),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          place.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: p.text,
+                          ),
+                        ),
+                      ),
+                      if (onOpenServers != null)
+                        Icon(Icons.chevron_right_rounded,
+                            size: 16, color: p.muted),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _OceanTile(
+                  palette: p,
+                  accent: accent,
+                  onTap: onOpenServers,
+                  child: Row(
+                    children: [
+                      Icon(Icons.travel_explore_rounded,
+                          size: 18, color: accent),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          l.navServers,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: p.text,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // The tunnel's receipt: the address the traffic leaves from —
+          // the host and its port, the water's own quiet figure.
+          if (on && address.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Text(
+              ltr(address),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: p.muted,
+                fontFeatures: const [FontFeature.tabularFigures()],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// The ocean's own tile: the water's glass under the hero's feet — the
+/// rim of light, the deep shadow, a tap answering where the tile leads.
+class _OceanTile extends StatelessWidget {
+  const _OceanTile({
+    required this.palette,
+    required this.accent,
+    required this.child,
+    this.onTap,
+  });
+
+  final _HomePalette palette;
+  final Color accent;
+  final Widget child;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = palette;
+    final child0 = Container(
+      height: 52,
+      padding: const EdgeInsetsDirectional.fromSTEB(14, 0, 10, 0),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: p.dark ? 0.06 : 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+      ),
+      child: child,
+    );
+    if (onTap == null) return child0;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: child0,
+      ),
     );
   }
 }

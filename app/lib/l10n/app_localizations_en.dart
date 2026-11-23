@@ -2757,6 +2757,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get designGazette => 'Gazette';
+  @override
+  String get designSky => 'Sky';
+  @override
+  String get designSkyDesc => 'Sky: white soft-shadowed cards, medal-like flags and the light dotted map — the airiness of clouds';
+  @override
+  String get designOcean => 'Ocean';
+  @override
+  String get designOceanDesc => 'Ocean: deep blue glass, the cyan glow and the ring-lit dial — the depth of the sea';
+  @override
+  String get connectionPort => 'Connection port';
+  @override
+  String get connectionPortHint => 'The port the tunnel dials the servers on; empty keeps 443';
+  @override
+  String get connectionPortInvalid => 'Enter a port between 1 and 65535';
+  @override
+  String get wn66Sky => 'Two new designs: Sky and Ocean — every page wearing its own cards, navigation and map';
+  @override
+  String get wn66Port => 'A connection-port setting: the tunnel dials on 443, or any port the server accepts';
 
   @override
   String get designGazetteDesc =>

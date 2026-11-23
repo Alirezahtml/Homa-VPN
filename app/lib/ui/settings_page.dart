@@ -165,6 +165,7 @@ class SettingsGroup extends StatelessWidget {
     final gazetteRules = style.group == GroupVariant.gazetteRules;
     final m3Card = style.group == GroupVariant.m3Card;
     final bentoBoard = style.group == GroupVariant.bentoBoard;
+    final oceanGlass = style.group == GroupVariant.oceanGlass;
     Widget card = Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
@@ -176,6 +177,8 @@ class SettingsGroup extends StatelessWidget {
       color:
           m3Card || bentoBoard
           ? look.containerHighest
+          : oceanGlass
+          ? look.homeCard
           : (gazetteRules ? null : look.surface),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(style.cardRadius),
@@ -203,9 +206,11 @@ class SettingsGroup extends StatelessWidget {
             if (i > 0)
               Divider(
                 height: 1,
-                thickness: iosTable ? 0.5 : (m3Card || bentoBoard ? 0.5 : 1),
+                thickness: iosTable
+                    ? 0.5
+                    : (m3Card || bentoBoard || oceanGlass ? 0.5 : 1),
                 indent: iosTable ? 58 : 68,
-                color: m3Card || bentoBoard
+                color: m3Card || bentoBoard || oceanGlass
                     ? theme.colorScheme.outlineVariant.withValues(alpha: 0.25)
                     : null,
               ),
@@ -1151,6 +1156,32 @@ class _SettingsPageState extends State<SettingsPage> {
                   ('ipv4', l.ipVersionV4, null),
                   ('ipv6', l.ipVersionV6, null),
                 ],
+              ),
+              // proxy.server_port: the port the tunnel dials the servers
+              // on. Empty keeps the server list's own (443 for the
+              // records that omit one); a network that only lets one
+              // port through names it here, and the servers keep the
+              // country's own choice — only the port moves.
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                child: _TextSetting(
+                  label: l.connectionPort,
+                  hint: l.connectionPortHint,
+                  value: switch (_int(['proxy', 'server_port'])) {
+                    final n when n > 0 => '$n',
+                    _ => '443',
+                  },
+                  validator: (v) {
+                    final n = int.tryParse(v.trim());
+                    return v.trim().isEmpty ||
+                            (n != null && n >= 1 && n <= 65535)
+                        ? null
+                        : l.connectionPortInvalid;
+                  },
+                  onSave: (v) => _save({
+                    ['proxy', 'server_port']: int.tryParse(v.trim()) ?? 0,
+                  }),
+                ),
               ),
               // tun.mtu: the VPN interface's MTU (the phone's VPN, the
               // computer's TUN); empty keeps each one's own.
@@ -3995,6 +4026,8 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'pixel' => l.designPixel,
   'ios' => l.designIos,
   'gazette' => l.designGazette,
+  'sky' => l.designSky,
+  'ocean' => l.designOcean,
   _ => l.designWheel,
 };
 
@@ -4027,13 +4060,15 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'pixel',
                   'ios',
                   'gazette',
+                  'sky',
+                  'ocean',
                 ]) ...[
                   _DesignCard(
                     kind: kind,
                     selected: s.homeDesign == kind,
                     onTap: () => s.update(homeDesign: kind),
                   ),
-                  if (kind != 'gazette') const SizedBox(height: 10),
+                  if (kind != 'ocean') const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -4074,6 +4109,8 @@ class _DesignCard extends StatelessWidget {
       'pixel' => (l.designPixel, l.designPixelDesc),
       'ios' => (l.designIos, l.designIosDesc),
       'gazette' => (l.designGazette, l.designGazetteDesc),
+      'sky' => (l.designSky, l.designSkyDesc),
+      'ocean' => (l.designOcean, l.designOceanDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4373,6 +4410,123 @@ class _DesignMockup extends StatelessWidget {
                   Expanded(child: Center(child: tile(w: 14, h: 8))),
                 ],
               ],
+            ),
+          ],
+        );
+      case 'sky':
+        // The sky's drawing: the white medal floating on its shade with
+        // the ring on it, the deck's dots under it, and the floating
+        // dock's cushion beneath — the daylight's own calm.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: scheme.surface,
+                border: Border.all(color: lit, width: 1.6),
+              ),
+              child: Center(child: tile(w: 24, h: 16, r: 8)),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 12,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2),
+                    color: lit,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                tile(w: 5, h: 4, r: 2),
+                const SizedBox(width: 4),
+                tile(w: 5, h: 4, r: 2),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Container(
+              width: 76,
+              height: 20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: lit.withValues(alpha: 0.14),
+                border: Border.all(
+                  color: lit.withValues(alpha: 0.5),
+                  width: 1,
+                ),
+              ),
+              child: Center(child: tile(w: 26, h: 6, color: lit, r: 3)),
+            ),
+          ],
+        );
+      case 'ocean':
+        // The ocean's drawing: the glass tile standing in the water's
+        // dark with the glow ring around its dial, and the bar's
+        // glowing tab under it — the light in the deep.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 76,
+              height: 46,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: scheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                border: Border.all(color: lit, width: 1.2),
+              ),
+              child: Center(
+                child: Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: SweepGradient(
+                      colors: [lit, const Color(0xFF1E5BFF)],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: 76,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      tile(w: 10, h: 10, color: lit, r: 5),
+                      const SizedBox(height: 2),
+                      Container(
+                        width: 12,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: lit,
+                          boxShadow: [
+                            BoxShadow(
+                              color: lit.withValues(alpha: 0.6),
+                              blurRadius: 6,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      tile(w: 10, h: 10, r: 5),
+                      const SizedBox(height: 2),
+                      tile(w: 12, h: 3),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         );

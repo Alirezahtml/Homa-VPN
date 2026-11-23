@@ -56,6 +56,8 @@ Widget serversListFor(
     'gazette' => _GazetteServerList(rows: rows, onChoose: onChoose),
     'pixel' => _PixelServerList(rows: rows, onChoose: onChoose),
     'bento' => _BentoServerList(rows: rows, onChoose: onChoose),
+    'sky' => _SkyServerList(rows: rows, onChoose: onChoose),
+    'ocean' => _OceanServerList(rows: rows, onChoose: onChoose),
     _ => _TileServerList(rows: rows, onChoose: onChoose),
   };
 }
@@ -592,6 +594,248 @@ class _BentoServerList extends StatelessWidget {
                   ),
                   ServerDelayBadge(location: row.location),
                 ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The sky's rows: the daylight's own list — one white sheet a row, the
+// round medal flag, the name, and the delay at the row's end in its own
+// tinted pill. The chosen row carries the sky's rim and its shade.
+// ---------------------------------------------------------------------------
+
+class _SkyServerList extends StatelessWidget {
+  const _SkyServerList({required this.rows, required this.onChoose});
+
+  final List<ServerRow> rows;
+  final ValueChanged<Location> onChoose;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final look = AppDesign.current.look(dark);
+    final style = DesignStyle.of(context);
+    final accent = style.navActive;
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 480,
+        mainAxisExtent: 62,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: rows.length,
+      itemBuilder: (context, i) {
+        final row = rows[i];
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(style.listRadius),
+            boxShadow: [
+              BoxShadow(
+                color: dark
+                    ? Colors.black.withValues(alpha: 0.28)
+                    : const Color(0x162F6BFF),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Material(
+            color: row.selected
+                ? accent.withValues(alpha: dark ? 0.16 : 0.08)
+                : look.homeCard,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(style.listRadius),
+              side: BorderSide(
+                color: row.selected
+                    ? accent
+                    : look.homeCardBorder,
+                width: row.selected ? 1.8 : 1,
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            child: InkWell(
+              onTap: () => onChoose(row.location),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: flagArt(context, row.location.code, 36, 36,
+                          cover: true),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        row.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: row.selected
+                                  ? FontWeight.w800
+                                  : FontWeight.w600,
+                              color: row.selected ? accent : look.ink,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    ServerDelayBadge(location: row.location),
+                    SizedBox.square(
+                      dimension: 22,
+                      child: row.busy
+                          ? const Padding(
+                              padding: EdgeInsets.all(4),
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : row.selected
+                          ? Icon(
+                              Icons.check_rounded,
+                              size: 20,
+                              color: accent,
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The ocean's rows: the water's own list — one glass tile a row, the
+// flag in its circle, the foam-white name, and the delay's pill at the
+// row's end. The chosen row wears the cyan's rim and its glow: the
+// light in the deep.
+// ---------------------------------------------------------------------------
+
+class _OceanServerList extends StatelessWidget {
+  const _OceanServerList({required this.rows, required this.onChoose});
+
+  final List<ServerRow> rows;
+  final ValueChanged<Location> onChoose;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final look = AppDesign.current.look(dark);
+    final style = DesignStyle.of(context);
+    final cyan = style.navActive;
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 480,
+        mainAxisExtent: 62,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: rows.length,
+      itemBuilder: (context, i) {
+        final row = rows[i];
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(style.listRadius),
+            boxShadow: row.selected
+                ? [
+                    BoxShadow(
+                      color: cyan.withValues(alpha: 0.28),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.30),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+          ),
+          child: Material(
+            color: look.homeCard,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(style.listRadius),
+              side: BorderSide(
+                color: row.selected
+                    ? cyan
+                    : Colors.white.withValues(alpha: 0.12),
+                width: row.selected ? 1.8 : 1,
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            child: InkWell(
+              onTap: () => onChoose(row.location),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: row.selected
+                            ? Border.all(color: cyan, width: 1.6)
+                            : null,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: flagArt(context, row.location.code, 36, 36,
+                          cover: true),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        row.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: row.selected
+                                  ? FontWeight.w800
+                                  : FontWeight.w600,
+                              color: row.selected ? cyan : look.ink,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    ServerDelayBadge(location: row.location),
+                    SizedBox.square(
+                      dimension: 22,
+                      child: row.busy
+                          ? const Padding(
+                              padding: EdgeInsets.all(4),
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : row.selected
+                          ? Icon(
+                              Icons.check_rounded,
+                              size: 20,
+                              color: cyan,
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

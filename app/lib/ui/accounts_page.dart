@@ -153,6 +153,14 @@ class _AddAccountButton extends StatelessWidget {
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         const TextStyle(fontWeight: FontWeight.w700),
       ),
+      'sky' => (
+        const StadiumBorder(),
+        const TextStyle(fontWeight: FontWeight.w700),
+      ),
+      'ocean' => (
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        const TextStyle(fontWeight: FontWeight.w700),
+      ),
       _ => (
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         const TextStyle(fontWeight: FontWeight.w600),

@@ -269,4 +269,28 @@ void main() {
       language: 'fa',
     );
   });
+  testWidgets('design sky, dark, connected', (tester) async {
+    await phone(tester, name: 'sky_dark', design: 'sky');
+  });
+
+  testWidgets('design sky, light, connected', (tester) async {
+    await phone(tester, name: 'sky_light', design: 'sky', theme: ThemeMode.light);
+  });
+
+  testWidgets('design sky, Persian, connected', (tester) async {
+    await phone(tester, name: 'sky_fa', design: 'sky', language: 'fa');
+  });
+
+  testWidgets('design ocean, dark, connected', (tester) async {
+    await phone(tester, name: 'ocean_dark', design: 'ocean');
+  });
+
+  testWidgets('design ocean, light, connected', (tester) async {
+    await phone(tester, name: 'ocean_light', design: 'ocean', theme: ThemeMode.light);
+  });
+
+  testWidgets('design ocean, Persian, connected', (tester) async {
+    await phone(tester, name: 'ocean_fa', design: 'ocean', language: 'fa');
+  });
+
 }

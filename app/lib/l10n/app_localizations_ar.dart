@@ -2756,6 +2756,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get designGazette => 'صحيفة';
+  @override
+  String get designSky => 'السماء';
+  @override
+  String get designSkyDesc => 'السماء: بطاقات بيضاء بظلال ناعمة وأعلام دائرية وخريطة منقّطة فاتحة — خفة الغيوم';
+  @override
+  String get designOcean => 'المحيط';
+  @override
+  String get designOceanDesc => 'المحيط: زجاج أزرق داكن وتوهج سماوي وحلقة مضيئة للزر — عمق البحر';
+  @override
+  String get connectionPort => 'منفذ الاتصال';
+  @override
+  String get connectionPortHint => 'المنفذ الذي يتصل به النفق بالخوادم؛ الفراغ يعني 443';
+  @override
+  String get connectionPortInvalid => 'أدخل منفذاً بين 1 و 65535';
+  @override
+  String get wn66Sky => 'تصميمان جديدان: السماء والمحيط — كل صفحة ببطاقاتها وملاحتها وخرائطها';
+  @override
+  String get wn66Port => 'إعداد منفذ الاتصال: يتصل النفق على 443 أو أي منفذ يقبلها الخادم';
 
   @override
   String get designGazetteDesc =>

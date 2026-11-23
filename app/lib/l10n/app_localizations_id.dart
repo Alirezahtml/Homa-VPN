@@ -2755,6 +2755,24 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get designGazette => 'Koran';
+  @override
+  String get designSky => 'Langit';
+  @override
+  String get designSkyDesc => 'Langit: kartu putih berbayang lembut, bendera medali, dan peta titik terang — keringanan awan';
+  @override
+  String get designOcean => 'Samudra';
+  @override
+  String get designOceanDesc => 'Samudra: kaca biru tua, cahaya sian, dan dial cincin bercahaya — kedalaman laut';
+  @override
+  String get connectionPort => 'Port koneksi';
+  @override
+  String get connectionPortHint => 'Port tempat terowongan menghubungi server; kosong berarti 443';
+  @override
+  String get connectionPortInvalid => 'Masukkan port antara 1 dan 65535';
+  @override
+  String get wn66Sky => 'Dua desain baru: Langit dan Samudra — setiap halaman dengan kartu, navigasi, dan petanya sendiri';
+  @override
+  String get wn66Port => 'Pengaturan port koneksi: terowongan tersambung di 443, atau port mana pun yang diterima server';
 
   @override
   String get designGazetteDesc =>

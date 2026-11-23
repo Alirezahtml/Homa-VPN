@@ -1114,6 +1114,37 @@ class _FlagCard extends StatelessWidget {
             child: fav(_content(scheme, w, cover: medal)),
           ),
         );
+      case FxMood.drift:
+        // The sky's plate: the white medal card on its blue shade — the
+        // soft shadow carries it, the hairline keeps its edge, the
+        // shelf stays home: nothing dark on the daylight.
+        frame = Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(design.flagRound + 4),
+            color: dark ? const Color(0xFF18223E) : Colors.white,
+            border: Border.all(
+              color: light.withValues(alpha: dark ? 0.55 : 0.9),
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: dark
+                    ? Colors.black.withValues(alpha: 0.30)
+                    : const Color(0x162F6BFF),
+                blurRadius: 14,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Container(
+            width: w,
+            height: h,
+            clipBehavior: Clip.antiAlias,
+            decoration: flagCutDecoration(design, w, h, edge),
+            child: fav(_content(scheme, w, cover: medal)),
+          ),
+        );
       case FxMood.glass:
         // The glass frame: a bezel of frosted glass around the flag —
         // the sweep comes from up-left, the fine white edge holds the

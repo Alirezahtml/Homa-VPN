@@ -2751,6 +2751,24 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get designGazette => 'Tờ báo';
+  @override
+  String get designSky => 'Bầu trời';
+  @override
+  String get designSkyDesc => 'Bầu trời: thẻ trắng đổ bóng mềm, cờ huy chương và bản đồ chấm sáng — sự nhẹ nhàng của mây';
+  @override
+  String get designOcean => 'Đại dương';
+  @override
+  String get designOceanDesc => 'Đại dương: kính xanh đậm, quang cyan và núm xoay sáng vòng — độ sâu của biển';
+  @override
+  String get connectionPort => 'Cổng kết nối';
+  @override
+  String get connectionPortHint => 'Cổng mà đường hầm kết nối tới máy chủ; để trống giữ 443';
+  @override
+  String get connectionPortInvalid => 'Nhập cổng từ 1 đến 65535';
+  @override
+  String get wn66Sky => 'Hai thiết kế mới: Bầu trời và Đại dương — mỗi trang mang thẻ, điều hướng và bản đồ riêng';
+  @override
+  String get wn66Port => 'Thiết lập cổng kết nối: đường hầm kết nối qua 443 hoặc cổng nào máy chủ chấp nhận';
 
   @override
   String get designGazetteDesc =>

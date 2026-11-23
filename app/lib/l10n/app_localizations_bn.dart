@@ -2745,6 +2745,24 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get designGazette => 'সংবাদপত্র';
+  @override
+  String get designSky => 'আকাশ';
+  @override
+  String get designSkyDesc => 'আকাশ: নরম ছায়ার সাদা কার্ড, পদকের মতো পতাকা ও হালকা বিন্দু-মানচিত্র — মেঘের হালকা ভাব';
+  @override
+  String get designOcean => 'মহাসাগর';
+  @override
+  String get designOceanDesc => 'মহাসাগর: গাঢ় নীল কাচ, সায়ান আভা ও বলয়-আলোকিত ডায়াল — সাগরের গভীরতা';
+  @override
+  String get connectionPort => 'সংযোগ পোর্ট';
+  @override
+  String get connectionPortHint => 'টানেল যে পোর্টে সার্ভারে যোগাযোগ করে; খালি রাখলে 443 থাকে';
+  @override
+  String get connectionPortInvalid => '১ থেকে ৬৫৫৩৫ এর মধ্যে একটি পোর্ট লেখ';
+  @override
+  String get wn66Sky => 'দুটি নতুন ডিজাইন: আকাশ ও মহাসাগর — প্রতিটি পাতায় নিজস্ব কার্ড, নেভিগেশন ও মানচিত্র';
+  @override
+  String get wn66Port => 'সংযোগ পোর্ট সেটিং: টানেল 443-এ বা সার্ভার যে পোর্ট মেনে নেয় সেখানে যোগাযোগ করে';
 
   @override
   String get designGazetteDesc =>

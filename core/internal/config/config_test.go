@@ -130,6 +130,8 @@ func TestLoadRejectsInvalidConfig(t *testing.T) {
 		"country and server":     `{"proxy":{"country":"US","server":"us.example:443"}}`,
 		"bad transport":          `{"proxy":{"transport":"h4"}}`,
 		"bad ip version":         `{"proxy":{"ip_version":"ipv5"}}`,
+		"server port too high":   `{"proxy":{"server_port":70000}}`,
+		"server port negative":   `{"proxy":{"server_port":-2}}`,
 		"mtu too small":          `{"tun":{"mtu":576}}`,
 		"threshold too high":     `{"accounts":{"switch_threshold_percent":120}}`,
 		"duration as number":     `{"proxy":{"idle_sleep":20}}`,

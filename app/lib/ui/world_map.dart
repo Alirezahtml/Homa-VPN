@@ -2002,6 +2002,36 @@ class MapSkin {
             edge: Color(0xFFD6C9AC),
             grid: Color(0xFFD6C9AC),
           ),
+    'sky' => dark
+        ? const MapSkin(
+            water: Color(0xFF101A34),
+            waterFade: Color(0xFF0C1428),
+            land: Color(0xFF1C2A50),
+            edge: Color(0xFF31437A),
+            grid: Color(0xFF31437A),
+          )
+        : const MapSkin(
+            water: Color(0xFFDFE9FA),
+            waterFade: Color(0xFFE9F1FB),
+            land: Color(0xFFFFFFFF),
+            edge: Color(0xFFBFD2EE),
+            grid: Color(0xFFBFD2EE),
+          ),
+    'ocean' => dark
+        ? const MapSkin(
+            water: Color(0xFF050E22),
+            waterFade: Color(0xFF04091C),
+            land: Color(0xFF10295C),
+            edge: Color(0xFF23509E),
+            grid: Color(0xFF23509E),
+          )
+        : const MapSkin(
+            water: Color(0xFF0A1B3D),
+            waterFade: Color(0xFF060F26),
+            land: Color(0xFF14306B),
+            edge: Color(0xFF23509E),
+            grid: Color(0xFF23509E),
+          ),
     _ => null,
   };
 }
