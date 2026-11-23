@@ -2953,4 +2953,12 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn65Radar =>
       'Peta yang dibawa desain GTA kini berdiri dengan namanya sendiri: radar — air dalam yang sama, kisi amber dan sapuan yang sama, kali ini dengan namanya sendiri di pemilih peta';
+
+  @override
+  String get wn67Port =>
+      'Pengaturan port koneksi pergi: server hanya merespons di port yang daftar server sendiri berikan — memaksa satu port menutup setiap koneksi, dan konfigurasi yang masih membawanya melepasnya saat pertama dijalankan';
+
+  @override
+  String get wn67Back =>
+      'Koneksi kembali ke tempatnya — selebihnya tetap di tempat yang 1.0.65 tinggalkan: lima desain, peta radar, dan tunnel yang stabil';
 }

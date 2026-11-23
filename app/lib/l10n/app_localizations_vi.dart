@@ -2949,4 +2949,12 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn65Radar =>
       'Bản đồ mà thiết kế GTA mang theo giờ đứng dưới tên riêng: radar — cùng mặt nước sâu, lưới hổ phách và vệt quét, lần này với tên riêng của nó trong bộ chọn bản đồ';
+
+  @override
+  String get wn67Port =>
+      'Thiết lập cổng kết nối ra đi: máy chủ chỉ trả lời trên cổng mà danh sách máy chủ trao cho chúng — áp đặt một cổng đã đóng mọi kết nối, và cấu hình nào còn mang nó sẽ bỏ nó ở lần khởi động đầu';
+
+  @override
+  String get wn67Back =>
+      'Kết nối trở lại vị trí của nó — mọi thứ còn lại đứng nơi 1.0.65 đã để: năm thiết kế, bản đồ radar và đường hầm vững vàng';
 }

@@ -859,5 +859,7 @@
   "wn64Name": "Le design Pixel répond à son propre nom : Material You",
   "wn65Gone": "Le design GTA est parti : son accueil, ses pages, sa palette — cinq designs restent, et un fichier de réglages qui le nomme encore retombe sur la roue",
   "wn65Tight": "L'accueil se serre dans chaque design : les bandes nues que le reste d'écran ouvrait entre les cartes ont disparu — la roue, les tuiles, la gazette, les médailles et les puces se suivent à un souffle de distance, et la page défile là où elle s'étirait",
-  "wn65Radar": "La carte que portait le design GTA tient désormais debout par son nom : le radar — même eau profonde, même grille ambrée et même balayage, sous son propre nom dans le sélecteur de cartes"
+  "wn65Radar": "La carte que portait le design GTA tient désormais debout par son nom : le radar — même eau profonde, même grille ambrée et même balayage, sous son propre nom dans le sélecteur de cartes",
+  "wn67Port": "Le réglage du port de connexion s'en va : les serveurs ne répondent que sur le port que la liste des serveurs leur donne — imposer un port fermait toutes les connexions, et une configuration qui le porte encore le laisse au premier démarrage",
+  "wn67Back": "La connexion retrouve sa place — tout le reste demeure où 1.0.65 l'a laissé : les cinq designs, la carte radar et le tunnel stable"
 }

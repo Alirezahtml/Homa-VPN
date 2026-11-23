@@ -5156,6 +5156,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The map the GTA design carried stands on its own now, as the radar: the same deep water, the amber grid and the sweep, under its own name in the map picker'**
   String get wn65Radar;
+
+  /// No description provided for @wn67Port.
+  ///
+  /// In en, this message translates to:
+  /// **'The connection-port setting leaves: the servers answer only on the port the server list gives them — a port forced on them closed every connection, and a config that still carries one drops it at the first start'**
+  String get wn67Port;
+
+  /// No description provided for @wn67Back.
+  ///
+  /// In en, this message translates to:
+  /// **'The connection stands again — everything else is where 1.0.65 left it: the five designs, the radar map, the steady tunnel'**
+  String get wn67Back;
 }
 
 class _AppLocalizationsDelegate

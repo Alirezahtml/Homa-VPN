@@ -859,5 +859,7 @@
   "wn64Name": "A Pixel dizájn a saját nevén szólal meg: Material You",
   "wn65Gone": "A GTA dizájn eltávozott: saját otthona, oldalai, palettája — öt dizájn marad, és az azt még nevező beállításfájl a kerékre esik",
   "wn65Tight": "A honlap minden dizájnban szorosabbra áll: eltűntek a csupasz sávok, amelyeket a képernyő maradéka nyitott a kártyák között — a kerék, a csempék, a lap, az érmek és a chipek egy levegőnyi távolságra követik egymást, és az oldal görget, ahol korábban nyúlt",
-  "wn65Radar": "A GTA dizájn térképe most saját nevén áll: radar — ugyanaz a mély víz, borostyán rács és söprés, ezúttal saját nevével a térképválasztóban"
+  "wn65Radar": "A GTA dizájn térképe most saját nevén áll: radar — ugyanaz a mély víz, borostyán rács és söprés, ezúttal saját nevével a térképválasztóban",
+  "wn67Port": "A kapcsolat-port beállítás eltávozik: a szerverek csak azon a porton válaszolnak, amelyet a szerverlista ad nekük — egy kényszerített port minden kapcsolatot bezárt, és aki még hordozza, az első indításkor elhagyja",
+  "wn67Back": "A kapcsolat visszaült a helyére — minden más ott maradt, ahogy az 1.0.65 hagyta: az öt dizájn, a radar-térkép és a stabil alagút"
 }

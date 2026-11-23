@@ -859,5 +859,7 @@
   "wn64Name": "Pixel tasarımı artık kendi adıyla anılıyor: Material You",
   "wn65Gone": "GTA tasarımı gitti: kendi ana sayfası, kendi sayfaları, kendi paleti — beş tasarım kalıyor, onu hâlâ adlandıran ayar dosyası çarka düşer",
   "wn65Tight": "Ana sayfa her tasarımda daha sıkı dizildi: ekranın artığının kartlar arasında açtığı çıplak şeritler yok oldu — çark, karolar, gazete, madalyalar ve çipler bir nefeslik arayla birbirini izler, sayfa gerildiği yerde kayar",
-  "wn65Radar": "GTA tasarımının taşıdığı harita artık kendi adıyla duruyor: radar — aynı derin su, kehribar ızgara ve tarama, bu kez harita seçicide kendi adıyla"
+  "wn65Radar": "GTA tasarımının taşıdığı harita artık kendi adıyla duruyor: radar — aynı derin su, kehribar ızgara ve tarama, bu kez harita seçicide kendi adıyla",
+  "wn67Port": "Bağlantı portu ayarı gidiyor: sunucular yalnızca sunucu listesinin kendilerine verdiği portta yanıt verir — bir portu zorlamak tüm bağlantıları kapatıyordu, onu hâlâ taşıyan bir yapılandırma ilk açılışta bırakır",
+  "wn67Back": "Bağlantı yeniden yerinde — geri kalan her şey 1.0.65'ın bıraktığı yerde: beş tasarım, radar haritası ve kararlı tünel"
 }

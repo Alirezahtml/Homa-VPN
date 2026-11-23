@@ -2955,4 +2955,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn65Radar =>
       'The map the GTA design carried stands on its own now, as the radar: the same deep water, the amber grid and the sweep, under its own name in the map picker';
+
+  @override
+  String get wn67Port =>
+      'The connection-port setting leaves: the servers answer only on the port the server list gives them — a port forced on them closed every connection, and a config that still carries one drops it at the first start';
+
+  @override
+  String get wn67Back =>
+      'The connection stands again — everything else is where 1.0.65 left it: the five designs, the radar map, the steady tunnel';
 }

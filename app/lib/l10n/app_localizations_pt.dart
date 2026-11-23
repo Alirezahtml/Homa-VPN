@@ -2957,4 +2957,12 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn65Radar =>
       'O mapa que o design GTA carregava agora se sustenta com nome próprio: o radar — a mesma água profunda, a grade âmbar e a varredura, agora com seu próprio nome no seletor de mapas';
+
+  @override
+  String get wn67Port =>
+      'A definição da porta de conexão parte: os servidores só respondem na porta que a própria lista de servidores lhes dá — forçar uma porta fechava todas as ligações, e uma configuração que ainda a traga larga-a no primeiro arranque';
+
+  @override
+  String get wn67Back =>
+      'A ligação volta ao seu lugar — todo o resto fica onde o 1.0.65 deixou: os cinco designs, o mapa radar e o túnel estável';
 }

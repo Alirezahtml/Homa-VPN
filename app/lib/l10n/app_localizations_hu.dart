@@ -2964,4 +2964,12 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn65Radar =>
       'A GTA dizájn térképe most saját nevén áll: radar — ugyanaz a mély víz, borostyán rács és söprés, ezúttal saját nevével a térképválasztóban';
+
+  @override
+  String get wn67Port =>
+      'A kapcsolat-port beállítás eltávozik: a szerverek csak azon a porton válaszolnak, amelyet a szerverlista ad nekük — egy kényszerített port minden kapcsolatot bezárt, és aki még hordozza, az első indításkor elhagyja';
+
+  @override
+  String get wn67Back =>
+      'A kapcsolat visszaült a helyére — minden más ott maradt, ahogy az 1.0.65 hagyta: az öt dizájn, a radar-térkép és a stabil alagút';
 }

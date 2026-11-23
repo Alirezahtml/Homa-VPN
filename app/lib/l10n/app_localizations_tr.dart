@@ -2948,4 +2948,12 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn65Radar =>
       'GTA tasarımının taşıdığı harita artık kendi adıyla duruyor: radar — aynı derin su, kehribar ızgara ve tarama, bu kez harita seçicide kendi adıyla';
+
+  @override
+  String get wn67Port =>
+      'Bağlantı portu ayarı gidiyor: sunucular yalnızca sunucu listesinin kendilerine verdiği portta yanıt verir — bir portu zorlamak tüm bağlantıları kapatıyordu, onu hâlâ taşıyan bir yapılandırma ilk açılışta bırakır';
+
+  @override
+  String get wn67Back =>
+      'Bağlantı yeniden yerinde — geri kalan her şey 1.0.65\'ın bıraktığı yerde: beş tasarım, radar haritası ve kararlı tünel';
 }

@@ -2950,4 +2950,12 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn65Radar =>
       'GTA dizaynının apardığı xəritə indi öz adı ilə durur: radar — eyni dərin su, kəhrəba tor və süzülmə, bu dəfə xəritə seçicisində öz adı ilə';
+
+  @override
+  String get wn67Port =>
+      'Qoşulma portu ayarı silindi: serverlər yalnız server siyahısının kendilərinə verdiyi portda cavab verir — bir portu məcburi etmək bütün qoşulmaları bağlayırdı, onu hələ daşıyan konfiqurasiya ilk işə salmada buraxır';
+
+  @override
+  String get wn67Back =>
+      'Qoşulma yenidən yerindədir — qalan hər şey 1.0.65-in qoyduğu yerdədir: beş dizayn, radar xəritəsi və sabit tunnel';
 }

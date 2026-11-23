@@ -2969,4 +2969,12 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get wn65Radar =>
       'El mapa que traía el diseño GTA ahora se sostiene por su nombre: el radar — la misma agua profunda, la rejilla ámbar y el barrido, esta vez con su propio nombre en el selector de mapas';
+
+  @override
+  String get wn67Port =>
+      'El ajuste del puerto de conexión se marcha: los servidores solo responden en el puerto que la propia lista de servidores les da — forzar un puerto cerraba todas las conexiones, y una configuración que aún lo lleve lo suelta en el primer arranque';
+
+  @override
+  String get wn67Back =>
+      'La conexión vuelve a su sitio — todo lo demás queda donde lo dejó 1.0.65: los cinco diseños, el mapa radar y el túnel estable';
 }

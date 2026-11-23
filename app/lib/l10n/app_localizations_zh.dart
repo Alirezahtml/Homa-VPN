@@ -2773,6 +2773,14 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get wn65Radar =>
       'GTA 设计带来的地图如今以自己的名字立身：雷达 —— 同样的深水、琥珀色网格与扫描线，这次在地图选择器中用着自己的名字';
+
+  @override
+  String get wn67Port =>
+      '连接端口设置离场：服务器只在服务器列表给它们的端口上应答——强行指定一个端口会关上每一条连接，仍带着它的配置会在首次启动时丢下它';
+
+  @override
+  String get wn67Back =>
+      '连接回到原位——其余一切停在 1.0.65 放下的地方：五套设计、雷达地图与稳定的隧道';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5545,4 +5553,12 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn65Radar =>
       'GTA 設計帶來的地圖如今以自己的名字立身：雷達 —— 同樣的深水、琥珀色網格與掃描線，這次在地圖選擇器中用著自己的名字';
+
+  @override
+  String get wn67Port =>
+      '連接連接埠設定離場：伺服器只在伺服器清單給它們的連接埠上應答——強行指定一個連接埠會關上每一條連接，仍帶著它的設定會在首次啟動時丟下它';
+
+  @override
+  String get wn67Back =>
+      '連接回到原位——其餘一切停在 1.0.65 放下的地方：五套設計、雷達地圖與穩定的通道';
 }
