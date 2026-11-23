@@ -2753,24 +2753,6 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get designGazette => 'Qəzet';
-  @override
-  String get designSky => 'Göy';
-  @override
-  String get designSkyDesc => 'Göy: yumşaq kölgəli ağ kartlar, medal bayraq və açıq nöqtəli xəritə — buludların yüngüllüyü';
-  @override
-  String get designOcean => 'Okean';
-  @override
-  String get designOceanDesc => 'Okean: tünd mavi şüşə, firuzəyi parıltı və halqalı disk — dənizin dərinliyi';
-  @override
-  String get connectionPort => 'Qoşulma portu';
-  @override
-  String get connectionPortHint => 'Tunnelin serverlərə qoşulduğu port; boş olsa 443 qalır';
-  @override
-  String get connectionPortInvalid => '1 ilə 65535 arasında port yaz';
-  @override
-  String get wn66Sky => 'İki yeni görünüm: Göy və Okean — hər səhifə öz kartları, naviqasiyası və xəritəsi ilə';
-  @override
-  String get wn66Port => 'Qoşulma portu ayarı: tunnel 443-ə və ya serverin qəbul etdiyi hər hansı porta qoşulur';
 
   @override
   String get designGazetteDesc =>

@@ -4845,25 +4845,6 @@ abstract class AppLocalizations {
   /// **'Gazette'**
   String get designGazette;
 
-  /// No description provided for @designSky.
-  String get designSky;
-  /// No description provided for @designSkyDesc.
-  String get designSkyDesc;
-  /// No description provided for @designOcean.
-  String get designOcean;
-  /// No description provided for @designOceanDesc.
-  String get designOceanDesc;
-  /// No description provided for @connectionPort.
-  String get connectionPort;
-  /// No description provided for @connectionPortHint.
-  String get connectionPortHint;
-  /// No description provided for @connectionPortInvalid.
-  String get connectionPortInvalid;
-  /// No description provided for @wn66Sky.
-  String get wn66Sky;
-  /// No description provided for @wn66Port.
-  String get wn66Port;
-
   /// No description provided for @designGazetteDesc.
   ///
   /// In en, this message translates to:

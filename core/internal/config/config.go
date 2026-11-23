@@ -203,13 +203,6 @@ type Proxy struct {
 	Country string `json:"country"`
 	// Server pins an exact upstream host:port.
 	Server string `json:"server"`
-	// ServerPort, when not 0, swaps the port every server-list server
-	// dials on (proxy.server_port): 443 stays the port the list assumes
-	// for the records that omit one, and a network that only lets one
-	// port through can name its own. The country choice stands; only the
-	// port moves, so a server that does not answer there fails the
-	// session until the port returns to 0.
-	ServerPort int `json:"server_port,omitempty"`
 	// Transport is "h2" (HTTP/2 over TCP), "h3" (HTTP/3 over QUIC), or "h1"
 	// (HTTP/1.1 over TLS, a connection per tunnel).
 	Transport string `json:"transport"`
@@ -683,9 +676,6 @@ func (c Config) Validate() error {
 	case "", "auto", "dual", "ipv6_first", "ipv4", "ipv6":
 	default:
 		return fmt.Errorf("proxy.ip_version must be \"auto\", \"dual\", \"ipv6_first\", \"ipv4\", or \"ipv6\", not %q", p.IPVersion)
-	}
-	if p.ServerPort < 0 || p.ServerPort > 65535 {
-		return errors.New("proxy.server_port must be 0 (the server list's own) or a port between 1 and 65535")
 	}
 	if p.UpstreamConnections < 1 {
 		return errors.New("proxy.upstream_connections must be at least 1")

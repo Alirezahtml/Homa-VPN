@@ -2390,10 +2390,9 @@ void main() {
     await settle(tester);
     await tester.tap(find.text('Proxy login'));
     await settle(tester);
-    // Its form's Save: after the MTU's and the connection port's (the
-    // port's own text setting stands between them now), before the
-    // Worker's at the end of the page.
-    final save = find.widgetWithText(FilledButton, 'Save').at(2);
+    // Its form's Save: after the MTU's in the connection section, before
+    // the Worker's at the end of the page.
+    final save = find.widgetWithText(FilledButton, 'Save').at(1);
     await tester.enterText(
       find.widgetWithText(TextField, 'Proxy username'),
       'user',

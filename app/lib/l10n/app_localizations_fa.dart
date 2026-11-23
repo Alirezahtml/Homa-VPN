@@ -2737,24 +2737,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get designGazette => 'روزنامه';
-  @override
-  String get designSky => 'آسمانی';
-  @override
-  String get designSkyDesc => 'آسمان: کارت‌های سفیدِ سایه‌دار، پرچم‌های مدال‌مانند و نقشهٔ نقطه‌چینِ روشن — سبکیِ ابرها';
-  @override
-  String get designOcean => 'اقیانوسی';
-  @override
-  String get designOceanDesc => 'اقیانوس: شیشهٔ آبیِ تیره، درخشش فیروزه‌ای و حلقه‌نورِ دکمهٔ اتصال — عمق دریا';
-  @override
-  String get connectionPort => 'پورت اتصال';
-  @override
-  String get connectionPortHint => 'پورتی که تونل به سرورها وصل می‌شود؛ خالی یعنی 443';
-  @override
-  String get connectionPortInvalid => 'پورتی بین ۱ تا ۶۵۵۳۵ بنویس';
-  @override
-  String get wn66Sky => 'دو طرح تازه: آسمانی و اقیانوسی — هر صفحه با کارت‌ها، ناوبری و نقشهٔ خودش';
-  @override
-  String get wn66Port => 'گزینهٔ پورت اتصال: تونل روی 443 وصل می‌شود، یا هر پورت دیگری که سرور بپذیرد';
 
   @override
   String get designGazetteDesc =>

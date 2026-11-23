@@ -2750,24 +2750,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get designGazette => 'Gazete';
-  @override
-  String get designSky => 'Gökyüzü';
-  @override
-  String get designSkyDesc => 'Gökyüzü: yumuşak gölgeli beyaz kartlar, madalya bayrakları ve açık noktalı harita — bulutların hafifliği';
-  @override
-  String get designOcean => 'Okyanus';
-  @override
-  String get designOceanDesc => 'Okyanus: koyu mavi cam, camgöbeği parıltı ve halkalı kadran — denizin derinliği';
-  @override
-  String get connectionPort => 'Bağlantı portu';
-  @override
-  String get connectionPortHint => 'Tünelin sunuculara bağlandığı bağlantı noktası; boş bırakılırsa 443 kalır';
-  @override
-  String get connectionPortInvalid => '1 ile 65535 arasında bir bağlantı noktası yaz';
-  @override
-  String get wn66Sky => 'İki yeni tasarım: Gökyüzü ve Okyanus — her sayfa kendi kartları, gezinmesi ve haritasıyla';
-  @override
-  String get wn66Port => 'Bağlantı portu ayarı: tünel 443\'e ya da sunucunun kabul ettiği herhangi bir porta bağlanır';
 
   @override
   String get designGazetteDesc =>

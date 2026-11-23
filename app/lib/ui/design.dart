@@ -35,8 +35,6 @@ abstract final class AppDesign {
     'pixel' => DesignTheme.pixel,
     'ios' => DesignTheme.ios,
     'bento' => DesignTheme.bento,
-    'sky' => DesignTheme.sky,
-    'ocean' => DesignTheme.ocean,
     _ => DesignTheme.mono,
   };
 
@@ -265,108 +263,6 @@ class DesignTheme {
       homeBottom: Color(0xFF0C0B0A),
       homeCard: Color(0xFF1C1A18),
       homeCardBorder: Color(0xFF332F2A),
-    ),
-  );
-
-  /// The sky: the daylight's own look — the paper-blue page, the white
-  /// cards floating on their soft blue shade, the deep navy ink and the
-  /// sky's own blue carrying. The night is the sky after dark: the navy
-  /// under a lighter blue.
-  static const sky = DesignTheme._(
-    key: 'sky',
-    day: DesignLook(
-      scaffold: Color(0xFFEFF5FF),
-      scaffoldBottom: Color(0xFFE4EEFB),
-      surface: Color(0xFFFFFFFF),
-      surfaceHigh: Color(0xFFF5F9FF),
-      containerHighest: Color(0xFFEAF1FC),
-      ink: Color(0xFF0E1E45),
-      muted: Color(0xFF6C7C9C),
-      outline: Color(0xFFDFE9FA),
-      accent: Color(0xFF2F6BFF),
-      cardShadow: [
-        BoxShadow(
-          color: Color(0x162F6BFF),
-          blurRadius: 18,
-          offset: Offset(0, 6),
-        ),
-      ],
-      homeTop: Color(0xFFEFF5FF),
-      homeBottom: Color(0xFFE4EEFB),
-      homeCard: Color(0xFFFFFFFF),
-      homeCardBorder: Color(0xFFDFE9FA),
-    ),
-    night: DesignLook(
-      scaffold: Color(0xFF0F1730),
-      scaffoldBottom: Color(0xFF0A1124),
-      surface: Color(0xFF18223E),
-      surfaceHigh: Color(0xFF1F2A4A),
-      containerHighest: Color(0xFF1A2440),
-      ink: Color(0xFFEAF1FF),
-      muted: Color(0xFF93A3C4),
-      outline: Color(0xFF2A3760),
-      accent: Color(0xFF6D9BFF),
-      cardShadow: [],
-      homeTop: Color(0xFF0F1730),
-      homeBottom: Color(0xFF0A1124),
-      homeCard: Color(0xFF18223E),
-      homeCardBorder: Color(0xFF2A3760),
-    ),
-  );
-
-  /// The ocean: the deep water's own look — the navy page in both modes,
-  /// the glass tiles standing in it, the foam-white ink and the cyan
-  /// carrying. The night is the water one breath deeper: darker still,
-  /// the same cyan answering.
-  /// The ocean: the deep water's own look — the navy page in both modes,
-  /// the glass tiles standing in it, the foam-white ink and the cyan
-  /// carrying. The night is the water one breath deeper: darker still,
-  /// the same cyan answering.
-  static const ocean = DesignTheme._(
-    key: 'ocean',
-    day: DesignLook(
-      scaffold: Color(0xFF081637),
-      scaffoldBottom: Color(0xFF050F24),
-      surface: Color(0xFF0F224C),
-      surfaceHigh: Color(0xFF14295A),
-      containerHighest: Color(0xFF122548),
-      ink: Color(0xFFF2F6FF),
-      muted: Color(0xFF9FB2D8),
-      outline: Color(0xFF233B6E),
-      accent: Color(0xFF17C3E6),
-      cardShadow: [
-        BoxShadow(
-          color: Color(0x33000000),
-          blurRadius: 22,
-          offset: Offset(0, 10),
-        ),
-      ],
-      homeTop: Color(0xFF0A1C42),
-      homeBottom: Color(0xFF061026),
-      homeCard: Color(0xFF0F224C),
-      homeCardBorder: Color(0xFF233B6E),
-    ),
-    night: DesignLook(
-      scaffold: Color(0xFF050E22),
-      scaffoldBottom: Color(0xFF030818),
-      surface: Color(0xFF0C1D42),
-      surfaceHigh: Color(0xFF112450),
-      containerHighest: Color(0xFF0F2044),
-      ink: Color(0xFFF2F6FF),
-      muted: Color(0xFF93A6CE),
-      outline: Color(0xFF1E3360),
-      accent: Color(0xFF17C3E6),
-      cardShadow: [
-        BoxShadow(
-          color: Color(0x40000000),
-          blurRadius: 24,
-          offset: Offset(0, 10),
-        ),
-      ],
-      homeTop: Color(0xFF081734),
-      homeBottom: Color(0xFF030818),
-      homeCard: Color(0xFF0C1D42),
-      homeCardBorder: Color(0xFF1E3360),
     ),
   );
 

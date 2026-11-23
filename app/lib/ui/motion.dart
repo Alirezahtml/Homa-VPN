@@ -67,8 +67,6 @@ class Reveal extends StatelessWidget {
       'pixel' => (10.0, 0.96, false), // the emphasized entrance
       'bento' => (12.0, 0.94, true), // the box's tiles pop in
       'ios' => (10.0, 0.99, false), // the soft rise
-      'sky' => (18.0, 0.99, false), // the drift: a long soft float up
-      'ocean' => (12.0, 0.96, true), // the glow rising out of the deep
       _ => (14.0, 0.985, false), // the fade-and-lift
     };
     final curve = Interval(

@@ -248,7 +248,6 @@ func NewDaemon(paths DataPaths, forceVerbose bool) (*Daemon, error) {
 		return nil, err
 	}
 	proxy.SetUpstreamIPVersion(cfg.Proxy.IPVersion)
-	proxy.SetUpstreamServerPort(cfg.Proxy.ServerPort)
 	store, order, err := OpenAccounts(paths, &cfg)
 	if err != nil {
 		return nil, err
@@ -1055,7 +1054,6 @@ func (d *Daemon) updateSettings(next config.Config, newPassword *string) (settin
 	d.mu.Unlock()
 	// Before the engine restarts on it; the location pings take it too.
 	proxy.SetUpstreamIPVersion(next.Proxy.IPVersion)
-	proxy.SetUpstreamServerPort(next.Proxy.ServerPort)
 
 	logx.Verbose.Store(next.Logging.Verbose || d.forceVerbose)
 	d.mgr.SetPolicy(accounts.Policy{ThresholdPercent: next.Accounts.SwitchThresholdPercent})

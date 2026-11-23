@@ -42,7 +42,7 @@ void main() {
     await tester.tap(row);
     await settle(tester);
 
-    for (final name in ['iOS', 'Material You', 'Gazette', 'Bento', 'Sky', 'Ocean']) {
+    for (final name in ['iOS', 'Material You', 'Gazette', 'Bento']) {
       final card = find.text(name);
       await tester.ensureVisible(card);
       await settle(tester);
@@ -96,12 +96,6 @@ void main() {
     settings.update(homeDesign: 'gazette');
     await settle(tester);
     expect(designName(l, settings), 'Gazette');
-    settings.update(homeDesign: 'sky');
-    await settle(tester);
-    expect(designName(l, settings), 'Sky');
-    settings.update(homeDesign: 'ocean');
-    await settle(tester);
-    expect(designName(l, settings), 'Ocean');
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

@@ -391,24 +391,3 @@ func TestConnectProxyCandidatesDefaultMissingPortTo443(t *testing.T) {
 		t.Fatalf("unexpected CONNECT candidates: %v", got)
 	}
 }
-
-func TestConnectCandidatesServerPortOverride(t *testing.T) {
-	SetUpstreamServerPort(8443)
-	t.Cleanup(func() { SetUpstreamServerPort(0) })
-	countries := []serverlist.Country{{
-		Name: "Japan", Code: "JP",
-		Cities: []serverlist.City{{Name: "Tokyo", Code: "TYO", Servers: []serverlist.Server{
-			{Hostname: "jp.example"},
-			{Hostname: "jp2.example", Port: 2499},
-		}}},
-	}}
-	got := connectProxyHosts(countries)
-	if len(got) != 2 || got[0] != "jp.example:8443" || got[1] != "jp2.example:8443" {
-		t.Fatalf("expected the override port on every candidate, got %v", got)
-	}
-	SetUpstreamServerPort(0)
-	got = connectProxyHosts(countries)
-	if len(got) != 2 || got[0] != "jp.example:443" || got[1] != "jp2.example:2499" {
-		t.Fatalf("expected the list's own ports back, got %v", got)
-	}
-}

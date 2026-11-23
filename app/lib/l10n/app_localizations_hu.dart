@@ -2766,24 +2766,6 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get designGazette => 'Lap';
-  @override
-  String get designSky => 'Ég';
-  @override
-  String get designSkyDesc => 'Ég: lágy árnyékú fehér kártyák, medália-zászlók és világos ponttérkép — a felhők könnyedsége';
-  @override
-  String get designOcean => 'Óceán';
-  @override
-  String get designOceanDesc => 'Óceán: mélykék üveg, cián ragyogás és gyűrűs kijelző — a tenger mélysége';
-  @override
-  String get connectionPort => 'Kapcsolat portja';
-  @override
-  String get connectionPortHint => 'A port, amelyen az alagút a szervereket hívja; üresen 443 marad';
-  @override
-  String get connectionPortInvalid => 'Írj egy 1 és 65535 közötti portot';
-  @override
-  String get wn66Sky => 'Két új megjelenés: Ég és Óceán — minden oldal a saját kártyáival, navigációjával és térképével';
-  @override
-  String get wn66Port => 'Kapcsolat port beállítása: az alagút 443-on, vagy a szerver által elfogadott bármely porton köt be';
 
   @override
   String get designGazetteDesc =>

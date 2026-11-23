@@ -2766,24 +2766,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get designGazette => 'Газета';
-  @override
-  String get designSky => 'Небо';
-  @override
-  String get designSkyDesc => 'Небо: белые карточки с мягкой тенью, круглые флаги-медали и светлая точечная карта — лёгкость облаков';
-  @override
-  String get designOcean => 'Океан';
-  @override
-  String get designOceanDesc => 'Океан: тёмно-синее стекло, циановое свечение и диск в светящемся кольце — глубина моря';
-  @override
-  String get connectionPort => 'Порт подключения';
-  @override
-  String get connectionPortHint => 'Порт, по которому туннель соединяется с серверами; пусто — 443';
-  @override
-  String get connectionPortInvalid => 'Укажите порт от 1 до 65535';
-  @override
-  String get wn66Sky => 'Два новых оформления: Небо и Океан — каждая страница со своими карточками, навигацией и картой';
-  @override
-  String get wn66Port => 'Настройка порта подключения: туннель соединяется по 443 или по любому порту, который принимает сервер';
 
   @override
   String get designGazetteDesc =>

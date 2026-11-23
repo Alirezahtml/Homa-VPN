@@ -2759,24 +2759,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get designGazette => 'Jornal';
-  @override
-  String get designSky => 'Céu';
-  @override
-  String get designSkyDesc => 'Céu: cartões brancos de sombra suave, bandeiras-medalha e o mapa pontilhado claro — a leveza das nuvens';
-  @override
-  String get designOcean => 'Oceano';
-  @override
-  String get designOceanDesc => 'Oceano: vidro azul profundo, o brilho ciano e o mostrador de anelho iluminado — a profundidade do mar';
-  @override
-  String get connectionPort => 'Porta de conexão';
-  @override
-  String get connectionPortHint => 'A porta pela qual o túnel liga aos servidores; vazio mantém 443';
-  @override
-  String get connectionPortInvalid => 'Escreve uma porta entre 1 e 65535';
-  @override
-  String get wn66Sky => 'Dois novos designs: Céu e Oceano — cada página com os seus próprios cartões, navegação e mapa';
-  @override
-  String get wn66Port => 'Definição da porta de conexão: o túnel liga ao 443 ou a qualquer porta que o servidor aceite';
 
   @override
   String get designGazetteDesc =>

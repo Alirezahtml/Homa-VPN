@@ -151,17 +151,6 @@ void main() {
     expect(s.homeDesign, 'bento');
   });
 
-  test('the two new looks stand on their own keys', () async {
-    File('${dir.path}/app-settings.json')
-        .writeAsStringSync('{"home_design": "sky"}');
-    var s = await AppSettings.load(dir.path);
-    expect(s.homeDesign, 'sky');
-    File('${dir.path}/app-settings.json')
-        .writeAsStringSync('{"home_design": "ocean"}');
-    s = await AppSettings.load(dir.path);
-    expect(s.homeDesign, 'ocean');
-  });
-
 
   test('takes the core executable from --core', () {
     expect(

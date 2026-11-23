@@ -404,9 +404,6 @@ func ConnectCandidates(countries []serverlist.Country) []Candidate {
 				if serverPort <= 0 {
 					serverPort = serverlist.DefaultServerPort
 				}
-				// proxy.server_port, when one stands, moves every
-				// candidate to the port the network lets through.
-				serverPort = upstreamPort(serverPort)
 				candidate := func(host string, port int) Candidate {
 					return Candidate{
 						Addr:        net.JoinHostPort(host, strconv.Itoa(port)),

@@ -2771,24 +2771,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get designGazette => 'Periódico';
-  @override
-  String get designSky => 'Cielo';
-  @override
-  String get designSkyDesc => 'Cielo: tarjetas blancas de sombra suave, banderas de medalla y el mapa de puntos claro — la ligereza de las nubes';
-  @override
-  String get designOcean => 'Océano';
-  @override
-  String get designOceanDesc => 'Océano: vidrio azul profundo, el brillo cian y el dial de anillo iluminado — la profundidad del mar';
-  @override
-  String get connectionPort => 'Puerto de conexión';
-  @override
-  String get connectionPortHint => 'El puerto con el que el túnel llama a los servidores; vacío mantiene 443';
-  @override
-  String get connectionPortInvalid => 'Introduce un puerto entre 1 y 65535';
-  @override
-  String get wn66Sky => 'Dos diseños nuevos: Cielo y Océano — cada página con sus propias tarjetas, navegación y mapa';
-  @override
-  String get wn66Port => 'Ajuste de puerto de conexión: el túnel llama al 443 o al puerto que el servidor acepte';
 
   @override
   String get designGazetteDesc =>
