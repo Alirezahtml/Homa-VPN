@@ -1614,6 +1614,15 @@ class _StripTile extends StatelessWidget {
             offset: chosen ? Offset.zero : const Offset(0, 2),
           ),
         ],
+      FxMood.drift => [
+          BoxShadow(
+            color: chosen
+                ? accent.withValues(alpha: dark ? 0.30 : 0.20)
+                : const Color(0x162F6BFF),
+            blurRadius: chosen ? 12 : 8,
+            offset: Offset(0, chosen ? 3 : 4),
+          ),
+        ],
       FxMood.glass || FxMood.glow => chosen
           ? [
               BoxShadow(
