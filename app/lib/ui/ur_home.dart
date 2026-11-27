@@ -912,7 +912,7 @@ class UrStatsSheet extends StatelessWidget {
               Expanded(
                 child: _SpeedTile(
                   label: l.urSpeedUp,
-                  value: traffic == null ? null : traffic.upRate,
+                  value: traffic?.upRate,
                   color: accent,
                   ink: ink,
                   muted: muted,
@@ -922,7 +922,7 @@ class UrStatsSheet extends StatelessWidget {
               Expanded(
                 child: _SpeedTile(
                   label: l.urSpeedDown,
-                  value: traffic == null ? null : traffic.downRate,
+                  value: traffic?.downRate,
                   color: connectedColor,
                   ink: ink,
                   muted: muted,
