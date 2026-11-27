@@ -2577,6 +2577,11 @@ void main() {
     // Logs cleared stay cleared when the page opens again.
     await tester.tap(find.text('Settings'));
     await settle(tester);
+    // The Change UI/UX tile sits in General now and pushes the app group
+    // below the fold: a drag builds the Logs tile before the
+    // ensureVisible that needs its element.
+    await tester.drag(find.text('Network'), const Offset(0, -480));
+    await settle(tester);
     await tester.ensureVisible(find.text('Logs'));
     await settle(tester);
     await tester.tap(find.text('Logs'));
