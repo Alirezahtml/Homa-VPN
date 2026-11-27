@@ -2963,4 +2963,76 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wn67Back =>
       'The connection stands again — everything else is where 1.0.65 left it: the five designs, the radar map, the steady tunnel';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'The URnetwork face: a round connect button, a location card, and a pull-up live-stats sheet';
+
+  @override
+  String get urConnect =>
+      'Connect';
+
+  @override
+  String get urDisconnect =>
+      'Disconnect';
+
+  @override
+  String get urChangeLocation =>
+      'Change';
+
+  @override
+  String get urStatsTitle =>
+      'Live stats';
+
+  @override
+  String get urStatsHint =>
+      'Pull up';
+
+  @override
+  String get urSpeedUp =>
+      'Up';
+
+  @override
+  String get urSpeedDown =>
+      'Down';
+
+  @override
+  String get urSessionTime =>
+      'Connected for';
+
+  @override
+  String get urSessionData =>
+      'Session data';
+
+  @override
+  String get urExitLocation =>
+      'Exit location';
+
+  @override
+  String get urLastTest =>
+      'Last test';
+
+  @override
+  String get urNoData =>
+      'No data yet';
+
+  @override
+  String get changeUi =>
+      'Change UI/UX';
+
+  @override
+  String get wn68Toast =>
+      'The floating notes drop the blur: one less heavy effect on every toast, the weak phones keep their frames';
+
+  @override
+  String get wn68Stats =>
+      'Pull the home\'s bottom edge up: live speeds, the session\'s sparkline, the exit location, the IP and the last test — nothing the core is not already reporting';
+
+  @override
+  String get wn68Ur =>
+      'The URnetwork design joins the picker: the round connect button that gathers its points as the tunnel comes up, the location card, the wide Connect — choose it under Appearance';
 }

@@ -330,12 +330,16 @@ class VpnApp extends StatelessWidget {
       // The theme depends on the resolved language for its font.
       builder: (context, child) {
         final locale = Localizations.localeOf(context);
-        final dark = switch (settings.themeMode) {
-          ThemeMode.dark => true,
-          ThemeMode.light => false,
-          ThemeMode.system =>
-            MediaQuery.platformBrightnessOf(context) == Brightness.dark,
-        };
+        // The ur look ships dark only: whatever the mode setting says, the
+        // night wears the app while the ur design stands (its palette has
+        // no day — the day it carries is the same stock, one lighter blue).
+        final dark = AppDesign.resolve(settings.homeDesign).key == 'ur' ||
+            switch (settings.themeMode) {
+              ThemeMode.dark => true,
+              ThemeMode.light => false,
+              ThemeMode.system =>
+                MediaQuery.platformBrightnessOf(context) == Brightness.dark,
+            };
         // The static status colors (the problem boxes, the home's lights)
         // read the same accent the scheme carries; this build is the one
         // place both are decided, so they never disagree. The design is

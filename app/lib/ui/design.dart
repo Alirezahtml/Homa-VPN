@@ -35,6 +35,7 @@ abstract final class AppDesign {
     'pixel' => DesignTheme.pixel,
     'ios' => DesignTheme.ios,
     'bento' => DesignTheme.bento,
+    'ur' => DesignTheme.ur,
     _ => DesignTheme.mono,
   };
 
@@ -263,6 +264,47 @@ class DesignTheme {
       homeBottom: Color(0xFF0C0B0A),
       homeCard: Color(0xFF1C1A18),
       homeCardBorder: Color(0xFF332F2A),
+    ),
+  );
+
+  /// The ur: the URnetwork's own look, re-read for this app — the
+  /// near-black canvases (one shade for every layer, never pure gray),
+  /// the electric blue's light and the pink's mark, and the hairline
+  /// borders at twelve percent white. The look is always dark, the way
+  /// URnetwork ships; the day keeps the same stock with a lighter blue.
+  static const ur = DesignTheme._(
+    key: 'ur',
+    day: DesignLook(
+      scaffold: Color(0xFF101010),
+      scaffoldBottom: Color(0xFF0B0B0B),
+      surface: Color(0xFF1C1C1C),
+      surfaceHigh: Color(0xFF262626),
+      containerHighest: Color(0xFF1C1C1C),
+      ink: Color(0xFFF8F8F8),
+      muted: Color(0xFF989898),
+      outline: Color(0xFF2E2E2E),
+      accent: Color(0xFF2A60FF),
+      cardShadow: [],
+      homeTop: Color(0xFF101010),
+      homeBottom: Color(0xFF0B0B0B),
+      homeCard: Color(0xFF1C1C1C),
+      homeCardBorder: Color(0xFF2E2E2E),
+    ),
+    night: DesignLook(
+      scaffold: Color(0xFF101010),
+      scaffoldBottom: Color(0xFF0B0B0B),
+      surface: Color(0xFF1C1C1C),
+      surfaceHigh: Color(0xFF262626),
+      containerHighest: Color(0xFF1C1C1C),
+      ink: Color(0xFFF8F8F8),
+      muted: Color(0xFF989898),
+      outline: Color(0xFF2E2E2E),
+      accent: Color(0xFF638BFC),
+      cardShadow: [],
+      homeTop: Color(0xFF101010),
+      homeBottom: Color(0xFF0B0B0B),
+      homeCard: Color(0xFF1C1C1C),
+      homeCardBorder: Color(0xFF2E2E2E),
     ),
   );
 

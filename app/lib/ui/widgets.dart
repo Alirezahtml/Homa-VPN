@@ -1312,23 +1312,23 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
                       scale: Tween(begin: 0.82, end: 1.0).animate(_inSpring),
                       child: GestureDetector(
                         onTap: _leave,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(22),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 12,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.72),
-                                borderRadius: BorderRadius.circular(22),
-                                border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.10),
-                                ),
-                              ),
-                              child: Row(
+                        // No BackdropFilter here: a blur is a saveLayer the
+                        // weak GPUs pay for on every frame of the toast's
+                        // life, and the solid veil reads the same — the
+                        // color's own opacity carries the glass look.
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.82),
+                            borderRadius: BorderRadius.circular(22),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.10),
+                            ),
+                          ),
+                          child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   _ToastMarkView(mark: widget.mark, t: _draw),
@@ -1348,7 +1348,6 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                            ),
                           ),
                         ),
                       ),
@@ -1356,7 +1355,6 @@ class _ToastNoteState extends State<_ToastNote> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            ),
           ),
         ),
       ],

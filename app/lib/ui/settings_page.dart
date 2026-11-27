@@ -3995,6 +3995,7 @@ String designName(AppLocalizations l, AppSettings s) => switch (s.homeDesign) {
   'pixel' => l.designPixel,
   'ios' => l.designIos,
   'gazette' => l.designGazette,
+  'ur' => l.designUr,
   _ => l.designWheel,
 };
 
@@ -4027,13 +4028,14 @@ Future<void> showDesignPicker(BuildContext context, AppSettings s) async {
                   'pixel',
                   'ios',
                   'gazette',
+                  'ur',
                 ]) ...[
                   _DesignCard(
                     kind: kind,
                     selected: s.homeDesign == kind,
                     onTap: () => s.update(homeDesign: kind),
                   ),
-                  if (kind != 'gazette') const SizedBox(height: 10),
+                  if (kind != 'ur') const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -4074,6 +4076,7 @@ class _DesignCard extends StatelessWidget {
       'pixel' => (l.designPixel, l.designPixelDesc),
       'ios' => (l.designIos, l.designIosDesc),
       'gazette' => (l.designGazette, l.designGazetteDesc),
+      'ur' => (l.designUr, l.designUrDesc),
       _ => (l.designWheel, l.designWheelDesc),
     };
     return InkWell(
@@ -4165,6 +4168,55 @@ class _DesignMockup extends StatelessWidget {
           ),
         );
     switch (kind) {
+      case 'ur':
+        // The ur's own drawing: the dark canvas, the round button with
+        // its scatter of points, and the stats sheet's handle below —
+        // the whole connect face in one thumbnail.
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 76,
+              height: 46,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: const Color(0xFF141414),
+              ),
+              child: Center(
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 14,
+                      height: 14,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: lit,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            // The wide Connect button and the sheet's handle.
+            Container(
+              width: 76,
+              height: 10,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: lit,
+              ),
+            ),
+            const SizedBox(height: 6),
+            tile(w: 30, h: 4, r: 2),
+          ],
+        );
       case 'bento':
         // The box's own drawing: the flag board's grid of tiles with the
         // chosen one lit, the wide connect tile under it.

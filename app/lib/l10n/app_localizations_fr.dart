@@ -2981,4 +2981,76 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get wn67Back =>
       'La connexion retrouve sa place — tout le reste demeure où 1.0.65 l\'a laissé : les cinq designs, la carte radar et le tunnel stable';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'Le visage URnetwork : bouton de connexion rond, carte d\'emplacement et panneau de statistiques en direct glissant';
+
+  @override
+  String get urConnect =>
+      'Se connecter';
+
+  @override
+  String get urDisconnect =>
+      'Se déconnecter';
+
+  @override
+  String get urChangeLocation =>
+      'Changer';
+
+  @override
+  String get urStatsTitle =>
+      'Statistiques en direct';
+
+  @override
+  String get urStatsHint =>
+      'Tirez vers le haut';
+
+  @override
+  String get urSpeedUp =>
+      'Montant';
+
+  @override
+  String get urSpeedDown =>
+      'Descendant';
+
+  @override
+  String get urSessionTime =>
+      'Connecté depuis';
+
+  @override
+  String get urSessionData =>
+      'Données de la session';
+
+  @override
+  String get urExitLocation =>
+      'Localisation de sortie';
+
+  @override
+  String get urLastTest =>
+      'Dernier test';
+
+  @override
+  String get urNoData =>
+      'Pas encore de données';
+
+  @override
+  String get changeUi =>
+      'Changer l\'UI/UX';
+
+  @override
+  String get wn68Toast =>
+      'Les notes flottantes abandonnent le flou : un effet lourd de moins à chaque toast, les téléphones faibles gardent leurs images';
+
+  @override
+  String get wn68Stats =>
+      'Tirez vers le haut le bord inférieur de l\'accueil : vitesses en direct, la courbe de la session, l\'emplacement de sortie, l\'IP et le dernier test — rien que le noyau ne dise déjà';
+
+  @override
+  String get wn68Ur =>
+      'Le design URnetwork rejoint le sélecteur : le bouton de connexion rond dont les points se rassemblent à l\'arrivée du tunnel, la carte d\'emplacement et le large « Se connecter » — choisissez-le dans Apparence';
 }

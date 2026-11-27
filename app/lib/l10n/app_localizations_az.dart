@@ -2958,4 +2958,76 @@ class AppLocalizationsAz extends AppLocalizations {
   @override
   String get wn67Back =>
       'Qoşulma yenidən yerindədir — qalan hər şey 1.0.65-in qoyduğu yerdədir: beş dizayn, radar xəritəsi və sabit tunnel';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork üzü: dairəvi qoşulma düyməsi, yer kartı və yuxarı çəkilən canlı statistika paneli';
+
+  @override
+  String get urConnect =>
+      'Qoşul';
+
+  @override
+  String get urDisconnect =>
+      'Ayır';
+
+  @override
+  String get urChangeLocation =>
+      'Dəyiş';
+
+  @override
+  String get urStatsTitle =>
+      'Canlı statistika';
+
+  @override
+  String get urStatsHint =>
+      'Yuxarı çəkin';
+
+  @override
+  String get urSpeedUp =>
+      'Yuxarı';
+
+  @override
+  String get urSpeedDown =>
+      'Aşağı';
+
+  @override
+  String get urSessionTime =>
+      'Qoşulma müddəti';
+
+  @override
+  String get urSessionData =>
+      'Sessiya datası';
+
+  @override
+  String get urExitLocation =>
+      'Çıxış yeri';
+
+  @override
+  String get urLastTest =>
+      'Son test';
+
+  @override
+  String get urNoData =>
+      'Hələ data yoxdur';
+
+  @override
+  String get changeUi =>
+      'UI/UX dəyiş';
+
+  @override
+  String get wn68Toast =>
+      'Üzən bildirişlər bulanıq effekti buraxdı: hər bildirişdə bir ağır effekt az, zəif telefonlar kadrlarını saxlayır';
+
+  @override
+  String get wn68Stats =>
+      'Əsas səhifənin alt kənarını yuxarı çəkin: canlı sürətlər, sessiya qrafiki, çıxış yeri, IP və son test — nüvədən onsuz da olmayan bir şey istəmir';
+
+  @override
+  String get wn68Ur =>
+      'URnetwork dizaynı seçicinə qoşulur: nöqtələri tunel gələndə toplanan dairəvi qoşulma düyməsi, yer kartı və enli «Qoşul» düyməsi — Görünüş bölməsindən seçin';
 }

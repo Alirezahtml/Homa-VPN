@@ -2781,6 +2781,78 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get wn67Back =>
       '连接回到原位——其余一切停在 1.0.65 放下的地方：五套设计、雷达地图与稳定的隧道';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork 风格：圆形连接按钮、位置卡片和上滑打开的实时统计面板';
+
+  @override
+  String get urConnect =>
+      '连接';
+
+  @override
+  String get urDisconnect =>
+      '断开';
+
+  @override
+  String get urChangeLocation =>
+      '更改';
+
+  @override
+  String get urStatsTitle =>
+      '实时统计';
+
+  @override
+  String get urStatsHint =>
+      '向上滑动';
+
+  @override
+  String get urSpeedUp =>
+      '上行';
+
+  @override
+  String get urSpeedDown =>
+      '下行';
+
+  @override
+  String get urSessionTime =>
+      '已连接时长';
+
+  @override
+  String get urSessionData =>
+      '会话数据';
+
+  @override
+  String get urExitLocation =>
+      '出口位置';
+
+  @override
+  String get urLastTest =>
+      '上次测试';
+
+  @override
+  String get urNoData =>
+      '暂无数据';
+
+  @override
+  String get changeUi =>
+      '更换界面';
+
+  @override
+  String get wn68Toast =>
+      '浮动通知放弃模糊：每条通知少一个沉重特效，弱机保住帧率';
+
+  @override
+  String get wn68Stats =>
+      '向上拉主页面底边：实时速度、会话曲线、出口位置、IP 和上次测试——不向核心索要它尚未汇报的任何东西';
+
+  @override
+  String get wn68Ur =>
+      'URnetwork 设计加入选择器：圆形连接按钮随隧道建立收拢它的点、位置卡片和宽大的「连接」——在外观中选用';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -5561,4 +5633,76 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn67Back =>
       '連接回到原位——其餘一切停在 1.0.65 放下的地方：五套設計、雷達地圖與穩定的通道';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork 風格：圓形連線按鈕、位置卡片和上滑開啟的即時統計面板';
+
+  @override
+  String get urConnect =>
+      '連線';
+
+  @override
+  String get urDisconnect =>
+      '斷線';
+
+  @override
+  String get urChangeLocation =>
+      '更改';
+
+  @override
+  String get urStatsTitle =>
+      '即時統計';
+
+  @override
+  String get urStatsHint =>
+      '向上滑動';
+
+  @override
+  String get urSpeedUp =>
+      '上行';
+
+  @override
+  String get urSpeedDown =>
+      '下行';
+
+  @override
+  String get urSessionTime =>
+      '已連線時長';
+
+  @override
+  String get urSessionData =>
+      '工作階段資料';
+
+  @override
+  String get urExitLocation =>
+      '出口位置';
+
+  @override
+  String get urLastTest =>
+      '上次測試';
+
+  @override
+  String get urNoData =>
+      '暫無資料';
+
+  @override
+  String get changeUi =>
+      '更換介面';
+
+  @override
+  String get wn68Toast =>
+      '浮動通知放棄模糊：每則通知少一個沉重特效，弱機保住影格率';
+
+  @override
+  String get wn68Stats =>
+      '向上拉首頁底邊：即時速度、工作階段曲線、出口位置、IP 和上次測試——不向核心索要它尚未回報的任何東西';
+
+  @override
+  String get wn68Ur =>
+      'URnetwork 設計加入選擇器：圓形連線按鈕隨通道建立收攏它的點、位置卡片和寬大的「連線」——在外觀中選用';
 }

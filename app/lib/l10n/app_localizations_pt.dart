@@ -2965,4 +2965,76 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get wn67Back =>
       'A ligação volta ao seu lugar — todo o resto fica onde o 1.0.65 deixou: os cinco designs, o mapa radar e o túnel estável';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'Rosto da URnetwork: botão de conexão redondo, cartão de local e painel de estatísticas ao vivo deslizante';
+
+  @override
+  String get urConnect =>
+      'Conectar';
+
+  @override
+  String get urDisconnect =>
+      'Desconectar';
+
+  @override
+  String get urChangeLocation =>
+      'Alterar';
+
+  @override
+  String get urStatsTitle =>
+      'Estatísticas ao vivo';
+
+  @override
+  String get urStatsHint =>
+      'Deslize para cima';
+
+  @override
+  String get urSpeedUp =>
+      'Envio';
+
+  @override
+  String get urSpeedDown =>
+      'Receção';
+
+  @override
+  String get urSessionTime =>
+      'Conectado há';
+
+  @override
+  String get urSessionData =>
+      'Dados da sessão';
+
+  @override
+  String get urExitLocation =>
+      'Local de saída';
+
+  @override
+  String get urLastTest =>
+      'Último teste';
+
+  @override
+  String get urNoData =>
+      'Ainda sem dados';
+
+  @override
+  String get changeUi =>
+      'Mudar UI/UX';
+
+  @override
+  String get wn68Toast =>
+      'As notas flutuantes abandonam o desfoque: um efeito pesado a menos em cada aviso, os telefones fracos mantêm os seus quadros';
+
+  @override
+  String get wn68Stats =>
+      'Arraste para cima a borda inferior da página inicial: velocidades ao vivo, a linha da sessão, o local de saída, o IP e o último teste — nada que o núcleo já não diga';
+
+  @override
+  String get wn68Ur =>
+      'O design URnetwork entra no seletor: o botão de conexão redondo cujos pontos se reúnem quando o túnel chega, o cartão de local e o «Conectar» largo — escolha-o em Aparência';
 }

@@ -569,6 +569,14 @@ class _SettingsList extends StatelessWidget {
             Icons.palette_rounded,
             l.sectionAppearance,
           ),
+          // The one tap the designs ask for: opens the home-design picker
+          // (the wheel, the tiles, the looks, and the ur) straight from
+          // the settings list.
+          tile(
+            Icons.style_rounded,
+            l.changeUi,
+            () => showDesignPicker(context, settings),
+          ),
           tile(Icons.public_rounded, l.navServers, onOpenServers),
           tile(Icons.people_outline_rounded, l.navAccounts, onOpenAccounts),
         ]),

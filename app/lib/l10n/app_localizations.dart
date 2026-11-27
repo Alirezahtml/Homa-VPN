@@ -5168,6 +5168,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The connection stands again — everything else is where 1.0.65 left it: the five designs, the radar map, the steady tunnel'**
   String get wn67Back;
+
+  /// No description provided for @designUr.
+  ///
+  /// In en, this message translates to:
+  /// **'URnetwork'**
+  String get designUr;
+
+  /// No description provided for @designUrDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The URnetwork face: a round connect button, a location card, and a pull-up live-stats sheet'**
+  String get designUrDesc;
+
+  /// No description provided for @urConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get urConnect;
+
+  /// No description provided for @urDisconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnect'**
+  String get urDisconnect;
+
+  /// No description provided for @urChangeLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get urChangeLocation;
+
+  /// No description provided for @urStatsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Live stats'**
+  String get urStatsTitle;
+
+  /// No description provided for @urStatsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull up'**
+  String get urStatsHint;
+
+  /// No description provided for @urSpeedUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get urSpeedUp;
+
+  /// No description provided for @urSpeedDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Down'**
+  String get urSpeedDown;
+
+  /// No description provided for @urSessionTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected for'**
+  String get urSessionTime;
+
+  /// No description provided for @urSessionData.
+  ///
+  /// In en, this message translates to:
+  /// **'Session data'**
+  String get urSessionData;
+
+  /// No description provided for @urExitLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit location'**
+  String get urExitLocation;
+
+  /// No description provided for @urLastTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Last test'**
+  String get urLastTest;
+
+  /// No description provided for @urNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get urNoData;
+
+  /// No description provided for @changeUi.
+  ///
+  /// In en, this message translates to:
+  /// **'Change UI/UX'**
+  String get changeUi;
+
+  /// No description provided for @wn68Toast.
+  ///
+  /// In en, this message translates to:
+  /// **'The floating notes drop the blur: one less heavy effect on every toast, the weak phones keep their frames'**
+  String get wn68Toast;
+
+  /// No description provided for @wn68Stats.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull the home\'s bottom edge up: live speeds, the session\'s sparkline, the exit location, the IP and the last test — nothing the core is not already reporting'**
+  String get wn68Stats;
+
+  /// No description provided for @wn68Ur.
+  ///
+  /// In en, this message translates to:
+  /// **'The URnetwork design joins the picker: the round connect button that gathers its points as the tunnel comes up, the location card, the wide Connect — choose it under Appearance'**
+  String get wn68Ur;
 }
 
 class _AppLocalizationsDelegate

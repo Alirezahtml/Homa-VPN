@@ -297,6 +297,7 @@ class AppSettings extends ChangeNotifier {
     'aether' => 'ios',
     'zed' => 'bento',
     'gazette' => 'gazette',
+    'ur' => 'ur',
     _ => 'wheel',
   };
 

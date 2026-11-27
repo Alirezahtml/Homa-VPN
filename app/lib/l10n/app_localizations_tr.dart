@@ -2956,4 +2956,76 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get wn67Back =>
       'Bağlantı yeniden yerinde — geri kalan her şey 1.0.65\'ın bıraktığı yerde: beş tasarım, radar haritası ve kararlı tünel';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork yüzü: yuvarlak bağlantı düğmesi, konum kartı ve yukarı çekilen canlı istatistik paneli';
+
+  @override
+  String get urConnect =>
+      'Bağlan';
+
+  @override
+  String get urDisconnect =>
+      'Bağlantıyı kes';
+
+  @override
+  String get urChangeLocation =>
+      'Değiştir';
+
+  @override
+  String get urStatsTitle =>
+      'Canlı istatistik';
+
+  @override
+  String get urStatsHint =>
+      'Yukarı çekin';
+
+  @override
+  String get urSpeedUp =>
+      'Yükleme';
+
+  @override
+  String get urSpeedDown =>
+      'İndirme';
+
+  @override
+  String get urSessionTime =>
+      'Bağlantı süresi';
+
+  @override
+  String get urSessionData =>
+      'Oturum verisi';
+
+  @override
+  String get urExitLocation =>
+      'Çıkış konumu';
+
+  @override
+  String get urLastTest =>
+      'Son test';
+
+  @override
+  String get urNoData =>
+      'Henüz veri yok';
+
+  @override
+  String get changeUi =>
+      'Arayüzü değiştir';
+
+  @override
+  String get wn68Toast =>
+      'Yüzen notlar bulanıklığı bıraktı: her bildirimde bir ağır efekt eksik, zayıf telefonlar karelerini koruyor';
+
+  @override
+  String get wn68Stats =>
+      'Ana sayfanın alt kenarını yukarı çekin: canlı hızlar, oturum grafiki, çıkış konumu, IP ve son test — çekirdeğin zaten söylemediği bir şey istemez';
+
+  @override
+  String get wn68Ur =>
+      'URnetwork tasarımı seçiciye katılıyor: noktaları tünel gelince toplanan yuvarlak bağlantı düğmesi, konum kartı ve geniş «Bağlan» — Görünüm bölümünden seçin';
 }

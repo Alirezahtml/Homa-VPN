@@ -29,6 +29,7 @@ import 'motion.dart';
 import 'port_dialog.dart';
 import 'sound.dart' show AppSounds, SoundCue;
 import 'speed_test_dialog.dart' show showSpeedTest;
+import 'ur_home.dart';
 import 'widgets.dart';
 import 'world_map.dart';
 
@@ -88,6 +89,19 @@ class OverviewPage extends StatelessWidget {
     final status = core.status!;
     final showIp = settings.showPublicIp;
     if (phone) {
+      // The ur design: the whole home is its own face — the round
+      // connect button, the location card, and the pull-up stats sheet.
+      // It draws its own canvas, so it replaces the map home entirely
+      // (the other designs stay untouched below).
+      if (settings.homeDesign == 'ur') {
+        return UrHome(
+          core: core,
+          status: status,
+          settings: settings,
+          onOpenServers: onOpenServers,
+          onOpenAccounts: onOpenAccounts,
+        );
+      }
       return _PhoneHome(
         core: core,
         status: status,
@@ -99,7 +113,7 @@ class OverviewPage extends StatelessWidget {
         onOpenUpstreamProxy: onOpenUpstreamProxy,
       );
     }
-    return _DesktopHome(
+    final desktop = _DesktopHome(
       core: core,
       status: status,
       showIp: showIp,
@@ -109,6 +123,12 @@ class OverviewPage extends StatelessWidget {
       onOpenConnection: onOpenConnection,
       onOpenUpstreamProxy: onOpenUpstreamProxy,
     );
+    // The ur look is always dark, the way it ships: the desktop wears it
+    // inside the midnight theme, so the map's ink and the surfaces never
+    // disagree with the palette.
+    return settings.homeDesign == 'ur'
+        ? Theme(data: midnightTheme(Theme.of(context)), child: desktop)
+        : desktop;
   }
 }
 

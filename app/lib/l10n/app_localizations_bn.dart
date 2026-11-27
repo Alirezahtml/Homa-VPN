@@ -2950,4 +2950,76 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get wn67Back =>
       'সংযোগ আবার তার জায়গায় — বাকি সব 1.0.65 যেখানে রেখেছিল সেখানেই: পাঁচটি ডিজাইন, রাডার ম্যাপ ও স্থিতিশীল টানেল';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork মুখ: গোল সংযোগ বোতাম, লোকেশন কার্ড এবং উপরে টানলে খোলা লাইভ পরিসংখ্যান শিট';
+
+  @override
+  String get urConnect =>
+      'সংযোগ';
+
+  @override
+  String get urDisconnect =>
+      'বিচ্ছিন্ন';
+
+  @override
+  String get urChangeLocation =>
+      'পরিবর্তন';
+
+  @override
+  String get urStatsTitle =>
+      'লাইভ পরিসংখ্যান';
+
+  @override
+  String get urStatsHint =>
+      'উপরে টানুন';
+
+  @override
+  String get urSpeedUp =>
+      'আপ';
+
+  @override
+  String get urSpeedDown =>
+      'ডাউন';
+
+  @override
+  String get urSessionTime =>
+      'সংযুক্ত সময়';
+
+  @override
+  String get urSessionData =>
+      'সেশন ডেটা';
+
+  @override
+  String get urExitLocation =>
+      'এক্সিট লোকেশন';
+
+  @override
+  String get urLastTest =>
+      'শেষ পরীক্ষা';
+
+  @override
+  String get urNoData =>
+      'এখনও ডেটা নেই';
+
+  @override
+  String get changeUi =>
+      'UI/UX পরিবর্তন';
+
+  @override
+  String get wn68Toast =>
+      'ভাসমান নোটিফিকেশন ব্লার ছেড়ে দিয়েছে: প্রতিটি টোস্টে একটি ভারী ইফেক্ট কম, দুর্বল ফোনগুলো তাদের ফ্রেম ধরে রাখে';
+
+  @override
+  String get wn68Stats =>
+      'হোমের নিচের ধারা উপরে টানুন: লাইভ গতি, সেশনের স্পার্কলাইন, এক্সিট লোকেশন, IP এবং শেষ পরীক্ষা — কোর যা আগেই বলে তার বাইরে কিছু নয়';
+
+  @override
+  String get wn68Ur =>
+      'URnetwork ডিজাইন পিকারে যোগ দিল: গোল সংযোগ বোতাম যার বিন্দুগুলো টানেল আসার সাথে জড়ো হয়, লোকেশন কার্ড এবং চওড়া «সংযোগ» — চেহারা থেকে বেছে নিন';
 }

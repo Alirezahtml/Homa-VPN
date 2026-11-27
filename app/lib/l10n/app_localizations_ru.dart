@@ -2972,4 +2972,76 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get wn67Back =>
       'Подключение снова на своём месте — всё остальное стоит там, где оставил 1.0.65: пять дизайнов, карта-радар и устойчивый туннель';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'Облик URnetwork: круглая кнопка подключения, карточка локации и выдвижная панель живой статистики';
+
+  @override
+  String get urConnect =>
+      'Подключить';
+
+  @override
+  String get urDisconnect =>
+      'Отключить';
+
+  @override
+  String get urChangeLocation =>
+      'Сменить';
+
+  @override
+  String get urStatsTitle =>
+      'Статистика в реальном времени';
+
+  @override
+  String get urStatsHint =>
+      'Потяните вверх';
+
+  @override
+  String get urSpeedUp =>
+      'Отдача';
+
+  @override
+  String get urSpeedDown =>
+      'Приём';
+
+  @override
+  String get urSessionTime =>
+      'В сети';
+
+  @override
+  String get urSessionData =>
+      'Данные сеанса';
+
+  @override
+  String get urExitLocation =>
+      'Точка выхода';
+
+  @override
+  String get urLastTest =>
+      'Последний тест';
+
+  @override
+  String get urNoData =>
+      'Данных пока нет';
+
+  @override
+  String get changeUi =>
+      'Сменить интерфейс';
+
+  @override
+  String get wn68Toast =>
+      'Плавающие заметки отказываются от размытия: на один тяжёлый эффект меньше в каждом уведомлении, слабые телефоны сохраняют кадры';
+
+  @override
+  String get wn68Stats =>
+      'Потяните вверх нижний край главной страницы: живые скорости, график сеанса, точка выхода, IP и последний тест — ничего, чего ядро уже не сообщает';
+
+  @override
+  String get wn68Ur =>
+      'Дизайн URnetwork входит в выбор: круглая кнопка подключения, чьи точки собираются с приходом туннеля, карточка локации и широкая «Подключить» — выберите его в «Оформлении»';
 }

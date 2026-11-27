@@ -2943,4 +2943,76 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get wn67Back =>
       'اتصال دوباره سر جایش است — بقیه‌ی چیزها همان‌جاست که 1.0.65 گذاشت: پنج طرح، نقشه‌ی رادار و تانلِ پایدار';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'چهره‌ی URnetwork: دکمه‌ی اتصال گرد، کارت مکان و پنل آمار زنده که با کشیدن بالا باز می‌شود';
+
+  @override
+  String get urConnect =>
+      'اتصال';
+
+  @override
+  String get urDisconnect =>
+      'قطع اتصال';
+
+  @override
+  String get urChangeLocation =>
+      'تغییر';
+
+  @override
+  String get urStatsTitle =>
+      'آمار زنده';
+
+  @override
+  String get urStatsHint =>
+      'بالا بکشید';
+
+  @override
+  String get urSpeedUp =>
+      'بالا';
+
+  @override
+  String get urSpeedDown =>
+      'پایین';
+
+  @override
+  String get urSessionTime =>
+      'مدت اتصال';
+
+  @override
+  String get urSessionData =>
+      'داده جلسه';
+
+  @override
+  String get urExitLocation =>
+      'مکان خروج';
+
+  @override
+  String get urLastTest =>
+      'آخرین تست';
+
+  @override
+  String get urNoData =>
+      'هنوز داده‌ای نیست';
+
+  @override
+  String get changeUi =>
+      'تغییر UI/UX';
+
+  @override
+  String get wn68Toast =>
+      'اعلان‌های شناور افکت مات را کنار گذاشتند: یک افکت سنگین کمتر در هر اعلان، گوشی‌های ضعیف فریم‌هایشان را نگه می‌دارند';
+
+  @override
+  String get wn68Stats =>
+      'لبه‌ی پایین صفحه‌ی اصلی را بالا بکشید: سرعت‌های زنده، نمودار جلسه، مکان خروج، IP و آخرین تست — چیزی که هسته از قبل نمی‌گوید نمی‌خواهد';
+
+  @override
+  String get wn68Ur =>
+      'طرح URnetwork به انتخابگر پیوست: دکمه‌ی اتصالِ گرد که نقاطش با بالا آمدن تانل جمع می‌شوند، کارت مکان و دکمه‌ی «اتصال» — از بخش ظاهر انتخابش کنید';
 }

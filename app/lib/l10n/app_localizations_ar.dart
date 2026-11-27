@@ -2961,4 +2961,76 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get wn67Back =>
       'الاتصال عاد إلى مكانه — وكل ما عدا ذلك بقي حيث تركه 1.0.65: التصاميم الخمسة وخريطة الرادار والنفق المستقر';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'واجهة URnetwork: زر اتصال دائري وبطاقة موقع ولوحة إحصائيات حية تُفتح بالسحب لأعلى';
+
+  @override
+  String get urConnect =>
+      'اتصال';
+
+  @override
+  String get urDisconnect =>
+      'قطع الاتصال';
+
+  @override
+  String get urChangeLocation =>
+      'تغيير';
+
+  @override
+  String get urStatsTitle =>
+      'إحصائيات حية';
+
+  @override
+  String get urStatsHint =>
+      'اسحب لأعلى';
+
+  @override
+  String get urSpeedUp =>
+      'رفع';
+
+  @override
+  String get urSpeedDown =>
+      'تنزيل';
+
+  @override
+  String get urSessionTime =>
+      'مدة الاتصال';
+
+  @override
+  String get urSessionData =>
+      'بيانات الجلسة';
+
+  @override
+  String get urExitLocation =>
+      'موقع الخروج';
+
+  @override
+  String get urLastTest =>
+      'آخر اختبار';
+
+  @override
+  String get urNoData =>
+      'لا بيانات بعد';
+
+  @override
+  String get changeUi =>
+      'تغيير الواجهة';
+
+  @override
+  String get wn68Toast =>
+      'الإشعارات العائمة تركت تأثير التمويه: تأثير ثقيل أقل في كل إشعار، والهواتف الضعيفة تحفظ إطاراتها';
+
+  @override
+  String get wn68Stats =>
+      'اسحب الحافة السفلية للصفحة الرئيسية لأعلى: سرعات حية، ومخطط الجلسة، وموقع الخروج، وعنوان IP وآخر اختبار — لا يطلب من النواة شيئًا لا يقوله أصلًا';
+
+  @override
+  String get wn68Ur =>
+      'تصميم URnetwork ينضم إلى المنتقي: زر الاتصال الدائري الذي تجتمع نقاطه مع قدوم النفق، وبطاقة الموقع وزر «اتصال» العريض — اختره من «المظهر»';
 }

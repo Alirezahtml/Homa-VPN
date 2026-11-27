@@ -2972,4 +2972,76 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get wn67Back =>
       'A kapcsolat visszaült a helyére — minden más ott maradt, ahogy az 1.0.65 hagyta: az öt dizájn, a radar-térkép és a stabil alagút';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'URnetwork arc: kerek csatlakozás gomb, helykártya és felfelé húzható élő statisztika panel';
+
+  @override
+  String get urConnect =>
+      'Csatlakozás';
+
+  @override
+  String get urDisconnect =>
+      'Leválasztás';
+
+  @override
+  String get urChangeLocation =>
+      'Váltás';
+
+  @override
+  String get urStatsTitle =>
+      'Élő statisztika';
+
+  @override
+  String get urStatsHint =>
+      'Húzza fel';
+
+  @override
+  String get urSpeedUp =>
+      'Feltöltés';
+
+  @override
+  String get urSpeedDown =>
+      'Letöltés';
+
+  @override
+  String get urSessionTime =>
+      'Kapcsolat ideje';
+
+  @override
+  String get urSessionData =>
+      'Munkamenet adatai';
+
+  @override
+  String get urExitLocation =>
+      'Kilépési hely';
+
+  @override
+  String get urLastTest =>
+      'Utolsó teszt';
+
+  @override
+  String get urNoData =>
+      'Még nincs adat';
+
+  @override
+  String get changeUi =>
+      'UI/UX váltás';
+
+  @override
+  String get wn68Toast =>
+      'Az lebegő értesítések elhagyják a elmosást: egy nehéz effekt kevesebb minden értesítésnél, a gyenge telefonok megtartják a képkockáikat';
+
+  @override
+  String get wn68Stats =>
+      'Húzd fel a főoldal alsó szélét: élő sebességek, a munkamenet grafikonja, a kilépési hely, az IP és az utolsó teszt — semmit, amit a mag már ne mondana';
+
+  @override
+  String get wn68Ur =>
+      'Az URnetwork dizájn a választóba lép: a kerek csatlakozás gomb, amelynek pontjai a tunel érkezésével összegyűlnek, a helykártya és a széles «Csatlakozás» — válaszd a Megjelenésben';
 }

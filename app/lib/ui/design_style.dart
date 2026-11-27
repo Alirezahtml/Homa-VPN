@@ -177,6 +177,7 @@ class DesignStyle {
     'pixel' => _pixel(dark),
     'ios' => _ios(dark),
     'bento' => _bento(dark),
+    'ur' => _ur(dark),
     _ => _mono(dark),
   };
 
@@ -355,6 +356,33 @@ class DesignStyle {
     navActive: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
     navInactive: dark ? const Color(0xFFA39C90) : const Color(0xFF6F6A61),
     switchTrack: dark ? const Color(0xFFFF8B5E) : const Color(0xFFE05D2A),
+  );
+
+  /// The ur's structure: the URnetwork's own — the floating glass pill
+  /// for the two tabs (the same shell the monochrome wears), the plain
+  /// large title, the big rounded tinted cards with no line, the
+  /// generous rounds everywhere. The blue carries, the amber reaches,
+  /// the coral blocks.
+  static DesignStyle _ur(bool dark) => DesignStyle._(
+    nav: NavVariant.glassPill,
+    header: HeaderVariant.m3,
+    group: GroupVariant.m3Card,
+    flagShape: FlagShape.rounded,
+    flagRound: 14,
+    smallFlagRound: 6,
+    fx: FxMood.soft,
+    scroll: ScrollMood.bounce,
+    cardRadius: 24,
+    listRadius: 16,
+    dialogRadius: 24,
+    iconBadge: false,
+    connected: const Color(0xFF53F12A),
+    scanning: const Color(0xFFF5C242),
+    danger: const Color(0xFFF8523B),
+    navBackground: const Color(0xCC0F0F0F),
+    navActive: const Color(0xFF638BFC),
+    navInactive: const Color(0xFF989898),
+    switchTrack: const Color(0xFF2A60FF),
   );
 
   /// The row's icon badge: the iOS table's colored rounded squares, or

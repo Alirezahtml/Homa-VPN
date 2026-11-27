@@ -2957,4 +2957,76 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get wn67Back =>
       'Kết nối trở lại vị trí của nó — mọi thứ còn lại đứng nơi 1.0.65 đã để: năm thiết kế, bản đồ radar và đường hầm vững vàng';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'Diện mạo URnetwork: nút kết nối tròn, thẻ vị trí và bảng thống kê trực tiếp kéo lên';
+
+  @override
+  String get urConnect =>
+      'Kết nối';
+
+  @override
+  String get urDisconnect =>
+      'Ngắt kết nối';
+
+  @override
+  String get urChangeLocation =>
+      'Thay đổi';
+
+  @override
+  String get urStatsTitle =>
+      'Thống kê trực tiếp';
+
+  @override
+  String get urStatsHint =>
+      'Kéo lên';
+
+  @override
+  String get urSpeedUp =>
+      'Tải lên';
+
+  @override
+  String get urSpeedDown =>
+      'Tải xuống';
+
+  @override
+  String get urSessionTime =>
+      'Thời gian kết nối';
+
+  @override
+  String get urSessionData =>
+      'Dữ liệu phiên';
+
+  @override
+  String get urExitLocation =>
+      'Vị trí thoát';
+
+  @override
+  String get urLastTest =>
+      'Bài kiểm tra cuối';
+
+  @override
+  String get urNoData =>
+      'Chưa có dữ liệu';
+
+  @override
+  String get changeUi =>
+      'Đổi giao diện';
+
+  @override
+  String get wn68Toast =>
+      'Các ghi chú nổi bỏ hiệu ứng làm mờ: một hiệu ứng nặng ít hơn trong mỗi thông báo, điện thoại yếu giữ khung hình của mình';
+
+  @override
+  String get wn68Stats =>
+      'Kéo cạnh dưới của trang chủ lên: tốc độ trực tiếp, đường biểu đồ phiên, vị trí thoát, IP và bài kiểm tra cuối — không hỏi gì nhân đã không nói';
+
+  @override
+  String get wn68Ur =>
+      'Thiết kế URnetwork gia nhập bộ chọn: nút kết nối tròn whose điểm tụ lại khi đường hầm đến, thẻ vị trí và nút «Kết nối» rộng — chọn nó trong Diện mạo';
 }

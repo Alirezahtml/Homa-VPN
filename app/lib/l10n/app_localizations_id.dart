@@ -2961,4 +2961,76 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get wn67Back =>
       'Koneksi kembali ke tempatnya — selebihnya tetap di tempat yang 1.0.65 tinggalkan: lima desain, peta radar, dan tunnel yang stabil';
+
+  @override
+  String get designUr =>
+      'URnetwork';
+
+  @override
+  String get designUrDesc =>
+      'Wajah URnetwork: tombol sambung bulat, kartu lokasi, dan panel statistik langsung yang ditarik ke atas';
+
+  @override
+  String get urConnect =>
+      'Sambungkan';
+
+  @override
+  String get urDisconnect =>
+      'Putuskan';
+
+  @override
+  String get urChangeLocation =>
+      'Ganti';
+
+  @override
+  String get urStatsTitle =>
+      'Statistik langsung';
+
+  @override
+  String get urStatsHint =>
+      'Tarik ke atas';
+
+  @override
+  String get urSpeedUp =>
+      'Naik';
+
+  @override
+  String get urSpeedDown =>
+      'Turun';
+
+  @override
+  String get urSessionTime =>
+      'Terhubung selama';
+
+  @override
+  String get urSessionData =>
+      'Data sesi';
+
+  @override
+  String get urExitLocation =>
+      'Lokasi keluar';
+
+  @override
+  String get urLastTest =>
+      'Tes terakhir';
+
+  @override
+  String get urNoData =>
+      'Belum ada data';
+
+  @override
+  String get changeUi =>
+      'Ubah UI/UX';
+
+  @override
+  String get wn68Toast =>
+      'Notifikasi mengapung meninggalkan blur: satu efek berat lebih sedikit di setiap toast, ponsel lemah menyimpan bingkainya';
+
+  @override
+  String get wn68Stats =>
+      'Tarik tepi bawah beranda ke atas: kecepatan langsung, garis sesi, lokasi keluar, IP, dan tes terakhir — tidak meminta apa pun yang inti tidak sudah katakan';
+
+  @override
+  String get wn68Ur =>
+      'Desain URnetwork bergabung ke pemilih: tombol sambung bulat yang titik-titiknya berkumpul saat tunnel datang, kartu lokasi, dan «Sambungkan» lebar — pilih di Tampilan';
 }
