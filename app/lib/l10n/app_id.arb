@@ -900,5 +900,19 @@
   "urWhatsNew": "Yang baru",
   "urAboutUpdates": "Aplikasi dan pembaruan",
   "wn70UrNav": "Navigasi URnetwork bergabung dengan desain: bilah morphing mengambang yang sorotnya meluncur di antara tab, cahaya neon, gelembung, dan kapsul — pilih tampilannya di Pengaturan → Tampilan",
-  "wn70UrCards": "Layar pengaturan URnetwork: bagian dan kartu, bahasa, gaya navigasi, dan bilah pemakaian sesi di lemari tarik"
+  "wn70UrCards": "Layar pengaturan URnetwork: bagian dan kartu, bahasa, gaya navigasi, dan bilah pemakaian sesi di lemari tarik",
+  "urQuickTitle": "Opsi cepat",
+  "urShare": "Berbagi hotspot",
+  "urShareDesc": "Ubah ponsel ini menjadi gerbang: perangkat di hotspotnya dapat memakai VPN melaluinya. Nyalakan hotspot, hubungkan perangkat lain, lalu atur proksinya ke alamat di bawah.",
+  "urShareProxy": "Alamat proxy",
+  "urShareCopied": "Tersalin",
+  "urShareOpenHotspot": "Buka pengaturan hotspot",
+  "urShareOn": "Berbagi aktif — proxy menjawab di hotspot.",
+  "urShareNeedsVpn": "Sambungkan VPN dulu; perangkat yang dibagikan lewat tunelnya.",
+  "urShareSteps": "1. Nyalakan hotspot ponsel\n2. Hubungkan perangkat lain ke hotspot\n3. Di perangkat itu, buka proxy jaringan Wi-Fi dan pilih Manual\n4. Isi alamat di atas sebagai server — alamat yang sama juga menjawab SOCKS5",
+  "urShareNote": "Berfungsi selama VPN tersambung. Proxy inti menjawab HTTP dan SOCKS5 di port yang sama; saat berbagi dimatikan, port kembali hanya mendengar di perangkat sendiri.",
+  "wn71Nav": "Navigasi kini hanya bilah bawah klasik — pil mengubah-bentuk, cahaya neon, gelembung dan kapsul pergi bersama pemilihnya.",
+  "wn71Stats": "Statistik laci berbicara dengan presisi aslinya: grafik transfer dicerminkan pada sumbu tengah, puncak tiap arah berlabel di tempatnya, tiap laju dibaca sebagai 2.50 KiB/s.",
+  "wn71Drawer": "Laci yang ditarik ke atas berhenti di bawah navigasi dan mendapat opsi cepat: kill switch, kecepatan dan bendera notifikasi, routing per-ap, berbagi hotspot.",
+  "wn71Share": "Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya."
 }

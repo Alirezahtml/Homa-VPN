@@ -900,5 +900,19 @@
   "urWhatsNew": "Yenilikler",
   "urAboutUpdates": "Uygulama ve güncellemeler",
   "wn70UrNav": "URnetwork gezinmesi tasarıma katıldı: vurgusu sekmeler arasında kayan yüzen dönüşüm çubuğu, neon parıltı, baloncuklar ve kapsül — görünümü Ayarlar → Görünüm altından seçin",
-  "wn70UrCards": "URnetwork ayarlar ekranı: bölümler ve kartlar, dil, gezinme stili ve çekmecede oturum kullanım çubuğu"
+  "wn70UrCards": "URnetwork ayarlar ekranı: bölümler ve kartlar, dil, gezinme stili ve çekmecede oturum kullanım çubuğu",
+  "urQuickTitle": "Hızlı seçenekler",
+  "urShare": "Hotspot paylaşımı",
+  "urShareDesc": "Bu telefonu bir geçide dönüştürün: hotspot'una bağlanan cihazlar VPN'i onun üzerinden kullanabilir. Hotspot'u açın, diğer cihazı bağlayın, sonra proxy'sini aşağıdaki adrese ayarlayın.",
+  "urShareProxy": "Proxy adresi",
+  "urShareCopied": "Kopyalandı",
+  "urShareOpenHotspot": "Hotspot ayarlarını aç",
+  "urShareOn": "Paylaşım açık — proxy hotspot'ta yanıt veriyor.",
+  "urShareNeedsVpn": "Önce VPN'i bağlayın; paylaşılan cihazlar onun tünelinden geçer.",
+  "urShareSteps": "1. Telefonun hotspot'unu açın\n2. Diğer cihazı hotspot'a bağlayın\n3. O cihazda Wi-Fi ağının proxy'sini açın ve Manuel'i seçin\n4. Sunucuya yukarıdaki adresi yazın — aynı adres SOCKS5'e de yanıt verir",
+  "urShareNote": "VPN bağlı olduğu sürece çalışır. Çekirdeğin proxy'si aynı bağlantı noktasında hem HTTP hem SOCKS5'e yanıt verir; paylaşım kapanınca port yeniden yalnızca kendi makinede dinler.",
+  "wn71Nav": "Gezinme artık yalnızca klasik alt çubuk — değişen hap, neon ışıma, kabarcıklar ve kapsül, seçicileriyle birlikte gidiyor.",
+  "wn71Stats": "Çekmecenin istatistikleri orijinalin kesinliğiyle konuşuyor: aktarım grafiği merkez eksende aynalanmış, her yönün zirvesi kendi yerinde etiketli, her hız 2.50 KiB/s biçiminde.",
+  "wn71Drawer": "Yukarı çekilen çekmece gezinmenin altında duruyor ve hızlı seçenekleri kazanıyor: kill anahtarı, bildirimin hızı ve bayrağı, uygulamaya göre yönlendirme ve hotspot paylaşımı.",
+  "wn71Share": "Hotspot paylaşımı: telefonu hotspot'undaki cihazlar için bir VPN geçidine çevirin — tek anahtar proxy'yi açar, sayfa adresi ve adımları getirir."
 }

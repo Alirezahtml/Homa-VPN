@@ -12,7 +12,7 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'format.dart';
 import 'motion.dart';
-import 'ur_kit.dart' show UrSwitch;
+import 'ur_kit.dart' show UrPressable, UrSwitch;
 import 'ur_settings.dart' show UrUsageCard;
 import 'widgets.dart';
 

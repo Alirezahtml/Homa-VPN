@@ -900,5 +900,19 @@
   "urWhatsNew": "Yeniliklər",
   "urAboutUpdates": "Tətbiq və yeniləmələr",
   "wn70UrNav": "URnetwork naviqasiyası dizayna qoşuldu: üzən morfing zolağı, neon parıltı, qabarcıqlar və kapsul — görünüşü Parametrlər → Görünüş bölməsindən seçin",
-  "wn70UrCards": "URnetwork parametrlər ekranı: bölmələr və kartlar, dil, naviqasiya üslubu və çekmecədə sessiya istifadəsi zolağı"
+  "wn70UrCards": "URnetwork parametrlər ekranı: bölmələr və kartlar, dil, naviqasiya üslubu və çekmecədə sessiya istifadəsi zolağı",
+  "urQuickTitle": "Sürətli seçimlər",
+  "urShare": "Hotspot paylaşımı",
+  "urShareDesc": "Bu telefonu keçidə çevirin: hotspotundakı cihazlar VPN-dən ona keçə bilər. Hotspotu yandırın, digər cihazı qoşun, sonra onun proksisini aşağıdakı ünvana qoyun.",
+  "urShareProxy": "Proksi ünvanı",
+  "urShareCopied": "Kopyalandı",
+  "urShareOpenHotspot": "Hotspot parametrlərini aç",
+  "urShareOn": "Paylaşım açıqdır — proksi hotspotda cavab verir.",
+  "urShareNeedsVpn": "Əvvəlcə VPN-i qoşun; paylaşılan cihazlar onun tunelindən keçir.",
+  "urShareSteps": "1. Telefonun hotspotunu yandırın\n2. Digər cihazı hotspota qoşun\n3. O cihazda Wi-Fi şəbəkəsinin proksisini açıb Manual seçin\n4. Serverə yuxarıdakı ünvanı qoyun — eyni ünvan SOCKS5-ə də cavab verir",
+  "urShareNote": "VPN qoşulu olduğu müddətdə işləyir. Nüvənin proksisi eyni portda həm HTTP, həm SOCKS5-ə cavab verir; paylaşım söndükdə port yenidən yalnız özünə qulaq aspırır.",
+  "wn71Nav": "Naviqasiya indi yalnız klassik alt zolaqdır — hərəkətli həb, neon parıltısı, qabarcıqlar və kapsul öz seçicisiylə gedir.",
+  "wn71Stats": "Çəkmənin statistikası orijinalın dəqiqliyiylə danışır: mərkəz oxuna güzgülənmiş ötürmə qrafiki, hər istiqamətin zirvəsi öz yerində, hər sürət 2.50 KiB/s kimi.",
+  "wn71Drawer": "Yuxarı çəkilən çekmece naviqasiyanın altında dayanır və sürətli seçimlər alır: kill açarı, bildirişin sürəti və bayrağı, tətbiqə görə marşrut, hotspot paylaşımı.",
+  "wn71Share": "Hotspot paylaşımı: telefonu hotspotundakı cihazlar üçün VPN darvazasına çevirin — bir açar proksini açır, səhifə ünvanı və addımları deyir."
 }

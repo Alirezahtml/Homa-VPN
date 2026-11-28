@@ -900,5 +900,19 @@
   "urWhatsNew": "Có gì mới",
   "urAboutUpdates": "Ứng dụng và bản cập nhật",
   "wn70UrNav": "Điều hướng URnetwork gia nhập diện mạo: thanh biến hình nổi có vệt sáng trượt giữa các thẻ, quang neb, bong bóng và viên nang — chọn kiểu trong Cài đặt → Diện mạo",
-  "wn70UrCards": "Màn hình cài đặt URnetwork: các mục và thẻ, ngôn ngữ, kiểu điều hướng và thanh mức dùng của phiên trong ngăn kéo"
+  "wn70UrCards": "Màn hình cài đặt URnetwork: các mục và thẻ, ngôn ngữ, kiểu điều hướng và thanh mức dùng của phiên trong ngăn kéo",
+  "urQuickTitle": "Tùy chọn nhanh",
+  "urShare": "Chia sẻ điểm phát sóng",
+  "urShareDesc": "Biến điện thoại này thành cổng kết nối: các thiết bị trên điểm phát sóng của nó có thể dùng VPN qua nó. Bật điểm phát sóng, kết nối thiết bị kia, rồi đặt proxy của nó tới địa chỉ dưới đây.",
+  "urShareProxy": "Địa chỉ proxy",
+  "urShareCopied": "Đã sao chép",
+  "urShareOpenHotspot": "Mở cài đặt điểm phát sóng",
+  "urShareOn": "Đang chia sẻ — proxy trả lời trên điểm phát sóng.",
+  "urShareNeedsVpn": "Hãy kết nối VPN trước; các thiết bị được chia sẻ đi qua đường hầm của nó.",
+  "urShareSteps": "1. Bật điểm phát sóng của điện thoại\n2. Kết nối thiết bị kia vào điểm phát sóng\n3. Trên thiết bị đó, mở proxy của mạng Wi-Fi và chọn Thủ công\n4. Đặt địa chỉ trên làm máy chủ — địa chỉ đó cũng trả lời SOCKS5",
+  "urShareNote": "Hoạt động khi VPN đang kết nối. Proxy của lõi trả lời cả HTTP lẫn SOCKS5 trên cùng một cổng; khi tắt chia sẻ, cổng trở lại chỉ nghe trên máy này.",
+  "wn71Nav": "Điều hướng giờ chỉ còn thanh dưới cổ điển — viên thuốc biến hình, quầng neon, bong bóng và vỏ bọc rời đi cùng bộ chọn của chúng.",
+  "wn71Stats": "Số liệu của ngăn kéo nói bằng độ chính xác của bản gốc: biểu đồ truyền phản chiếu trên trục giữa, đỉnh mỗi chiều được dán nhãn tại chỗ, mọi tốc độ đọc dưới dạng 2.50 KiB/s.",
+  "wn71Drawer": "Ngăn kéo kéo lên dừng dưới điều hướng và nhận các tùy chọn nhanh: khóa ngắt, tốc độ và cờ trên thông báo, định tuyến từng ứng dụng, chia sẻ điểm phát sóng.",
+  "wn71Share": "Chia sẻ điểm phát sóng: biến điện thoại thành cổng VPN cho các thiết bị trên điểm phát của nó — một nút mở proxy, trang mang địa chỉ và các bước."
 }

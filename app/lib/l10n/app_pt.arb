@@ -900,5 +900,19 @@
   "urWhatsNew": "Novidades",
   "urAboutUpdates": "Aplicação e atualizações",
   "wn70UrNav": "A navegação URnetwork junta-se ao design: a barra flutuante de morfing cujo realce desliza entre os separadores, o brilho néon, as bolhas e a cápsula — escolha o estilo em Definições → Aparência",
-  "wn70UrCards": "O ecrã de definições da URnetwork: secções e cartões, o idioma, o estilo de navegação e a barra de utilização da sessão na gaveta"
+  "wn70UrCards": "O ecrã de definições da URnetwork: secções e cartões, o idioma, o estilo de navegação e a barra de utilização da sessão na gaveta",
+  "urQuickTitle": "Opções rápidas",
+  "urShare": "Partilhar por hotspot",
+  "urShareDesc": "Torne este telefone uma porta de entrada: os dispositivos do seu hotspot podem usar a VPN através dele. Ligue o hotspot, ligue o outro dispositivo e ponha o proxy dele no endereço abaixo.",
+  "urShareProxy": "Endereço do proxy",
+  "urShareCopied": "Copiado",
+  "urShareOpenHotspot": "Abrir as definições do hotspot",
+  "urShareOn": "A partilha está ligada — o proxy responde no hotspot.",
+  "urShareNeedsVpn": "Ligue primeiro a VPN; os dispositivos partilhados passam pelo seu túnel.",
+  "urShareSteps": "1. Ligue o hotspot do telefone\n2. Ligue o outro dispositivo ao hotspot\n3. Nesse dispositivo, abra o proxy da rede Wi-Fi e escolha Manual\n4. Ponha o endereço acima como servidor — o mesmo endereço também responde em SOCKS5",
+  "urShareNote": "Funciona enquanto a VPN estiver ligada. O proxy do núcleo responde HTTP e SOCKS5 no mesmo porto; com a partilha desligada, o porto volta a ouvir só no próprio aparelho.",
+  "wn71Nav": "A navegação é agora só a barra inferior clássica — a pílula morfológica, o brilho néon, as bolhas e a cápsula saem com o seu seletor.",
+  "wn71Stats": "As estatísticas da gaveta falam com a precisão do original: o gráfico de transferência espelhado num eixo central, o pico de cada sentido etiquetado no seu lugar, cada taxa lida como 2.50 KiB/s.",
+  "wn71Drawer": "A gaveta puxada para cima para sob a navegação e ganha as opções rápidas: o kill switch, a velocidade e a bandeira da notificação, o encaminhamento por app e a partilha por hotspot.",
+  "wn71Share": "Partilhar por hotspot: torne o telefone uma porta VPN para os dispositivos do seu hotspot — um interruptor abre o proxy, a página traz o endereço e os passos."
 }

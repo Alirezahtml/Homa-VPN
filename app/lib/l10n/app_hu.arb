@@ -900,5 +900,19 @@
   "urWhatsNew": "Újdonságok",
   "urAboutUpdates": "Alkalmazás és frissítések",
   "wn70UrNav": "Az URnetwork navigáció csatlakozik a dizájnhoz: a lebegő morphing sáv, amelynek kiemelése a lapok között úszik, a neon ragyogás, a buborékok és a kapszula — válaszd ki a stílust a Beállítások → Megjelenés alatt",
-  "wn70UrCards": "Az URnetwork beállítási képernyője: szakaszok és kártyák, a nyelv, a navigációs stílus és a munkamenet használatának sávja a fiókban"
+  "wn70UrCards": "Az URnetwork beállítási képernyője: szakaszok és kártyák, a nyelv, a navigációs stílus és a munkamenet használatának sávja a fiókban",
+  "urQuickTitle": "Gyors beállítások",
+  "urShare": "Hotspot megosztás",
+  "urShareDesc": "Tedd átjáróvá ezt a telefont: a hotspotjára kapcsolódó eszközök rajta keresztül használhatják a VPN-t. Kapcsold be a hotspotot, csatlakoztasd a másik eszközt, majd állítsd a proxyját a lenti címre.",
+  "urShareProxy": "Proxy cím",
+  "urShareCopied": "Másolva",
+  "urShareOpenHotspot": "Hotspot beállítások megnyitása",
+  "urShareOn": "A megosztás bekapcsolva — a proxy a hotspoton válaszol.",
+  "urShareNeedsVpn": "Először csatlakoztasd a VPN-t; a megosztott eszközök az alagútján mennek át.",
+  "urShareSteps": "1. Kapcsold be a telefon hotspotját\n2. Csatlakoztasd a másik eszközt a hotspotra\n3. Azon az eszközön nyisd meg a Wi-Fi hálózat proxyját, és válaszd a Manuálist\n4. A fenti címet add meg szerverként — ugyanez a cím SOCKS5-re is válaszol",
+  "urShareNote": "Amíg a VPN kapcsolódva van, működik. A mag proxyja ugyanazon a porton válaszol HTTP-re és SOCKS5-re is; a megosztás kikapcsolásakor a port visszaáll csak a saját gépére hallgatni.",
+  "wn71Nav": "A navigáció mostantól csak a klasszikus alsó sáv — a morfoló pill, a neon fény, a buborékok és a kapszula a választójukkal együtt távoznak.",
+  "wn71Stats": "A fiók statisztikái az eredeti pontosságán szólnak: a transzfer grafikon tükörképben egy középső tengelyen, minden irány csúcsa a saját helyén címkézve, minden sebesség 2.50 KiB/s-ként.",
+  "wn71Drawer": "A felhúzott fiók a navigáció alatt áll meg, és megkapja a gyors beállításokat: kill kapcsoló, az értesítés sebessége és zászlaja, apponkénti útválasztás, hotspot megosztás.",
+  "wn71Share": "Hotspot megosztás: a telefont a hotspotjára kapcsolódó eszközök VPN-átjárójává teheted — egy kapcsoló nyitja a proxyt, az oldal címét és lépéseit hozza."
 }
