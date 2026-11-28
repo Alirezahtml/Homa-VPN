@@ -3035,6 +3035,74 @@ class AppLocalizationsEs extends AppLocalizations {
       'Aún no hay datos';
 
   @override
+  String get urSectionGeneral =>
+      'General';
+
+  @override
+  String get urSectionConnections =>
+      'Conexiones';
+
+  @override
+  String get urSectionAppearance =>
+      'Apariencia';
+
+  @override
+  String get urSectionAbout =>
+      'Acerca de';
+
+  @override
+  String get urNavStyle =>
+      'Estilo de navegación';
+
+  @override
+  String get urNavStyleNote =>
+      'Cambia el aspecto de la barra inferior.';
+
+  @override
+  String get urNavMorphing =>
+      'Morfing';
+
+  @override
+  String get urNavNeon =>
+      'Resplandor neón';
+
+  @override
+  String get urNavBubble =>
+      'Burbuja';
+
+  @override
+  String get urNavCapsule =>
+      'Cápsula';
+
+  @override
+  String get urBatterySaverNote =>
+      'Calma el movimiento de la página de inicio mientras estás conectado.';
+
+  @override
+  String get urUsageTitle =>
+      'Uso de la sesión';
+
+  @override
+  String get urUsageTotal =>
+      'Total';
+
+  @override
+  String get urWhatsNew =>
+      'Novedades';
+
+  @override
+  String get urAboutUpdates =>
+      'Aplicación y actualizaciones';
+
+  @override
+  String get wn70UrNav =>
+      'La navegación de URnetwork se une al diseño: la barra flotante de morfing cuyo brillo se desliza entre pestañas, el resplandor neón, las burbujas y la cápsula — elige el aspecto en Ajustes → Apariencia';
+
+  @override
+  String get wn70UrCards =>
+      'La pantalla de ajustes de URnetwork: secciones y tarjetas, el idioma, el estilo de navegación y la barra de uso de la sesión en el panel';
+
+  @override
   String get changeUi =>
       'Cambiar UI/UX';
 

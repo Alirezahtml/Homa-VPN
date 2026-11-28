@@ -883,5 +883,22 @@
   "urReadyToConnect": "Listo para conectar",
   "urConnectFailed": "Error de conexión",
   "wn69Ur": "La pantalla de URnetwork tal y como se envía: la cara de conexión cuadrada de esquinas escalonadas, el pulso de toca para conectar, la cuadrícula de proveedores mientras el túnel se abre y los campos de color que aterrizan cuando se sostiene",
-  "wn69Stats": "El panel conserva la geometría del original: la fila de ubicación y Conectar en el borde, y bajo el pliegue las velocidades en vivo, los números de la sesión, la salida y la última prueba"
+  "wn69Stats": "El panel conserva la geometría del original: la fila de ubicación y Conectar en el borde, y bajo el pliegue las velocidades en vivo, los números de la sesión, la salida y la última prueba",
+  "urSectionGeneral": "General",
+  "urSectionConnections": "Conexiones",
+  "urSectionAppearance": "Apariencia",
+  "urSectionAbout": "Acerca de",
+  "urNavStyle": "Estilo de navegación",
+  "urNavStyleNote": "Cambia el aspecto de la barra inferior.",
+  "urNavMorphing": "Morfing",
+  "urNavNeon": "Resplandor neón",
+  "urNavBubble": "Burbuja",
+  "urNavCapsule": "Cápsula",
+  "urBatterySaverNote": "Calma el movimiento de la página de inicio mientras estás conectado.",
+  "urUsageTitle": "Uso de la sesión",
+  "urUsageTotal": "Total",
+  "urWhatsNew": "Novedades",
+  "urAboutUpdates": "Aplicación y actualizaciones",
+  "wn70UrNav": "La navegación de URnetwork se une al diseño: la barra flotante de morfing cuyo brillo se desliza entre pestañas, el resplandor neón, las burbujas y la cápsula — elige el aspecto en Ajustes → Apariencia",
+  "wn70UrCards": "La pantalla de ajustes de URnetwork: secciones y tarjetas, el idioma, el estilo de navegación y la barra de uso de la sesión en el panel"
 }

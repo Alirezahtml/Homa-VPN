@@ -2839,6 +2839,74 @@ class AppLocalizationsZh extends AppLocalizations {
       '暂无数据';
 
   @override
+  String get urSectionGeneral =>
+      '通用';
+
+  @override
+  String get urSectionConnections =>
+      '连接';
+
+  @override
+  String get urSectionAppearance =>
+      '外观';
+
+  @override
+  String get urSectionAbout =>
+      '关于';
+
+  @override
+  String get urNavStyle =>
+      '导航样式';
+
+  @override
+  String get urNavStyleNote =>
+      '改变屏幕底部导航栏的样子。';
+
+  @override
+  String get urNavMorphing =>
+      '形变';
+
+  @override
+  String get urNavNeon =>
+      '霓虹辉光';
+
+  @override
+  String get urNavBubble =>
+      '气泡';
+
+  @override
+  String get urNavCapsule =>
+      '胶囊';
+
+  @override
+  String get urBatterySaverNote =>
+      '连接期间让主页的动效安静下来。';
+
+  @override
+  String get urUsageTitle =>
+      '本次会话用量';
+
+  @override
+  String get urUsageTotal =>
+      '合计';
+
+  @override
+  String get urWhatsNew =>
+      '新内容';
+
+  @override
+  String get urAboutUpdates =>
+      '应用与更新';
+
+  @override
+  String get wn70UrNav =>
+      'URnetwork 导航加入设计：浮动形变栏的高亮在标签间滑行，还有霓虹辉光、气泡和胶囊 — 在设置 → 外观中选择样式';
+
+  @override
+  String get wn70UrCards =>
+      'URnetwork 设置页：分区与卡片、语言、导航样式，以及抽屉里的会话用量条';
+
+  @override
   String get changeUi =>
       '更换界面';
 
@@ -5705,6 +5773,74 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get urNoData =>
       '暫無資料';
+
+  @override
+  String get urSectionGeneral =>
+      '一般';
+
+  @override
+  String get urSectionConnections =>
+      '連線';
+
+  @override
+  String get urSectionAppearance =>
+      '外觀';
+
+  @override
+  String get urSectionAbout =>
+      '關於';
+
+  @override
+  String get urNavStyle =>
+      '導覽樣式';
+
+  @override
+  String get urNavStyleNote =>
+      '改變螢幕底部導覽列的樣子。';
+
+  @override
+  String get urNavMorphing =>
+      '形變';
+
+  @override
+  String get urNavNeon =>
+      '霓虹光暈';
+
+  @override
+  String get urNavBubble =>
+      '氣泡';
+
+  @override
+  String get urNavCapsule =>
+      '膠囊';
+
+  @override
+  String get urBatterySaverNote =>
+      '連線期間讓首頁的動態安靜下來。';
+
+  @override
+  String get urUsageTitle =>
+      '本次工作階段用量';
+
+  @override
+  String get urUsageTotal =>
+      '合計';
+
+  @override
+  String get urWhatsNew =>
+      '新內容';
+
+  @override
+  String get urAboutUpdates =>
+      '應用程式與更新';
+
+  @override
+  String get wn70UrNav =>
+      'URnetwork 導覽加入設計：浮動形變列的亮光在分頁間滑行，還有霓虹光暈、氣泡和膠囊 — 在設定 → 外觀中選擇樣式';
+
+  @override
+  String get wn70UrCards =>
+      'URnetwork 設定頁：分區與卡片、語言、導覽樣式，以及抽屜裡的工作階段用量條';
 
   @override
   String get changeUi =>

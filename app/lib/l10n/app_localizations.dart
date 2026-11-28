@@ -5253,6 +5253,108 @@ abstract class AppLocalizations {
   /// **'No data yet'**
   String get urNoData;
 
+  /// No description provided for @urSectionGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get urSectionGeneral;
+
+  /// No description provided for @urSectionConnections.
+  ///
+  /// In en, this message translates to:
+  /// **'Connections'**
+  String get urSectionConnections;
+
+  /// No description provided for @urSectionAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get urSectionAppearance;
+
+  /// No description provided for @urSectionAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get urSectionAbout;
+
+  /// No description provided for @urNavStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigation style'**
+  String get urNavStyle;
+
+  /// No description provided for @urNavStyleNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The look of the bar at the screen\'s foot.'**
+  String get urNavStyleNote;
+
+  /// No description provided for @urNavMorphing.
+  ///
+  /// In en, this message translates to:
+  /// **'Morphing'**
+  String get urNavMorphing;
+
+  /// No description provided for @urNavNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon glow'**
+  String get urNavNeon;
+
+  /// No description provided for @urNavBubble.
+  ///
+  /// In en, this message translates to:
+  /// **'Bubble'**
+  String get urNavBubble;
+
+  /// No description provided for @urNavCapsule.
+  ///
+  /// In en, this message translates to:
+  /// **'Capsule'**
+  String get urNavCapsule;
+
+  /// No description provided for @urBatterySaverNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Rests the home\'s motion while connected.'**
+  String get urBatterySaverNote;
+
+  /// No description provided for @urUsageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Session usage'**
+  String get urUsageTitle;
+
+  /// No description provided for @urUsageTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get urUsageTotal;
+
+  /// No description provided for @urWhatsNew.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new'**
+  String get urWhatsNew;
+
+  /// No description provided for @urAboutUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'App and updates'**
+  String get urAboutUpdates;
+
+  /// No description provided for @wn70UrNav.
+  ///
+  /// In en, this message translates to:
+  /// **'The URnetwork navigation joins the design: the floating morphing bar whose highlight glides between the tabs, the neon glow, the bubbles, and the capsule — pick the look under Settings → Appearance'**
+  String get wn70UrNav;
+
+  /// No description provided for @wn70UrCards.
+  ///
+  /// In en, this message translates to:
+  /// **'The URnetwork settings screen: the sections and cards, the language, the navigation style, and the session\'s usage bar in the drawer'**
+  String get wn70UrCards;
+
   /// No description provided for @changeUi.
   ///
   /// In en, this message translates to:

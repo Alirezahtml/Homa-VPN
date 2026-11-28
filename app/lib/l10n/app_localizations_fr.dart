@@ -3039,6 +3039,74 @@ class AppLocalizationsFr extends AppLocalizations {
       'Pas encore de données';
 
   @override
+  String get urSectionGeneral =>
+      'Général';
+
+  @override
+  String get urSectionConnections =>
+      'Connexions';
+
+  @override
+  String get urSectionAppearance =>
+      'Apparence';
+
+  @override
+  String get urSectionAbout =>
+      'À propos';
+
+  @override
+  String get urNavStyle =>
+      'Style de navigation';
+
+  @override
+  String get urNavStyleNote =>
+      'Change l\'apparence de la barre du bas de l\'écran.';
+
+  @override
+  String get urNavMorphing =>
+      'Morphing';
+
+  @override
+  String get urNavNeon =>
+      'Lueur néon';
+
+  @override
+  String get urNavBubble =>
+      'Bulle';
+
+  @override
+  String get urNavCapsule =>
+      'Capsule';
+
+  @override
+  String get urBatterySaverNote =>
+      'Met au repos le mouvement de la page d\'accueil pendant la connexion.';
+
+  @override
+  String get urUsageTitle =>
+      'Utilisation de la session';
+
+  @override
+  String get urUsageTotal =>
+      'Total';
+
+  @override
+  String get urWhatsNew =>
+      'Nouveautés';
+
+  @override
+  String get urAboutUpdates =>
+      'Application et mises à jour';
+
+  @override
+  String get wn70UrNav =>
+      'La navigation URnetwork rejoint le design : la barre flottante de morphing dont la surbrillance glisse entre les onglets, la lueur néon, les bulles et la capsule — choisissez le style dans Réglages → Apparence';
+
+  @override
+  String get wn70UrCards =>
+      'L\'écran de réglages URnetwork : les sections et les cartes, la langue, le style de navigation et la barre d\'utilisation de la session dans le tiroir';
+
+  @override
   String get changeUi =>
       'Changer l\'UI/UX';
 

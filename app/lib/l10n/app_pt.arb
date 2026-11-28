@@ -883,5 +883,22 @@
   "urReadyToConnect": "Pronto para ligar",
   "urConnectFailed": "Falha na ligação",
   "wn69Ur": "O ecrã da URnetwork, tal como sai: a face de conexão quadrada de cantos em degraus, o pulso de toque para ligar, a grelha de fornecedores enquanto o túnel se constrói e os campos de cor que aterrissam quando se mantém",
-  "wn69Stats": "A gaveta mantém a geometria do original: a linha de local e Conectar no rebordo, e abaixo da dobra as velocidades ao vivo, os números da sessão, a saída e o último teste"
+  "wn69Stats": "A gaveta mantém a geometria do original: a linha de local e Conectar no rebordo, e abaixo da dobra as velocidades ao vivo, os números da sessão, a saída e o último teste",
+  "urSectionGeneral": "Geral",
+  "urSectionConnections": "Ligações",
+  "urSectionAppearance": "Aparência",
+  "urSectionAbout": "Acerca",
+  "urNavStyle": "Estilo de navegação",
+  "urNavStyleNote": "Muda o aspeto da barra no fundo do ecrã.",
+  "urNavMorphing": "Morfing",
+  "urNavNeon": "Brilho néon",
+  "urNavBubble": "Bolha",
+  "urNavCapsule": "Cápsula",
+  "urBatterySaverNote": "Acalma o movimento da página inicial enquanto ligado.",
+  "urUsageTitle": "Utilização da sessão",
+  "urUsageTotal": "Total",
+  "urWhatsNew": "Novidades",
+  "urAboutUpdates": "Aplicação e atualizações",
+  "wn70UrNav": "A navegação URnetwork junta-se ao design: a barra flutuante de morfing cujo realce desliza entre os separadores, o brilho néon, as bolhas e a cápsula — escolha o estilo em Definições → Aparência",
+  "wn70UrCards": "O ecrã de definições da URnetwork: secções e cartões, o idioma, o estilo de navegação e a barra de utilização da sessão na gaveta"
 }

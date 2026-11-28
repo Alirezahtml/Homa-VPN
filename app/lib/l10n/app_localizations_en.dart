@@ -3021,6 +3021,74 @@ class AppLocalizationsEn extends AppLocalizations {
       'No data yet';
 
   @override
+  String get urSectionGeneral =>
+      'General';
+
+  @override
+  String get urSectionConnections =>
+      'Connections';
+
+  @override
+  String get urSectionAppearance =>
+      'Appearance';
+
+  @override
+  String get urSectionAbout =>
+      'About';
+
+  @override
+  String get urNavStyle =>
+      'Navigation style';
+
+  @override
+  String get urNavStyleNote =>
+      'The look of the bar at the screen\'s foot.';
+
+  @override
+  String get urNavMorphing =>
+      'Morphing';
+
+  @override
+  String get urNavNeon =>
+      'Neon glow';
+
+  @override
+  String get urNavBubble =>
+      'Bubble';
+
+  @override
+  String get urNavCapsule =>
+      'Capsule';
+
+  @override
+  String get urBatterySaverNote =>
+      'Rests the home\'s motion while connected.';
+
+  @override
+  String get urUsageTitle =>
+      'Session usage';
+
+  @override
+  String get urUsageTotal =>
+      'Total';
+
+  @override
+  String get urWhatsNew =>
+      'What\'s new';
+
+  @override
+  String get urAboutUpdates =>
+      'App and updates';
+
+  @override
+  String get wn70UrNav =>
+      'The URnetwork navigation joins the design: the floating morphing bar whose highlight glides between the tabs, the neon glow, the bubbles, and the capsule — pick the look under Settings → Appearance';
+
+  @override
+  String get wn70UrCards =>
+      'The URnetwork settings screen: the sections and cards, the language, the navigation style, and the session\'s usage bar in the drawer';
+
+  @override
   String get changeUi =>
       'Change UI/UX';
 

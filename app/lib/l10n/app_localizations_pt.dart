@@ -3023,6 +3023,74 @@ class AppLocalizationsPt extends AppLocalizations {
       'Ainda sem dados';
 
   @override
+  String get urSectionGeneral =>
+      'Geral';
+
+  @override
+  String get urSectionConnections =>
+      'Ligações';
+
+  @override
+  String get urSectionAppearance =>
+      'Aparência';
+
+  @override
+  String get urSectionAbout =>
+      'Acerca';
+
+  @override
+  String get urNavStyle =>
+      'Estilo de navegação';
+
+  @override
+  String get urNavStyleNote =>
+      'Muda o aspeto da barra no fundo do ecrã.';
+
+  @override
+  String get urNavMorphing =>
+      'Morfing';
+
+  @override
+  String get urNavNeon =>
+      'Brilho néon';
+
+  @override
+  String get urNavBubble =>
+      'Bolha';
+
+  @override
+  String get urNavCapsule =>
+      'Cápsula';
+
+  @override
+  String get urBatterySaverNote =>
+      'Acalma o movimento da página inicial enquanto ligado.';
+
+  @override
+  String get urUsageTitle =>
+      'Utilização da sessão';
+
+  @override
+  String get urUsageTotal =>
+      'Total';
+
+  @override
+  String get urWhatsNew =>
+      'Novidades';
+
+  @override
+  String get urAboutUpdates =>
+      'Aplicação e atualizações';
+
+  @override
+  String get wn70UrNav =>
+      'A navegação URnetwork junta-se ao design: a barra flutuante de morfing cujo realce desliza entre os separadores, o brilho néon, as bolhas e a cápsula — escolha o estilo em Definições → Aparência';
+
+  @override
+  String get wn70UrCards =>
+      'O ecrã de definições da URnetwork: secções e cartões, o idioma, o estilo de navegação e a barra de utilização da sessão na gaveta';
+
+  @override
   String get changeUi =>
       'Mudar UI/UX';
 

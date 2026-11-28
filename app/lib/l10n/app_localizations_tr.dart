@@ -3014,6 +3014,74 @@ class AppLocalizationsTr extends AppLocalizations {
       'Henüz veri yok';
 
   @override
+  String get urSectionGeneral =>
+      'Genel';
+
+  @override
+  String get urSectionConnections =>
+      'Bağlantılar';
+
+  @override
+  String get urSectionAppearance =>
+      'Görünüm';
+
+  @override
+  String get urSectionAbout =>
+      'Hakkında';
+
+  @override
+  String get urNavStyle =>
+      'Gezinme stili';
+
+  @override
+  String get urNavStyleNote =>
+      'Ekranın altındaki çubuğun görünümünü değiştirir.';
+
+  @override
+  String get urNavMorphing =>
+      'Dönüşüm';
+
+  @override
+  String get urNavNeon =>
+      'Neon parıltı';
+
+  @override
+  String get urNavBubble =>
+      'Baloncuk';
+
+  @override
+  String get urNavCapsule =>
+      'Kapsül';
+
+  @override
+  String get urBatterySaverNote =>
+      'Bağlıyken ana sayfanın hareketini yavaşlatır.';
+
+  @override
+  String get urUsageTitle =>
+      'Oturum kullanımı';
+
+  @override
+  String get urUsageTotal =>
+      'Toplam';
+
+  @override
+  String get urWhatsNew =>
+      'Yenilikler';
+
+  @override
+  String get urAboutUpdates =>
+      'Uygulama ve güncellemeler';
+
+  @override
+  String get wn70UrNav =>
+      'URnetwork gezinmesi tasarıma katıldı: vurgusu sekmeler arasında kayan yüzen dönüşüm çubuğu, neon parıltı, baloncuklar ve kapsül — görünümü Ayarlar → Görünüm altından seçin';
+
+  @override
+  String get wn70UrCards =>
+      'URnetwork ayarlar ekranı: bölümler ve kartlar, dil, gezinme stili ve çekmecede oturum kullanım çubuğu';
+
+  @override
   String get changeUi =>
       'Arayüzü değiştir';
 

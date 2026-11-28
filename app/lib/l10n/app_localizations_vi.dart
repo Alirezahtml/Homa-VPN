@@ -3015,6 +3015,74 @@ class AppLocalizationsVi extends AppLocalizations {
       'Chưa có dữ liệu';
 
   @override
+  String get urSectionGeneral =>
+      'Chung';
+
+  @override
+  String get urSectionConnections =>
+      'Kết nối';
+
+  @override
+  String get urSectionAppearance =>
+      'Diện mạo';
+
+  @override
+  String get urSectionAbout =>
+      'Giới thiệu';
+
+  @override
+  String get urNavStyle =>
+      'Kiểu điều hướng';
+
+  @override
+  String get urNavStyleNote =>
+      'Đổi diện mạo thanh ở chân màn hình.';
+
+  @override
+  String get urNavMorphing =>
+      'Biến hình';
+
+  @override
+  String get urNavNeon =>
+      'Quang neb';
+
+  @override
+  String get urNavBubble =>
+      'Bong bóng';
+
+  @override
+  String get urNavCapsule =>
+      'Viên nang';
+
+  @override
+  String get urBatterySaverNote =>
+      'Làm dịu chuyển động của trang chủ khi đang kết nối.';
+
+  @override
+  String get urUsageTitle =>
+      'Mức dùng của phiên';
+
+  @override
+  String get urUsageTotal =>
+      'Tổng';
+
+  @override
+  String get urWhatsNew =>
+      'Có gì mới';
+
+  @override
+  String get urAboutUpdates =>
+      'Ứng dụng và bản cập nhật';
+
+  @override
+  String get wn70UrNav =>
+      'Điều hướng URnetwork gia nhập diện mạo: thanh biến hình nổi có vệt sáng trượt giữa các thẻ, quang neb, bong bóng và viên nang — chọn kiểu trong Cài đặt → Diện mạo';
+
+  @override
+  String get wn70UrCards =>
+      'Màn hình cài đặt URnetwork: các mục và thẻ, ngôn ngữ, kiểu điều hướng và thanh mức dùng của phiên trong ngăn kéo';
+
+  @override
   String get changeUi =>
       'Đổi giao diện';
 

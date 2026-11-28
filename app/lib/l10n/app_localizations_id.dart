@@ -3019,6 +3019,74 @@ class AppLocalizationsId extends AppLocalizations {
       'Belum ada data';
 
   @override
+  String get urSectionGeneral =>
+      'Umum';
+
+  @override
+  String get urSectionConnections =>
+      'Koneksi';
+
+  @override
+  String get urSectionAppearance =>
+      'Tampilan';
+
+  @override
+  String get urSectionAbout =>
+      'Tentang';
+
+  @override
+  String get urNavStyle =>
+      'Gaya navigasi';
+
+  @override
+  String get urNavStyleNote =>
+      'Mengubah tampilan bilah di kaki layar.';
+
+  @override
+  String get urNavMorphing =>
+      'Morphing';
+
+  @override
+  String get urNavNeon =>
+      'Cahaya neon';
+
+  @override
+  String get urNavBubble =>
+      'Gelembung';
+
+  @override
+  String get urNavCapsule =>
+      'Kapsul';
+
+  @override
+  String get urBatterySaverNote =>
+      'Menenangkan gerakan halaman beranda selagi terhubung.';
+
+  @override
+  String get urUsageTitle =>
+      'Pemakaian sesi';
+
+  @override
+  String get urUsageTotal =>
+      'Total';
+
+  @override
+  String get urWhatsNew =>
+      'Yang baru';
+
+  @override
+  String get urAboutUpdates =>
+      'Aplikasi dan pembaruan';
+
+  @override
+  String get wn70UrNav =>
+      'Navigasi URnetwork bergabung dengan desain: bilah morphing mengambang yang sorotnya meluncur di antara tab, cahaya neon, gelembung, dan kapsul — pilih tampilannya di Pengaturan → Tampilan';
+
+  @override
+  String get wn70UrCards =>
+      'Layar pengaturan URnetwork: bagian dan kartu, bahasa, gaya navigasi, dan bilah pemakaian sesi di lemari tarik';
+
+  @override
   String get changeUi =>
       'Ubah UI/UX';
 

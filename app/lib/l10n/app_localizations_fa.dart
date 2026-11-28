@@ -3001,6 +3001,74 @@ class AppLocalizationsFa extends AppLocalizations {
       'هنوز داده‌ای نیست';
 
   @override
+  String get urSectionGeneral =>
+      'عمومی';
+
+  @override
+  String get urSectionConnections =>
+      'اتصال‌ها';
+
+  @override
+  String get urSectionAppearance =>
+      'ظاهر';
+
+  @override
+  String get urSectionAbout =>
+      'درباره';
+
+  @override
+  String get urNavStyle =>
+      'سبک ناوبری';
+
+  @override
+  String get urNavStyleNote =>
+      'شکل نوار پایین صفحه را تغییر می‌دهد.';
+
+  @override
+  String get urNavMorphing =>
+      'مورفینگ';
+
+  @override
+  String get urNavNeon =>
+      'درخشش نئون';
+
+  @override
+  String get urNavBubble =>
+      'حبابی';
+
+  @override
+  String get urNavCapsule =>
+      'کپسولی';
+
+  @override
+  String get urBatterySaverNote =>
+      'حرکت صفحه اصلی هنگام اتصال آرام می‌شود.';
+
+  @override
+  String get urUsageTitle =>
+      'مصرف جلسه';
+
+  @override
+  String get urUsageTotal =>
+      'جمع';
+
+  @override
+  String get urWhatsNew =>
+      'تازه‌ها';
+
+  @override
+  String get urAboutUpdates =>
+      'برنامه و به‌روزرسانی‌ها';
+
+  @override
+  String get wn70UrNav =>
+      'ناوبری URnetwork به طرح اضافه شد: نوار شناور مورفینگ که هایلایتش بین زبانه‌ها سر می‌خورد، درخشش نئون، حباب‌ها و کپسولی — از تنظیمات ← ظاهر انتخابش کنید';
+
+  @override
+  String get wn70UrCards =>
+      'صفحه تنظیمات URnetwork: بخش‌ها و کارت‌ها، زبان، سبک ناوبری و نوار مصرف جلسه در کشو';
+
+  @override
   String get changeUi =>
       'تغییر UI/UX';
 

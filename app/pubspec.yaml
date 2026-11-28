@@ -2,7 +2,7 @@ name: arman_vpn
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
 
-version: 1.0.69+190
+version: 1.0.70+191
 environment:
   sdk: ^3.13.5
 

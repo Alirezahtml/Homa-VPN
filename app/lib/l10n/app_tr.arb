@@ -883,5 +883,22 @@
   "urReadyToConnect": "Bağlanmaya hazır",
   "urConnectFailed": "Bağlantı başarısız oldu",
   "wn69Ur": "URnetwork ekranı çıktığı gibi taşındı: basamaklı köşeli kare bağlantı yüzü, «Bağlanmak için dokun» nabzı, tünel kurulurken sağlayıcı ızgarası ve tutununcaya kadar inen renk alanları",
-  "wn69Stats": "Çekmece orijinalin geometrisini koruyor: kenarda konum satırı ve Bağlan, katmanın altında canlı hızlar, oturum sayıları, çıkış konumu ve son test"
+  "wn69Stats": "Çekmece orijinalin geometrisini koruyor: kenarda konum satırı ve Bağlan, katmanın altında canlı hızlar, oturum sayıları, çıkış konumu ve son test",
+  "urSectionGeneral": "Genel",
+  "urSectionConnections": "Bağlantılar",
+  "urSectionAppearance": "Görünüm",
+  "urSectionAbout": "Hakkında",
+  "urNavStyle": "Gezinme stili",
+  "urNavStyleNote": "Ekranın altındaki çubuğun görünümünü değiştirir.",
+  "urNavMorphing": "Dönüşüm",
+  "urNavNeon": "Neon parıltı",
+  "urNavBubble": "Baloncuk",
+  "urNavCapsule": "Kapsül",
+  "urBatterySaverNote": "Bağlıyken ana sayfanın hareketini yavaşlatır.",
+  "urUsageTitle": "Oturum kullanımı",
+  "urUsageTotal": "Toplam",
+  "urWhatsNew": "Yenilikler",
+  "urAboutUpdates": "Uygulama ve güncellemeler",
+  "wn70UrNav": "URnetwork gezinmesi tasarıma katıldı: vurgusu sekmeler arasında kayan yüzen dönüşüm çubuğu, neon parıltı, baloncuklar ve kapsül — görünümü Ayarlar → Görünüm altından seçin",
+  "wn70UrCards": "URnetwork ayarlar ekranı: bölümler ve kartlar, dil, gezinme stili ve çekmecede oturum kullanım çubuğu"
 }

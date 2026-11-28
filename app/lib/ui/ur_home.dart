@@ -10,6 +10,7 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'format.dart';
 import 'motion.dart';
+import 'ur_settings.dart' show UrUsageCard;
 import 'widgets.dart';
 
 /// The ur home: URnetwork's connect screen, ported as it ships.
@@ -971,6 +972,14 @@ class _UrDrawer extends StatelessWidget {
             sessionStart: sessionStart,
             samples: samples,
           ),
+          const SizedBox(height: 16),
+          // The session's usage as the original's usage bar: the send in
+          // the blue, the receive in the faint ink.
+          if (status.traffic != null)
+            UrUsageCard(
+              up: status.traffic!.up,
+              down: status.traffic!.down,
+            ),
           const SizedBox(height: 16),
         ],
       ),

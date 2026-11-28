@@ -3019,6 +3019,74 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا بيانات بعد';
 
   @override
+  String get urSectionGeneral =>
+      'عام';
+
+  @override
+  String get urSectionConnections =>
+      'الاتصالات';
+
+  @override
+  String get urSectionAppearance =>
+      'المظهر';
+
+  @override
+  String get urSectionAbout =>
+      'حول';
+
+  @override
+  String get urNavStyle =>
+      'نمط التنقل';
+
+  @override
+  String get urNavStyleNote =>
+      'يغيّر شكل الشريط أسفل الشاشة.';
+
+  @override
+  String get urNavMorphing =>
+      'متحوّل';
+
+  @override
+  String get urNavNeon =>
+      'توهّج نيون';
+
+  @override
+  String get urNavBubble =>
+      'فقاعات';
+
+  @override
+  String get urNavCapsule =>
+      'كبسولة';
+
+  @override
+  String get urBatterySaverNote =>
+      'يهدّئ حركة الصفحة الرئيسية أثناء الاتصال.';
+
+  @override
+  String get urUsageTitle =>
+      'استهلاك الجلسة';
+
+  @override
+  String get urUsageTotal =>
+      'الإجمالي';
+
+  @override
+  String get urWhatsNew =>
+      'الجديد';
+
+  @override
+  String get urAboutUpdates =>
+      'التطبيق والتحديثات';
+
+  @override
+  String get wn70UrNav =>
+      'انضم تنقّل URnetwork إلى التصميم: الشريط العائم المتحوّل ينزلق إبرازه بين علامات التبويب، وتوهّج النيون، والفقاعات، والكبسولة — اختر الشكل من الإعدادات ← المظهر';
+
+  @override
+  String get wn70UrCards =>
+      'شاشة إعدادات URnetwork: الأقسام والبطاقات، اللغة، نمط التنقل، وشريط استهلاك الجلسة في الدرج';
+
+  @override
   String get changeUi =>
       'تغيير الواجهة';
 

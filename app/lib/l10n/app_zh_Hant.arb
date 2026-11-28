@@ -883,5 +883,22 @@
   "urReadyToConnect": "準備連線",
   "urConnectFailed": "連線失敗",
   "wn69Ur": "URnetwork 畫面原樣移植：階梯方角的連線面板、「點擊連線」的脈衝、通道建立時的節點網格，以及連線穩固後落下的色場",
-  "wn69Stats": "抽屜保留原版幾何：邊緣是位置列與「連線」，摺線以下是即時速度、工作階段數據、出口位置與上次測試"
+  "wn69Stats": "抽屜保留原版幾何：邊緣是位置列與「連線」，摺線以下是即時速度、工作階段數據、出口位置與上次測試",
+  "urSectionGeneral": "一般",
+  "urSectionConnections": "連線",
+  "urSectionAppearance": "外觀",
+  "urSectionAbout": "關於",
+  "urNavStyle": "導覽樣式",
+  "urNavStyleNote": "改變螢幕底部導覽列的樣子。",
+  "urNavMorphing": "形變",
+  "urNavNeon": "霓虹光暈",
+  "urNavBubble": "氣泡",
+  "urNavCapsule": "膠囊",
+  "urBatterySaverNote": "連線期間讓首頁的動態安靜下來。",
+  "urUsageTitle": "本次工作階段用量",
+  "urUsageTotal": "合計",
+  "urWhatsNew": "新內容",
+  "urAboutUpdates": "應用程式與更新",
+  "wn70UrNav": "URnetwork 導覽加入設計：浮動形變列的亮光在分頁間滑行，還有霓虹光暈、氣泡和膠囊 — 在設定 → 外觀中選擇樣式",
+  "wn70UrCards": "URnetwork 設定頁：分區與卡片、語言、導覽樣式，以及抽屜裡的工作階段用量條"
 }

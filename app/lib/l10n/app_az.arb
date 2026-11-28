@@ -883,5 +883,22 @@
   "urReadyToConnect": "Qoşulmağa hazır",
   "urConnectFailed": "Qoşulma alınmadı",
   "wn69Ur": "URnetwork ekranı olduğu kimi köçürülüb: pilləli kvadrat qoşulma üzü, «Başlamaq üçün toxun» pulsu, tunel qurularkən nöqtə şəbəkəsi və bitəndə yerləşən rəng sahələri",
-  "wn69Stats": "Çəkil originalın həndəsəsini saxlayır: kənarda yer sətri və «Qoşul», altında isə canlı sürətlər, sessiya rəqəmləri, çıxış yeri və son test"
+  "wn69Stats": "Çəkil originalın həndəsəsini saxlayır: kənarda yer sətri və «Qoşul», altında isə canlı sürətlər, sessiya rəqəmləri, çıxış yeri və son test",
+  "urSectionGeneral": "Ümumi",
+  "urSectionConnections": "Bağlantılar",
+  "urSectionAppearance": "Görünüş",
+  "urSectionAbout": "Haqqında",
+  "urNavStyle": "Naviqasiya üslubu",
+  "urNavStyleNote": "Ekranın altındakı zolağın görünüşünü dəyişir.",
+  "urNavMorphing": "Morfing",
+  "urNavNeon": "Neon parıltı",
+  "urNavBubble": "Qabarcıq",
+  "urNavCapsule": "Kapsul",
+  "urBatterySaverNote": "Qoşulmuş ikən ana səhifənin hərəkətini sakitləşdirir.",
+  "urUsageTitle": "Sessiya istifadəsi",
+  "urUsageTotal": "Cəmi",
+  "urWhatsNew": "Yeniliklər",
+  "urAboutUpdates": "Tətbiq və yeniləmələr",
+  "wn70UrNav": "URnetwork naviqasiyası dizayna qoşuldu: üzən morfing zolağı, neon parıltı, qabarcıqlar və kapsul — görünüşü Parametrlər → Görünüş bölməsindən seçin",
+  "wn70UrCards": "URnetwork parametrlər ekranı: bölmələr və kartlar, dil, naviqasiya üslubu və çekmecədə sessiya istifadəsi zolağı"
 }

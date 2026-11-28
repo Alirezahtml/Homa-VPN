@@ -3030,6 +3030,74 @@ class AppLocalizationsHu extends AppLocalizations {
       'Még nincs adat';
 
   @override
+  String get urSectionGeneral =>
+      'Általános';
+
+  @override
+  String get urSectionConnections =>
+      'Kapcsolatok';
+
+  @override
+  String get urSectionAppearance =>
+      'Megjelenés';
+
+  @override
+  String get urSectionAbout =>
+      'Névjegy';
+
+  @override
+  String get urNavStyle =>
+      'Navigációs stílus';
+
+  @override
+  String get urNavStyleNote =>
+      'Megváltoztatja a képernyő alján lévő sáv külsejét.';
+
+  @override
+  String get urNavMorphing =>
+      'Morphing';
+
+  @override
+  String get urNavNeon =>
+      'Neon ragyogás';
+
+  @override
+  String get urNavBubble =>
+      'Buborék';
+
+  @override
+  String get urNavCapsule =>
+      'Kapszula';
+
+  @override
+  String get urBatterySaverNote =>
+      'Kapcsolódás közben lecsendesíti a kezdőlap mozgását.';
+
+  @override
+  String get urUsageTitle =>
+      'Munkamenet használata';
+
+  @override
+  String get urUsageTotal =>
+      'Összesen';
+
+  @override
+  String get urWhatsNew =>
+      'Újdonságok';
+
+  @override
+  String get urAboutUpdates =>
+      'Alkalmazás és frissítések';
+
+  @override
+  String get wn70UrNav =>
+      'Az URnetwork navigáció csatlakozik a dizájnhoz: a lebegő morphing sáv, amelynek kiemelése a lapok között úszik, a neon ragyogás, a buborékok és a kapszula — válaszd ki a stílust a Beállítások → Megjelenés alatt';
+
+  @override
+  String get wn70UrCards =>
+      'Az URnetwork beállítási képernyője: szakaszok és kártyák, a nyelv, a navigációs stílus és a munkamenet használatának sávja a fiókban';
+
+  @override
   String get changeUi =>
       'UI/UX váltás';
 

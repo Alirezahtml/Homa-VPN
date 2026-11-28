@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import 'about_page.dart';
 import 'announcement_panel.dart';
 import 'accounts_page.dart';
+import 'design.dart';
 import 'design_style.dart';
 import 'logs_page.dart';
 import 'motion.dart';
@@ -17,6 +18,8 @@ import 'overview_page.dart';
 import 'servers_page.dart';
 import 'settings_page.dart';
 import 'sound.dart' show AppSounds, SoundCue;
+import 'ur_kit.dart';
+import 'ur_settings.dart';
 import 'widgets.dart';
 
 /// The phone layout: two tabs, Home and Settings, as phone apps have. The
@@ -212,14 +215,23 @@ class _MobileShellState extends State<MobileShell> {
                 onOpenUpstreamProxy: openUpstreamProxy,
                 phone: true,
               )
+            // The ur design: the settings are URnetwork's own screen —
+            // the sections, the rows, the app's own switch — the deep
+            // pages open as they always have.
             : _readable(
-                _SettingsList(
-                  onOpenServers: openServers,
-                  onOpenAccounts: openAccounts,
-                  push: _push,
-                  core: core,
-                  settings: settings,
-                ),
+                AppDesign.current.key == 'ur'
+                    ? UrSettingsPage(
+                        core: core,
+                        settings: settings,
+                        push: (title, page) => _push(title, () => page),
+                      )
+                    : _SettingsList(
+                        onOpenServers: openServers,
+                        onOpenAccounts: openAccounts,
+                        push: _push,
+                        core: core,
+                        settings: settings,
+                      ),
               ));
     return PopScope(
       canPop: _tab == 0,
@@ -270,7 +282,16 @@ class _MobileShellState extends State<MobileShell> {
             ),
           ),
         ),
-        bottomNavigationBar: switch (DesignStyle.of(context).nav) {
+        bottomNavigationBar: AppDesign.current.key == 'ur'
+            ? ListenableBuilder(
+                listenable: settings,
+                builder: (context, _) => UrNavBar(
+                  index: _tab,
+                  onSelect: (i) => setState(() => _tab = i),
+                  style: urNavStyleFor(settings.urNavStyle),
+                ),
+              )
+            : switch (DesignStyle.of(context).nav) {
           NavVariant.bentoDock => BentoDockNav(
             index: _tab,
             onSelect: (i) => setState(() => _tab = i),

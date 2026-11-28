@@ -883,5 +883,22 @@
   "urReadyToConnect": "Siap untuk tersambung",
   "urConnectFailed": "Koneksi gagal",
   "wn69Ur": "Layar URnetwork dipindah apa adanya: wajah sambung persegi bersudut bertingkat, pulsa ketuk untuk menyambung, kisi penyedia saat terowongan terbentuk, dan medan warna yang mendarat saat stabil",
-  "wn69Stats": "Laci mempertahankan geometri aslinya: baris lokasi dan Sambungkan di tepian, dan di bawah lipatan kecepatan langsung, angka sesi, lokasi keluar, dan tes terakhir"
+  "wn69Stats": "Laci mempertahankan geometri aslinya: baris lokasi dan Sambungkan di tepian, dan di bawah lipatan kecepatan langsung, angka sesi, lokasi keluar, dan tes terakhir",
+  "urSectionGeneral": "Umum",
+  "urSectionConnections": "Koneksi",
+  "urSectionAppearance": "Tampilan",
+  "urSectionAbout": "Tentang",
+  "urNavStyle": "Gaya navigasi",
+  "urNavStyleNote": "Mengubah tampilan bilah di kaki layar.",
+  "urNavMorphing": "Morphing",
+  "urNavNeon": "Cahaya neon",
+  "urNavBubble": "Gelembung",
+  "urNavCapsule": "Kapsul",
+  "urBatterySaverNote": "Menenangkan gerakan halaman beranda selagi terhubung.",
+  "urUsageTitle": "Pemakaian sesi",
+  "urUsageTotal": "Total",
+  "urWhatsNew": "Yang baru",
+  "urAboutUpdates": "Aplikasi dan pembaruan",
+  "wn70UrNav": "Navigasi URnetwork bergabung dengan desain: bilah morphing mengambang yang sorotnya meluncur di antara tab, cahaya neon, gelembung, dan kapsul — pilih tampilannya di Pengaturan → Tampilan",
+  "wn70UrCards": "Layar pengaturan URnetwork: bagian dan kartu, bahasa, gaya navigasi, dan bilah pemakaian sesi di lemari tarik"
 }

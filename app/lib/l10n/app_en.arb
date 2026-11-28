@@ -1477,5 +1477,22 @@
   "urReadyToConnect": "Ready to connect",
   "urConnectFailed": "Connection failed",
   "wn69Ur": "The URnetwork screen, ported as it ships: the stepped-square connect face, the tap-to-connect pulse, the provider grid as the tunnel builds, and the color fields that land once it holds",
-  "wn69Stats": "The drawer keeps the original's geometry: the location row and Connect at the peek, and below the fold the live speeds, the session's numbers, the exit and the last test"
+  "wn69Stats": "The drawer keeps the original's geometry: the location row and Connect at the peek, and below the fold the live speeds, the session's numbers, the exit and the last test",
+  "urSectionGeneral": "General",
+  "urSectionConnections": "Connections",
+  "urSectionAppearance": "Appearance",
+  "urSectionAbout": "About",
+  "urNavStyle": "Navigation style",
+  "urNavStyleNote": "The look of the bar at the screen's foot.",
+  "urNavMorphing": "Morphing",
+  "urNavNeon": "Neon glow",
+  "urNavBubble": "Bubble",
+  "urNavCapsule": "Capsule",
+  "urBatterySaverNote": "Rests the home's motion while connected.",
+  "urUsageTitle": "Session usage",
+  "urUsageTotal": "Total",
+  "urWhatsNew": "What's new",
+  "urAboutUpdates": "App and updates",
+  "wn70UrNav": "The URnetwork navigation joins the design: the floating morphing bar whose highlight glides between the tabs, the neon glow, the bubbles, and the capsule — pick the look under Settings → Appearance",
+  "wn70UrCards": "The URnetwork settings screen: the sections and cards, the language, the navigation style, and the session's usage bar in the drawer"
 }

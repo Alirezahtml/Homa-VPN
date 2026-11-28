@@ -3030,6 +3030,74 @@ class AppLocalizationsRu extends AppLocalizations {
       'Данных пока нет';
 
   @override
+  String get urSectionGeneral =>
+      'Общее';
+
+  @override
+  String get urSectionConnections =>
+      'Подключения';
+
+  @override
+  String get urSectionAppearance =>
+      'Оформление';
+
+  @override
+  String get urSectionAbout =>
+      'О программе';
+
+  @override
+  String get urNavStyle =>
+      'Стиль навигации';
+
+  @override
+  String get urNavStyleNote =>
+      'Меняет вид панели внизу экрана.';
+
+  @override
+  String get urNavMorphing =>
+      'Морфинг';
+
+  @override
+  String get urNavNeon =>
+      'Неоновое свечение';
+
+  @override
+  String get urNavBubble =>
+      'Пузыри';
+
+  @override
+  String get urNavCapsule =>
+      'Капсула';
+
+  @override
+  String get urBatterySaverNote =>
+      'Успокаивает движение главной страницы, пока есть подключение.';
+
+  @override
+  String get urUsageTitle =>
+      'Трафик сеанса';
+
+  @override
+  String get urUsageTotal =>
+      'Всего';
+
+  @override
+  String get urWhatsNew =>
+      'Что нового';
+
+  @override
+  String get urAboutUpdates =>
+      'Приложение и обновления';
+
+  @override
+  String get wn70UrNav =>
+      'Навигация URnetwork присоединяется к оформлению: плавающая панель-морфинг, чья подсветка скользит между вкладками, неоновое свечение, пузыри и капсула — выберите вид в Настройки → Оформление';
+
+  @override
+  String get wn70UrCards =>
+      'Экран настроек URnetwork: разделы и карточки, язык, стиль навигации и полоса трафика сеанса в выдвижной панели';
+
+  @override
   String get changeUi =>
       'Сменить интерфейс';
 

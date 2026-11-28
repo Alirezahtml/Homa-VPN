@@ -3016,6 +3016,74 @@ class AppLocalizationsAz extends AppLocalizations {
       'Hələ data yoxdur';
 
   @override
+  String get urSectionGeneral =>
+      'Ümumi';
+
+  @override
+  String get urSectionConnections =>
+      'Bağlantılar';
+
+  @override
+  String get urSectionAppearance =>
+      'Görünüş';
+
+  @override
+  String get urSectionAbout =>
+      'Haqqında';
+
+  @override
+  String get urNavStyle =>
+      'Naviqasiya üslubu';
+
+  @override
+  String get urNavStyleNote =>
+      'Ekranın altındakı zolağın görünüşünü dəyişir.';
+
+  @override
+  String get urNavMorphing =>
+      'Morfing';
+
+  @override
+  String get urNavNeon =>
+      'Neon parıltı';
+
+  @override
+  String get urNavBubble =>
+      'Qabarcıq';
+
+  @override
+  String get urNavCapsule =>
+      'Kapsul';
+
+  @override
+  String get urBatterySaverNote =>
+      'Qoşulmuş ikən ana səhifənin hərəkətini sakitləşdirir.';
+
+  @override
+  String get urUsageTitle =>
+      'Sessiya istifadəsi';
+
+  @override
+  String get urUsageTotal =>
+      'Cəmi';
+
+  @override
+  String get urWhatsNew =>
+      'Yeniliklər';
+
+  @override
+  String get urAboutUpdates =>
+      'Tətbiq və yeniləmələr';
+
+  @override
+  String get wn70UrNav =>
+      'URnetwork naviqasiyası dizayna qoşuldu: üzən morfing zolağı, neon parıltı, qabarcıqlar və kapsul — görünüşü Parametrlər → Görünüş bölməsindən seçin';
+
+  @override
+  String get wn70UrCards =>
+      'URnetwork parametrlər ekranı: bölmələr və kartlar, dil, naviqasiya üslubu və çekmecədə sessiya istifadəsi zolağı';
+
+  @override
   String get changeUi =>
       'UI/UX dəyiş';
 

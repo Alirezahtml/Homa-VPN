@@ -883,5 +883,22 @@
   "urReadyToConnect": "准备连接",
   "urConnectFailed": "连接失败",
   "wn69Ur": "URnetwork 屏幕原样移植：阶梯方角的连接面板、「点击连接」的脉冲、隧道建立时的节点网格，以及连接稳固后落下的色场",
-  "wn69Stats": "抽屉保留原版几何：边缘是位置行与「连接」，折叠线以下是实时速度、会话数据、出口位置与上次测试"
+  "wn69Stats": "抽屉保留原版几何：边缘是位置行与「连接」，折叠线以下是实时速度、会话数据、出口位置与上次测试",
+  "urSectionGeneral": "通用",
+  "urSectionConnections": "连接",
+  "urSectionAppearance": "外观",
+  "urSectionAbout": "关于",
+  "urNavStyle": "导航样式",
+  "urNavStyleNote": "改变屏幕底部导航栏的样子。",
+  "urNavMorphing": "形变",
+  "urNavNeon": "霓虹辉光",
+  "urNavBubble": "气泡",
+  "urNavCapsule": "胶囊",
+  "urBatterySaverNote": "连接期间让主页的动效安静下来。",
+  "urUsageTitle": "本次会话用量",
+  "urUsageTotal": "合计",
+  "urWhatsNew": "新内容",
+  "urAboutUpdates": "应用与更新",
+  "wn70UrNav": "URnetwork 导航加入设计：浮动形变栏的高亮在标签间滑行，还有霓虹辉光、气泡和胶囊 — 在设置 → 外观中选择样式",
+  "wn70UrCards": "URnetwork 设置页：分区与卡片、语言、导航样式，以及抽屉里的会话用量条"
 }

@@ -3008,6 +3008,74 @@ class AppLocalizationsBn extends AppLocalizations {
       'এখনও ডেটা নেই';
 
   @override
+  String get urSectionGeneral =>
+      'সাধারণ';
+
+  @override
+  String get urSectionConnections =>
+      'সংযোগ';
+
+  @override
+  String get urSectionAppearance =>
+      'চেহারা';
+
+  @override
+  String get urSectionAbout =>
+      'সম্পর্কে';
+
+  @override
+  String get urNavStyle =>
+      'নেভিগেশন স্টাইল';
+
+  @override
+  String get urNavStyleNote =>
+      'স্ক্রিনের নিচের বারের চেহারা বদলায়।';
+
+  @override
+  String get urNavMorphing =>
+      'মর্ফিং';
+
+  @override
+  String get urNavNeon =>
+      'নিয়ন আভা';
+
+  @override
+  String get urNavBubble =>
+      'বাবল';
+
+  @override
+  String get urNavCapsule =>
+      'ক্যাপসুল';
+
+  @override
+  String get urBatterySaverNote =>
+      'সংযুক্ত থাকলে হোম পেজের গতি শান্ত রাখে।';
+
+  @override
+  String get urUsageTitle =>
+      'সেশন ব্যবহার';
+
+  @override
+  String get urUsageTotal =>
+      'মোট';
+
+  @override
+  String get urWhatsNew =>
+      'নতুন কী আছে';
+
+  @override
+  String get urAboutUpdates =>
+      'অ্যাপ ও আপডেট';
+
+  @override
+  String get wn70UrNav =>
+      'URnetwork নেভিগেশন ডিজাইনে যোগ হলো: ভাসমান মর্ফিং বার, নিয়ন আভা, বাবল এবং ক্যাপসুল — সেটিংস → চেহারা থেকে বেছে নিন';
+
+  @override
+  String get wn70UrCards =>
+      'URnetwork সেটিংস স্ক্রিন: সেকশন ও কার্ড, ভাষা, নেভিগেশন স্টাইল এবং ড্রয়ারে সেশন ব্যবহারের বার';
+
+  @override
   String get changeUi =>
       'UI/UX পরিবর্তন';
 

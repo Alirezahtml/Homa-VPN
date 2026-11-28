@@ -883,5 +883,22 @@
   "urReadyToConnect": "Prêt à se connecter",
   "urConnectFailed": "Échec de la connexion",
   "wn69Ur": "L'écran URnetwork porté tel qu'il sort : la face carrée à coins en escalier, l'impulsion « Touchez pour vous connecter », la grille de fournisseurs pendant que le tunnel se construit et les champs de couleur qui se posent une fois tenu",
-  "wn69Stats": "Le tiroir garde la géométrie de l'original : la ligne d'emplacement et Se connecter au bord, et sous le pli les vitesses en direct, les chiffres de la session, la sortie et le dernier test"
+  "wn69Stats": "Le tiroir garde la géométrie de l'original : la ligne d'emplacement et Se connecter au bord, et sous le pli les vitesses en direct, les chiffres de la session, la sortie et le dernier test",
+  "urSectionGeneral": "Général",
+  "urSectionConnections": "Connexions",
+  "urSectionAppearance": "Apparence",
+  "urSectionAbout": "À propos",
+  "urNavStyle": "Style de navigation",
+  "urNavStyleNote": "Change l'apparence de la barre du bas de l'écran.",
+  "urNavMorphing": "Morphing",
+  "urNavNeon": "Lueur néon",
+  "urNavBubble": "Bulle",
+  "urNavCapsule": "Capsule",
+  "urBatterySaverNote": "Met au repos le mouvement de la page d'accueil pendant la connexion.",
+  "urUsageTitle": "Utilisation de la session",
+  "urUsageTotal": "Total",
+  "urWhatsNew": "Nouveautés",
+  "urAboutUpdates": "Application et mises à jour",
+  "wn70UrNav": "La navigation URnetwork rejoint le design : la barre flottante de morphing dont la surbrillance glisse entre les onglets, la lueur néon, les bulles et la capsule — choisissez le style dans Réglages → Apparence",
+  "wn70UrCards": "L'écran de réglages URnetwork : les sections et les cartes, la langue, le style de navigation et la barre d'utilisation de la session dans le tiroir"
 }
