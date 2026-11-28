@@ -78,7 +78,6 @@ class _UrPressableState extends State<UrPressable>
     duration: const Duration(milliseconds: 220),
     value: 1,
   );
-  bool _down = false;
 
   @override
   void dispose() {
@@ -88,7 +87,6 @@ class _UrPressableState extends State<UrPressable>
 
   void _set(bool down) {
     if (!mounted) return;
-    setState(() => _down = down);
     _c.animateTo(down ? widget.scaleDown : 1,
         curve: down ? Curves.easeOutCubic : Curves.easeOutBack);
   }
