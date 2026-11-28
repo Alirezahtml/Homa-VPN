@@ -25,6 +25,7 @@ import 'settings_page.dart'
         showAccentPicker,
         showDesignPicker;
 import 'ur_kit.dart';
+import 'ur_dns.dart' show UrDnsPage;
 import 'widgets.dart'
     show languageNames, languageStyle, runShowingErrors, showToast;
 import 'whats_new.dart' show showWhatsNew, whatsNewSections;
@@ -432,11 +433,7 @@ class UrSettingsPage extends StatelessWidget {
                   label: l.sectionDns,
                   onTap: () => push(
                     l.sectionDns,
-                    SettingsPage(
-                      core: core,
-                      settings: settings,
-                      section: SettingsSection.dns,
-                    ),
+                    UrDnsPage(core: core, settings: settings),
                   ),
                 ),
               ],

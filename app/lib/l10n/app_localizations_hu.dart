@@ -3166,6 +3166,74 @@ class AppLocalizationsHu extends AppLocalizations {
       'Az értesítés saját kapcsolói is a beállításokba kerültek: az élő sebesség az értesítésben, és az ország zászlaja a név mellett.';
 
   @override
+  String get urTransports => 'Szállítások';
+
+  @override
+  String get urTransportUnused => 'Nem használt';
+
+  @override
+  String get urIpFamilyDual => 'Kétverem';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 osztott alkalmazás';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} osztási szabály',
+      one: '1 osztási szabály',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Helyi statisztikák';
+
+  @override
+  String get urDirectTraffic => 'Közvetlen forgalom';
+
+  @override
+  String get urDnsCard => 'Egyéni DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'Titkosítatlan DNS';
+
+  @override
+  String get urDnsRowLocal => 'Helyi DNS';
+
+  @override
+  String get urOn => 'Be';
+
+  @override
+  String get urOff => 'Ki';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (hirdetésszűrés)';
+
+  @override
+  String get urDnsBlocker => 'Hirdetés- és követésszűrő';
+
+  @override
+  String get urDnsBlockerNote => 'Minden nevet a tiltólistával ellenőriz, bármely DNS-választás mellett.';
+
+  @override
+  String get wn74 => 'A fiók az eredeti statisztikaszakaszait hozza: a transportsáv és a címcsoportok az élő grafikon alatt, az osztott alkalmazások sora, a helyi forgalom kártyája, és a saját oldalával járó egyéni DNS-kártya — előbeállítások, kézi lista és hirdetésszűrő.';
+
+  @override
   String get wn72Settings =>
       'A beállítások oldala most mindent hordoz: a védelem sorait (a kill kapcsolót és a rendszer always-on módját), a telefon indításakori csatlakozást és az automatikus telepítést, a sebesség egységét, az üresjárati lekapcsolást és az adatlimitet, a diagnosztikát, a hálózati és kikerülő szakaszokat, az alkalmazásonkénti használatot és az akkumulátor-útmutatót.';
 

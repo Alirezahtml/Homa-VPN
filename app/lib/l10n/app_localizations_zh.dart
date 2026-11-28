@@ -2975,6 +2975,73 @@ class AppLocalizationsZh extends AppLocalizations {
       '通知自己的开关也加入了设置：通知中的实时速度，以及名字旁的国旗。';
 
   @override
+  String get urTransports => '传输层';
+
+  @override
+  String get urTransportUnused => '未使用';
+
+  @override
+  String get urIpFamilyDual => '双栈';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 个分流应用';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} 条分流规则',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => '本地统计';
+
+  @override
+  String get urDirectTraffic => '直连流量';
+
+  @override
+  String get urDnsCard => '自定义 DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => '未加密 DNS';
+
+  @override
+  String get urDnsRowLocal => '本地 DNS';
+
+  @override
+  String get urOn => '开';
+
+  @override
+  String get urOff => '关';
+
+  @override
+  String get urDnsAdguard => 'AdGuard(广告拦截)';
+
+  @override
+  String get urDnsBlocker => '广告与跟踪拦截器';
+
+  @override
+  String get urDnsBlockerNote => '在任意 DNS 选择之外，将每个名称与拦截清单比对。';
+
+  @override
+  String get wn74 => '抽屉页带上了原版的统计分区：实时图表下方的传输层与地址族、分流应用行、本地流量卡片，以及带独立页面的自定义 DNS 卡片——预设、手动清单与广告拦截器。';
+
+  @override
   String get wn72Settings =>
       '设置页现在包含全部选项：保护行（紧急断开开关与系统的始终保持连接）、开机自动连接与自动安装更新、速率单位、闲置断开与流量上限、诊断、网络与分流绕过区块、各应用用量，以及电池指南。';
 
@@ -5981,6 +6048,73 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn73Notifications =>
       '通知自己的開關也加入了設定：通知中的即時速度，以及名字旁的國旗。';
+
+  @override
+  String get urTransports => '传输层';
+
+  @override
+  String get urTransportUnused => '未使用';
+
+  @override
+  String get urIpFamilyDual => '双栈';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 个分流应用';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} 条分流规则',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => '本地统计';
+
+  @override
+  String get urDirectTraffic => '直连流量';
+
+  @override
+  String get urDnsCard => '自定义 DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => '未加密 DNS';
+
+  @override
+  String get urDnsRowLocal => '本地 DNS';
+
+  @override
+  String get urOn => '开';
+
+  @override
+  String get urOff => '关';
+
+  @override
+  String get urDnsAdguard => 'AdGuard(广告拦截)';
+
+  @override
+  String get urDnsBlocker => '广告与跟踪拦截器';
+
+  @override
+  String get urDnsBlockerNote => '在任意 DNS 选择之外，将每个名称与拦截清单比对。';
+
+  @override
+  String get wn74 => '抽屉页带上了原版的统计分区：实时图表下方的传输层与地址族、分流应用行、本地流量卡片，以及带独立页面的自定义 DNS 卡片——预设、手动清单与广告拦截器。';
 
   @override
   String get wn72Settings =>

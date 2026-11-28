@@ -3152,6 +3152,74 @@ class AppLocalizationsAz extends AppLocalizations {
       'Bildirişin öz açarları da parametrlərə qoşuldu: bildirişdə canlı sürət və adın yanında ölkənin bayrağı.';
 
   @override
+  String get urTransports => 'Daşımalar';
+
+  @override
+  String get urTransportUnused => 'İstifadə olunmayan';
+
+  @override
+  String get urIpFamilyDual => 'Dualstack';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 bölünmüş tətbiq';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} bölmə qaydası',
+      one: '1 bölmə qaydası',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Yerli statistika';
+
+  @override
+  String get urDirectTraffic => 'Birbaşa trafik';
+
+  @override
+  String get urDnsCard => 'Xüsusi DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'Şifrələnməmiş DNS';
+
+  @override
+  String get urDnsRowLocal => 'Yerli DNS';
+
+  @override
+  String get urOn => 'Aktiv';
+
+  @override
+  String get urOff => 'Sönlü';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (reklam bloklayıcısı)';
+
+  @override
+  String get urDnsBlocker => 'Reklam və izləyici bloklayıcısı';
+
+  @override
+  String get urDnsBlockerNote => 'Hər adı blok siyahısı ilə yoxlayır, istənilən DNS seçimi ilə birlikdə.';
+
+  @override
+  String get wn74 => 'Çəkmə cədvəli orijinalın statistika bölmələrini daşıyır: canlı qrafik altında daşıyma zolağı və ünvan ailələri, bölünmüş tətbiqlər sətri, yerli trafik kartı və öz səhifəsi olan xüsusi DNS kartı — hazır seçimlər, əl ilə siyahı və reklam bloklayıcısı.';
+
+  @override
   String get wn72Settings =>
       'Parametrlər səhifəsi indi bütün seçimləri daşıyır: qoruma sətirləri (kill açarı və sistemin daimi rejimi), telefonun açılmasında qoşulma və avtomatik quraşdırma, sürət vahidi, fəaliyyətsizlikdə kəsmə və data limiti, diaqnostika, şəbəkə və keçmə bölmələri, hər tətbiqin istifadəsi və batareya bələdçisi.';
 

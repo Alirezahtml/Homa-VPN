@@ -3171,6 +3171,74 @@ class AppLocalizationsEs extends AppLocalizations {
       'Los interruptores de la notificación se unieron a los ajustes: la velocidad en vivo en la notificación y la bandera del país junto al nombre.';
 
   @override
+  String get urTransports => 'Transportes';
+
+  @override
+  String get urTransportUnused => 'Sin uso';
+
+  @override
+  String get urIpFamilyDual => 'Pila doble';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 apps divididas';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} reglas de división',
+      one: '1 regla de división',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Estadísticas locales';
+
+  @override
+  String get urDirectTraffic => 'Tráfico directo';
+
+  @override
+  String get urDnsCard => 'DNS personalizado';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS sin cifrar';
+
+  @override
+  String get urDnsRowLocal => 'DNS local';
+
+  @override
+  String get urOn => 'Sí';
+
+  @override
+  String get urOff => 'No';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (bloqueo de anuncios)';
+
+  @override
+  String get urDnsBlocker => 'Bloqueador de anuncios y rastreadores';
+
+  @override
+  String get urDnsBlockerNote => 'Comprueba cada nombre contra la lista de bloqueo, junto a cualquier elección de DNS.';
+
+  @override
+  String get wn74 => 'El cajón lleva las secciones de estadísticas del original: la barra de transportes y las familias de direcciones bajo la gráfica en vivo, la fila de apps divididas, la tarjeta de tráfico local, y la tarjeta de DNS personalizado con su propia página — preajustes, la lista manual y el bloqueador de anuncios.';
+
+  @override
   String get wn72Settings =>
       'La página de ajustes ahora lleva todas las opciones: las filas de protección (el interruptor de emergencia y el always-on del sistema), la conexión al arrancar el teléfono y la autoinstalación, la unidad de velocidad, el corte por inactividad y el límite de datos, el diagnóstico, las secciones de red y de esquive, el uso por aplicación y la guía de batería.';
 

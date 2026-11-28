@@ -3159,6 +3159,74 @@ class AppLocalizationsPt extends AppLocalizations {
       'Os interruptores da notificação juntaram-se às definições: a velocidade em direto na notificação, e a bandeira do país ao lado do nome.';
 
   @override
+  String get urTransports => 'Transportes';
+
+  @override
+  String get urTransportUnused => 'Sem uso';
+
+  @override
+  String get urIpFamilyDual => 'Pilha dupla';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 apps divididos';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} regras de divisão',
+      one: '1 regra de divisão',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Estatísticas locais';
+
+  @override
+  String get urDirectTraffic => 'Tráfego direto';
+
+  @override
+  String get urDnsCard => 'DNS personalizado';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS sem criptografia';
+
+  @override
+  String get urDnsRowLocal => 'DNS local';
+
+  @override
+  String get urOn => 'Sim';
+
+  @override
+  String get urOff => 'Não';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (bloqueio de anúncios)';
+
+  @override
+  String get urDnsBlocker => 'Bloqueador de anúncios e rastreadores';
+
+  @override
+  String get urDnsBlockerNote => 'Verifica cada nome na lista de bloqueio, junto a qualquer escolha de DNS.';
+
+  @override
+  String get wn74 => 'A gaveta traz as seções de estatísticas do original: a barra de transportes e as famílias de endereços sob o gráfico ao vivo, a linha de apps divididos, o cartão de tráfego local, e o cartão de DNS personalizado com sua própria página — predefinições, lista manual e bloqueador de anúncios.';
+
+  @override
   String get wn72Settings =>
       'A página de ajustes agora traz todas as opções: as linhas de proteção (o kill switch e o always-on do sistema), a conexão ao ligar o telefone e a autoinstalação, a unidade de velocidade, o corte por inatividade e o limite de dados, o diagnóstico, as seções de rede e de desvio, o uso por aplicativo e o guia de bateria.';
 

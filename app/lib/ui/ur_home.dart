@@ -12,8 +12,15 @@ import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'format.dart';
 import 'motion.dart';
-import 'ur_kit.dart' show UrPressable, UrSwitch;
+import 'ur_kit.dart' show UrPressable, UrSwitch, UrTokens;
 import 'ur_settings.dart' show UrUsageCard;
+import 'ur_stats.dart' show
+    UrBlockerPanel,
+    UrDnsCard,
+    UrIpFamilyRow,
+    UrLocalStatsCard,
+    UrSplitPanel,
+    UrTransportBar;
 import 'widgets.dart';
 
 /// The ur home: URnetwork's connect screen, ported as it ships.
@@ -111,6 +118,7 @@ class UrHome extends StatefulWidget {
     this.onOpenAccounts,
     this.onOpenRouting,
     this.onOpenShare,
+    this.push,
   });
 
   final CoreController core;
@@ -120,6 +128,11 @@ class UrHome extends StatefulWidget {
   final VoidCallback? onOpenAccounts;
   final VoidCallback? onOpenRouting;
   final VoidCallback? onOpenShare;
+
+  /// Opens a page under the shell's own stack: the drawer's deep cards —
+  /// the connections, the per-app split, the DNS page — walk out through
+  /// it. Null on the desktop home, where the drawer does not stand.
+  final void Function(String title, Widget page)? push;
 
   @override
   State<UrHome> createState() => _UrHomeState();
@@ -325,6 +338,8 @@ class _UrHomeState extends State<UrHome> {
                             snapSizes: [peek, _expandedFraction],
                             builder: (context, scrollController) => _UrDrawer(
                               scrollController: scrollController,
+                              core: widget.core,
+                              settings: widget.settings,
                               status: status,
                               phase: phase,
                               busy: busy,
@@ -335,6 +350,7 @@ class _UrHomeState extends State<UrHome> {
                               onOpenServers: widget.onOpenServers,
                               onOpenRouting: widget.onOpenRouting,
                               onOpenShare: widget.onOpenShare,
+                              push: widget.push,
                             ),
                           ),
                         ),
@@ -917,6 +933,8 @@ class _StatusLine extends StatelessWidget {
 class _UrDrawer extends StatelessWidget {
   const _UrDrawer({
     required this.scrollController,
+    required this.core,
+    required this.settings,
     required this.status,
     required this.phase,
     required this.busy,
@@ -924,12 +942,15 @@ class _UrDrawer extends StatelessWidget {
     required this.sessionStart,
     required this.samples,
     required this.onPress,
-    required this.onOpenServers,
+    this.onOpenServers,
     this.onOpenRouting,
     this.onOpenShare,
+    this.push,
   });
 
   final ScrollController scrollController;
+  final CoreController core;
+  final AppSettings settings;
   final CoreStatus status;
   final _Phase phase;
   final bool busy;
@@ -940,6 +961,7 @@ class _UrDrawer extends StatelessWidget {
   final VoidCallback? onOpenServers;
   final VoidCallback? onOpenRouting;
   final VoidCallback? onOpenShare;
+  final void Function(String title, Widget page)? push;
 
   @override
   Widget build(BuildContext context) {
@@ -983,6 +1005,12 @@ class _UrDrawer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
+          // The connection's own options, the original's ConnectOptions
+          // below the fold: the carrier the tunnel rides (the segmented
+          // row) and the switches that shape the walk — all settings the
+          // core keeps.
+          _ConnectOptions(core: core),
+          const SizedBox(height: 16),
           _StatsCard(
             status: status,
             connected: phase == _Phase.connected,
@@ -998,6 +1026,19 @@ class _UrDrawer extends StatelessWidget {
               up: status.traffic!.up,
               down: status.traffic!.down,
             ),
+          // The original's statistics sections under the stats: the
+          // transports and the address families inside the card, then the
+          // split apps row, the local statistics, the custom DNS summary
+          // and the blocker's own panel.
+          _TransportsSection(exit: status.exit),
+          const SizedBox(height: 16),
+          UrSplitPanel(push: push),
+          const SizedBox(height: 16),
+          UrLocalStatsCard(core: core, push: push),
+          const SizedBox(height: 16),
+          UrDnsCard(core: core, settings: settings, push: push),
+          const SizedBox(height: 16),
+          UrBlockerPanel(core: core),
           // The quick options and the hotspot share: the phone's own
           // settings, one card of switches and one row that opens the
           // share page.
@@ -1702,3 +1743,295 @@ class _ShareCard extends StatelessWidget {
       );
 }
 
+
+/// The connection's own options, the original's ConnectOptions below the
+/// fold: the segmented row for the carrier the tunnel rides (the core's
+/// `proxy.transport`, HTTP/1.1, HTTP/2 or HTTP/3), and the switches that
+/// shape the walk — the fastest location (`proxy.country` "fastest"),
+/// QUIC pass-through (`tun.quic`), and the split routing
+/// (`routing.enabled`). Each one a setting the core keeps; the writes go
+/// through the settings API the section pages always used.
+class _ConnectOptions extends StatefulWidget {
+  const _ConnectOptions({required this.core});
+
+  final CoreController core;
+
+  @override
+  State<_ConnectOptions> createState() => _ConnectOptionsState();
+}
+
+class _ConnectOptionsState extends State<_ConnectOptions> {
+  Map<String, Object?>? _config;
+  bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final config = await widget.core.settings();
+      if (!mounted) return;
+      setState(() => _config = config);
+    } on Exception {
+      // The next drawer open reads again; the shell shows a save's error.
+    }
+  }
+
+  Object? _get(List<String> path) {
+    Object? node = _config;
+    for (final key in path) {
+      if (node is! Map<String, Object?>) return null;
+      node = node[key];
+    }
+    return node;
+  }
+
+  String get _transport => switch (_get(['proxy', 'transport'])) {
+    'h3' => 'h3',
+    'h1' => 'h1',
+    _ => 'h2',
+  };
+
+  /// Saves [values] (path → value) through the core and reads the config
+  /// again; the toast lands as the app's own soft note.
+  Future<void> _save(Map<List<String>, Object?> values) async {
+    if (_saving) return;
+    setState(() => _saving = true);
+    final ok = await runShowingErrors(
+      context,
+      () => widget.core.editSettings((config) {
+        values.forEach((path, value) {
+          Object? node = config;
+          for (final key in path.take(path.length - 1)) {
+            node = switch (node[key]) {
+              final Map<String, Object?> m => m,
+              _ => node[key] = <String, Object?>{},
+            };
+          }
+          node[path.last] = value;
+        });
+      }),
+    );
+    if (!mounted) return;
+    setState(() => _saving = false);
+    if (ok) {
+      await _load();
+      if (mounted) showToast(context, AppLocalizations.of(context).saved);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final transport = _transport;
+    return Container(
+      decoration: BoxDecoration(
+        color: UrTokens.bgTinted,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // the segmented row: the carrier, the original's own control
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: UrTokens.border),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                for (final t in const ['h1', 'h2', 'h3'])
+                  Expanded(
+                    child: UrPressable(
+                      onTap: _saving || t == transport
+                          ? null
+                          : () => _save({
+                              ['proxy', 'transport']: t,
+                            }),
+                      child: Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: t == transport
+                              ? UrTokens.bgTinted
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(11),
+                        ),
+                        child: Text(
+                          t.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: t == transport
+                                ? UrTokens.ink
+                                : UrTokens.muted,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
+          _optionSwitch(
+            label: l.smartLocation,
+            subtitle: l.smartLocationHint,
+            value: _get(['proxy', 'country']) == 'fastest',
+            onChanged: _config == null
+                ? null
+                : (v) => _save({
+                    ['proxy', 'country']: v ? 'fastest' : '',
+                  }),
+          ),
+          _hairline(),
+          _optionSwitch(
+            label: l.quicPass,
+            subtitle: l.quicPassHint,
+            value: _get(['tun', 'quic']) == true,
+            onChanged: _config == null
+                ? null
+                : (v) => _save({
+                    ['tun', 'quic']: v,
+                  }),
+          ),
+          _hairline(),
+          _optionSwitch(
+            label: l.sectionRouting,
+            value: _get(['routing', 'enabled']) == true,
+            onChanged: _config == null
+                ? null
+                : (v) => _save({
+                    ['routing', 'enabled']: v,
+                  }),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _hairline() => Container(height: 1, color: UrTokens.border);
+
+  Widget _optionSwitch({
+    required String label,
+    String? subtitle,
+    required bool value,
+    required ValueChanged<bool>? onChanged,
+  }) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 14.5,
+                      color: UrTokens.ink,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: UrTokens.muted,
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 2),
+                ],
+              ),
+            ),
+            UrSwitch(
+              checked: value,
+              onToggle: () => onChanged?.call(!value),
+            ),
+          ],
+        ),
+      );
+}
+
+/// The transports card, the original's own section: the carriers the proxy's
+/// connections ride, as the stacked bar with its legend and unused footer,
+/// and the exit's address families under it. One small walk every two
+/// seconds while the drawer stands open — the walk the connections page
+/// takes — nothing more than the core already answers.
+class _TransportsSection extends StatefulWidget {
+  const _TransportsSection({required this.core, required this.exit});
+
+  final CoreController core;
+  final ExitInfo? exit;
+
+  @override
+  State<_TransportsSection> createState() => _TransportsSectionState();
+}
+
+class _TransportsSectionState extends State<_TransportsSection> {
+  Timer? _timer;
+  List<ProxyConnection> _connections = const [];
+  String _configured = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _read();
+    _timer = Timer.periodic(const Duration(seconds: 2), (_) => _read());
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _read() async {
+    try {
+      final conns = await widget.core.call((api) => api.connections());
+      final config = await widget.core.settings();
+      final transport = switch (config['proxy']) {
+        final Map<String, Object?> m => '${m['transport'] ?? 'h2'}',
+        _ => 'h2',
+      };
+      if (!mounted) return;
+      setState(() {
+        _connections = conns;
+        _configured = transport;
+      });
+    } on Exception {
+      // The core may be mid-restart; the last list stands until the next
+      // walk.
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: UrTokens.bgTinted,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          UrTransportBar(
+            shares: transportShares(_connections, _configured),
+          ),
+          const SizedBox(height: 12),
+          UrIpFamilyRow(exit: widget.exit),
+        ],
+      ),
+    );
+  }
+}

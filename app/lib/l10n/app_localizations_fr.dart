@@ -3175,6 +3175,74 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les interrupteurs de la notification ont rejoint les réglages : la vitesse en direct dans la notification, et le drapeau du pays à côté du nom.';
 
   @override
+  String get urTransports => 'Transports';
+
+  @override
+  String get urTransportUnused => 'Inutilisé';
+
+  @override
+  String get urIpFamilyDual => 'Pile double';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 appli divisée';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} règles de division',
+      one: '1 règle de division',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Statistiques locales';
+
+  @override
+  String get urDirectTraffic => 'Trafic direct';
+
+  @override
+  String get urDnsCard => 'DNS personnalisé';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS non chiffré';
+
+  @override
+  String get urDnsRowLocal => 'DNS local';
+
+  @override
+  String get urOn => 'Activé';
+
+  @override
+  String get urOff => 'Désactivé';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (blocage des pubs)';
+
+  @override
+  String get urDnsBlocker => 'Bloqueur de publicités et de traqueurs';
+
+  @override
+  String get urDnsBlockerNote => 'Vérifie chaque nom dans la liste de blocage, à côté de tout choix de DNS.';
+
+  @override
+  String get wn74 => 'Le tiroir porte les sections de statistiques de l\'original : la barre des transports et les familles d\'adresses sous le graphe en direct, la ligne des applis divisées, la carte du trafic local, et la carte DNS personnalisé avec sa propre page — préréglages, liste manuelle et bloqueur de publicités.';
+
+  @override
   String get wn72Settings =>
       'La page des réglages porte maintenant toutes les options : les lignes de protection (le kill switch et l\'always-on du système), la connexion au démarrage du téléphone et l\'auto-installation, l\'unité de vitesse, la coupure en veille et la limite de données, le diagnostic, les sections réseau et contournement, l\'usage par application et le guide batterie.';
 

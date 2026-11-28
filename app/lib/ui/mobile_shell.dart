@@ -226,6 +226,7 @@ class _MobileShellState extends State<MobileShell> {
                 onOpenUpstreamProxy: openUpstreamProxy,
                 onOpenRouting: openRouting,
                 onOpenShare: openShare,
+                push: (title, page) => _push(title, () => page),
                 phone: true,
               )
             // The ur design: the settings are URnetwork's own screen —

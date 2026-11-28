@@ -3157,6 +3157,74 @@ class AppLocalizationsEn extends AppLocalizations {
       'The notification\'s own switches joined the settings: the live speed in the notification, and the country\'s flag beside the name.';
 
   @override
+  String get urTransports => 'Transports';
+
+  @override
+  String get urTransportUnused => 'Unused';
+
+  @override
+  String get urIpFamilyDual => 'Dualstack';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 split apps';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} split rules',
+      one: '1 split rule',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Local statistics';
+
+  @override
+  String get urDirectTraffic => 'Direct traffic';
+
+  @override
+  String get urDnsCard => 'Custom DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'Unencrypted DNS';
+
+  @override
+  String get urDnsRowLocal => 'Local DNS';
+
+  @override
+  String get urOn => 'On';
+
+  @override
+  String get urOff => 'Off';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (ad blocking)';
+
+  @override
+  String get urDnsBlocker => 'Ad and tracker blocker';
+
+  @override
+  String get urDnsBlockerNote => 'Checks every name against the block list, beside any DNS choice.';
+
+  @override
+  String get wn74 => 'The drawer carries the original\'s statistics sections: the transports bar and the address families under the live chart, the split apps row, the local traffic card, and the custom DNS card with its own page — presets, the manual list, and the ad blocker.';
+
+  @override
   String get wn72Settings =>
       'The settings page carries every option now: the protection rows (the kill switch and the system\'s always-on guard), the boot connect and the auto-install, the rate unit, the idle hang-up and the data limit, the diagnostics, the network and bypass sections, the per-app usage, and the battery guide.';
 

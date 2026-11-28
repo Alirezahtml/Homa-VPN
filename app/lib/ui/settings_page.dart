@@ -38,14 +38,17 @@ Future<String?> Function(String title, String label) pickProgramFile = (
   label,
 ) => DesktopBridge.pickProgram(title: title, label: label);
 
-/// The DNS presets the web dashboard offers (core/internal/service/web/app.js).
-const _dnsPresets = <String, List<String>>{
+/// The DNS presets, shared with the ur design's DNS page (the core keeps
+/// every server the web dashboard offers): the key picks the servers, and
+/// the empty list stands for the system's own resolver.
+const dnsPresets = <String, List<String>>{
   'system': [],
   'auto': [
     'https://1.1.1.1/dns-query',
     'https://8.8.8.8/dns-query',
     'https://9.9.9.9/dns-query',
   ],
+  'adguard': ['https://dns.adguard-dns.com/dns-query'],
   'cloudflare': ['https://1.1.1.1/dns-query', 'https://1.0.0.1/dns-query'],
   'google': ['https://8.8.8.8/dns-query', 'https://8.8.4.4/dns-query'],
   'quad9': ['https://9.9.9.9/dns-query', 'https://149.112.112.112/dns-query'],
@@ -1916,7 +1919,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _dns(AppLocalizations l) {
     final servers = _list(['dns', 'servers']);
     final saved =
-        _dnsPresets.entries
+        dnsPresets.entries
             .where((e) => e.value.join(',') == servers.join(','))
             .firstOrNull
             ?.key ??
@@ -1925,6 +1928,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final names = {
       'system': l.dnsSystem,
       'auto': l.dnsAuto,
+      'adguard': l.urDnsAdguard,
       'cloudflare': 'Cloudflare',
       'google': 'Google',
       'quad9': 'Quad9',
@@ -1947,7 +1951,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     setState(() => _dnsPreset = v);
                     if (v != 'custom') {
                       _save({
-                        ['dns', 'servers']: _dnsPresets[v]!,
+                        ['dns', 'servers']: dnsPresets[v]!,
                       }).then((_) {
                         if (mounted) setState(() => _dnsPreset = null);
                       });

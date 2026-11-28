@@ -3166,6 +3166,74 @@ class AppLocalizationsRu extends AppLocalizations {
       'Свои переключатели уведомления тоже вошли в настройки: живая скорость в уведомлении и флаг страны рядом с названием.';
 
   @override
+  String get urTransports => 'Транспорты';
+
+  @override
+  String get urTransportUnused => 'Не используется';
+
+  @override
+  String get urIpFamilyDual => 'Двустек';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 раздельных приложений';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} правил разделения',
+      one: '1 правило разделения',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Локальная статистика';
+
+  @override
+  String get urDirectTraffic => 'Прямой трафик';
+
+  @override
+  String get urDnsCard => 'Свой DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'Незашифрованный DNS';
+
+  @override
+  String get urDnsRowLocal => 'Локальный DNS';
+
+  @override
+  String get urOn => 'Вкл';
+
+  @override
+  String get urOff => 'Выкл';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (блокировка рекламы)';
+
+  @override
+  String get urDnsBlocker => 'Блокировщик рекламы и трекеров';
+
+  @override
+  String get urDnsBlockerNote => 'Сверяет каждое имя со списком блокировки, рядом с любым выбором DNS.';
+
+  @override
+  String get wn74 => 'Шторка несёт секции статистики оригинала: полосу транспортов и семейства адресов под живым графиком, строку раздельных приложений, карточку локального трафика и карточку своего DNS с собственной страницей — пресеты, ручной список и блокировщик рекламы.';
+
+  @override
   String get wn72Settings =>
       'Страница настроек теперь несёт все опции: строки защиты (аварийный выключатель и always-on системы), подключение при включении телефона и автоустановку, единицу скорости, отключение в простое и лимит данных, диагностику, разделы сети и обхода, расход по приложениям и гид по батарее.';
 

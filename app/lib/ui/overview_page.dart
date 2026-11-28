@@ -68,6 +68,7 @@ class OverviewPage extends StatelessWidget {
     this.onOpenUpstreamProxy,
     this.onOpenRouting,
     this.onOpenShare,
+    this.push,
     this.phone = false,
   });
 
@@ -91,6 +92,11 @@ class OverviewPage extends StatelessWidget {
   final VoidCallback? onOpenRouting;
   final VoidCallback? onOpenShare;
 
+  /// Opens a page under the shell's own stack — the ur home's drawer cards
+  /// (the connections, the per-app split, the DNS page) walk out through
+  /// it. Null on the desktop, where that drawer does not stand.
+  final void Function(String title, Widget page)? push;
+
   @override
   Widget build(BuildContext context) {
     final status = core.status!;
@@ -109,6 +115,7 @@ class OverviewPage extends StatelessWidget {
           onOpenAccounts: onOpenAccounts,
           onOpenRouting: onOpenRouting,
           onOpenShare: onOpenShare,
+          push: push,
         );
       }
       return _PhoneHome(

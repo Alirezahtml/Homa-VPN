@@ -3155,6 +3155,74 @@ class AppLocalizationsId extends AppLocalizations {
       'Sakelar notifikasi sendiri ikut masuk ke pengaturan: kecepatan langsung di notifikasi, dan bendera negara di samping namanya.';
 
   @override
+  String get urTransports => 'Transport';
+
+  @override
+  String get urTransportUnused => 'Tidak terpakai';
+
+  @override
+  String get urIpFamilyDual => 'Dualstack';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 aplikasi terpisah';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} aturan pemisahan',
+      one: '1 aturan pemisahan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Statistik lokal';
+
+  @override
+  String get urDirectTraffic => 'Trafik langsung';
+
+  @override
+  String get urDnsCard => 'DNS khusus';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS tanpa enkripsi';
+
+  @override
+  String get urDnsRowLocal => 'DNS lokal';
+
+  @override
+  String get urOn => 'Aktif';
+
+  @override
+  String get urOff => 'Nonaktif';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (pemblokir iklan)';
+
+  @override
+  String get urDnsBlocker => 'Pemblokir iklan dan pelacak';
+
+  @override
+  String get urDnsBlockerNote => 'Memeriksa setiap nama dengan daftar blokir, di samping pilihan DNS apa pun.';
+
+  @override
+  String get wn74 => 'Laci membawa bagian statistik milik aslinya: bilah transport dan keluarga alamat di bawah grafik langsung, baris aplikasi terpisah, kartu trafik lokal, dan kartu DNS khusus dengan halamannya sendiri — prasetel, daftar manual, dan pemblokir iklan.';
+
+  @override
   String get wn72Settings =>
       'Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai.';
 

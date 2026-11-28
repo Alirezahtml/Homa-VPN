@@ -3144,6 +3144,74 @@ class AppLocalizationsBn extends AppLocalizations {
       'নোটিফিকেশনের নিজের সুইচগুলোও সেটিংসে এসেছে: নোটিফিকেশনে লাইভ গতি, আর নামের পাশে দেশের পতাকা।';
 
   @override
+  String get urTransports => 'ট্রান্সপোর্ট';
+
+  @override
+  String get urTransportUnused => 'অব্যবহৃত';
+
+  @override
+  String get urIpFamilyDual => 'ডুয়ালস্ট্যাক';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '০টি বিভক্ত অ্যাপ';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count}টি বিভাজন নিয়ম',
+      one: '১টি বিভাজন নিয়ম',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'স্থানীয় পরিসংখ্যান';
+
+  @override
+  String get urDirectTraffic => 'সরাসরি ট্রাফিক';
+
+  @override
+  String get urDnsCard => 'কাস্টম DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'অসংক্রিপ্ট করা DNS';
+
+  @override
+  String get urDnsRowLocal => 'স্থানীয় DNS';
+
+  @override
+  String get urOn => 'চালু';
+
+  @override
+  String get urOff => 'বন্ধ';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (বিজ্ঞাপন অবরোধ)';
+
+  @override
+  String get urDnsBlocker => 'বিজ্ঞাপন ও ট্র্যাকার অবরোধকারী';
+
+  @override
+  String get urDnsBlockerNote => 'প্রতিটি নাম ব্লক তালিকার সাথে মিলিয়ে দেখে, যেকোনো DNS পছন্দের পাশাপাশি।';
+
+  @override
+  String get wn74 => 'ড্রয়ারটি মূলটির পরিসংখ্যান বিভাগগুলি বহন করে: লাইভ চার্টের নিচে ট্রান্সপোর্ট বার ও ঠিকানা পরিবার, বিভক্ত অ্যাপের সারি, স্থানীয় ট্রাফিক কার্ড, এবং নিজস্ব পাতাসহ কাস্টম DNS কার্ড — প্রিসেট, ম্যানুয়াল তালিকা ও বিজ্ঞাপন অবরোধকারী।';
+
+  @override
   String get wn72Settings =>
       'সেটিংস পৃষ্ঠায় এখন সব অপশন আছে: প্রোটেকশনের সারি (কিল সুইচ ও সিস্টেমের always-on গার্ড), ফোন চালু হলে সংযোগ ও অটো-ইনস্টল, স্পিড ইউনিট, অলস অবস্থায় বিচ্ছিন্নতা ও ডেটা লিমিট, ডায়াগনস্টিকস, নেটওয়ার্ক ও বাইপাস সেকশন, প্রতি-অ্যাপ ব্যবহার, এবং ব্যাটারি গাইড।';
 

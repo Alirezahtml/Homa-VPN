@@ -3151,6 +3151,74 @@ class AppLocalizationsVi extends AppLocalizations {
       'Các công tắc của thông báo cũng vào cài đặt: tốc độ trực tiếp trong thông báo, và cờ quốc gia bên cạnh tên.';
 
   @override
+  String get urTransports => 'Giao thức vận chuyển';
+
+  @override
+  String get urTransportUnused => 'Không dùng';
+
+  @override
+  String get urIpFamilyDual => 'Ngăn xếp kép';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 ứng dụng tách';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} quy tắc tách',
+      one: '1 quy tắc tách',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Thống kê cục bộ';
+
+  @override
+  String get urDirectTraffic => 'Lưu lượng trực tiếp';
+
+  @override
+  String get urDnsCard => 'DNS tùy chỉnh';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS không mã hóa';
+
+  @override
+  String get urDnsRowLocal => 'DNS cục bộ';
+
+  @override
+  String get urOn => 'Bật';
+
+  @override
+  String get urOff => 'Tắt';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (chặn quảng cáo)';
+
+  @override
+  String get urDnsBlocker => 'Trình chặn quảng cáo và theo dõi';
+
+  @override
+  String get urDnsBlockerNote => 'Kiểm tra từng tên với danh sách chặn, bên cạnh bất kỳ lựa chọn DNS nào.';
+
+  @override
+  String get wn74 => 'Ngăn kéo mang theo các mục thống kê của bản gốc: thanh giao thức vận chuyển và các họ địa chỉ dưới biểu đồ trực tiếp, hàng ứng dụng tách, thẻ lưu lượng cục bộ, và thẻ DNS tùy chỉnh có trang riêng — cấu hình sẵn, danh sách thủ công và trình chặn quảng cáo.';
+
+  @override
   String get wn72Settings =>
       'Trang cài đặt giờ mang đủ mọi tùy chọn: các hàng bảo vệ (công tắc khẩn và always-on của hệ thống), kết nối khi mở máy và tự cài đặt, đơn vị tốc độ, ngắt khi rảnh và giới hạn dữ liệu, chẩn đoán, phần mạng và phần đi vòng, mức dùng từng ứng dụng, và hướng dẫn pin.';
 

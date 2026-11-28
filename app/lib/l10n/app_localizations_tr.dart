@@ -3150,6 +3150,74 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bildirimin kendi anahtarları da ayarlara katıldı: bildirimde canlı hız ve adın yanında ülkenin bayrağı.';
 
   @override
+  String get urTransports => 'Taşımalar';
+
+  @override
+  String get urTransportUnused => 'Kullanılmayan';
+
+  @override
+  String get urIpFamilyDual => 'Çift yığın';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '0 bölünmüş uygulama';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} bölme kuralı',
+      one: '1 bölme kuralı',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'Yerel istatistikler';
+
+  @override
+  String get urDirectTraffic => 'Doğrudan trafik';
+
+  @override
+  String get urDnsCard => 'Özel DNS';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'Şifrelenmemiş DNS';
+
+  @override
+  String get urDnsRowLocal => 'Yerel DNS';
+
+  @override
+  String get urOn => 'Açık';
+
+  @override
+  String get urOff => 'Kapalı';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (reklam engelleme)';
+
+  @override
+  String get urDnsBlocker => 'Reklam ve izleyici engelleyici';
+
+  @override
+  String get urDnsBlockerNote => 'Her adı engelleme listesiyle kontrol eder, herhangi bir DNS seçimiyle birlikte.';
+
+  @override
+  String get wn74 => 'Çekmece, özgünün istatistik bölümlerini taşır: canlı grafik altında taşıma çubuğu ve adres aileleri, bölünmüş uygulamalar satırı, yerel trafik kartı ve kendi sayfasıyla özel DNS kartı — hazır ayarlar, elle liste ve reklam engelleyici.';
+
+  @override
   String get wn72Settings =>
       'Ayarlar sayfası artık tüm seçenekleri taşıyor: koruma satırları (kill anahtarı ve sistemin always-on koruması), telefon açılırken bağlanma ve otomatik kurulum, hız birimi, boşta kesme ve veri limiti, teşhis, ağ ve aşma bölümleri, uygulama başına kullanım ve pil rehberi.';
 

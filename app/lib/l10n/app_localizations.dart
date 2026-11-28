@@ -5456,6 +5456,107 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The notification\'s own switches joined the settings: the live speed in the notification, and the country\'s flag beside the name.'**
   String get wn73Notifications;
+  /// No description provided for @urTransports.
+  ///
+  /// In en, this message translates to:
+  /// **'Transports'**
+  String get urTransports;
+  /// No description provided for @urTransportUnused.
+  ///
+  /// In en, this message translates to:
+  /// **'Unused'**
+  String get urTransportUnused;
+  /// No description provided for @urIpFamilyDual.
+  ///
+  /// In en, this message translates to:
+  /// **'Dualstack'**
+  String get urIpFamilyDual;
+  /// No description provided for @urIpFamilyV4.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv4'**
+  String get urIpFamilyV4;
+  /// No description provided for @urIpFamilyV6.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv6'**
+  String get urIpFamilyV6;
+  /// No description provided for @urSplitStarter.
+  ///
+  /// In en, this message translates to:
+  /// **'0 split apps'**
+  String get urSplitStarter;
+  /// No description provided for @urSplitRulesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 split rule} other{{count} split rules}}'**
+  String urSplitRulesCount(int count);
+  /// No description provided for @urStatsLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Local statistics'**
+  String get urStatsLocal;
+  /// No description provided for @urDirectTraffic.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct traffic'**
+  String get urDirectTraffic;
+  /// No description provided for @urDnsCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom DNS'**
+  String get urDnsCard;
+  /// No description provided for @urDnsRowDoh.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS over HTTPS'**
+  String get urDnsRowDoh;
+  /// No description provided for @urDnsRowDot.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS over TLS'**
+  String get urDnsRowDot;
+  /// No description provided for @urDnsRowPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'Unencrypted DNS'**
+  String get urDnsRowPlain;
+  /// No description provided for @urDnsRowLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Local DNS'**
+  String get urDnsRowLocal;
+  /// No description provided for @urOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get urOn;
+  /// No description provided for @urOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get urOff;
+  /// No description provided for @urDnsAdguard.
+  ///
+  /// In en, this message translates to:
+  /// **'AdGuard (ad blocking)'**
+  String get urDnsAdguard;
+  /// No description provided for @urDnsBlocker.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad and tracker blocker'**
+  String get urDnsBlocker;
+  /// No description provided for @urDnsBlockerNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks every name against the block list, beside any DNS choice.'**
+  String get urDnsBlockerNote;
+  /// No description provided for @wn74.
+  ///
+  /// In en, this message translates to:
+  /// **'The drawer carries the original\'s statistics sections: the transports bar and the address families under the live chart, the split apps row, the local traffic card, and the custom DNS card with its own page — presets, the manual list, and the ad blocker.'**
+  String get wn74;
+
 
   /// No description provided for @wn72Settings.
   ///

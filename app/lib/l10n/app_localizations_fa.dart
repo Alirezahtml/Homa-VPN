@@ -3137,6 +3137,74 @@ class AppLocalizationsFa extends AppLocalizations {
       'کلیدهای خودِ اعلان هم به تنظیمات آمدند: نمایش سرعت زنده در اعلان، و پرچم کشور کنار نامش.';
 
   @override
+  String get urTransports => 'ترنسپورت‌ها';
+
+  @override
+  String get urTransportUnused => 'بی‌استفاده';
+
+  @override
+  String get urIpFamilyDual => 'دواستک';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '۰ برنامه تفکیک‌شده';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} قانون تقسیم',
+      one: '۱ قانون تقسیم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'آمار محلی';
+
+  @override
+  String get urDirectTraffic => 'ترافیک مستقیم';
+
+  @override
+  String get urDnsCard => 'DNS سفارشی';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS رمزنگاری‌نشده';
+
+  @override
+  String get urDnsRowLocal => 'DNS محلی';
+
+  @override
+  String get urOn => 'روشن';
+
+  @override
+  String get urOff => 'خاموش';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (مسدودسازی تبلیغات)';
+
+  @override
+  String get urDnsBlocker => 'مسدودکننده تبلیغات و ردیاب‌ها';
+
+  @override
+  String get urDnsBlockerNote => 'هر نام را با فهرست مسدود بررسی می‌کند، در کنار هر انتخاب DNS.';
+
+  @override
+  String get wn74 => 'کشوی صفحه، بخش‌های آمار خودِ اصلی را برد: نوار ترنسپورت‌ها و خانواده‌های نشانی زیر نمودار زنده، ردیف برنامه‌های تفکیک‌شده، کارت ترافیک محلی، و کارت DNS سفارشی با صفحهٔ خودش — پیش‌تنظیم‌ها، فهرست دستی، و مسدودکننده تبلیغات.';
+
+  @override
   String get wn72Settings =>
       'برگه‌ی تنظیمات حالا همه‌ی گزینه‌ها را دارد: ردیف‌های محافظت (کلید قطع اضطراری و همیشه‌روشنِ سیستم)، اتصال هنگام روشن‌شدن گوشی و نصب خودکار به‌روزرسانی، واحد سرعت، قطع در بیکاری و محدودیت حجم، عیب‌یابی، بخش‌های شبکه و دورزدن فیلترشکن، مصرف هر اپ، و راهنمای باتری.';
 

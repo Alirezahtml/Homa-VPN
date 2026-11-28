@@ -3155,6 +3155,74 @@ class AppLocalizationsAr extends AppLocalizations {
       'انضمت مفاتيح الإشعارات نفسها إلى الإعدادات: السرعة الحيّة في الإشعار، وعلم الدولة بجانب الاسم.';
 
   @override
+  String get urTransports => 'النقل';
+
+  @override
+  String get urTransportUnused => 'غير مستخدم';
+
+  @override
+  String get urIpFamilyDual => 'ثنائي المكدس';
+
+  @override
+  String get urIpFamilyV4 => 'IPv4';
+
+  @override
+  String get urIpFamilyV6 => 'IPv6';
+
+  @override
+  String get urSplitStarter => '٠ تطبيق مفصول';
+
+  @override
+  String urSplitRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '{count} قواعد فصل',
+      one: 'قاعدة فصل واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get urStatsLocal => 'الإحصاءات المحلية';
+
+  @override
+  String get urDirectTraffic => 'المرور المباشر';
+
+  @override
+  String get urDnsCard => 'DNS مخصص';
+
+  @override
+  String get urDnsRowDoh => 'DNS over HTTPS';
+
+  @override
+  String get urDnsRowDot => 'DNS over TLS';
+
+  @override
+  String get urDnsRowPlain => 'DNS غير مشفر';
+
+  @override
+  String get urDnsRowLocal => 'DNS محلي';
+
+  @override
+  String get urOn => 'تشغيل';
+
+  @override
+  String get urOff => 'إيقاف';
+
+  @override
+  String get urDnsAdguard => 'AdGuard (حجب الإعلانات)';
+
+  @override
+  String get urDnsBlocker => 'حاجب الإعلانات والمتتبعات';
+
+  @override
+  String get urDnsBlockerNote => 'يفحص كل اسم على قائمة الحجب، بجانب أي اختيار DNS.';
+
+  @override
+  String get wn74 => 'يحمل الدرج أقسام إحصاءات الأصل: شريط النقل وعائلات العناوين تحت المخطط الحي، وصف التطبيقات المفصولة، وبطاقة المرور المحلي، وبطاقة DNS المخصص بصفحته الخاصة — الإعدادات المسبقة والقائمة اليدوية وحاجب الإعلانات.';
+
+  @override
   String get wn72Settings =>
       'صفحة الإعدادات تحمل كل الخيارات الآن: صفوف الحماية (مفتاح القتل والبدء الدائم للنظام)، الاتصال عند إقلاع الهاتف والتثبيت التلقائي، وحدة السرعة، قطع الخمول وحد البيانات، التشخيص، أقسام الشبكة والتجاوز، استهلاك كل تطبيق، ودليل البطارية.';
 
