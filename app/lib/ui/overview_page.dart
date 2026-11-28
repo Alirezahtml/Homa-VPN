@@ -66,6 +66,8 @@ class OverviewPage extends StatelessWidget {
     this.onOpenAccounts,
     this.onOpenConnection,
     this.onOpenUpstreamProxy,
+    this.onOpenRouting,
+    this.onOpenShare,
     this.phone = false,
   });
 
@@ -84,6 +86,11 @@ class OverviewPage extends StatelessWidget {
   final VoidCallback? onOpenConnection;
   final VoidCallback? onOpenUpstreamProxy;
 
+  /// Opens the per-app routing and the hotspot share, the drawer's rows
+  /// that walk out of the home page.
+  final VoidCallback? onOpenRouting;
+  final VoidCallback? onOpenShare;
+
   @override
   Widget build(BuildContext context) {
     final status = core.status!;
@@ -100,6 +107,8 @@ class OverviewPage extends StatelessWidget {
           settings: settings,
           onOpenServers: onOpenServers,
           onOpenAccounts: onOpenAccounts,
+          onOpenRouting: onOpenRouting,
+          onOpenShare: onOpenShare,
         );
       }
       return _PhoneHome(

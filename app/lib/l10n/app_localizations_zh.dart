@@ -2907,6 +2907,62 @@ class AppLocalizationsZh extends AppLocalizations {
       'URnetwork 设置页：分区与卡片、语言、导航样式，以及抽屉里的会话用量条';
 
   @override
+  String get urQuickTitle =>
+      '快捷选项';
+
+  @override
+  String get urShare =>
+      '热点共享';
+
+  @override
+  String get urShareDesc =>
+      '把这台手机变成网关：热点上的设备可以经由它使用 VPN。打开热点，连接另一台设备，然后把它的代理设为下面的地址。';
+
+  @override
+  String get urShareProxy =>
+      '代理地址';
+
+  @override
+  String get urShareCopied =>
+      '已复制';
+
+  @override
+  String get urShareOpenHotspot =>
+      '打开热点设置';
+
+  @override
+  String get urShareOn =>
+      '共享已开启——代理在热点上应答。';
+
+  @override
+  String get urShareNeedsVpn =>
+      '请先连接 VPN；被共享的设备经由它的隧道。';
+
+  @override
+  String get urShareSteps =>
+      '1. 打开手机的热点\n2. 把另一台设备连接到热点\n3. 在那台设备上，打开该 Wi-Fi 网络的代理并选择手动\n4. 把上面的地址填入服务器——同一地址也支持 SOCKS5';
+
+  @override
+  String get urShareNote =>
+      '在 VPN 已连接时可用。核心的代理在同一端口同时支持 HTTP 与 SOCKS5；关闭共享后，端口恢复为仅本机监听。';
+
+  @override
+  String get wn71Nav =>
+      '导航现在只保留经典底栏——变形胶囊、霓虹光晕、气泡和胶囊条连同选择器一并移除。';
+
+  @override
+  String get wn71Stats =>
+      '抽屉的统计以原版的精度呈现：传输图沿中轴镜像展开，每个方向的峰值在原位标注，每个速率都读作 2.50 KiB/s。';
+
+  @override
+  String get wn71Drawer =>
+      '上拉抽屉停在导航之下并获得快捷选项：应急开关、通知的速度与旗帜、按应用分流，以及热点共享。';
+
+  @override
+  String get wn71Share =>
+      '热点共享：把手机变成热点上各设备的 VPN 网关——一个开关打开代理，页面给出地址与步骤。';
+
+  @override
   String get changeUi =>
       '更换界面';
 
@@ -5841,6 +5897,62 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn70UrCards =>
       'URnetwork 設定頁：分區與卡片、語言、導覽樣式，以及抽屜裡的工作階段用量條';
+
+  @override
+  String get urQuickTitle =>
+      '快速選項';
+
+  @override
+  String get urShare =>
+      '熱點分享';
+
+  @override
+  String get urShareDesc =>
+      '把這支手機變成閘道：熱點上的裝置可以經由它使用 VPN。打開熱點，連接另一台裝置，然後把它的代理設成下面的位址。';
+
+  @override
+  String get urShareProxy =>
+      '代理位址';
+
+  @override
+  String get urShareCopied =>
+      '已複製';
+
+  @override
+  String get urShareOpenHotspot =>
+      '開啟熱點設定';
+
+  @override
+  String get urShareOn =>
+      '分享已開啟——代理在熱點上應答。';
+
+  @override
+  String get urShareNeedsVpn =>
+      '請先連上 VPN；被分享的裝置經由它的通道。';
+
+  @override
+  String get urShareSteps =>
+      '1. 開啟手機的熱點\n2. 把另一台裝置連上熱點\n3. 在那台裝置上，開啟該 Wi-Fi 網路的代理並選擇手動\n4. 把上面的位址填入伺服器——同一位址也支援 SOCKS5';
+
+  @override
+  String get urShareNote =>
+      '在 VPN 已連線時可用。核心的代理在同一連接埠同時支援 HTTP 與 SOCKS5；關閉分享後，連接埠恢復為僅本機監聽。';
+
+  @override
+  String get wn71Nav =>
+      '導覽現在只保留經典底欄——變形膠囊、霓虹光暈、氣泡與膠囊列連同選擇器一併移除。';
+
+  @override
+  String get wn71Stats =>
+      '抽屜的統計以原版的精度呈現：傳輸圖沿中軸鏡像展開，每個方向的峰值在原位標註，每個速率都讀作 2.50 KiB/s。';
+
+  @override
+  String get wn71Drawer =>
+      '上拉抽屜停在導覽之下並取得快速選項：緊急開關、通知的速度與旗幟、依應用程式分流，以及熱點分享。';
+
+  @override
+  String get wn71Share =>
+      '熱點分享：把手機變成熱點上各裝置的 VPN 閘道——一個開關打開代理，頁面給出位址與步驟。';
 
   @override
   String get changeUi =>

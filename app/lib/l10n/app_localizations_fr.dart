@@ -3107,6 +3107,62 @@ class AppLocalizationsFr extends AppLocalizations {
       'L\'écran de réglages URnetwork : les sections et les cartes, la langue, le style de navigation et la barre d\'utilisation de la session dans le tiroir';
 
   @override
+  String get urQuickTitle =>
+      'Options rapides';
+
+  @override
+  String get urShare =>
+      'Partage en hotspot';
+
+  @override
+  String get urShareDesc =>
+      'Faites de ce téléphone une passerelle : les appareils de son hotspot peuvent utiliser le VPN à travers lui. Activez le hotspot, connectez l\'autre appareil, puis réglez son proxy sur l\'adresse ci-dessous.';
+
+  @override
+  String get urShareProxy =>
+      'Adresse du proxy';
+
+  @override
+  String get urShareCopied =>
+      'Copié';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Ouvrir les réglages du hotspot';
+
+  @override
+  String get urShareOn =>
+      'Le partage est actif — le proxy répond sur le hotspot.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Connectez d\'abord le VPN ; les appareils partagés passent par son tunnel.';
+
+  @override
+  String get urShareSteps =>
+      '1. Activez le hotspot du téléphone\n2. Connectez l\'autre appareil au hotspot\n3. Sur cet appareil, ouvrez le proxy du réseau Wi-Fi et choisissez Manuel\n4. Mettez l\'adresse ci-dessus comme serveur — la même adresse répond aussi en SOCKS5';
+
+  @override
+  String get urShareNote =>
+      'Fonctionne tant que le VPN est connecté. Le proxy du cœur répond en HTTP comme en SOCKS5 sur le même port ; le partage coupé, le port n\'écoute plus que sur la machine elle-même.';
+
+  @override
+  String get wn71Nav =>
+      'La navigation est désormais la seule barre classique — la pilule morphing, le halo néon, les bulles et la capsule s\'en vont avec leur sélecteur.';
+
+  @override
+  String get wn71Stats =>
+      'Les stats du tiroir parlent avec la précision de l\'original : la courbe de transfert en miroir sur un axe central, le pic de chaque sens étiqueté à sa place, chaque débit lu en 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'Le tiroir s\'arrête sous la navigation et gagne les options rapides : le kill switch, la vitesse et le drapeau de la notification, le routage par app et le partage en hotspot.';
+
+  @override
+  String get wn71Share =>
+      'Partage en hotspot : faites du téléphone une passerelle VPN pour les appareils de son hotspot — un interrupteur ouvre le proxy, la page porte l\'adresse et les étapes.';
+
+  @override
   String get changeUi =>
       'Changer l\'UI/UX';
 

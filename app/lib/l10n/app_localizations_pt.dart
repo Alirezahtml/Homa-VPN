@@ -3091,6 +3091,62 @@ class AppLocalizationsPt extends AppLocalizations {
       'O ecrã de definições da URnetwork: secções e cartões, o idioma, o estilo de navegação e a barra de utilização da sessão na gaveta';
 
   @override
+  String get urQuickTitle =>
+      'Opções rápidas';
+
+  @override
+  String get urShare =>
+      'Partilhar por hotspot';
+
+  @override
+  String get urShareDesc =>
+      'Torne este telefone uma porta de entrada: os dispositivos do seu hotspot podem usar a VPN através dele. Ligue o hotspot, ligue o outro dispositivo e ponha o proxy dele no endereço abaixo.';
+
+  @override
+  String get urShareProxy =>
+      'Endereço do proxy';
+
+  @override
+  String get urShareCopied =>
+      'Copiado';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Abrir as definições do hotspot';
+
+  @override
+  String get urShareOn =>
+      'A partilha está ligada — o proxy responde no hotspot.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Ligue primeiro a VPN; os dispositivos partilhados passam pelo seu túnel.';
+
+  @override
+  String get urShareSteps =>
+      '1. Ligue o hotspot do telefone\n2. Ligue o outro dispositivo ao hotspot\n3. Nesse dispositivo, abra o proxy da rede Wi-Fi e escolha Manual\n4. Ponha o endereço acima como servidor — o mesmo endereço também responde em SOCKS5';
+
+  @override
+  String get urShareNote =>
+      'Funciona enquanto a VPN estiver ligada. O proxy do núcleo responde HTTP e SOCKS5 no mesmo porto; com a partilha desligada, o porto volta a ouvir só no próprio aparelho.';
+
+  @override
+  String get wn71Nav =>
+      'A navegação é agora só a barra inferior clássica — a pílula morfológica, o brilho néon, as bolhas e a cápsula saem com o seu seletor.';
+
+  @override
+  String get wn71Stats =>
+      'As estatísticas da gaveta falam com a precisão do original: o gráfico de transferência espelhado num eixo central, o pico de cada sentido etiquetado no seu lugar, cada taxa lida como 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'A gaveta puxada para cima para sob a navegação e ganha as opções rápidas: o kill switch, a velocidade e a bandeira da notificação, o encaminhamento por app e a partilha por hotspot.';
+
+  @override
+  String get wn71Share =>
+      'Partilhar por hotspot: torne o telefone uma porta VPN para os dispositivos do seu hotspot — um interruptor abre o proxy, a página traz o endereço e os passos.';
+
+  @override
   String get changeUi =>
       'Mudar UI/UX';
 

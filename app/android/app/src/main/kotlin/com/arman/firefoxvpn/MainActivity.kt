@@ -464,6 +464,27 @@ class MainActivity : FlutterActivity() {
                         result.success(false)
                     }
                 }
+                // The hotspot's own page: the share page's one tap. The
+                // tether row has no public constant; the vendor builds
+                // answer to its name, and a phone that does not falls
+                // back to the wireless settings.
+                "openTetherSettings" -> {
+                    try {
+                        startActivity(
+                            Intent("android.settings.TETHER_SETTINGS")
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                        result.success(true)
+                    } catch (e: Exception) {
+                        runCatching {
+                            startActivity(
+                                Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            )
+                        }.onSuccess { result.success(true) }
+                            .onFailure { result.success(false) }
+                    }
+                }
                 // Battery optimization: whether this app already stands
                 // outside it, the direct ask, and the system's own page
                 // for the OEMs' killers the direct ask cannot reach.

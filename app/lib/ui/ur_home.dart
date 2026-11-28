@@ -1,15 +1,18 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app_settings.dart';
+import '../core/android_core.dart';
 import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
 import 'format.dart';
 import 'motion.dart';
+import 'ur_kit.dart' show UrSwitch;
 import 'ur_settings.dart' show UrUsageCard;
 import 'widgets.dart';
 
@@ -106,6 +109,8 @@ class UrHome extends StatefulWidget {
     required this.settings,
     this.onOpenServers,
     this.onOpenAccounts,
+    this.onOpenRouting,
+    this.onOpenShare,
   });
 
   final CoreController core;
@@ -113,6 +118,8 @@ class UrHome extends StatefulWidget {
   final AppSettings settings;
   final VoidCallback? onOpenServers;
   final VoidCallback? onOpenAccounts;
+  final VoidCallback? onOpenRouting;
+  final VoidCallback? onOpenShare;
 
   @override
   State<UrHome> createState() => _UrHomeState();
@@ -128,9 +135,11 @@ class _UrHomeState extends State<UrHome> {
   /// location row and the Connect button) and the fold's own 12 dp gap.
   static const double _peekDp = 154;
 
-  /// How much of the page the expanded drawer covers, the original's own
-  /// two thirds.
-  static const double _expandedFraction = 2 / 3;
+  /// How much of the page the expanded drawer covers. The original pulls
+  /// to two thirds; the port stops a touch lower so the page's face keeps
+  /// a seat above the sheet and the bar at the foot never disappears
+  /// behind it.
+  static const double _expandedFraction = 0.58;
 
   /// The moment the tunnel came up this session; null while it is down.
   DateTime? _sessionStart;
@@ -321,6 +330,8 @@ class _UrHomeState extends State<UrHome> {
                               samples: _samples,
                               onPress: () => _press(context),
                               onOpenServers: widget.onOpenServers,
+                              onOpenRouting: widget.onOpenRouting,
+                              onOpenShare: widget.onOpenShare,
                             ),
                           ),
                         ),
@@ -911,6 +922,8 @@ class _UrDrawer extends StatelessWidget {
     required this.samples,
     required this.onPress,
     required this.onOpenServers,
+    this.onOpenRouting,
+    this.onOpenShare,
   });
 
   final ScrollController scrollController;
@@ -922,6 +935,8 @@ class _UrDrawer extends StatelessWidget {
   final List<List<double>> samples;
   final VoidCallback onPress;
   final VoidCallback? onOpenServers;
+  final VoidCallback? onOpenRouting;
+  final VoidCallback? onOpenShare;
 
   @override
   Widget build(BuildContext context) {
@@ -980,6 +995,15 @@ class _UrDrawer extends StatelessWidget {
               up: status.traffic!.up,
               down: status.traffic!.down,
             ),
+          // The quick options and the hotspot share: the phone's own
+          // settings, one card of switches and one row that opens the
+          // share page.
+          if (Platform.isAndroid) ...[
+            const SizedBox(height: 16),
+            _QuickCard(onOpenRouting: onOpenRouting),
+            const SizedBox(height: 16),
+            _ShareCard(onOpen: onOpenShare),
+          ],
           const SizedBox(height: 16),
         ],
       ),
@@ -1232,7 +1256,7 @@ class _StatsCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          _SpeedSpark(samples: samples),
+          _TransferChart(samples: samples),
           const SizedBox(height: 6),
           row(
             l.urSessionTime,
@@ -1240,18 +1264,21 @@ class _StatsCard extends StatelessWidget {
                 ? formatDuration(l, DateTime.now().difference(sessionStart!))
                 : l.urNoData,
           ),
+          _hairline(),
           row(
             l.urSessionData,
             traffic == null
                 ? l.urNoData
-                : '${formatBytes(traffic.up)} ↑ · ${formatBytes(traffic.down)} ↓',
+                : '${ltr(formatBytes(traffic.up))} ↑ · ${ltr(formatBytes(traffic.down))} ↓',
           ),
+          _hairline(),
           row(
             l.publicIp,
             exit == null || (exit.ipv4.isEmpty && exit.ipv6.isEmpty)
                 ? l.urNoData
                 : (exit.ipv4.isNotEmpty ? exit.ipv4 : exit.ipv6),
           ),
+          _hairline(),
           row(
             l.urExitLocation,
             exit != null && exit.countryName.isNotEmpty
@@ -1259,6 +1286,7 @@ class _StatsCard extends StatelessWidget {
                     exit.countryName
                 : l.urNoData,
           ),
+          _hairline(),
           row(
             l.urLastTest,
             test == null
@@ -1271,6 +1299,8 @@ class _StatsCard extends StatelessWidget {
       ),
     );
   }
+
+  Widget _hairline() => Container(height: 1, color: _Ur.face);
 }
 
 /// One speed tile: the label's dot and the live rate.
@@ -1309,7 +1339,7 @@ class _SpeedTile extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            value == null ? '0' : formatRate(value!),
+            value == null ? '0' : urFormatByteRate(value!),
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -1323,9 +1353,12 @@ class _SpeedTile extends StatelessWidget {
   }
 }
 
-/// The sparkline: the session's speeds, one line each way.
-class _SpeedSpark extends StatelessWidget {
-  const _SpeedSpark({required this.samples});
+/// The transfer chart, the original's own: mirrored around a center axis,
+/// the send drawn above the line and the receive below it, each scaled to
+/// its window's peak, the peak's own value labeled where it stands — the
+/// label reads "2.50 KiB/s" in the same units the tiles carry.
+class _TransferChart extends StatelessWidget {
+  const _TransferChart({required this.samples});
 
   final List<List<double>> samples;
 
@@ -1334,7 +1367,7 @@ class _SpeedSpark extends StatelessWidget {
     final l = AppLocalizations.of(context);
     if (samples.isEmpty) {
       return SizedBox(
-        height: 56,
+        height: 88,
         child: Center(
           child: Text(
             l.urNoData,
@@ -1344,61 +1377,325 @@ class _SpeedSpark extends StatelessWidget {
       );
     }
     return SizedBox(
-      height: 56,
+      height: 88,
       child: CustomPaint(
         size: Size.infinite,
-        painter: _SparkPainter(samples: samples),
+        painter: _TransferPainter(samples: samples),
       ),
     );
   }
 }
 
-class _SparkPainter extends CustomPainter {
-  _SparkPainter({required this.samples});
+class _TransferPainter extends CustomPainter {
+  _TransferPainter({required this.samples});
 
   final List<List<double>> samples;
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (samples.length < 2) return;
-    double peak = 1;
-    for (final s in samples) {
-      peak = math.max(peak, math.max(s[0], s[1]));
-    }
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
+    final center = size.height / 2;
     canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
+      Offset(0, center),
+      Offset(size.width, center),
       Paint()
         ..color = _Ur.faint
         ..strokeWidth = 1,
     );
-    void draw(int i, Color color) {
-      final path = Path();
+    if (samples.length < 2) return;
+
+    double peak(int i) {
+      var p = 1.0;
+      for (final s in samples) {
+        p = math.max(p, s[i]);
+      }
+      return p;
+    }
+
+    final peakUp = peak(0);
+    final peakDown = peak(1);
+    final room = size.height / 2 - 14;
+
+    // One direction: the filled curve from the center axis, the 1.5 px
+    // line over it, the newest sample at the right edge.
+    void draw(int i, double peak, Color color, bool above) {
+      final line = Path();
+      final fill = Path();
       final n = samples.length;
       for (var k = 0; k < n; k++) {
         final x = size.width * k / (n - 1);
-        final v = (samples[k][i] / peak).clamp(0.0, 1.0);
-        final y = size.height - 3 - v * (size.height - 6);
+        final v = (samples[k][i] / peak).clamp(0.0, 1.0).toDouble();
+        final y = above ? center - v * room : center + v * room;
         if (k == 0) {
-          path.moveTo(x, y);
+          line.moveTo(x, y);
+          fill.moveTo(x, center);
         } else {
-          path.lineTo(x, y);
+          line.lineTo(x, y);
         }
+        fill.lineTo(x, y);
       }
-      canvas.drawPath(path, line..color = color);
+      fill.lineTo(size.width, center);
+      fill.close();
+      canvas.drawPath(fill, Paint()..color = color.withValues(alpha: 0.10));
+      canvas.drawPath(
+        line,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5
+          ..strokeCap = StrokeCap.round,
+      );
     }
 
-    draw(0, _Ur.blueMedium);
-    draw(1, _Ur.green500);
+    draw(0, peakUp, _Ur.blueMedium, true);
+    draw(1, peakDown, _Ur.green500, false);
+
+    // The peaks' labels, each sitting over its own sample: the send's
+    // window maximum on top, the receive's under the axis.
+    void label(int i, double peak, String arrow, bool above) {
+      var best = 0;
+      for (var k = 1; k < samples.length; k++) {
+        if (samples[k][i] > samples[best][i]) best = k;
+      }
+      final x = size.width * best / (samples.length - 1);
+      final text = '$arrow ${urFormatByteRate(peak.round())}';
+      final tp = TextPainter(
+        text: TextSpan(
+          text: ltr(text),
+          style: const TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w500,
+            color: _Ur.muted,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final dx = (x - tp.width / 2).clamp(0.0, size.width - tp.width);
+      final dy = above
+          ? (center - room - tp.height - 2).clamp(0.0, center - tp.height)
+          : (center + room + 2).clamp(center, size.height - tp.height);
+      tp.paint(canvas, Offset(dx, dy));
+    }
+
+    label(0, peakUp, '↑', true);
+    label(1, peakDown, '↓', false);
   }
 
   @override
-  bool shouldRepaint(_SparkPainter old) =>
+  bool shouldRepaint(_TransferPainter old) =>
       // The samples list is the page's own (its identity never changes),
       // so the count is what says a new point arrived.
       old.samples.length != samples.length;
 }
+
+/// The byte rate in the original's own words: binary steps, two decimals
+/// once the number has one, "2.50 KiB/s".
+String urFormatByteRate(int bytesPerSecond) {
+  final b = bytesPerSecond.toDouble();
+  const units = ['B/s', 'KiB/s', 'MiB/s', 'GiB/s', 'TiB/s'];
+  var value = b;
+  var unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit++;
+  }
+  final text = unit == 0
+      ? value.round().toString()
+      : value >= 100
+          ? value.toStringAsFixed(0)
+          : value.toStringAsFixed(2);
+  return ltr('$text ${units[unit]}');
+}
+
+/// The quick options: the phone's own connection settings, one card —
+/// the kill switch, the notification's speed and flag, and the row that
+/// opens the per-app routing.
+class _QuickCard extends StatelessWidget {
+  const _QuickCard({required this.onOpenRouting});
+
+  final VoidCallback? onOpenRouting;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: _Ur.bgTinted,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l.urQuickTitle,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
+              color: _Ur.muted,
+            ),
+          ),
+          const SizedBox(height: 4),
+          ValueListenableBuilder<bool>(
+            valueListenable: AndroidCore.killSwitch,
+            builder: (context, on, _) => _switchRow(
+              label: l.killSwitch,
+              subtitle: l.killSwitchHint,
+              value: on,
+              onChanged: (v) => AndroidCore.setKillSwitch(v),
+            ),
+          ),
+          _hairline(),
+          ValueListenableBuilder<bool>(
+            valueListenable: AndroidCore.showSpeed,
+            builder: (context, on, _) => _switchRow(
+              label: l.speedInNotification,
+              value: on,
+              onChanged: (v) => AndroidCore.setShowSpeed(v),
+            ),
+          ),
+          _hairline(),
+          ValueListenableBuilder<bool>(
+            valueListenable: AndroidCore.notifFlag,
+            builder: (context, on, _) => _switchRow(
+              label: l.notifFlag,
+              value: on,
+              onChanged: (v) => AndroidCore.setNotifFlag(v),
+            ),
+          ),
+          _hairline(),
+          if (onOpenRouting != null)
+            _navRow(
+              icon: Icons.alt_route_rounded,
+              label: l.sectionRouting,
+              onTap: onOpenRouting!,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _hairline() => Container(height: 1, color: _Ur.face);
+
+  Widget _switchRow({
+    required String label,
+    String? subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    style: const TextStyle(fontSize: 14.5, color: _Ur.ink),
+                  ),
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 12, color: _Ur.muted),
+                    ),
+                  ],
+                  const SizedBox(height: 2),
+                ],
+              ),
+            ),
+            UrSwitch(
+              checked: value,
+              onToggle: () => onChanged(!value),
+            ),
+          ],
+        ),
+      );
+
+  Widget _navRow({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) => UrPressable(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          child: Row(
+            children: [
+              Icon(icon, size: 20, color: _Ur.muted),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(fontSize: 14.5, color: _Ur.ink),
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded,
+                  size: 20, color: _Ur.muted),
+            ],
+          ),
+        ),
+      );
+}
+
+/// The hotspot share: one row that opens the share page, where the phone
+/// hands its tunnel to the devices on its own hotspot.
+class _ShareCard extends StatelessWidget {
+  const _ShareCard({required this.onOpen});
+
+  final VoidCallback? onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: _Ur.bgTinted,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (onOpen != null)
+            _row(
+              icon: Icons.wifi_tethering_rounded,
+              label: l.urShare,
+              onTap: onOpen!,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _row({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) => UrPressable(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Icon(icon, size: 20, color: _Ur.muted),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(fontSize: 14.5, color: _Ur.ink),
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded,
+                  size: 20, color: _Ur.muted),
+            ],
+          ),
+        ),
+      );
+}
+

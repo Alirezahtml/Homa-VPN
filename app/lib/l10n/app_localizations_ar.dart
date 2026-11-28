@@ -3087,6 +3087,62 @@ class AppLocalizationsAr extends AppLocalizations {
       'شاشة إعدادات URnetwork: الأقسام والبطاقات، اللغة، نمط التنقل، وشريط استهلاك الجلسة في الدرج';
 
   @override
+  String get urQuickTitle =>
+      'خيارات سريعة';
+
+  @override
+  String get urShare =>
+      'مشاركة نقطة الاتصال';
+
+  @override
+  String get urShareDesc =>
+      'اجعل هذا الهاتف بوابة: الأجهزة على نقطة اتصاله تستطيع استخدام VPN عبره. شغّل نقطة الاتصال، وصِل الجهاز الآخر، ثم اجعل بروكسيه على العنوان أدناه.';
+
+  @override
+  String get urShareProxy =>
+      'عنوان البروكسي';
+
+  @override
+  String get urShareCopied =>
+      'تم النسخ';
+
+  @override
+  String get urShareOpenHotspot =>
+      'فتح إعدادات نقطة الاتصال';
+
+  @override
+  String get urShareOn =>
+      'المشاركة تعمل — البروكسي يجيب على نقطة الاتصال.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'صِل VPN أولاً؛ الأجهزة المشتركة تمرّ بنفقه.';
+
+  @override
+  String get urShareSteps =>
+      '1. شغّل نقطة اتصال الهاتف\n2. صِل الجهاز الآخر بنقطة الاتصال\n3. على ذلك الجهاز افتح بروكسي شبكة Wi-Fi واختر يدوي\n4. ضع العنوان أعلاه في الخادم — العنوان نفسه يجيب SOCKS5 أيضاً';
+
+  @override
+  String get urShareNote =>
+      'تعمل ما دام VPN موصولاً. بروكسي النواة يجيب HTTP و SOCKS5 على المنفذ نفسه؛ عند إيقاف المشاركة يعود المنفذ إلى الحلقة المحلية.';
+
+  @override
+  String get wn71Nav =>
+      'التنقل الآن شريط سفلي كلاسيكي فقط — الحبة المتحركة وتوهّج النيون والفقاعات والكبسولة رحلت مع منتقيها.';
+
+  @override
+  String get wn71Stats =>
+      'إحصاءات اللوحة تتكلم بدقة الأصل: مخطط النقل المعكوس على محوروسطي، وذروة كل اتجاه موسومة في مكانها، وكل سرعة تقرأ 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'اللوحة المرسومة لأعلى تقف تحت التنقل وتكسب الخيارات السريعة: مفتاح القتل، سرعة الإشعار وعلمه، توجيه كل تطبيق، ومشاركة نقطة الاتصال.';
+
+  @override
+  String get wn71Share =>
+      'مشاركة نقطة الاتصال: اجعل الهاتف بوابة VPN للأجهزة على نقطة اتصاله — مفتاح واحد يفتح البروكسي، والصفحة تحمل العنوان والخطوات.';
+
+  @override
   String get changeUi =>
       'تغيير الواجهة';
 

@@ -3103,6 +3103,62 @@ class AppLocalizationsEs extends AppLocalizations {
       'La pantalla de ajustes de URnetwork: secciones y tarjetas, el idioma, el estilo de navegación y la barra de uso de la sesión en el panel';
 
   @override
+  String get urQuickTitle =>
+      'Opciones rápidas';
+
+  @override
+  String get urShare =>
+      'Compartir por hotspot';
+
+  @override
+  String get urShareDesc =>
+      'Convierte este teléfono en una puerta de enlace: los dispositivos de su hotspot pueden usar la VPN a través de él. Activa el hotspot, conecta el otro dispositivo y pon su proxy en la dirección de abajo.';
+
+  @override
+  String get urShareProxy =>
+      'Dirección del proxy';
+
+  @override
+  String get urShareCopied =>
+      'Copiado';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Abrir los ajustes del hotspot';
+
+  @override
+  String get urShareOn =>
+      'El intercambio está activo — el proxy responde en el hotspot.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Conecta la VPN primero; los dispositivos compartidos pasan por su túnel.';
+
+  @override
+  String get urShareSteps =>
+      '1. Activa el hotspot del teléfono\n2. Conecta el otro dispositivo al hotspot\n3. En ese dispositivo, abre el proxy de la red Wi-Fi y elige Manual\n4. Pon la dirección de arriba como servidor — la misma dirección también responde SOCKS5';
+
+  @override
+  String get urShareNote =>
+      'Funciona mientras la VPN esté conectada. El proxy del núcleo responde HTTP y SOCKS5 en el mismo puerto; al apagar el intercambio, el puerto vuelve a escuchar solo en el propio equipo.';
+
+  @override
+  String get wn71Nav =>
+      'La navegación es ahora solo la barra inferior clásica — la píldora morfeante, el resplandor neón, las burbujas y la cápsula se van con su selector.';
+
+  @override
+  String get wn71Stats =>
+      'Las estadísticas del panel hablan con la precisión del original: la gráfica de transferencia reflejada en un eje central, el pico de cada dirección etiquetado en su sitio, y cada tasa leída como 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'El panel desplegable se detiene bajo la navegación y gana las opciones rápidas: el interruptor de emergencia, la velocidad y la bandera de la notificación, el enrutado por app y compartir por hotspot.';
+
+  @override
+  String get wn71Share =>
+      'Compartir por hotspot: convierte el teléfono en una puerta VPN para los dispositivos de su hotspot — un interruptor abre el proxy, la página lleva la dirección y los pasos.';
+
+  @override
   String get changeUi =>
       'Cambiar UI/UX';
 

@@ -20,6 +20,7 @@ import 'settings_page.dart';
 import 'sound.dart' show AppSounds, SoundCue;
 import 'ur_kit.dart';
 import 'ur_settings.dart';
+import 'ur_share.dart';
 import 'widgets.dart';
 
 /// The phone layout: two tabs, Home and Settings, as phone apps have. The
@@ -203,6 +204,16 @@ class _MobileShellState extends State<MobileShell> {
         section: SettingsSection.upstreamProxy,
       ),
     );
+    void openRouting() => _push(
+      l.sectionRouting,
+      () => SettingsPage(
+        core: core,
+        settings: settings,
+        section: SettingsSection.routing,
+      ),
+    );
+    void openShare() =>
+        _push(l.urShare, () => UrSharePage(core: core, settings: settings));
     final page =
         widget.noCore ??
         (_tab == 0
@@ -213,6 +224,8 @@ class _MobileShellState extends State<MobileShell> {
                 onOpenAccounts: openAccounts,
                 onOpenConnection: openConnection,
                 onOpenUpstreamProxy: openUpstreamProxy,
+                onOpenRouting: openRouting,
+                onOpenShare: openShare,
                 phone: true,
               )
             // The ur design: the settings are URnetwork's own screen —
@@ -288,18 +301,18 @@ class _MobileShellState extends State<MobileShell> {
     );
   }
 
-  /// The bar at the foot: the ur design floats URnetwork's own bar (the
-  /// look the settings carry, applied the moment it is made); the other
-  /// designs keep theirs.
+  /// The bar at the foot: the ur design carries the classic bar — the
+  /// only navigation the design has now; the other designs keep theirs.
   Widget _nav(BuildContext context, AppSettings settings) {
     if (AppDesign.current.key == 'ur') {
-      return ListenableBuilder(
-        listenable: settings,
-        builder: (context, _) => UrNavBar(
-          index: _tab,
-          onSelect: (i) => setState(() => _tab = i),
-          style: urNavStyleFor(settings.urNavStyle),
-        ),
+      final l = AppLocalizations.of(context);
+      return UrNavBar(
+        items: [
+          UrNavItem(Icons.home_rounded, l.navOverview),
+          UrNavItem(Icons.settings_rounded, l.navSettings),
+        ],
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
       );
     }
     return switch (DesignStyle.of(context).nav) {

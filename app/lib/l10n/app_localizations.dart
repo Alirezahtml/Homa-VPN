@@ -5355,6 +5355,90 @@ abstract class AppLocalizations {
   /// **'The URnetwork settings screen: the sections and cards, the language, the navigation style, and the session\'s usage bar in the drawer'**
   String get wn70UrCards;
 
+  /// No description provided for @urQuickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick options'**
+  String get urQuickTitle;
+
+  /// No description provided for @urShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotspot sharing'**
+  String get urShare;
+
+  /// No description provided for @urShareDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn this phone into a gateway: the devices on its hotspot can use the VPN through it. Turn the hotspot on, connect the other device, then set its proxy to the address below.'**
+  String get urShareDesc;
+
+  /// No description provided for @urShareProxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Proxy address'**
+  String get urShareProxy;
+
+  /// No description provided for @urShareCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get urShareCopied;
+
+  /// No description provided for @urShareOpenHotspot.
+  ///
+  /// In en, this message translates to:
+  /// **'Open hotspot settings'**
+  String get urShareOpenHotspot;
+
+  /// No description provided for @urShareOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is on — the proxy answers on the hotspot.'**
+  String get urShareOn;
+
+  /// No description provided for @urShareNeedsVpn.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect the VPN first; the shared devices go through its tunnel.'**
+  String get urShareNeedsVpn;
+
+  /// No description provided for @urShareSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Turn on this phone\'s hotspot\n2. Connect the other device to the hotspot\n3. On that device, open the Wi-Fi network\'s proxy and choose Manual\n4. Set the server to the address above — the same address answers SOCKS5 too'**
+  String get urShareSteps;
+
+  /// No description provided for @urShareNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Works while the VPN is connected. The core\'s proxy carries both the HTTP proxy and SOCKS5 on the same port; the port closes back to the loopback when the share goes off.'**
+  String get urShareNote;
+
+  /// No description provided for @wn71Nav.
+  ///
+  /// In en, this message translates to:
+  /// **'The classic bottom bar is the only navigation now — the morphing pill, the neon glow, the bubbles and the capsule leave with their picker.'**
+  String get wn71Nav;
+
+  /// No description provided for @wn71Stats.
+  ///
+  /// In en, this message translates to:
+  /// **'The drawer\'s stats speak the original\'s precision: the transfer chart mirrored on a center axis, each direction\'s peak labeled in its place, and every rate read as 2.50 KiB/s.'**
+  String get wn71Stats;
+
+  /// No description provided for @wn71Drawer.
+  ///
+  /// In en, this message translates to:
+  /// **'The pull-up drawer stops below the navigation and gains the quick options: the kill switch, the notification\'s speed and flag, the per-app routing, and the hotspot sharing.'**
+  String get wn71Drawer;
+
+  /// No description provided for @wn71Share.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotspot sharing: turn this phone into a VPN gateway for the devices on its hotspot — one switch opens the proxy, the page carries the address and the steps.'**
+  String get wn71Share;
+
   /// No description provided for @changeUi.
   ///
   /// In en, this message translates to:

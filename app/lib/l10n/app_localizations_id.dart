@@ -3087,6 +3087,62 @@ class AppLocalizationsId extends AppLocalizations {
       'Layar pengaturan URnetwork: bagian dan kartu, bahasa, gaya navigasi, dan bilah pemakaian sesi di lemari tarik';
 
   @override
+  String get urQuickTitle =>
+      'Opsi cepat';
+
+  @override
+  String get urShare =>
+      'Berbagi hotspot';
+
+  @override
+  String get urShareDesc =>
+      'Ubah ponsel ini menjadi gerbang: perangkat di hotspotnya dapat memakai VPN melaluinya. Nyalakan hotspot, hubungkan perangkat lain, lalu atur proksinya ke alamat di bawah.';
+
+  @override
+  String get urShareProxy =>
+      'Alamat proxy';
+
+  @override
+  String get urShareCopied =>
+      'Tersalin';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Buka pengaturan hotspot';
+
+  @override
+  String get urShareOn =>
+      'Berbagi aktif — proxy menjawab di hotspot.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Sambungkan VPN dulu; perangkat yang dibagikan lewat tunelnya.';
+
+  @override
+  String get urShareSteps =>
+      '1. Nyalakan hotspot ponsel\n2. Hubungkan perangkat lain ke hotspot\n3. Di perangkat itu, buka proxy jaringan Wi-Fi dan pilih Manual\n4. Isi alamat di atas sebagai server — alamat yang sama juga menjawab SOCKS5';
+
+  @override
+  String get urShareNote =>
+      'Berfungsi selama VPN tersambung. Proxy inti menjawab HTTP dan SOCKS5 di port yang sama; saat berbagi dimatikan, port kembali hanya mendengar di perangkat sendiri.';
+
+  @override
+  String get wn71Nav =>
+      'Navigasi kini hanya bilah bawah klasik — pil mengubah-bentuk, cahaya neon, gelembung dan kapsul pergi bersama pemilihnya.';
+
+  @override
+  String get wn71Stats =>
+      'Statistik laci berbicara dengan presisi aslinya: grafik transfer dicerminkan pada sumbu tengah, puncak tiap arah berlabel di tempatnya, tiap laju dibaca sebagai 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'Laci yang ditarik ke atas berhenti di bawah navigasi dan mendapat opsi cepat: kill switch, kecepatan dan bendera notifikasi, routing per-ap, berbagi hotspot.';
+
+  @override
+  String get wn71Share =>
+      'Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya.';
+
+  @override
   String get changeUi =>
       'Ubah UI/UX';
 

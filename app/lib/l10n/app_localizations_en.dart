@@ -3089,6 +3089,62 @@ class AppLocalizationsEn extends AppLocalizations {
       'The URnetwork settings screen: the sections and cards, the language, the navigation style, and the session\'s usage bar in the drawer';
 
   @override
+  String get urQuickTitle =>
+      'Quick options';
+
+  @override
+  String get urShare =>
+      'Hotspot sharing';
+
+  @override
+  String get urShareDesc =>
+      'Turn this phone into a gateway: the devices on its hotspot can use the VPN through it. Turn the hotspot on, connect the other device, then set its proxy to the address below.';
+
+  @override
+  String get urShareProxy =>
+      'Proxy address';
+
+  @override
+  String get urShareCopied =>
+      'Copied';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Open hotspot settings';
+
+  @override
+  String get urShareOn =>
+      'Sharing is on — the proxy answers on the hotspot.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Connect the VPN first; the shared devices go through its tunnel.';
+
+  @override
+  String get urShareSteps =>
+      '1. Turn on this phone\'s hotspot\n2. Connect the other device to the hotspot\n3. On that device, open the Wi-Fi network\'s proxy and choose Manual\n4. Set the server to the address above — the same address answers SOCKS5 too';
+
+  @override
+  String get urShareNote =>
+      'Works while the VPN is connected. The core\'s proxy carries both the HTTP proxy and SOCKS5 on the same port; the port closes back to the loopback when the share goes off.';
+
+  @override
+  String get wn71Nav =>
+      'The classic bottom bar is the only navigation now — the morphing pill, the neon glow, the bubbles and the capsule leave with their picker.';
+
+  @override
+  String get wn71Stats =>
+      'The drawer\'s stats speak the original\'s precision: the transfer chart mirrored on a center axis, each direction\'s peak labeled in its place, and every rate read as 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'The pull-up drawer stops below the navigation and gains the quick options: the kill switch, the notification\'s speed and flag, the per-app routing, and the hotspot sharing.';
+
+  @override
+  String get wn71Share =>
+      'Hotspot sharing: turn this phone into a VPN gateway for the devices on its hotspot — one switch opens the proxy, the page carries the address and the steps.';
+
+  @override
   String get changeUi =>
       'Change UI/UX';
 

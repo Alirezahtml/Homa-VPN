@@ -3083,6 +3083,62 @@ class AppLocalizationsVi extends AppLocalizations {
       'Màn hình cài đặt URnetwork: các mục và thẻ, ngôn ngữ, kiểu điều hướng và thanh mức dùng của phiên trong ngăn kéo';
 
   @override
+  String get urQuickTitle =>
+      'Tùy chọn nhanh';
+
+  @override
+  String get urShare =>
+      'Chia sẻ điểm phát sóng';
+
+  @override
+  String get urShareDesc =>
+      'Biến điện thoại này thành cổng kết nối: các thiết bị trên điểm phát sóng của nó có thể dùng VPN qua nó. Bật điểm phát sóng, kết nối thiết bị kia, rồi đặt proxy của nó tới địa chỉ dưới đây.';
+
+  @override
+  String get urShareProxy =>
+      'Địa chỉ proxy';
+
+  @override
+  String get urShareCopied =>
+      'Đã sao chép';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Mở cài đặt điểm phát sóng';
+
+  @override
+  String get urShareOn =>
+      'Đang chia sẻ — proxy trả lời trên điểm phát sóng.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Hãy kết nối VPN trước; các thiết bị được chia sẻ đi qua đường hầm của nó.';
+
+  @override
+  String get urShareSteps =>
+      '1. Bật điểm phát sóng của điện thoại\n2. Kết nối thiết bị kia vào điểm phát sóng\n3. Trên thiết bị đó, mở proxy của mạng Wi-Fi và chọn Thủ công\n4. Đặt địa chỉ trên làm máy chủ — địa chỉ đó cũng trả lời SOCKS5';
+
+  @override
+  String get urShareNote =>
+      'Hoạt động khi VPN đang kết nối. Proxy của lõi trả lời cả HTTP lẫn SOCKS5 trên cùng một cổng; khi tắt chia sẻ, cổng trở lại chỉ nghe trên máy này.';
+
+  @override
+  String get wn71Nav =>
+      'Điều hướng giờ chỉ còn thanh dưới cổ điển — viên thuốc biến hình, quầng neon, bong bóng và vỏ bọc rời đi cùng bộ chọn của chúng.';
+
+  @override
+  String get wn71Stats =>
+      'Số liệu của ngăn kéo nói bằng độ chính xác của bản gốc: biểu đồ truyền phản chiếu trên trục giữa, đỉnh mỗi chiều được dán nhãn tại chỗ, mọi tốc độ đọc dưới dạng 2.50 KiB/s.';
+
+  @override
+  String get wn71Drawer =>
+      'Ngăn kéo kéo lên dừng dưới điều hướng và nhận các tùy chọn nhanh: khóa ngắt, tốc độ và cờ trên thông báo, định tuyến từng ứng dụng, chia sẻ điểm phát sóng.';
+
+  @override
+  String get wn71Share =>
+      'Chia sẻ điểm phát sóng: biến điện thoại thành cổng VPN cho các thiết bị trên điểm phát của nó — một nút mở proxy, trang mang địa chỉ và các bước.';
+
+  @override
   String get changeUi =>
       'Đổi giao diện';
 

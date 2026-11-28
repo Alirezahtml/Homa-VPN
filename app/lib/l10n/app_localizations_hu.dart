@@ -3098,6 +3098,62 @@ class AppLocalizationsHu extends AppLocalizations {
       'Az URnetwork beállítási képernyője: szakaszok és kártyák, a nyelv, a navigációs stílus és a munkamenet használatának sávja a fiókban';
 
   @override
+  String get urQuickTitle =>
+      'Gyors beállítások';
+
+  @override
+  String get urShare =>
+      'Hotspot megosztás';
+
+  @override
+  String get urShareDesc =>
+      'Tedd átjáróvá ezt a telefont: a hotspotjára kapcsolódó eszközök rajta keresztül használhatják a VPN-t. Kapcsold be a hotspotot, csatlakoztasd a másik eszközt, majd állítsd a proxyját a lenti címre.';
+
+  @override
+  String get urShareProxy =>
+      'Proxy cím';
+
+  @override
+  String get urShareCopied =>
+      'Másolva';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Hotspot beállítások megnyitása';
+
+  @override
+  String get urShareOn =>
+      'A megosztás bekapcsolva — a proxy a hotspoton válaszol.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Először csatlakoztasd a VPN-t; a megosztott eszközök az alagútján mennek át.';
+
+  @override
+  String get urShareSteps =>
+      '1. Kapcsold be a telefon hotspotját\n2. Csatlakoztasd a másik eszközt a hotspotra\n3. Azon az eszközön nyisd meg a Wi-Fi hálózat proxyját, és válaszd a Manuálist\n4. A fenti címet add meg szerverként — ugyanez a cím SOCKS5-re is válaszol';
+
+  @override
+  String get urShareNote =>
+      'Amíg a VPN kapcsolódva van, működik. A mag proxyja ugyanazon a porton válaszol HTTP-re és SOCKS5-re is; a megosztás kikapcsolásakor a port visszaáll csak a saját gépére hallgatni.';
+
+  @override
+  String get wn71Nav =>
+      'A navigáció mostantól csak a klasszikus alsó sáv — a morfoló pill, a neon fény, a buborékok és a kapszula a választójukkal együtt távoznak.';
+
+  @override
+  String get wn71Stats =>
+      'A fiók statisztikái az eredeti pontosságán szólnak: a transzfer grafikon tükörképben egy középső tengelyen, minden irány csúcsa a saját helyén címkézve, minden sebesség 2.50 KiB/s-ként.';
+
+  @override
+  String get wn71Drawer =>
+      'A felhúzott fiók a navigáció alatt áll meg, és megkapja a gyors beállításokat: kill kapcsoló, az értesítés sebessége és zászlaja, apponkénti útválasztás, hotspot megosztás.';
+
+  @override
+  String get wn71Share =>
+      'Hotspot megosztás: a telefont a hotspotjára kapcsolódó eszközök VPN-átjárójává teheted — egy kapcsoló nyitja a proxyt, az oldal címét és lépéseit hozza.';
+
+  @override
   String get changeUi =>
       'UI/UX váltás';
 

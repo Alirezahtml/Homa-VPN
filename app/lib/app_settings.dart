@@ -145,12 +145,6 @@ class AppSettings extends ChangeNotifier {
   /// settings file still names them.
   String mapKind = 'classic';
 
-  /// The ur design's bottom bar: 'morphing' (the highlight glides on a
-  /// spring), 'neon' (the glow breathes behind the icon), 'bubble' (the
-  /// chosen bubble grows a name), or 'capsule' (the stadium and its name
-  /// pill). Whatever else lands in the file reads as the morphing.
-  String urNavStyle = 'morphing';
-
   /// The accounts' own display names (account id → name): the rename a
   /// user gives an account, read back wherever its name shows. The
   /// core's own name stays underneath.
@@ -408,14 +402,6 @@ class AppSettings extends ChangeNotifier {
         }
         if (j['map_style'] case final String m) s.mapStyle = m;
         if (j['map_kind'] case final String m) s.mapKind = m;
-        if (j['ur_nav_style'] case final String n) {
-          s.urNavStyle = switch (n) {
-            'neon' => 'neon',
-            'bubble' => 'bubble',
-            'capsule' => 'capsule',
-            _ => 'morphing',
-          };
-        }
         if (j['account_names'] case final Map<String, Object?> v) {
           s.accountNames = {
             for (final e in v.entries)
@@ -504,7 +490,6 @@ class AppSettings extends ChangeNotifier {
     Set<String>? hiddenConnectionColumns,
     String? whatsNewSeen,
     bool? gamingProfile,
-    String? urNavStyle,
   }) {
     if (favoriteCountries != null) {
       this.favoriteCountries = List.of(favoriteCountries);
@@ -513,14 +498,6 @@ class AppSettings extends ChangeNotifier {
         hiddenConnectionColumns ?? this.hiddenConnectionColumns;
     this.whatsNewSeen = whatsNewSeen ?? this.whatsNewSeen;
     this.gamingProfile = gamingProfile ?? this.gamingProfile;
-    if (urNavStyle != null) {
-      this.urNavStyle = switch (urNavStyle) {
-        'neon' => 'neon',
-        'bubble' => 'bubble',
-        'capsule' => 'capsule',
-        _ => 'morphing',
-      };
-    }
     this.udpNotice = udpNotice ?? this.udpNotice;
     this.autostart = autostart ?? this.autostart;
     this.autoConnect = autoConnect ?? this.autoConnect;
@@ -639,7 +616,6 @@ class AppSettings extends ChangeNotifier {
           'favorite_countries': favoriteCountries,
           'map_style': mapStyle,
           'map_kind': mapKind,
-          'ur_nav_style': urNavStyle,
           'account_names': accountNames,
           'account_avatars': accountAvatars,
           'lock_salt': lockSalt,

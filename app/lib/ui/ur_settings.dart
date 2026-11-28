@@ -128,40 +128,6 @@ class UrSettingsPage extends StatelessWidget {
           ),
           const SizedBox(height: 32),
 
-          // Appearance: the navigation style, the original's own picker —
-          // the row shows the live choice and the sheet applies at once.
-          UrEntrance(index: 3, child: _SectionLabel(l.urSectionAppearance)),
-          UrEntrance(
-            index: 3,
-            child: ListenableBuilder(
-              listenable: settings,
-              builder: (context, _) => _Card(
-                children: [
-                  _NavRow(
-                    icon: Icons.style_rounded,
-                    label: l.urNavStyle,
-                    value: switch (urNavStyleFor(settings.urNavStyle)) {
-                      UrNavStyle.morphing => l.urNavMorphing,
-                      UrNavStyle.neon => l.urNavNeon,
-                      UrNavStyle.bubble => l.urNavBubble,
-                      UrNavStyle.capsule => l.urNavCapsule,
-                    },
-                    onTap: () => showUrNavStylePicker(context, settings),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-                    child: Text(
-                      l.urNavStyleNote,
-                      style: const TextStyle(
-                          fontSize: 12.5, color: UrTokens.faint),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
-
           // About: the version (with its what's-new when this build has
           // one), and the app's own page.
           UrEntrance(index: 4, child: _SectionLabel(l.urSectionAbout)),

@@ -3082,6 +3082,62 @@ class AppLocalizationsTr extends AppLocalizations {
       'URnetwork ayarlar ekranı: bölümler ve kartlar, dil, gezinme stili ve çekmecede oturum kullanım çubuğu';
 
   @override
+  String get urQuickTitle =>
+      'Hızlı seçenekler';
+
+  @override
+  String get urShare =>
+      'Hotspot paylaşımı';
+
+  @override
+  String get urShareDesc =>
+      'Bu telefonu bir geçide dönüştürün: hotspot\'una bağlanan cihazlar VPN\'i onun üzerinden kullanabilir. Hotspot\'u açın, diğer cihazı bağlayın, sonra proxy\'sini aşağıdaki adrese ayarlayın.';
+
+  @override
+  String get urShareProxy =>
+      'Proxy adresi';
+
+  @override
+  String get urShareCopied =>
+      'Kopyalandı';
+
+  @override
+  String get urShareOpenHotspot =>
+      'Hotspot ayarlarını aç';
+
+  @override
+  String get urShareOn =>
+      'Paylaşım açık — proxy hotspot\'ta yanıt veriyor.';
+
+  @override
+  String get urShareNeedsVpn =>
+      'Önce VPN\'i bağlayın; paylaşılan cihazlar onun tünelinden geçer.';
+
+  @override
+  String get urShareSteps =>
+      '1. Telefonun hotspot\'unu açın\n2. Diğer cihazı hotspot\'a bağlayın\n3. O cihazda Wi-Fi ağının proxy\'sini açın ve Manuel\'i seçin\n4. Sunucuya yukarıdaki adresi yazın — aynı adres SOCKS5\'e de yanıt verir';
+
+  @override
+  String get urShareNote =>
+      'VPN bağlı olduğu sürece çalışır. Çekirdeğin proxy\'si aynı bağlantı noktasında hem HTTP hem SOCKS5\'e yanıt verir; paylaşım kapanınca port yeniden yalnızca kendi makinede dinler.';
+
+  @override
+  String get wn71Nav =>
+      'Gezinme artık yalnızca klasik alt çubuk — değişen hap, neon ışıma, kabarcıklar ve kapsül, seçicileriyle birlikte gidiyor.';
+
+  @override
+  String get wn71Stats =>
+      'Çekmecenin istatistikleri orijinalin kesinliğiyle konuşuyor: aktarım grafiği merkez eksende aynalanmış, her yönün zirvesi kendi yerinde etiketli, her hız 2.50 KiB/s biçiminde.';
+
+  @override
+  String get wn71Drawer =>
+      'Yukarı çekilen çekmece gezinmenin altında duruyor ve hızlı seçenekleri kazanıyor: kill anahtarı, bildirimin hızı ve bayrağı, uygulamaya göre yönlendirme ve hotspot paylaşımı.';
+
+  @override
+  String get wn71Share =>
+      'Hotspot paylaşımı: telefonu hotspot\'undaki cihazlar için bir VPN geçidine çevirin — tek anahtar proxy\'yi açar, sayfa adresi ve adımları getirir.';
+
+  @override
   String get changeUi =>
       'Arayüzü değiştir';
 
