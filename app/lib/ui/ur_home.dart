@@ -20,7 +20,8 @@ import 'ur_stats.dart' show
     UrIpFamilyRow,
     UrLocalStatsCard,
     UrSplitPanel,
-    UrTransportBar;
+    UrTransportBar,
+    transportShares;
 import 'widgets.dart';
 
 /// The ur home: URnetwork's connect screen, ported as it ships.
@@ -1030,7 +1031,7 @@ class _UrDrawer extends StatelessWidget {
           // transports and the address families inside the card, then the
           // split apps row, the local statistics, the custom DNS summary
           // and the blocker's own panel.
-          _TransportsSection(exit: status.exit),
+          _TransportsSection(core: core, exit: status.exit),
           const SizedBox(height: 16),
           UrSplitPanel(push: push),
           const SizedBox(height: 16),
@@ -1804,7 +1805,7 @@ class _ConnectOptionsState extends State<_ConnectOptions> {
       context,
       () => widget.core.editSettings((config) {
         values.forEach((path, value) {
-          Object? node = config;
+          Map<String, Object?> node = config;
           for (final key in path.take(path.length - 1)) {
             node = switch (node[key]) {
               final Map<String, Object?> m => m,

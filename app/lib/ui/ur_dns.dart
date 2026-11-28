@@ -93,7 +93,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
       () => widget.core.editSettings((config) {
         for (final entry in values.entries) {
           final path = entry.key;
-          Object? node = config;
+          Map<String, Object?> node = config;
           for (final key in path.take(path.length - 1)) {
             node = switch (node[key]) {
               final Map<String, Object?> m => m,
@@ -162,7 +162,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
                 icon: Icons.dns_rounded,
                 label: l.dnsPreset,
                 value: names[preset] ?? preset,
-                onTap: () => _pickPreset(names),
+                onTap: () => _pickPreset(names, presetKey),
               ),
               _HairLine(),
               _statusRow(l.urDnsRowDoh, doh),
@@ -342,7 +342,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
   }
 
   /// The preset sheet: the named presets first, the manual entry last.
-  Future<void> _pickPreset(Map<String, String> names) async {
+  Future<void> _pickPreset(Map<String, String> names, String? current) async {
     final l = AppLocalizations.of(context);
     final picked = await showModalBottomSheet<String>(
       context: context,
@@ -368,7 +368,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
                     'google', 'quad9', 'cloudflare_dot', 'custom'])
                   _Tile(
                     label: names[key] ?? key,
-                    selected: key == presetKey,
+                    selected: key == current,
                     onTap: () => Navigator.of(context).pop(key),
                   ),
               ],
@@ -377,7 +377,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
         ),
       ),
     );
-    if (picked == null || picked == 'custom' || picked == presetKey) return;
+    if (picked == null || picked == 'custom' || picked == current) return;
     await _save({
       ['dns', 'servers']: dnsPresets[picked]!,
     });
@@ -493,7 +493,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
             height: 6,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: on ? _statusGreen : UrTokens.faint.withValues(alpha: 0.4),
+              color: on ? urStatusGreen : UrTokens.faint.withValues(alpha: 0.4),
             ),
           ),
           const SizedBox(width: 8),
@@ -507,7 +507,7 @@ class _UrDnsPageState extends State<UrDnsPage> {
             on ? l.urOn : l.urOff,
             style: TextStyle(
               fontSize: 14,
-              color: on ? _statusGreen : UrTokens.muted,
+              color: on ? urStatusGreen : UrTokens.muted,
             ),
           ),
         ],

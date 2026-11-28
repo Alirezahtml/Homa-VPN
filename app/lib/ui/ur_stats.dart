@@ -614,6 +614,14 @@ class _UrDnsCardState extends State<UrDnsCard> {
     }
   }
 
+  @override
+  void didUpdateWidget(UrDnsCard old) {
+    super.didUpdateWidget(old);
+    // the drawer rebuilds on every status walk; a return from the DNS page
+    // lands here too, so the summary reads the servers again
+    _read();
+  }
+
   List<String> _servers() => [
     for (final v in (_at(['dns', 'servers']) as List<Object?>? ?? const []))
       '$v',
@@ -659,14 +667,10 @@ class _UrDnsCardState extends State<UrDnsCard> {
       title: l.urDnsCard,
       onTap: widget.push == null
           ? null
-          : () async {
-              await widget.push!(
-                  l.sectionDns,
-                  UrDnsPage(core: widget.core, settings: widget.settings),
-                );
-              // the page may have changed the servers; the card reads again
-              _read();
-            },
+          : () => widget.push!(
+              l.sectionDns,
+              UrDnsPage(core: widget.core, settings: widget.settings),
+            ),
       children: [
         Text(
           summary,
