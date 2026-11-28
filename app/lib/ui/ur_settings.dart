@@ -463,7 +463,7 @@ class UrUsageCard extends StatelessWidget {
     final total = up + down;
     // the 1.5 percent floor the original inflates a small share with
     double share(int bytes) =>
-        total <= 0 ? 0 : (bytes / total).clamp(0.015, 1.0);
+        total <= 0 ? 0 : (bytes / total).clamp(0.015, 1.0).toDouble();
     final upShare = share(up);
     final downShare = share(down);
     final sum = upShare + downShare;
@@ -494,11 +494,11 @@ class UrUsageCard extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: (upShare / sum * 1000).round().clamp(1, 1000),
+                    flex: (upShare / sum * 1000).round().clamp(1, 1000).toInt(),
                     child: ColoredBox(color: UrTokens.blue),
                   ),
                   Expanded(
-                    flex: (downShare / sum * 1000).round().clamp(1, 1000),
+                    flex: (downShare / sum * 1000).round().clamp(1, 1000).toInt(),
                     child:
                         ColoredBox(color: UrTokens.faint.withValues(alpha: 0.55)),
                   ),

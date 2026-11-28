@@ -144,7 +144,7 @@ class _UrEntranceState extends State<UrEntrance>
   void initState() {
     super.initState();
     Future.delayed(
-      Duration(milliseconds: (widget.index * 45).clamp(0, 360)),
+      Duration(milliseconds: (widget.index * 45).clamp(0, 360).toInt()),
       () {
         if (mounted) _c.forward();
       },
@@ -162,7 +162,7 @@ class _UrEntranceState extends State<UrEntrance>
     return AnimatedBuilder(
       animation: _a,
       builder: (context, child) => Opacity(
-        opacity: _a.value.clamp(0, 1),
+        opacity: _a.value.clamp(0.0, 1.0).toDouble(),
         child: Transform.translate(
           offset: Offset(0, 14 * (1 - _a.value)),
           child: child,
@@ -325,7 +325,8 @@ class _SpringBoxState extends State<_SpringBox>
     vsync: this,
     upperBound: 1e6,
   )..value = widget.index.toDouble();
-  late physics.SpringSimulation _sim = _make(widget.index, widget.index);
+  late physics.SpringSimulation _sim =
+      _make(widget.index.toDouble(), widget.index.toDouble());
 
   physics.SpringSimulation _make(double from, double to) =>
       physics.SpringSimulation(
@@ -834,7 +835,7 @@ class UrCapsuleNavBar extends StatelessWidget {
               builder: (context, fill, _) => Opacity(
                 opacity: fill,
                 child: Transform.scale(
-                  scale: fill.clamp(0.01, 1),
+                  scale: fill.clamp(0.01, 1).toDouble(),
                   child: Container(
                     width: 36,
                     height: 36,
