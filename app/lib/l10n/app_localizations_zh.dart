@@ -2847,6 +2847,22 @@ class AppLocalizationsZh extends AppLocalizations {
       '浮动通知放弃模糊：每条通知少一个沉重特效，弱机保住帧率';
 
   @override
+  String get urReadyToConnect =>
+      '准备连接';
+
+  @override
+  String get urConnectFailed =>
+      '连接失败';
+
+  @override
+  String get wn69Ur =>
+      'URnetwork 屏幕原样移植：阶梯方角的连接面板、「点击连接」的脉冲、隧道建立时的节点网格，以及连接稳固后落下的色场';
+
+  @override
+  String get wn69Stats =>
+      '抽屉保留原版几何：边缘是位置行与「连接」，折叠线以下是实时速度、会话数据、出口位置与上次测试';
+
+  @override
   String get wn68Stats =>
       '向上拉主页面底边：实时速度、会话曲线、出口位置、IP 和上次测试——不向核心索要它尚未汇报的任何东西';
 
@@ -5697,6 +5713,22 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn68Toast =>
       '浮動通知放棄模糊：每則通知少一個沉重特效，弱機保住影格率';
+
+  @override
+  String get urReadyToConnect =>
+      '準備連線';
+
+  @override
+  String get urConnectFailed =>
+      '連線失敗';
+
+  @override
+  String get wn69Ur =>
+      'URnetwork 畫面原樣移植：階梯方角的連線面板、「點擊連線」的脈衝、通道建立時的節點網格，以及連線穩固後落下的色場';
+
+  @override
+  String get wn69Stats =>
+      '抽屜保留原版幾何：邊緣是位置列與「連線」，摺線以下是即時速度、工作階段數據、出口位置與上次測試';
 
   @override
   String get wn68Stats =>

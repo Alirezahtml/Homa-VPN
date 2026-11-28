@@ -3024,6 +3024,22 @@ class AppLocalizationsAz extends AppLocalizations {
       'Üzən bildirişlər bulanıq effekti buraxdı: hər bildirişdə bir ağır effekt az, zəif telefonlar kadrlarını saxlayır';
 
   @override
+  String get urReadyToConnect =>
+      'Qoşulmağa hazır';
+
+  @override
+  String get urConnectFailed =>
+      'Qoşulma alınmadı';
+
+  @override
+  String get wn69Ur =>
+      'URnetwork ekranı olduğu kimi köçürülüb: pilləli kvadrat qoşulma üzü, «Başlamaq üçün toxun» pulsu, tunel qurularkən nöqtə şəbəkəsi və bitəndə yerləşən rəng sahələri';
+
+  @override
+  String get wn69Stats =>
+      'Çəkil originalın həndəsəsini saxlayır: kənarda yer sətri və «Qoşul», altında isə canlı sürətlər, sessiya rəqəmləri, çıxış yeri və son test';
+
+  @override
   String get wn68Stats =>
       'Əsas səhifənin alt kənarını yuxarı çəkin: canlı sürətlər, sessiya qrafiki, çıxış yeri, IP və son test — nüvədən onsuz da olmayan bir şey istəmir';
 

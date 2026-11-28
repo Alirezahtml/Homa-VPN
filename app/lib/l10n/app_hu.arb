@@ -879,5 +879,9 @@
   "wn68Ur": "Az URnetwork dizájn a választóba lép: a kerek csatlakozás gomb, amelynek pontjai a tunel érkezésével összegyűlnek, a helykártya és a széles «Csatlakozás» — válaszd a Megjelenésben",
   "wn68Stats": "Húzd fel a főoldal alsó szélét: élő sebességek, a munkamenet grafikonja, a kilépési hely, az IP és az utolsó teszt — semmit, amit a mag már ne mondana",
   "wn68Toast": "Az lebegő értesítések elhagyják a elmosást: egy nehéz effekt kevesebb minden értesítésnél, a gyenge telefonok megtartják a képkockáikat",
-  "changeUi": "UI/UX váltás"
+  "changeUi": "UI/UX váltás",
+  "urReadyToConnect": "Készen áll a csatlakozásra",
+  "urConnectFailed": "Nem sikerült csatlakozni",
+  "wn69Ur": "Az URnetwork képernyő úgy, ahogy megjelenik: a lépcsős sarkú négyzet csatlakozási arc, a «Koppints a csatlakozáshoz» pulzus, a szolgáltatói rács, amíg az alagút épül, és a színmezők, amelyek a stabilizálódáskor ülnek le",
+  "wn69Stats": "A fiók az eredeti geometriáját tartja: a helysor és a Csatlakozás a peremen, alatta a élő sebességek, a munkamenet számai, a kilépés és az utolsó teszt"
 }

@@ -8,27 +8,95 @@ import '../app_settings.dart';
 import '../core/core_controller.dart';
 import '../core/models.dart';
 import '../l10n/app_localizations.dart';
-import 'design.dart';
-import 'design_style.dart';
 import 'format.dart';
 import 'motion.dart';
 import 'widgets.dart';
 
-/// The ur home: the URnetwork connect face, re-read for this app.
+/// The ur home: URnetwork's connect screen, ported as it ships.
 ///
-/// One big round button carries the connection: a scatter of points that
-/// gathers into a core as the tunnel comes up and falls apart as it goes,
-/// a breathing pulse while nothing runs, and the state's word where
-/// URnetwork says "Tap to connect". A location card sits under it, a wide
-/// Connect button under that, and the page's bottom edge is a handle: pull
-/// it up and the live stats open in a sheet — speeds, the sparkline, the
-/// session's numbers.
+/// The pieces and their measures are the original's: the 256 dp face whose
+/// corners step in like the globe's own outline, the white at four percent
+/// over the near-black stock, "Tap to connect" in twenty above the pulse
+/// dot (the ring runs one second, then rests three), the provider grid's
+/// dots popping in yellow and settling green while the tunnel builds, the
+/// five color fields that fly in once it holds, and the status line with
+/// its state dot. The drawer is the original's geometry too: the handle,
+/// the tinted card with the location row and the Connect button at the
+/// peek, the stats below the fold, the whole thing pulling to two thirds
+/// of the page.
 ///
-/// Everything here draws from the core's own state (no new data), every
-/// animation is a one-way walk tied to the state change (nothing loops
-/// except the off-state pulse, which stops under the battery saver and the
-/// system's reduce-motion), and every moving piece is a RepaintBoundary
-/// painted in one CustomPainter, so the weak-GPU phones keep their frames.
+/// Every moving piece paints in one CustomPainter behind a RepaintBoundary,
+/// every animation is a one-way walk tied to the state change (only the
+/// off-state pulse repeats, and it stops under the battery saver and the
+/// system's reduce-motion), and nothing asks the core for a thing it does
+/// not already say.
+
+/// URnetwork's own palette, the tokens the original draws with.
+abstract final class _Ur {
+  /// The screens' background (Black).
+  static const bg = Color(0xFF101010);
+
+  /// Bottom sheets' surface (SheetBlack: the black lightened three percent).
+  static const sheet = Color(0xFF171717);
+
+  /// Tinted containers: the drawer's cards (OffBlack).
+  static const bgTinted = Color(0xFF1C1C1C);
+
+  /// Primary text (OffWhite) and the secondary and tertiary inks.
+  static const ink = Color(0xFFF8F8F8);
+  static const muted = Color(0xFF989898);
+  static const faint = Color(0xFF5A5A5A);
+
+  /// The blues: the button's fill (BlueMedium) and the brand's deep one.
+  static const blueMedium = Color(0xFF638BFC);
+  static const blue500 = Color(0xFF2A60FF);
+
+  /// The state colors the original paints with.
+  static const pink = Color(0xFFED8FFF); // Pink300, the "Change" link
+  static const red = Color(0xFFFF6C58); // Red400, a failed provider
+  static const amber = Color(0xFFF5C242); // the connecting dot
+  static const green = Color(0xFF87FB67); // Green300, a landed provider
+  static const green500 = Color(0xFF31D70B); // the connected dot
+  static const yellow = Color(0xFFEFF7BB); // Yellow200, an evaluating dot
+  static const blueLight = Color(0xFFD6E6F4); // Blue200, a color field
+
+  /// The face's ground: white at four percent.
+  static const face = Color(0x0AFFFFFF);
+}
+
+/// The connect face's own shape: the globe's outline, stepped corners and
+/// all, read straight from the original's vector and scaled to [size].
+Path _urSquircle(double size) {
+  final s = size / 256;
+  final p = Path();
+  p.moveTo(240 * s, 64 * s);
+  p.cubicTo(231.16 * s, 64 * s, 224 * s, 56.84 * s, 224 * s, 48 * s);
+  p.cubicTo(224 * s, 39.16 * s, 216.84 * s, 32 * s, 208 * s, 32 * s);
+  p.cubicTo(199.16 * s, 32 * s, 192 * s, 24.84 * s, 192 * s, 16 * s);
+  p.cubicTo(192 * s, 7.16 * s, 184.84 * s, 0, 176 * s, 0);
+  p.lineTo(80 * s, 0);
+  p.cubicTo(71.16 * s, 0, 64 * s, 7.16 * s, 64 * s, 16 * s);
+  p.cubicTo(64 * s, 24.84 * s, 56.84 * s, 32 * s, 48 * s, 32 * s);
+  p.cubicTo(39.16 * s, 32 * s, 32 * s, 39.16 * s, 32 * s, 48 * s);
+  p.cubicTo(32 * s, 56.84 * s, 24.84 * s, 64 * s, 16 * s, 64 * s);
+  p.cubicTo(7.16 * s, 64 * s, 0, 71.16 * s, 0, 80 * s);
+  p.lineTo(0, 176 * s);
+  p.cubicTo(0, 184.84 * s, 7.16 * s, 192 * s, 16 * s, 192 * s);
+  p.cubicTo(24.84 * s, 192 * s, 32 * s, 199.16 * s, 32 * s, 208 * s);
+  p.cubicTo(32 * s, 216.84 * s, 39.16 * s, 224 * s, 48 * s, 224 * s);
+  p.cubicTo(56.84 * s, 224 * s, 64 * s, 231.16 * s, 64 * s, 240 * s);
+  p.cubicTo(64 * s, 248.84 * s, 71.16 * s, 256 * s, 80 * s, 256 * s);
+  p.lineTo(176 * s, 256 * s);
+  p.cubicTo(184.84 * s, 256 * s, 192 * s, 248.84 * s, 192 * s, 240 * s);
+  p.cubicTo(192 * s, 231.16 * s, 199.16 * s, 224 * s, 208 * s, 224 * s);
+  p.cubicTo(216.84 * s, 224 * s, 224 * s, 216.84 * s, 224 * s, 208 * s);
+  p.cubicTo(224 * s, 199.16 * s, 231.16 * s, 192 * s, 240 * s, 192 * s);
+  p.cubicTo(248.84 * s, 192 * s, 256 * s, 184.84 * s, 256 * s, 176 * s);
+  p.lineTo(256 * s, 80 * s);
+  p.cubicTo(256 * s, 71.16 * s, 248.84 * s, 64 * s, 240 * s, 64 * s);
+  p.close();
+  return p;
+}
 
 class UrHome extends StatefulWidget {
   const UrHome({
@@ -51,14 +119,31 @@ class UrHome extends StatefulWidget {
 }
 
 class _UrHomeState extends State<UrHome> {
+  /// The room the floating pill keeps at the page's foot; the drawer's
+  /// bottom edge stops above it, the way the original's stops above the
+  /// tab bar.
+  static const double _navGap = 88;
+
+  /// The drawer's peek: the handle, the card's above-the-fold block (the
+  /// location row and the Connect button) and the fold's own 12 dp gap.
+  static const double _peekDp = 154;
+
+  /// How much of the page the expanded drawer covers, the original's own
+  /// two thirds.
+  static const double _expandedFraction = 2 / 3;
+
   /// The moment the tunnel came up this session; null while it is down.
-  /// The elapsed row reads it — the page's own rebuilds never move it.
   DateTime? _sessionStart;
 
   /// The speed samples the sparkline draws: (up, down) bytes per second,
   /// one per second at most, the newest last.
   final List<List<double>> _samples = [];
   DateTime _lastSample = DateTime.fromMillisecondsSinceEpoch(0);
+
+  /// Whether the last attempt came down without the tunnel: the status
+  /// line's red word, until the next press or a held connection clears it.
+  bool _failed = false;
+  bool _wasConnecting = false;
 
   @override
   void initState() {
@@ -90,6 +175,20 @@ class _UrHomeState extends State<UrHome> {
   void _readSession(CoreStatus? status) {
     if (status == null) return;
     final on = status.proxyOn;
+    final running = status.state.phase == Phase.running;
+    final confirming = status.connectPending ||
+        (on && running && !status.confirmedBy(widget.core.lastTest));
+    final connected = on && running && !confirming;
+    if (confirming) {
+      _wasConnecting = true;
+      _failed = false;
+    } else if (connected) {
+      _wasConnecting = false;
+      _failed = false;
+    } else if (_wasConnecting && !on) {
+      _failed = true;
+      _wasConnecting = false;
+    }
     if (on && _sessionStart == null) _sessionStart = DateTime.now();
     if (!on) _sessionStart = null;
     final traffic = status.traffic;
@@ -118,6 +217,7 @@ class _UrHomeState extends State<UrHome> {
   void _press(BuildContext context) {
     final status = widget.status;
     final on = status.proxyOn;
+    _failed = false;
     if (status.totalAccounts == 0) {
       if (widget.onOpenAccounts != null) widget.onOpenAccounts!();
       return;
@@ -134,19 +234,23 @@ class _UrHomeState extends State<UrHome> {
   Widget build(BuildContext context) {
     final status = widget.status;
     final l = AppLocalizations.of(context);
-    final dark = Theme.of(context).brightness == Brightness.dark;
-    final look = AppDesign.current.look(dark);
-    final style = DesignStyle.of(context);
-    final top = MediaQuery.paddingOf(context).top;
 
     final running = status.state.phase == Phase.running;
     final on = status.proxyOn;
-    final confirming =
-        status.connectPending ||
+    final confirming = status.connectPending ||
         (on && running && !status.confirmedBy(widget.core.lastTest));
     final connected = on && running && !confirming;
     final busy = widget.core.switchingProxy || status.connectPending;
-    final accent = look.accent ?? Theme.of(context).colorScheme.primary;
+    final still = widget.settings.batterySaver ||
+        MediaQuery.of(context).disableAnimations;
+
+    final phase = _failed
+        ? _Phase.failed
+        : confirming
+            ? _Phase.connecting
+            : connected
+                ? _Phase.connected
+                : _Phase.off;
 
     final place = homeLocation(l, status, connected: connected);
 
@@ -154,100 +258,76 @@ class _UrHomeState extends State<UrHome> {
       value: SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent),
       child: Stack(
         children: [
-          // The dark canvas with its own quiet shapes: the blob behind the
-          // button and the color notes the stats carry. Painted once, the
-          // page's rebuilds never touch it.
-          Positioned.fill(
-            child: RepaintBoundary(
-              child: CustomPaint(
-                painter: _UrBackdropPainter(
-                  accent: accent,
-                  dark: dark,
-                  on: connected,
-                ),
-              ),
-            ),
-          ),
-          // The connect face: the brand, the orb, the location card, the
-          // wide button — each its own repaint boundary.
+          const Positioned.fill(child: ColoredBox(color: _Ur.bg)),
           Positioned.fill(
             child: SafeArea(
               bottom: false,
-              child: Column(
-                children: [
-                  SizedBox(height: top > 0 ? 0 : 8),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 18),
-                    child: Center(child: BrandWordmark(height: 24)),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: RepaintBoundary(
-                        child: UrConnectOrb(
-                          on: on,
-                          confirming: confirming,
-                          busy: busy,
-                          accent: accent,
-                          ink: look.ink,
-                          muted: look.muted,
-                          still: widget.settings.batterySaver,
-                          onPressed: () => _press(context),
+              child: LayoutBuilder(
+                builder: (context, cons) {
+                  final height = cons.maxHeight;
+                  final double peek =
+                      (_peekDp / height).clamp(0.12, 0.42).toDouble();
+                  final double sheetPx = peek * height;
+                  // The face's room: what the peek leaves, less the page's
+                  // own spacing (the top breath, the gap to the status line
+                  // and the line's seat).
+                  final double room =
+                      (height - sheetPx - 16 - 32 - 24 - 12)
+                          .clamp(48.0, 256.0)
+                          .toDouble();
+                  return Stack(
+                    children: [
+                      // The connect face, centered in the room the peek
+                      // leaves — the original's ConnectMainContent.
+                      Padding(
+                        padding: EdgeInsets.only(bottom: sheetPx),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(height: 16),
+                              _ConnectGraphic(
+                                size: room,
+                                phase: phase,
+                                busy: busy,
+                                still: still,
+                                onPressed: () => _press(context),
+                              ),
+                              const SizedBox(height: 32),
+                              _StatusLine(phase: phase),
+                              const SizedBox(height: 16),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
-                    child: UrLocationCard(
-                      place: place,
-                      accent: accent,
-                      card: look.homeCard,
-                      border: look.homeCardBorder,
-                      ink: look.ink,
-                      muted: look.muted,
-                      onOpenServers: widget.onOpenServers,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                    child: UrConnectButton(
-                      on: on,
-                      busy: busy,
-                      accent: accent,
-                      ink: look.ink,
-                      onPressed: () => _press(context),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-          ),
-          // The stats sheet: a handle at the page's bottom edge, the live
-          // numbers behind it. Its bottom stops above the floating pill.
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 88),
-              child: DraggableScrollableSheet(
-                initialChildSize: 0.085,
-                minChildSize: 0.085,
-                maxChildSize: 0.72,
-                snap: true,
-                snapSizes: const [0.085, 0.42, 0.72],
-                builder: (context, scrollController) => UrStatsSheet(
-                  scrollController: scrollController,
-                  status: status,
-                  connected: connected,
-                  confirming: confirming,
-                  sessionStart: _sessionStart,
-                  samples: _samples,
-                  accent: accent,
-                  card: look.homeCard,
-                  border: look.homeCardBorder,
-                  ink: look.ink,
-                  muted: look.muted,
-                  connectedColor: style.connected,
-                ),
+                      // The drawer: the handle and the location card at the
+                      // peek, the stats below the fold.
+                      Positioned.fill(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: _navGap),
+                          child: DraggableScrollableSheet(
+                            initialChildSize: peek,
+                            minChildSize: peek,
+                            maxChildSize: _expandedFraction,
+                            snap: true,
+                            snapSizes: [peek, _expandedFraction],
+                            builder: (context, scrollController) => _UrDrawer(
+                              scrollController: scrollController,
+                              status: status,
+                              phase: phase,
+                              busy: busy,
+                              place: place,
+                              sessionStart: _sessionStart,
+                              samples: _samples,
+                              onPress: () => _press(context),
+                              onOpenServers: widget.onOpenServers,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
@@ -258,526 +338,794 @@ class _UrHomeState extends State<UrHome> {
 }
 
 // ---------------------------------------------------------------------------
-// The backdrop: the dark stock with its quiet shapes.
+// The connect face.
 // ---------------------------------------------------------------------------
 
-/// The page's own canvas: the near-black wash, the big soft blob that
-/// holds the button (the way URnetwork's dark panels sit behind the
-/// connect circle), and two small color notes — the pink and the green
-/// — low in the page, where the stats sheet's colors already answer them.
-/// Static: one paint per state change at most.
-class _UrBackdropPainter extends CustomPainter {
-  _UrBackdropPainter({
-    required this.accent,
-    required this.dark,
-    required this.on,
-  });
+/// The face's four states, the original's own walk.
+enum _Phase { off, connecting, connected, failed }
 
-  final Color accent;
-  final bool dark;
-  final bool on;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // The wash.
-    final wash = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          const Color(0xFF101010),
-          const Color(0xFF0B0B0B),
-        ],
-      ).createShader(Offset.zero & size);
-    canvas.drawRect(Offset.zero & size, wash);
-
-    // The blob behind the button: an irregular rounded polygon, the
-    // app's own dark panels' shape. It breathes a touch lighter while
-    // the tunnel carries.
-    final cx = size.width / 2;
-    final cy = size.height * (on ? 0.40 : 0.38);
-    final r = math.min(size.width * 0.62, size.height * 0.30);
-    final blob = Path();
-    final paint = Paint()
-      ..color = const Color(0xFF181818)
-      ..style = PaintingStyle.fill;
-    // Six lobes at uneven radii — one path, no cost.
-    const lobes = [1.0, 0.82, 1.06, 0.9, 1.0, 0.86];
-    var first = true;
-    for (var i = 0; i < 24; i++) {
-      final t = i / 24 * 2 * math.pi;
-      final k = lobes[i % lobes.length] * (0.9 + 0.1 * math.sin(t * 3));
-      final p = Offset(cx + math.cos(t) * r * k, cy + math.sin(t) * r * 0.92 * k);
-      if (first) {
-        blob.moveTo(p.dx, p.dy);
-        first = false;
-      } else {
-        blob.lineTo(p.dx, p.dy);
-      }
-    }
-    blob.close();
-    canvas.drawPath(blob, paint);
-    // A second, smaller wash above it keeps the shape from reading flat.
-    paint.color = const Color(0xFF151515);
-    canvas.drawCircle(Offset(cx, cy), r * 0.72, paint);
-
-    // The two color notes: the pink flower's tint and the green's, both
-    // far down where the sheet sits over them, both barely there.
-    final note = Paint();
-    note.color = const Color(0xFFED8FFF).withValues(alpha: 0.05);
-    canvas.drawCircle(Offset(size.width * 0.16, size.height * 0.78), r * 0.30, note);
-    note.color = const Color(0xFF53F12A).withValues(alpha: 0.04);
-    canvas.drawCircle(Offset(size.width * 0.86, size.height * 0.70), r * 0.26, note);
-    // The blue's halo behind the button while the tunnel carries.
-    if (on) {
-      note.color = accent.withValues(alpha: 0.10);
-      canvas.drawCircle(Offset(cx, cy), r * 0.80, note);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_UrBackdropPainter old) =>
-      old.on != on || old.accent != accent || old.dark != dark;
+/// One color field that flies in on connection: the original's five, from
+/// their off-canvas seats to their landings, as fractions of the grid's
+/// span.
+class _ColorField {
+  const _ColorField(this.fromX, this.fromY, this.toX, this.toY, this.color);
+  final double fromX;
+  final double fromY;
+  final double toX;
+  final double toY;
+  final Color color;
 }
 
-// ---------------------------------------------------------------------------
-// The connect orb.
-// ---------------------------------------------------------------------------
+const List<_ColorField> _colorFields = [
+  _ColorField(-1.1, 0.95, 0.4, 0.95, _Ur.red),
+  _ColorField(2.55, 3.3, 2.0, 2.0, _Ur.pink),
+  _ColorField(3.5, 0.3, 2.25, 0.8, _Ur.green),
+  _ColorField(0.8, -1.5, 0.8, 0.05, _Ur.yellow),
+  _ColorField(-1.5, 3.0, 0.75, 2.25, _Ur.blueLight),
+];
 
-/// The round button: one face for every state, in one canvas.
-///
-/// - Off: "Tap to connect" and a breathing pulse ring, the way
-///   URnetwork invites the first tap.
-/// - Connecting: the scatter, lit, with the state's word.
-/// - Connected: the scatter gathered into a core around the blue disc,
-///   the network's own picture of the tunnel.
-///
-/// Two controllers only: the gather (one walk per state change) and the
-/// pulse (a 4-second cycle whose first second breathes, repeating only
-/// while off and only while the screen asks for motion).
-class UrConnectOrb extends StatefulWidget {
-  const UrConnectOrb({
-    super.key,
-    required this.on,
-    required this.confirming,
+/// The face: the square panel with the stepped corners, the state's walk
+/// inside it, and the tap.
+class _ConnectGraphic extends StatefulWidget {
+  const _ConnectGraphic({
+    required this.size,
+    required this.phase,
     required this.busy,
-    required this.accent,
-    required this.ink,
-    required this.muted,
     required this.still,
     required this.onPressed,
   });
 
-  final bool on;
-  final bool confirming;
+  final double size;
+  final _Phase phase;
   final bool busy;
-  final Color accent;
-  final Color ink;
-  final Color muted;
   final bool still;
   final VoidCallback onPressed;
 
   @override
-  State<UrConnectOrb> createState() => _UrConnectOrbState();
+  State<_ConnectGraphic> createState() => _ConnectGraphicState();
 }
 
-class _UrConnectOrbState extends State<UrConnectOrb>
+class _ConnectGraphicState extends State<_ConnectGraphic>
     with TickerProviderStateMixin {
-  late final AnimationController _gather = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 900),
-  );
+  late _Phase _phase = widget.phase;
+
+  /// The off-state pulse: the ring runs a second every four and a half.
   late final AnimationController _pulse = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 4000),
+    duration: const Duration(milliseconds: 1000),
   );
+  int _pulseGen = 0;
+  Timer? _pulseTimer;
+  bool _pulseRunning = false;
+
+  /// The provider grid's stagger: the dots pop in yellow and settle green.
+  late final AnimationController _grid = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2200),
+  );
+
+  /// The grid's fade: out once the tunnel holds (a second after it does),
+  /// out at once when the attempt dies.
+  late final AnimationController _fade = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 500),
+  );
+  Timer? _gridOutTimer;
+
+  /// The color fields' flight, the original's two waves.
+  late final AnimationController _fields = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2500),
+  );
+  List<int> _fieldOrder = [0, 1, 2, 3, 4];
+
+  /// The globe's meridians while the tunnel builds.
+  late final AnimationController _globe = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
+  int _globeGen = 0;
+  Timer? _globeTimer;
+
+  bool _dotsRed = false;
+
+  /// The grid's dots: 46 seats on the 16-wide lattice, a fixed scatter so
+  /// a refresh never reshuffles the picture.
+  late final List<(int, int)> _dots = _buildDots();
+  static List<(int, int)> _buildDots() {
+    final rnd = math.Random(7);
+    final seen = <int>{};
+    final dots = <(int, int)>[];
+    while (dots.length < 46) {
+      final x = rnd.nextInt(16);
+      final y = rnd.nextInt(16);
+      if (!seen.add(y * 16 + x)) continue;
+      dots.add((x, y));
+    }
+    dots.shuffle(math.Random(11));
+    return dots;
+  }
 
   @override
   void initState() {
     super.initState();
-    // The pulse's start needs the inherited media (reduce-motion), so the
-    // first sync runs in didChangeDependencies.
-    if (widget.on) _gather.value = 1;
+    _apply(_phase, initial: true);
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _sync();
-  }
-
-  @override
-  void didUpdateWidget(UrConnectOrb old) {
+  void didUpdateWidget(_ConnectGraphic old) {
     super.didUpdateWidget(old);
-    _sync();
-  }
-
-  /// One walk per change: off scatters (reverse), on gathers (forward).
-  /// The pulse runs only while off, and only when motion is welcome.
-  void _sync() {
-    final off = !widget.on;
-    if (off) {
-      _gather.reverse();
-      if (widget.still || MediaQuery.of(context).disableAnimations) {
-        _pulse.stop();
-      } else if (!_pulse.isAnimating) {
-        _pulse.repeat();
+    final next = widget.phase;
+    if (next != _phase) {
+      _apply(next, initial: false);
+    } else if (next == _Phase.off) {
+      // Only the still flag moved: the pulse stops with it, or resumes.
+      if (widget.still && _pulseRunning) {
+        _stopPulse();
+      } else if (!widget.still && !_pulseRunning) {
+        _startPulse();
       }
-    } else {
-      _pulse.stop();
-      _gather.forward();
     }
   }
 
   @override
   void dispose() {
-    _gather.dispose();
+    _pulseTimer?.cancel();
+    _globeTimer?.cancel();
+    _gridOutTimer?.cancel();
     _pulse.dispose();
+    _grid.dispose();
+    _fade.dispose();
+    _fields.dispose();
+    _globe.dispose();
     super.dispose();
+  }
+
+  void _apply(_Phase next, {required bool initial}) {
+    final prev = _phase;
+    _phase = next;
+    switch (next) {
+      case _Phase.off:
+        _stopPulse();
+        if (!widget.still) _startPulse();
+        _setGlobe(false);
+        _gridOutTimer?.cancel();
+        if (!initial) {
+          // the dots wash out red, the fields glide back to their seats
+          _dotsRed = true;
+          _fade.forward();
+          _grid
+            ..duration = const Duration(milliseconds: 500)
+            ..reverse();
+          _fields
+            ..duration = const Duration(milliseconds: 1000)
+            ..reverse();
+        }
+      case _Phase.connecting:
+        _stopPulse();
+        _setGlobe(true);
+        _gridOutTimer?.cancel();
+        _dotsRed = false;
+        if (initial) {
+          _grid.forward();
+        } else if (prev == _Phase.connected) {
+          // a fresh evaluation under a held tunnel: the dots come back
+          _fade.reverse();
+        } else {
+          _fade.reset();
+          _grid
+            ..duration = const Duration(milliseconds: 2200)
+            ..forward(from: 0);
+          _fields
+            ..duration = const Duration(milliseconds: 500)
+            ..reverse();
+        }
+      case _Phase.connected:
+        _stopPulse();
+        _setGlobe(false);
+        _dotsRed = false;
+        if (initial) {
+          _grid.value = 1;
+          _fade.value = 1;
+          _fields.value = 1;
+        } else {
+          _fieldOrder = [0, 1, 2, 3, 4]..shuffle(math.Random());
+          _grid
+            ..duration = const Duration(milliseconds: 2200)
+            ..forward();
+          _scheduleGridOut();
+          _fields
+            ..duration = const Duration(milliseconds: 2500)
+            ..forward(from: 0);
+        }
+      case _Phase.failed:
+        _stopPulse();
+        _setGlobe(false);
+        _gridOutTimer?.cancel();
+        _dotsRed = true;
+        if (!initial) {
+          _fade.forward();
+          _fields
+            ..duration = const Duration(milliseconds: 500)
+            ..reverse();
+        }
+    }
+  }
+
+  /// The pulse's cycle, the original's own: a breath of a delay, the
+  /// second-long run, three seconds of rest, and around again.
+  void _startPulse() {
+    _pulseTimer?.cancel();
+    if (!mounted || widget.still || _phase != _Phase.off) return;
+    _pulseRunning = true;
+    final gen = ++_pulseGen;
+    _pulseTimer = Timer(const Duration(milliseconds: 100), () {
+      if (!mounted || gen != _pulseGen || widget.still || _phase != _Phase.off) {
+        return;
+      }
+      _pulse.forward(from: 0).whenComplete(() {
+        if (!mounted || gen != _pulseGen || widget.still || _phase != _Phase.off) {
+          return;
+        }
+        _pulseTimer = Timer(const Duration(milliseconds: 3000), () {
+          if (!mounted || gen != _pulseGen || widget.still || _phase != _Phase.off) {
+            return;
+          }
+          _pulse.reset();
+          _startPulse();
+        });
+      });
+    });
+  }
+
+  void _stopPulse() {
+    _pulseGen++;
+    _pulseTimer?.cancel();
+    _pulseRunning = false;
+    _pulse.reset();
+  }
+
+  /// The globe's cross-fade, half a second after the state asks for it.
+  void _setGlobe(bool visible) {
+    _globeGen++;
+    final gen = _globeGen;
+    _globeTimer?.cancel();
+    _globeTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted || gen != _globeGen) return;
+      if (visible) {
+        _globe.forward();
+      } else {
+        _globe.reverse();
+      }
+    });
+  }
+
+  /// The grid fades out a second after the tunnel holds.
+  void _scheduleGridOut() {
+    _gridOutTimer?.cancel();
+    _gridOutTimer = Timer(const Duration(milliseconds: 1000), () {
+      if (mounted) _fade.forward();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final label = widget.confirming
-        ? l.stateConnecting
-        : widget.on
-        ? l.stateConnected
-        : l.tapToConnectPhone;
-    final orb = MediaQuery.of(context).disableAnimations || widget.still
-        ? _gather.value.clamp(0.0, 1.0)
-        : null;
+    final typefaces = typefacesOf(context);
+    final off = _phase == _Phase.off;
 
-    return Semantics(
-      button: true,
-      label: label,
-      child: Pressable(
-        depth: 0.04,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: widget.onPressed,
-          child: SizedBox.square(
-            dimension: 248,
-            child: AnimatedBuilder(
-              animation: Listenable.merge([_gather, _pulse]),
-              builder: (context, _) {
-                final gather = orb ?? Curves.easeOutCubic.transform(
-                  _gather.value.clamp(0.0, 1.0),
-                );
-                return CustomPaint(
-                  painter: _UrOrbPainter(
-                    gather: gather,
-                    pulse: widget.on ? 0 : _pulse.value,
-                    accent: widget.accent,
-                    muted: widget.muted,
-                    on: widget.on,
-                    confirming: widget.confirming,
-                    busy: widget.busy,
-                    still: widget.still ||
-                        MediaQuery.of(context).disableAnimations,
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // The state's word, in the display's own voice.
-                        Text(
-                          label,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 19,
-                            height: 1.2,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 0.2,
-                            color: widget.on && !widget.confirming
-                                ? Colors.white
-                                : widget.ink,
-                            fontFamily: typefacesOf(context).display,
-                            fontFamilyFallback:
-                                typefacesOf(context).displayFallback,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        // The mark under the word: the flower while off,
-                        // the spinner while the walk is busy.
-                        SizedBox.square(
-                          dimension: 40,
-                          child: Center(
-                            child: widget.busy && widget.on
-                                ? const SizedBox.square(
-                                    dimension: 22,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.4,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.local_florist_rounded,
-                                    size: 26,
-                                    color: widget.confirming
-                                        ? widget.accent
-                                        : widget.accent.withValues(
-                                            alpha: widget.on ? 1 : 0.9,
-                                          ),
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: Listenable.merge([_pulse, _grid, _fade, _fields, _globe]),
+        builder: (context, _) {
+          return Semantics(
+            button: true,
+            enabled: true,
+            label: switch (_phase) {
+              _Phase.off => l.tapToConnectPhone,
+              _Phase.connecting => l.stateConnecting,
+              _Phase.connected => l.stateConnected,
+              _Phase.failed => l.urConnectFailed,
+            },
+            child: Pressable(
+              depth: 0.02,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: widget.onPressed,
+                child: SizedBox.square(
+                  dimension: widget.size,
+                  child: CustomPaint(
+                    painter: _ConnectFacePainter(
+                      phase: _phase,
+                      pulse: _pulse.value,
+                      grid: _grid.value,
+                      fade: _fade.value,
+                      fields: _fields.value,
+                      fieldOrder: _fieldOrder,
+                      globe: _globe.value,
+                      dots: _dots,
+                      dotsRed: _dotsRed,
+                    ),
+                    child: Center(
+                      // the CustomPaint hands its child tight constraints;
+                      // the Center loosens them, so the word and the pulse
+                      // keep their own height and stay centered
+                      child: IgnorePointer(
+                        ignoring: !off,
+                        child: AnimatedOpacity(
+                          opacity: off ? 1 : 0,
+                          duration: const Duration(milliseconds: 200),
+                          child: Padding(
+                            // the original's own -12 dp lift
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  l.tapToConnectPhone,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    height: 1.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: _Ur.ink,
+                                    fontFamily: typefaces.display,
+                                    fontFamilyFallback:
+                                        typefaces.displayFallback,
                                   ),
+                                ),
+                                const SizedBox(height: 8),
+                                SizedBox.square(
+                                  dimension: 82,
+                                  child: CustomPaint(
+                                    painter: _PulsePainter(
+                                      pulse: _pulse.value,
+                                      still: widget.still,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 }
 
-/// The orb's face: the ring, the scatter's points and their walk, the
-/// pulse. One painter per state frame — the weak GPUs keep their frames.
-class _UrOrbPainter extends CustomPainter {
-  _UrOrbPainter({
-    required this.gather,
+/// The face's paint: the stepped square, the meridians, the grid, the
+/// fields — one pass, in the original's own order.
+class _ConnectFacePainter extends CustomPainter {
+  _ConnectFacePainter({
+    required this.phase,
     required this.pulse,
-    required this.accent,
-    required this.muted,
-    required this.on,
-    required this.confirming,
-    required this.busy,
-    required this.still,
+    required this.grid,
+    required this.fade,
+    required this.fields,
+    required this.fieldOrder,
+    required this.globe,
+    required this.dots,
+    required this.dotsRed,
   });
 
-  final double gather;
+  final _Phase phase;
   final double pulse;
-  final Color accent;
-  final Color muted;
-  final bool on;
-  final bool confirming;
-  final bool busy;
+  final double grid;
+  final double fade;
+  final double fields;
+  final List<int> fieldOrder;
+  final double globe;
+  final List<(int, int)> dots;
+  final bool dotsRed;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final s = size.width / 256;
+    final face = _urSquircle(size.width);
+
+    // the face's ground: white at four percent
+    canvas.drawPath(face, Paint()..color = _Ur.face);
+
+    canvas.save();
+    canvas.clipPath(face);
+
+    // the globe's meridians, the connecting state's mark
+    if (globe > 0) {
+      final line = Paint()
+        ..color = _Ur.bg.withValues(alpha: globe)
+        ..strokeWidth = 2 * s
+        ..style = PaintingStyle.stroke;
+      canvas.drawLine(
+        Offset(0, 127.5 * s),
+        Offset(size.width, 127.5 * s),
+        line,
+      );
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(128.5 * s, 128 * s),
+          width: 103 * s,
+          height: 254 * s,
+        ),
+        line,
+      );
+    }
+
+    // the provider grid: the dots pop in yellow and settle green as the
+    // network evaluates, inside the grid canvas's own 248 seat
+    final o = 4 * s;
+    final span = 248 * s;
+    final cell = span / 16;
+    canvas.save();
+    canvas.translate(o, o);
+    final dotPaint = Paint();
+    final gridMs = grid * 2200;
+    for (var i = 0; i < dots.length; i++) {
+      final double pop =
+          ((gridMs - i * 28.0) / 500).clamp(0.0, 1.0).toDouble();
+      if (pop <= 0) continue;
+      final (x, y) = dots[i];
+      Color base;
+      if (phase == _Phase.connecting) {
+        final double mix =
+            ((gridMs - i * 28.0 - 700) / 400).clamp(0.0, 1.0).toDouble();
+        base = Color.lerp(_Ur.yellow, _Ur.green, mix)!;
+      } else if (phase == _Phase.connected) {
+        base = _Ur.green;
+      } else {
+        base = _Ur.red;
+      }
+      final double alpha = (1 - fade).clamp(0.0, 1.0).toDouble();
+      if (alpha <= 0) continue;
+      dotPaint.color = base.withValues(alpha: alpha);
+      canvas.drawCircle(
+        Offset(x * cell + cell / 2, y * cell + cell / 2),
+        pop * cell / 2,
+        dotPaint,
+      );
+    }
+
+    // the color fields: two waves, a second apart, from their off-canvas
+    // seats to their landings
+    if (fields > 0) {
+      final c = span * 0.4;
+      final fieldPaint = Paint();
+      for (var k = 0; k < fieldOrder.length; k++) {
+        final delay = k < 2 ? 1000.0 : 2000.0;
+        final double p =
+            ((fields * 2500 - delay) / 500).clamp(0.0, 1.0).toDouble();
+        if (p <= 0) continue;
+        final e = Curves.fastOutSlowIn.transform(p);
+        final f = _colorFields[fieldOrder[k]];
+        final from = Offset(f.fromX * c, f.fromY * c);
+        final to = Offset(f.toX * c, f.toY * c);
+        fieldPaint.color = f.color;
+        canvas.drawCircle(Offset.lerp(from, to, e)!, c, fieldPaint);
+      }
+    }
+    canvas.restore();
+
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_ConnectFacePainter old) =>
+      old.phase != phase ||
+      old.pulse != pulse ||
+      old.grid != grid ||
+      old.fade != fade ||
+      old.fields != fields ||
+      old.globe != globe ||
+      old.dotsRed != dotsRed ||
+      old.fieldOrder != fieldOrder;
+}
+
+/// The off-state's pulse dot: the static blue mark, and the ring that
+/// runs out of it once a cycle. The original's own measures.
+class _PulsePainter extends CustomPainter {
+  _PulsePainter({required this.pulse, required this.still});
+
+  final double pulse;
   final bool still;
 
   @override
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
-    final face = Paint()..color = Colors.white.withValues(alpha: 0.04);
-    // The button's own ground: a soft square the circle sits in.
-    canvas.drawCircle(c, size.width / 2 - 2, face);
-
-    // The gathered core: the blue disc the points land on.
-    final coreRadius = 8 + 30 * gather;
-    if (gather > 0.02) {
-      final core = Paint()
-        ..color = accent.withValues(alpha: (0.25 + 0.75 * gather).clamp(0.0, 1.0));
-      canvas.drawCircle(c, coreRadius, core);
-    }
-
-    // The scatter: the app's own points, deterministic so a refresh never
-    // reshuffles the picture. Each point walks from its resting place to
-    // the core's edge, in two waves, the way the network's own dots
-    // gather as the tunnel comes up.
-    final rnd = math.Random(11);
-    const points = 34;
-    final dot = Paint();
-    final maxR = size.width / 2 - 26;
-    for (var i = 0; i < points; i++) {
-      final angle = rnd.nextDouble() * 2 * math.pi;
-      final dist = (0.30 + 0.70 * rnd.nextDouble()) * maxR;
-      final rest = Offset(
-        c.dx + math.cos(angle) * dist,
-        c.dy + math.sin(angle) * dist,
+    if (!still && pulse > 0) {
+      final diameter = 56 + 26 * pulse;
+      canvas.drawCircle(
+        c,
+        diameter / 2,
+        Paint()..color = _Ur.blueMedium.withValues(alpha: 1 - pulse),
       );
-      // Two waves: the first half lands, then the second.
-      final wave = i < points ~/ 2 ? 0.0 : 0.28;
-      final t = ((gather - wave) / (1 - wave)).clamp(0.0, 1.0);
-      final e = Curves.easeInOutCubic.transform(t);
-      final p = Offset.lerp(rest, c, e)!;
-      final base = confirming || on
-          ? (t > 0.85 ? Colors.white : accent)
-          : (t > 0.5 ? accent : muted);
-      dot.color = base.withValues(
-        alpha: (0.30 + 0.55 * (1 - e)).clamp(0.0, 1.0),
-      );
-      final radius = 1.6 + 1.2 * rnd.nextDouble() + 1.6 * e;
-      canvas.drawCircle(p, radius, dot);
     }
-
-    // The off-state pulse: one ring breathing outward every cycle's first
-    // second, the rest of the cycle still.
-    if (!on && !still && pulse > 0) {
-      final breathe = (pulse * 4).clamp(0.0, 1.0);
-      if (breathe < 1) {
-        final ring = Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = accent.withValues(alpha: (1 - breathe) * 0.5);
-        canvas.drawCircle(c, 34 + 26 * Curves.easeOut.transform(breathe), ring);
-      }
-    }
-
-    // The connected disc's rim and its quiet center mark.
-    if (gather > 0.95) {
-      final rim = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.4
-        ..color = Colors.white.withValues(alpha: 0.16);
-      canvas.drawCircle(c, coreRadius + 6, rim);
-    }
+    canvas.drawCircle(c, 28, Paint()..color = _Ur.blueMedium);
+    canvas.drawCircle(c, 26, Paint()..color = _Ur.bg);
+    canvas.drawCircle(c, 24, Paint()..color = _Ur.blueMedium);
   }
 
   @override
-  bool shouldRepaint(_UrOrbPainter old) =>
-      old.gather != gather ||
-      old.pulse != pulse ||
-      old.on != on ||
-      old.confirming != confirming ||
-      old.busy != busy ||
-      old.accent != accent;
+  bool shouldRepaint(_PulsePainter old) =>
+      old.pulse != pulse || old.still != still;
 }
 
-// ---------------------------------------------------------------------------
-// The location card and the wide button.
-// ---------------------------------------------------------------------------
+/// The status line: the state's dot and its word, centered under the face.
+class _StatusLine extends StatelessWidget {
+  const _StatusLine({required this.phase});
 
-/// The location's card: the flag, the place's name, the line above it
-/// (how it was chosen), and the Change link — URnetwork's card, with
-/// this app's own words.
-class UrLocationCard extends StatelessWidget {
-  const UrLocationCard({
-    super.key,
-    required this.place,
-    required this.accent,
-    required this.card,
-    required this.border,
-    required this.ink,
-    required this.muted,
-    required this.onOpenServers,
-  });
-
-  final HomePlace place;
-  final Color accent;
-  final Color card;
-  final Color border;
-  final Color ink;
-  final Color muted;
-  final VoidCallback? onOpenServers;
+  final _Phase phase;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    return Material(
-      color: card,
-      borderRadius: BorderRadius.circular(20),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: onOpenServers,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: border),
+    final (text, dot) = switch (phase) {
+      _Phase.off => (l.urReadyToConnect, _Ur.blueMedium),
+      _Phase.connecting => (l.stateConnecting, _Ur.amber),
+      _Phase.connected => (l.stateConnected, _Ur.green500),
+      _Phase.failed => (l.urConnectFailed, _Ur.red),
+    };
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(shape: BoxShape.circle, color: dot),
+        ),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize: 15.5, color: _Ur.ink),
           ),
-          child: Row(
-            children: [
-              CountryFlag(code: place.flag, width: 40),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The drawer.
+// ---------------------------------------------------------------------------
+
+/// The drawer: URnetwork's own sheet — the handle, the tinted card with
+/// the location row and the Connect button at the peek, and the stats
+/// below the fold.
+class _UrDrawer extends StatelessWidget {
+  const _UrDrawer({
+    required this.scrollController,
+    required this.status,
+    required this.phase,
+    required this.busy,
+    required this.place,
+    required this.sessionStart,
+    required this.samples,
+    required this.onPress,
+    required this.onOpenServers,
+  });
+
+  final ScrollController scrollController;
+  final CoreStatus status;
+  final _Phase phase;
+  final bool busy;
+  final HomePlace place;
+  final DateTime? sessionStart;
+  final List<List<double>> samples;
+  final VoidCallback onPress;
+  final VoidCallback? onOpenServers;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: _Ur.sheet,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      child: ListView(
+        controller: scrollController,
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+        children: [
+          // the drag handle, the M3's own 32x4
+          Center(
+            child: Container(
+              width: 32,
+              height: 4,
+              margin: const EdgeInsets.symmetric(vertical: 9),
+              decoration: BoxDecoration(
+                color: _Ur.muted.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: _Ur.bgTinted,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+            child: Column(
+              children: [
+                _LocationRow(place: place, onOpen: onOpenServers),
+                const SizedBox(height: 8),
+                _ConnectAction(
+                  on: phase == _Phase.connected || phase == _Phase.connecting,
+                  busy: busy,
+                  onPress: onPress,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          _StatsCard(
+            status: status,
+            connected: phase == _Phase.connected,
+            confirming: phase == _Phase.connecting,
+            sessionStart: sessionStart,
+            samples: samples,
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+/// The location row: the globe in the original's red while the app picks,
+/// the flag once a country is chosen, the place's name and its line, and
+/// the Change link in the pink.
+class _LocationRow extends StatelessWidget {
+  const _LocationRow({required this.place, required this.onOpen});
+
+  final HomePlace place;
+  final VoidCallback? onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final best = place.auto || place.flag == 'REC' || place.flag.isEmpty;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Pressable(
+              depth: 0.02,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: onOpen,
+                child: Row(
                   children: [
-                    Text(
-                      place.caption,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: muted,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      place.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w700,
-                        color: ink,
+                    best
+                        ? const Icon(
+                            Icons.public_rounded,
+                            size: 36,
+                            color: _Ur.red,
+                          )
+                        : SizedBox(
+                            width: 36,
+                            height: 36,
+                            child: Center(
+                              child: CountryFlag(code: place.flag, width: 32),
+                            ),
+                          ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            place.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              height: 1.2,
+                              color: _Ur.ink,
+                            ),
+                          ),
+                          const SizedBox(height: 1),
+                          Text(
+                            place.caption,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 13.5,
+                              height: 1.2,
+                              color: _Ur.muted,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Text(
-                l.urChangeLocation,
-                style: TextStyle(
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w700,
-                  color: accent,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          TextButton(
+            onPressed: onOpen,
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: const Size(0, 40),
+            ),
+            child: Text(
+              l.urChangeLocation,
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w600,
+                color: _Ur.pink,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-/// The wide Connect button: one filled block under the card, the state's
-/// word or the spinner carrying its label.
-class UrConnectButton extends StatelessWidget {
-  const UrConnectButton({
-    super.key,
+/// The Connect button, the original's URButton: the blue fill for the
+/// connect, the hairline outline for the disconnect, the spinner while
+/// the walk is busy.
+class _ConnectAction extends StatelessWidget {
+  const _ConnectAction({
     required this.on,
     required this.busy,
-    required this.accent,
-    required this.ink,
-    required this.onPressed,
+    required this.onPress,
   });
 
   final bool on;
   final bool busy;
-  final Color accent;
-  final Color ink;
-  final VoidCallback onPressed;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final label = busy
-        ? l.stateConnecting
-        : on
-        ? l.urDisconnect
-        : l.urConnect;
-    return Pressable(
-      depth: 0.05,
-      child: SizedBox(
-        width: double.infinity,
-        height: 54,
-        child: FilledButton(
-          style: FilledButton.styleFrom(
-            backgroundColor: on ? Colors.white.withValues(alpha: 0.10) : accent,
-            foregroundColor: on ? ink : Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(27),
+    final typefaces = typefacesOf(context);
+    return SizedBox(
+      width: double.infinity,
+      child: Pressable(
+        depth: 0.03,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: busy ? null : onPress,
+          child: Container(
+            height: 48,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: on ? Colors.transparent : _Ur.blueMedium,
+              borderRadius: BorderRadius.circular(12),
+              border: on ? Border.all(color: _Ur.faint) : null,
             ),
-            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-          ),
-          onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (busy) ...[
-                const SizedBox.square(
-                  dimension: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2.2),
-                ),
-                const SizedBox(width: 10),
-              ],
-              Text(label),
-            ],
+            child: busy
+                ? SizedBox.square(
+                    dimension: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.2,
+                      color: on ? _Ur.muted : Colors.white,
+                    ),
+                  )
+                : Text(
+                    on ? l.urDisconnect : l.urConnect,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 22,
+                      height: 1.0,
+                      fontWeight: FontWeight.w700,
+                      color: on ? _Ur.muted : Colors.white,
+                      fontFamily: typefaces.display,
+                      fontFamilyFallback: typefaces.displayFallback,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -785,56 +1133,40 @@ class UrConnectButton extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// The stats sheet.
-// ---------------------------------------------------------------------------
-
-/// The live stats: a handle at the bottom edge, and behind it the speeds,
-/// the sparkline and the session's rows — every number the core already
-/// reports, in the URnetwork's own dark tiles.
-class UrStatsSheet extends StatelessWidget {
-  const UrStatsSheet({
-    super.key,
-    required this.scrollController,
+/// The stats below the fold: the live speeds and the session's numbers,
+/// in the drawer's own tinted cards.
+class _StatsCard extends StatelessWidget {
+  const _StatsCard({
     required this.status,
     required this.connected,
     required this.confirming,
     required this.sessionStart,
     required this.samples,
-    required this.accent,
-    required this.card,
-    required this.border,
-    required this.ink,
-    required this.muted,
-    required this.connectedColor,
   });
 
-  final ScrollController scrollController;
   final CoreStatus status;
   final bool connected;
   final bool confirming;
   final DateTime? sessionStart;
   final List<List<double>> samples;
-  final Color accent;
-  final Color card;
-  final Color border;
-  final Color ink;
-  final Color muted;
-  final Color connectedColor;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final traffic = status.traffic;
     final exit = status.exit;
-    final test =
-        status.isCurrentTest(status.lastTest) ? status.lastTest : null;
+    final test = status.isCurrentTest(status.lastTest) ? status.lastTest : null;
 
     Widget row(String label, String value) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 9),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: TextStyle(color: muted, fontSize: 13.5))),
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(color: _Ur.muted, fontSize: 13.5),
+            ),
+          ),
           const SizedBox(width: 12),
           Flexible(
             child: Text(
@@ -842,8 +1174,8 @@ class UrStatsSheet extends StatelessWidget {
               textAlign: TextAlign.end,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: ink,
+              style: const TextStyle(
+                color: _Ur.ink,
                 fontSize: 13.5,
                 fontWeight: FontWeight.w700,
               ),
@@ -855,91 +1187,45 @@ class UrStatsSheet extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: card,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        border: Border(top: BorderSide(color: border)),
+        color: _Ur.bgTinted,
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: ListView(
-        controller: scrollController,
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // The handle.
-          Center(
-            child: Container(
-              width: 44,
-              height: 5,
-              margin: const EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                color: muted.withValues(alpha: 0.5),
-                borderRadius: BorderRadius.circular(3),
-              ),
+          Text(
+            l.urStatsTitle,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
+              color: _Ur.muted,
             ),
           ),
-          Row(
-            children: [
-              Container(
-                width: 9,
-                height: 9,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: confirming
-                      ? accent
-                      : connected
-                      ? connectedColor
-                      : muted,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                l.urStatsTitle,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w800,
-                  color: ink,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                l.urStatsHint,
-                style: TextStyle(fontSize: 12, color: muted),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          // The two speeds and the sparkline between them.
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
                 child: _SpeedTile(
                   label: l.urSpeedUp,
                   value: traffic?.upRate,
-                  color: accent,
-                  ink: ink,
-                  muted: muted,
+                  color: _Ur.blueMedium,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 8),
               Expanded(
                 child: _SpeedTile(
                   label: l.urSpeedDown,
                   value: traffic?.downRate,
-                  color: connectedColor,
-                  ink: ink,
-                  muted: muted,
+                  color: _Ur.green500,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          UrSpeedSpark(
-            samples: samples,
-            up: accent,
-            down: connectedColor,
-            muted: muted,
-          ),
+          _SpeedSpark(samples: samples),
           const SizedBox(height: 6),
-          Divider(color: border, height: 24),
-          // The session's numbers.
           row(
             l.urSessionTime,
             (connected || confirming) && sessionStart != null
@@ -979,30 +1265,25 @@ class UrStatsSheet extends StatelessWidget {
   }
 }
 
-/// One speed tile: the tile's tint, the label, and the live rate — the
-/// same numbers the notification carries, drawn in the sheet's own ink.
+/// One speed tile: the label's dot and the live rate.
 class _SpeedTile extends StatelessWidget {
   const _SpeedTile({
     required this.label,
     required this.value,
     required this.color,
-    required this.ink,
-    required this.muted,
   });
 
   final String label;
   final int? value;
   final Color color;
-  final Color ink;
-  final Color muted;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1015,19 +1296,16 @@ class _SpeedTile extends StatelessWidget {
                 decoration: BoxDecoration(shape: BoxShape.circle, color: color),
               ),
               const SizedBox(width: 7),
-              Text(
-                label,
-                style: TextStyle(fontSize: 12.5, color: muted),
-              ),
+              Text(label, style: const TextStyle(fontSize: 12.5, color: _Ur.muted)),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             value == null ? '0' : formatRate(value!),
-            style: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w800,
-              color: ink,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: _Ur.ink,
               height: 1.1,
             ),
           ),
@@ -1037,63 +1315,40 @@ class _SpeedTile extends StatelessWidget {
   }
 }
 
-/// The sparkline: the session's speeds, one line each way, drawn small
-/// and quiet. The samples the page keeps change one point at a time, so
-/// the painter repaints only itself.
-class UrSpeedSpark extends StatelessWidget {
-  const UrSpeedSpark({
-    super.key,
-    required this.samples,
-    required this.up,
-    required this.down,
-    required this.muted,
-  });
+/// The sparkline: the session's speeds, one line each way.
+class _SpeedSpark extends StatelessWidget {
+  const _SpeedSpark({required this.samples});
 
   final List<List<double>> samples;
-  final Color up;
-  final Color down;
-  final Color muted;
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     if (samples.isEmpty) {
       return SizedBox(
-        height: 64,
+        height: 56,
         child: Center(
           child: Text(
-            AppLocalizations.of(context).urNoData,
-            style: TextStyle(fontSize: 12.5, color: muted),
+            l.urNoData,
+            style: const TextStyle(fontSize: 12.5, color: _Ur.muted),
           ),
         ),
       );
     }
     return SizedBox(
-      height: 64,
+      height: 56,
       child: CustomPaint(
         size: Size.infinite,
-        painter: _UrSparkPainter(
-          samples: samples,
-          up: up,
-          down: down,
-          grid: muted.withValues(alpha: 0.3),
-        ),
+        painter: _SparkPainter(samples: samples),
       ),
     );
   }
 }
 
-class _UrSparkPainter extends CustomPainter {
-  _UrSparkPainter({
-    required this.samples,
-    required this.up,
-    required this.down,
-    required this.grid,
-  });
+class _SparkPainter extends CustomPainter {
+  _SparkPainter({required this.samples});
 
   final List<List<double>> samples;
-  final Color up;
-  final Color down;
-  final Color grid;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1106,12 +1361,11 @@ class _UrSparkPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round;
-    // One hairline at the middle keeps the two lines apart without a grid.
     canvas.drawLine(
       Offset(0, size.height / 2),
       Offset(size.width, size.height / 2),
       Paint()
-        ..color = grid
+        ..color = _Ur.faint
         ..strokeWidth = 1,
     );
     void draw(int i, Color color) {
@@ -1130,12 +1384,12 @@ class _UrSparkPainter extends CustomPainter {
       canvas.drawPath(path, line..color = color);
     }
 
-    draw(0, up);
-    draw(1, down);
+    draw(0, _Ur.blueMedium);
+    draw(1, _Ur.green500);
   }
 
   @override
-  bool shouldRepaint(_UrSparkPainter old) =>
+  bool shouldRepaint(_SparkPainter old) =>
       // The samples list is the page's own (its identity never changes),
       // so the count is what says a new point arrived.
       old.samples.length != samples.length;

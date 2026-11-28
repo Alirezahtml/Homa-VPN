@@ -3031,6 +3031,22 @@ class AppLocalizationsPt extends AppLocalizations {
       'As notas flutuantes abandonam o desfoque: um efeito pesado a menos em cada aviso, os telefones fracos mantêm os seus quadros';
 
   @override
+  String get urReadyToConnect =>
+      'Pronto para ligar';
+
+  @override
+  String get urConnectFailed =>
+      'Falha na ligação';
+
+  @override
+  String get wn69Ur =>
+      'O ecrã da URnetwork, tal como sai: a face de conexão quadrada de cantos em degraus, o pulso de toque para ligar, a grelha de fornecedores enquanto o túnel se constrói e os campos de cor que aterrissam quando se mantém';
+
+  @override
+  String get wn69Stats =>
+      'A gaveta mantém a geometria do original: a linha de local e Conectar no rebordo, e abaixo da dobra as velocidades ao vivo, os números da sessão, a saída e o último teste';
+
+  @override
   String get wn68Stats =>
       'Arraste para cima a borda inferior da página inicial: velocidades ao vivo, a linha da sessão, o local de saída, o IP e o último teste — nada que o núcleo já não diga';
 

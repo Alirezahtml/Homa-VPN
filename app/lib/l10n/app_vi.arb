@@ -879,5 +879,9 @@
   "wn68Ur": "Thiết kế URnetwork gia nhập bộ chọn: nút kết nối tròn whose điểm tụ lại khi đường hầm đến, thẻ vị trí và nút «Kết nối» rộng — chọn nó trong Diện mạo",
   "wn68Stats": "Kéo cạnh dưới của trang chủ lên: tốc độ trực tiếp, đường biểu đồ phiên, vị trí thoát, IP và bài kiểm tra cuối — không hỏi gì nhân đã không nói",
   "wn68Toast": "Các ghi chú nổi bỏ hiệu ứng làm mờ: một hiệu ứng nặng ít hơn trong mỗi thông báo, điện thoại yếu giữ khung hình của mình",
-  "changeUi": "Đổi giao diện"
+  "changeUi": "Đổi giao diện",
+  "urReadyToConnect": "Sẵn sàng kết nối",
+  "urConnectFailed": "Kết nối thất bại",
+  "wn69Ur": "Màn hình URnetwork được chuyển nguyên bản: mặt kết nối vuông góc bậc thang, nhịp «Chạm để kết nối», lưới nhà cung cấp khi đường hầm hình thành và các vùng màu hạ xuống khi vững",
+  "wn69Stats": "Ngăn kéo giữ hình học của bản gốc: hàng vị trí và Kết nối ở mép, dưới nếp gấp là tốc độ trực tiếp, số liệu phiên, vị trí thoát và bài kiểm tra cuối"
 }

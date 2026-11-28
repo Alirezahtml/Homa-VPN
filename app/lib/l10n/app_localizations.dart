@@ -5265,6 +5265,30 @@ abstract class AppLocalizations {
   /// **'The floating notes drop the blur: one less heavy effect on every toast, the weak phones keep their frames'**
   String get wn68Toast;
 
+  /// No description provided for @urReadyToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to connect'**
+  String get urReadyToConnect;
+
+  /// No description provided for @urConnectFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed'**
+  String get urConnectFailed;
+
+  /// No description provided for @wn69Ur.
+  ///
+  /// In en, this message translates to:
+  /// **'The URnetwork screen, ported as it ships: the stepped-square connect face, the tap-to-connect pulse, the provider grid as the tunnel builds, and the color fields that land once it holds'**
+  String get wn69Ur;
+
+  /// No description provided for @wn69Stats.
+  ///
+  /// In en, this message translates to:
+  /// **'The drawer keeps the original\'s geometry: the location row and Connect at the peek, and below the fold the live speeds, the session\'s numbers, the exit and the last test'**
+  String get wn69Stats;
+
   /// No description provided for @wn68Stats.
   ///
   /// In en, this message translates to:

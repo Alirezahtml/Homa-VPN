@@ -3029,6 +3029,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'The floating notes drop the blur: one less heavy effect on every toast, the weak phones keep their frames';
 
   @override
+  String get urReadyToConnect =>
+      'Ready to connect';
+
+  @override
+  String get urConnectFailed =>
+      'Connection failed';
+
+  @override
+  String get wn69Ur =>
+      'The URnetwork screen, ported as it ships: the stepped-square connect face, the tap-to-connect pulse, the provider grid as the tunnel builds, and the color fields that land once it holds';
+
+  @override
+  String get wn69Stats =>
+      'The drawer keeps the original\'s geometry: the location row and Connect at the peek, and below the fold the live speeds, the session\'s numbers, the exit and the last test';
+
+  @override
   String get wn68Stats =>
       'Pull the home\'s bottom edge up: live speeds, the session\'s sparkline, the exit location, the IP and the last test — nothing the core is not already reporting';
 

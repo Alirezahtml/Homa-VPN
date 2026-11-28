@@ -879,5 +879,9 @@
   "wn68Ur": "Desain URnetwork bergabung ke pemilih: tombol sambung bulat yang titik-titiknya berkumpul saat tunnel datang, kartu lokasi, dan «Sambungkan» lebar — pilih di Tampilan",
   "wn68Stats": "Tarik tepi bawah beranda ke atas: kecepatan langsung, garis sesi, lokasi keluar, IP, dan tes terakhir — tidak meminta apa pun yang inti tidak sudah katakan",
   "wn68Toast": "Notifikasi mengapung meninggalkan blur: satu efek berat lebih sedikit di setiap toast, ponsel lemah menyimpan bingkainya",
-  "changeUi": "Ubah UI/UX"
+  "changeUi": "Ubah UI/UX",
+  "urReadyToConnect": "Siap untuk tersambung",
+  "urConnectFailed": "Koneksi gagal",
+  "wn69Ur": "Layar URnetwork dipindah apa adanya: wajah sambung persegi bersudut bertingkat, pulsa ketuk untuk menyambung, kisi penyedia saat terowongan terbentuk, dan medan warna yang mendarat saat stabil",
+  "wn69Stats": "Laci mempertahankan geometri aslinya: baris lokasi dan Sambungkan di tepian, dan di bawah lipatan kecepatan langsung, angka sesi, lokasi keluar, dan tes terakhir"
 }

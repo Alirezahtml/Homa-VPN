@@ -879,5 +879,9 @@
   "wn68Ur": "URnetwork dizaynı seçicinə qoşulur: nöqtələri tunel gələndə toplanan dairəvi qoşulma düyməsi, yer kartı və enli «Qoşul» düyməsi — Görünüş bölməsindən seçin",
   "wn68Stats": "Əsas səhifənin alt kənarını yuxarı çəkin: canlı sürətlər, sessiya qrafiki, çıxış yeri, IP və son test — nüvədən onsuz da olmayan bir şey istəmir",
   "wn68Toast": "Üzən bildirişlər bulanıq effekti buraxdı: hər bildirişdə bir ağır effekt az, zəif telefonlar kadrlarını saxlayır",
-  "changeUi": "UI/UX dəyiş"
+  "changeUi": "UI/UX dəyiş",
+  "urReadyToConnect": "Qoşulmağa hazır",
+  "urConnectFailed": "Qoşulma alınmadı",
+  "wn69Ur": "URnetwork ekranı olduğu kimi köçürülüb: pilləli kvadrat qoşulma üzü, «Başlamaq üçün toxun» pulsu, tunel qurularkən nöqtə şəbəkəsi və bitəndə yerləşən rəng sahələri",
+  "wn69Stats": "Çəkil originalın həndəsəsini saxlayır: kənarda yer sətri və «Qoşul», altında isə canlı sürətlər, sessiya rəqəmləri, çıxış yeri və son test"
 }

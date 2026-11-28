@@ -3047,6 +3047,22 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les notes flottantes abandonnent le flou : un effet lourd de moins à chaque toast, les téléphones faibles gardent leurs images';
 
   @override
+  String get urReadyToConnect =>
+      'Prêt à se connecter';
+
+  @override
+  String get urConnectFailed =>
+      'Échec de la connexion';
+
+  @override
+  String get wn69Ur =>
+      'L\'écran URnetwork porté tel qu\'il sort : la face carrée à coins en escalier, l\'impulsion « Touchez pour vous connecter », la grille de fournisseurs pendant que le tunnel se construit et les champs de couleur qui se posent une fois tenu';
+
+  @override
+  String get wn69Stats =>
+      'Le tiroir garde la géométrie de l\'original : la ligne d\'emplacement et Se connecter au bord, et sous le pli les vitesses en direct, les chiffres de la session, la sortie et le dernier test';
+
+  @override
   String get wn68Stats =>
       'Tirez vers le haut le bord inférieur de l\'accueil : vitesses en direct, la courbe de la session, l\'emplacement de sortie, l\'IP et le dernier test — rien que le noyau ne dise déjà';
 

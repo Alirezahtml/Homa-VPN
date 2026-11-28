@@ -1473,5 +1473,9 @@
   "wn68Ur": "The URnetwork design joins the picker: the round connect button that gathers its points as the tunnel comes up, the location card, the wide Connect — choose it under Appearance",
   "wn68Stats": "Pull the home's bottom edge up: live speeds, the session's sparkline, the exit location, the IP and the last test — nothing the core is not already reporting",
   "wn68Toast": "The floating notes drop the blur: one less heavy effect on every toast, the weak phones keep their frames",
-  "changeUi": "Change UI/UX"
+  "changeUi": "Change UI/UX",
+  "urReadyToConnect": "Ready to connect",
+  "urConnectFailed": "Connection failed",
+  "wn69Ur": "The URnetwork screen, ported as it ships: the stepped-square connect face, the tap-to-connect pulse, the provider grid as the tunnel builds, and the color fields that land once it holds",
+  "wn69Stats": "The drawer keeps the original's geometry: the location row and Connect at the peek, and below the fold the live speeds, the session's numbers, the exit and the last test"
 }

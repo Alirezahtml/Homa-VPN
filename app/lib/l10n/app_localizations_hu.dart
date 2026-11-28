@@ -3038,6 +3038,22 @@ class AppLocalizationsHu extends AppLocalizations {
       'Az lebegő értesítések elhagyják a elmosást: egy nehéz effekt kevesebb minden értesítésnél, a gyenge telefonok megtartják a képkockáikat';
 
   @override
+  String get urReadyToConnect =>
+      'Készen áll a csatlakozásra';
+
+  @override
+  String get urConnectFailed =>
+      'Nem sikerült csatlakozni';
+
+  @override
+  String get wn69Ur =>
+      'Az URnetwork képernyő úgy, ahogy megjelenik: a lépcsős sarkú négyzet csatlakozási arc, a «Koppints a csatlakozáshoz» pulzus, a szolgáltatói rács, amíg az alagút épül, és a színmezők, amelyek a stabilizálódáskor ülnek le';
+
+  @override
+  String get wn69Stats =>
+      'A fiók az eredeti geometriáját tartja: a helysor és a Csatlakozás a peremen, alatta a élő sebességek, a munkamenet számai, a kilépés és az utolsó teszt';
+
+  @override
   String get wn68Stats =>
       'Húzd fel a főoldal alsó szélét: élő sebességek, a munkamenet grafikonja, a kilépési hely, az IP és az utolsó teszt — semmit, amit a mag már ne mondana';
 

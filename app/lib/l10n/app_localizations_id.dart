@@ -3027,6 +3027,22 @@ class AppLocalizationsId extends AppLocalizations {
       'Notifikasi mengapung meninggalkan blur: satu efek berat lebih sedikit di setiap toast, ponsel lemah menyimpan bingkainya';
 
   @override
+  String get urReadyToConnect =>
+      'Siap untuk tersambung';
+
+  @override
+  String get urConnectFailed =>
+      'Koneksi gagal';
+
+  @override
+  String get wn69Ur =>
+      'Layar URnetwork dipindah apa adanya: wajah sambung persegi bersudut bertingkat, pulsa ketuk untuk menyambung, kisi penyedia saat terowongan terbentuk, dan medan warna yang mendarat saat stabil';
+
+  @override
+  String get wn69Stats =>
+      'Laci mempertahankan geometri aslinya: baris lokasi dan Sambungkan di tepian, dan di bawah lipatan kecepatan langsung, angka sesi, lokasi keluar, dan tes terakhir';
+
+  @override
   String get wn68Stats =>
       'Tarik tepi bawah beranda ke atas: kecepatan langsung, garis sesi, lokasi keluar, IP, dan tes terakhir — tidak meminta apa pun yang inti tidak sudah katakan';
 

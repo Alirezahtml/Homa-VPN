@@ -879,5 +879,9 @@
   "wn68Ur": "O design URnetwork entra no seletor: o botão de conexão redondo cujos pontos se reúnem quando o túnel chega, o cartão de local e o «Conectar» largo — escolha-o em Aparência",
   "wn68Stats": "Arraste para cima a borda inferior da página inicial: velocidades ao vivo, a linha da sessão, o local de saída, o IP e o último teste — nada que o núcleo já não diga",
   "wn68Toast": "As notas flutuantes abandonam o desfoque: um efeito pesado a menos em cada aviso, os telefones fracos mantêm os seus quadros",
-  "changeUi": "Mudar UI/UX"
+  "changeUi": "Mudar UI/UX",
+  "urReadyToConnect": "Pronto para ligar",
+  "urConnectFailed": "Falha na ligação",
+  "wn69Ur": "O ecrã da URnetwork, tal como sai: a face de conexão quadrada de cantos em degraus, o pulso de toque para ligar, a grelha de fornecedores enquanto o túnel se constrói e os campos de cor que aterrissam quando se mantém",
+  "wn69Stats": "A gaveta mantém a geometria do original: a linha de local e Conectar no rebordo, e abaixo da dobra as velocidades ao vivo, os números da sessão, a saída e o último teste"
 }

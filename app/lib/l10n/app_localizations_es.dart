@@ -3043,6 +3043,22 @@ class AppLocalizationsEs extends AppLocalizations {
       'Las notas flotantes dejan el desenfoque: un efecto pesado menos en cada aviso, los teléfonos débiles conservan sus fotogramas';
 
   @override
+  String get urReadyToConnect =>
+      'Listo para conectar';
+
+  @override
+  String get urConnectFailed =>
+      'Error de conexión';
+
+  @override
+  String get wn69Ur =>
+      'La pantalla de URnetwork tal y como se envía: la cara de conexión cuadrada de esquinas escalonadas, el pulso de toca para conectar, la cuadrícula de proveedores mientras el túnel se abre y los campos de color que aterrizan cuando se sostiene';
+
+  @override
+  String get wn69Stats =>
+      'El panel conserva la geometría del original: la fila de ubicación y Conectar en el borde, y bajo el pliegue las velocidades en vivo, los números de la sesión, la salida y la última prueba';
+
+  @override
   String get wn68Stats =>
       'Arrastra hacia arriba el borde inferior del inicio: velocidades en vivo, la línea de la sesión, la ubicación de salida, la IP y la última prueba — nada que el núcleo no diga ya';
 

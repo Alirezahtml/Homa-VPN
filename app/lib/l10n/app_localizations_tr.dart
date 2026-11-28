@@ -3022,6 +3022,22 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yüzen notlar bulanıklığı bıraktı: her bildirimde bir ağır efekt eksik, zayıf telefonlar karelerini koruyor';
 
   @override
+  String get urReadyToConnect =>
+      'Bağlanmaya hazır';
+
+  @override
+  String get urConnectFailed =>
+      'Bağlantı başarısız oldu';
+
+  @override
+  String get wn69Ur =>
+      'URnetwork ekranı çıktığı gibi taşındı: basamaklı köşeli kare bağlantı yüzü, «Bağlanmak için dokun» nabzı, tünel kurulurken sağlayıcı ızgarası ve tutununcaya kadar inen renk alanları';
+
+  @override
+  String get wn69Stats =>
+      'Çekmece orijinalin geometrisini koruyor: kenarda konum satırı ve Bağlan, katmanın altında canlı hızlar, oturum sayıları, çıkış konumu ve son test';
+
+  @override
   String get wn68Stats =>
       'Ana sayfanın alt kenarını yukarı çekin: canlı hızlar, oturum grafiki, çıkış konumu, IP ve son test — çekirdeğin zaten söylemediği bir şey istemez';
 

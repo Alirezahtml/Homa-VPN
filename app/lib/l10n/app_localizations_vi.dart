@@ -3023,6 +3023,22 @@ class AppLocalizationsVi extends AppLocalizations {
       'Các ghi chú nổi bỏ hiệu ứng làm mờ: một hiệu ứng nặng ít hơn trong mỗi thông báo, điện thoại yếu giữ khung hình của mình';
 
   @override
+  String get urReadyToConnect =>
+      'Sẵn sàng kết nối';
+
+  @override
+  String get urConnectFailed =>
+      'Kết nối thất bại';
+
+  @override
+  String get wn69Ur =>
+      'Màn hình URnetwork được chuyển nguyên bản: mặt kết nối vuông góc bậc thang, nhịp «Chạm để kết nối», lưới nhà cung cấp khi đường hầm hình thành và các vùng màu hạ xuống khi vững';
+
+  @override
+  String get wn69Stats =>
+      'Ngăn kéo giữ hình học của bản gốc: hàng vị trí và Kết nối ở mép, dưới nếp gấp là tốc độ trực tiếp, số liệu phiên, vị trí thoát và bài kiểm tra cuối';
+
+  @override
   String get wn68Stats =>
       'Kéo cạnh dưới của trang chủ lên: tốc độ trực tiếp, đường biểu đồ phiên, vị trí thoát, IP và bài kiểm tra cuối — không hỏi gì nhân đã không nói';
 
