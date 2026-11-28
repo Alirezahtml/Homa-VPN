@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../l10n/app_localizations.dart';
-
 /// URnetwork's own widgets, ported as they ship.
 ///
 /// The values are the original's: the switch is a 36×20 track with a 2 dp

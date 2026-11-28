@@ -53,7 +53,6 @@ class _UrSharePageState extends State<UrSharePage> {
   /// answering leaves the page readable; the toggle only says what it
   /// could not.
   Future<void> _read() async {
-    String host = '';
     try {
       final config = await widget.core.call((api) => api.settings());
       final proxy = switch (config['proxy']) {
@@ -62,11 +61,11 @@ class _UrSharePageState extends State<UrSharePage> {
       };
       final listen = (proxy['listen'] as String?) ?? '127.0.0.1:$_port';
       final colon = listen.lastIndexOf(':');
-      final h = colon < 0 ? listen : listen.substring(0, colon);
       final p = colon < 0 ? null : int.tryParse(listen.substring(colon + 1));
-      host = h;
       _port = p ?? 10810;
-      _on = h == '0.0.0.0' || h == '::' || h.isEmpty;
+      _on = colon > 0 &&
+          (listen.substring(0, colon) == '0.0.0.0' ||
+              listen.substring(0, colon) == '::');
     } on Exception catch (e) {
       _error = e.toString();
     }
