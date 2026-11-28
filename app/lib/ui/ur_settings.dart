@@ -14,11 +14,21 @@ import 'app_usage_page.dart' show AppUsagePage;
 import 'format.dart' show formatBytes;
 import 'logs_page.dart' show LogsPage;
 import 'servers_page.dart';
-import 'settings_page.dart' show SettingsPage, SettingsSection;
+import 'settings_page.dart'
+    show
+        SettingsPage,
+        SettingsSection,
+        accentName,
+        designName,
+        mapKindName,
+        mapStyleName,
+        showAccentPicker,
+        showDesignPicker;
 import 'ur_kit.dart';
 import 'widgets.dart'
     show languageNames, languageStyle, runShowingErrors, showToast;
 import 'whats_new.dart' show showWhatsNew, whatsNewSections;
+import 'world_map.dart' show GlobeStyle, MapKind;
 
 /// The URnetwork settings screen, ported as it ships — and carrying every
 /// option the app really has.
@@ -29,7 +39,9 @@ import 'whats_new.dart' show showWhatsNew, whatsNewSections;
 /// links in the pink and the labels in the muted ink. The rows carry the
 /// app's real settings: the servers and the accounts, the protection (the
 /// kill switch and the system's always-on guard), the general switches
-/// from the boot connect to the data limit, the network's and the bypass
+/// from the boot connect to the data limit, the appearance (the home's
+/// design — the classic layouts and this one —, the theme's mode, the
+/// accent, and the map's kind and style), the network's and the bypass
 /// sections (each on the page it always had), the battery guide, and the
 /// app's own pages — the usage, the logs, the version's story.
 class UrSettingsPage extends StatelessWidget {
@@ -157,6 +169,31 @@ class UrSettingsPage extends StatelessWidget {
                   value: settings.showTraffic,
                   onChanged: (v) => settings.update(showTraffic: v),
                 ),
+                if (Platform.isAndroid) ...[
+                  ValueListenableBuilder<bool>(
+                    valueListenable: AndroidCore.showSpeed,
+                    builder: (context, on, _) => _SwitchRow(
+                      label: l.speedInNotification,
+                      value: on,
+                      onChanged: (v) => runShowingErrors(
+                        context,
+                        () => AndroidCore.setShowSpeed(v),
+                      ),
+                    ),
+                  ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: AndroidCore.notifFlag,
+                    builder: (context, on, _) => _SwitchRow(
+                      label: l.notifFlag,
+                      subtitle: l.notifFlagHint,
+                      value: on,
+                      onChanged: (v) => runShowingErrors(
+                        context,
+                        () => AndroidCore.setNotifFlag(v),
+                      ),
+                    ),
+                  ),
+                ],
                 _SwitchRow(
                   label: l.soundFeedback,
                   value: settings.soundFeedback,
@@ -297,11 +334,71 @@ class UrSettingsPage extends StatelessWidget {
           ),
           const SizedBox(height: 32),
 
-          // Network: how the traffic goes — each section keeps the page
-          // it always had, the port opens it as the home does.
-          UrEntrance(index: 4, child: _SectionLabel(l.groupNetwork)),
+          // Appearance: the home's own design — the classic layouts and
+          // this one, one tap away —, the theme's mode, the accent's
+          // light, and the map's kind and style the other homes carry.
+          UrEntrance(index: 4, child: _SectionLabel(l.urSectionAppearance)),
           UrEntrance(
             index: 4,
+            child: _Card(
+              children: [
+                _NavRow(
+                  icon: Icons.style_rounded,
+                  label: l.designTitle,
+                  value: designName(l, settings),
+                  onTap: () => showDesignPicker(context, settings),
+                ),
+                _HairLine(),
+                _ChoiceRow<ThemeMode>(
+                  icon: Icons.brightness_6_outlined,
+                  title: l.theme,
+                  value: settings.themeMode,
+                  options: [
+                    (ThemeMode.system, l.themeSystem),
+                    (ThemeMode.light, l.themeLight),
+                    (ThemeMode.dark, l.themeDark),
+                  ],
+                  onChanged: (v) => settings.update(themeMode: v),
+                ),
+                _HairLine(),
+                _NavRow(
+                  icon: Icons.palette_outlined,
+                  label: l.accentColor,
+                  value: accentName(context, settings),
+                  onTap: () => showAccentPicker(context, settings),
+                ),
+                _HairLine(),
+                _ChoiceRow<String>(
+                  icon: Icons.map_rounded,
+                  title: l.mapKind,
+                  value: settings.mapKind,
+                  options: [
+                    for (final kind in MapKind.values)
+                      (kind.name, mapKindName(l, kind)),
+                  ],
+                  onChanged: (v) => settings.update(mapKind: v),
+                ),
+                _HairLine(),
+                _ChoiceRow<String>(
+                  icon: Icons.public_rounded,
+                  title: l.mapStyle,
+                  value: settings.mapStyle,
+                  options: [
+                    for (final style in GlobeStyle.values)
+                      (style.name, mapStyleName(l, style)),
+                  ],
+                  onChanged: (v) => settings.update(mapStyle: v),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
+
+          // Network: how the traffic goes — each section keeps the page
+          // it always had, the port opens it as the home does.
+          UrEntrance(index: 5, child: _SectionLabel(l.groupNetwork)),
+          UrEntrance(
+            index: 5,
             child: _Card(
               children: [
                 _NavRow(
@@ -349,9 +446,9 @@ class UrSettingsPage extends StatelessWidget {
 
           // Bypass: what helps when the way is blocked — the relays, the
           // TLS fragment, the proxy the traffic rides first.
-          UrEntrance(index: 5, child: _SectionLabel(l.sectionBypass)),
+          UrEntrance(index: 6, child: _SectionLabel(l.sectionBypass)),
           UrEntrance(
-            index: 5,
+            index: 6,
             child: _Card(
               children: [
                 _NavRow(
@@ -400,16 +497,16 @@ class UrSettingsPage extends StatelessWidget {
           // Battery: the OEMs' battery killers — the one card that keeps
           // the tunnel alive after the screen locks.
           if (Platform.isAndroid) ...[
-            UrEntrance(index: 6, child: _SectionLabel(l.batteryWizardTitle)),
-            UrEntrance(index: 6, child: _BatteryCard()),
+            UrEntrance(index: 7, child: _SectionLabel(l.batteryWizardTitle)),
+            UrEntrance(index: 7, child: _BatteryCard()),
             const SizedBox(height: 32),
           ],
 
           // App: the usage, the logs, the version's story and the app's
           // own page.
-          UrEntrance(index: 7, child: _SectionLabel(l.groupApp)),
+          UrEntrance(index: 8, child: _SectionLabel(l.groupApp)),
           UrEntrance(
-            index: 7,
+            index: 8,
             child: _Card(
               children: [
                 if (Platform.isAndroid) ...[

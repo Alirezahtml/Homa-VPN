@@ -916,5 +916,7 @@
   "wn71Drawer": "Yukarı çekilen çekmece gezinmenin altında duruyor ve hızlı seçenekleri kazanıyor: kill anahtarı, bildirimin hızı ve bayrağı, uygulamaya göre yönlendirme ve hotspot paylaşımı.",
   "wn71Share": "Hotspot paylaşımı: telefonu hotspot'undaki cihazlar için bir VPN geçidine çevirin — tek anahtar proxy'yi açar, sayfa adresi ve adımları getirir.",
   "wn72Sheet": "Yukarı çekilen çekmeceyle alt çubuk arasındaki siyah katman gitti: çekmece artık çubuğa dayanıyor, konum kartı da kenarın arkasına saklanmak yerine bütün halıyla yerinde duruyor.",
-  "wn72Settings": "Ayarlar sayfası artık tüm seçenekleri taşıyor: koruma satırları (kill anahtarı ve sistemin always-on koruması), telefon açılırken bağlanma ve otomatik kurulum, hız birimi, boşta kesme ve veri limiti, teşhis, ağ ve aşma bölümleri, uygulama başına kullanım ve pil rehberi."
+  "wn72Settings": "Ayarlar sayfası artık tüm seçenekleri taşıyor: koruma satırları (kill anahtarı ve sistemin always-on koruması), telefon açılırken bağlanma ve otomatik kurulum, hız birimi, boşta kesme ve veri limiti, teşhis, ağ ve aşma bölümleri, uygulama başına kullanım ve pil rehberi.",
+  "wn73Appearance": "Ayarlar artık bir görünüm bölümü taşıyor: ana sayfanın tasarımı — klasik düzenler ve URnetwork görünümü, her biri diğerine bir dokunuş —, temanın modu, vurgu rengi ve haritanın türü ve stili.",
+  "wn73Notifications": "Bildirimin kendi anahtarları da ayarlara katıldı: bildirimde canlı hız ve adın yanında ülkenin bayrağı."
 }

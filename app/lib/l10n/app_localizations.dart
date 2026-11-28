@@ -5445,6 +5445,18 @@ abstract class AppLocalizations {
   /// **'The black gap between the pull-up drawer and the bottom bar is gone: the drawer now meets the bar, and the location card sits whole in its place instead of hiding behind the edge.'**
   String get wn72Sheet;
 
+  /// No description provided for @wn73Appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings carry an appearance section now: the home\'s design — the classic layouts and the URnetwork look, each one tap from the other —, the theme\'s mode, the accent color, and the map\'s type and style.'**
+  String get wn73Appearance;
+
+  /// No description provided for @wn73Notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'The notification\'s own switches joined the settings: the live speed in the notification, and the country\'s flag beside the name.'**
+  String get wn73Notifications;
+
   /// No description provided for @wn72Settings.
   ///
   /// In en, this message translates to:

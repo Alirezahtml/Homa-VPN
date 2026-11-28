@@ -3142,6 +3142,14 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yukarı çekilen çekmeceyle alt çubuk arasındaki siyah katman gitti: çekmece artık çubuğa dayanıyor, konum kartı da kenarın arkasına saklanmak yerine bütün halıyla yerinde duruyor.';
 
   @override
+  String get wn73Appearance =>
+      'Ayarlar artık bir görünüm bölümü taşıyor: ana sayfanın tasarımı — klasik düzenler ve URnetwork görünümü, her biri diğerine bir dokunuş —, temanın modu, vurgu rengi ve haritanın türü ve stili.';
+
+  @override
+  String get wn73Notifications =>
+      'Bildirimin kendi anahtarları da ayarlara katıldı: bildirimde canlı hız ve adın yanında ülkenin bayrağı.';
+
+  @override
   String get wn72Settings =>
       'Ayarlar sayfası artık tüm seçenekleri taşıyor: koruma satırları (kill anahtarı ve sistemin always-on koruması), telefon açılırken bağlanma ve otomatik kurulum, hız birimi, boşta kesme ve veri limiti, teşhis, ağ ve aşma bölümleri, uygulama başına kullanım ve pil rehberi.';
 

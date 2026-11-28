@@ -2967,6 +2967,14 @@ class AppLocalizationsZh extends AppLocalizations {
       '上拉抽屉与底部导航栏之间的黑色夹层已移除：抽屉现在直接贴住导航栏，位置卡片完整地留在原位，不再被边缘截断。';
 
   @override
+  String get wn73Appearance =>
+      '设置现在有了外观分区：主页设计 — 经典布局与 URnetwork 面貌，彼此一按即达 —、主题模式、强调色，以及地图的类型与样式。';
+
+  @override
+  String get wn73Notifications =>
+      '通知自己的开关也加入了设置：通知中的实时速度，以及名字旁的国旗。';
+
+  @override
   String get wn72Settings =>
       '设置页现在包含全部选项：保护行（紧急断开开关与系统的始终保持连接）、开机自动连接与自动安装更新、速率单位、闲置断开与流量上限、诊断、网络与分流绕过区块、各应用用量，以及电池指南。';
 
@@ -5965,6 +5973,14 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn72Sheet =>
       '上拉抽屜與底部導覽列之間的黑色夾層已移除：抽屜現在直接貼住導覽列，位置卡片完整地留在原位，不再被邊緣截斷。';
+
+  @override
+  String get wn73Appearance =>
+      '設定現在有了外觀分區：主頁設計 — 經典版面與 URnetwork 面貌，彼此一按即達 —、主題模式、強調色，以及地圖的類型與樣式。';
+
+  @override
+  String get wn73Notifications =>
+      '通知自己的開關也加入了設定：通知中的即時速度，以及名字旁的國旗。';
 
   @override
   String get wn72Settings =>

@@ -3151,6 +3151,14 @@ class AppLocalizationsPt extends AppLocalizations {
       'A camada preta entre o painel arrastável e a barra de baixo sumiu: o painel agora encosta na barra, e o cartão de local fica inteiro no seu lugar, em vez de se esconder atrás da borda.';
 
   @override
+  String get wn73Appearance =>
+      'As definições têm agora uma secção de aparência: o design da página inicial — as disposições clássicas e o aspeto da URnetwork, cada um a um toque do outro —, o modo do tema, a cor de destaque, e o tipo e o estilo do mapa.';
+
+  @override
+  String get wn73Notifications =>
+      'Os interruptores da notificação juntaram-se às definições: a velocidade em direto na notificação, e a bandeira do país ao lado do nome.';
+
+  @override
   String get wn72Settings =>
       'A página de ajustes agora traz todas as opções: as linhas de proteção (o kill switch e o always-on do sistema), a conexão ao ligar o telefone e a autoinstalação, a unidade de velocidade, o corte por inatividade e o limite de dados, o diagnóstico, as seções de rede e de desvio, o uso por aplicativo e o guia de bateria.';
 

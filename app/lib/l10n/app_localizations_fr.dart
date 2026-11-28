@@ -3167,6 +3167,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'La couche noire entre le tiroir tireté et la barre du bas a disparu : le tiroir touche désormais la barre, et la carte de lieu reste entière à sa place au lieu de se cacher derrière le bord.';
 
   @override
+  String get wn73Appearance =>
+      'Les réglages ont maintenant une section Apparence : le design de la page d\'accueil — les dispositions classiques et le style URnetwork, chacun à un geste de l\'autre —, le mode du thème, la couleur d\'accent, et le type et le style de la carte.';
+
+  @override
+  String get wn73Notifications =>
+      'Les interrupteurs de la notification ont rejoint les réglages : la vitesse en direct dans la notification, et le drapeau du pays à côté du nom.';
+
+  @override
   String get wn72Settings =>
       'La page des réglages porte maintenant toutes les options : les lignes de protection (le kill switch et l\'always-on du système), la connexion au démarrage du téléphone et l\'auto-installation, l\'unité de vitesse, la coupure en veille et la limite de données, le diagnostic, les sections réseau et contournement, l\'usage par application et le guide batterie.';
 

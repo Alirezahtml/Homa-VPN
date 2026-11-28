@@ -3147,6 +3147,14 @@ class AppLocalizationsId extends AppLocalizations {
       'Lapisan hitam antara panel yang ditarik ke atas dan bilah bawah sudah hilang: panel kini menyentuh bilah, dan kartu lokasi tampil utuh di tempatnya, tak lagi tersembunyi di balik tepiannya.';
 
   @override
+  String get wn73Appearance =>
+      'Pengaturan kini punya bagian tampilan: desain halaman utama — tata letak klasik dan wajah URnetwork, masing-masing satu ketukan dari yang lain —, mode tema, warna aksen, serta jenis dan gaya peta.';
+
+  @override
+  String get wn73Notifications =>
+      'Sakelar notifikasi sendiri ikut masuk ke pengaturan: kecepatan langsung di notifikasi, dan bendera negara di samping namanya.';
+
+  @override
   String get wn72Settings =>
       'Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai.';
 

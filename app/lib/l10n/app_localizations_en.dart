@@ -3149,6 +3149,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'The black gap between the pull-up drawer and the bottom bar is gone: the drawer now meets the bar, and the location card sits whole in its place instead of hiding behind the edge.';
 
   @override
+  String get wn73Appearance =>
+      'The settings carry an appearance section now: the home\'s design — the classic layouts and the URnetwork look, each one tap from the other —, the theme\'s mode, the accent color, and the map\'s type and style.';
+
+  @override
+  String get wn73Notifications =>
+      'The notification\'s own switches joined the settings: the live speed in the notification, and the country\'s flag beside the name.';
+
+  @override
   String get wn72Settings =>
       'The settings page carries every option now: the protection rows (the kill switch and the system\'s always-on guard), the boot connect and the auto-install, the rate unit, the idle hang-up and the data limit, the diagnostics, the network and bypass sections, the per-app usage, and the battery guide.';
 

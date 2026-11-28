@@ -3158,6 +3158,14 @@ class AppLocalizationsHu extends AppLocalizations {
       'A fekete sáv eltűnt a felhúzható fiók és az alsó sáv közül: a fiók most a sávhoz ér, és a hely kártya egészben marad a helyén, nem bújik el a széle mögé.';
 
   @override
+  String get wn73Appearance =>
+      'A beállításokban most megjelenés szakasz is van: a kezdőlap dizájnja — a klasszikus elrendezések és az URnetwork külseje, egymástól egy koppintásra —, a téma módja, a kiemelő szín, valamint a térkép típusa és stílusa.';
+
+  @override
+  String get wn73Notifications =>
+      'Az értesítés saját kapcsolói is a beállításokba kerültek: az élő sebesség az értesítésben, és az ország zászlaja a név mellett.';
+
+  @override
   String get wn72Settings =>
       'A beállítások oldala most mindent hordoz: a védelem sorait (a kill kapcsolót és a rendszer always-on módját), a telefon indításakori csatlakozást és az automatikus telepítést, a sebesség egységét, az üresjárati lekapcsolást és az adatlimitet, a diagnosztikát, a hálózati és kikerülő szakaszokat, az alkalmazásonkénti használatot és az akkumulátor-útmutatót.';
 

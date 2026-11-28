@@ -916,5 +916,7 @@
   "wn71Drawer": "Laci yang ditarik ke atas berhenti di bawah navigasi dan mendapat opsi cepat: kill switch, kecepatan dan bendera notifikasi, routing per-ap, berbagi hotspot.",
   "wn71Share": "Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya.",
   "wn72Sheet": "Lapisan hitam antara panel yang ditarik ke atas dan bilah bawah sudah hilang: panel kini menyentuh bilah, dan kartu lokasi tampil utuh di tempatnya, tak lagi tersembunyi di balik tepiannya.",
-  "wn72Settings": "Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai."
+  "wn72Settings": "Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai.",
+  "wn73Appearance": "Pengaturan kini punya bagian tampilan: desain halaman utama — tata letak klasik dan wajah URnetwork, masing-masing satu ketukan dari yang lain —, mode tema, warna aksen, serta jenis dan gaya peta.",
+  "wn73Notifications": "Sakelar notifikasi sendiri ikut masuk ke pengaturan: kecepatan langsung di notifikasi, dan bendera negara di samping namanya."
 }

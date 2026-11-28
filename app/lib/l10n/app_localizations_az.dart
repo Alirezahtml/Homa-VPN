@@ -3144,6 +3144,14 @@ class AppLocalizationsAz extends AppLocalizations {
       'Yuxarı çəkilən çekməcə ilə alt zolaq arasındakı qara qat gedib: çekməc indi zolağa toxunur, yer kartı isə kənarın arxasında gizlənmək əvəzinə tam yerində dayanır.';
 
   @override
+  String get wn73Appearance =>
+      'Parametrlərdə indi «Görünüş» bölməsi var: ana səhifənin dizaynı — klassik düzümlər və URnetwork görünüşü, hər biri bir klik qonşudur —, temanın rejimi, vurğu rəngi və xəritənin növü və üslubu.';
+
+  @override
+  String get wn73Notifications =>
+      'Bildirişin öz açarları da parametrlərə qoşuldu: bildirişdə canlı sürət və adın yanında ölkənin bayrağı.';
+
+  @override
   String get wn72Settings =>
       'Parametrlər səhifəsi indi bütün seçimləri daşıyır: qoruma sətirləri (kill açarı və sistemin daimi rejimi), telefonun açılmasında qoşulma və avtomatik quraşdırma, sürət vahidi, fəaliyyətsizlikdə kəsmə və data limiti, diaqnostika, şəbəkə və keçmə bölmələri, hər tətbiqin istifadəsi və batareya bələdçisi.';
 
