@@ -3154,6 +3154,14 @@ class AppLocalizationsHu extends AppLocalizations {
       'Hotspot megosztás: a telefont a hotspotjára kapcsolódó eszközök VPN-átjárójává teheted — egy kapcsoló nyitja a proxyt, az oldal címét és lépéseit hozza.';
 
   @override
+  String get wn72Sheet =>
+      'A fekete sáv eltűnt a felhúzható fiók és az alsó sáv közül: a fiók most a sávhoz ér, és a hely kártya egészben marad a helyén, nem bújik el a széle mögé.';
+
+  @override
+  String get wn72Settings =>
+      'A beállítások oldala most mindent hordoz: a védelem sorait (a kill kapcsolót és a rendszer always-on módját), a telefon indításakori csatlakozást és az automatikus telepítést, a sebesség egységét, az üresjárati lekapcsolást és az adatlimitet, a diagnosztikát, a hálózati és kikerülő szakaszokat, az alkalmazásonkénti használatot és az akkumulátor-útmutatót.';
+
+  @override
   String get changeUi =>
       'UI/UX váltás';
 

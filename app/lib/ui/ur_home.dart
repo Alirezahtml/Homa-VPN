@@ -126,14 +126,17 @@ class UrHome extends StatefulWidget {
 }
 
 class _UrHomeState extends State<UrHome> {
-  /// The room the floating pill keeps at the page's foot; the drawer's
-  /// bottom edge stops above it, the way the original's stops above the
-  /// tab bar.
-  static const double _navGap = 88;
+  /// The drawer meets the bar: the classic bar sits in the scaffold's own
+  /// slot below the page (the shell's safe area ends this page exactly at
+  /// the bar's top border), so the sheet's bottom edge lands on that
+  /// border and the page's darker ground never shows between the two —
+  /// the original's sheet touches the tab bar the same way.
+  static const double _navGap = 0;
 
-  /// The drawer's peek: the handle, the card's above-the-fold block (the
-  /// location row and the Connect button) and the fold's own 12 dp gap.
-  static const double _peekDp = 154;
+  /// The drawer's peek: the handle (22 dp), the card's above-the-fold
+  /// block (the location row and the Connect button, 122 dp) and the
+  /// fold's own 12 dp gap.
+  static const double _peekDp = 156;
 
   /// How much of the page the expanded drawer covers. The original pulls
   /// to two thirds; the port stops a touch lower so the page's face keeps

@@ -914,5 +914,7 @@
   "wn71Nav": "La navegación es ahora solo la barra inferior clásica — la píldora morfeante, el resplandor neón, las burbujas y la cápsula se van con su selector.",
   "wn71Stats": "Las estadísticas del panel hablan con la precisión del original: la gráfica de transferencia reflejada en un eje central, el pico de cada dirección etiquetado en su sitio, y cada tasa leída como 2.50 KiB/s.",
   "wn71Drawer": "El panel desplegable se detiene bajo la navegación y gana las opciones rápidas: el interruptor de emergencia, la velocidad y la bandera de la notificación, el enrutado por app y compartir por hotspot.",
-  "wn71Share": "Compartir por hotspot: convierte el teléfono en una puerta VPN para los dispositivos de su hotspot — un interruptor abre el proxy, la página lleva la dirección y los pasos."
+  "wn71Share": "Compartir por hotspot: convierte el teléfono en una puerta VPN para los dispositivos de su hotspot — un interruptor abre el proxy, la página lleva la dirección y los pasos.",
+  "wn72Sheet": "La capa negra entre el panel deslizable y la barra inferior se fue: el panel ahora llega hasta la barra, y la tarjeta de ubicación se ve entera en su sitio, en vez de esconderse tras el borde.",
+  "wn72Settings": "La página de ajustes ahora lleva todas las opciones: las filas de protección (el interruptor de emergencia y el always-on del sistema), la conexión al arrancar el teléfono y la autoinstalación, la unidad de velocidad, el corte por inactividad y el límite de datos, el diagnóstico, las secciones de red y de esquive, el uso por aplicación y la guía de batería."
 }

@@ -3140,6 +3140,14 @@ class AppLocalizationsAz extends AppLocalizations {
       'Hotspot paylaşımı: telefonu hotspotundakı cihazlar üçün VPN darvazasına çevirin — bir açar proksini açır, səhifə ünvanı və addımları deyir.';
 
   @override
+  String get wn72Sheet =>
+      'Yuxarı çəkilən çekməcə ilə alt zolaq arasındakı qara qat gedib: çekməc indi zolağa toxunur, yer kartı isə kənarın arxasında gizlənmək əvəzinə tam yerində dayanır.';
+
+  @override
+  String get wn72Settings =>
+      'Parametrlər səhifəsi indi bütün seçimləri daşıyır: qoruma sətirləri (kill açarı və sistemin daimi rejimi), telefonun açılmasında qoşulma və avtomatik quraşdırma, sürət vahidi, fəaliyyətsizlikdə kəsmə və data limiti, diaqnostika, şəbəkə və keçmə bölmələri, hər tətbiqin istifadəsi və batareya bələdçisi.';
+
+  @override
   String get changeUi =>
       'UI/UX dəyiş';
 

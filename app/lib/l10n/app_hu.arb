@@ -914,5 +914,7 @@
   "wn71Nav": "A navigáció mostantól csak a klasszikus alsó sáv — a morfoló pill, a neon fény, a buborékok és a kapszula a választójukkal együtt távoznak.",
   "wn71Stats": "A fiók statisztikái az eredeti pontosságán szólnak: a transzfer grafikon tükörképben egy középső tengelyen, minden irány csúcsa a saját helyén címkézve, minden sebesség 2.50 KiB/s-ként.",
   "wn71Drawer": "A felhúzott fiók a navigáció alatt áll meg, és megkapja a gyors beállításokat: kill kapcsoló, az értesítés sebessége és zászlaja, apponkénti útválasztás, hotspot megosztás.",
-  "wn71Share": "Hotspot megosztás: a telefont a hotspotjára kapcsolódó eszközök VPN-átjárójává teheted — egy kapcsoló nyitja a proxyt, az oldal címét és lépéseit hozza."
+  "wn71Share": "Hotspot megosztás: a telefont a hotspotjára kapcsolódó eszközök VPN-átjárójává teheted — egy kapcsoló nyitja a proxyt, az oldal címét és lépéseit hozza.",
+  "wn72Sheet": "A fekete sáv eltűnt a felhúzható fiók és az alsó sáv közül: a fiók most a sávhoz ér, és a hely kártya egészben marad a helyén, nem bújik el a széle mögé.",
+  "wn72Settings": "A beállítások oldala most mindent hordoz: a védelem sorait (a kill kapcsolót és a rendszer always-on módját), a telefon indításakori csatlakozást és az automatikus telepítést, a sebesség egységét, az üresjárati lekapcsolást és az adatlimitet, a diagnosztikát, a hálózati és kikerülő szakaszokat, az alkalmazásonkénti használatot és az akkumulátor-útmutatót."
 }

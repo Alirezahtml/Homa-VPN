@@ -3163,6 +3163,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Partage en hotspot : faites du téléphone une passerelle VPN pour les appareils de son hotspot — un interrupteur ouvre le proxy, la page porte l\'adresse et les étapes.';
 
   @override
+  String get wn72Sheet =>
+      'La couche noire entre le tiroir tireté et la barre du bas a disparu : le tiroir touche désormais la barre, et la carte de lieu reste entière à sa place au lieu de se cacher derrière le bord.';
+
+  @override
+  String get wn72Settings =>
+      'La page des réglages porte maintenant toutes les options : les lignes de protection (le kill switch et l\'always-on du système), la connexion au démarrage du téléphone et l\'auto-installation, l\'unité de vitesse, la coupure en veille et la limite de données, le diagnostic, les sections réseau et contournement, l\'usage par application et le guide batterie.';
+
+  @override
   String get changeUi =>
       'Changer l\'UI/UX';
 

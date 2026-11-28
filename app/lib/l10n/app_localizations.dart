@@ -5439,6 +5439,18 @@ abstract class AppLocalizations {
   /// **'Hotspot sharing: turn this phone into a VPN gateway for the devices on its hotspot — one switch opens the proxy, the page carries the address and the steps.'**
   String get wn71Share;
 
+  /// No description provided for @wn72Sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'The black gap between the pull-up drawer and the bottom bar is gone: the drawer now meets the bar, and the location card sits whole in its place instead of hiding behind the edge.'**
+  String get wn72Sheet;
+
+  /// No description provided for @wn72Settings.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings page carries every option now: the protection rows (the kill switch and the system\'s always-on guard), the boot connect and the auto-install, the rate unit, the idle hang-up and the data limit, the diagnostics, the network and bypass sections, the per-app usage, and the battery guide.'**
+  String get wn72Settings;
+
   /// No description provided for @changeUi.
   ///
   /// In en, this message translates to:

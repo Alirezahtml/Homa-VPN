@@ -914,5 +914,7 @@
   "wn71Nav": "Naviqasiya indi yalnız klassik alt zolaqdır — hərəkətli həb, neon parıltısı, qabarcıqlar və kapsul öz seçicisiylə gedir.",
   "wn71Stats": "Çəkmənin statistikası orijinalın dəqiqliyiylə danışır: mərkəz oxuna güzgülənmiş ötürmə qrafiki, hər istiqamətin zirvəsi öz yerində, hər sürət 2.50 KiB/s kimi.",
   "wn71Drawer": "Yuxarı çəkilən çekmece naviqasiyanın altında dayanır və sürətli seçimlər alır: kill açarı, bildirişin sürəti və bayrağı, tətbiqə görə marşrut, hotspot paylaşımı.",
-  "wn71Share": "Hotspot paylaşımı: telefonu hotspotundakı cihazlar üçün VPN darvazasına çevirin — bir açar proksini açır, səhifə ünvanı və addımları deyir."
+  "wn71Share": "Hotspot paylaşımı: telefonu hotspotundakı cihazlar üçün VPN darvazasına çevirin — bir açar proksini açır, səhifə ünvanı və addımları deyir.",
+  "wn72Sheet": "Yuxarı çəkilən çekməcə ilə alt zolaq arasındakı qara qat gedib: çekməc indi zolağa toxunur, yer kartı isə kənarın arxasında gizlənmək əvəzinə tam yerində dayanır.",
+  "wn72Settings": "Parametrlər səhifəsi indi bütün seçimləri daşıyır: qoruma sətirləri (kill açarı və sistemin daimi rejimi), telefonun açılmasında qoşulma və avtomatik quraşdırma, sürət vahidi, fəaliyyətsizlikdə kəsmə və data limiti, diaqnostika, şəbəkə və keçmə bölmələri, hər tətbiqin istifadəsi və batareya bələdçisi."
 }

@@ -2963,6 +2963,14 @@ class AppLocalizationsZh extends AppLocalizations {
       '热点共享：把手机变成热点上各设备的 VPN 网关——一个开关打开代理，页面给出地址与步骤。';
 
   @override
+  String get wn72Sheet =>
+      '上拉抽屉与底部导航栏之间的黑色夹层已移除：抽屉现在直接贴住导航栏，位置卡片完整地留在原位，不再被边缘截断。';
+
+  @override
+  String get wn72Settings =>
+      '设置页现在包含全部选项：保护行（紧急断开开关与系统的始终保持连接）、开机自动连接与自动安装更新、速率单位、闲置断开与流量上限、诊断、网络与分流绕过区块、各应用用量，以及电池指南。';
+
+  @override
   String get changeUi =>
       '更换界面';
 
@@ -5953,6 +5961,14 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String get wn71Share =>
       '熱點分享：把手機變成熱點上各裝置的 VPN 閘道——一個開關打開代理，頁面給出位址與步驟。';
+
+  @override
+  String get wn72Sheet =>
+      '上拉抽屜與底部導覽列之間的黑色夾層已移除：抽屜現在直接貼住導覽列，位置卡片完整地留在原位，不再被邊緣截斷。';
+
+  @override
+  String get wn72Settings =>
+      '設定頁現在包含全部選項：保護列（緊急斷線開關與系統的永遠開啟）、開機自動連線與自動安裝更新、速率單位、閒置斷線與流量上限、診斷、網路與分流繞過區塊、各應用用量，以及電池指南。';
 
   @override
   String get changeUi =>

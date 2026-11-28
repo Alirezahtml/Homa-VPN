@@ -3143,6 +3143,14 @@ class AppLocalizationsId extends AppLocalizations {
       'Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya.';
 
   @override
+  String get wn72Sheet =>
+      'Lapisan hitam antara panel yang ditarik ke atas dan bilah bawah sudah hilang: panel kini menyentuh bilah, dan kartu lokasi tampil utuh di tempatnya, tak lagi tersembunyi di balik tepiannya.';
+
+  @override
+  String get wn72Settings =>
+      'Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai.';
+
+  @override
   String get changeUi =>
       'Ubah UI/UX';
 

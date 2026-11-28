@@ -914,5 +914,7 @@
   "wn71Nav": "Navigasi kini hanya bilah bawah klasik — pil mengubah-bentuk, cahaya neon, gelembung dan kapsul pergi bersama pemilihnya.",
   "wn71Stats": "Statistik laci berbicara dengan presisi aslinya: grafik transfer dicerminkan pada sumbu tengah, puncak tiap arah berlabel di tempatnya, tiap laju dibaca sebagai 2.50 KiB/s.",
   "wn71Drawer": "Laci yang ditarik ke atas berhenti di bawah navigasi dan mendapat opsi cepat: kill switch, kecepatan dan bendera notifikasi, routing per-ap, berbagi hotspot.",
-  "wn71Share": "Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya."
+  "wn71Share": "Berbagi hotspot: jadikan ponsel gerbang VPN untuk perangkat di hotspotnya — satu sakelar membuka proxy, halaman membawa alamat dan langkahnya.",
+  "wn72Sheet": "Lapisan hitam antara panel yang ditarik ke atas dan bilah bawah sudah hilang: panel kini menyentuh bilah, dan kartu lokasi tampil utuh di tempatnya, tak lagi tersembunyi di balik tepiannya.",
+  "wn72Settings": "Halaman pengaturan kini memuat semua opsi: baris proteksi (kill switch dan always-on sistem), menyambung saat telepon dinyalakan dan auto-install, satuan kecepatan, putus saat idle dan batas data, diagnostik, bagian jaringan dan bypass, pemakaian per aplikasi, dan panduan baterai."
 }

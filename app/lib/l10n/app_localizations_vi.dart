@@ -3139,6 +3139,14 @@ class AppLocalizationsVi extends AppLocalizations {
       'Chia sẻ điểm phát sóng: biến điện thoại thành cổng VPN cho các thiết bị trên điểm phát của nó — một nút mở proxy, trang mang địa chỉ và các bước.';
 
   @override
+  String get wn72Sheet =>
+      'Lớp đen giữa ngăn kéo kéo lên và thanh dưới đã mất: ngăn kéo giờ chạm vào thanh, và thẻ vị trí hiện trọn vẹn tại chỗ, không còn ẩn sau mép nữa.';
+
+  @override
+  String get wn72Settings =>
+      'Trang cài đặt giờ mang đủ mọi tùy chọn: các hàng bảo vệ (công tắc khẩn và always-on của hệ thống), kết nối khi mở máy và tự cài đặt, đơn vị tốc độ, ngắt khi rảnh và giới hạn dữ liệu, chẩn đoán, phần mạng và phần đi vòng, mức dùng từng ứng dụng, và hướng dẫn pin.';
+
+  @override
   String get changeUi =>
       'Đổi giao diện';
 

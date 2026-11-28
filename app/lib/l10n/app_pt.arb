@@ -914,5 +914,7 @@
   "wn71Nav": "A navegação é agora só a barra inferior clássica — a pílula morfológica, o brilho néon, as bolhas e a cápsula saem com o seu seletor.",
   "wn71Stats": "As estatísticas da gaveta falam com a precisão do original: o gráfico de transferência espelhado num eixo central, o pico de cada sentido etiquetado no seu lugar, cada taxa lida como 2.50 KiB/s.",
   "wn71Drawer": "A gaveta puxada para cima para sob a navegação e ganha as opções rápidas: o kill switch, a velocidade e a bandeira da notificação, o encaminhamento por app e a partilha por hotspot.",
-  "wn71Share": "Partilhar por hotspot: torne o telefone uma porta VPN para os dispositivos do seu hotspot — um interruptor abre o proxy, a página traz o endereço e os passos."
+  "wn71Share": "Partilhar por hotspot: torne o telefone uma porta VPN para os dispositivos do seu hotspot — um interruptor abre o proxy, a página traz o endereço e os passos.",
+  "wn72Sheet": "A camada preta entre o painel arrastável e a barra de baixo sumiu: o painel agora encosta na barra, e o cartão de local fica inteiro no seu lugar, em vez de se esconder atrás da borda.",
+  "wn72Settings": "A página de ajustes agora traz todas as opções: as linhas de proteção (o kill switch e o always-on do sistema), a conexão ao ligar o telefone e a autoinstalação, a unidade de velocidade, o corte por inatividade e o limite de dados, o diagnóstico, as seções de rede e de desvio, o uso por aplicativo e o guia de bateria."
 }

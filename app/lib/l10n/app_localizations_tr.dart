@@ -3138,6 +3138,14 @@ class AppLocalizationsTr extends AppLocalizations {
       'Hotspot paylaşımı: telefonu hotspot\'undaki cihazlar için bir VPN geçidine çevirin — tek anahtar proxy\'yi açar, sayfa adresi ve adımları getirir.';
 
   @override
+  String get wn72Sheet =>
+      'Yukarı çekilen çekmeceyle alt çubuk arasındaki siyah katman gitti: çekmece artık çubuğa dayanıyor, konum kartı da kenarın arkasına saklanmak yerine bütün halıyla yerinde duruyor.';
+
+  @override
+  String get wn72Settings =>
+      'Ayarlar sayfası artık tüm seçenekleri taşıyor: koruma satırları (kill anahtarı ve sistemin always-on koruması), telefon açılırken bağlanma ve otomatik kurulum, hız birimi, boşta kesme ve veri limiti, teşhis, ağ ve aşma bölümleri, uygulama başına kullanım ve pil rehberi.';
+
+  @override
   String get changeUi =>
       'Arayüzü değiştir';
 

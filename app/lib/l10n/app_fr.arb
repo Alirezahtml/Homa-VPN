@@ -914,5 +914,7 @@
   "wn71Nav": "La navigation est désormais la seule barre classique — la pilule morphing, le halo néon, les bulles et la capsule s'en vont avec leur sélecteur.",
   "wn71Stats": "Les stats du tiroir parlent avec la précision de l'original : la courbe de transfert en miroir sur un axe central, le pic de chaque sens étiqueté à sa place, chaque débit lu en 2.50 KiB/s.",
   "wn71Drawer": "Le tiroir s'arrête sous la navigation et gagne les options rapides : le kill switch, la vitesse et le drapeau de la notification, le routage par app et le partage en hotspot.",
-  "wn71Share": "Partage en hotspot : faites du téléphone une passerelle VPN pour les appareils de son hotspot — un interrupteur ouvre le proxy, la page porte l'adresse et les étapes."
+  "wn71Share": "Partage en hotspot : faites du téléphone une passerelle VPN pour les appareils de son hotspot — un interrupteur ouvre le proxy, la page porte l'adresse et les étapes.",
+  "wn72Sheet": "La couche noire entre le tiroir tireté et la barre du bas a disparu : le tiroir touche désormais la barre, et la carte de lieu reste entière à sa place au lieu de se cacher derrière le bord.",
+  "wn72Settings": "La page des réglages porte maintenant toutes les options : les lignes de protection (le kill switch et l'always-on du système), la connexion au démarrage du téléphone et l'auto-installation, l'unité de vitesse, la coupure en veille et la limite de données, le diagnostic, les sections réseau et contournement, l'usage par application et le guide batterie."
 }

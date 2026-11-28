@@ -3147,6 +3147,14 @@ class AppLocalizationsPt extends AppLocalizations {
       'Partilhar por hotspot: torne o telefone uma porta VPN para os dispositivos do seu hotspot — um interruptor abre o proxy, a página traz o endereço e os passos.';
 
   @override
+  String get wn72Sheet =>
+      'A camada preta entre o painel arrastável e a barra de baixo sumiu: o painel agora encosta na barra, e o cartão de local fica inteiro no seu lugar, em vez de se esconder atrás da borda.';
+
+  @override
+  String get wn72Settings =>
+      'A página de ajustes agora traz todas as opções: as linhas de proteção (o kill switch e o always-on do sistema), a conexão ao ligar o telefone e a autoinstalação, a unidade de velocidade, o corte por inatividade e o limite de dados, o diagnóstico, as seções de rede e de desvio, o uso por aplicativo e o guia de bateria.';
+
+  @override
   String get changeUi =>
       'Mudar UI/UX';
 
