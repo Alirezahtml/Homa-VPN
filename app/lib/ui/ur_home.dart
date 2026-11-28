@@ -47,9 +47,8 @@ abstract final class _Ur {
   static const muted = Color(0xFF989898);
   static const faint = Color(0xFF5A5A5A);
 
-  /// The blues: the button's fill (BlueMedium) and the brand's deep one.
+  /// The blues: the button's fill (BlueMedium, Blue400).
   static const blueMedium = Color(0xFF638BFC);
-  static const blue500 = Color(0xFF2A60FF);
 
   /// The state colors the original paints with.
   static const pink = Color(0xFFED8FFF); // Pink300, the "Change" link
