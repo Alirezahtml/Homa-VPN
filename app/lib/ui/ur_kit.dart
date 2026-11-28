@@ -248,7 +248,7 @@ class _UrSwitchPainter extends CustomPainter {
       Offset.zero & size,
       const Radius.circular(10),
     );
-    if (fill.alpha > 0) canvas.drawRRect(r, Paint()..color = fill);
+    if (fill.a > 0) canvas.drawRRect(r, Paint()..color = fill);
     canvas.drawRRect(
       r,
       Paint()
@@ -881,7 +881,7 @@ class UrNavBar extends StatelessWidget {
       UrNavItem(Icons.home_rounded, l.navOverview),
       UrNavItem(Icons.settings_rounded, l.navSettings),
     ];
-    final common = (Widget child) => SafeArea(
+    Widget common(Widget child) => SafeArea(
           top: false,
           minimum: const EdgeInsets.fromLTRB(12, 0, 12, 10),
           child: child,
