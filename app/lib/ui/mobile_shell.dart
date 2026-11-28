@@ -233,6 +233,7 @@ class _MobileShellState extends State<MobileShell> {
                         settings: settings,
                       ),
               ));
+    final nav = _nav(context, settings);
     return PopScope(
       canPop: _tab == 0,
       onPopInvokedWithResult: (didPop, _) {
@@ -282,39 +283,47 @@ class _MobileShellState extends State<MobileShell> {
             ),
           ),
         ),
-        bottomNavigationBar: AppDesign.current.key == 'ur'
-            ? ListenableBuilder(
-                listenable: settings,
-                builder: (context, _) => UrNavBar(
-                  index: _tab,
-                  onSelect: (i) => setState(() => _tab = i),
-                  style: urNavStyleFor(settings.urNavStyle),
-                ),
-              )
-            : switch (DesignStyle.of(context).nav) {
-          NavVariant.bentoDock => BentoDockNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.gazetteRuled => GazetteNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.cupertinoBar => CupertinoBarNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.m3Bar => M3BarNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-          NavVariant.glassPill => _FloatingPillNav(
-            index: _tab,
-            onSelect: (i) => setState(() => _tab = i),
-          ),
-        },
+        bottomNavigationBar: nav,
       ),
     );
+  }
+
+  /// The bar at the foot: the ur design floats URnetwork's own bar (the
+  /// look the settings carry, applied the moment it is made); the other
+  /// designs keep theirs.
+  Widget _nav(BuildContext context, AppSettings settings) {
+    if (AppDesign.current.key == 'ur') {
+      return ListenableBuilder(
+        listenable: settings,
+        builder: (context, _) => UrNavBar(
+          index: _tab,
+          onSelect: (i) => setState(() => _tab = i),
+          style: urNavStyleFor(settings.urNavStyle),
+        ),
+      );
+    }
+    return switch (DesignStyle.of(context).nav) {
+      NavVariant.bentoDock => BentoDockNav(
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
+      ),
+      NavVariant.gazetteRuled => GazetteNav(
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
+      ),
+      NavVariant.cupertinoBar => CupertinoBarNav(
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
+      ),
+      NavVariant.m3Bar => M3BarNav(
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
+      ),
+      NavVariant.glassPill => _FloatingPillNav(
+        index: _tab,
+        onSelect: (i) => setState(() => _tab = i),
+      ),
+    };
   }
 }
 
