@@ -50,8 +50,8 @@ const _tweenMs = Duration(milliseconds: 1000);
 
 /// One carrier's share of the open connections: the label it shows and its
 /// share in the whole.
-class _TransportShare {
-  const _TransportShare(this.label, this.color, this.count, this.used);
+class TransportShare {
+  const TransportShare(this.label, this.color, this.count, this.used);
 
   final String label;
   final Color color;
@@ -62,7 +62,7 @@ class _TransportShare {
 /// The carriers the proxy's connections ride, in the original's stable
 /// order: the ones with traffic first (largest share first within the bar's
 /// geometry), the ones without carried by the unused footer.
-List<_TransportShare> transportShares(
+List<TransportShare> transportShares(
   List<ProxyConnection> connections,
   String configured,
 ) {
@@ -77,11 +77,11 @@ List<_TransportShare> transportShares(
   // The carriers in the original's stable order; the core names h2 and h3,
   // and the configured h1 shows in the footer until a connection rides it.
   const order = ['h3', 'h2', 'h1'];
-  final shares = <_TransportShare>[];
+  final shares = <TransportShare>[];
   for (final t in order) {
     final n = counts[t] ?? 0;
     shares.add(
-      _TransportShare(
+      TransportShare(
         t.toUpperCase(),
         switch (t) {
           'h3' => _h3Color,
@@ -100,13 +100,13 @@ List<_TransportShare> transportShares(
     if (!known.contains(e.key)) other += e.value;
   }
   if (other > 0) {
-    shares.add(_TransportShare('Q', _queuedColor, other, true));
+    shares.add(TransportShare('Q', _queuedColor, other, true));
   }
   // The configured carrier with no connection yet: the footer's hollow dot.
   if (open == 0 && configured.isNotEmpty) {
     for (var i = 0; i < shares.length; i++) {
       if (shares[i].label == configured.toUpperCase()) {
-        shares[i] = _TransportShare(
+        shares[i] = TransportShare(
           shares[i].label,
           shares[i].color,
           0,
@@ -125,7 +125,7 @@ List<_TransportShare> transportShares(
 class UrTransportBar extends StatelessWidget {
   const UrTransportBar({super.key, required this.shares});
 
-  final List<_TransportShare> shares;
+  final List<TransportShare> shares;
 
   @override
   Widget build(BuildContext context) {
